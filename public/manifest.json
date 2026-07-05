@@ -1,0 +1,21 @@
+{
+  "name": "RENTipid Marketplace",
+  "short_name": "RENTipid",
+  "description": "A verified rental marketplace for tools, equipment, spaces, properties, and legally rentable assets.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0057D8",
+  "icons": [
+    {
+      "src": "/brand/rentipid-logo-icon.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/brand/rentipid-logo-icon.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

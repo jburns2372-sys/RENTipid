@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /browse
+Allow: /listing/
+Disallow: /dashboard/
+Disallow: /checkout/
+Disallow: /api/
+
+Sitemap: https://rentipid.com/sitemap.xml
