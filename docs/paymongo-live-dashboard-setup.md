@@ -23,3 +23,10 @@ Navigate to the **Developers -> Webhooks** section.
 ## 4. Final Reminders
 - Only test with a single, low-value transaction first (e.g., ₱100) to ensure the full end-to-end flow works.
 - Check the RENTipid `/api/webhooks/paymongo/health` route after deployment to verify your server is ready to receive events.
+
+## 5. Live Pilot Safety Rules
+**CRITICAL REQUIREMENTS FOR PHASE 19B:**
+1. **No Localhost:** Do not use `localhost` for final live payment processing or webhooks. You must use the production HTTPS domain.
+2. **Holding Mode:** Keep live payment strictly blocked in RENTipid (`PAYMONGO_LIVE_ENABLED=false`) until PayMongo KYC is officially approved and the Super Admin initiates the specific pilot run.
+3. **Finance Review:** Keep the mandatory finance review process active. Do not enable automated verification or payouts.
+4. **Emergency Freeze:** Ensure the Emergency Freeze mechanism remains accessible and tested during the dry run.
