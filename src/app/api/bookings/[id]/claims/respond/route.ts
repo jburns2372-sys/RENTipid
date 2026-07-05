@@ -36,7 +36,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
     if (action === 'REJECT') {
       // Create Dispute Case
-      await prisma.$transaction(async (tx) => {
+      await prisma.$transaction(async (tx: any) => {
         await tx.damageClaim.update({
           where: { id: claim.id },
           data: {
@@ -79,7 +79,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
     } else if (action === 'ACCEPT') {
       // Auto-approve the deduction
-      await prisma.$transaction(async (tx) => {
+      await prisma.$transaction(async (tx: any) => {
         await tx.damageClaim.update({
           where: { id: claim.id },
           data: {

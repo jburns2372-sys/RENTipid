@@ -43,7 +43,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     }
 
     // Execute in a transaction to update booking status and create turnover record
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       await tx.turnoverRecord.create({
         data: {
           booking_id: bookingId,

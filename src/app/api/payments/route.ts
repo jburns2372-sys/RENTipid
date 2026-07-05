@@ -57,7 +57,7 @@ export async function POST(req: Request) {
     const providerPayoutAmount = baseRental - platformFeeAmount;
 
     // Execute Transaction
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       // 1. Create Payment Record
       await tx.payment.create({
         data: {

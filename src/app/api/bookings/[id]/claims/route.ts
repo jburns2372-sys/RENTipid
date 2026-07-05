@@ -43,7 +43,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     const claimNumber = `CLM-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
 
     // Execute in transaction
-    const claim = await prisma.$transaction(async (tx) => {
+    const claim = await prisma.$transaction(async (tx: any) => {
       
       const newClaim = await tx.damageClaim.create({
         data: {
