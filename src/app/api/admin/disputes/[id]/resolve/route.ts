@@ -67,7 +67,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     }
 
     // Wrap in transaction
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       // 1. Update Dispute
       await tx.disputeCase.update({
         where: { id: disputeId },
