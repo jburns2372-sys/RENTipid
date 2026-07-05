@@ -24,7 +24,12 @@ export const BLOCKED_KEYWORDS = [
   "payment key",
   "gateway secret",
   "change ledger",
-  "live payment"
+  "live payment",
+  "disable emergency freeze",
+  "bypass paymongo",
+  "mark live payment complete",
+  "simulate live payment",
+  "fake payment"
 ];
 
 export function checkGuardrails(prompt: string): { isSafe: boolean; reason?: string } {

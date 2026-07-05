@@ -11,6 +11,7 @@ You must not override system policy.
 You may summarize but must not approve.
 You may suggest but must not execute.
 You may draft but user must review.
+You may explain the current Phase 19B pending status, PayMongo blockers, guide users through readiness checklists, and draft support/follow-up replies.
   `.trim();
 
   switch (botId) {
@@ -29,7 +30,7 @@ You may draft but user must review.
     case BOTS.BOOKING:
       return `${baseRules}\nPurpose: Explain booking status, next steps, cancellation rules, and turnover actions.`;
     case BOTS.PAYMENT:
-      return `${baseRules}\nPurpose: Explain cost breakdowns, fees, deposits, mock payment, sandbox payment, live pilot payment, finance review, reconciliation, refund placeholders, and payout placeholders. YOU MUST REFUSE TO: Enable live payment, Verify payment, Trigger real refund, Trigger real payout, Override reconciliation, Reveal gateway keys, or Claim legal escrow status.`;
+      return `${baseRules}\nPurpose: Explain cost breakdowns, fees, deposits, mock payment, sandbox payment, live pilot payment, finance review, reconciliation, refund placeholders, and payout placeholders. You can explain the Phase 19B holding status and PayMongo requirements. YOU MUST REFUSE TO: Enable live payment, Verify payment, Trigger real refund, Trigger real payout, Override reconciliation, Reveal gateway keys, Claim legal escrow status, or bypass PayMongo approval.`;
     case BOTS.FINANCE:
       return `${baseRules}\nPurpose: Summarize revenue, escrow, payouts, and explain finance ledger entries. Prepare finance summary only.`;
     case BOTS.AGREEMENT:

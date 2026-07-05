@@ -11,7 +11,6 @@ const prisma = new PrismaClient();
 const TRACKING_KEYS = [
   { key: 'PAYMONGO_VERIFICATION_SUBMITTED', label: 'PayMongo business verification submitted (Date/Status)' },
   { key: 'PAYMONGO_VERIFICATION_APPROVED', label: 'PayMongo business verification approved (Date/Status)' },
-  { key: 'PAYMONGO_SUPPORT_TICKET_NUMBER', label: 'PayMongo support ticket/reference number' },
   { key: 'PAYMONGO_APPROVAL_EMAIL_RECEIVED', label: 'PayMongo approval email received' },
   { key: 'PAYMONGO_LIVE_WALLET_ENABLED', label: 'Live wallet/account enabled' },
   { key: 'PAYMONGO_GCASH_ACTIVE', label: 'GCash live method enabled' },
@@ -25,6 +24,19 @@ const TRACKING_KEYS = [
   { key: 'PAYMONGO_PRODUCTION_WEBHOOK_REGISTERED', label: 'Production webhook URL registered in PayMongo dashboard' },
   { key: 'PAYMONGO_FIRST_TEST_APPROVED', label: 'First live test amount approved' },
   { key: 'PAYMONGO_FINANCE_REVIEWER_ASSIGNED', label: 'Finance reviewer assigned' },
+];
+
+const TEXT_FIELDS = [
+  { key: 'PAYMONGO_DATE_SUBMITTED', label: 'Date submitted' },
+  { key: 'PAYMONGO_EXPECTED_RESPONSE_DATE', label: 'Expected response date' },
+  { key: 'PAYMONGO_LAST_FOLLOW_UP', label: 'Last follow-up date' },
+  { key: 'PAYMONGO_NEXT_FOLLOW_UP', label: 'Next follow-up date' },
+  { key: 'PAYMONGO_SUPPORT_TICKET_NUMBER', label: 'PayMongo ticket number' },
+  { key: 'PAYMONGO_CONTACT_EMAIL', label: 'PayMongo contact email' },
+  { key: 'PAYMONGO_MISSING_DOCS', label: 'Required missing documents' },
+  { key: 'PAYMONGO_UPLOADED_DOCS', label: 'Uploaded document checklist' },
+  { key: 'PAYMONGO_APPROVAL_NOTES', label: 'Approval notes' },
+  { key: 'PAYMONGO_BLOCKER_NOTES', label: 'Blocker notes' }
 ];
 
 const STATUS_OPTIONS = ['Pending', 'Submitted', 'Approved', 'Blocked', 'Needs Follow-Up', 'Not Applicable'];
@@ -43,6 +55,7 @@ export default async function PayMongoActivationDashboard() {
       setting_key: { 
         in: [
           ...TRACKING_KEYS.map(k => k.key),
+          ...TEXT_FIELDS.map(k => k.key),
           'PILOT_RENTER_ID',
           'PILOT_PROVIDER_ID',
           'PILOT_LISTING_ID',
@@ -156,6 +169,41 @@ export default async function PayMongoActivationDashboard() {
                   </select>
                 </form>
               </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mt-8">
+        <div className="p-6 bg-blue-50 border-b border-blue-200">
+          <h2 className="font-bold flex items-center text-blue-900">
+            Follow-Up Tracking
+          </h2>
+          <p className="text-sm text-blue-700 mt-1">
+            Reminders: Follow up every 2 to 3 business days if no response. Confirm live GCash/Card activation after approval. Confirm webhook registration after activation.
+          </p>
+        </div>
+        
+        <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {TEXT_FIELDS.map((item) => {
+            const currentValue = settingsMap[item.key] || '';
+            
+            return (
+              <form action={updateStatus} key={item.key} className="flex flex-col gap-1">
+                <label className="text-sm font-medium text-gray-700">{item.label}</label>
+                <div className="flex gap-2">
+                  <input type="hidden" name="key" value={item.key} />
+                  <input 
+                    type="text" 
+                    name="status" 
+                    defaultValue={currentValue}
+                    placeholder="Enter details..."
+                    className="text-sm rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 flex-1"
+                  />
+                  <button type="submit" className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm rounded-md transition">
+                    Save
+                  </button>
+                </div>
+              </form>
             );
           })}
         </div>
