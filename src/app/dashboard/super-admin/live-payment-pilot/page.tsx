@@ -81,6 +81,17 @@ export default async function LivePaymentPilotSettingsPage() {
       await prisma.systemSetting.update({ where: { setting_key: 'payment_provider_mode' }, data: { setting_value: newMode }});
     }
 
+    const session = await getServerSession(authOptions);
+    const userId = (session?.user as any)?.id || 'system';
+    await prisma.auditLog.create({
+      data: {
+        actor_user_id: userId,
+        action: 'UPDATE_LIVE_PILOT_SETTINGS',
+        module: 'LivePilot',
+        details: `Enabled: ${isEnabled}, Frozen: ${isFrozen}, Max: ${maxAmount}, Renter: ${renterId}, Provider: ${providerId}`
+      }
+    });
+
     revalidatePath('/dashboard/super-admin/live-payment-pilot');
   }
 

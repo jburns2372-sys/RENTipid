@@ -108,6 +108,16 @@ export default async function CheckoutPage({ params, searchParams }: { params: P
               </div>
             )}
 
+            {error === 'frozen' && (
+              <div className="bg-red-50 border border-red-200 text-red-800 p-4 rounded text-sm mb-6 flex items-start gap-3">
+                <svg className="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div>
+                  <strong>Live payment is currently frozen by Super Admin.</strong>
+                  <p>All real transactions are strictly halted. Please contact support.</p>
+                </div>
+              </div>
+            )}
+
             {activeMode === 'paymongo_live_pilot' && (
               <div className="bg-red-50 border border-red-200 text-red-800 p-4 rounded text-sm mb-6">
                 <strong>🚨 LIMITED LIVE PILOT ENABLED:</strong> Live pilot payment is enabled for selected users/categories only. Real money will be charged. Continue only if you are part of the approved pilot.

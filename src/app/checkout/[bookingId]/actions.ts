@@ -44,9 +44,20 @@ export async function processCheckout(formData: FormData) {
     const appBaseUrl = process.env.APP_BASE_URL || '';
     const isHttps = appBaseUrl.startsWith('https://') && !appBaseUrl.includes('localhost') && !appBaseUrl.includes('127.0.0.1') && !appBaseUrl.includes('0.0.0.0');
 
+    if (s['PAYMENT_EMERGENCY_FREEZE'] === 'true') {
+      await prisma.auditLog.create({
+        data: {
+          actor_user_id: user.id,
+          action: 'LIVE_CHECKOUT_BLOCKED_BY_FREEZE',
+          module: 'Checkout',
+          details: 'Emergency freeze prevented live checkout.'
+        }
+      });
+      redirect(`/checkout/${booking.id}?error=frozen`);
+    }
+
     if (
       s['PAYMENT_LIVE_PILOT_ENABLED'] !== 'true' ||
-      s['PAYMENT_EMERGENCY_FREEZE'] === 'true' ||
       user.id !== s['PILOT_RENTER_ID'] ||
       booking.listing_id !== s['PILOT_LISTING_ID'] ||
       booking.estimated_total_amount > pilotMaxAmount ||

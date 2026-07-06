@@ -36,6 +36,15 @@ export default async function FinanceReconciliationDetailsPage({ params }: { par
       data: { notes, status }
     });
 
+    await prisma.auditLog.create({
+      data: {
+        actor_user_id: user.id,
+        action: 'UPDATE_FINANCE_RECONCILIATION',
+        module: 'FinanceReconciliation',
+        details: `Updated log ${id} status to ${status}`
+      }
+    });
+
     revalidatePath(`/dashboard/finance/reconciliation/${id}`);
   }
 
@@ -152,6 +161,15 @@ export default async function FinanceReconciliationDetailsPage({ params }: { par
                 platform_commission: commission,
                 net_payout_amount: booking.base_rental_amount - commission,
                 payout_status: 'Not Ready'
+              }
+            });
+
+            await prisma.auditLog.create({
+              data: {
+                actor_user_id: user.id,
+                action: 'FINANCE_APPROVED_LIVE_PILOT',
+                module: 'FinanceReconciliation',
+                details: `Approved live pilot booking ${booking.id}. Note: ${note}`
               }
             });
 

@@ -74,11 +74,22 @@ export default async function PayMongoActivationDashboard() {
     'use server';
     const key = formData.get('key') as string;
     const value = formData.get('status') as string;
+    const session = await getServerSession(authOptions);
+    const userId = (session?.user as any)?.id || 'system';
     
     await prisma.systemSetting.upsert({
       where: { setting_key: key },
       update: { setting_value: value },
       create: { setting_key: key, setting_value: value, description: `Tracking status for ${key}` }
+    });
+
+    await prisma.auditLog.create({
+      data: {
+        actor_user_id: userId,
+        action: 'UPDATE_PAYMONGO_ACTIVATION',
+        module: 'PayMongoActivation',
+        details: `Updated ${key} to ${value}`
+      }
     });
     
     revalidatePath('/dashboard/super-admin/paymongo-activation');
@@ -154,7 +165,6 @@ export default async function PayMongoActivationDashboard() {
                   <select 
                     name="status" 
                     defaultValue={currentStatus}
-                    onChange={(e) => e.target.form?.requestSubmit()}
                     className={`text-sm rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 ${
                       currentStatus === 'Approved' ? 'bg-green-50 text-green-700 border-green-200' :
                       currentStatus === 'Blocked' ? 'bg-red-50 text-red-700 border-red-200' :
@@ -167,6 +177,9 @@ export default async function PayMongoActivationDashboard() {
                       <option key={opt} value={opt}>{opt}</option>
                     ))}
                   </select>
+                  <button type="submit" className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm rounded-md transition">
+                    Save
+                  </button>
                 </form>
               </div>
             );
