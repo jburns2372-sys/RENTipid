@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+
+export const dynamic = 'force-dynamic';
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
