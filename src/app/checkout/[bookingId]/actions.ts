@@ -37,7 +37,7 @@ export async function processCheckout(formData: FormData) {
     ];
     
     const settingsRaw = await prisma.systemSetting.findMany({ where: { setting_key: { in: settingsKeys } }});
-    const s = settingsRaw.reduce((acc, curr) => ({ ...acc, [curr.setting_key]: curr.setting_value }), {} as Record<string, string>);
+    const s = settingsRaw.reduce((acc: Record<string, string>, curr) => ({ ...acc, [curr.setting_key]: curr.setting_value }), {});
 
     const pilotMaxAmount = parseFloat(s['PILOT_MAX_AMOUNT'] || '5000');
     
