@@ -6,7 +6,8 @@ import { prisma } from '@/lib/ai/ai-logger';
 import { LifeBuoy, ArrowLeft, Send } from 'lucide-react';
 import Link from 'next/link';
 
-export default async function SupportDetailsPage({ params }: { params: { id: string } }) {
+export default async function SupportDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const session = await getServerSession(authOptions);
   const role = (session?.user as any)?.role;
 
@@ -15,7 +16,7 @@ export default async function SupportDetailsPage({ params }: { params: { id: str
   }
 
   const ticket = await prisma.supportTicket.findUnique({
-    where: { id: params.id }
+    where: { id }
   });
 
   if (!ticket) {

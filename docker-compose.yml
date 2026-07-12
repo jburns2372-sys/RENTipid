@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: rentipid-postgres
+    environment:
+      POSTGRES_USER: rentipid_admin
+      POSTGRES_PASSWORD: rentipid_password
+      POSTGRES_DB: rentipid_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rentipid_admin -d rentipid_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: rentipid-api
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+      - DATABASE_URL=postgresql://rentipid_admin:rentipid_password@db:5432/rentipid_db?schema=public
+      - NEXTAUTH_SECRET=super_secret_for_local_dev
+      - CORS_ORIGIN=http://localhost:3000
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rentipid-web
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_USE_AZURE_BACKEND=true
+      - NEXT_PUBLIC_API_URL=http://localhost:4000
+      - DATABASE_URL=postgresql://rentipid_admin:rentipid_password@db:5432/rentipid_db?schema=public
+      - NEXTAUTH_SECRET=super_secret_for_local_dev
+    depends_on:
+      api:
+        condition: service_started
+
+volumes:
+  pgdata:

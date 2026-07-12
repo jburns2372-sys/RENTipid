@@ -1,0 +1,1 @@
+variable "environment" {\n  default = "dev"\n}\n\nvariable "location" {\n  default = "Southeast Asia"\n}\n\nvariable "db_admin" {\n  type = string\n}\n\nvariable "db_password" {\n  type      = string\n  sensitive = true\n}

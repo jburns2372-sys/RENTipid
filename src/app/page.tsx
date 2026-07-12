@@ -18,26 +18,26 @@ export default function Home() {
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
             A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.
           </p>
-          
+
           {/* Search Bar */}
           <form action="/browse" method="GET" className="bg-white p-2 rounded-full shadow-lg border max-w-2xl mx-auto flex items-center mb-10">
             <div className="flex-1 px-4 text-left">
               <label htmlFor="category" className="block text-xs font-semibold text-gray-800 cursor-pointer">What are you looking for?</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 id="category"
-                name="category" 
-                placeholder="Tools, vehicles, venues..." 
+                name="category"
+                placeholder="Tools, vehicles, venues..."
                 className="w-full text-sm text-gray-800 placeholder-gray-400 focus:outline-none bg-transparent"
               />
             </div>
             <div className="hidden sm:block border-l px-4 text-left flex-1">
               <label htmlFor="location" className="block text-xs font-semibold text-gray-800 cursor-pointer">Where?</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 id="location"
-                name="location" 
-                placeholder="City or neighborhood" 
+                name="location"
+                placeholder="City or neighborhood"
                 className="w-full text-sm text-gray-800 placeholder-gray-400 focus:outline-none bg-transparent"
               />
             </div>
@@ -45,7 +45,7 @@ export default function Home() {
               <Search size={20} />
             </button>
           </form>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/browse" className="bg-gray-900 text-white hover:bg-gray-800 px-8 py-3 rounded-full font-medium transition-colors">
               Start Renting
@@ -86,7 +86,7 @@ export default function Home() {
             <h2 className="text-3xl font-bold mb-4">Rent with Complete Peace of Mind</h2>
             <p className="text-gray-600">Every transaction is secured, verified, and protected.</p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-8 rounded-2xl shadow-sm border">
               <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6">
@@ -97,7 +97,7 @@ export default function Home() {
                 We verify identities and business permits before they can list or rent high-value items, keeping scams out of the platform.
               </p>
             </div>
-            
+
             <div className="bg-white p-8 rounded-2xl shadow-sm border">
               <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6">
                 <Zap size={24} />
@@ -107,7 +107,7 @@ export default function Home() {
                 Security deposits are held safely in the platform and automatically resolved based on before-and-after photo inspections.
               </p>
             </div>
-            
+
             <div className="bg-white p-8 rounded-2xl shadow-sm border relative overflow-hidden">
               <div className="absolute top-0 right-0 p-4 opacity-10">
                 <Bot size={100} />
@@ -154,7 +154,7 @@ export default function Home() {
                 </li>
               </ul>
             </div>
-            
+
             <div className="bg-blue-50 p-8 rounded-3xl">
               <h2 className="text-3xl font-bold mb-6">For Providers</h2>
               <ul className="space-y-4">

@@ -5,8 +5,9 @@ import Link from 'next/link';
 
 const prisma = new PrismaClient();
 
-export default async function BrowsePage({ searchParams }: { searchParams: { category?: string } }) {
-  const categoryFilter = searchParams.category;
+export default async function BrowsePage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+  const resolvedSearchParams = await searchParams;
+  const categoryFilter = resolvedSearchParams.category;
 
   const whereClause: any = { status: 'Published' };
   if (categoryFilter) {
@@ -38,7 +39,7 @@ export default async function BrowsePage({ searchParams }: { searchParams: { cat
                   All Categories
                 </Link>
               </li>
-              {categories.map(c => (
+              {categories.map((c: any) => (
                 <li key={c.id}>
                   <Link href={`/browse?category=${c.slug}`} className={`block py-1 hover:text-blue-600 ${categoryFilter === c.slug ? 'font-semibold text-blue-600' : 'text-gray-600'}`}>
                     {c.name}
@@ -51,7 +52,7 @@ export default async function BrowsePage({ searchParams }: { searchParams: { cat
 
         <main className="flex-1">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {listings.map(listing => (
+            {listings.map((listing: any) => (
               <Link href={`/listing/${listing.id}`} key={listing.id} className="group block bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
                 <div className="h-48 bg-gray-200 relative">
                   {listing.photos?.[0] ? (

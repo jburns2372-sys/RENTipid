@@ -6,7 +6,8 @@ import { prisma } from '@/lib/ai/ai-logger';
 import { ClipboardCheck, ArrowLeft, Bug } from 'lucide-react';
 import Link from 'next/link';
 
-export default async function UATDetailsPage({ params }: { params: { id: string } }) {
+export default async function UATDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const session = await getServerSession(authOptions);
   const role = (session?.user as any)?.role;
 
@@ -15,7 +16,7 @@ export default async function UATDetailsPage({ params }: { params: { id: string 
   }
 
   const flow = await prisma.uATFlow.findUnique({
-    where: { id: params.id }
+    where: { id }
   });
 
   if (!flow) {
