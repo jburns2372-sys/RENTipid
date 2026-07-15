@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { PrismaClient } from '@prisma/client';
 import crypto from 'crypto';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 const RUN_ID = `SOC_GATE_1A_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`;
@@ -22,7 +23,7 @@ let PROVIDER_ID = '';
 test.describe('Phase 1 Entry Gate 1A - Deferred Baseline Tests', () => {
 
   test.beforeAll(async () => {
-    const pHash = '$2a$10$r/r/w09.2Hw/d.m1T3H62e08kX4w2N9Gv.rE7P.r7X66w.23M51/G'; // bcrypt hash for SyntheticPassword123!
+    const pHash = await bcrypt.hash(PASSWORD, 10);
     
     // Core users
     await prisma.user.create({ data: { email: RENTER_EMAIL, full_name: 'Synthetic Renter', password_hash: pHash, role: 'Renter', account_type: 'Individual', status: 'Verified' }});
@@ -92,12 +93,16 @@ test.describe('Phase 1 Entry Gate 1A - Deferred Baseline Tests', () => {
     console.log(`Cleanup complete. Users deleted: ${delUsers.count}`);
   });
 
-  async function login(page, email) {
+  async function login(page, email, expectSuccess = true) {
     await page.goto('/login');
     await page.fill('input[type="email"]', email);
     await page.fill('input[type="password"]', PASSWORD);
     await page.click('button[type="submit"]');
-    await page.waitForLoadState('networkidle');
+    if (expectSuccess) {
+      await page.waitForURL(url => !url.href.includes('/login'));
+    } else {
+      await page.waitForTimeout(1000);
+    }
   }
 
   test.describe('Admin Access Matrix - BASE-P0-011', () => {
@@ -153,7 +158,7 @@ test.describe('Phase 1 Entry Gate 1A - Deferred Baseline Tests', () => {
     });
 
     test('ADMIN-P0-009 - Blacklisted administrator behavior documented', async ({ page }) => {
-      await login(page, BLACKLISTED_ADMIN_EMAIL);
+      await login(page, BLACKLISTED_ADMIN_EMAIL, false);
       await page.goto('/dashboard/admin');
       // Documenting existing behavior
       const allowed = page.url().includes('/dashboard/admin');

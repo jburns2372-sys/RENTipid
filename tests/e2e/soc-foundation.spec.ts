@@ -7,8 +7,11 @@ const prisma = new PrismaClient();
 const RUN_ID = `SOC_P1_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`;
 const PASSWORD = 'Password123!';
 
+let testCounter = 0;
 async function setupTestUser(role: string, status: string = 'Verified') {
-  const email = `${role.replace(/\s+/g, '').toLowerCase()}_${RUN_ID}@example.com`;
+  testCounter++;
+  const uniqueId = crypto.randomBytes(4).toString('hex');
+  const email = `${role.replace(/\s+/g, '').toLowerCase()}_${RUN_ID}_${testCounter}_${uniqueId}@example.com`;
   const passwordHash = await bcrypt.hash(PASSWORD, 10);
   const user = await prisma.user.create({
     data: {
@@ -63,11 +66,11 @@ test.describe('Phase 1 SOC Foundation Canonical Route Tests', () => {
       await page.fill('input[name="email"]', email);
       await page.fill('input[name="password"]', PASSWORD);
       await page.click('button[type="submit"]');
-      await page.waitForURL('/dashboard');
+      await page.waitForURL(url => !url.href.includes('/login'));
       
       await page.goto('/dashboard/admin/security');
       // Should be redirected away since they lack permission
-      expect(page.url()).not.toContain('/dashboard/admin/security');
+      await expect(page).not.toHaveURL(/\/dashboard\/admin\/security/);
     });
   }
 
@@ -84,7 +87,7 @@ test.describe('Phase 1 SOC Foundation Canonical Route Tests', () => {
       // If the UI blocks login entirely for Blacklisted, that's fine. 
       // But if they get in and try to hit SOC, we verify it blocks.
       await page.goto('/dashboard/admin/security');
-      expect(page.url()).not.toContain('/dashboard/admin/security');
+      await expect(page).not.toHaveURL(/\/dashboard\/admin\/security/);
     });
   }
 
@@ -94,11 +97,11 @@ test.describe('Phase 1 SOC Foundation Canonical Route Tests', () => {
     await page.fill('input[name="email"]', email);
     await page.fill('input[name="password"]', PASSWORD);
     await page.click('button[type="submit"]');
-    await page.waitForURL('/dashboard');
+    await page.waitForURL(url => !url.href.includes('/login'));
     
     await page.goto('/dashboard/admin/security');
     await expect(page.locator('text=Security Operations Center')).toBeVisible();
-    await expect(page.locator('text=Foundation Active')).toBeVisible();
+    await expect(page.locator('text=Foundation & Events Active').first()).toBeVisible();
   });
 
   test('Stale JWT Role Override (AUTHZ-P1-025)', async ({ page }) => {
@@ -107,11 +110,11 @@ test.describe('Phase 1 SOC Foundation Canonical Route Tests', () => {
     await page.fill('input[name="email"]', email);
     await page.fill('input[name="password"]', PASSWORD);
     await page.click('button[type="submit"]');
-    await page.waitForURL('/dashboard');
+    await page.waitForURL(url => !url.href.includes('/login'));
     
     // First request is allowed
     await page.goto('/dashboard/admin/security');
-    await expect(page.locator('text=Foundation Active')).toBeVisible();
+    await expect(page.locator('text=Foundation & Events Active').first()).toBeVisible();
 
     // Mutate database directly to simulate demotion (bypassing NextAuth session state)
     await prisma.user.update({
@@ -121,7 +124,7 @@ test.describe('Phase 1 SOC Foundation Canonical Route Tests', () => {
 
     // The next request must be denied by PostgreSQL-authoritative check
     await page.goto('/dashboard/admin/security');
-    expect(page.url()).not.toContain('/dashboard/admin/security');
+    await expect(page).not.toHaveURL(/\/dashboard\/admin\/security/);
   });
 
   test('Stale JWT Status Override (AUTHZ-P1-024)', async ({ page }) => {
@@ -130,11 +133,11 @@ test.describe('Phase 1 SOC Foundation Canonical Route Tests', () => {
     await page.fill('input[name="email"]', email);
     await page.fill('input[name="password"]', PASSWORD);
     await page.click('button[type="submit"]');
-    await page.waitForURL('/dashboard');
+    await page.waitForURL(url => !url.href.includes('/login'));
     
     // First request is allowed
     await page.goto('/dashboard/admin/security');
-    await expect(page.locator('text=Foundation Active')).toBeVisible();
+    await expect(page.locator('text=Foundation & Events Active').first()).toBeVisible();
 
     // Mutate database directly to simulate suspension (bypassing NextAuth session state)
     await prisma.user.update({
@@ -144,6 +147,6 @@ test.describe('Phase 1 SOC Foundation Canonical Route Tests', () => {
 
     // The next request must be denied by PostgreSQL-authoritative check
     await page.goto('/dashboard/admin/security');
-    expect(page.url()).not.toContain('/dashboard/admin/security');
+    await expect(page).not.toHaveURL(/\/dashboard\/admin\/security/);
   });
 });

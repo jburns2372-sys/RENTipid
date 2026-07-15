@@ -46,7 +46,7 @@ test.describe('Phase 2 SOC Foundation Event Pipeline', () => {
     await page.fill('input[name="email"]', email);
     await page.fill('input[name="password"]', PASSWORD);
     await page.click('button[type="submit"]');
-    await page.waitForURL('/dashboard');
+    await page.waitForURL(url => !url.href.includes('/login'));
     
     await page.goto('/dashboard/admin/security');
     await expect(page.locator('text=Security event normalization active')).toBeVisible();
