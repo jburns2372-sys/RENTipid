@@ -1015,3 +1015,161 @@ model PayoutBatch {
   
   payouts                   ProviderPayout[]
 }
+
+// ----------------------------------------------------------------------
+// Phase 2: SOC Event Foundation
+// ----------------------------------------------------------------------
+
+enum SecurityEventSource {
+  AUDIT_LOG
+  SYSTEM_ERROR_LOG
+  AI_BOT_LOG
+  PAYMENT_WEBHOOK_LOG
+  PAYMENT_RECONCILIATION_LOG
+  VERIFICATION_DOCUMENT
+  DAMAGE_CLAIM
+  DISPUTE_CASE
+  INSPECTION_REPORT
+  SYSTEM_SETTING
+}
+
+enum SecurityDomain {
+  IDENTITY_AND_ACCESS
+  ADMINISTRATIVE_SECURITY
+  APPLICATION_RELIABILITY
+  AI_GUARDRAILS
+  KYC_AND_COMPLIANCE
+  TRUST_AND_SAFETY
+  FINANCIAL_INTEGRITY
+  PAYMENT_SECURITY
+  DATA_PROTECTION
+  INFRASTRUCTURE
+}
+
+enum SecurityEventClassification {
+  OBSERVATION
+  SUSPICIOUS_ACTIVITY
+  POLICY_VIOLATION
+  ATTACK_ATTEMPT
+  CONFIRMED_COMPROMISE
+  FRAUD_INDICATOR
+  CONTROL_FAILURE
+  COUNTERMEASURE
+  SYSTEM_HEALTH
+}
+
+enum SecuritySeverity {
+  INFO
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum SecurityLifecycle {
+  LIVE
+  TEST
+  SIMULATION
+}
+
+enum SecurityProcessingStatus {
+  PENDING
+  NORMALIZED
+  ENRICHMENT_PENDING
+  PROCESSED
+  FAILED
+  QUARANTINED
+}
+
+enum SecurityEnvironment {
+  DEVELOPMENT
+  TEST
+  UAT
+  STAGING
+  PRODUCTION
+}
+
+model SecurityEvent {
+  id                    String   @id @default(cuid())
+  event_code            String
+  source_type           SecurityEventSource
+  source_record_id      String
+  adapter_version       String   @default("1.0")
+  security_domain       SecurityDomain
+  event_category        String
+  event_classification  SecurityEventClassification
+  severity              SecuritySeverity
+  confidence_score      Int?     
+  environment           SecurityEnvironment
+  lifecycle_type        SecurityLifecycle
+  
+  actor_user_id         String?
+  target_user_id        String?
+  target_resource_id    String?
+  target_module         String?
+  action_attempted      String?
+  action_result         String?
+  
+  source_summary        Json?
+  classification_reason String?
+  correlation_key       String?
+  idempotency_key       String   @unique
+  processing_status     SecurityProcessingStatus @default(PENDING)
+  
+  occurred_at           DateTime
+  source_received_at    DateTime
+  ingested_at           DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  @@index([lifecycle_type, occurred_at, id])
+  @@index([source_type, source_record_id])
+  @@index([security_domain, occurred_at])
+  @@index([severity, occurred_at])
+  @@index([processing_status, occurred_at])
+  @@index([actor_user_id, occurred_at])
+  @@index([target_user_id, occurred_at])
+  @@index([target_resource_id, occurred_at])
+  @@index([correlation_key, occurred_at])
+  
+  resolved_failures     SecurityEventIngestionFailure[]
+}
+
+model SecurityEventIngestionFailure {
+  id                      String   @id @default(cuid())
+  source_type             SecurityEventSource
+  source_record_id        String
+  adapter_version         String   @default("1.0")
+  privacy_safe_error_code String
+  attempt_count           Int      @default(1)
+  first_failed_at         DateTime @default(now())
+  last_failed_at          DateTime @default(now())
+  resolved_time           DateTime?
+  lifecycle               SecurityLifecycle
+  environment             SecurityEnvironment
+  resolved_event_id       String?
+  resolved_event          SecurityEvent? @relation(fields: [resolved_event_id], references: [id], onDelete: SetNull)
+
+  @@unique([source_type, source_record_id, adapter_version, lifecycle, environment, privacy_safe_error_code], name: "unique_failure_identity")
+  @@index([source_type, source_record_id])
+  @@index([last_failed_at])
+  @@index([resolved_event_id])
+}
+
+model SecurityEventIngestionCheckpoint {
+  id                      String   @id @default(cuid())
+  source_type             SecurityEventSource
+  environment             SecurityEnvironment
+  lifecycle_type          SecurityLifecycle
+  last_source_timestamp   DateTime?
+  last_source_record_id   String?
+  last_run_started_at     DateTime?
+  last_run_completed_at   DateTime?
+  last_successful_run_at  DateTime?
+  last_error_code         String?
+  lease_owner             String?
+  lease_expires_at        DateTime?
+  created_at              DateTime @default(now())
+  updated_at              DateTime @updatedAt
+
+  @@unique([source_type, environment, lifecycle_type])
+}
