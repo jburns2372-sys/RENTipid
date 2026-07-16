@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "prisma generate && cross-env NEXTAUTH_URL=https://www.rentipid.com.ph next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --ext .ts,.tsx",
     "test:e2e": "playwright test",
     "test:e2e:gate1a": "playwright test tests/e2e/deferred-baseline.spec.ts",
     "test:e2e:report": "playwright show-report"
