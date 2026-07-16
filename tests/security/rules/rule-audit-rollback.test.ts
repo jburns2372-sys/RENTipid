@@ -70,7 +70,7 @@ describe("Transactional Audit Rollback", () => {
           status: "Verified"
         }
       });
-    } catch (e) { /* already exists */ }
+    } catch (_e) { /* already exists */ }
   });
 
   beforeEach(async () => {
@@ -101,7 +101,7 @@ describe("Transactional Audit Rollback", () => {
     // Use an invalid user ID for the audit log's actor_user_id, which causes P2003
     const result = await createDraftRule("AUDIT-RB-001", validConfig, validDsl, INVALID_AUDIT_USER);
     
-    expect(result.success).toBe(false);
+    if (result.success) throw new Error("expected failure");
     expect(result.error).toBe("DATABASE_ERROR");
 
     // The DetectionRule must NOT have been persisted
@@ -126,12 +126,12 @@ describe("Transactional Audit Rollback", () => {
       INVALID_AUDIT_USER
     );
 
-    expect(result.success).toBe(false);
+    if (result.success) throw new Error("expected failure");
     expect(result.error).toBe("DATABASE_ERROR");
 
     // Verify rule name was NOT changed
     const dbRule = await prisma.detectionRule.findUnique({ where: { id: create.rule.id } });
-    expect(dbRule.name).toBe(originalName);
+    expect(dbRule!.name).toBe(originalName);
   });
 
   it("activateRule rolls back when AuditLog FK fails", async () => {
@@ -142,12 +142,12 @@ describe("Transactional Audit Rollback", () => {
     // Attempt activation with invalid audit user
     const result = await activateRule(create.rule.id, INVALID_AUDIT_USER);
 
-    expect(result.success).toBe(false);
+    if (result.success) throw new Error("expected failure");
     expect(result.error).toBe("DATABASE_ERROR");
 
     // Verify status was NOT changed
     const dbRule = await prisma.detectionRule.findUnique({ where: { id: create.rule.id } });
-    expect(dbRule.status).toBe(DetectionRuleStatus.DRAFT);
+    expect(dbRule!.status).toBe(DetectionRuleStatus.DRAFT);
   });
 
   it("archiveRule (DRAFT to ARCHIVED) rolls back when AuditLog FK fails", async () => {
@@ -158,12 +158,12 @@ describe("Transactional Audit Rollback", () => {
     // Attempt archival with invalid audit user
     const result = await archiveRule(create.rule.id, INVALID_AUDIT_USER);
 
-    expect(result.success).toBe(false);
+    if (result.success) throw new Error("expected failure");
     expect(result.error).toBe("DATABASE_ERROR");
 
     // Verify status was NOT changed
     const dbRule = await prisma.detectionRule.findUnique({ where: { id: create.rule.id } });
-    expect(dbRule.status).toBe(DetectionRuleStatus.DRAFT);
+    expect(dbRule!.status).toBe(DetectionRuleStatus.DRAFT);
   });
 
   it("archiveRule (ACTIVE to ARCHIVED) rolls back when AuditLog FK fails", async () => {
@@ -172,7 +172,7 @@ describe("Transactional Audit Rollback", () => {
     if (!create.success) throw new Error("setup failed");
 
     const act = await activateRule(create.rule.id, MOCK_USER_ID);
-    expect(act.success).toBe(true);
+    if (!act.success) throw new Error("failed");
 
     // Save the activation timestamps
     const preArchiveRule = await prisma.detectionRule.findUnique({ where: { id: create.rule.id } });
@@ -182,15 +182,15 @@ describe("Transactional Audit Rollback", () => {
     // Attempt archival with invalid audit user
     const result = await archiveRule(create.rule.id, INVALID_AUDIT_USER);
 
-    expect(result.success).toBe(false);
+    if (result.success) throw new Error("expected failure");
     expect(result.error).toBe("DATABASE_ERROR");
 
     // Verify status and timestamps were NOT changed
     const dbRule = await prisma.detectionRule.findUnique({ where: { id: create.rule.id } });
-    expect(dbRule.status).toBe(DetectionRuleStatus.ACTIVE);
-    expect(dbRule.activated_at).toEqual(originalActivatedAt);
+    expect(dbRule!.status).toBe(DetectionRuleStatus.ACTIVE);
+    expect(dbRule!.activated_at).toEqual(originalActivatedAt);
     expect(dbRule.activated_by_id).toBe(originalActivatedById);
-    expect(dbRule.archived_at).toBeNull();
+    expect(dbRule!.archived_at).toBeNull();
     expect(dbRule.archived_by_id).toBeNull();
   });
 

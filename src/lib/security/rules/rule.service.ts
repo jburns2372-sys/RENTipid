@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
-import { PrismaClient, Prisma, DetectionRuleStatus, SecurityDomain, SecurityEventClassification, SecuritySeverity, DetectionRuleCreatorType, DetectionCorrelationSubject, DetectionDeduplicationStrategy, DetectionConfidenceFormula, DetectionRule } from "@prisma/client";
+import { PrismaClient, Prisma, DetectionRuleStatus, DetectionRuleCreatorType, DetectionRule } from "@prisma/client";
 import { validateRuleConfiguration, RuleTypedConfiguration } from "./rule-validation.service";
-import { requireSecurityPermission, getCurrentDatabaseUser } from "../authorization";
+import { requireSecurityPermission } from "../authorization";
 import { SECURITY_PERMISSIONS } from "../permissions";
 import { serializePrivacySafeIp } from "../serializers";
 
@@ -15,7 +14,7 @@ export async function createDraftRule(
   dslInput: unknown,
   createdByUserId: string
 ): Promise<{ success: true; rule: DetectionRule } | { success: false; error: string }> {
-  const authContext = await requireSecurityPermission(SECURITY_PERMISSIONS.RULES_CREATE);
+  await requireSecurityPermission(SECURITY_PERMISSIONS.RULES_CREATE);
   
   const validation = validateRuleConfiguration(config, dslInput);
   if (!validation.valid) {
@@ -73,9 +72,9 @@ export async function createDraftRule(
         return rule;
       });
       return { success: true, rule: result };
-    } catch (e: any) {
+    } catch (e) {
       // Prisma unique constraint violation code is P2002
-      if (e.code === 'P2002') {
+      if (e && typeof e === 'object' && 'code' in e && (e as { code?: string }).code === 'P2002') {
         attempt++;
         if (attempt >= MAX_VERSION_RETRIES) {
           return { success: false, error: "DUPLICATE_VERSION_CONFLICT" };
@@ -96,7 +95,7 @@ export async function updateDraftRule(
   updatedAtCursor: Date,
   updatedByUserId: string
 ): Promise<{ success: true; rule: DetectionRule } | { success: false; error: string }> {
-  const authContext = await requireSecurityPermission(SECURITY_PERMISSIONS.RULES_UPDATE);
+  await requireSecurityPermission(SECURITY_PERMISSIONS.RULES_UPDATE);
   
   const validation = validateRuleConfiguration(config, dslInput);
   if (!validation.valid) {
@@ -157,7 +156,7 @@ export async function updateDraftRule(
 
       return { success: true, rule };
     });
-  } catch (e: any) {
+  } catch {
     return { success: false, error: "DATABASE_ERROR" };
   }
 }
@@ -166,7 +165,7 @@ export async function activateRule(
   ruleIdPk: string,
   activatedByUserId: string
 ) {
-  const authContext = await requireSecurityPermission(SECURITY_PERMISSIONS.RULES_ACTIVATE);
+  await requireSecurityPermission(SECURITY_PERMISSIONS.RULES_ACTIVATE);
 
   // Require fresh read from DB to revalidate rule before activation
   const existing = await prisma.detectionRule.findUnique({
@@ -226,8 +225,8 @@ export async function activateRule(
 
       return { success: true, rule };
     });
-  } catch (e: any) {
-    if (e.code === 'P2002') {
+  } catch (e) {
+    if (e && typeof e === 'object' && 'code' in e && (e as { code?: string }).code === 'P2002') {
       return { success: false, error: "ACTIVE_VERSION_CONFLICT" };
     }
     return { success: false, error: "DATABASE_ERROR" };
@@ -238,7 +237,7 @@ export async function archiveRule(
   ruleIdPk: string,
   archivedByUserId: string
 ) {
-  const authContext = await requireSecurityPermission(SECURITY_PERMISSIONS.RULES_ARCHIVE);
+  await requireSecurityPermission(SECURITY_PERMISSIONS.RULES_ARCHIVE);
 
   try {
     return await prisma.$transaction(async (tx) => {
@@ -270,13 +269,13 @@ export async function archiveRule(
 
       return { success: true, rule };
     });
-  } catch (e: any) {
+  } catch {
     return { success: false, error: "DATABASE_ERROR" };
   }
 }
 
 export async function queryRules(cursorId?: string, cursorCreatedAt?: Date, limit: number = 20) {
-  const authContext = await requireSecurityPermission(SECURITY_PERMISSIONS.RULES_VIEW);
+  await requireSecurityPermission(SECURITY_PERMISSIONS.RULES_VIEW);
 
   try {
     const rules = await prisma.detectionRule.findMany({
@@ -293,7 +292,7 @@ export async function queryRules(cursorId?: string, cursorCreatedAt?: Date, limi
     if (hasMore) rules.pop();
 
     return { success: true, rules, hasMore };
-  } catch (e: any) {
+  } catch {
     return { success: false, error: "DATABASE_ERROR" };
   }
 }

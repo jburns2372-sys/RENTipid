@@ -93,7 +93,7 @@ if(!r3.success) return; const id3 = r3.rule.id;
     // If we try to pass an object, TS rejects it, and JS ignores it since args are positional.
     const page = await queryRules(undefined, undefined, 10, DetectionRuleStatus.DRAFT, SecurityDomain.IDENTITY_AND_ACCESS);
     if(!page.success) return;
-    expect(page.rules.every(r => r.status === DetectionRuleStatus.DRAFT)).toBe(true);
-    expect(page.rules.every(r => r.security_domain === SecurityDomain.IDENTITY_AND_ACCESS)).toBe(true);
+    expect(page.rules!.every(r => r.status === DetectionRuleStatus.DRAFT)).toBe(true);
+    expect(page.rules!.every(r => r.security_domain === SecurityDomain.IDENTITY_AND_ACCESS)).toBe(true);
   });
 });

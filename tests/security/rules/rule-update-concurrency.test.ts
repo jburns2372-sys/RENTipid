@@ -62,7 +62,7 @@ describe("Draft Update Concurrency", () => {
           status: "Verified"
         }
       });
-    } catch (e) { /* already exists */ }
+    } catch (_e) { /* already exists */ }
   });
 
   beforeEach(async () => {
@@ -96,7 +96,7 @@ describe("Draft Update Concurrency", () => {
       create.rule.id, updConfig, validDsl, create.rule.updated_at, MOCK_USER_ID
     );
 
-    expect(result.success).toBe(true);
+    if (!result.success) throw new Error("failed");
     if (result.success) {
       expect(result.rule.name).toBe("Updated Name");
     }
@@ -111,14 +111,14 @@ describe("Draft Update Concurrency", () => {
     const first = await updateDraftRule(
       create.rule.id, updConfig, validDsl, create.rule.updated_at, MOCK_USER_ID
     );
-    expect(first.success).toBe(true);
+    if (!first.success) throw new Error("failed");
 
     // Second update with STALE timestamp (original updated_at) must fail
     const updConfig2 = { ...validConfig, name: "Stale Update" };
     const second = await updateDraftRule(
       create.rule.id, updConfig2, validDsl, create.rule.updated_at, MOCK_USER_ID
     );
-    expect(second.success).toBe(false);
+    if (second.success) throw new Error("expected failure");
     if (!second.success) {
       expect(second.error).toBe("STALE_UPDATE_CONFLICT");
     }
@@ -133,18 +133,18 @@ describe("Draft Update Concurrency", () => {
       create.rule.id, { ...validConfig, name: "Good Update" }, validDsl,
       create.rule.updated_at, MOCK_USER_ID
     );
-    expect(first.success).toBe(true);
+    if (!first.success) throw new Error("failed");
 
     // Attempt stale update
     const stale = await updateDraftRule(
       create.rule.id, { ...validConfig, name: "Stale Bad Update" }, validDsl,
       create.rule.updated_at, MOCK_USER_ID
     );
-    expect(stale.success).toBe(false);
+    if (stale.success) throw new Error("expected failure");
 
     // Verify DB still has the first update's name
     const dbRule = await prisma.detectionRule.findUnique({ where: { id: create.rule.id } });
-    expect(dbRule.name).toBe("Good Update");
+    expect(dbRule!.name).toBe("Good Update");
   });
 
   it("no successful audit entry after conflict", async () => {
@@ -159,7 +159,7 @@ describe("Draft Update Concurrency", () => {
       create.rule.id, { ...validConfig, name: "Audited Update" }, validDsl,
       create.rule.updated_at, MOCK_USER_ID
     );
-    expect(first.success).toBe(true);
+    if (!first.success) throw new Error("failed");
 
     const auditAfterGood = await prisma.auditLog.count({ where: { action: "SOC_RULE_UPDATED" } });
 
@@ -184,7 +184,7 @@ describe("Draft Update Concurrency", () => {
     const result = await updateDraftRule(
       create.rule.id, invalidConfig, validDsl, create.rule.updated_at, MOCK_USER_ID
     );
-    expect(result.success).toBe(false);
+    if (result.success) throw new Error("expected failure");
     if (!result.success) {
       expect(result.error).toBe("INVALID_THRESHOLD_COUNT");
     }
@@ -202,7 +202,7 @@ describe("Draft Update Concurrency", () => {
     const result = await updateDraftRule(
       create.rule.id, updConfig, validDsl, create.rule.updated_at, MOCK_USER_ID
     );
-    expect(result.success).toBe(true);
+    if (!result.success) throw new Error("failed");
     if (result.success) {
       // Immutable fields preserved
       expect(result.rule.rule_id).toBe("UPD-CONC-006");
@@ -226,7 +226,7 @@ describe("Draft Update Concurrency", () => {
     const result = await updateDraftRule(
       create.rule.id, validConfig, validDsl, create.rule.updated_at, MOCK_USER_ID
     );
-    expect(result.success).toBe(false);
+    if (result.success) throw new Error("expected failure");
     if (!result.success) {
       expect(result.error).toBe("INVALID_RULE_STATUS");
     }
@@ -255,7 +255,7 @@ describe("Draft Update Concurrency", () => {
 
     // No update is silently overwritten - the name must match the one that succeeded
     const dbRule = await prisma.detectionRule.findUnique({ where: { id: create.rule.id } });
-    expect(dbRule.name).toBe(successes[0].rule.name);
+    expect(dbRule!.name).toBe(successes[0].rule.name);
   });
 });
 

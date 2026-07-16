@@ -62,7 +62,7 @@ describe("Activation Concurrency", () => {
           status: "Verified"
         }
       });
-    } catch (e) { /* already exists */ }
+    } catch (_e) { /* already exists */ }
   });
 
   beforeEach(async () => {
@@ -92,7 +92,7 @@ describe("Activation Concurrency", () => {
     if (!create.success) throw new Error("setup failed");
 
     const act = await activateRule(create.rule.id, MOCK_USER_ID);
-    expect(act.success).toBe(true);
+    if (!act.success) throw new Error("failed");
     if (act.success) {
       expect(act.rule.status).toBe(DetectionRuleStatus.ACTIVE);
       expect(act.rule.activated_at).toBeInstanceOf(Date);
@@ -108,7 +108,7 @@ describe("Activation Concurrency", () => {
 
     // Activate v2 only
     const act = await activateRule(v2.rule.id, MOCK_USER_ID);
-    expect(act.success).toBe(true);
+    if (!act.success) throw new Error("failed");
 
     // v1 and v3 must still be DRAFT
     const dbV1 = await prisma.detectionRule.findUnique({ where: { id: v1.rule.id } });
@@ -124,11 +124,11 @@ describe("Activation Concurrency", () => {
 
     // Activate v1
     const act1 = await activateRule(v1.rule.id, MOCK_USER_ID);
-    expect(act1.success).toBe(true);
+    if (!act1.success) throw new Error("failed");
 
     // Attempt to activate v2 — should fail with ACTIVE_VERSION_CONFLICT
     const act2 = await activateRule(v2.rule.id, MOCK_USER_ID);
-    expect(act2.success).toBe(false);
+    if (act2.success) throw new Error("expected failure");
     if (!act2.success) {
       expect(act2.error).toBe("ACTIVE_VERSION_CONFLICT");
     }

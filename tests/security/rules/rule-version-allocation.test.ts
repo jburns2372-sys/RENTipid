@@ -64,7 +64,7 @@ describe("Version Allocation", () => {
           status: "Verified"
         }
       });
-    } catch (e) { /* already exists */ }
+    } catch (_e) { /* already exists */ }
   });
 
   beforeEach(async () => {
@@ -151,7 +151,7 @@ describe("Version Allocation", () => {
     // DUPLICATE_VERSION_CONFLICT or MAX_RETRIES_EXCEEDED.
     // We can test this by observing the error codes are privacy-safe strings.
     const result = await createDraftRule("VER-RETRY-001", validConfig, validDsl, MOCK_USER_ID);
-    expect(result.success).toBe(true);
+    if (!result.success) throw new Error("failed");
 
     // These are the only expected error codes for version conflicts:
     // "DUPLICATE_VERSION_CONFLICT" or "MAX_RETRIES_EXCEEDED"

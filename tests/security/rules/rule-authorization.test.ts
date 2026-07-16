@@ -70,7 +70,7 @@ describe("Gate 3D Authorization Matrix", () => {
           status: "Verified"
         }
       });
-    } catch (e) { /* already exists */ }
+    } catch (_e) { /* already exists */ }
   });
 
   beforeEach(async () => {
@@ -112,7 +112,7 @@ describe("Gate 3D Authorization Matrix", () => {
     it("Verified Super Admin is allowed", async () => {
       mockAllowed();
       const r = await createDraftRule("AUTH-CREATE-001", validConfig, validDsl, MOCK_USER_ID);
-      expect(r.success).toBe(true);
+      if (!r.success) throw new Error("failed");
       expect(auth.requireSecurityPermission).toHaveBeenCalledWith(SECURITY_PERMISSIONS.RULES_CREATE);
     });
 
@@ -183,7 +183,7 @@ describe("Gate 3D Authorization Matrix", () => {
     it("Verified Super Admin is allowed", async () => {
       mockAllowed();
       const r = await updateDraftRule(ruleId, validConfig, validDsl, ruleUpdatedAt, MOCK_USER_ID);
-      expect(r.success).toBe(true);
+      if (!r.success) throw new Error("failed");
       expect(auth.requireSecurityPermission).toHaveBeenCalledWith(SECURITY_PERMISSIONS.RULES_UPDATE);
     });
 
@@ -234,7 +234,7 @@ describe("Gate 3D Authorization Matrix", () => {
     it("Verified Super Admin is allowed", async () => {
       mockAllowed();
       const r = await activateRule(ruleId, MOCK_USER_ID);
-      expect(r.success).toBe(true);
+      if (!r.success) throw new Error("failed");
       expect(auth.requireSecurityPermission).toHaveBeenCalledWith(SECURITY_PERMISSIONS.RULES_ACTIVATE);
     });
 
@@ -275,7 +275,7 @@ describe("Gate 3D Authorization Matrix", () => {
     it("Verified Super Admin is allowed", async () => {
       mockAllowed();
       const r = await archiveRule(ruleId, MOCK_USER_ID);
-      expect(r.success).toBe(true);
+      if (!r.success) throw new Error("failed");
       expect(auth.requireSecurityPermission).toHaveBeenCalledWith(SECURITY_PERMISSIONS.RULES_ARCHIVE);
     });
 
@@ -307,7 +307,7 @@ describe("Gate 3D Authorization Matrix", () => {
     it("Verified Super Admin is allowed", async () => {
       mockAllowed();
       const r = await queryRules();
-      expect(r.success).toBe(true);
+      if (!r.success) throw new Error("failed");
       expect(auth.requireSecurityPermission).toHaveBeenCalledWith(SECURITY_PERMISSIONS.RULES_VIEW);
     });
 

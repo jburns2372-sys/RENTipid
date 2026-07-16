@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
-import { RuleNode, ComparisonNode, LogicalNode } from "./schema";
+import { RuleNode, ComparisonNode } from "./schema";
 
-export function evaluateRuleDsl(node: RuleNode, eventData: Record<string, any>): boolean {
+export function evaluateRuleDsl(node: RuleNode, eventData: Record<string, unknown>): boolean {
   if ("AND" in node && node.AND) {
     return node.AND.every(child => evaluateRuleDsl(child, eventData));
   }
@@ -31,7 +30,7 @@ export function evaluateRuleDsl(node: RuleNode, eventData: Record<string, any>):
       return sourceValue.includes(comp.value as string);
     case "IN":
       if (!Array.isArray(comp.value)) return false;
-      return (comp.value as any[]).includes(sourceValue);
+      return (comp.value as unknown[]).includes(sourceValue);
     default:
       return false;
   }
