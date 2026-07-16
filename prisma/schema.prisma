@@ -9,85 +9,85 @@ datasource db {
 
 // Users and Roles Foundation
 model User {
-  id              String   @id @default(cuid())
-  email           String   @unique
-  mobile_number   String?
-  full_name       String
-  account_type    String   // "Individual" | "Business"
-  role            String   // "Guest" | "Renter" | "Individual Provider" | "Business Provider" | "Admin" | "Finance Admin" | "Compliance Admin" | "Super Admin"
-  status          String   // "Pending" | "Verified" | "Suspended" | "Blacklisted"
-  password_hash   String?
-  created_at      DateTime @default(now())
-  updated_at      DateTime @updatedAt
+  id            String   @id @default(cuid())
+  email         String   @unique
+  mobile_number String?
+  full_name     String
+  account_type  String // "Individual" | "Business"
+  role          String // "Guest" | "Renter" | "Individual Provider" | "Business Provider" | "Admin" | "Finance Admin" | "Compliance Admin" | "Super Admin"
+  status        String // "Pending" | "Verified" | "Suspended" | "Blacklisted"
+  password_hash String?
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 
-  profile         UserProfile?
-  businessProfile BusinessProfile?
-  listings        Listing[]
-  auditLogs       AuditLog[]
-  aiBotLogs       AIBotLog[]
+  profile               UserProfile?
+  businessProfile       BusinessProfile?
+  listings              Listing[]
+  auditLogs             AuditLog[]
+  aiBotLogs             AIBotLog[]
   verificationDocuments VerificationDocument[]
-  
+
   // Bookings and Notifications
-  renterBookings    Booking[]      @relation("RenterBookings")
-  providerBookings  Booking[]      @relation("ProviderBookings")
-  notifications     Notification[]
-  
+  renterBookings   Booking[]      @relation("RenterBookings")
+  providerBookings Booking[]      @relation("ProviderBookings")
+  notifications    Notification[]
+
   // Finance
-  payments          Payment[]
-  ledgerEntries     FinanceLedger[]
-  
+  payments      Payment[]
+  ledgerEntries FinanceLedger[]
+
   // Marketing & Social
-  socialAccounts    SocialAccount[]
-  campaignsCreated  MarketingCampaign[]
-  postsCreated      MarketingPost[] @relation("PostCreator")
-  postsApproved     MarketingPost[] @relation("PostApprover")
-  optIns            ProviderPromotionOptIn[]
-  
+  socialAccounts   SocialAccount[]
+  campaignsCreated MarketingCampaign[]
+  postsCreated     MarketingPost[]          @relation("PostCreator")
+  postsApproved    MarketingPost[]          @relation("PostApprover")
+  optIns           ProviderPromotionOptIn[]
+
   // Phase 10: Beta & UAT Tracking
-  is_test_data      Boolean  @default(false)
-  beta_label        String?  // e.g. "Internal Tester", "Provider Beta"
+  is_test_data Boolean @default(false)
+  beta_label   String? // e.g. "Internal Tester", "Provider Beta"
 
   // Phase 15: Mobile & Compliance
   accountDeletionRequests AccountDeletionRequest[]
 }
 
 model UserProfile {
-  id                  String   @id @default(cuid())
-  user_id             String   @unique
-  user                User     @relation(fields: [user_id], references: [id])
+  id                  String  @id @default(cuid())
+  user_id             String  @unique
+  user                User    @relation(fields: [user_id], references: [id])
   address             String?
   city                String?
   province            String?
   country             String?
   profile_photo       String?
-  verification_status String   // "Unverified" | "Pending" | "Verified" | "Rejected"
-  trust_score         Int      @default(0)
+  verification_status String // "Unverified" | "Pending" | "Verified" | "Rejected"
+  trust_score         Int     @default(0)
 }
 
 model BusinessProfile {
-  id                             String   @id @default(cuid())
-  user_id                        String   @unique
-  user                           User     @relation(fields: [user_id], references: [id])
-  business_name                  String
-  business_registration_number   String?
-  business_address               String?
-  authorized_representative      String?
-  verification_status            String   // "Unverified" | "Pending" | "Verified" | "Rejected"
+  id                           String  @id @default(cuid())
+  user_id                      String  @unique
+  user                         User    @relation(fields: [user_id], references: [id])
+  business_name                String
+  business_registration_number String?
+  business_address             String?
+  authorized_representative    String?
+  verification_status          String // "Unverified" | "Pending" | "Verified" | "Rejected"
 }
 
 // Category Foundation
 model Category {
-  id                      String   @id @default(cuid())
+  id                      String  @id @default(cuid())
   name                    String
-  slug                    String   @unique
+  slug                    String  @unique
   description             String?
   icon                    String?
-  risk_level              String   // "Low" | "Medium" | "High" | "Regulated"
-  requires_admin_approval Boolean  @default(false)
-  requires_deposit        Boolean  @default(false)
-  requires_insurance      Boolean  @default(false)
-  requires_permit         Boolean  @default(false)
-  is_active               Boolean  @default(true)
+  risk_level              String // "Low" | "Medium" | "High" | "Regulated"
+  requires_admin_approval Boolean @default(false)
+  requires_deposit        Boolean @default(false)
+  requires_insurance      Boolean @default(false)
+  requires_permit         Boolean @default(false)
+  is_active               Boolean @default(true)
 
   requirements CategoryRequirement?
   listings     Listing[]
@@ -97,9 +97,9 @@ model VerificationDocument {
   id               String    @id @default(cuid())
   user_id          String
   user             User      @relation(fields: [user_id], references: [id])
-  document_type    String    // "ID" | "Selfie" | "BusinessPermit" | "ProofOfAddress" | "ProofOfOwnership"
+  document_type    String // "ID" | "Selfie" | "BusinessPermit" | "ProofOfAddress" | "ProofOfOwnership"
   file_url         String
-  status           String    // "Submitted" | "Under Review" | "Approved" | "Rejected" | "Expired"
+  status           String // "Submitted" | "Under Review" | "Approved" | "Rejected" | "Expired"
   rejection_reason String?
   uploaded_at      DateTime  @default(now())
   reviewed_by      String?
@@ -110,8 +110,8 @@ model CategoryRequirement {
   id                          String   @id @default(cuid())
   category_id                 String   @unique
   category                    Category @relation(fields: [category_id], references: [id])
-  required_provider_documents String?  // JSON string
-  required_renter_documents   String?  // JSON string
+  required_provider_documents String? // JSON string
+  required_renter_documents   String? // JSON string
   deposit_rule                String?
   approval_rule               String?
   prohibited_conditions       String?
@@ -120,68 +120,68 @@ model CategoryRequirement {
 
 // Listings Foundation
 model Listing {
-  id              String   @id @default(cuid())
-  provider_id     String
-  provider        User     @relation(fields: [provider_id], references: [id])
-  category_id     String
-  category        Category @relation(fields: [category_id], references: [id])
-  title           String
-  description     String?
-  
+  id          String   @id @default(cuid())
+  provider_id String
+  provider    User     @relation(fields: [provider_id], references: [id])
+  category_id String
+  category    Category @relation(fields: [category_id], references: [id])
+  title       String
+  description String?
+
   // Location
-  location        String?
-  city            String?
-  province        String?
-  country         String?
-  
+  location String?
+  city     String?
+  province String?
+  country  String?
+
   // Pricing
-  rental_type     String   // "Hourly" | "Daily" | "Weekly" | "Monthly"
-  hourly_rate     Float?
-  daily_rate      Float?
-  weekly_rate     Float?
-  monthly_rate    Float?
-  security_deposit Float?
+  rental_type       String // "Hourly" | "Daily" | "Weekly" | "Monthly"
+  hourly_rate       Float?
+  daily_rate        Float?
+  weekly_rate       Float?
+  monthly_rate      Float?
+  security_deposit  Float?
   replacement_value Float?
-  
+
   // Details
-  quantity        Int      @default(1)
-  condition       String?  // "New" | "Like New" | "Good" | "Fair" | "Used"
-  pickup_available Boolean @default(true)
+  quantity           Int     @default(1)
+  condition          String? // "New" | "Like New" | "Good" | "Fair" | "Used"
+  pickup_available   Boolean @default(true)
   delivery_available Boolean @default(false)
-  delivery_fee    Float?
-  
+  delivery_fee       Float?
+
   // Policies
-  min_duration    Int?
-  max_duration    Int?
-  late_penalty    String?
-  damage_policy   String?
-  rules           String?
+  min_duration         Int?
+  max_duration         Int?
+  late_penalty         String?
+  damage_policy        String?
+  rules                String?
   included_accessories String?
   excluded_accessories String?
   special_instructions String?
-  
+
   // Availability
   availability_start DateTime?
   availability_end   DateTime?
-  
-  // Status
-  status          String   // "Draft" | "Submitted for Review" | "Under Review" | "Approved" | "Published" | "Rejected" | "Suspended" | "Unavailable" | "Archived"
-  rejection_reason String?
-  
-  published_at    DateTime?
-  created_at      DateTime @default(now())
-  updated_at      DateTime @updatedAt
 
-  photos          ListingPhoto[]
-  documents       ListingDocument[]
-  bookings        Booking[]
+  // Status
+  status           String // "Draft" | "Submitted for Review" | "Under Review" | "Approved" | "Published" | "Rejected" | "Suspended" | "Unavailable" | "Archived"
+  rejection_reason String?
+
+  published_at DateTime?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  photos            ListingPhoto[]
+  documents         ListingDocument[]
+  bookings          Booking[]
   inspectionReports InspectionReport[]
-  marketingPosts  MarketingPost[]
-  optIns          ProviderPromotionOptIn[]
+  marketingPosts    MarketingPost[]
+  optIns            ProviderPromotionOptIn[]
 
   // Phase 10: Beta & UAT Tracking
-  is_test_data    Boolean  @default(false)
-  beta_label      String?  
+  is_test_data Boolean @default(false)
+  beta_label   String?
 }
 
 model ListingPhoto {
@@ -197,79 +197,79 @@ model ListingPhoto {
 }
 
 model ListingDocument {
-  id               String   @id @default(cuid())
+  id               String    @id @default(cuid())
   listing_id       String
-  listing          Listing  @relation(fields: [listing_id], references: [id], onDelete: Cascade)
+  listing          Listing   @relation(fields: [listing_id], references: [id], onDelete: Cascade)
   document_type    String
   file_path        String
   file_type        String
   file_size        Int
-  status           String   // "Submitted" | "Under Review" | "Approved" | "Rejected" | "Expired"
+  status           String // "Submitted" | "Under Review" | "Approved" | "Rejected" | "Expired"
   rejection_reason String?
-  uploaded_at      DateTime @default(now())
+  uploaded_at      DateTime  @default(now())
   reviewed_by      String?
   reviewed_at      DateTime?
 }
 
 model Booking {
-  id                   String   @id @default(cuid())
-  listing_id           String
-  listing              Listing  @relation(fields: [listing_id], references: [id])
-  renter_id            String
-  renter               User     @relation("RenterBookings", fields: [renter_id], references: [id])
-  provider_id          String
-  provider             User     @relation("ProviderBookings", fields: [provider_id], references: [id])
-  
+  id          String  @id @default(cuid())
+  listing_id  String
+  listing     Listing @relation(fields: [listing_id], references: [id])
+  renter_id   String
+  renter      User    @relation("RenterBookings", fields: [renter_id], references: [id])
+  provider_id String
+  provider    User    @relation("ProviderBookings", fields: [provider_id], references: [id])
+
   start_date           DateTime
   end_date             DateTime
   start_time           String?
   end_time             String?
   rental_duration      Int
   rental_duration_unit String
-  
-  selected_rate_type   String
-  base_rental_amount   Float
-  deposit_amount       Float
-  platform_fee         Float?
-  estimated_total_amount Float
-  
-  pickup_option        String   // "Pickup" | "Delivery"
-  delivery_requested   Boolean  @default(false)
-  delivery_address     String?
-  delivery_fee         Float?
-  
-  renter_notes         String?
-  provider_notes       String?
-  cancellation_reason  String?
-  rejection_reason     String?
-  
-  status               String   // "Pending Provider Approval" | "Approved" | "Pending Payment" | "Confirmed" | "Ongoing" | "Returned" | "Completed" | "Cancelled by Renter" | "Cancelled by Provider" | "Rejected" | "Expired"
-  payment_status       String   @default("Not Required Yet")
-  
-  created_at           DateTime @default(now())
-  updated_at           DateTime @updatedAt
-  approved_at          DateTime?
-  rejected_at          DateTime?
-  cancelled_at         DateTime?
-  completed_at         DateTime?
 
-  statusHistory        BookingStatusHistory[]
-  payment              Payment?
-  rentalAgreement      RentalAgreement?
-  ledgerEntries        FinanceLedger[]
-  gatewayTransactions  GatewayTransaction[]
-  
-  inspectionReports    InspectionReport[]
-  turnoverRecords      TurnoverRecord[]
-  damageClaims         DamageClaim[]
-  disputes             DisputeCase[]
-  depositActions       DepositAction[]
-  refundRequests       RefundRequest[]
-  providerPayouts      ProviderPayout[]
-  
+  selected_rate_type     String
+  base_rental_amount     Float
+  deposit_amount         Float
+  platform_fee           Float?
+  estimated_total_amount Float
+
+  pickup_option      String // "Pickup" | "Delivery"
+  delivery_requested Boolean @default(false)
+  delivery_address   String?
+  delivery_fee       Float?
+
+  renter_notes        String?
+  provider_notes      String?
+  cancellation_reason String?
+  rejection_reason    String?
+
+  status         String // "Pending Provider Approval" | "Approved" | "Pending Payment" | "Confirmed" | "Ongoing" | "Returned" | "Completed" | "Cancelled by Renter" | "Cancelled by Provider" | "Rejected" | "Expired"
+  payment_status String @default("Not Required Yet")
+
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+  approved_at  DateTime?
+  rejected_at  DateTime?
+  cancelled_at DateTime?
+  completed_at DateTime?
+
+  statusHistory       BookingStatusHistory[]
+  payment             Payment?
+  rentalAgreement     RentalAgreement?
+  ledgerEntries       FinanceLedger[]
+  gatewayTransactions GatewayTransaction[]
+
+  inspectionReports InspectionReport[]
+  turnoverRecords   TurnoverRecord[]
+  damageClaims      DamageClaim[]
+  disputes          DisputeCase[]
+  depositActions    DepositAction[]
+  refundRequests    RefundRequest[]
+  providerPayouts   ProviderPayout[]
+
   // Phase 10: Beta & UAT Tracking
-  is_test_data         Boolean  @default(false)
-  beta_label           String?  
+  is_test_data Boolean @default(false)
+  beta_label   String?
 }
 
 model BookingStatusHistory {
@@ -283,26 +283,24 @@ model BookingStatusHistory {
   created_at DateTime @default(now())
 }
 
-
-
 // Placeholder Models
 model Payment {
-  id                 String   @id @default(cuid())
-  booking_id         String   @unique
-  booking            Booking  @relation(fields: [booking_id], references: [id], onDelete: Cascade)
-  user_id            String
-  user               User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  
-  amount             Float
-  payment_method     String   // "Mock Gateway" | "Credit Card" | "E-Wallet"
-  status             String   // "Pending" | "Completed" | "Failed" | "Refunded"
-  type               String   // "Rental Payment" | "Deposit Refund" | "Payout" | "Penalty"
-  transaction_id     String?  @unique
-  gateway_transaction_id String? @unique
-  gateway_transaction GatewayTransaction? @relation(fields: [gateway_transaction_id], references: [id])
-  
-  created_at         DateTime @default(now())
-  updated_at         DateTime @updatedAt
+  id         String  @id @default(cuid())
+  booking_id String  @unique
+  booking    Booking @relation(fields: [booking_id], references: [id], onDelete: Cascade)
+  user_id    String
+  user       User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  amount                 Float
+  payment_method         String // "Mock Gateway" | "Credit Card" | "E-Wallet"
+  status                 String // "Pending" | "Completed" | "Failed" | "Refunded"
+  type                   String // "Rental Payment" | "Deposit Refund" | "Payout" | "Penalty"
+  transaction_id         String?             @unique
+  gateway_transaction_id String?             @unique
+  gateway_transaction    GatewayTransaction? @relation(fields: [gateway_transaction_id], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 // ----------------------------------------------------------------------
@@ -310,32 +308,32 @@ model Payment {
 // ----------------------------------------------------------------------
 
 model GatewayTransaction {
-  id                   String   @id @default(cuid())
-  booking_id           String
-  booking              Booking  @relation(fields: [booking_id], references: [id], onDelete: Cascade)
-  payment              Payment?
-  
-  provider             String   // "PayMongo" | "Xendit" | "Maya" | "Mock" | "Manual"
-  provider_mode        String   // "Sandbox" | "Live" | "Internal"
-  gateway_reference    String?  @unique
-  gateway_checkout_url String?
-  gateway_status       String   // "Created" | "Checkout Pending" | "Paid Sandbox" | "Failed Sandbox" | "Expired" | "Cancelled" | "Refunded Placeholder" | "Error"
-  
-  amount               Float
-  currency             String   @default("PHP")
-  
-  raw_event_summary    String?
-  webhook_event_type   String?
-  webhook_received_at  DateTime?
-  
-  verified             Boolean  @default(false)
-  verification_status  String   // "Not Verified" | "Verified" | "Failed" | "Skipped Sandbox"
-  reconciliation_status String   // "Pending" | "Matched" | "Mismatch" | "Manual Review Required"
-  
-  created_at           DateTime @default(now())
-  updated_at           DateTime @updatedAt
+  id         String   @id @default(cuid())
+  booking_id String
+  booking    Booking  @relation(fields: [booking_id], references: [id], onDelete: Cascade)
+  payment    Payment?
 
-  reconciliationLogs   PaymentReconciliationLog[]
+  provider             String // "PayMongo" | "Xendit" | "Maya" | "Mock" | "Manual"
+  provider_mode        String // "Sandbox" | "Live" | "Internal"
+  gateway_reference    String? @unique
+  gateway_checkout_url String?
+  gateway_status       String // "Created" | "Checkout Pending" | "Paid Sandbox" | "Failed Sandbox" | "Expired" | "Cancelled" | "Refunded Placeholder" | "Error"
+
+  amount   Float
+  currency String @default("PHP")
+
+  raw_event_summary   String?
+  webhook_event_type  String?
+  webhook_received_at DateTime?
+
+  verified              Boolean @default(false)
+  verification_status   String // "Not Verified" | "Verified" | "Failed" | "Skipped Sandbox"
+  reconciliation_status String // "Pending" | "Matched" | "Mismatch" | "Manual Review Required"
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  reconciliationLogs PaymentReconciliationLog[]
 }
 
 model PaymentWebhookLog {
@@ -348,216 +346,216 @@ model PaymentWebhookLog {
   headers_summary        String?
   payload_summary        String?
   verification_status    String
-  processing_status      String   // "Received" | "Processed" | "Ignored" | "Failed" | "Duplicate"
+  processing_status      String // "Received" | "Processed" | "Ignored" | "Failed" | "Duplicate"
   error_message          String?
   received_at            DateTime @default(now())
 }
 
 model PaymentReconciliationLog {
-  id                     String   @id @default(cuid())
+  id                     String             @id @default(cuid())
   booking_id             String
   payment_transaction_id String?
   gateway_transaction_id String
   gateway_transaction    GatewayTransaction @relation(fields: [gateway_transaction_id], references: [id], onDelete: Cascade)
-  
-  expected_amount        Float
-  received_amount        Float
-  expected_currency      String   @default("PHP")
-  received_currency      String   @default("PHP")
-  status                 String   // "Matched" | "Mismatch"
-  notes                  String?
-  created_at             DateTime @default(now())
+
+  expected_amount   Float
+  received_amount   Float
+  expected_currency String   @default("PHP")
+  received_currency String   @default("PHP")
+  status            String // "Matched" | "Mismatch"
+  notes             String?
+  created_at        DateTime @default(now())
 }
 
 model FinanceLedger {
-  id                 String   @id @default(cuid())
-  user_id            String?
-  user               User?    @relation(fields: [user_id], references: [id])
-  booking_id         String?
-  booking            Booking? @relation(fields: [booking_id], references: [id])
-  
-  transaction_type   String   // "Platform Fee" | "Provider Payout" | "Escrow Deposit" | "Refund"
-  amount             Float
-  balance_type       String   // "Credit" | "Debit"
-  description        String?
-  
-  created_at         DateTime @default(now())
+  id         String   @id @default(cuid())
+  user_id    String?
+  user       User?    @relation(fields: [user_id], references: [id])
+  booking_id String?
+  booking    Booking? @relation(fields: [booking_id], references: [id])
+
+  transaction_type String // "Platform Fee" | "Provider Payout" | "Escrow Deposit" | "Refund"
+  amount           Float
+  balance_type     String // "Credit" | "Debit"
+  description      String?
+
+  created_at DateTime @default(now())
 }
 
 model RentalAgreement {
-  id                 String   @id @default(cuid())
-  booking_id         String   @unique
-  booking            Booking  @relation(fields: [booking_id], references: [id], onDelete: Cascade)
-  
-  agreement_text     String   // Contains the full text that was agreed upon
-  accepted_by_renter Boolean  @default(false)
-  accepted_at        DateTime?
-  accepted_by_provider Boolean @default(false)
+  id         String  @id @default(cuid())
+  booking_id String  @unique
+  booking    Booking @relation(fields: [booking_id], references: [id], onDelete: Cascade)
+
+  agreement_text       String // Contains the full text that was agreed upon
+  accepted_by_renter   Boolean   @default(false)
+  accepted_at          DateTime?
+  accepted_by_provider Boolean   @default(false)
   provider_accepted_at DateTime?
-  
-  created_at         DateTime @default(now())
+
+  created_at DateTime @default(now())
 }
 
 model SystemSettings {
-  id                 String   @id @default(cuid())
-  key                String   @unique
-  value              String
-  description        String?
-  updated_at         DateTime @updatedAt
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  description String?
+  updated_at  DateTime @updatedAt
 }
 
 model InspectionReport {
-  id                 String   @id @default(cuid())
-  booking_id         String
-  booking            Booking  @relation(fields: [booking_id], references: [id], onDelete: Cascade)
-  listing_id         String
-  listing            Listing  @relation(fields: [listing_id], references: [id])
-  renter_id          String
-  provider_id        String
-  
-  inspection_type    String   // "Pre-Rental" | "Post-Rental"
-  status             String   // "Draft" | "Submitted by Provider" | "Confirmed by Renter" | "Submitted by Renter" | "Confirmed by Provider" | "Rejected" | "Requires Review" | "Completed"
-  
-  condition_summary  String
-  odometer_reading   String?
-  fuel_level         String?
-  meter_reading      String?
-  quantity_checked   Int?
+  id          String  @id @default(cuid())
+  booking_id  String
+  booking     Booking @relation(fields: [booking_id], references: [id], onDelete: Cascade)
+  listing_id  String
+  listing     Listing @relation(fields: [listing_id], references: [id])
+  renter_id   String
+  provider_id String
+
+  inspection_type String // "Pre-Rental" | "Post-Rental"
+  status          String // "Draft" | "Submitted by Provider" | "Confirmed by Renter" | "Submitted by Renter" | "Confirmed by Provider" | "Rejected" | "Requires Review" | "Completed"
+
+  condition_summary   String
+  odometer_reading    String?
+  fuel_level          String?
+  meter_reading       String?
+  quantity_checked    Int?
   accessories_checked String?
-  provider_notes     String?
-  renter_notes       String?
-  
-  submitted_by       String?
-  confirmed_by       String?
-  submitted_at       DateTime?
-  confirmed_at       DateTime?
-  
-  photos             InspectionPhoto[]
-  
-  created_at         DateTime @default(now())
-  updated_at         DateTime @updatedAt
+  provider_notes      String?
+  renter_notes        String?
+
+  submitted_by String?
+  confirmed_by String?
+  submitted_at DateTime?
+  confirmed_at DateTime?
+
+  photos InspectionPhoto[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model InspectionPhoto {
-  id                   String   @id @default(cuid())
+  id                   String           @id @default(cuid())
   inspection_report_id String
   inspection_report    InspectionReport @relation(fields: [inspection_report_id], references: [id], onDelete: Cascade)
   booking_id           String
-  
-  file_path            String
-  file_type            String
-  file_size            Int
-  caption              String?
-  photo_category       String   // "Front View" | "Back View" | "Left Side" | "Right Side" | "Serial Number" | "Accessories" | "Existing Damage" | "Meter/Odometer" | "General Condition" | "Return Condition" | "Damage Evidence" | "Other"
-  uploaded_by          String
-  uploaded_at          DateTime @default(now())
+
+  file_path      String
+  file_type      String
+  file_size      Int
+  caption        String?
+  photo_category String // "Front View" | "Back View" | "Left Side" | "Right Side" | "Serial Number" | "Accessories" | "Existing Damage" | "Meter/Odometer" | "General Condition" | "Return Condition" | "Damage Evidence" | "Other"
+  uploaded_by    String
+  uploaded_at    DateTime @default(now())
 }
 
 model TurnoverRecord {
-  id                 String   @id @default(cuid())
-  booking_id         String
-  booking            Booking  @relation(fields: [booking_id], references: [id], onDelete: Cascade)
-  listing_id         String
-  renter_id          String
-  provider_id        String
-  
-  turnover_type      String   // "Release to Renter" | "Return to Provider"
-  turnover_status    String   // "Pending" | "Completed" | "Rejected" | "Requires Review"
+  id          String  @id @default(cuid())
+  booking_id  String
+  booking     Booking @relation(fields: [booking_id], references: [id], onDelete: Cascade)
+  listing_id  String
+  renter_id   String
+  provider_id String
+
+  turnover_type      String // "Release to Renter" | "Return to Provider"
+  turnover_status    String // "Pending" | "Completed" | "Rejected" | "Requires Review"
   pickup_or_delivery String
   turnover_location  String?
   turnover_datetime  DateTime?
-  
+
   handed_over_by     String?
   received_by        String?
   confirmation_notes String?
-  
-  created_at         DateTime @default(now())
-  updated_at         DateTime @updatedAt
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model DamageClaim {
-  id                 String   @id @default(cuid())
-  booking_id         String
-  booking            Booking  @relation(fields: [booking_id], references: [id], onDelete: Cascade)
-  listing_id         String
-  renter_id          String
-  provider_id        String
-  
-  claim_number       String   @unique
-  claim_type         String   // "Damage" | "Missing Item" | "Late Return" | "Cleaning Fee" | "Excess Usage" | "Other"
-  claim_status       String   // "Draft" | "Submitted" | "Renter Response Pending" | "Under Admin Review" | "Approved" | "Partially Approved" | "Rejected" | "Resolved" | "Cancelled"
-  
-  claim_description  String
-  claimed_amount     Float
-  deposit_amount     Float
+  id          String  @id @default(cuid())
+  booking_id  String
+  booking     Booking @relation(fields: [booking_id], references: [id], onDelete: Cascade)
+  listing_id  String
+  renter_id   String
+  provider_id String
+
+  claim_number String @unique
+  claim_type   String // "Damage" | "Missing Item" | "Late Return" | "Cleaning Fee" | "Excess Usage" | "Other"
+  claim_status String // "Draft" | "Submitted" | "Renter Response Pending" | "Under Admin Review" | "Approved" | "Partially Approved" | "Rejected" | "Resolved" | "Cancelled"
+
+  claim_description          String
+  claimed_amount             Float
+  deposit_amount             Float
   requested_deduction_amount Float
-  
+
   provider_evidence_summary String?
   renter_response           String?
   admin_decision            String?
-  
+
   approved_deduction_amount Float?
   refund_to_renter_amount   Float?
-  
-  decided_by         String?
-  decided_at         DateTime?
-  
-  photos             DamageClaimPhoto[]
-  disputes           DisputeCase[]
-  
-  created_at         DateTime @default(now())
-  updated_at         DateTime @updatedAt
+
+  decided_by String?
+  decided_at DateTime?
+
+  photos   DamageClaimPhoto[]
+  disputes DisputeCase[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model DamageClaimPhoto {
-  id                 String   @id @default(cuid())
-  damage_claim_id    String
-  damage_claim       DamageClaim @relation(fields: [damage_claim_id], references: [id], onDelete: Cascade)
-  
-  file_path          String
-  file_type          String
-  file_size          Int
-  caption            String?
-  uploaded_by        String
-  uploaded_at        DateTime @default(now())
+  id              String      @id @default(cuid())
+  damage_claim_id String
+  damage_claim    DamageClaim @relation(fields: [damage_claim_id], references: [id], onDelete: Cascade)
+
+  file_path   String
+  file_type   String
+  file_size   Int
+  caption     String?
+  uploaded_by String
+  uploaded_at DateTime @default(now())
 }
 
 model DisputeCase {
-  id                 String   @id @default(cuid())
-  booking_id         String
-  booking            Booking  @relation(fields: [booking_id], references: [id], onDelete: Cascade)
-  damage_claim_id    String?
-  damage_claim       DamageClaim? @relation(fields: [damage_claim_id], references: [id])
-  
-  opened_by          String
-  dispute_type       String   // "Damage Claim" | "Deposit Release" | "Return Condition" | "Missing Item" | "Late Return" | "Payment Concern" | "Other"
-  dispute_status     String   // "Open" | "Waiting for Renter" | "Waiting for Provider" | "Under Review" | "Resolved" | "Closed" | "Cancelled"
-  
+  id              String       @id @default(cuid())
+  booking_id      String
+  booking         Booking      @relation(fields: [booking_id], references: [id], onDelete: Cascade)
+  damage_claim_id String?
+  damage_claim    DamageClaim? @relation(fields: [damage_claim_id], references: [id])
+
+  opened_by      String
+  dispute_type   String // "Damage Claim" | "Deposit Release" | "Return Condition" | "Missing Item" | "Late Return" | "Payment Concern" | "Other"
+  dispute_status String // "Open" | "Waiting for Renter" | "Waiting for Provider" | "Under Review" | "Resolved" | "Closed" | "Cancelled"
+
   summary            String
   provider_statement String?
   renter_statement   String?
   admin_notes        String?
   final_decision     String?
-  
-  decided_by         String?
-  decided_at         DateTime?
-  
-  created_at         DateTime @default(now())
-  updated_at         DateTime @updatedAt
+
+  decided_by String?
+  decided_at DateTime?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model DepositAction {
-  id                 String   @id @default(cuid())
-  booking_id         String
-  booking            Booking  @relation(fields: [booking_id], references: [id], onDelete: Cascade)
-  deposit_ledger_id  String?
-  
-  action_type        String   // "Hold" | "Release Full" | "Release Partial" | "Deduct Full" | "Deduct Partial" | "Hold for Dispute"
-  amount             Float
-  reason             String?
-  performed_by       String
-  
-  created_at         DateTime @default(now())
+  id                String  @id @default(cuid())
+  booking_id        String
+  booking           Booking @relation(fields: [booking_id], references: [id], onDelete: Cascade)
+  deposit_ledger_id String?
+
+  action_type  String // "Hold" | "Release Full" | "Release Partial" | "Deduct Full" | "Deduct Partial" | "Hold for Dispute"
+  amount       Float
+  reason       String?
+  performed_by String
+
+  created_at DateTime @default(now())
 }
 
 model Review {
@@ -621,7 +619,7 @@ model SystemErrorLog {
   route               String?
   error_message       String
   stack_trace_private String?
-  severity            String   // "Info" | "Warning" | "Error" | "Critical"
+  severity            String // "Info" | "Warning" | "Error" | "Critical"
   created_at          DateTime @default(now())
 }
 
@@ -630,62 +628,62 @@ model SystemErrorLog {
 // ----------------------------------------------------------------------
 
 model SocialAccount {
-  id                    String    @id @default(cuid())
-  owner_user_id         String?
-  owner                 User?     @relation(fields: [owner_user_id], references: [id])
-  business_provider_id  String?   // Optional string ref to BusinessProfile
-  platform              String
-  account_name          String
-  account_handle        String
-  account_type          String
-  connection_status     String
+  id                      String    @id @default(cuid())
+  owner_user_id           String?
+  owner                   User?     @relation(fields: [owner_user_id], references: [id])
+  business_provider_id    String? // Optional string ref to BusinessProfile
+  platform                String
+  account_name            String
+  account_handle          String
+  account_type            String
+  connection_status       String
   access_token_encrypted  String?
   refresh_token_encrypted String?
-  token_expires_at      DateTime?
-  scopes                String?
-  last_connected_at     DateTime?
-  disconnected_at       DateTime?
-  created_at            DateTime  @default(now())
-  updated_at            DateTime  @updatedAt
+  token_expires_at        DateTime?
+  scopes                  String?
+  last_connected_at       DateTime?
+  disconnected_at         DateTime?
+  created_at              DateTime  @default(now())
+  updated_at              DateTime  @updatedAt
 }
 
 model MarketingCampaign {
-  id               String    @id @default(cuid())
-  created_by_id    String
-  created_by       User      @relation(fields: [created_by_id], references: [id])
-  campaign_name    String
-  campaign_type    String
-  campaign_goal    String
-  target_audience  String?
-  target_country   String?
-  target_city      String?
-  target_language  String?
-  start_date       DateTime?
-  end_date         DateTime?
+  id                 String    @id @default(cuid())
+  created_by_id      String
+  created_by         User      @relation(fields: [created_by_id], references: [id])
+  campaign_name      String
+  campaign_type      String
+  campaign_goal      String
+  target_audience    String?
+  target_country     String?
+  target_city        String?
+  target_language    String?
+  start_date         DateTime?
+  end_date           DateTime?
   budget_placeholder Float?
-  campaign_status  String
-  approval_status  String
-  created_at       DateTime  @default(now())
-  updated_at       DateTime  @updatedAt
+  campaign_status    String
+  approval_status    String
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
 
-  posts            MarketingPost[]
-  approvals        CampaignApproval[]
-  assets           PromotionAsset[]
-  utmLinks         UTMLink[]
-  analytics        CampaignAnalytics[]
-  
+  posts     MarketingPost[]
+  approvals CampaignApproval[]
+  assets    PromotionAsset[]
+  utmLinks  UTMLink[]
+  analytics CampaignAnalytics[]
+
   // Phase 10: Beta & UAT Tracking
-  is_test_data     Boolean  @default(false)
-  beta_label       String?  
+  is_test_data Boolean @default(false)
+  beta_label   String?
 }
 
 model MarketingPost {
-  id               String    @id @default(cuid())
+  id               String            @id @default(cuid())
   campaign_id      String
   campaign         MarketingCampaign @relation(fields: [campaign_id], references: [id])
   listing_id       String?
-  listing          Listing?  @relation(fields: [listing_id], references: [id])
-  provider_id      String?   // String ref to User
+  listing          Listing?          @relation(fields: [listing_id], references: [id])
+  provider_id      String? // String ref to User
   platform         String
   post_type        String
   post_title       String?
@@ -701,114 +699,114 @@ model MarketingPost {
   post_status      String
   approval_status  String
   rejection_reason String?
-  
-  created_by_id    String?
-  created_by       User?     @relation("PostCreator", fields: [created_by_id], references: [id])
-  approved_by_id   String?
-  approved_by      User?     @relation("PostApprover", fields: [approved_by_id], references: [id])
-  
-  created_at       DateTime  @default(now())
-  updated_at       DateTime  @updatedAt
 
-  approvals        CampaignApproval[]
-  assets           PromotionAsset[]
-  utmLinks         UTMLink[]
-  analytics        CampaignAnalytics[]
-  queueEntries     SocialPostQueue[]
+  created_by_id  String?
+  created_by     User?   @relation("PostCreator", fields: [created_by_id], references: [id])
+  approved_by_id String?
+  approved_by    User?   @relation("PostApprover", fields: [approved_by_id], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  approvals    CampaignApproval[]
+  assets       PromotionAsset[]
+  utmLinks     UTMLink[]
+  analytics    CampaignAnalytics[]
+  queueEntries SocialPostQueue[]
 }
 
 model CampaignApproval {
-  id               String    @id @default(cuid())
-  campaign_id      String
-  campaign         MarketingCampaign @relation(fields: [campaign_id], references: [id])
-  post_id          String?
-  post             MarketingPost? @relation(fields: [post_id], references: [id])
-  requested_by     String    // User ID string
-  reviewed_by      String?   // User ID string
-  approval_status  String
-  review_notes     String?
-  requested_at     DateTime  @default(now())
-  reviewed_at      DateTime?
+  id              String            @id @default(cuid())
+  campaign_id     String
+  campaign        MarketingCampaign @relation(fields: [campaign_id], references: [id])
+  post_id         String?
+  post            MarketingPost?    @relation(fields: [post_id], references: [id])
+  requested_by    String // User ID string
+  reviewed_by     String? // User ID string
+  approval_status String
+  review_notes    String?
+  requested_at    DateTime          @default(now())
+  reviewed_at     DateTime?
 }
 
 model PromotionAsset {
-  id               String    @id @default(cuid())
-  campaign_id      String?
-  campaign         MarketingCampaign? @relation(fields: [campaign_id], references: [id])
-  post_id          String?
-  post             MarketingPost? @relation(fields: [post_id], references: [id])
-  asset_type       String
-  file_path        String?
-  prompt_used      String?
-  generated_by_ai  Boolean   @default(false)
-  uploaded_by      String?
-  created_at       DateTime  @default(now())
+  id              String             @id @default(cuid())
+  campaign_id     String?
+  campaign        MarketingCampaign? @relation(fields: [campaign_id], references: [id])
+  post_id         String?
+  post            MarketingPost?     @relation(fields: [post_id], references: [id])
+  asset_type      String
+  file_path       String?
+  prompt_used     String?
+  generated_by_ai Boolean            @default(false)
+  uploaded_by     String?
+  created_at      DateTime           @default(now())
 }
 
 model UTMLink {
-  id               String    @id @default(cuid())
-  campaign_id      String
-  campaign         MarketingCampaign @relation(fields: [campaign_id], references: [id])
-  post_id          String?
-  post             MarketingPost? @relation(fields: [post_id], references: [id])
-  listing_id       String?
-  base_url         String
-  tracking_url     String
-  utm_source       String
-  utm_medium       String
-  utm_campaign     String
-  utm_content      String?
-  click_count_placeholder Int @default(0)
-  created_at       DateTime  @default(now())
+  id                      String            @id @default(cuid())
+  campaign_id             String
+  campaign                MarketingCampaign @relation(fields: [campaign_id], references: [id])
+  post_id                 String?
+  post                    MarketingPost?    @relation(fields: [post_id], references: [id])
+  listing_id              String?
+  base_url                String
+  tracking_url            String
+  utm_source              String
+  utm_medium              String
+  utm_campaign            String
+  utm_content             String?
+  click_count_placeholder Int               @default(0)
+  created_at              DateTime          @default(now())
 }
 
 model CampaignAnalytics {
-  id                           String    @id @default(cuid())
+  id                           String            @id @default(cuid())
   campaign_id                  String
   campaign                     MarketingCampaign @relation(fields: [campaign_id], references: [id])
   post_id                      String?
-  post                         MarketingPost? @relation(fields: [post_id], references: [id])
+  post                         MarketingPost?    @relation(fields: [post_id], references: [id])
   platform                     String
-  impressions_placeholder      Int       @default(0)
-  clicks_placeholder           Int       @default(0)
-  engagement_placeholder       Int       @default(0)
-  shares_placeholder           Int       @default(0)
-  comments_placeholder         Int       @default(0)
-  likes_placeholder            Int       @default(0)
-  booking_requests_placeholder Int       @default(0)
-  provider_signups_placeholder Int       @default(0)
-  renter_signups_placeholder   Int       @default(0)
+  impressions_placeholder      Int               @default(0)
+  clicks_placeholder           Int               @default(0)
+  engagement_placeholder       Int               @default(0)
+  shares_placeholder           Int               @default(0)
+  comments_placeholder         Int               @default(0)
+  likes_placeholder            Int               @default(0)
+  booking_requests_placeholder Int               @default(0)
+  provider_signups_placeholder Int               @default(0)
+  renter_signups_placeholder   Int               @default(0)
   last_synced_at               DateTime?
-  created_at                   DateTime  @default(now())
-  updated_at                   DateTime  @updatedAt
+  created_at                   DateTime          @default(now())
+  updated_at                   DateTime          @updatedAt
 }
 
 model ProviderPromotionOptIn {
-  id                         String    @id @default(cuid())
+  id                         String   @id @default(cuid())
   provider_id                String
-  provider                   User      @relation(fields: [provider_id], references: [id])
+  provider                   User     @relation(fields: [provider_id], references: [id])
   listing_id                 String?
-  listing                    Listing?  @relation(fields: [listing_id], references: [id])
-  allow_platform_promotion   Boolean   @default(false)
-  allow_ai_generated_content Boolean   @default(false)
-  allow_paid_ads_placeholder Boolean   @default(false)
-  allow_global_promotion     Boolean   @default(false)
+  listing                    Listing? @relation(fields: [listing_id], references: [id])
+  allow_platform_promotion   Boolean  @default(false)
+  allow_ai_generated_content Boolean  @default(false)
+  allow_paid_ads_placeholder Boolean  @default(false)
+  allow_global_promotion     Boolean  @default(false)
   allowed_platforms          String?
-  approval_required          Boolean   @default(true)
-  created_at                 DateTime  @default(now())
-  updated_at                 DateTime  @updatedAt
+  approval_required          Boolean  @default(true)
+  created_at                 DateTime @default(now())
+  updated_at                 DateTime @updatedAt
 }
 
 model SocialPostQueue {
-  id               String    @id @default(cuid())
-  post_id          String
-  post             MarketingPost @relation(fields: [post_id], references: [id])
-  platform         String
-  status           String    // "Pending" | "Posting" | "Success" | "Failed"
-  error_message    String?
-  scheduled_at     DateTime?
-  processed_at     DateTime?
-  created_at       DateTime  @default(now())
+  id            String        @id @default(cuid())
+  post_id       String
+  post          MarketingPost @relation(fields: [post_id], references: [id])
+  platform      String
+  status        String // "Pending" | "Posting" | "Success" | "Failed"
+  error_message String?
+  scheduled_at  DateTime?
+  processed_at  DateTime?
+  created_at    DateTime      @default(now())
 }
 
 // ----------------------------------------------------------------------
@@ -816,36 +814,36 @@ model SocialPostQueue {
 // ----------------------------------------------------------------------
 
 model AccountDeletionRequest {
-  id            String    @id @default(cuid())
-  user_id       String
-  user          User      @relation(fields: [user_id], references: [id])
-  reason        String
-  status        String    // "Requested" | "Under Review" | "Blocked Due to Active Transaction" | "Approved Placeholder" | "Completed Placeholder" | "Rejected"
-  admin_notes   String?
-  requested_at  DateTime  @default(now())
-  reviewed_by   String?
-  reviewed_at   DateTime?
-  completed_at  DateTime?
+  id           String    @id @default(cuid())
+  user_id      String
+  user         User      @relation(fields: [user_id], references: [id])
+  reason       String
+  status       String // "Requested" | "Under Review" | "Blocked Due to Active Transaction" | "Approved Placeholder" | "Completed Placeholder" | "Rejected"
+  admin_notes  String?
+  requested_at DateTime  @default(now())
+  reviewed_by  String?
+  reviewed_at  DateTime?
+  completed_at DateTime?
 }
 
 model AppReleaseVersion {
   id             String   @id @default(cuid())
   version_name   String
   build_number   String
-  platform       String   // "Android" | "iOS" | "PWA"
-  release_status String   // "Development" | "Internal Test" | "Closed Test" | "TestFlight" | "Production Candidate" | "Production"
+  platform       String // "Android" | "iOS" | "PWA"
+  release_status String // "Development" | "Internal Test" | "Closed Test" | "TestFlight" | "Production Candidate" | "Production"
   release_notes  String?
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
 }
 
 model MobileAnalytics {
-  id            String   @id @default(cuid())
-  metric_name   String   // e.g. "PWA Install", "App Session", "Mobile Login"
-  platform      String?
-  device_type   String?
-  value         Float    @default(1)
-  recorded_at   DateTime @default(now())
+  id          String   @id @default(cuid())
+  metric_name String // e.g. "PWA Install", "App Session", "Mobile Login"
+  platform    String?
+  device_type String?
+  value       Float    @default(1)
+  recorded_at DateTime @default(now())
 }
 
 // ----------------------------------------------------------------------
@@ -853,69 +851,69 @@ model MobileAnalytics {
 // ----------------------------------------------------------------------
 
 model BetaInvitation {
-  id               String    @id @default(cuid())
-  invitee_name     String?
-  email            String
-  mobile_number    String?
-  intended_role    String
-  invitation_code  String    @unique
-  invitation_status String   // "Draft" | "Sent Placeholder" | "Accepted" | "Expired" | "Revoked"
-  expiry_date      DateTime?
-  invited_by       String?
-  created_at       DateTime  @default(now())
+  id                String    @id @default(cuid())
+  invitee_name      String?
+  email             String
+  mobile_number     String?
+  intended_role     String
+  invitation_code   String    @unique
+  invitation_status String // "Draft" | "Sent Placeholder" | "Accepted" | "Expired" | "Revoked"
+  expiry_date       DateTime?
+  invited_by        String?
+  created_at        DateTime  @default(now())
 }
 
 model BetaFeedback {
-  id               String    @id @default(cuid())
-  user_id          String?
-  role             String?
-  module           String
-  feedback_type    String    // "Bug" | "Suggestion" | "UI Problem" | etc.
-  rating           Int?
-  message          String
-  file_url         String?
-  status           String    // "New" | "Under Review" | "Accepted" | "Planned" | "Fixed" | "Rejected" | "Closed"
-  admin_response   String?
-  created_at       DateTime  @default(now())
-  updated_at       DateTime  @updatedAt
+  id             String   @id @default(cuid())
+  user_id        String?
+  role           String?
+  module         String
+  feedback_type  String // "Bug" | "Suggestion" | "UI Problem" | etc.
+  rating         Int?
+  message        String
+  file_url       String?
+  status         String // "New" | "Under Review" | "Accepted" | "Planned" | "Fixed" | "Rejected" | "Closed"
+  admin_response String?
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
 }
 
 model IssueTicket {
-  id               String    @id @default(cuid())
-  issue_title      String
-  description      String
-  source           String    // "Feedback" | "Admin" | "System Error" | "UAT"
-  module           String
-  severity         String    // "Low" | "Medium" | "High" | "Critical"
-  priority         String    // "Low" | "Normal" | "High" | "Urgent"
-  status           String    // "Open" | "Investigating" | "In Progress" | "Fixed" | "Needs Retest" | "Closed" | "Won't Fix"
-  assigned_to      String?
-  related_user_id  String?
-  related_booking_id String?
-  related_listing_id String?
+  id                  String   @id @default(cuid())
+  issue_title         String
+  description         String
+  source              String // "Feedback" | "Admin" | "System Error" | "UAT"
+  module              String
+  severity            String // "Low" | "Medium" | "High" | "Critical"
+  priority            String // "Low" | "Normal" | "High" | "Urgent"
+  status              String // "Open" | "Investigating" | "In Progress" | "Fixed" | "Needs Retest" | "Closed" | "Won't Fix"
+  assigned_to         String?
+  related_user_id     String?
+  related_booking_id  String?
+  related_listing_id  String?
   related_feedback_id String?
-  steps_to_reproduce String?
-  expected_result  String?
-  actual_result    String?
-  resolution_notes String?
-  created_at       DateTime  @default(now())
-  updated_at       DateTime  @updatedAt
+  steps_to_reproduce  String?
+  expected_result     String?
+  actual_result       String?
+  resolution_notes    String?
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
 }
 
 model SupportTicket {
-  id               String    @id @default(cuid())
-  ticket_number    String    @unique
-  user_id          String
-  subject          String
-  message          String
-  category         String
-  status           String    // "Open" | "Waiting for User" | "Waiting for Admin" | "Resolved" | "Closed"
-  priority         String    // "Low" | "Normal" | "High" | "Urgent"
-  assigned_admin   String?
+  id                 String   @id @default(cuid())
+  ticket_number      String   @unique
+  user_id            String
+  subject            String
+  message            String
+  category           String
+  status             String // "Open" | "Waiting for User" | "Waiting for Admin" | "Resolved" | "Closed"
+  priority           String // "Low" | "Normal" | "High" | "Urgent"
+  assigned_admin     String?
   related_booking_id String?
   related_listing_id String?
-  created_at       DateTime  @default(now())
-  updated_at       DateTime  @updatedAt
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
 }
 
 model UATFlow {
@@ -923,7 +921,7 @@ model UATFlow {
   flow_name        String
   assigned_tester  String?
   role             String
-  status           String    // "Pending" | "In Progress" | "Passed" | "Failed" | "Blocked"
+  status           String // "Pending" | "In Progress" | "Passed" | "Failed" | "Blocked"
   start_date       DateTime?
   completion_date  DateTime?
   issues_found     String?
@@ -938,10 +936,10 @@ model UATFlow {
 // ----------------------------------------------------------------------
 
 model RefundRequest {
-  id                        String   @id @default(cuid())
-  refund_number             String   @unique
+  id                        String    @id @default(cuid())
+  refund_number             String    @unique
   booking_id                String
-  booking                   Booking  @relation(fields: [booking_id], references: [id])
+  booking                   Booking   @relation(fields: [booking_id], references: [id])
   payment_transaction_id    String?
   renter_id                 String
   provider_id               String
@@ -950,7 +948,7 @@ model RefundRequest {
   refund_reason             String
   requested_amount          Float
   approved_amount           Float?
-  refund_status             String   // "Draft" | "Submitted" | "Under Finance Review" | "Approved for Manual Refund" | "Rejected" | "Processed Manual Placeholder" | "Cancelled" | "Escalated to Super Admin"
+  refund_status             String // "Draft" | "Submitted" | "Under Finance Review" | "Approved for Manual Refund" | "Rejected" | "Processed Manual Placeholder" | "Cancelled" | "Escalated to Super Admin"
   finance_notes             String?
   admin_notes               String?
   rejection_reason          String?
@@ -963,17 +961,17 @@ model RefundRequest {
   approved_at               DateTime?
   marked_processed_by       String?
   processed_at              DateTime?
-  created_at                DateTime @default(now())
-  updated_at                DateTime @updatedAt
+  created_at                DateTime  @default(now())
+  updated_at                DateTime  @updatedAt
 }
 
 model ProviderPayout {
-  id                        String   @id @default(cuid())
-  payout_number             String   @unique
+  id                        String       @id @default(cuid())
+  payout_number             String       @unique
   payout_batch_id           String?
   payout_batch              PayoutBatch? @relation(fields: [payout_batch_id], references: [id])
   booking_id                String
-  booking                   Booking  @relation(fields: [booking_id], references: [id])
+  booking                   Booking      @relation(fields: [booking_id], references: [id])
   provider_id               String
   listing_id                String
   gross_rental_amount       Float
@@ -981,7 +979,7 @@ model ProviderPayout {
   delivery_fee_pass_through Float?
   deductions                Float?
   net_payout_amount         Float
-  payout_status             String   // "Not Ready" | "Pending Booking Completion" | "Ready for Finance Review" | "Under Finance Review" | "Approved for Manual Payout" | "Rejected" | "Held Due to Dispute" | "Processed Manual Placeholder" | "Cancelled" | "Escalated to Super Admin"
+  payout_status             String // "Not Ready" | "Pending Booking Completion" | "Ready for Finance Review" | "Under Finance Review" | "Approved for Manual Payout" | "Rejected" | "Held Due to Dispute" | "Processed Manual Placeholder" | "Cancelled" | "Escalated to Super Admin"
   payout_method             String?
   payout_account_reference  String?
   manual_bank_reference     String?
@@ -993,27 +991,27 @@ model ProviderPayout {
   approved_at               DateTime?
   marked_processed_by       String?
   processed_at              DateTime?
-  created_at                DateTime @default(now())
-  updated_at                DateTime @updatedAt
+  created_at                DateTime     @default(now())
+  updated_at                DateTime     @updatedAt
 }
 
 model PayoutBatch {
-  id                        String   @id @default(cuid())
-  batch_number              String   @unique
-  created_by                String
-  total_gross_amount        Float
-  total_commission          Float
-  total_net_payout          Float
-  payout_count              Int
-  batch_status              String   // "Draft" | "Under Review" | "Approved" | "Processed Manual Placeholder" | "Cancelled"
-  finance_notes             String?
-  created_at                DateTime @default(now())
-  approved_by               String?
-  approved_at               DateTime?
-  processed_at              DateTime?
-  updated_at                DateTime @updatedAt
-  
-  payouts                   ProviderPayout[]
+  id                 String    @id @default(cuid())
+  batch_number       String    @unique
+  created_by         String
+  total_gross_amount Float
+  total_commission   Float
+  total_net_payout   Float
+  payout_count       Int
+  batch_status       String // "Draft" | "Under Review" | "Approved" | "Processed Manual Placeholder" | "Cancelled"
+  finance_notes      String?
+  created_at         DateTime  @default(now())
+  approved_by        String?
+  approved_at        DateTime?
+  processed_at       DateTime?
+  updated_at         DateTime  @updatedAt
+
+  payouts ProviderPayout[]
 }
 
 // ----------------------------------------------------------------------
@@ -1090,36 +1088,43 @@ enum SecurityEnvironment {
 }
 
 model SecurityEvent {
-  id                    String   @id @default(cuid())
-  event_code            String
-  source_type           SecurityEventSource
-  source_record_id      String
-  adapter_version       String   @default("1.0")
-  security_domain       SecurityDomain
-  event_category        String
-  event_classification  SecurityEventClassification
-  severity              SecuritySeverity
-  confidence_score      Int?     
-  environment           SecurityEnvironment
-  lifecycle_type        SecurityLifecycle
-  
-  actor_user_id         String?
-  target_user_id        String?
-  target_resource_id    String?
-  target_module         String?
-  action_attempted      String?
-  action_result         String?
-  
+  id                   String                      @id @default(cuid())
+  event_code           String
+  source_type          SecurityEventSource
+  source_record_id     String
+  adapter_version      String                      @default("1.0")
+  security_domain      SecurityDomain
+  event_category       String
+  event_classification SecurityEventClassification
+  severity             SecuritySeverity
+  confidence_score     Int?
+  environment          SecurityEnvironment
+  lifecycle_type       SecurityLifecycle
+
+  actor_user_id      String?
+  target_user_id     String?
+  target_resource_id String?
+  target_module      String?
+  action_attempted   String?
+  action_result      String?
+
   source_summary        Json?
   classification_reason String?
   correlation_key       String?
-  idempotency_key       String   @unique
+  idempotency_key       String                   @unique
   processing_status     SecurityProcessingStatus @default(PENDING)
-  
-  occurred_at           DateTime
-  source_received_at    DateTime
-  ingested_at           DateTime @default(now())
-  updated_at            DateTime @updatedAt
+
+  occurred_at        DateTime
+  source_received_at DateTime
+  ingested_at        DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  resolved_failures SecurityEventIngestionFailure[]
+
+  // Phase 3 Relations
+  primaryAlerts   SecurityAlert[]         @relation("PrimaryAlertEvent")
+  evidenceRecords SecurityAlertEvidence[] @relation("AlertEvidenceEvent")
+  candidateLogs   RuleEvaluationLog[]     @relation("CandidateEvent")
 
   @@index([lifecycle_type, occurred_at, id])
   @@index([source_type, source_record_id])
@@ -1130,24 +1135,22 @@ model SecurityEvent {
   @@index([target_user_id, occurred_at])
   @@index([target_resource_id, occurred_at])
   @@index([correlation_key, occurred_at])
-  
-  resolved_failures     SecurityEventIngestionFailure[]
 }
 
 model SecurityEventIngestionFailure {
-  id                      String   @id @default(cuid())
+  id                      String              @id @default(cuid())
   source_type             SecurityEventSource
   source_record_id        String
-  adapter_version         String   @default("1.0")
+  adapter_version         String              @default("1.0")
   privacy_safe_error_code String
-  attempt_count           Int      @default(1)
-  first_failed_at         DateTime @default(now())
-  last_failed_at          DateTime @default(now())
+  attempt_count           Int                 @default(1)
+  first_failed_at         DateTime            @default(now())
+  last_failed_at          DateTime            @default(now())
   resolved_time           DateTime?
   lifecycle               SecurityLifecycle
   environment             SecurityEnvironment
   resolved_event_id       String?
-  resolved_event          SecurityEvent? @relation(fields: [resolved_event_id], references: [id], onDelete: SetNull)
+  resolved_event          SecurityEvent?      @relation(fields: [resolved_event_id], references: [id], onDelete: SetNull)
 
   @@unique([source_type, source_record_id, adapter_version, lifecycle, environment, privacy_safe_error_code], name: "unique_failure_identity")
   @@index([source_type, source_record_id])
@@ -1156,20 +1159,247 @@ model SecurityEventIngestionFailure {
 }
 
 model SecurityEventIngestionCheckpoint {
-  id                      String   @id @default(cuid())
-  source_type             SecurityEventSource
-  environment             SecurityEnvironment
+  id                     String              @id @default(cuid())
+  source_type            SecurityEventSource
+  environment            SecurityEnvironment
+  lifecycle_type         SecurityLifecycle
+  last_source_timestamp  DateTime?
+  last_source_record_id  String?
+  last_run_started_at    DateTime?
+  last_run_completed_at  DateTime?
+  last_successful_run_at DateTime?
+  last_error_code        String?
+  lease_owner            String?
+  lease_expires_at       DateTime?
+  created_at             DateTime            @default(now())
+  updated_at             DateTime            @updatedAt
+
+  @@unique([source_type, environment, lifecycle_type])
+}
+
+// ----------------------------------------------------------------------
+// Phase 3: SOC Detection & Threat Analytics
+// ----------------------------------------------------------------------
+
+enum DetectionRuleStatus {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+}
+
+enum DetectionRuleCreatorType {
+  USER
+  SYSTEM_SEED
+}
+
+enum SecurityAlertReviewStatus {
+  UNREVIEWED
+  UNDER_REVIEW
+  CONFIRMED
+  FALSE_POSITIVE
+}
+
+enum AlertEvidenceRole {
+  PRIMARY
+  SUPPORTING
+}
+
+enum RuleEvaluationOutcome {
+  MATCH
+  NO_MATCH
+  SKIPPED
+  ERROR
+  TIMEOUT
+  QUARANTINED
+}
+
+enum DetectionDeduplicationStrategy {
+  EXACT_MATCH
+  WINDOW_BUCKET
+}
+
+enum DetectionCorrelationSubject {
+  ACTOR_USER_ID
+  TARGET_USER_ID
+  TARGET_RESOURCE_ID
+  GLOBAL
+}
+
+enum DetectionConfidenceFormula {
+  BASE_PLUS_EVIDENCE_MULTIPLIER
+  STATIC_BASE
+}
+
+model DetectionRule {
+  id                    String                      @id @default(cuid())
+  rule_id               String
+  version               Int
+  name                  String
+  description           String
+  status                DetectionRuleStatus         @default(DRAFT)
+  security_domain       SecurityDomain
+  result_classification SecurityEventClassification
+
+  base_severity         SecuritySeverity
+  base_confidence_score Int
+  logic_schema_version  String           @default("1.0")
+  evaluation_dsl        Json
+
+  threshold_count       Int
+  window_seconds        Int
+  cooldown_seconds      Int
+  max_evidence_events   Int
+  evaluation_timeout_ms Int
+
+  correlation_subject_type DetectionCorrelationSubject
+  deduplication_strategy   DetectionDeduplicationStrategy
+  confidence_formula       DetectionConfidenceFormula
+
+  severity_promotion_threshold Int?
+  promoted_severity            SecuritySeverity?
+
+  confidence_increment_per_evidence Int?
+
+  created_by_type    DetectionRuleCreatorType
+  created_by_user_id String?
+
+  activated_at    DateTime?
+  activated_by_id String?
+  archived_at     DateTime?
+  archived_by_id  String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  alerts      SecurityAlert[]
+  eval_logs   RuleEvaluationLog[]
+  checkpoints DetectionEvaluationCheckpoint[]
+
+  @@unique([rule_id, version])
+  @@index([status])
+}
+
+model SecurityAlert {
+  id              String @id @default(cuid())
+  alert_reference String @unique
+  suppression_key String @unique
+  evidence_digest String
+
+  rule_id      String
+  rule_version Int
+  rule         DetectionRule @relation(fields: [rule_id, rule_version], references: [rule_id, version], onDelete: Restrict)
+
+  primary_event_id String
+  primary_event    SecurityEvent @relation("PrimaryAlertEvent", fields: [primary_event_id], references: [id], onDelete: Restrict)
+
+  result_classification SecurityEventClassification
+  base_severity         SecuritySeverity
+  final_severity        SecuritySeverity
+  severity_reason       String?
+
+  base_confidence       Int
+  final_confidence      Int
+  confidence_basis      String
+  classification_reason String
+
+  lifecycle_type SecurityLifecycle
+  environment    SecurityEnvironment
+
+  correlation_subject_type     DetectionCorrelationSubject
+  correlation_hash_key_version String
+  correlation_subject_hash     String
+
+  window_bucket_start   DateTime
+  window_start          DateTime
+  window_end            DateTime
+  first_event_timestamp DateTime
+  last_event_timestamp  DateTime
+  event_count           Int
+
+  review_status  SecurityAlertReviewStatus @default(UNREVIEWED)
+  review_version Int                       @default(0)
+  reviewer_id    String?
+  review_notes   String?
+  reviewed_at    DateTime?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  evidence SecurityAlertEvidence[]
+
+  @@index([lifecycle_type, environment, created_at, id])
+  @@index([review_status, created_at, id])
+  @@index([final_severity, created_at, id])
+  @@index([rule_id, rule_version, created_at, id])
+  @@index([result_classification, created_at, id])
+  @@index([correlation_subject_hash, window_bucket_start])
+  @@index([lifecycle_type, final_severity])
+  @@index([primary_event_id])
+  @@index([created_at, id])
+}
+
+model SecurityAlertEvidence {
+  alert_id      String
+  event_id      String
+  evidence_role AlertEvidenceRole
+  created_at    DateTime          @default(now())
+
+  alert SecurityAlert @relation(fields: [alert_id], references: [id], onDelete: Cascade)
+  event SecurityEvent @relation("AlertEvidenceEvent", fields: [event_id], references: [id], onDelete: Restrict)
+
+  @@id([alert_id, event_id])
+  @@index([event_id])
+}
+
+model RuleEvaluationLog {
+  id                      String @id @default(cuid())
+  evaluation_identity_key String
+  attempt_number          Int    @default(1)
+
+  rule_id      String
+  rule_version Int
+  rule         DetectionRule @relation(fields: [rule_id, rule_version], references: [rule_id, version], onDelete: Restrict)
+
+  candidate_event_id String
+  candidate_event    SecurityEvent @relation("CandidateEvent", fields: [candidate_event_id], references: [id], onDelete: Restrict)
+
+  outcome                 RuleEvaluationOutcome
+  matched_event_count     Int
+  execution_duration_ms   Int
+  privacy_safe_reason     String?
+  privacy_safe_error_code String?
   lifecycle_type          SecurityLifecycle
-  last_source_timestamp   DateTime?
-  last_source_record_id   String?
+  environment             SecurityEnvironment
+  evaluation_timestamp    DateTime              @default(now())
+
+  @@unique([evaluation_identity_key, attempt_number])
+  @@index([candidate_event_id])
+  @@index([rule_id, evaluation_timestamp])
+  @@index([evaluation_timestamp, id])
+}
+
+model DetectionEvaluationCheckpoint {
+  id           String        @id @default(cuid())
+  rule_id      String
+  rule_version Int
+  rule         DetectionRule @relation(fields: [rule_id, rule_version], references: [rule_id, version], onDelete: Restrict)
+
+  environment    SecurityEnvironment
+  lifecycle_type SecurityLifecycle
+
+  cursor_timestamp DateTime?
+  cursor_event_id  String?
+
+  lease_owner      String?
+  lease_expires_at DateTime?
+
   last_run_started_at     DateTime?
   last_run_completed_at   DateTime?
   last_successful_run_at  DateTime?
-  last_error_code         String?
-  lease_owner             String?
-  lease_expires_at        DateTime?
-  created_at              DateTime @default(now())
-  updated_at              DateTime @updatedAt
+  privacy_safe_error_code String?
 
-  @@unique([source_type, environment, lifecycle_type])
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([rule_id, rule_version, environment, lifecycle_type])
 }

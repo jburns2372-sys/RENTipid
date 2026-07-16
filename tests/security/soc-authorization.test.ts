@@ -60,7 +60,7 @@ describe("SOC Authorization Service Matrix", () => {
 
   const generateRoleTest = (role: string, status: string, expectedDenialReason: string | null) => {
     return async () => {
-      const userId = setupAuthContext(role, status, expectedDenialReason);
+      const userId = setupAuthContext(role, status);
       
       if (expectedDenialReason) {
         await expect(requireSecurityPermission(SECURITY_PERMISSIONS.DASHBOARD_VIEW)).rejects.toThrow('NEXT_REDIRECT');
