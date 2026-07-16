@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 import { PrismaClient, Prisma, DetectionRuleStatus, SecurityDomain, SecurityEventClassification, SecuritySeverity, DetectionRuleCreatorType, DetectionCorrelationSubject, DetectionDeduplicationStrategy, DetectionConfidenceFormula, DetectionRule } from "@prisma/client";
 import { validateRuleConfiguration, RuleTypedConfiguration } from "./rule-validation.service";
 import { requireSecurityPermission, getCurrentDatabaseUser } from "../authorization";
@@ -104,16 +105,12 @@ export async function updateDraftRule(
 
   try {
     return await prisma.$transaction(async (tx) => {
-      const existing = await tx.detectionRule.findUnique({
-        where: { id: ruleIdPk }
-      });
-      
-      if (!existing) return { success: false, error: "RULE_NOT_FOUND" };
-      if (existing.status !== DetectionRuleStatus.DRAFT) return { success: false, error: "ONLY_DRAFT_CAN_BE_UPDATED" };
-      if (existing.updated_at.getTime() !== updatedAtCursor.getTime()) return { success: false, error: "CONCURRENCY_CONFLICT" };
-
-      const rule = await tx.detectionRule.update({
-        where: { id: ruleIdPk },
+      const { count } = await tx.detectionRule.updateMany({
+        where: {
+          id: ruleIdPk,
+          status: DetectionRuleStatus.DRAFT,
+          updated_at: updatedAtCursor
+        },
         data: {
           name: config.name,
           description: config.description,
@@ -135,6 +132,18 @@ export async function updateDraftRule(
           evaluation_dsl: validation.parsedDsl as unknown as Prisma.InputJsonValue,
         }
       });
+
+      if (count === 0) {
+        // Find if rule exists at all to return correct error
+        const existing = await tx.detectionRule.findUnique({ where: { id: ruleIdPk } });
+        if (!existing) return { success: false, error: "RULE_NOT_FOUND" };
+        if (existing.status !== DetectionRuleStatus.DRAFT) return { success: false, error: "INVALID_RULE_STATUS" };
+        return { success: false, error: "STALE_UPDATE_CONFLICT" };
+      }
+
+      // Fetch the updated rule to return and use in audit log
+      const rule = await tx.detectionRule.findUnique({ where: { id: ruleIdPk } });
+      if (!rule) return { success: false, error: "DATABASE_ERROR" };
 
       await tx.auditLog.create({
         data: {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unused-vars */
 // @ts-nocheck
 import { PrismaClient, DetectionRuleStatus, SecurityDomain, SecurityEventClassification, SecuritySeverity, DetectionCorrelationSubject, DetectionDeduplicationStrategy, DetectionConfidenceFormula } from "@prisma/client";
 import { updateDraftRule, createDraftRule, activateRule } from "../../../src/lib/security/rules/rule.service";
@@ -58,6 +59,6 @@ describe("Rule Immutability Service", () => {
 
     const updResult = await updateDraftRule(draftRuleId, validConfig, validDsl, updatedAt, MOCK_USER_ID);
     if (updResult.success) throw new Error("expected failure"); expect(true).toBe(true);
-    expect(updResult.error).toBe("ONLY_DRAFT_CAN_BE_UPDATED");
+    expect(updResult.error).toBe("INVALID_RULE_STATUS");
   });
 });

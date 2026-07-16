@@ -6,7 +6,6 @@ import {
   SecurityDomain,
   SecurityEventClassification
 } from "@prisma/client";
-import { z } from "zod";
 import { validateRuleDsl } from "./dsl/validator";
 
 export type RuleTypedConfiguration = {

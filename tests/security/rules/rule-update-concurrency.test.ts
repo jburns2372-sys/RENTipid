@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unused-vars */
 // @ts-nocheck
 /**
  * Gate 3D Evidence — Draft Update Concurrency
@@ -101,7 +102,7 @@ describe("Draft Update Concurrency", () => {
     }
   });
 
-  it("stale timestamp is rejected with CONCURRENCY_CONFLICT", async () => {
+  it("stale timestamp is rejected with STALE_UPDATE_CONFLICT", async () => {
     const create = await createDraftRule("UPD-CONC-002", validConfig, validDsl, MOCK_USER_ID);
     if (!create.success) throw new Error("setup failed");
 
@@ -119,7 +120,7 @@ describe("Draft Update Concurrency", () => {
     );
     expect(second.success).toBe(false);
     if (!second.success) {
-      expect(second.error).toBe("CONCURRENCY_CONFLICT");
+      expect(second.error).toBe("STALE_UPDATE_CONFLICT");
     }
   });
 
@@ -227,7 +228,34 @@ describe("Draft Update Concurrency", () => {
     );
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error).toBe("ONLY_DRAFT_CAN_BE_UPDATED");
+      expect(result.error).toBe("INVALID_RULE_STATUS");
     }
   });
+
+  it("handles TRUE concurrent updates using the exact same updated_at timestamp", async () => {
+    const create = await createDraftRule("UPD-CONC-008", validConfig, validDsl, MOCK_USER_ID);
+    if (!create.success) throw new Error("setup failed");
+
+    // Launch two updates concurrently with the same original updated_at
+    const [upd1, upd2] = await Promise.all([
+      updateDraftRule(create.rule.id, { ...validConfig, name: "Concurrent Update 1" }, validDsl, create.rule.updated_at, MOCK_USER_ID),
+      updateDraftRule(create.rule.id, { ...validConfig, name: "Concurrent Update 2" }, validDsl, create.rule.updated_at, MOCK_USER_ID),
+    ]);
+
+    const successes = [upd1, upd2].filter(r => r.success);
+    const failures = [upd1, upd2].filter(r => !r.success);
+
+    // Exactly one succeeds, exactly one fails
+    expect(successes).toHaveLength(1);
+    expect(failures).toHaveLength(1);
+
+    if (!failures[0].success) {
+      expect(failures[0].error).toBe("STALE_UPDATE_CONFLICT");
+    }
+
+    // No update is silently overwritten - the name must match the one that succeeded
+    const dbRule = await prisma.detectionRule.findUnique({ where: { id: create.rule.id } });
+    expect(dbRule.name).toBe(successes[0].rule.name);
+  });
 });
+

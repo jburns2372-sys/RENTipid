@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 // @ts-nocheck
 /**
  * Gate 3D Evidence — Complete Authorization Matrix

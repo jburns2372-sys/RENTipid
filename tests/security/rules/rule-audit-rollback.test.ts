@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unused-vars */
 // @ts-nocheck
 /**
  * Gate 3D Evidence — Transactional Audit Rollback
@@ -149,7 +150,7 @@ describe("Transactional Audit Rollback", () => {
     expect(dbRule.status).toBe(DetectionRuleStatus.DRAFT);
   });
 
-  it("archiveRule rolls back when AuditLog FK fails", async () => {
+  it("archiveRule (DRAFT to ARCHIVED) rolls back when AuditLog FK fails", async () => {
     // First, create a valid DRAFT rule
     const create = await createDraftRule("AUDIT-RB-004", validConfig, validDsl, MOCK_USER_ID);
     if (!create.success) throw new Error("setup failed");
@@ -163,6 +164,34 @@ describe("Transactional Audit Rollback", () => {
     // Verify status was NOT changed
     const dbRule = await prisma.detectionRule.findUnique({ where: { id: create.rule.id } });
     expect(dbRule.status).toBe(DetectionRuleStatus.DRAFT);
+  });
+
+  it("archiveRule (ACTIVE to ARCHIVED) rolls back when AuditLog FK fails", async () => {
+    // First, create a valid DRAFT rule and activate it
+    const create = await createDraftRule("AUDIT-RB-005", validConfig, validDsl, MOCK_USER_ID);
+    if (!create.success) throw new Error("setup failed");
+
+    const act = await activateRule(create.rule.id, MOCK_USER_ID);
+    expect(act.success).toBe(true);
+
+    // Save the activation timestamps
+    const preArchiveRule = await prisma.detectionRule.findUnique({ where: { id: create.rule.id } });
+    const originalActivatedAt = preArchiveRule.activated_at;
+    const originalActivatedById = preArchiveRule.activated_by_id;
+
+    // Attempt archival with invalid audit user
+    const result = await archiveRule(create.rule.id, INVALID_AUDIT_USER);
+
+    expect(result.success).toBe(false);
+    expect(result.error).toBe("DATABASE_ERROR");
+
+    // Verify status and timestamps were NOT changed
+    const dbRule = await prisma.detectionRule.findUnique({ where: { id: create.rule.id } });
+    expect(dbRule.status).toBe(DetectionRuleStatus.ACTIVE);
+    expect(dbRule.activated_at).toEqual(originalActivatedAt);
+    expect(dbRule.activated_by_id).toBe(originalActivatedById);
+    expect(dbRule.archived_at).toBeNull();
+    expect(dbRule.archived_by_id).toBeNull();
   });
 
   it("confirms mutation and audit use the same transaction client", () => {

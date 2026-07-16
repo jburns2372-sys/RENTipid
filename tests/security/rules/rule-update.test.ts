@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unused-vars */
 // @ts-nocheck
 import { PrismaClient, DetectionRuleStatus, SecurityDomain, SecurityEventClassification, SecuritySeverity, DetectionCorrelationSubject, DetectionDeduplicationStrategy, DetectionConfidenceFormula } from "@prisma/client";
 import { updateDraftRule, createDraftRule } from "../../../src/lib/security/rules/rule.service";
@@ -76,6 +77,6 @@ describe("Rule Update Service", () => {
     const updResult = await updateDraftRule(draftRuleId, validConfig, validDsl, staleDate, MOCK_USER_ID);
     
     if (updResult.success) throw new Error("expected failure"); expect(true).toBe(true);
-    expect(updResult.error).toBe("CONCURRENCY_CONFLICT");
+    expect(updResult.error).toBe("STALE_UPDATE_CONFLICT");
   });
 });

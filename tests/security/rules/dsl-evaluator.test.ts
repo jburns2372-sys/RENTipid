@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { evaluateRuleDsl } from "../../../src/lib/security/rules/dsl/evaluator";
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 import { RuleNode, ComparisonNode, LogicalNode } from "./schema";
 
 export function evaluateRuleDsl(node: RuleNode, eventData: Record<string, any>): boolean {

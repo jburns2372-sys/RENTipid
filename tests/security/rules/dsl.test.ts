@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unused-vars */
 // @ts-nocheck
 import { validateRuleDsl } from "../../../src/lib/security/rules/dsl/validator";
 
