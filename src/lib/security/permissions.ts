@@ -15,7 +15,11 @@ export const SECURITY_PERMISSIONS = {
   COUNTERMEASURES_EXECUTE: "security.countermeasures.execute",
   COUNTERMEASURES_ROLLBACK: "security.countermeasures.rollback",
   RULES_VIEW: "security.rules.view",
-  RULES_MANAGE: "security.rules.manage",
+  RULES_MANAGE: "security.rules.manage", // Unused, keeping for compatibility
+  RULES_CREATE: "security.rules.create",
+  RULES_UPDATE: "security.rules.update",
+  RULES_ACTIVATE: "security.rules.activate",
+  RULES_ARCHIVE: "security.rules.archive",
   SIMULATIONS_RUN: "security.simulations.run",
   EVIDENCE_VIEW: "security.evidence.view",
   REPORTS_EXPORT: "security.reports.export",
@@ -47,6 +51,11 @@ export function getPhase1PermissionsForRole(role: string): SecurityPermission[] 
         SECURITY_PERMISSIONS.DASHBOARD_VIEW,
         SECURITY_PERMISSIONS.TECHNICAL_DETAILS_VIEW,
         SECURITY_PERMISSIONS.EVENTS_VIEW,
+        SECURITY_PERMISSIONS.RULES_VIEW,
+        SECURITY_PERMISSIONS.RULES_CREATE,
+        SECURITY_PERMISSIONS.RULES_UPDATE,
+        SECURITY_PERMISSIONS.RULES_ACTIVATE,
+        SECURITY_PERMISSIONS.RULES_ARCHIVE,
       ];
     case "Admin":
       return [];

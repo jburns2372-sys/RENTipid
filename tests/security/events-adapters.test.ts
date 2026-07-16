@@ -27,8 +27,7 @@ describe("Security Event Adapters", () => {
 
     it("should normalize correctly", () => {
       const record = { ...baseRecord, action_status: "BLOCKED", user_id: "usr1" };
-      // @ts-expect-error mock
-      const normalized = adapter.normalize(record, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
+            const normalized = adapter.normalize(record, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
       expect(normalized.source_type).toBe(SecurityEventSource.AI_BOT_LOG);
       expect(normalized.source_record_id).toBe("1");
       expect(normalized.event_classification).toBe("POLICY_VIOLATION");
@@ -49,8 +48,7 @@ describe("Security Event Adapters", () => {
 
     it("should normalize correctly", () => {
       const record = { ...baseRecord, action: "LOGIN", user_id: "usr1" };
-      // @ts-expect-error mock
-      const normalized = adapter.normalize(record, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
+            const normalized = adapter.normalize(record, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
       expect(normalized.source_type).toBe(SecurityEventSource.AUDIT_LOG);
       expect(normalized.source_record_id).toBe("1");
     });
@@ -65,8 +63,7 @@ describe("Security Event Adapters", () => {
     });
 
     it("should normalize correctly", () => {
-      // @ts-expect-error mock
-      const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
+            const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
       expect(normalized.source_type).toBe(SecurityEventSource.SYSTEM_ERROR_LOG);
     });
   });
@@ -80,8 +77,7 @@ describe("Security Event Adapters", () => {
     });
 
     it("should normalize correctly", () => {
-      // @ts-expect-error mock
-      const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
+            const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
       expect(normalized.source_type).toBe(SecurityEventSource.PAYMENT_WEBHOOK_LOG);
     });
   });
@@ -95,8 +91,7 @@ describe("Security Event Adapters", () => {
     });
 
     it("should normalize correctly", () => {
-      // @ts-expect-error mock
-      const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
+            const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
       expect(normalized.source_type).toBe(SecurityEventSource.PAYMENT_RECONCILIATION_LOG);
     });
   });
@@ -110,8 +105,7 @@ describe("Security Event Adapters", () => {
     });
 
     it("should normalize correctly", () => {
-      // @ts-expect-error mock
-      const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
+            const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
       expect(normalized.source_type).toBe(SecurityEventSource.VERIFICATION_DOCUMENT);
     });
   });
@@ -125,8 +119,7 @@ describe("Security Event Adapters", () => {
     });
 
     it("should normalize correctly", () => {
-      // @ts-expect-error mock
-      const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
+            const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
       expect(normalized.source_type).toBe(SecurityEventSource.DAMAGE_CLAIM);
     });
   });
@@ -140,8 +133,7 @@ describe("Security Event Adapters", () => {
     });
 
     it("should normalize correctly", () => {
-      // @ts-expect-error mock
-      const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
+            const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
       expect(normalized.source_type).toBe(SecurityEventSource.DISPUTE_CASE);
     });
   });
@@ -155,8 +147,7 @@ describe("Security Event Adapters", () => {
     });
 
     it("should normalize correctly", () => {
-      // @ts-expect-error mock
-      const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
+            const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
       expect(normalized.source_type).toBe(SecurityEventSource.INSPECTION_REPORT);
     });
   });
@@ -170,8 +161,7 @@ describe("Security Event Adapters", () => {
     });
 
     it("should normalize correctly", () => {
-      // @ts-expect-error mock
-      const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
+            const normalized = adapter.normalize(baseRecord, SecurityLifecycle.LIVE, SecurityEnvironment.PRODUCTION);
       expect(normalized.source_type).toBe(SecurityEventSource.SYSTEM_SETTING);
     });
   });
