@@ -23,6 +23,8 @@ export const SECURITY_PERMISSIONS = {
   SIMULATIONS_RUN: "security.simulations.run",
   EVIDENCE_VIEW: "security.evidence.view",
   REPORTS_EXPORT: "security.reports.export",
+  ALERTS_VIEW: "security.alerts.view",
+  ALERTS_REVIEW: "security.alerts.review",
   EMERGENCY_ACTIVATE: "security.emergency.activate",
   FINANCE_REVIEW: "security.finance.review",
   COMPLIANCE_REVIEW: "security.compliance.review",
@@ -56,6 +58,8 @@ export function getPhase1PermissionsForRole(role: string): SecurityPermission[] 
         SECURITY_PERMISSIONS.RULES_UPDATE,
         SECURITY_PERMISSIONS.RULES_ACTIVATE,
         SECURITY_PERMISSIONS.RULES_ARCHIVE,
+        SECURITY_PERMISSIONS.ALERTS_VIEW,
+        SECURITY_PERMISSIONS.ALERTS_REVIEW,
       ];
     case "Admin":
       return [];

@@ -1,4 +1,6 @@
-import { PrismaClient, SecurityAlertReviewStatus, SecurityAlert, SecuritySeverity, SecurityEventClassification, Prisma } from "@prisma/client";
+import { PrismaClient, SecurityAlertReviewStatus, SecurityAlert, SecuritySeverity, SecurityEventClassification, Prisma, SecurityEnvironment } from "@prisma/client";
+import { getCurrentDatabaseUser, assertAccountAllowedForSocAccess, canAccessSecurityPermission } from "./authorization";
+import { SECURITY_PERMISSIONS, SecurityPermission } from "./permissions";
 
 const prisma = new PrismaClient();
 export interface AlertReviewCursor {
@@ -37,18 +39,19 @@ export interface AlertDetailDTO {
 }
 
 export class AlertReviewService {
-  private static async checkPermission(userId: string) {
-    // Database authoritative check
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      include: { profile: true }
-    });
-
+  private static async checkPermission(userId: string, permission: SecurityPermission) {
+    const user = await getCurrentDatabaseUser(userId);
     if (!user) throw new Error("Missing database user");
-    if (user.status !== "Verified") throw new Error(`User status is ${user.status}`);
-    if (user.role !== "Super Admin") throw new Error("Requires Super Admin role");
+
+    const policy = await assertAccountAllowedForSocAccess(user);
+    if (!policy.allowed) {
+      throw new Error(`Authorization failed: ${policy.reason}`);
+    }
+
+    if (!canAccessSecurityPermission(policy.permissions!, permission)) {
+      throw new Error(`Missing required permission: ${permission}`);
+    }
     
-    // In future, a formal permission table mapping might be used, but currently it's mapped to Verified Super Admin.
     return user;
   }
 
@@ -58,7 +61,7 @@ export class AlertReviewService {
     filter?: AlertReviewFilter,
     cursor?: AlertReviewCursor
   ) {
-    await this.checkPermission(userId);
+    await this.checkPermission(userId, SECURITY_PERMISSIONS.ALERTS_VIEW);
 
     const where: Prisma.SecurityAlertWhereInput = {};
     if (filter?.review_status) where.review_status = filter.review_status;
@@ -94,7 +97,7 @@ export class AlertReviewService {
   }
 
   public static async getAlertDetail(userId: string, alertId: string): Promise<AlertDetailDTO | null> {
-    await this.checkPermission(userId);
+    await this.checkPermission(userId, SECURITY_PERMISSIONS.ALERTS_VIEW);
 
     const alert = await prisma.securityAlert.findUnique({
       where: { id: alertId },
@@ -123,7 +126,7 @@ export class AlertReviewService {
     reviewNotes: string,
     expectedReviewVersion: number
   ) {
-    const user = await this.checkPermission(userId);
+    const user = await this.checkPermission(userId, SECURITY_PERMISSIONS.ALERTS_REVIEW);
 
     return await prisma.$transaction(async (tx) => {
       const alert = await tx.securityAlert.findUnique({ where: { id: alertId } });
@@ -145,8 +148,12 @@ export class AlertReviewService {
         throw new Error(`INVALID_TRANSITION from ${alert.review_status} to ${newStatus}`);
       }
 
-      const updatedAlert = await tx.securityAlert.update({
-        where: { id: alertId },
+      const updateResult = await tx.securityAlert.updateMany({
+        where: { 
+          id: alertId,
+          review_version: expectedReviewVersion,
+          review_status: alert.review_status
+        },
         data: {
           review_status: newStatus,
           review_notes: reviewNotes,
@@ -155,6 +162,13 @@ export class AlertReviewService {
           review_version: { increment: 1 }
         }
       });
+
+      if (updateResult.count === 0) {
+        throw new Error("OPTIMISTIC_CONCURRENCY_FAILURE");
+      }
+
+      // Fetch the updated alert for the DTO
+      const updatedAlert = await tx.securityAlert.findUniqueOrThrow({ where: { id: alertId } });
 
       await tx.auditLog.create({
         data: {

@@ -27,6 +27,8 @@ describe("Phase 3 Gate 3E - Evaluator Worker", () => {
     // Clear state
     await prisma.ruleEvaluationLog.deleteMany({});
     await prisma.detectionEvaluationCheckpoint.deleteMany({});
+    await prisma.securityAlertEvidence.deleteMany({});
+    await prisma.securityAlert.deleteMany({});
     await prisma.securityEvent.deleteMany({});
     await prisma.detectionRule.deleteMany({});
 
@@ -95,14 +97,19 @@ describe("Phase 3 Gate 3E - Evaluator Worker", () => {
   afterEach(async () => {
     await prisma.ruleEvaluationLog.deleteMany({});
     await prisma.detectionEvaluationCheckpoint.deleteMany({});
+    await prisma.securityAlertEvidence.deleteMany({});
+    await prisma.securityAlert.deleteMany({});
     await prisma.securityEvent.deleteMany({});
   });
 
   afterAll(async () => {
     await prisma.ruleEvaluationLog.deleteMany({});
     await prisma.detectionEvaluationCheckpoint.deleteMany({});
+    await prisma.securityAlertEvidence.deleteMany({});
+    await prisma.securityAlert.deleteMany({});
     await prisma.securityEvent.deleteMany({});
     await prisma.detectionRule.deleteMany({});
+    await prisma.$disconnect();
   });
 
   it("should process ACTIVE rules and skip DRAFT rules", async () => {

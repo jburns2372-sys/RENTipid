@@ -18,6 +18,13 @@ export interface AlertGenerationCursor {
   id: string;
 }
 
+// Simple hash to convert string to a 64-bit integer for Postgres advisory locks
+// Prisma raw query expects large ints as strings or BigInts
+function hashTo64BitInt(str: string): bigint {
+  const hash = createHash("sha256").update(str).digest();
+  return hash.readBigUInt64BE(0);
+}
+
 export interface AlertGenerationResult {
   alertsCreated: number;
   nextCursor?: AlertGenerationCursor;
@@ -135,6 +142,7 @@ export class AlertGeneratorService {
   private static getCorrelationSubjectHash(subjectType: DetectionCorrelationSubject, event: SecurityEvent): string {
     const hmacKey = process.env.SOC_CORRELATION_HMAC_KEY;
     if (!hmacKey) throw new Error("Missing SOC_CORRELATION_HMAC_KEY");
+    if (hmacKey.length < 32) throw new Error("SOC_CORRELATION_HMAC_KEY is too weak (minimum 32 characters required)");
 
     if (subjectType === "GLOBAL") {
       return "GLOBAL_CORRELATION_CONSTANT";
@@ -267,6 +275,7 @@ export class AlertGeneratorService {
         lifecycle,
         txRule.correlation_subject_type,
         subjectHash,
+        txRule.deduplication_strategy,
         deduplicationIdentity
       ]);
       const suppressionKey = createHash("sha256").update(suppressionInput).digest("hex");
@@ -276,7 +285,35 @@ export class AlertGeneratorService {
       const evidenceInput = JSON.stringify(evidenceIds);
       const evidenceDigest = createHash("sha256").update(evidenceInput).digest("hex");
 
-      // Check for existing alert
+      // 2. ENFORCE COOLDOWN UNDER CONCURRENCY
+      // Use PostgreSQL transaction-scoped advisory locking
+      const lockKeyStr = `${txRule.id}:${subjectHash}`;
+      const lockKey = hashTo64BitInt(lockKeyStr);
+      await tx.$executeRaw`SELECT pg_advisory_xact_lock(${lockKey})`;
+
+      // Confidence and Severity (calculate before checking existing so we can verify exact equivalence)
+      let finalConfidence = new Prisma.Decimal(txRule.base_confidence_score);
+      if (txRule.confidence_formula === "BASE_PLUS_EVIDENCE_MULTIPLIER" && txRule.confidence_increment_per_evidence) {
+        const extraEvidence = Math.max(0, evidenceEvents.length - txRule.threshold_count);
+        finalConfidence = finalConfidence.add(new Prisma.Decimal(extraEvidence).mul(new Prisma.Decimal(txRule.confidence_increment_per_evidence)));
+      }
+      if (finalConfidence.gt(100)) finalConfidence = new Prisma.Decimal(100);
+      if (finalConfidence.lt(0)) finalConfidence = new Prisma.Decimal(0);
+      const finalConfidenceInt = finalConfidence.toNumber();
+
+      const severities = ["INFO", "LOW", "MEDIUM", "HIGH", "CRITICAL"];
+      let finalSeverityIndex = severities.indexOf(txRule.base_severity);
+      if (txRule.severity_promotion_threshold && evidenceEvents.length >= txRule.severity_promotion_threshold) {
+        if (txRule.promoted_severity) {
+          const promoIndex = severities.indexOf(txRule.promoted_severity);
+          if (promoIndex > finalSeverityIndex) {
+            finalSeverityIndex = promoIndex;
+          }
+        }
+      }
+      const finalSeverity = severities[finalSeverityIndex] as SecuritySeverity;
+
+      // Check for existing alert under lock
       const existingAlert = await tx.securityAlert.findUnique({
         where: { suppression_key: suppressionKey }
       });
@@ -288,11 +325,15 @@ export class AlertGeneratorService {
           existingAlert.correlation_subject_hash === subjectHash &&
           existingAlert.environment === env &&
           existingAlert.lifecycle_type === lifecycle &&
-          existingAlert.evidence_digest === evidenceDigest
+          existingAlert.evidence_digest === evidenceDigest &&
+          existingAlert.result_classification === txRule.result_classification &&
+          existingAlert.final_severity === finalSeverity &&
+          existingAlert.final_confidence === finalConfidenceInt
         ) {
-          // Idempotent success, skip
+          // Exact equivalent idempotency success
           throw new Error("THRESHOLD_NOT_MET");
         } else {
+          // Mismatch
           throw new Error("IDEMPOTENCY_CONFLICT");
         }
       }
@@ -317,28 +358,6 @@ export class AlertGeneratorService {
         }
       }
 
-      // Confidence and Severity
-      let finalConfidence = new Prisma.Decimal(txRule.base_confidence_score);
-      if (txRule.confidence_formula === "BASE_PLUS_EVIDENCE_MULTIPLIER" && txRule.confidence_increment_per_evidence) {
-        const extraEvidence = Math.max(0, evidenceEvents.length - txRule.threshold_count);
-        finalConfidence = finalConfidence.add(new Prisma.Decimal(extraEvidence).mul(new Prisma.Decimal(txRule.confidence_increment_per_evidence)));
-      }
-      // Clamp 0-100
-      if (finalConfidence.gt(100)) finalConfidence = new Prisma.Decimal(100);
-      if (finalConfidence.lt(0)) finalConfidence = new Prisma.Decimal(0);
-
-      const severities = ["INFO", "LOW", "MEDIUM", "HIGH", "CRITICAL"];
-      let finalSeverityIndex = severities.indexOf(txRule.base_severity);
-      
-      if (txRule.severity_promotion_threshold && evidenceEvents.length >= txRule.severity_promotion_threshold) {
-        if (txRule.promoted_severity) {
-          const promoIndex = severities.indexOf(txRule.promoted_severity);
-          if (promoIndex > finalSeverityIndex) {
-            finalSeverityIndex = promoIndex;
-          }
-        }
-      }
-      const finalSeverity = severities[finalSeverityIndex] as SecuritySeverity;
       const alertReference = `ALT-${Date.now().toString(36)}-${createHash("md5").update(suppressionKey).digest("hex").substring(0, 6)}`.toUpperCase();
 
       // Create alert and evidence in one atomic statement (Prisma nested create)
@@ -361,7 +380,7 @@ export class AlertGeneratorService {
           base_severity: txRule.base_severity,
           final_severity: finalSeverity,
           base_confidence: txRule.base_confidence_score,
-          final_confidence: finalConfidence.toNumber(), // Decimal to Int since schema expects Int for confidence
+          final_confidence: finalConfidenceInt,
           confidence_basis: txRule.confidence_formula,
           classification_reason: `Threshold of ${txRule.threshold_count} met for ${txRule.result_classification}`,
           lifecycle_type: lifecycle,

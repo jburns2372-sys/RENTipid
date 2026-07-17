@@ -27,8 +27,9 @@ export async function updateAlertStatusAction(userId: string, data: {
       parsed.expectedReviewVersion
     );
     return { success: true };
-  } catch (error: any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
     // Return privacy-safe errors
-    return { success: false, error: error.message || "Failed to update review status" };
+    return { success: false, error: e.message || "Failed to update review status" };
   }
 }

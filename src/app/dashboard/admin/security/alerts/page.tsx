@@ -3,15 +3,19 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default async function AlertsPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const session = await getServerSession(authOptions);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   if (!(session?.user as any)?.id) {
     return redirect("/login");
   }
 
   let alertsResponse;
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     alertsResponse = await AlertReviewService.getAlerts(((session as any).user as any).id, 50);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     if (e.message.includes("Requires Super Admin role") || e.message.includes("Verified")) {
       return (
