@@ -9,11 +9,13 @@ let ruleCounter = 1;
 
 describe("Phase 3 Gate 3F - Alert Generator Integration", () => {
   beforeAll(async () => {
+    // Clean up
+    await prisma.auditLog.deleteMany({});
     await prisma.ruleEvaluationLog.deleteMany({});
     await prisma.securityAlertEvidence.deleteMany({});
-    await prisma.auditLog.deleteMany({});
     await prisma.securityAlert.deleteMany({});
     await prisma.securityEvent.deleteMany({});
+    await prisma.detectionEvaluationCheckpoint.deleteMany({});
     await prisma.detectionRule.deleteMany({});
   });
   
@@ -27,6 +29,7 @@ describe("Phase 3 Gate 3F - Alert Generator Integration", () => {
     await prisma.auditLog.deleteMany({});
     await prisma.securityAlert.deleteMany({});
     await prisma.securityEvent.deleteMany({});
+    await prisma.detectionEvaluationCheckpoint.deleteMany({});
     await prisma.detectionRule.deleteMany({});
     jest.restoreAllMocks();
   });
@@ -332,17 +335,6 @@ describe("Phase 3 Gate 3F - Alert Generator Integration", () => {
 
   it("should isolate if rule quarantined before commit", async () => {
     const { rule } = await createSetup({ threshold_count: 2 });
-    
-    // Dynamically inject QUARANTINED into Postgres enum for the test DB
-    // to bypass the lack of QUARANTINED in the Prisma schema without modifying the schema file.
-    try {
-      await prisma.$executeRawUnsafe(`ALTER TYPE "DetectionRuleStatus" ADD VALUE 'QUARANTINED'`);
-    } catch {
-      // Ignore if it already exists
-    }
-    
-    // Temporarily drop constraint that rejects QUARANTINED
-    await prisma.$executeRawUnsafe(`ALTER TABLE "DetectionRule" DROP CONSTRAINT IF EXISTS "chk_activation"`);
     
     // Set actual DB status
     await prisma.$executeRawUnsafe(`UPDATE "DetectionRule" SET status = 'QUARANTINED' WHERE id = $1`, rule.id);

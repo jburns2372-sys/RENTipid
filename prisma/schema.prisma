@@ -1185,6 +1185,7 @@ enum DetectionRuleStatus {
   DRAFT
   ACTIVE
   ARCHIVED
+  QUARANTINED
 }
 
 enum DetectionRuleCreatorType {

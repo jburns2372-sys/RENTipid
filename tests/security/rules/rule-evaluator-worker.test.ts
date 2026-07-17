@@ -95,6 +95,7 @@ describe("Phase 3 Gate 3E - Evaluator Worker", () => {
   });
 
   afterEach(async () => {
+    await prisma.auditLog.deleteMany({});
     await prisma.ruleEvaluationLog.deleteMany({});
     await prisma.detectionEvaluationCheckpoint.deleteMany({});
     await prisma.securityAlertEvidence.deleteMany({});
@@ -103,6 +104,7 @@ describe("Phase 3 Gate 3E - Evaluator Worker", () => {
   });
 
   afterAll(async () => {
+    await prisma.auditLog.deleteMany({});
     await prisma.ruleEvaluationLog.deleteMany({});
     await prisma.detectionEvaluationCheckpoint.deleteMany({});
     await prisma.securityAlertEvidence.deleteMany({});
