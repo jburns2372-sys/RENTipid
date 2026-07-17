@@ -22,7 +22,7 @@ export interface AlertGenerationCursor {
 // Prisma raw query expects large ints as strings or BigInts
 function hashTo64BitInt(str: string): bigint {
   const hash = createHash("sha256").update(str).digest();
-  return hash.readBigUInt64BE(0);
+  return BigInt.asIntN(64, hash.readBigUInt64BE(0));
 }
 
 export interface AlertGenerationResult {

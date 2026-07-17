@@ -8,6 +8,9 @@ describe("Phase 3 Gate 3F - Alert Review Matrix", () => {
     await prisma.auditLog.deleteMany({});
     await prisma.securityAlertEvidence.deleteMany({});
     await prisma.securityAlert.deleteMany({});
+    await prisma.payment.deleteMany({});
+    await prisma.booking.deleteMany({});
+    await prisma.listing.deleteMany({});
     await prisma.user.deleteMany({});
   });
   
@@ -19,6 +22,9 @@ describe("Phase 3 Gate 3F - Alert Review Matrix", () => {
     await prisma.auditLog.deleteMany({});
     await prisma.securityAlertEvidence.deleteMany({});
     await prisma.securityAlert.deleteMany({});
+    await prisma.payment.deleteMany({});
+    await prisma.booking.deleteMany({});
+    await prisma.listing.deleteMany({});
     await prisma.user.deleteMany({});
   });
 
@@ -132,10 +138,25 @@ describe("Phase 3 Gate 3F - Alert Review Matrix", () => {
     expect(updated.review_version).toBe(1);
   });
   
-  it("should block invalid transitions", async () => {
+  it("should block invalid direct terminal transitions from UNREVIEWED", async () => {
     const user = await createUser("Super Admin", "Verified");
     const alert = await createAlert();
-    await expect(AlertReviewService.updateAlertReviewStatus(user.id, alert.id, "UNREVIEWED", "Test", 0)).rejects.toThrow("INVALID_TRANSITION");
+    await expect(AlertReviewService.updateAlertReviewStatus(user.id, alert.id, "CONFIRMED", "Test", 0)).rejects.toThrow("INVALID_TRANSITION");
+    await expect(AlertReviewService.updateAlertReviewStatus(user.id, alert.id, "FALSE_POSITIVE", "Test", 0)).rejects.toThrow("INVALID_TRANSITION");
+  });
+  
+  it("should block any transitions from terminal CONFIRMED state", async () => {
+    const user = await createUser("Super Admin", "Verified");
+    const alert = await createAlert();
+    
+    // Simulate being in CONFIRMED
+    await prisma.securityAlert.update({
+      where: { id: alert.id },
+      data: { review_status: "CONFIRMED", review_version: 1 }
+    });
+    
+    await expect(AlertReviewService.updateAlertReviewStatus(user.id, alert.id, "FALSE_POSITIVE", "Test", 1)).rejects.toThrow("INVALID_TRANSITION");
+    await expect(AlertReviewService.updateAlertReviewStatus(user.id, alert.id, "UNDER_REVIEW", "Test", 1)).rejects.toThrow("INVALID_TRANSITION");
   });
   
   it("should reject stale review conflict", async () => {
@@ -158,8 +179,29 @@ describe("Phase 3 Gate 3F - Alert Review Matrix", () => {
   });
   
   // Audits
-  it("should trigger audit rollback on error", async () => {
-    expect(true).toBe(true);
+  it("should trigger audit rollback on error, leaving evidence and status unchanged", async () => {
+    const user = await createUser("Super Admin", "Verified");
+    const alert = await createAlert();
+    await prisma.securityAlertEvidence.create({
+      data: { alert_id: alert.id, event_id: "evt_1", evidence_role: "PRIMARY" }
+    });
+    
+    // Attempt invalid transition to force rollback in tx
+    try {
+      await AlertReviewService.updateAlertReviewStatus(user.id, alert.id, "CONFIRMED", "Test", 0);
+    } catch {
+      // Ignored
+    }
+    
+    const dbAlert = await prisma.securityAlert.findUnique({ where: { id: alert.id }});
+    expect(dbAlert?.review_status).toBe("UNREVIEWED");
+    expect(dbAlert?.review_version).toBe(0);
+    
+    const evidence = await prisma.securityAlertEvidence.findMany({ where: { alert_id: alert.id }});
+    expect(evidence.length).toBe(1);
+    
+    const audits = await prisma.auditLog.findMany({ where: { target_id: alert.id }});
+    expect(audits.length).toBe(0);
   });
   
   // Features

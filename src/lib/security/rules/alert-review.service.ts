@@ -1,6 +1,6 @@
 import { PrismaClient, SecurityAlertReviewStatus, SecurityAlert, SecuritySeverity, SecurityEventClassification, Prisma, SecurityEnvironment } from "@prisma/client";
-import { getCurrentDatabaseUser, assertAccountAllowedForSocAccess, canAccessSecurityPermission } from "./authorization";
-import { SECURITY_PERMISSIONS, SecurityPermission } from "./permissions";
+import { getCurrentDatabaseUser, assertAccountAllowedForSocAccess, canAccessSecurityPermission } from "../authorization";
+import { SECURITY_PERMISSIONS, SecurityPermission } from "../permissions";
 
 const prisma = new PrismaClient();
 export interface AlertReviewCursor {
@@ -138,10 +138,10 @@ export class AlertReviewService {
 
       // Valid transitions
       const validTransitions: Record<string, string[]> = {
-        "UNREVIEWED": ["UNDER_REVIEW", "CONFIRMED", "FALSE_POSITIVE"],
+        "UNREVIEWED": ["UNDER_REVIEW"],
         "UNDER_REVIEW": ["CONFIRMED", "FALSE_POSITIVE"],
-        "CONFIRMED": ["FALSE_POSITIVE"],
-        "FALSE_POSITIVE": ["CONFIRMED"]
+        "CONFIRMED": [],
+        "FALSE_POSITIVE": []
       };
 
       if (!validTransitions[alert.review_status]?.includes(newStatus)) {
