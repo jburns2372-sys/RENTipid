@@ -13,6 +13,11 @@ export function evaluateRuleDsl(node: RuleNode, eventData: Record<string, unknow
 
   // It's a ComparisonNode
   const comp = node as ComparisonNode;
+  
+  if (!comp.field || !comp.operator) {
+    throw new Error("Invalid DSL: missing field or operator");
+  }
+
   const sourceValue = eventData[comp.field];
 
   // Null source event fields must not cause DSL validation rejection, and return false
