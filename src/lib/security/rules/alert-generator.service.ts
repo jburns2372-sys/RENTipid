@@ -197,8 +197,14 @@ export class AlertGeneratorService {
         where: { rule_id_version: { rule_id: rule.rule_id, version: rule.version } }
       });
 
-      if (!txRule || txRule.status !== "ACTIVE") {
-        throw new Error("THRESHOLD_NOT_MET"); // Skip cleanly
+      if (!txRule) {
+        throw new Error("RULE_NO_LONGER_ACTIVE");
+      }
+      if (txRule.status !== "ACTIVE") {
+        if ((txRule.status as string) === "QUARANTINED") {
+          throw new Error("RULE_QUARANTINED");
+        }
+        throw new Error("RULE_NO_LONGER_ACTIVE");
       }
 
       // To enforce threshold robustly regardless of batch size, we fetch ALL matched candidate events

@@ -13,6 +13,7 @@ export interface AlertReviewFilter {
   rule_id?: string;
   environment?: string;
   min_severity?: SecuritySeverity;
+  severity?: string[];
 }
 
 export interface AlertDetailDTO {
