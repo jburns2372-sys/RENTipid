@@ -17,9 +17,10 @@ export type PermissionModule =
   | 'disputes'
   | 'kyc_approval'
   | 'system_settings'
-  | 'audit_logs';
+  | 'audit_logs'
+  | 'security_rules';
 
-export type PermissionAction = 'read' | 'create' | 'update' | 'delete' | 'approve' | 'execute';
+export type PermissionAction = 'read' | 'create' | 'update' | 'delete' | 'approve' | 'execute' | 'view' | 'initialize' | 'validate' | 'activate';
 
 // This is a placeholder structure for Phase 1
 export const ROLE_PERMISSIONS: Record<UserRole, Record<PermissionModule, PermissionAction[]>> = {
@@ -31,6 +32,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, Record<PermissionModule, Permiss
     kyc_approval: [],
     system_settings: [],
     audit_logs: [],
+    security_rules: [],
   },
   'Renter': {
     listings: ['read'],
@@ -40,6 +42,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, Record<PermissionModule, Permiss
     kyc_approval: [],
     system_settings: [],
     audit_logs: [],
+    security_rules: [],
   },
   'Individual Provider': {
     listings: ['read', 'create', 'update', 'delete'],
@@ -49,6 +52,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, Record<PermissionModule, Permiss
     kyc_approval: [],
     system_settings: [],
     audit_logs: [],
+    security_rules: [],
   },
   'Business Provider': {
     listings: ['read', 'create', 'update', 'delete'],
@@ -58,6 +62,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, Record<PermissionModule, Permiss
     kyc_approval: [],
     system_settings: [],
     audit_logs: [],
+    security_rules: [],
   },
   'Admin': {
     listings: ['read', 'update'],
@@ -67,6 +72,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, Record<PermissionModule, Permiss
     kyc_approval: ['read', 'approve'],
     system_settings: [],
     audit_logs: ['read'],
+    security_rules: [],
   },
   'Compliance Admin': {
     listings: ['read', 'update', 'approve'],
@@ -76,6 +82,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, Record<PermissionModule, Permiss
     kyc_approval: ['read', 'update', 'approve'],
     system_settings: [],
     audit_logs: ['read'],
+    security_rules: [],
   },
   'Finance Admin': {
     listings: ['read'],
@@ -85,6 +92,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, Record<PermissionModule, Permiss
     kyc_approval: [],
     system_settings: [],
     audit_logs: ['read'],
+    security_rules: [],
   },
   'Super Admin': {
     listings: ['read', 'create', 'update', 'delete', 'approve'],
@@ -94,6 +102,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, Record<PermissionModule, Permiss
     kyc_approval: ['read', 'update', 'approve'],
     system_settings: ['read', 'create', 'update', 'delete'],
     audit_logs: ['read', 'delete'],
+    security_rules: ['view', 'initialize', 'validate', 'activate'],
   }
 };
 
