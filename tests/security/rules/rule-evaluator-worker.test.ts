@@ -25,12 +25,8 @@ describe("Phase 3 Gate 3E - Evaluator Worker", () => {
 
   beforeAll(async () => {
     // Clear state
-    await prisma.ruleEvaluationLog.deleteMany({});
-    await prisma.detectionEvaluationCheckpoint.deleteMany({});
-    await prisma.securityAlertEvidence.deleteMany({});
-    await prisma.securityAlert.deleteMany({});
-    await prisma.securityEvent.deleteMany({});
-    await prisma.detectionRule.deleteMany({});
+    await prisma.$executeRawUnsafe('TRUNCATE "DetectionRule" CASCADE');
+    await prisma.$executeRawUnsafe('TRUNCATE "SecurityEvent" CASCADE');
 
     // Create rules
     ruleAId = `RULE_A_${Date.now()}`;
@@ -100,7 +96,7 @@ describe("Phase 3 Gate 3E - Evaluator Worker", () => {
     await prisma.detectionEvaluationCheckpoint.deleteMany({});
     await prisma.securityAlertEvidence.deleteMany({});
     await prisma.securityAlert.deleteMany({});
-    await prisma.securityEvent.deleteMany({});
+    await prisma.$executeRawUnsafe('TRUNCATE "SecurityEvent" CASCADE');
   });
 
   afterAll(async () => {
@@ -109,8 +105,8 @@ describe("Phase 3 Gate 3E - Evaluator Worker", () => {
     await prisma.detectionEvaluationCheckpoint.deleteMany({});
     await prisma.securityAlertEvidence.deleteMany({});
     await prisma.securityAlert.deleteMany({});
-    await prisma.securityEvent.deleteMany({});
-    await prisma.detectionRule.deleteMany({});
+    await prisma.$executeRawUnsafe('TRUNCATE "DetectionRule" CASCADE');
+    await prisma.$executeRawUnsafe('TRUNCATE "SecurityEvent" CASCADE');
     await prisma.$disconnect();
   });
 
@@ -493,6 +489,8 @@ describe("Phase 3 Gate 3E - Evaluator Worker", () => {
   });
 
   it("should process 150 rules across bounded cycles without omission or duplication", async () => {
+    await prisma.$executeRawUnsafe('TRUNCATE "DetectionRule" CASCADE');
+
     const currentActiveCount = await prisma.detectionRule.count({
       where: { status: DetectionRuleStatus.ACTIVE }
     });

@@ -7,5 +7,5 @@ CHECK (
   ((status::text = 'DRAFT') AND (activated_at IS NULL) AND (archived_at IS NULL)) 
   OR ((status::text = 'ACTIVE') AND (activated_at IS NOT NULL) AND (archived_at IS NULL)) 
   OR ((status::text = 'ARCHIVED') AND (archived_at IS NOT NULL))
-  OR (status::text = 'QUARANTINED')
+  OR ((status::text = 'QUARANTINED') AND (archived_at IS NULL))
 );
