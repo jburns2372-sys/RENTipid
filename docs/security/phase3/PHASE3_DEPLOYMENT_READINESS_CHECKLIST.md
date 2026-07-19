@@ -1,0 +1,75 @@
+# Phase 3 Deployment-Readiness Checklist
+
+- **Required environment-variable names**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Provide specific ENV vars for SOC evaluator and cache`
+- **Database migration status**:
+  - `STATUS: READY`
+- **Worker entry point**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Define entry point such as Cron vs Daemon`
+- **Evaluator-worker startup method**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: e.g., PM2 or Next.js background task`
+- **Worker lease duration**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Define lease timeout ms`
+- **Lease renewal behavior**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Define heartbeat interval`
+- **Checkpoint storage**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Redis or DB for checkpoints`
+- **Batch size**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: DB record poll limit`
+- **Polling interval**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Set polling frequency ms`
+- **Maximum retry behavior**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Retry limit before dead-letter`
+- **Backoff behavior**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Exponential vs Linear backoff`
+- **Failure logging**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Sentry or CloudWatch log format`
+- **Monitoring and alerting**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Define PagerDuty integration if any`
+- **Worker health check**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Define health endpoint`
+- **Dead-worker recovery**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Lease timeout recovery procedure`
+- **Backfill procedure**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Define backfill runbook script`
+- **Replay procedure**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Define replay boundary limits`
+- **Duplicate-processing protection**:
+  - `STATUS: READY`
+- **Database connection limits**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Prisma pool limit for worker`
+- **Transaction timeout**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Set Prisma tx timeout ms`
+- **UAT database guard**:
+  - `STATUS: READY`
+- **Production database guard**:
+  - `STATUS: READY`
+- **Backup requirement**:
+  - `STATUS: READY`
+- **Rollback procedure**:
+  - `STATUS: READY`
+- **Approval requirement**:
+  - `STATUS: READY_WITH_CONFIGURATION`
+  - `REQUIRED DECISION: Require sign-off from InfoSec`
+- **Release checkpoint**:
+  - `STATUS: READY`
+- **Production activation authorization**:
+  - `STATUS: READY`
