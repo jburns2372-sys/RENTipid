@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
 import { getPhase1PermissionsForRole, SecurityPermission } from "./permissions";
 import { createPrivacySafeAuthorizationContext, serializePrivacySafeIp } from "./serializers";
-import { createAuditLog } from "@/lib/audit";
+import { logAdministrationEvent } from "./events/writers/administration-writer";
 import { redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
@@ -110,12 +110,16 @@ export async function recordSecurityAccessDenied(
       return; // Skip logging, but access remains denied
     }
 
-    await createAuditLog({
-      actor_user_id: userId || undefined,
-      action: reason,
-      module: "SecurityOperationsCenter",
-      details: JSON.stringify({ required_permission: requiredPermission, ip: safeIp }),
-      ip_address: safeIp
+    await logAdministrationEvent({
+      action: "ADMIN_AUTHORIZATION_DENIED",
+      outcome: "DENIED",
+      actorUserId: userId || "anon",
+      targetType: "SecurityOperationsCenter",
+      metadata: {
+        denial_reason: reason,
+        required_permission: requiredPermission,
+        ip: safeIp
+      }
     });
   } catch {
     console.error("Failed to record security access denied");

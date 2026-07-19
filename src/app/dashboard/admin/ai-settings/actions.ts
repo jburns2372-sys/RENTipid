@@ -6,11 +6,13 @@ import { prisma } from '@/lib/ai/ai-logger';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { BOTS } from '@/lib/ai/ai-permissions';
+import { logAdministrationEvent } from '@/lib/security/events/writers/administration-writer';
+import { processSecurityEvent } from '@/lib/security/events/event-ingestion';
 
 export async function updateAISettings(formData: FormData) {
   const session = await getServerSession(authOptions);
-  const role = (session?.user as any)?.role;
-  const userId = (session?.user as any)?.id;
+  const role = (session?.user as { role?: string; id?: string })?.role;
+  const userId = (session?.user as { role?: string; id?: string })?.id;
 
   if (role !== 'Super Admin' && role !== 'Admin') {
     redirect('/unauthorized');
@@ -65,20 +67,25 @@ export async function updateAISettings(formData: FormData) {
     const oldVal = getOldVal(update.key);
     
     if (oldVal !== update.value) {
-      await prisma.systemSetting.upsert({
+      const result = await prisma.systemSetting.upsert({
         where: { setting_key: update.key },
         update: { setting_value: update.value },
         create: { setting_key: update.key, setting_value: update.value }
       });
 
+      processSecurityEvent(result, "LIVE", "PRODUCTION").catch(console.error);
+
       // Create AuditLog for the change
-      await prisma.auditLog.create({
-        data: {
-          actor_user_id: userId,
-          action: 'UPDATE_AI_SETTING',
-          module: 'AI Settings',
-          target_id: update.key,
+      await logAdministrationEvent({
+        action: 'ADMIN_SECURITY_SETTING_CHANGED',
+        outcome: 'COMPLETED',
+        actorUserId: userId as string,
+        targetType: 'SystemSetting',
+        targetId: update.key,
+        metadata: {
           details: `Changed from '${oldVal || 'default'}' to '${update.value}'`,
+          previous_value: oldVal || 'default',
+          new_value: update.value
         }
       });
     }

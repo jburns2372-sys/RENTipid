@@ -5,6 +5,8 @@ import { redirect } from 'next/navigation';
 import { PrismaClient } from '@prisma/client';
 import { Users, CheckCircle2, AlertCircle } from 'lucide-react';
 import { revalidatePath } from 'next/cache';
+import { logAdministrationEvent } from '@/lib/security/events/writers/administration-writer';
+import { processSecurityEvent } from '@/lib/security/events/event-ingestion';
 
 const prisma = new PrismaClient();
 
@@ -26,7 +28,7 @@ const STATUS_OPTIONS = ['Pending', 'Ready', 'Blocked', 'Completed'];
 
 export default async function PilotParticipantsDashboard() {
   const session = await getServerSession(authOptions);
-  const role = (session?.user as any)?.role;
+  const role = (session?.user as { role?: string; id?: string })?.role;
 
   if (role !== 'Super Admin') {
     redirect('/unauthorized');
@@ -45,13 +47,29 @@ export default async function PilotParticipantsDashboard() {
     'use server';
     const key = formData.get('key') as string;
     const value = formData.get('value') as string;
-    
+
     if (key && value) {
-      await prisma.systemSetting.upsert({
+      const session = await getServerSession(authOptions);
+      const userId = (session?.user as { role?: string; id?: string })?.id;
+
+      const result = await prisma.systemSetting.upsert({
         where: { setting_key: key },
         update: { setting_value: value },
         create: { setting_key: key, setting_value: value }
       });
+      processSecurityEvent(result, "LIVE", "PRODUCTION").catch(console.error);
+
+      await logAdministrationEvent({
+        action: 'ADMIN_SECURITY_SETTING_CHANGED',
+        outcome: 'COMPLETED',
+        actorUserId: userId as string,
+        targetType: 'SystemSetting',
+        targetId: key,
+        metadata: {
+          new_value: value
+        }
+      });
+
       revalidatePath('/dashboard/super-admin/pilot-participants');
     }
   }
@@ -75,11 +93,11 @@ export default async function PilotParticipantsDashboard() {
             <p className="text-sm text-indigo-700 mt-1">Status values: Pending, Ready, Blocked, Completed</p>
           </div>
         </div>
-        
+
         <div className="divide-y divide-gray-100 p-6 space-y-4">
           {TRACKING_KEYS.map((item) => {
             const currentStatus = settingsMap[item.key] || 'Pending';
-            
+
             return (
               <div key={item.key} className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-3">
@@ -94,11 +112,11 @@ export default async function PilotParticipantsDashboard() {
                     <p className="font-medium text-gray-900">{item.label}</p>
                   </div>
                 </div>
-                
+
                 <form action={updateStatus} className="flex items-center gap-2">
                   <input type="hidden" name="key" value={item.key} />
-                  <select 
-                    name="value" 
+                  <select
+                    name="value"
                     defaultValue={currentStatus}
                     className="border-gray-300 rounded-md text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                   >
