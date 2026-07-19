@@ -8,6 +8,7 @@ import { VerificationDocumentAdapter } from "./verification-document-adapter";
 import { DamageClaimAdapter, DisputeCaseAdapter, InspectionReportAdapter } from "./trust-safety-adapters";
 import { SystemSettingAdapter } from "./system-setting-adapter";
 import { AuthenticationSecurityLogAdapter } from "./authentication-security-log-adapter";
+import { ApiSecurityLogAdapter } from "./api-security-adapter";
 
 export const ADAPTER_REGISTRY: SecurityEventSourceAdapter<unknown>[] = [
   new AuthenticationSecurityLogAdapter(),
@@ -20,7 +21,8 @@ export const ADAPTER_REGISTRY: SecurityEventSourceAdapter<unknown>[] = [
   new DamageClaimAdapter(),
   new DisputeCaseAdapter(),
   new InspectionReportAdapter(),
-  new SystemSettingAdapter()
+  new SystemSettingAdapter(),
+  new ApiSecurityLogAdapter()
 ];
 
 export function getAdapterForRecord(record: unknown): SecurityEventSourceAdapter<unknown> | null {

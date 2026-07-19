@@ -18,14 +18,14 @@
 | PRIV-005 | Privilege and insider - Emergency-control misuse | null | null | null | null | null | null | Emergency actions | actor, action | actor | CONFIDENTIAL | None | CRITICAL | CRITICAL | Gate 4B/4C | WRITER_MISSING |
 | PRIV-006 | Privilege and insider - Bulk privileged activity | null | null | null | null | null | null | Admin actions | actor, count | actor | CONFIDENTIAL | None | HIGH | HIGH | Gate 4B/4C | WRITER_MISSING |
 | PRIV-007 | Privilege and insider - Approval bypass | null | null | null | null | null | null | Approval events | actor, target | target | CONFIDENTIAL | None | HIGH | HIGH | Gate 4B/4C | WRITER_MISSING |
-| WEB-001 | Web and API - API rate abuse | null | null | null | null | null | null | API requests | source, rate | source | INTERNAL | None | MEDIUM | LOW | Gate 4B/4D | WRITER_MISSING |
-| WEB-002 | Web and API - Authorization probing | null | null | null | null | null | null | 403 errors | source, target | source | INTERNAL | None | HIGH | MEDIUM | Gate 4B/4D | WRITER_MISSING |
-| WEB-003 | Web and API - Resource enumeration | null | null | null | null | null | null | 404 errors | source, target | source | INTERNAL | None | MEDIUM | LOW | Gate 4B/4D | WRITER_MISSING |
-| WEB-004 | Web and API - CSRF failures | null | null | null | null | null | null | CSRF token errors | source, actor | source | INTERNAL | None | HIGH | HIGH | Gate 4B/4D | WRITER_MISSING |
+| WEB-001 | Web and API - API rate abuse | logApiSecurityEvent | ApiSecurityLogAdapter | API_SECURITY_LOG | null | null | null | API requests | source, rate | source | INTERNAL | None | MEDIUM | LOW | Gate 4B/4D | WRITER_PRESENT |
+| WEB-002 | Web and API - Authorization probing | logApiSecurityEvent | ApiSecurityLogAdapter | API_SECURITY_LOG | null | null | null | 403 errors | source, target | source | INTERNAL | None | HIGH | MEDIUM | Gate 4B/4D | WRITER_PRESENT |
+| WEB-003 | Web and API - Resource enumeration | null | null | null | null | null | null | 404 errors | source, target | source | INTERNAL | None | MEDIUM | LOW | Gate 4B/4D | WRITER_PRESENT |
+| WEB-004 | Web and API - CSRF failures | null | null | null | null | null | null | CSRF token errors | source, actor | source | INTERNAL | None | HIGH | HIGH | Gate 4B/4D | WRITER_PRESENT |
 | WEB-005 | Web and API - Injection signals | null | null | null | null | null | null | WAF events | source, payload | source | INTERNAL | WAF | HIGH | HIGH | Gate 4D | EXTERNAL_TELEMETRY_REQUIRED |
 | WEB-006 | Web and API - XSS signals | null | null | null | null | null | null | WAF events | source, payload | source | INTERNAL | WAF | HIGH | HIGH | Gate 4D | EXTERNAL_TELEMETRY_REQUIRED |
-| WEB-007 | Web and API - Bot scraping | null | null | null | null | null | null | API requests | source, rate | source | INTERNAL | None | MEDIUM | LOW | Gate 4B/4D | WRITER_MISSING |
-| WEB-008 | Web and API - Booking automation | null | null | null | null | null | null | Booking events | source, actor | actor | SENSITIVE | None | HIGH | HIGH | Gate 4B/4D | WRITER_MISSING |
+| WEB-007 | Web and API - Bot scraping | logApiSecurityEvent | ApiSecurityLogAdapter | API_SECURITY_LOG | null | null | null | API requests | source, rate | source | INTERNAL | None | MEDIUM | LOW | Gate 4B/4D | WRITER_PRESENT |
+| WEB-008 | Web and API - Booking automation | null | null | null | null | null | null | Booking events | source, actor | actor | SENSITIVE | None | HIGH | HIGH | Gate 4B/4D | WRITER_PRESENT |
 | WEB-009 | Web and API - Availability anomaly | null | null | null | null | null | null | Server health | service_id | service_id | INTERNAL | Hosting | HIGH | HIGH | Gate 4D | EXTERNAL_TELEMETRY_REQUIRED |
 | WEB-010 | Web and API - DDoS provider evidence | null | null | null | null | null | null | DDoS alerts | source, volume | source | INTERNAL | DDoS Provider | CRITICAL | CRITICAL | Gate 4D | EXTERNAL_TELEMETRY_REQUIRED |
 | FIN-001 | Marketplace and financial - Payment anomaly | null | null | null | null | null | null | Payment events | actor, amount | actor | CONFIDENTIAL | Payment Gateway | CRITICAL | CRITICAL | Gate 4B/4E | WRITER_MISSING |
