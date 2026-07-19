@@ -5,6 +5,8 @@ import { PrismaClient } from "@prisma/client";
 import { hasPermission } from "@/lib/permissions";
 import { redirect } from 'next/navigation';
 import RuleListClient from '@/components/security/rules/RuleListClient';
+import { SOURCE_COMPATIBILITY_REGISTRY, CompatibilityStatus } from "@/lib/security/rules/source-compatibility.registry";
+import { validateRuleConfiguration } from "@/lib/security/rules/rule-validation.service";
 
 const prisma = new PrismaClient();
 
@@ -18,18 +20,6 @@ export default async function SecurityRulesPage() {
   const dbUser = await prisma.user.findUnique({ where: { id: userId }});
   
   if (!dbUser || dbUser.role !== 'Super Admin' || dbUser.status !== 'Verified') {
-    // Only redirect, the action handles the actual audit log for explicit attempts.
-    // However, if the policy requires audit log on view denied, let's log it:
-    if (dbUser) {
-        await prisma.auditLog.create({
-            data: {
-                actor_user_id: userId,
-                action: "UNAUTHORIZED_SOC_RULE_VIEW",
-                module: "SECURITY_RULES",
-                details: "Attempted to view SOC rules without Super Admin Verified status."
-            }
-        });
-    }
     redirect('/dashboard/admin');
   }
 
@@ -42,24 +32,28 @@ export default async function SecurityRulesPage() {
     orderBy: { created_at: 'desc' }
   });
 
-  const safeRules = rawRules.map(rule => ({
-    rule_id: rule.rule_id,
-    version: rule.version,
-    name: rule.name,
-    status: rule.status,
-    severity: rule.base_severity,
-    security_domain: rule.security_domain,
-    threshold: rule.threshold_count,
-    window_seconds: rule.window_seconds,
-    cooldown_seconds: rule.cooldown_seconds,
-    correlation_strategy: rule.correlation_subject_type,
-    deduplication_strategy: rule.deduplication_strategy,
-    // Do NOT send raw DSL to the client directly unless necessary for preview/validation.
-    // Here we indicate validation/compatibility statically for Phase 3 Gate 3G.
-    validation_result: "Valid",
-    compatibility_result: "Compatible",
-    activation_eligibility: rule.status === 'DRAFT' ? 'Eligible' : 'Not Eligible'
-  }));
+  const safeRules = rawRules.map(rule => {
+    // Use the actual Gate 3D validator to determine VALID/INVALID
+    const validation = validateRuleConfiguration(rule as any, rule.evaluation_dsl);
+    const registryEntry = SOURCE_COMPATIBILITY_REGISTRY[rule.rule_id];
+    
+    return {
+      rule_id: rule.rule_id,
+      version: rule.version,
+      name: rule.name,
+      status: rule.status,
+      severity: rule.base_severity,
+      security_domain: rule.security_domain,
+      threshold: rule.threshold_count,
+      window_seconds: rule.window_seconds,
+      cooldown_seconds: rule.cooldown_seconds,
+      correlation_strategy: rule.correlation_subject_type,
+      deduplication_strategy: rule.deduplication_strategy,
+      validation_result: validation.valid ? "VALID" : "INVALID",
+      compatibility_result: registryEntry ? registryEntry.status : CompatibilityStatus.UNVERIFIED,
+      activation_eligibility: rule.status === 'DRAFT' ? 'Eligible' : 'Not Eligible'
+    };
+  });
 
   return (
     <div className="container mx-auto py-8 px-4 max-w-6xl">
