@@ -36,3 +36,13 @@ Therefore:
 - Prisma migration executed on test database.
 - TypeScript compilation and ESLint required.
 - Production build verified.
+
+## Gate 4B-1R1 Impact
+Changes in Gate 4B-1R1 are classified as:
+- **DATABASE_MIGRATION**: Added `fix_authentication_security_log_source_enum` to safely register the enum missing from previous migration.
+- **TEST_ONLY**: Corrected and finalized test execution for regression and idempotency.
+
+Therefore:
+- Prisma migration re-verified on a clean database (`rentipid_test_soc_gate4b1_replay`).
+- TypeScript test verification required and passed.
+- Known Phase 3 degradation recorded.

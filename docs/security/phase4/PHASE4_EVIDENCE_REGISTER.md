@@ -13,4 +13,11 @@
   - HMAC helper: src/lib/security/telemetry-hmac.ts
   - Instrumented flows: Login success, login failure (invalid credentials/user not found), account blacklisted
   - Deferred flows: Password recovery (not implemented), Session explicit revocation (not implemented)
+- Gate 4B-1R1 Remediation and Test Evidence:
+  - gate4b-authentication-regression.test.ts: [ACCEPTED]
+  - gate4b-authentication-idempotency.test.ts: [ACCEPTED]
+  - gate4b-authentication-writer.test.ts: [ACCEPTED]
+  - gate4b-adapter-contract.test.ts: [ACCEPTED]
+  - gate4b-telemetry-hmac.test.ts: [ACCEPTED]
+  - phase3-lifecycle.integration.test.ts: [ACCEPTED_KNOWN_PHASE3_DEGRADATION] (Will be repaired in Gate 4C)
 - Evidence-reuse conditions: Applied (Phase 3 evidence fully reused for Gate 4A since no code changed).

@@ -31,7 +31,16 @@
 - Scope: Implementation of privacy-safe telemetry for identity and authentication flows, creation of AuthenticationSecurityLog and adapters.
 - Acceptance criteria: Writer added, adapter registered, schema migrated on test DB safely, builds pass, missing flows deferred safely.
 - Verification required: Prisma migration, TypeScript compilation, Scoped ESLint.
-- Final status: [PENDING]
+- Final status: [ACCEPTED]
+
+## Gate 4B-1R1 - Telemetry Evidence Acceptance Closure
+- Subrun 1: Remediation of `add_auth_security_log` schema drift.
+- Subrun 2: Addition of `fix_authentication_security_log_source_enum` schema migration.
+- Subrun 3: Verification of clean replay on `rentipid_test_soc_gate4b1_replay` database.
+- Subrun 4: Regression and idempotency test completion.
+- Verification required: Clean replay, passing sequential tests.
+- Final status: [ACCEPTED]
+
 ## Gate 4C
 [Empty placeholder for Gate 4C]
 
