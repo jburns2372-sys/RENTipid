@@ -46,3 +46,7 @@ Therefore:
 - Prisma migration re-verified on a clean database (`rentipid_test_soc_gate4b1_replay`).
 - TypeScript test verification required and passed.
 - Known Phase 3 degradation recorded.
+
+### Gate 4D-A Change Impact
+*   **Adapter Impact**: api-security-adapter.ts now safely manages ACTOR: and SOURCE: subject domains to prevent collisions in correlation.
+*   **Schema Impact**: DetectionCorrelationSubject safely expanded to support CORRELATION_KEY.

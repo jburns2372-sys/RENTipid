@@ -58,3 +58,19 @@ This catalog details the proposed Phase 4 deterministic DRAFT rules. No rule may
 - **DATA-BULK-ACCESS-01**: Data. Source: Export. Writer: MISSING. Adapter: MISSING. Normalized: actor, volume. Correlation: actor. Class: SECURITY. Base Severity: HIGH. Threshold: 100. Window: 5m. Cooldown: 60m. Deduplication: actor. DSL Fields: action="BULK_ACCESS". Compatibility: UNVERIFIED. Initial Lifecycle: DRAFT. Detection Priority: HIGH. Recommended Case: Data Leak. Playbook: Account Review. External Dependency: None. Planned Gate: 4E. Tests: Bulk queries.
 - **DATA-EXPORT-ANOMALY-01**: Data. Source: Export. Writer: MISSING. Adapter: MISSING. Normalized: actor, target. Correlation: actor. Class: SECURITY. Base Severity: HIGH. Threshold: 1. Window: 1m. Cooldown: 60m. Deduplication: actor. DSL Fields: action="DATA_EXPORT". Compatibility: UNVERIFIED. Initial Lifecycle: DRAFT. Detection Priority: HIGH. Recommended Case: Data Leak. Playbook: Account Review. External Dependency: None. Planned Gate: 4E. Tests: Export.
 - **DATA-CROSS-TENANT-ACCESS-01**: Data. Source: Audit. Writer: MISSING. Adapter: MISSING. Normalized: actor, tenant. Correlation: actor. Class: SECURITY. Base Severity: CRITICAL. Threshold: 1. Window: 1m. Cooldown: 60m. Deduplication: actor. DSL Fields: action="CROSS_TENANT". Compatibility: UNVERIFIED. Initial Lifecycle: DRAFT. Detection Priority: CRITICAL. Recommended Case: Breach. Playbook: Revoke Sessions. External Dependency: None. Planned Gate: 4E. Tests: Isolation breaks.
+
+### Gate 4D-A Rule Tuning and Rationale
+*   **API-RATE-ABUSE-01**:
+    *   **Threshold rationale**: Set to 5 breaches. A single API_RATE_LIMIT_EXCEEDED event represents a breach of the underlying general limiter (100req/min) or strict limiter (5req/min). Correlating 5 distinct breaches is a strong indicator of sustained abuse rather than a temporary spike.
+    *   **Window rationale**: Set to 15 minutes (900 seconds) to capture persistent abuse across multiple limiter windows.
+    *   **Cooldown rationale**: Set to 1 hour (3600 seconds) to avoid alert flooding for the same actor.
+    *   **Initial tuning status**: INITIAL_DRAFT_TUNING_BASELINE.
+*   **API-AUTHORIZATION-PROBE-01**:
+    *   **Threshold rationale**: Set to 10 denials. An ordinary expired session might cause 1-2 denials. 10 denials within a short window is a strong indicator of probing.
+    *   **Window rationale**: Set to 5 minutes (300 seconds).
+    *   **Cooldown rationale**: Set to 1 hour (3600 seconds).
+    *   **Initial tuning status**: INITIAL_DRAFT_TUNING_BASELINE.
+*   **API-RESOURCE-ENUMERATION-01**: Status: UNVERIFIED. Initial Lifecycle: DRAFT. Ineligible for activation.
+*   **WEB-CSRF-FAILURE-01**: Status: UNVERIFIED. Initial Lifecycle: DRAFT. Ineligible for activation.
+*   **BOT-SCRAPING-01**: Status: UNVERIFIED. Initial Lifecycle: DRAFT. Ineligible for activation. Writer verified as MISSING.
+*   **BOT-BOOKING-ABUSE-01**: Status: UNVERIFIED. Initial Lifecycle: DRAFT. Deferred to Gate 4B-4.

@@ -21,3 +21,13 @@
   - gate4b-telemetry-hmac.test.ts: [ACCEPTED]
   - phase3-lifecycle.integration.test.ts: [ACCEPTED_KNOWN_PHASE3_DEGRADATION] (Will be repaired in Gate 4C)
 - Evidence-reuse conditions: Applied (Phase 3 evidence fully reused for Gate 4A since no code changed).
+
+### Gate 4D-A Evidence
+*   **Compatible Rules**: API-RATE-ABUSE-01, API-AUTHORIZATION-PROBE-01.
+*   **Unverified Rules**: API-RESOURCE-ENUMERATION-01, WEB-CSRF-FAILURE-01, BOT-SCRAPING-01, BOT-BOOKING-ABUSE-01.
+*   **Test Counts**: 
+    *   Initialization Tests: 5
+    *   Correlation Semantics: 1
+    *   Cleanup / Privacy: 1
+*   **Advisory-only Result**: Verified that no cases or incident responses were mutated or generated. Rules strictly generate alerts.
+*   **Cleanup Totals**: Validated 0 residual test rules, 0 residual logs.

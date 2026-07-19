@@ -64,3 +64,10 @@
 
 ## Gate 4J
 [Empty placeholder for Gate 4J]
+
+### Gate 4D-A Manifest
+*   tests/security/rules/gate4da-api-detection.test.ts
+*   src/lib/security/events/adapters/api-security-adapter.ts
+*   src/lib/security/rules/source-compatibility.registry.ts
+*   src/lib/security/rules/rule-initialization.service.ts
+*   src/lib/security/rules/alert-generator.service.ts

@@ -1280,6 +1280,7 @@ enum DetectionCorrelationSubject {
   ACTOR_USER_ID
   TARGET_USER_ID
   TARGET_RESOURCE_ID
+  CORRELATION_KEY
   GLOBAL
 }
 

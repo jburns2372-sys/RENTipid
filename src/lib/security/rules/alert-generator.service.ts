@@ -159,6 +159,9 @@ export class AlertGeneratorService {
       case "TARGET_RESOURCE_ID":
         rawValue = event.target_resource_id;
         break;
+      case "CORRELATION_KEY":
+        rawValue = event.correlation_key;
+        break;
     }
 
     if (!rawValue) {
