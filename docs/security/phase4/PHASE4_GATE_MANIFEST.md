@@ -24,9 +24,14 @@
 - Expected commit message: "docs(soc): establish Phase 4 threat and architecture baseline"
 - Final status: [PENDING]
 
-## Gate 4B
-[Empty placeholder for Gate 4B]
-
+## Gate 4B - Telemetry Evidence and Source Contracts
+- Starting commit: 1ce2926bcacb97118e9ad48cf31209cb2cdd58d8 (Gate 4A base)
+- Subrun 1: Gate 4A-R1 Correction (Documentation)
+- Subrun 2: Gate 4B-1 Identity and Session Telemetry
+- Scope: Implementation of privacy-safe telemetry for identity and authentication flows, creation of AuthenticationSecurityLog and adapters.
+- Acceptance criteria: Writer added, adapter registered, schema migrated on test DB safely, builds pass, missing flows deferred safely.
+- Verification required: Prisma migration, TypeScript compilation, Scoped ESLint.
+- Final status: [PENDING]
 ## Gate 4C
 [Empty placeholder for Gate 4C]
 

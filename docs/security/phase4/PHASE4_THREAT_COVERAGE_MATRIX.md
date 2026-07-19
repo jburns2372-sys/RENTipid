@@ -2,8 +2,8 @@
 
 | Threat ID | Category | Existing Writer | Existing Adapter | Existing Normalized Source | Existing Rule | Existing Alert Coverage | Existing Response | Required Telemetry | Required Normalized Fields | Required Correlation Fields | Privacy Classification | External Dependency | Detection Priority | Response Priority | Responsible Implementation Gate | Coverage Status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| AUTH-001 | Identity and session - Brute force | null | null | null | null | null | null | Login failure events | actor, target, source | actor | SENSITIVE | None | HIGH | HIGH | Gate 4B/4C | WRITER_MISSING |
-| AUTH-002 | Identity and session - Credential stuffing | null | null | null | null | null | null | Login failure events | actor, source | source | SENSITIVE | None | HIGH | HIGH | Gate 4B/4C | WRITER_MISSING |
+| AUTH-001 | Identity and session - Brute force | authentication-writer.ts | authentication-security-log-adapter.ts | AuthenticationSecurityLog | null | null | null | Login failure events | actor, target, source | actor | SENSITIVE | None | HIGH | HIGH | Gate 4B/4C | PARTIALLY_COVERED |
+| AUTH-002 | Identity and session - Credential stuffing | authentication-writer.ts | authentication-security-log-adapter.ts | AuthenticationSecurityLog | null | null | null | Login failure events | actor, source | source | SENSITIVE | None | HIGH | HIGH | Gate 4B/4C | PARTIALLY_COVERED |
 | AUTH-003 | Identity and session - Account takeover | null | null | null | null | null | null | Session change events | actor, target, context | actor | SENSITIVE | None | CRITICAL | CRITICAL | Gate 4B/4C | WRITER_MISSING |
 | AUTH-004 | Identity and session - Session hijacking | null | null | null | null | null | null | Invalid session usage | actor, context | actor | SENSITIVE | None | CRITICAL | CRITICAL | Gate 4B/4C | WRITER_MISSING |
 | AUTH-005 | Identity and session - Session replay | null | null | null | null | null | null | Reused session token | token_id, source | token_id | SENSITIVE | None | CRITICAL | CRITICAL | Gate 4B/4C | WRITER_MISSING |

@@ -7,8 +7,10 @@ import { PaymentReconciliationLogAdapter } from "./payment-reconciliation-log-ad
 import { VerificationDocumentAdapter } from "./verification-document-adapter";
 import { DamageClaimAdapter, DisputeCaseAdapter, InspectionReportAdapter } from "./trust-safety-adapters";
 import { SystemSettingAdapter } from "./system-setting-adapter";
+import { AuthenticationSecurityLogAdapter } from "./authentication-security-log-adapter";
 
 export const ADAPTER_REGISTRY: SecurityEventSourceAdapter<unknown>[] = [
+  new AuthenticationSecurityLogAdapter(),
   new AuditLogAdapter(),
   new SystemErrorLogAdapter(),
   new AIBotLogAdapter(),

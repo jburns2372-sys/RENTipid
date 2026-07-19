@@ -609,6 +609,33 @@ model SystemSetting {
 }
 
 // ----------------------------------------------------------------------
+// Phase 4: Identity & Session Security Telemetry
+// ----------------------------------------------------------------------
+model AuthenticationSecurityLog {
+  id                     String   @id @default(cuid())
+  event_code             String
+  outcome                String
+  actor_user_id          String?
+  subject_reference_hash String?
+  ip_reference_hash      String?
+  device_reference_hash  String?
+  session_reference_hash String?
+  hmac_key_version       String
+  environment            String
+  lifecycle              String
+  retention_class        String
+  expires_at             DateTime
+  sanitized_metadata     String?
+  occurred_at            DateTime @default(now())
+
+  @@index([event_code, occurred_at])
+  @@index([subject_reference_hash, occurred_at])
+  @@index([ip_reference_hash, occurred_at])
+  @@index([device_reference_hash, occurred_at])
+  @@index([expires_at])
+}
+
+// ----------------------------------------------------------------------
 // Phase 9: Error & System Monitoring
 // ----------------------------------------------------------------------
 
@@ -1029,6 +1056,7 @@ enum SecurityEventSource {
   DISPUTE_CASE
   INSPECTION_REPORT
   SYSTEM_SETTING
+  AUTHENTICATION_SECURITY_LOG
 }
 
 enum SecurityDomain {
