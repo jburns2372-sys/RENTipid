@@ -33,3 +33,5 @@ CREATE INDEX "AuthenticationSecurityLog_device_reference_hash_occurred_at_idx" O
 
 -- CreateIndex
 CREATE INDEX "AuthenticationSecurityLog_expires_at_idx" ON "AuthenticationSecurityLog"("expires_at");
+
+ALTER TYPE "SecurityEventSource" ADD VALUE 'AUTHENTICATION_SECURITY_LOG';
