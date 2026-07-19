@@ -17,6 +17,7 @@ export const SECURITY_PERMISSIONS = {
   RULES_VIEW: "security.rules.view",
   RULES_MANAGE: "security.rules.manage", // Unused, keeping for compatibility
   RULES_CREATE: "security.rules.create",
+  RULES_INITIALIZE: "security.rules.initialize",
   RULES_UPDATE: "security.rules.update",
   RULES_ACTIVATE: "security.rules.activate",
   RULES_ARCHIVE: "security.rules.archive",
@@ -55,6 +56,7 @@ export function getPhase1PermissionsForRole(role: string): SecurityPermission[] 
         SECURITY_PERMISSIONS.EVENTS_VIEW,
         SECURITY_PERMISSIONS.RULES_VIEW,
         SECURITY_PERMISSIONS.RULES_CREATE,
+        SECURITY_PERMISSIONS.RULES_INITIALIZE,
         SECURITY_PERMISSIONS.RULES_UPDATE,
         SECURITY_PERMISSIONS.RULES_ACTIVATE,
         SECURITY_PERMISSIONS.RULES_ARCHIVE,

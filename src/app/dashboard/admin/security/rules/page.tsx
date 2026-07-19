@@ -1,9 +1,7 @@
 import React from 'react';
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { hasPermission } from "@/lib/permissions";
-import { redirect } from 'next/navigation';
+import { requireSecurityPermission } from "@/lib/security/authorization";
+import { SECURITY_PERMISSIONS } from "@/lib/security/permissions";
 import RuleListClient from '@/components/security/rules/RuleListClient';
 import { SOURCE_COMPATIBILITY_REGISTRY, CompatibilityStatus } from "@/lib/security/rules/source-compatibility.registry";
 import { validateRuleConfiguration } from "@/lib/security/rules/rule-validation.service";
@@ -11,21 +9,7 @@ import { validateRuleConfiguration } from "@/lib/security/rules/rule-validation.
 const prisma = new PrismaClient();
 
 export default async function SecurityRulesPage() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user) redirect('/login');
-
-  const userId = (session.user as any).id;
-  
-  // Database-authoritative verification
-  const dbUser = await prisma.user.findUnique({ where: { id: userId }});
-  
-  if (!dbUser || dbUser.role !== 'Super Admin' || dbUser.status !== 'Verified') {
-    redirect('/dashboard/admin');
-  }
-
-  if (!hasPermission(dbUser.role as any, 'security_rules', 'view')) {
-    redirect('/dashboard/admin');
-  }
+  await requireSecurityPermission(SECURITY_PERMISSIONS.RULES_VIEW);
 
   // Fetch rules. Map to a privacy-safe DTO.
   const rawRules = await prisma.detectionRule.findMany({
@@ -34,7 +18,7 @@ export default async function SecurityRulesPage() {
 
   const safeRules = rawRules.map(rule => {
     // Use the actual Gate 3D validator to determine VALID/INVALID
-    const validation = validateRuleConfiguration(rule as any, rule.evaluation_dsl);
+    const validation = validateRuleConfiguration(rule as unknown as Parameters<typeof validateRuleConfiguration>[0], rule.evaluation_dsl);
     const registryEntry = SOURCE_COMPATIBILITY_REGISTRY[rule.rule_id];
     
     return {

@@ -1,32 +1,35 @@
-import { PrismaClient, DetectionRuleStatus, SecuritySeverity, DetectionCorrelationSubject, DetectionDeduplicationStrategy, DetectionConfidenceFormula, DetectionRuleCreatorType, SecurityDomain, SecurityEventClassification } from "@prisma/client";
-import { hasPermission } from "@/lib/permissions";
+import { PrismaClient, Prisma, DetectionRuleStatus, SecuritySeverity, DetectionCorrelationSubject, DetectionDeduplicationStrategy, DetectionConfidenceFormula, DetectionRuleCreatorType } from "@prisma/client";
+import { SOURCE_COMPATIBILITY_REGISTRY, CompatibilityStatus } from "./source-compatibility.registry";
+import { validateRuleConfiguration, RuleTypedConfiguration } from "./rule-validation.service";
 
 const prisma = new PrismaClient();
 
-export interface RuleDefinition {
-  rule_id: string;
-  version: number;
-  name: string;
-  description: string;
-  status: DetectionRuleStatus;
-  security_domain: SecurityDomain;
-  result_classification: SecurityEventClassification;
-  base_severity: SecuritySeverity;
-  base_confidence_score: number;
-  threshold_count: number;
-  window_seconds: number;
-  cooldown_seconds: number;
-  max_evidence_events: number;
-  evaluation_timeout_ms: number;
-  correlation_subject_type: DetectionCorrelationSubject;
-  deduplication_strategy: DetectionDeduplicationStrategy;
-  confidence_formula: DetectionConfidenceFormula;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  evaluation_dsl: any;
-  created_by_type: DetectionRuleCreatorType;
+function canonicalize(obj: unknown): unknown {
+  if (obj === null || obj === undefined) return null;
+  if (Array.isArray(obj)) return obj.map(canonicalize);
+  if (typeof obj === 'object') {
+    const keys = Object.keys(obj).sort();
+    const result: Record<string, unknown> = {};
+    for (const key of keys) {
+      const val = (obj as Record<string, unknown>)[key];
+      if (val !== undefined) {
+        result[key] = canonicalize(val);
+      }
+    }
+    return result;
+  }
+  return obj;
 }
 
-const INITIAL_RULES: RuleDefinition[] = [
+export interface RuleDefinition extends RuleTypedConfiguration {
+  rule_id: string;
+  version: number;
+  status: DetectionRuleStatus;
+  created_by_type: DetectionRuleCreatorType;
+  evaluation_dsl: Prisma.InputJsonValue;
+}
+
+const INITIAL_RULES: readonly RuleDefinition[] = [
   {
     rule_id: "PAY-WEBHOOK-FAIL-01",
     version: 1,
@@ -45,11 +48,14 @@ const INITIAL_RULES: RuleDefinition[] = [
     correlation_subject_type: DetectionCorrelationSubject.GLOBAL,
     deduplication_strategy: DetectionDeduplicationStrategy.WINDOW_BUCKET,
     confidence_formula: DetectionConfidenceFormula.STATIC_BASE,
+    confidence_increment_per_evidence: null,
+    severity_promotion_threshold: null,
+    promoted_severity: null,
     created_by_type: DetectionRuleCreatorType.SYSTEM_SEED,
     evaluation_dsl: {
-      "and": [
-        { "eq": [{ "var": "source_type" }, "PAYMENT_WEBHOOK_LOG"] },
-        { "eq": [{ "var": "event_classification" }, "POLICY_VIOLATION"] }
+      AND: [
+        { field: "event_code", operator: "CONTAINS", value: "WEBHOOK_" },
+        { field: "event_classification", operator: "EQUALS", value: "POLICY_VIOLATION" }
       ]
     }
   },
@@ -71,11 +77,14 @@ const INITIAL_RULES: RuleDefinition[] = [
     correlation_subject_type: DetectionCorrelationSubject.ACTOR_USER_ID,
     deduplication_strategy: DetectionDeduplicationStrategy.EXACT_MATCH,
     confidence_formula: DetectionConfidenceFormula.STATIC_BASE,
+    confidence_increment_per_evidence: null,
+    severity_promotion_threshold: null,
+    promoted_severity: null,
     created_by_type: DetectionRuleCreatorType.SYSTEM_SEED,
     evaluation_dsl: {
-      "and": [
-        { "eq": [{ "var": "source_type" }, "SYSTEM_SETTING"] },
-        { "eq": [{ "var": "event_classification" }, "POLICY_VIOLATION"] }
+      AND: [
+        { field: "event_code", operator: "CONTAINS", value: "SETTING_" },
+        { field: "event_classification", operator: "EQUALS", value: "POLICY_VIOLATION" }
       ]
     }
   }
@@ -83,26 +92,43 @@ const INITIAL_RULES: RuleDefinition[] = [
 
 export type InitializationResult = "CREATED" | "ALREADY_INITIALIZED_EQUIVALENT" | "INITIALIZATION_CONFLICT" | "ERROR";
 
+export function internalValidateRuleCompatibilityAndDsl(
+  ruleDef: RuleDefinition,
+  registry: Record<string, { status: CompatibilityStatus; writerLocations?: string[]; sourceType?: string; correlationFields?: string[] }>
+): void {
+  const registryEntry = registry[ruleDef.rule_id];
+  if (!registryEntry || registryEntry.status !== CompatibilityStatus.COMPATIBLE) {
+    throw new Error("UNSUPPORTED_SOURCE");
+  }
+  if (!registryEntry.writerLocations || registryEntry.writerLocations.length === 0) {
+    throw new Error("SOURCE_WRITER_UNVERIFIED");
+  }
+  if (!registryEntry.sourceType) {
+    throw new Error("REQUIRED_SOURCE_FIELD_MISSING");
+  }
+  if (!registryEntry.correlationFields || registryEntry.correlationFields.length === 0) {
+    throw new Error("CORRELATION_FIELD_MISSING");
+  }
+
+  const dslValidation = validateRuleConfiguration(ruleDef, ruleDef.evaluation_dsl);
+  if (!dslValidation.valid) {
+    throw new Error("INVALID_DSL");
+  }
+}
+
+export function validateRuleCompatibilityAndDsl(ruleDef: RuleDefinition): void {
+  internalValidateRuleCompatibilityAndDsl(ruleDef, SOURCE_COMPATIBILITY_REGISTRY);
+}
+
 export class RuleInitializationService {
   static async initializeInitialDrafts(actorUserId: string): Promise<{ rule_id: string, result: InitializationResult, message?: string }[]> {
     const results: { rule_id: string, result: InitializationResult, message?: string }[] = [];
-    
-    // DB-authoritative authorization
-    const user = await prisma.user.findUnique({ where: { id: actorUserId } });
-    if (!user || user.role !== 'Super Admin' || user.status !== 'Verified') {
-      throw new Error("Unauthorized: Only verified Super Admins can initialize rules.");
-    }
-    
-    // Check permission
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (!hasPermission(user.role as any, 'security_rules' as any, 'initialize' as any)) {
-      throw new Error("Unauthorized: Missing required permission security.rules.initialize.");
-    }
 
     for (const ruleDef of INITIAL_RULES) {
       try {
+        validateRuleCompatibilityAndDsl(ruleDef);
+
         await prisma.$transaction(async (tx) => {
-          // Check existence
           const existing = await tx.detectionRule.findUnique({
             where: {
               rule_id_version: {
@@ -113,7 +139,6 @@ export class RuleInitializationService {
           });
 
           if (existing) {
-            // Compare
             const isEquivalent = 
               existing.name === ruleDef.name &&
               existing.status === ruleDef.status &&
@@ -122,33 +147,40 @@ export class RuleInitializationService {
               existing.base_severity === ruleDef.base_severity &&
               existing.threshold_count === ruleDef.threshold_count &&
               existing.correlation_subject_type === ruleDef.correlation_subject_type &&
-              JSON.stringify(existing.evaluation_dsl) === JSON.stringify(ruleDef.evaluation_dsl);
+              JSON.stringify(canonicalize(existing.evaluation_dsl)) === JSON.stringify(canonicalize(ruleDef.evaluation_dsl));
             
             if (isEquivalent) {
               results.push({ rule_id: ruleDef.rule_id, result: "ALREADY_INITIALIZED_EQUIVALENT" });
             } else {
               results.push({ rule_id: ruleDef.rule_id, result: "INITIALIZATION_CONFLICT", message: "Rule exists but definition differs." });
-              // Create audit log for conflict
+
               await tx.auditLog.create({
                 data: {
                   actor_user_id: actorUserId,
-                  action: "SOC_RULE_INITIALIZATION_CONFLICT",
+                  action: "SOC_RULE_INITIALIZED",
                   module: "SECURITY_RULES",
-                  details: `Initialization conflict for rule ${ruleDef.rule_id} v${ruleDef.version}`
+                  target_id: ruleDef.rule_id,
+                  details: JSON.stringify({
+                    outcome: "INITIALIZATION_CONFLICT",
+                    logicalRuleId: ruleDef.rule_id,
+                    version: ruleDef.version,
+                    resultingStatus: "DRAFT",
+                    ruleCreated: false,
+                    existingVersionModified: false
+                  })
                 }
               });
             }
             return;
           }
 
-          // Create Rule
           await tx.detectionRule.create({
             data: {
-              ...ruleDef
+              ...ruleDef,
+              evaluation_dsl: ruleDef.evaluation_dsl ?? Prisma.JsonNull
             }
           });
 
-          // Create AuditLog atomically
           await tx.auditLog.create({
             data: {
               actor_user_id: actorUserId,
@@ -161,9 +193,8 @@ export class RuleInitializationService {
 
           results.push({ rule_id: ruleDef.rule_id, result: "CREATED" });
         });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
-         results.push({ rule_id: ruleDef.rule_id, result: "ERROR", message: error.message });
+      } catch (error: unknown) {
+         results.push({ rule_id: ruleDef.rule_id, result: "ERROR", message: error instanceof Error ? error.message : "Unknown error" });
       }
     }
 
