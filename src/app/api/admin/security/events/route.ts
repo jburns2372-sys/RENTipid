@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient, Prisma } from "@prisma/client";
+import { prisma } from "@/lib/ai/ai-logger";
 import { 
   requireAuthenticatedUser, 
   getCurrentDatabaseUser, 
@@ -18,7 +19,7 @@ import {
   SecurityProcessingStatus 
 } from "@/lib/security/events/taxonomy";
 
-const prisma = new PrismaClient();
+// Removed new PrismaClient() to use the singleton
 
 const querySchema = z.object({
   cursor: z.string().optional(),

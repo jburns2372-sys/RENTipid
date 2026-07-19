@@ -78,6 +78,19 @@ export default function SuperAdminDashboard() {
           </div>
         </Link>
 
+        {/* Security Operations Center */}
+        <Link href="/dashboard/admin/security" className="block group">
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition h-full">
+            <div className="flex items-center mb-4">
+              <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center mr-3 group-hover:bg-slate-600 transition-colors">
+                <ShieldCheck className="w-5 h-5 text-slate-600 group-hover:text-white" />
+              </div>
+              <h2 className="text-lg font-bold">Security Operations Center</h2>
+            </div>
+            <p className="text-gray-600 text-sm">Monitor security events, detection rules, advisory alerts, audit evidence and SOC review activity.</p>
+          </div>
+        </Link>
+
       </div>
       
       <AIAssistantButton context="Super Admin Dashboard" />

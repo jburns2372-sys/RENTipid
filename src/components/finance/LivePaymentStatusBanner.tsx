@@ -1,8 +1,8 @@
 import React from 'react';
-import { PrismaClient } from '@prisma/client';
 import { AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { prisma } from '@/lib/ai/ai-logger';
 
-const prisma = new PrismaClient();
+// Removed new PrismaClient() to use the singleton
 
 export default async function LivePaymentStatusBanner() {
   const settingsRaw = await prisma.systemSetting.findMany({

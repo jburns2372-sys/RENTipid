@@ -54,6 +54,11 @@ export default function Header() {
                 <Link href={getDashboardLink()} className="text-sm font-medium text-gray-600 hover:text-blue-600 px-3 py-2">
                   Dashboard
                 </Link>
+                {(session.user as any).role === 'Super Admin' && (
+                  <Link href="/dashboard/admin/security" className="text-sm font-medium text-gray-600 hover:text-blue-600 px-3 py-2">
+                    SOC
+                  </Link>
+                )}
                 <button onClick={() => signOut({ callbackUrl: '/' })} className="text-sm font-medium text-red-600 hover:text-red-700 px-3 py-2">
                   Logout
                 </button>

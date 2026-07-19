@@ -1,10 +1,10 @@
 import { requireSecurityPermission } from "@/lib/security/authorization";
 import { SECURITY_PERMISSIONS } from "@/lib/security/permissions";
 import { Shield, ShieldAlert, CheckCircle2, Lock, Activity, Database, AlertCircle } from "lucide-react";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/ai/ai-logger";
 import { EventsTable } from "./events-table";
 
-const prisma = new PrismaClient();
+// Removed new PrismaClient() to use the singleton
 
 export default async function SecurityDashboardPage() {
   const authContext = await requireSecurityPermission(SECURITY_PERMISSIONS.DASHBOARD_VIEW);
@@ -17,7 +17,7 @@ export default async function SecurityDashboardPage() {
 
   return (
     <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
-      
+
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-white flex items-center gap-3">
@@ -46,7 +46,13 @@ export default async function SecurityDashboardPage() {
         <div className="px-4 py-2 border-b-2 border-blue-500 text-blue-500 font-medium">
           Events & Feed
         </div>
-        {["Incidents", "Countermeasures", "Detection Rules", "Simulations", "Reports", "Maintenance"].map(tab => (
+
+        {/* Detection Rules Link */}
+        <a href="/dashboard/admin/security/rules" className="px-4 py-2 text-gray-300 hover:text-white font-medium flex items-center gap-2 transition-colors">
+          Detection Rules
+        </a>
+
+        {["Incidents", "Countermeasures", "Simulations", "Reports", "Maintenance"].map(tab => (
           <div key={tab} className="px-4 py-2 text-gray-600 font-medium cursor-not-allowed opacity-50 flex items-center gap-2" title="Not Yet Enabled">
             {tab} <Lock className="w-3 h-3" />
           </div>
@@ -59,7 +65,7 @@ export default async function SecurityDashboardPage() {
           <h3 className="text-white font-medium text-lg">Normalized Events</h3>
           <p className="text-3xl font-bold text-white">{totalEvents}</p>
         </div>
-        
+
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-5 shadow-lg flex flex-col justify-center items-center gap-2">
           <AlertCircle className="w-8 h-8 text-red-400" />
           <h3 className="text-white font-medium text-lg">Ingestion Failures</h3>
@@ -117,7 +123,7 @@ export default async function SecurityDashboardPage() {
           </p>
         </div>
       </div>
-      
+
     </div>
   );
 }
