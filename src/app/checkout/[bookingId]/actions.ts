@@ -69,18 +69,31 @@ export async function processCheckout(formData: FormData) {
     }
   }
 
-  // Create GatewayTransaction first
-  const transaction = await prisma.gatewayTransaction.create({
-    data: {
-      booking_id: booking.id,
-      provider: paymentMode.startsWith('paymongo') ? 'PayMongo' : 'Mock',
-      provider_mode: paymentMode === 'paymongo_live_pilot' ? 'Live Pilot' : 'Sandbox',
-      gateway_status: 'Created',
-      amount: booking.estimated_total_amount,
-      currency: 'PHP',
-      verification_status: 'Not Verified',
-      reconciliation_status: 'Pending'
-    }
+  // Create GatewayTransaction first within an atomic transaction
+  const transaction = await prisma.$transaction(async (tx) => {
+    const txDoc = await tx.gatewayTransaction.create({
+      data: {
+        booking_id: booking.id,
+        provider: paymentMode.startsWith('paymongo') ? 'PayMongo' : 'Mock',
+        provider_mode: paymentMode === 'paymongo_live_pilot' ? 'Live Pilot' : 'Sandbox',
+        gateway_status: 'Created',
+        amount: booking.estimated_total_amount,
+        currency: 'PHP',
+        verification_status: 'Not Verified',
+        reconciliation_status: 'Pending'
+      }
+    });
+
+    const { recordPaymentInitializedAction } = await import('@/lib/payments/payment-action-log-writer');
+    
+    await recordPaymentInitializedAction(
+      tx,
+      txDoc,
+      { id: booking.id },
+      user.id
+    );
+
+    return txDoc;
   });
 
   if (paymentMode === 'mock' || paymentMode === 'manual') {

@@ -50,6 +50,7 @@ model User {
 
   // Phase 15: Mobile & Compliance
   accountDeletionRequests AccountDeletionRequest[]
+  paymentActionLogs       PaymentActionLog[]
 }
 
 model UserProfile {
@@ -267,6 +268,7 @@ model Booking {
   depositActions    DepositAction[]
   refundRequests    RefundRequest[]
   providerPayouts   ProviderPayout[]
+  paymentActionLogs PaymentActionLog[]
 
   // Phase 10: Beta & UAT Tracking
   is_test_data Boolean @default(false)
@@ -335,6 +337,7 @@ model GatewayTransaction {
   updated_at DateTime @updatedAt
 
   reconciliationLogs PaymentReconciliationLog[]
+  paymentActionLogs  PaymentActionLog[]
 }
 
 model PaymentWebhookLog {
@@ -366,6 +369,36 @@ model PaymentReconciliationLog {
   status            String // "Matched" | "Mismatch"
   notes             String?
   created_at        DateTime @default(now())
+}
+
+model PaymentActionLog {
+  id                     String              @id @default(cuid())
+  gateway_transaction_id String?
+  gateway_transaction    GatewayTransaction? @relation(fields: [gateway_transaction_id], references: [id], onDelete: SetNull)
+  booking_id             String
+  booking                Booking             @relation(fields: [booking_id], references: [id], onDelete: Restrict)
+
+  action_code   String
+  actor_type    String // "RENTER" | "PROVIDER" | "SYSTEM"
+  actor_user_id String?
+  actor_user    User?   @relation(fields: [actor_user_id], references: [id], onDelete: Restrict)
+
+  provider           String?
+  provider_reference String?
+
+  amount   Decimal? @db.Decimal(20, 4)
+  currency String?
+
+  outcome        String
+  failure_reason String?
+
+  source_workflow     String
+  source_operation_id String
+
+  idempotency_key String @unique
+
+  occurred_at DateTime
+  created_at  DateTime @default(now())
 }
 
 model FinanceLedger {
