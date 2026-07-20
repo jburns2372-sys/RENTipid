@@ -6,7 +6,39 @@ import { authOptions } from "@/lib/auth";
 import { gatewayRegistry } from '@/lib/payments/payment-gateway-registry';
 import { redirect } from 'next/navigation';
 
+import { createHash } from 'crypto';
+
 const prisma = new PrismaClient();
+
+export function validateCheckoutRequestId(rawId: any): string {
+  if (!rawId || typeof rawId !== 'string') {
+    throw new Error("Missing or invalid checkout operation identity");
+  }
+
+  const trimmedKey = rawId.trim();
+  if (trimmedKey !== rawId) {
+    throw new Error("Malformed checkout operation identity");
+  }
+
+  if (trimmedKey.length === 0 || trimmedKey.length > 64) {
+    throw new Error("Invalid checkout operation identity length");
+  }
+
+  if (/[\s\x00-\x1F\x7F]/.test(trimmedKey)) {
+    throw new Error("Malformed checkout operation identity");
+  }
+
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(trimmedKey)) {
+    throw new Error("Malformed checkout operation identity");
+  }
+
+  return trimmedKey;
+}
+
+export function deriveCheckoutIdempotencyKey(userId: string, bookingId: string, requestId: string): string {
+  const idempotencyRaw = `RENTIPID_CHECKOUT_V1|${userId}|${bookingId}|${requestId}`;
+  return createHash('sha256').update(idempotencyRaw).digest('hex');
+}
 
 export async function processCheckout(formData: FormData) {
   const session = await getServerSession(authOptions);
@@ -15,9 +47,9 @@ export async function processCheckout(formData: FormData) {
 
   const bookingId = formData.get('booking_id') as string;
   const paymentMode = formData.get('payment_mode') as string;
-  const idempotencyKey = formData.get('checkout_request_id') as string;
+  const rawIdempotencyKey = formData.get('checkout_request_id');
 
-  if (!idempotencyKey) throw new Error("Missing checkout operation identity");
+  const idempotencyKey = validateCheckoutRequestId(rawIdempotencyKey);
 
   const booking = await prisma.booking.findUnique({
     where: { id: bookingId },
@@ -72,16 +104,20 @@ export async function processCheckout(formData: FormData) {
     }
   }
 
+  // Derive server-scoped idempotency digest
+  const serverScopedIdempotencyKey = deriveCheckoutIdempotencyKey(user.id, booking.id, idempotencyKey);
+
   let transaction;
   let isNewTransaction = false;
 
   try {
     transaction = await prisma.$transaction(async (tx) => {
       const existing = await tx.gatewayTransaction.findUnique({
-        where: { idempotency_key: idempotencyKey }
+        where: { idempotency_key: serverScopedIdempotencyKey }
       });
 
       if (existing) {
+        if (existing.booking_id !== booking.id) throw new Error("Cross-scope idempotency collision rejected");
         return existing;
       }
 
@@ -89,7 +125,7 @@ export async function processCheckout(formData: FormData) {
       const newTx = await tx.gatewayTransaction.create({
         data: {
           booking_id: booking.id,
-          idempotency_key: idempotencyKey,
+          idempotency_key: serverScopedIdempotencyKey,
           provider: paymentMode.startsWith('paymongo') ? 'PayMongo' : 'Mock',
           provider_mode: paymentMode === 'paymongo_live_pilot' ? 'Live Pilot' : 'Sandbox',
           gateway_status: 'Created',
@@ -107,7 +143,7 @@ export async function processCheckout(formData: FormData) {
         { id: newTx.id, amount: newTx.amount, currency: newTx.currency },
         { id: booking.id },
         user.id,
-        idempotencyKey
+        serverScopedIdempotencyKey
       );
 
       return newTx;
@@ -115,9 +151,10 @@ export async function processCheckout(formData: FormData) {
   } catch (error: any) {
     if (error.code === 'P2002') {
       const existing = await prisma.gatewayTransaction.findUnique({
-        where: { idempotency_key: idempotencyKey }
+        where: { idempotency_key: serverScopedIdempotencyKey }
       });
       if (!existing) throw new Error("Concurrency resolution failed");
+      if (existing.booking_id !== booking.id) throw new Error("Cross-scope idempotency collision rejected");
       transaction = existing;
       isNewTransaction = false;
     } else {
@@ -129,8 +166,6 @@ export async function processCheckout(formData: FormData) {
     if (transaction.gateway_checkout_url) {
       redirect(transaction.gateway_checkout_url);
     }
-    // If it's a mock payment, it will redirect below.
-    // If it's PayMongo and still 'Created', another thread is handling it.
     if (transaction.gateway_status === 'Created' && paymentMode.startsWith('paymongo')) {
       redirect(`/checkout/${booking.id}?info=processing`);
     }

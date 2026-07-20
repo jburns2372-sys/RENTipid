@@ -80,8 +80,12 @@ export async function recordPaymentInitializedAction(
   gatewayTransaction: { id: string, amount: number, currency: string },
   booking: { id: string },
   actorUserId: string,
-  sourceOperationId?: string
+  sourceOperationId: string
 ) {
+  if (!sourceOperationId || sourceOperationId.trim() === '') {
+    throw new Error('Missing or empty sourceOperationId');
+  }
+
   return writePaymentActionLog(tx, {
     gateway_transaction_id: gatewayTransaction.id,
     booking_id: booking.id,
@@ -92,6 +96,6 @@ export async function recordPaymentInitializedAction(
     currency: gatewayTransaction.currency,
     outcome: 'SUCCESS',
     source_workflow: 'CHECKOUT_INITIALIZATION',
-    source_operation_id: sourceOperationId || gatewayTransaction.id
+    source_operation_id: sourceOperationId
   });
 }
