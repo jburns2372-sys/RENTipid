@@ -9,6 +9,7 @@ import { DamageClaimAdapter, DisputeCaseAdapter, InspectionReportAdapter } from 
 import { SystemSettingAdapter } from "./system-setting-adapter";
 import { AuthenticationSecurityLogAdapter } from "./authentication-security-log-adapter";
 import { ApiSecurityLogAdapter } from "./api-security-adapter";
+import { BookingStatusHistoryAdapter } from "./booking-status-history-adapter";
 
 export const ADAPTER_REGISTRY: SecurityEventSourceAdapter<unknown>[] = [
   new AuthenticationSecurityLogAdapter(),
@@ -22,7 +23,8 @@ export const ADAPTER_REGISTRY: SecurityEventSourceAdapter<unknown>[] = [
   new DisputeCaseAdapter(),
   new InspectionReportAdapter(),
   new SystemSettingAdapter(),
-  new ApiSecurityLogAdapter()
+  new ApiSecurityLogAdapter(),
+  new BookingStatusHistoryAdapter()
 ];
 
 export function getAdapterForRecord(record: unknown): SecurityEventSourceAdapter<unknown> | null {

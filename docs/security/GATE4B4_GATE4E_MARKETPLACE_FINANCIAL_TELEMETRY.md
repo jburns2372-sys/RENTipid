@@ -53,5 +53,31 @@ Rules blocked by missing immutable source data and requiring future service-laye
 
 ## 7. Future Slice Prerequisites
 *   **Slice B (Financial)**: Service writers must emit immutable events for payouts, refunds, and payments.
-*   **Slice C (Marketplace)**: A new adapter for `BookingStatusHistory` is required. Service writers must emit immutable events for listings and reviews.
+*   **Slice C (Marketplace)**: A new adapter for `BookingStatusHistory` is required (COMPLETED in Slice C2). Service writers must emit immutable events for listings and reviews.
 *   **Slice D (Claims/Inspection)**: Service writers must emit immutable events for claims and inspection manipulations.
+
+## 8. Gate 4B-4 Slice C2 Completion Details
+*   **Proven BookingStatusHistory Source**: The `BookingStatusHistory` model with the exact matching predicate (`old_status === 'SYSTEM_CREATION' && new_status === 'PENDING_PAYMENT'`).
+*   **Adapter Details**:
+    *   File: `src/lib/security/events/adapters/booking-status-history-adapter.ts`
+    *   Function: `BookingStatusHistoryAdapter`
+    *   Version: `1.0`
+*   **Categorization**:
+    *   Event Category: `Booking` (Canonical event category).
+    *   Rationale: Selected existing canonical category that truthfully represents marketplace booking telemetry.
+*   **Correlation & Privacy**:
+    *   Actor Correlation Classification: `booking-creation-actor` mapped via `pseudonymizeTelemetryContext`.
+    *   Booking Evidence Classification: `booking-reference` mapped via `pseudonymizeTelemetryContext`.
+    *   HMAC Domain Separation: Enforced via unique prefixes. Raw IDs are omitted entirely.
+*   **Immutable Idempotency**:
+    *   Formula: `SHA256("BOOKING_STATUS_HISTORY" | history_record_id | event_code | adapter_version)`.
+    *   `updatedAt` or mutable fields are not used.
+*   **Registry Integration**:
+    *   Added to `ADAPTER_REGISTRY` in `src/lib/security/events/adapters/registry.ts`.
+*   **Exclusions**:
+    *   Non-creation transitions (e.g. `CANCELLED`, `COMPLETED`, ordinary updates) emit strictly `OBSERVATION` severity `INFO` and do NOT emit `BOOKING_CREATED`.
+*   **Compliance**:
+    *   `BOOKING-VELOCITY-01` Compatibility: **COMPATIBLE**.
+    *   `BOOKING-VELOCITY-01` Lifecycle: **DRAFT** (Remains strictly in DRAFT).
+    *   `BOOKING-FRAUD-01` Blocked Status: Remained explicitly blocked due to missing `BOOKING_FRAUD_SIGNAL` source data.
+    *   Confirmation: No evaluator evidence occurred. No worker was enabled. Remaining Slice B and Slice D blockers continue to require service-layer writers.
