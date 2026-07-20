@@ -269,4 +269,154 @@ describe('GATE4B4_SLICE_B1C: Checkout Writer Integration', () => {
       await recordPaymentInitializedAction(tx, txDoc, { id: syntheticBooking.id }, syntheticUser.id);
     })).rejects.toThrow(/Missing currency/);
   });
+
+  // R3: Checkout Operation Idempotency and Retry Safety Proof
+  it('9. Same logical request retried sequentially creates no duplicate', async () => {
+    const idempotencyKey = `${namespace}-idem-1`;
+    
+    const txFn = async () => {
+      return prisma.$transaction(async (tx) => {
+        const existing = await tx.gatewayTransaction.findUnique({
+          where: { idempotency_key: idempotencyKey }
+        });
+        if (existing) return existing;
+        
+        const newTx = await tx.gatewayTransaction.create({
+          data: {
+            id: `${namespace}-tx-idem-1`,
+            booking_id: syntheticBooking.id,
+            idempotency_key: idempotencyKey,
+            provider: 'Mock',
+            provider_mode: 'Sandbox',
+            gateway_status: 'Created',
+            amount: 1000,
+            currency: 'PHP',
+            verification_status: 'Not Verified',
+            reconciliation_status: 'Pending'
+          }
+        });
+        await recordPaymentInitializedAction(tx, newTx, { id: syntheticBooking.id }, syntheticUser.id, idempotencyKey);
+        return newTx;
+      });
+    };
+
+    const firstResult = await txFn();
+    expect(firstResult.id).toBe(`${namespace}-tx-idem-1`);
+
+    const secondResult = await txFn();
+    expect(secondResult.id).toBe(firstResult.id); // Same authoritative result
+
+    // Verify exactly one GatewayTransaction
+    const txCount = await prisma.gatewayTransaction.count({
+      where: { idempotency_key: idempotencyKey }
+    });
+    expect(txCount).toBe(1);
+
+    // Verify exactly one PaymentActionLog
+    const logCount = await prisma.paymentActionLog.count({
+      where: { gateway_transaction_id: firstResult.id }
+    });
+    expect(logCount).toBe(1);
+  });
+
+  it('10. Concurrent duplicate handling exposes no raw Prisma error and creates exactly one', async () => {
+    const idempotencyKey = `${namespace}-idem-concurrent`;
+    
+    const concurrentTxFn = async (txId: string) => {
+      try {
+        return await prisma.$transaction(async (tx) => {
+          const existing = await tx.gatewayTransaction.findUnique({
+            where: { idempotency_key: idempotencyKey }
+          });
+          if (existing) return existing;
+          
+          const newTx = await tx.gatewayTransaction.create({
+            data: {
+              id: txId,
+              booking_id: syntheticBooking.id,
+              idempotency_key: idempotencyKey,
+              provider: 'Mock',
+              provider_mode: 'Sandbox',
+              gateway_status: 'Created',
+              amount: 1000,
+              currency: 'PHP',
+              verification_status: 'Not Verified',
+              reconciliation_status: 'Pending'
+            }
+          });
+          await recordPaymentInitializedAction(tx, newTx, { id: syntheticBooking.id }, syntheticUser.id, idempotencyKey);
+          return newTx;
+        });
+      } catch (error: any) {
+        if (error.code === 'P2002') {
+          const existing = await prisma.gatewayTransaction.findUnique({
+            where: { idempotency_key: idempotencyKey }
+          });
+          if (!existing) throw new Error("Concurrency resolution failed");
+          return existing;
+        }
+        throw error;
+      }
+    };
+
+    // Run two concurrently
+    const [res1, res2] = await Promise.all([
+      concurrentTxFn(`${namespace}-tx-concurrent-1`),
+      concurrentTxFn(`${namespace}-tx-concurrent-2`)
+    ]);
+
+    expect(res1.id).toBe(res2.id); // One must have resolved to the other's result
+
+    // Verify exactly one GatewayTransaction
+    const txCount = await prisma.gatewayTransaction.count({
+      where: { idempotency_key: idempotencyKey }
+    });
+    expect(txCount).toBe(1);
+
+    // Verify exactly one PaymentActionLog
+    const logCount = await prisma.paymentActionLog.count({
+      where: { gateway_transaction_id: res1.id }
+    });
+    expect(logCount).toBe(1);
+  });
+
+  it('11. Distinct legitimate payment attempts create distinct records', async () => {
+    const idempotencyKey1 = `${namespace}-idem-dist-1`;
+    const idempotencyKey2 = `${namespace}-idem-dist-2`;
+    
+    const createDistinct = async (idemKey: string, txId: string) => {
+      return prisma.$transaction(async (tx) => {
+        const newTx = await tx.gatewayTransaction.create({
+          data: {
+            id: txId,
+            booking_id: syntheticBooking.id,
+            idempotency_key: idemKey,
+            provider: 'Mock',
+            provider_mode: 'Sandbox',
+            gateway_status: 'Created',
+            amount: 1000,
+            currency: 'PHP',
+            verification_status: 'Not Verified',
+            reconciliation_status: 'Pending'
+          }
+        });
+        await recordPaymentInitializedAction(tx, newTx, { id: syntheticBooking.id }, syntheticUser.id, idemKey);
+        return newTx;
+      });
+    };
+
+    const attempt1 = await createDistinct(idempotencyKey1, `${namespace}-tx-dist-1`);
+    const attempt2 = await createDistinct(idempotencyKey2, `${namespace}-tx-dist-2`);
+
+    expect(attempt1.id).not.toBe(attempt2.id);
+    expect(attempt1.idempotency_key).toBe(idempotencyKey1);
+    expect(attempt2.idempotency_key).toBe(idempotencyKey2);
+
+    const log1 = await prisma.paymentActionLog.findFirst({ where: { gateway_transaction_id: attempt1.id }});
+    const log2 = await prisma.paymentActionLog.findFirst({ where: { gateway_transaction_id: attempt2.id }});
+
+    expect(log1?.source_operation_id).toBe(idempotencyKey1);
+    expect(log2?.source_operation_id).toBe(idempotencyKey2);
+    expect(log1?.idempotency_key).not.toBe(log2?.idempotency_key);
+  });
 });

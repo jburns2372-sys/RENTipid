@@ -79,7 +79,8 @@ export async function recordPaymentInitializedAction(
   tx: Prisma.TransactionClient,
   gatewayTransaction: { id: string, amount: number, currency: string },
   booking: { id: string },
-  actorUserId: string
+  actorUserId: string,
+  sourceOperationId?: string
 ) {
   return writePaymentActionLog(tx, {
     gateway_transaction_id: gatewayTransaction.id,
@@ -91,6 +92,6 @@ export async function recordPaymentInitializedAction(
     currency: gatewayTransaction.currency,
     outcome: 'SUCCESS',
     source_workflow: 'CHECKOUT_INITIALIZATION',
-    source_operation_id: gatewayTransaction.id
+    source_operation_id: sourceOperationId || gatewayTransaction.id
   });
 }

@@ -318,6 +318,7 @@ model GatewayTransaction {
 
   provider             String // "PayMongo" | "Xendit" | "Maya" | "Mock" | "Manual"
   provider_mode        String // "Sandbox" | "Live" | "Internal"
+  idempotency_key      String? @unique
   gateway_reference    String? @unique
   gateway_checkout_url String?
   gateway_status       String // "Created" | "Checkout Pending" | "Paid Sandbox" | "Failed Sandbox" | "Expired" | "Cancelled" | "Refunded Placeholder" | "Error"

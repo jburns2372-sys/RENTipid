@@ -15,6 +15,9 @@ export async function processCheckout(formData: FormData) {
 
   const bookingId = formData.get('booking_id') as string;
   const paymentMode = formData.get('payment_mode') as string;
+  const idempotencyKey = formData.get('checkout_request_id') as string;
+
+  if (!idempotencyKey) throw new Error("Missing checkout operation identity");
 
   const booking = await prisma.booking.findUnique({
     where: { id: bookingId },
@@ -69,32 +72,69 @@ export async function processCheckout(formData: FormData) {
     }
   }
 
-  // Create GatewayTransaction first within an atomic transaction
-  const transaction = await prisma.$transaction(async (tx) => {
-    const txDoc = await tx.gatewayTransaction.create({
-      data: {
-        booking_id: booking.id,
-        provider: paymentMode.startsWith('paymongo') ? 'PayMongo' : 'Mock',
-        provider_mode: paymentMode === 'paymongo_live_pilot' ? 'Live Pilot' : 'Sandbox',
-        gateway_status: 'Created',
-        amount: booking.estimated_total_amount,
-        currency: 'PHP',
-        verification_status: 'Not Verified',
-        reconciliation_status: 'Pending'
+  let transaction;
+  let isNewTransaction = false;
+
+  try {
+    transaction = await prisma.$transaction(async (tx) => {
+      const existing = await tx.gatewayTransaction.findUnique({
+        where: { idempotency_key: idempotencyKey }
+      });
+
+      if (existing) {
+        return existing;
       }
+
+      isNewTransaction = true;
+      const newTx = await tx.gatewayTransaction.create({
+        data: {
+          booking_id: booking.id,
+          idempotency_key: idempotencyKey,
+          provider: paymentMode.startsWith('paymongo') ? 'PayMongo' : 'Mock',
+          provider_mode: paymentMode === 'paymongo_live_pilot' ? 'Live Pilot' : 'Sandbox',
+          gateway_status: 'Created',
+          amount: booking.estimated_total_amount,
+          currency: 'PHP',
+          verification_status: 'Not Verified',
+          reconciliation_status: 'Pending'
+        }
+      });
+
+      const { recordPaymentInitializedAction } = await import('@/lib/payments/payment-action-log-writer');
+      
+      await recordPaymentInitializedAction(
+        tx,
+        { id: newTx.id, amount: newTx.amount, currency: newTx.currency },
+        { id: booking.id },
+        user.id,
+        idempotencyKey
+      );
+
+      return newTx;
     });
+  } catch (error: any) {
+    if (error.code === 'P2002') {
+      const existing = await prisma.gatewayTransaction.findUnique({
+        where: { idempotency_key: idempotencyKey }
+      });
+      if (!existing) throw new Error("Concurrency resolution failed");
+      transaction = existing;
+      isNewTransaction = false;
+    } else {
+      throw error;
+    }
+  }
 
-    const { recordPaymentInitializedAction } = await import('@/lib/payments/payment-action-log-writer');
-    
-    await recordPaymentInitializedAction(
-      tx,
-      txDoc,
-      { id: booking.id },
-      user.id
-    );
-
-    return txDoc;
-  });
+  if (!isNewTransaction) {
+    if (transaction.gateway_checkout_url) {
+      redirect(transaction.gateway_checkout_url);
+    }
+    // If it's a mock payment, it will redirect below.
+    // If it's PayMongo and still 'Created', another thread is handling it.
+    if (transaction.gateway_status === 'Created' && paymentMode.startsWith('paymongo')) {
+      redirect(`/checkout/${booking.id}?info=processing`);
+    }
+  }
 
   if (paymentMode === 'mock' || paymentMode === 'manual') {
     // Legacy / Mock Flow
