@@ -85,20 +85,42 @@ export async function processCheckout(formData: FormData) {
     serverScopedIdempotencyKey = deriveCheckoutIdempotencyKey(user.id, booking.id, idempotencyKey);
 
     if (s['PAYMENT_EMERGENCY_FREEZE'] === 'true') {
+      type CheckoutTransactionResult = {
+        kind: 'PAYMENT_FREEZE_BLOCKED';
+        paymentActionLogId: string;
+      };
+
+      let freezeResult: CheckoutTransactionResult | null = null;
+
       try {
-        await prisma.$transaction(async (tx) => {
+        freezeResult = await prisma.$transaction(async (tx) => {
           const { recordPaymentFreezeBlockedAction } = await import('@/lib/payments/payment-action-log-writer');
-          await recordPaymentFreezeBlockedAction(tx, { id: booking.id }, user.id, serverScopedIdempotencyKey!);
+          const log = await recordPaymentFreezeBlockedAction(tx, { id: booking.id }, user.id, serverScopedIdempotencyKey!);
+          return {
+            kind: 'PAYMENT_FREEZE_BLOCKED' as const,
+            paymentActionLogId: log.id
+          };
         });
       } catch (error: any) {
         if (error.code !== 'P2002') {
           throw error;
         }
         // P2002 implies duplicate immutable record; handled gracefully by allowing the redirect
+        const existingLog = await prisma.paymentActionLog.findUnique({
+          where: { idempotency_key: serverScopedIdempotencyKey }
+        });
+        if (existingLog) {
+          freezeResult = {
+            kind: 'PAYMENT_FREEZE_BLOCKED' as const,
+            paymentActionLogId: existingLog.id
+          };
+        }
       }
 
-
-      return redirect(`/checkout/${booking.id}?error=frozen`);
+      if (freezeResult?.kind === 'PAYMENT_FREEZE_BLOCKED') {
+        const _handoffTarget = freezeResult.paymentActionLogId;
+        return redirect(`/checkout/${booking.id}?error=frozen`);
+      }
     }
 
     if (

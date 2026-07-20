@@ -50,7 +50,7 @@ export async function writePaymentActionLog(
     }
   }
 
-  if (data.currency) {
+  if (data.currency !== undefined && data.currency !== null) {
     canonicalCurrency = data.currency.toUpperCase();
     if (!canonicalCurrency) {
       throw new Error('GATE4B4_SLICE_B1C_FINANCIAL_SOURCE_UNPROVEN: Missing currency');
