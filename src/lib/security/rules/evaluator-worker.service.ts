@@ -142,7 +142,12 @@ async function processRuleCheckpoint(
   let checkpointId: string;
   const existing = await prisma.detectionEvaluationCheckpoint.findUnique({
     where: {
-      rule_id_rule_version_environment_lifecycle_type: checkpointIdentity,
+      rule_id_rule_version_environment_lifecycle_type: {
+        rule_id: rule.rule_id,
+        rule_version: rule.version,
+        environment: env,
+        lifecycle_type: lc,
+      }
     },
     select: { id: true, cursor_timestamp: true }
   });
@@ -312,11 +317,15 @@ async function fetchEventsBatch(
     take: MAX_EVENTS_PER_BATCH,
     select: {
       id: true,
+      event_code: true,
       occurred_at: true,
       environment: true,
       lifecycle_type: true,
       security_domain: true,
       source_type: true,
+      event_category: true,
+      event_classification: true,
+      correlation_key: true,
       action_attempted: true,
       action_result: true,
       severity: true,
