@@ -130,3 +130,21 @@ Rules blocked by missing immutable source data and requiring future service-laye
 *   **Targeted Test Coverage**: Updated gate4b4-slice-b1e-payment-freeze-blocked.integration.test.ts to prove absence of duplicate AuditLog writes during blocked checkouts, adding tests for missing LIVE_CHECKOUT_BLOCKED_BY_FREEZE.
 *   **Rule Status**: PAYMENT-ANOMALY-01 remains blocked pending full PAYMENT_AMOUNT_MISMATCH and PAYMENT_CURRENCY_MISMATCH source implementations.
 *   **Production Impact**: No Prisma schema changes or migrations were required. Evaluator evidence remains safely deferred.
+
+## 13. Gate 4B-4 Slice B1-F PaymentActionLog SecurityEvent Adapter
+*   **B1-F Scope**: Implemented the SecurityEvent adapter for `PaymentActionLog` to safely ingest and normalize `PAYMENT_FREEZE_BLOCKED` source events.
+*   **Source-Type Declaration**: Uses the repository-standard fallback identifier `SecurityEventSource.AUDIT_LOG` since `PAYMENT_ACTION_LOG` is not defined in the Prisma schema and schema modifications are strictly prohibited.
+*   **Categorization & Classification**:
+    *   **Domain**: `PAYMENT_SECURITY`
+    *   **Classification**: `COUNTERMEASURE` (The action represents a checkout explicitly blocked by a protective system control).
+    *   **Severity**: `HIGH`
+*   **Correlation & Privacy Enforcement**:
+    *   **Booking Correlation**: Mapped to `correlation_key` securely using `pseudonymizeTelemetryContext` with the `booking-reference` domain.
+    *   **Actor Correlation**: The raw `actor_user_id` on the event is explicitly forced to `null`. It is securely hashed into `source_summary.account_reference_hash` using `pseudonymizeTelemetryContext` with the `payment-actor` domain.
+    *   **Data Leakage**: `amount` and raw identifier fields are strictly excluded from the normalization output.
+*   **Immutable Idempotency**:
+    *   Constructed via immutable hash: `SHA256("PAYMENT_ACTION_LOG:" + record_id + ":" + event_code + ":" + adapter_version)`.
+*   **Validation**: An exact matching predicate rejects unsupported ActionCodes and Outcomes safely.
+*   **Acceptance Evidence**: Fully proven by `tests/security/events/gate4b4-slice-b1f-payment-action-log-adapter.integration.test.ts`.
+*   **Registry Integration**: Adapter successfully added to the standard `ADAPTER_REGISTRY`.
+*   **Status Impact**: Rule `PAYMENT-ANOMALY-01` remains strictly DRAFT and blocked pending `PAYMENT_AMOUNT_MISMATCH` and `PAYMENT_CURRENCY_MISMATCH` source implementations. No rules were activated, and no evaluators are enabled.

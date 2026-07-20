@@ -10,6 +10,7 @@ import { SystemSettingAdapter } from "./system-setting-adapter";
 import { AuthenticationSecurityLogAdapter } from "./authentication-security-log-adapter";
 import { ApiSecurityLogAdapter } from "./api-security-adapter";
 import { BookingStatusHistoryAdapter } from "./booking-status-history-adapter";
+import { PaymentActionLogAdapter } from "./payment-action-log-adapter";
 
 export const ADAPTER_REGISTRY: SecurityEventSourceAdapter<unknown>[] = [
   new AuthenticationSecurityLogAdapter(),
@@ -24,7 +25,8 @@ export const ADAPTER_REGISTRY: SecurityEventSourceAdapter<unknown>[] = [
   new InspectionReportAdapter(),
   new SystemSettingAdapter(),
   new ApiSecurityLogAdapter(),
-  new BookingStatusHistoryAdapter()
+  new BookingStatusHistoryAdapter(),
+  new PaymentActionLogAdapter()
 ];
 
 export function getAdapterForRecord(record: unknown): SecurityEventSourceAdapter<unknown> | null {
