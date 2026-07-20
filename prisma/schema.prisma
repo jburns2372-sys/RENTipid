@@ -378,8 +378,8 @@ model PaymentActionLog {
   booking_id             String
   booking                Booking             @relation(fields: [booking_id], references: [id], onDelete: Restrict)
 
-  action_code   String
-  actor_type    String // "RENTER" | "PROVIDER" | "SYSTEM"
+  action_code   String // "PAYMENT_INITIALIZED"
+  actor_type    String // "RENTER"
   actor_user_id String?
   actor_user    User?   @relation(fields: [actor_user_id], references: [id], onDelete: Restrict)
 
@@ -389,7 +389,7 @@ model PaymentActionLog {
   amount   Decimal? @db.Decimal(20, 4)
   currency String?
 
-  outcome        String
+  outcome        String // "SUCCESS"
   failure_reason String?
 
   source_workflow     String

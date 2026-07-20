@@ -81,3 +81,17 @@ Rules blocked by missing immutable source data and requiring future service-laye
     *   `BOOKING-VELOCITY-01` Lifecycle: **DRAFT** (Remains strictly in DRAFT).
     *   `BOOKING-FRAUD-01` Blocked Status: Remained explicitly blocked due to missing `BOOKING_FRAUD_SIGNAL` source data.
     *   Confirmation: No evaluator evidence occurred. No worker was enabled. Remaining Slice B and Slice D blockers continue to require service-layer writers.
+
+## 9. Gate 4B-4 Slice B1-C-R1 Payment Vocabulary Remediation
+*   **Reason**: Narrowed PaymentActionLog enum vocabulary to approved and implemented semantics. Speculative future values and derived detection results were removed from the source action vocabulary to maintain schema scope and compliance.
+*   **Source Telemetry vs. Derived Detection**: `PAYMENT_ANOMALY` is a derived detection result and was removed from the immutable source-action vocabulary.
+*   **Final Approved PaymentActionLog Vocabulary**:
+    *   **Action Code**: `PAYMENT_INITIALIZED` (All others removed).
+    *   **Actor Type**: `RENTER` (All others removed).
+    *   **Outcome**: `SUCCESS` (All others removed).
+*   **Remediation Migration**: Completed via `prisma/schema.prisma` string constraint comments (no local or production migration was necessary as values are un-enumed strings).
+*   **Writer Status**: `PAYMENT_INITIALIZED` writer is fully implemented and tested.
+*   **SecurityEvent Adapter**: None created.
+*   **Catalog Modification**: None performed.
+*   **Rule Status**: `PAYMENT-ANOMALY-01` remains blocked pending catalog remediation.
+*   **Production Migration**: None occurred.
