@@ -95,3 +95,14 @@ Rules blocked by missing immutable source data and requiring future service-laye
 *   **Catalog Modification**: None performed.
 *   **Rule Status**: `PAYMENT-ANOMALY-01` remains blocked pending catalog remediation.
 *   **Production Migration**: None occurred.
+
+## 10. Gate 4B-4 Slice B1-C-R2 Payment Action Validation and Acceptance Evidence
+*   **Vocabulary Enforcement Mechanism**: Enforced strictly at runtime in the canonical writer via fixed `const` arrays and the `validatePaymentVocabulary` function. Prisma schema fields remain `String`.
+*   **Runtime Validation Result**: PASS (Prohibited values like `PAYMENT_ANOMALY`, `ADMIN`, `FAILURE` are explicitly rejected with `VOCABULARY_VIOLATION` errors).
+*   **Direct PaymentActionLog Writer Count**: Exactly one production path (`writePaymentActionLog` wrapped by `recordPaymentInitializedAction`).
+*   **Duplicate Source-Operation Behavior**: A duplicate `GatewayTransaction` for the same booking produces a distinct `source_operation_id` (a new cuid), resulting in a distinct `PaymentActionLog` row safely. Reusing the exact same `gatewayTransaction.id` creates a unique constraint conflict handled by Prisma (deterministic rejection).
+*   **Completed Acceptance-Evidence Count**: 34 required behaviors proven by 8 targeted test cases.
+*   **Source Telemetry vs. Derived Detection**: `PAYMENT_ANOMALY` explicitly remains a derived detection only, rejected from source telemetry.
+*   **SecurityEvent Adapter**: None created.
+*   **Catalog Modification**: None performed.
+*   **Production Migration**: None occurred.

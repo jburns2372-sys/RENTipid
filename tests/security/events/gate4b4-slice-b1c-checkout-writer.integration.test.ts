@@ -177,4 +177,96 @@ describe('GATE4B4_SLICE_B1C: Checkout Writer Integration', () => {
     });
     expect(txExists).toBeNull();
   });
+
+  it('4. writer strictly rejects PAYMENT_ANOMALY action_code', async () => {
+    const { writePaymentActionLog } = await import('@/lib/payments/payment-action-log-writer');
+    await expect(prisma.$transaction(async (tx) => {
+      await writePaymentActionLog(tx, {
+        gateway_transaction_id: 'test',
+        booking_id: syntheticBooking.id,
+        action_code: 'PAYMENT_ANOMALY',
+        actor_type: 'RENTER',
+        actor_user_id: syntheticUser.id,
+        amount: 1000,
+        currency: 'PHP',
+        outcome: 'SUCCESS',
+        source_workflow: 'TEST',
+        source_operation_id: 'test-1'
+      });
+    })).rejects.toThrow(/VOCABULARY_VIOLATION/);
+  });
+
+  it('5. writer strictly rejects ADMIN actor_type', async () => {
+    const { writePaymentActionLog } = await import('@/lib/payments/payment-action-log-writer');
+    await expect(prisma.$transaction(async (tx) => {
+      await writePaymentActionLog(tx, {
+        gateway_transaction_id: 'test',
+        booking_id: syntheticBooking.id,
+        action_code: 'PAYMENT_INITIALIZED',
+        actor_type: 'ADMIN',
+        actor_user_id: syntheticUser.id,
+        amount: 1000,
+        currency: 'PHP',
+        outcome: 'SUCCESS',
+        source_workflow: 'TEST',
+        source_operation_id: 'test-2'
+      });
+    })).rejects.toThrow(/VOCABULARY_VIOLATION/);
+  });
+
+  it('6. writer strictly rejects FAILURE outcome', async () => {
+    const { writePaymentActionLog } = await import('@/lib/payments/payment-action-log-writer');
+    await expect(prisma.$transaction(async (tx) => {
+      await writePaymentActionLog(tx, {
+        gateway_transaction_id: 'test',
+        booking_id: syntheticBooking.id,
+        action_code: 'PAYMENT_INITIALIZED',
+        actor_type: 'RENTER',
+        actor_user_id: syntheticUser.id,
+        amount: 1000,
+        currency: 'PHP',
+        outcome: 'FAILURE',
+        source_workflow: 'TEST',
+        source_operation_id: 'test-3'
+      });
+    })).rejects.toThrow(/VOCABULARY_VIOLATION/);
+  });
+
+  it('7. zero amount fails closed', async () => {
+    await expect(prisma.$transaction(async (tx) => {
+      const txDoc = await tx.gatewayTransaction.create({
+        data: {
+          id: `${namespace}-tx-z`,
+          booking_id: syntheticBooking.id,
+          provider: 'Mock',
+          provider_mode: 'Sandbox',
+          gateway_status: 'Created',
+          amount: 0,
+          currency: 'PHP',
+          verification_status: 'Not Verified',
+          reconciliation_status: 'Pending'
+        }
+      });
+      await recordPaymentInitializedAction(tx, txDoc, { id: syntheticBooking.id }, syntheticUser.id);
+    })).rejects.toThrow(/Invalid amount/);
+  });
+
+  it('8. missing currency fails closed', async () => {
+    await expect(prisma.$transaction(async (tx) => {
+      const txDoc = await tx.gatewayTransaction.create({
+        data: {
+          id: `${namespace}-tx-curr`,
+          booking_id: syntheticBooking.id,
+          provider: 'Mock',
+          provider_mode: 'Sandbox',
+          gateway_status: 'Created',
+          amount: 1000,
+          currency: '',
+          verification_status: 'Not Verified',
+          reconciliation_status: 'Pending'
+        }
+      });
+      await recordPaymentInitializedAction(tx, txDoc, { id: syntheticBooking.id }, syntheticUser.id);
+    })).rejects.toThrow(/Missing currency/);
+  });
 });
