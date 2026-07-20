@@ -97,14 +97,7 @@ export async function processCheckout(formData: FormData) {
         // P2002 implies duplicate immutable record; handled gracefully by allowing the redirect
       }
 
-      await prisma.auditLog.create({
-        data: {
-          actor_user_id: user.id,
-          action: 'LIVE_CHECKOUT_BLOCKED_BY_FREEZE',
-          module: 'Checkout',
-          details: 'Emergency freeze prevented live checkout.'
-        }
-      });
+
       return redirect(`/checkout/${booking.id}?error=frozen`);
     }
 

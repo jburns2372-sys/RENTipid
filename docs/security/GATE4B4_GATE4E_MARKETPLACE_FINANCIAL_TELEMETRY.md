@@ -120,3 +120,13 @@ Rules blocked by missing immutable source data and requiring future service-laye
     *   Rule Compatibility: Downgraded to **BLOCKED_BY_MISSING_SOURCE_DATA** because the three required immutable source events are not yet implemented.
     *   Remaining Requirements: Missing source writers for the three events and a `PaymentActionLog` SecurityEvent adapter are still required before evaluator evidence can run.
     *   Confirmation: No evaluator evidence occurred. No rule activation occurred. No worker was enabled.
+
+## 12. Gate 4B-4 Slice B1-E-R1 Duplicate Payment-Freeze Source Remediation
+*   **B1-E-R1 Scope**: Resolves the duplicate checkout freeze AuditLog writer defect that bypassed PaymentActionLog idempotency constraints.
+*   **Defect Resolved**: The authoritative PAYMENT_FREEZE_BLOCKED source action was duplicated by a non-idempotent LIVE_CHECKOUT_BLOCKED_BY_FREEZE AuditLog write in the same code path, violating idempotency guarantees on concurrent retries.
+*   **Authoritative Source**: PaymentActionLog is established as the single authoritative immutable source for PAYMENT_FREEZE_BLOCKED.
+*   **AuditLog Removal**: The duplicate checkout AuditLog writer was removed. Administrative AuditLog records for emergency-freeze setting changes remain fully intact.
+*   **Idempotency Restored**: The PaymentActionLog server-scoped operation identity correctly protects against concurrent and sequential same-form retries.
+*   **Targeted Test Coverage**: Updated gate4b4-slice-b1e-payment-freeze-blocked.integration.test.ts to prove absence of duplicate AuditLog writes during blocked checkouts, adding tests for missing LIVE_CHECKOUT_BLOCKED_BY_FREEZE.
+*   **Rule Status**: PAYMENT-ANOMALY-01 remains blocked pending full PAYMENT_AMOUNT_MISMATCH and PAYMENT_CURRENCY_MISMATCH source implementations.
+*   **Production Impact**: No Prisma schema changes or migrations were required. Evaluator evidence remains safely deferred.

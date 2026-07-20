@@ -240,6 +240,14 @@ describe('GATE4B4_SLICE_B1E_PAYMENT_FREEZE_BLOCKED_SOURCE_IMPLEMENTATION', () =>
     expect(log).toBeNull();
   });
 
+  it('No LIVE_CHECKOUT_BLOCKED_BY_FREEZE AuditLog is created.', async () => {
+    const logs = await prisma.auditLog.findMany({
+      where: { action: 'LIVE_CHECKOUT_BLOCKED_BY_FREEZE' }
+    });
+    expect(logs.length).toBe(0);
+  });
+
+
   it('4. Exactly one immutable freeze-block source record is created.', async () => {
     const logs = await prisma.paymentActionLog.findMany({
       where: { action_code: 'PAYMENT_FREEZE_BLOCKED' }
@@ -364,6 +372,14 @@ describe('GATE4B4_SLICE_B1E_PAYMENT_FREEZE_BLOCKED_SOURCE_IMPLEMENTATION', () =>
     });
     expect(logs.length).toBe(0);
   });
+
+  it('Unauthorized checkout creates no freeze AuditLog.', async () => {
+    const logs = await prisma.auditLog.findMany({
+      where: { action: 'LIVE_CHECKOUT_BLOCKED_BY_FREEZE', actor_user_id: user2Id }
+    });
+    expect(logs.length).toBe(0);
+  });
+
 
   it('14. Invalid booking creates no freeze-block telemetry.', async () => {
     await mockSession(user1Id, 'user1@test.com');
