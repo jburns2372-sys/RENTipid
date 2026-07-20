@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { recordBookingCreatedHistory } from './bookingStatusHistoryWriter';
 const prisma = new PrismaClient();
 
 export const createBookingHold = async (
@@ -49,18 +50,25 @@ export const createBookingHold = async (
 
     const booking = await tx.booking.create({
       data: {
-        renter_id: renterId,
-        listing_id: listingId,
+        renter: { connect: { id: renterId } },
+        listing: { connect: { id: listingId } },
+        provider: { connect: { id: listing.provider_id } },
         start_date: startDate,
         end_date: endDate,
         status: 'PENDING_PAYMENT',
-        // @ts-ignore
-        total_amount: bookingData.total_amount,        deposit_amount: deposit,
-        expires_at: holdExpiry
+        deposit_amount: deposit,
+        rental_duration: days,
+        rental_duration_unit: 'DAYS',
+        selected_rate_type: 'DAILY',
+        base_rental_amount: basePrice,
+        estimated_total_amount: totalAmount,
+        pickup_option: 'Pickup'
       }
     });
 
     // 5. Audit Log (omitted for brevity, but mandatory for Phase 6)
+    await recordBookingCreatedHistory(tx, booking.id, renterId, booking.status);
+
     return booking;
   });
 };
