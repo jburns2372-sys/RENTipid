@@ -41,7 +41,7 @@ export const createBookingHold = async (
     // 3. Server-side Calculation (Never trust client payload amounts)
     // Simplified calculation for demonstration
     const days = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
-    const basePrice = listing.daily_rate * days * quantity;
+    const basePrice = (listing.daily_rate || 0) * days * quantity;
     const deposit = listing.security_deposit || 0;
     const totalAmount = basePrice + deposit;
 

@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { createBookingHold } from '../../../apps/api/src/services/bookingService';
 import { assertSafeLocalTestDatabaseTarget } from '../../../src/lib/test-database-guard';
+import * as writer from '../../../apps/api/src/services/bookingStatusHistoryWriter';
 
 const prisma = new PrismaClient();
 
@@ -11,7 +12,7 @@ describe('Gate 4B-4 Slice C1: Booking Creation Source Writer Integration', () =>
   let listingId: string;
 
   beforeAll(async () => {
-    assertSafeLocalTestDatabaseTarget(process.env.DATABASE_URL!);
+    assertSafeLocalTestDatabaseTarget();
 
     // Cleanup previous failed runs
     await prisma.bookingStatusHistory.deleteMany({
