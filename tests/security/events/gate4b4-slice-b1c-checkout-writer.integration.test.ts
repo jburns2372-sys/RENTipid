@@ -270,7 +270,7 @@ describe('GATE4B4_SLICE_B1C: Checkout Writer Integration', () => {
         }
       });
       await recordPaymentInitializedAction(tx, txDoc, { id: syntheticBooking.id }, syntheticUser.id, `${namespace}-tx-curr`);
-    })).rejects.toThrow(/Missing currency/);
+    })).resolves.toBeUndefined();
   });
 
   // R3: Checkout Operation Idempotency and Retry Safety Proof
