@@ -148,3 +148,19 @@ Rules blocked by missing immutable source data and requiring future service-laye
 *   **Acceptance Evidence**: Fully proven by `tests/security/events/gate4b4-slice-b1f-payment-action-log-adapter.integration.test.ts`.
 *   **Registry Integration**: Adapter successfully added to the standard `ADAPTER_REGISTRY`.
 *   **Status Impact**: Rule `PAYMENT-ANOMALY-01` remains strictly DRAFT and blocked pending `PAYMENT_AMOUNT_MISMATCH` and `PAYMENT_CURRENCY_MISMATCH` source implementations. No rules were activated, and no evaluators are enabled.
+
+## 14. Gate 4B-4 Slice B1-F-S1 PaymentActionLog SecurityEvent Source-Type Schema Foundation
+*   **B1-F-S1 Scope**: Resolves the blocking Prisma schema constraint for the `PaymentActionLog` SecurityEvent adapter by explicitly adding `PAYMENT_ACTION_LOG` to the `SecurityEventSource` enum.
+*   **Original Source-Type Blocker**: The previous B1-F adapter incorrectly mapped `PAYMENT_ACTION_LOG` to `SecurityEventSource.AUDIT_LOG` to bypass strict Prisma typing, presenting a false source provenance risk that blocked publication.
+*   **SecurityEventSource Enum Addition**: Added `PAYMENT_ACTION_LOG` exactly as a native enumerated type.
+*   **Additive Migration Result**: Created one narrow local PostgreSQL enum migration. No existing value was removed or renamed.
+*   **Migration Directory**: `prisma/migrations/20260720231333_add_payment_action_log_security_event_source`
+*   **Generated Client Result**: `SecurityEventSource.PAYMENT_ACTION_LOG` successfully verified on the regenerated local client.
+*   **Local Test Database Result**: Successfully applied schema synchronization using guarded database checks exclusively against `rentipid_test_soc`.
+*   **No Production Migration**: Production database (`rentipid_db`) remains untouched and safely isolated.
+*   **PostgreSQL Enum Rollback Limitation**: Documented that PostgreSQL enums are additive. Rolling back this enum value directly via SQL is not simple; if necessary, it requires dropping and re-creating the entire enum type and dependent columns during a formal rollout cycle.
+*   **Adapter Remains Temporarily Blocked**: The `PaymentActionLogAdapter` still retains its temporary `AUDIT_LOG` value. Modifying the TypeScript adapter file is strictly prohibited in this phase and reserved for B1-F-R1.
+*   **AUDIT_LOG Mapping Is Not Approved**: The `AUDIT_LOG` mapping remains prohibited for remote branch publication.
+*   **B1-F-R1 Remains Required**: The B1-F-R1 acceptance-evidence run must be completed to update the adapter and prove the `PAYMENT_ACTION_LOG` behavior.
+*   **Backfill, Recovery and Ingestion Failure Remain Unproven**: Ingestion hooks, recovery mechanisms, and failure-capture for `PAYMENT_ACTION_LOG` are NOT validated yet.
+*   **Status Impact**: `PAYMENT-ANOMALY-01` remains DRAFT. No evaluator evidence ran. No worker activation occurred.
