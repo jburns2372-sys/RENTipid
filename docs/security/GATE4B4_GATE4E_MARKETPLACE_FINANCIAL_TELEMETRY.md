@@ -104,5 +104,19 @@ Rules blocked by missing immutable source data and requiring future service-laye
 *   **Completed Acceptance-Evidence Count**: 34 required behaviors proven by 8 targeted test cases.
 *   **Source Telemetry vs. Derived Detection**: `PAYMENT_ANOMALY` explicitly remains a derived detection only, rejected from source telemetry.
 *   **SecurityEvent Adapter**: None created.
-*   **Catalog Modification**: None performed.
 *   **Production Migration**: None occurred.
+
+## 11. Gate 4B-4 Slice B1-D Payment-Anomaly Catalog Semantics Remediation
+*   **B1-D Scope**: This slice remediates the `PAYMENT-ANOMALY-01` catalog definition to separate immutable source telemetry from derived detection results.
+*   **Previous Catalog Ambiguity**: The rule previously specified `action="PAYMENT_ANOMALY"`, conflating a derived detection result with an immutable source event, and correlated on an unstable `actor`.
+*   **Source Telemetry vs. Derived Detection**: `PAYMENT_ANOMALY` is explicitly confirmed as a derived detection output, not a raw source event. It has been removed from the source event predicate.
+*   **Approved Source-Event Set**: The rule now evaluates exactly three source events: `PAYMENT_AMOUNT_MISMATCH`, `PAYMENT_CURRENCY_MISMATCH`, and `PAYMENT_FREEZE_BLOCKED`.
+*   **PAYMENT_INITIALIZED Exclusion**: `PAYMENT_INITIALIZED` is a foundational event and is explicitly excluded from being an anomaly trigger.
+*   **Correlation & Tuning**:
+    *   **Correlation**: Corrected from `actor` to `booking-reference` to ensure stable event grouping.
+    *   **Preserved Tuning**: Threshold remains 1, Window remains 1m, Cooldown remains 60m, Base Severity remains CRITICAL.
+*   **Compliance**:
+    *   `PAYMENT-ANOMALY-01` Lifecycle: **DRAFT** (Remains strictly in DRAFT).
+    *   Rule Compatibility: Downgraded to **BLOCKED_BY_MISSING_SOURCE_DATA** because the three required immutable source events are not yet implemented.
+    *   Remaining Requirements: Missing source writers for the three events and a `PaymentActionLog` SecurityEvent adapter are still required before evaluator evidence can run.
+    *   Confirmation: No evaluator evidence occurred. No rule activation occurred. No worker was enabled.
