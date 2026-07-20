@@ -2,9 +2,9 @@ import { Prisma } from '@prisma/client';
 import { createHash } from 'crypto';
 import { parseToDecimal } from '@/lib/security/financial';
 
-export const PAYMENT_ACTION_CODES = ['PAYMENT_INITIALIZED'] as const;
+export const PAYMENT_ACTION_CODES = ['PAYMENT_INITIALIZED', 'PAYMENT_FREEZE_BLOCKED'] as const;
 export const PAYMENT_ACTOR_TYPES = ['RENTER'] as const;
-export const PAYMENT_ACTION_OUTCOMES = ['SUCCESS'] as const;
+export const PAYMENT_ACTION_OUTCOMES = ['SUCCESS', 'DENIED'] as const;
 
 export type PaymentActionCode = typeof PAYMENT_ACTION_CODES[number];
 export type PaymentActorType = typeof PAYMENT_ACTOR_TYPES[number];
@@ -25,13 +25,13 @@ export function validatePaymentVocabulary(actionCode: string, actorType: string,
 export async function writePaymentActionLog(
   tx: Prisma.TransactionClient,
   data: {
-    gateway_transaction_id: string;
+    gateway_transaction_id: string | null;
     booking_id: string;
     action_code: string;
     actor_type: string;
     actor_user_id: string;
-    amount: number | string | Prisma.Decimal;
-    currency: string;
+    amount?: number | string | Prisma.Decimal | null;
+    currency?: string | null;
     outcome: string;
     source_workflow: string;
     source_operation_id: string;
@@ -40,14 +40,21 @@ export async function writePaymentActionLog(
   validatePaymentVocabulary(data.action_code, data.actor_type, data.outcome);
 
   // Financial Precision Contract
-  const canonicalAmount = parseToDecimal(data.amount);
-  if (!canonicalAmount || canonicalAmount.isNegative() || canonicalAmount.isZero()) {
-    throw new Error('GATE4B4_SLICE_B1C_FINANCIAL_SOURCE_UNPROVEN: Invalid amount');
+  let canonicalAmount: Prisma.Decimal | undefined | null = null;
+  let canonicalCurrency: string | undefined | null = null;
+
+  if (data.amount !== undefined && data.amount !== null) {
+    canonicalAmount = parseToDecimal(data.amount);
+    if (!canonicalAmount || canonicalAmount.isNegative() || canonicalAmount.isZero()) {
+      throw new Error('GATE4B4_SLICE_B1C_FINANCIAL_SOURCE_UNPROVEN: Invalid amount');
+    }
   }
 
-  const currency = data.currency.toUpperCase();
-  if (!currency) {
-    throw new Error('GATE4B4_SLICE_B1C_FINANCIAL_SOURCE_UNPROVEN: Missing currency');
+  if (data.currency) {
+    canonicalCurrency = data.currency.toUpperCase();
+    if (!canonicalCurrency) {
+      throw new Error('GATE4B4_SLICE_B1C_FINANCIAL_SOURCE_UNPROVEN: Missing currency');
+    }
   }
 
   // Business Action Idempotency Contract
@@ -63,7 +70,7 @@ export async function writePaymentActionLog(
       actor_type: data.actor_type,
       actor_user_id: data.actor_user_id,
       amount: canonicalAmount,
-      currency,
+      currency: canonicalCurrency,
       outcome: data.outcome,
       source_workflow: data.source_workflow,
       source_operation_id: data.source_operation_id,
@@ -97,5 +104,29 @@ export async function recordPaymentInitializedAction(
     outcome: 'SUCCESS',
     source_workflow: 'CHECKOUT_INITIALIZATION',
     source_operation_id: sourceOperationId
+  });
+}
+
+export async function recordPaymentFreezeBlockedAction(
+  tx: Prisma.TransactionClient,
+  booking: { id: string },
+  actorUserId: string,
+  sourceOperationId: string
+) {
+  if (!sourceOperationId || sourceOperationId.trim() === '') {
+    throw new Error('Missing or empty sourceOperationId');
+  }
+
+  return writePaymentActionLog(tx, {
+    gateway_transaction_id: null,
+    booking_id: booking.id,
+    action_code: 'PAYMENT_FREEZE_BLOCKED',
+    actor_type: 'RENTER',
+    actor_user_id: actorUserId,
+    outcome: 'DENIED',
+    source_workflow: 'CHECKOUT_INITIALIZATION',
+    source_operation_id: sourceOperationId,
+    amount: null,
+    currency: null
   });
 }

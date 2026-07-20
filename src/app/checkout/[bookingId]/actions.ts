@@ -59,6 +59,8 @@ export async function processCheckout(formData: FormData) {
   if (!booking || booking.renter_id !== user.id) throw new Error("Invalid booking");
   if (booking.status !== 'Approved' || booking.payment_status !== 'Pending Payment') throw new Error("Booking not ready for payment");
 
+  let serverScopedIdempotencyKey: string;
+
   if (paymentMode === 'paymongo_live_pilot') {
     const settingsKeys = [
       'PAYMENT_LIVE_PILOT_ENABLED',
@@ -79,7 +81,22 @@ export async function processCheckout(formData: FormData) {
     const appBaseUrl = process.env.APP_BASE_URL || '';
     const isHttps = appBaseUrl.startsWith('https://') && !appBaseUrl.includes('localhost') && !appBaseUrl.includes('127.0.0.1') && !appBaseUrl.includes('0.0.0.0');
 
+    // Derive server-scoped idempotency digest early for authoritative telemetry tracking
+    serverScopedIdempotencyKey = deriveCheckoutIdempotencyKey(user.id, booking.id, idempotencyKey);
+
     if (s['PAYMENT_EMERGENCY_FREEZE'] === 'true') {
+      try {
+        await prisma.$transaction(async (tx) => {
+          const { recordPaymentFreezeBlockedAction } = await import('@/lib/payments/payment-action-log-writer');
+          await recordPaymentFreezeBlockedAction(tx, { id: booking.id }, user.id, serverScopedIdempotencyKey!);
+        });
+      } catch (error: any) {
+        if (error.code !== 'P2002') {
+          throw error;
+        }
+        // P2002 implies duplicate immutable record; handled gracefully by allowing the redirect
+      }
+
       await prisma.auditLog.create({
         data: {
           actor_user_id: user.id,
@@ -88,7 +105,7 @@ export async function processCheckout(formData: FormData) {
           details: 'Emergency freeze prevented live checkout.'
         }
       });
-      redirect(`/checkout/${booking.id}?error=frozen`);
+      return redirect(`/checkout/${booking.id}?error=frozen`);
     }
 
     if (
@@ -102,10 +119,10 @@ export async function processCheckout(formData: FormData) {
     ) {
       throw new Error("Live pilot checkout strictly blocked by pre-flight readiness lock.");
     }
+  } else {
+    // For non-paymongo_live_pilot modes, we still need idempotency key
+    serverScopedIdempotencyKey = deriveCheckoutIdempotencyKey(user.id, booking.id, idempotencyKey);
   }
-
-  // Derive server-scoped idempotency digest
-  const serverScopedIdempotencyKey = deriveCheckoutIdempotencyKey(user.id, booking.id, idempotencyKey);
 
   let transaction;
   let isNewTransaction = false;
@@ -236,7 +253,7 @@ export async function processCheckout(formData: FormData) {
     });
 
     // Redirect to PayMongo Hosted Checkout
-    redirect(response.checkoutUrl);
+    return redirect(response.checkoutUrl);
   }
 
   throw new Error("Invalid payment mode");
