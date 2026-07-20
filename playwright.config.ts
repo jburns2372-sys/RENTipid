@@ -1,15 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 
+import { assertSafeLocalTestDatabaseTarget } from './src/lib/test-database-guard';
+
 // Load test environment variables
-dotenv.config({ path: '.env.test' });
+dotenv.config({ path: ['.env.test.local', '.env.test'] });
 
 // Test database guard - EXPLICIT ALLOWLIST
-if (!process.env.DATABASE_URL || !process.env.DATABASE_URL.includes('rentipid_test_soc')) {
-  console.error("FATAL: DATABASE_URL must explicitly contain 'rentipid_test_soc'.");
-  console.error("Value:", process.env.DATABASE_URL);
-  process.exit(1);
-}
+assertSafeLocalTestDatabaseTarget();
 
 export default defineConfig({
   testDir: './tests/e2e',

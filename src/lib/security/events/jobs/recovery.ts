@@ -2,7 +2,9 @@ import { PrismaClient, SecurityEventSource } from "@prisma/client";
 import { processSecurityEvent } from "../event-ingestion";
 import { SecurityLifecycle, SecurityEnvironment } from "../taxonomy";
 import { v4 as uuidv4 } from "uuid";
+import { assertSafeLocalTestDatabaseTarget } from "../../../test-database-guard";
 
+assertSafeLocalTestDatabaseTarget();
 const prisma = new PrismaClient();
 
 export interface RecoveryOptions {

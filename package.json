@@ -9,7 +9,12 @@
     "lint": "eslint . --ext .ts,.tsx",
     "test:e2e": "playwright test",
     "test:e2e:gate1a": "playwright test tests/e2e/deferred-baseline.spec.ts",
-    "test:e2e:report": "playwright show-report"
+    "test:e2e:report": "playwright show-report",
+    "test:db:guard": "cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/run-test-database-guard.ts",
+    "test:db:setup": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- prisma db push",
+    "test:db:migrate": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- prisma migrate deploy",
+    "test:db:reset": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- prisma migrate reset --force",
+    "test:soc:integration": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- jest --runInBand"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

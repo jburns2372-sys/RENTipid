@@ -1,7 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { processSecurityEvent } from "../event-ingestion";
 import { SecurityLifecycle, SecurityEnvironment } from "../taxonomy";
+import { assertSafeLocalTestDatabaseTarget } from "../../../test-database-guard";
 
+assertSafeLocalTestDatabaseTarget();
 const prisma = new PrismaClient();
 
 export interface BackfillOptions {
