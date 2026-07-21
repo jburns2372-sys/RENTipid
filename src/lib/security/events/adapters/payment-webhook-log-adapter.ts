@@ -25,7 +25,8 @@ export class PaymentWebhookLogAdapter implements SecurityEventSourceAdapter<Paym
       "id" in record && 
       "provider" in record && 
       "event_type" in record &&
-      "verification_status" in record
+      "verification_status" in record &&
+      record.verification_status === "Failed"
     );
   }
 

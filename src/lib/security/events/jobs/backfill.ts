@@ -48,7 +48,7 @@ export async function runBackfill(options: BackfillOptions): Promise<BackfillRes
     "SYSTEM_SETTING": { delegate: prisma.systemSetting, dateColumn: "updated_at" },
     // AIBotLog, PaymentWebhookLog, PaymentReconciliationLog, VerificationDocument, DamageClaim, DisputeCase, InspectionReport
     "AI_BOT_LOG": { delegate: prisma.aIBotLog, dateColumn: "created_at" },
-    "PAYMENT_WEBHOOK_LOG": { delegate: prisma.paymentWebhookLog, dateColumn: "created_at" },
+    "PAYMENT_WEBHOOK_LOG": { delegate: prisma.paymentWebhookLog, dateColumn: "received_at" },
     "PAYMENT_RECONCILIATION_LOG": { delegate: prisma.paymentReconciliationLog, dateColumn: "created_at" },
     "VERIFICATION_DOCUMENT": { delegate: prisma.verificationDocument, dateColumn: "created_at" },
     "DAMAGE_CLAIM": { delegate: prisma.damageClaim, dateColumn: "created_at" },

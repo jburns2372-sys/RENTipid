@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import { gatewayRegistry } from './payment-gateway-registry';
 import { processPaymentReconciliation } from './payment-reconciliation';
+import { processSecurityEvent } from '../security/events/event-ingestion';
+import { resolveSecurityRuntimeContext } from '../security/events/runtime-context';
 
 const prisma = new PrismaClient();
 
@@ -29,7 +31,7 @@ export async function processWebhookEvent(providerName: string, eventType: strin
     // For Phase 16 pilot, we simulate verification using the explicit presence of the secret.
     verified = true;
   }
-  const verificationStatus = verified ? "Verified" : (isLivePilot ? "Failed Verification" : "Skipped Sandbox");
+  const verificationStatus = verified ? "Verified" : (isLivePilot ? "Failed" : "Skipped Sandbox");
 
   const log = await prisma.paymentWebhookLog.create({
     data: {
@@ -44,12 +46,19 @@ export async function processWebhookEvent(providerName: string, eventType: strin
 
   if (!gatewayReference) {
     await updateLogStatus(log.id, "Ignored", "No gateway reference found in payload");
-    return;
+    return log.id;
   }
 
   if (isLivePilot && !verified) {
-    await updateLogStatus(log.id, "Failed", "Webhook signature verification failed for Live Pilot event");
-    return;
+    const updatedLog = await updateLogStatusAndReturn(log.id, "Failed", "Webhook signature verification failed for Live Pilot event");
+    // Immediate ingestion for security events
+    const { environment, lifecycle } = resolveSecurityRuntimeContext();
+    try {
+      await processSecurityEvent(updatedLog, lifecycle, environment);
+    } catch (err) {
+      console.error("WEBHOOK_INGESTION_FAILURE:", err);
+    }
+    return log.id;
   }
 
   // Find transaction
@@ -59,7 +68,7 @@ export async function processWebhookEvent(providerName: string, eventType: strin
 
   if (!transaction) {
     await updateLogStatus(log.id, "Failed", "Gateway transaction not found");
-    return;
+    return log.id;
   }
 
   // Mismatch check: Sandbox event must not affect Live transaction, and vice versa
@@ -69,13 +78,13 @@ export async function processWebhookEvent(providerName: string, eventType: strin
       data: { reconciliation_status: "Manual Review Required" }
     });
     await updateLogStatus(log.id, "Failed", "Critical Mismatch: Webhook mode does not match transaction mode");
-    return;
+    return log.id;
   }
 
   // Idempotency check
   if (transaction.gateway_status.includes('Paid')) {
     await updateLogStatus(log.id, "Ignored", "Duplicate event. Transaction already marked paid.");
-    return;
+    return log.id;
   }
 
   await prisma.paymentWebhookLog.update({
@@ -132,10 +141,18 @@ export async function processWebhookEvent(providerName: string, eventType: strin
   } else {
     await updateLogStatus(log.id, "Ignored", "Event type not actionable");
   }
+  return log.id;
 }
 
 async function updateLogStatus(id: string, status: string, error: string | null) {
   await prisma.paymentWebhookLog.update({
+    where: { id },
+    data: { processing_status: status, error_message: error }
+  });
+}
+
+async function updateLogStatusAndReturn(id: string, status: string, error: string | null) {
+  return await prisma.paymentWebhookLog.update({
     where: { id },
     data: { processing_status: status, error_message: error }
   });
