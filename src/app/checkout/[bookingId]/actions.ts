@@ -119,6 +119,19 @@ export async function processCheckout(formData: FormData) {
 
       if (freezeResult?.kind === 'PAYMENT_FREEZE_BLOCKED') {
         const _handoffTarget = freezeResult.paymentActionLogId;
+        
+        try {
+          const { processSecurityEvent } = await import('@/lib/security/events/event-ingestion');
+          const logRecord = await prisma.paymentActionLog.findUnique({
+            where: { id: _handoffTarget }
+          });
+          if (logRecord) {
+            processSecurityEvent(logRecord).catch(() => {});
+          }
+        } catch (e) {
+          // best-effort, suppress failure
+        }
+        
         return redirect(`/checkout/${booking.id}?error=frozen`);
       }
     }

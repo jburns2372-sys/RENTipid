@@ -16,7 +16,7 @@ import * as crypto from 'crypto';
 export class PaymentActionLogAdapter implements SecurityEventSourceAdapter<PaymentActionLog> {
   // Using AUDIT_LOG as the fallback source type for internally generated action logs 
   // that do not have a dedicated enum in the SecurityEventSource Prisma schema.
-  sourceType = SecurityEventSource.AUDIT_LOG; 
+  sourceType = SecurityEventSource.PAYMENT_ACTION_LOG; 
   private readonly version = "1.0";
 
   supports(record: unknown): record is PaymentActionLog {
@@ -49,7 +49,7 @@ export class PaymentActionLogAdapter implements SecurityEventSourceAdapter<Payme
     const severity = SecuritySeverity.HIGH;
     const classification_reason = "Payment checkout was explicitly blocked by an emergency freeze control.";
 
-    const idempotencyPayload = `PAYMENT_ACTION_LOG:${record.id}:${record.action_code}:${this.version}`;
+    const idempotencyPayload = `PAYMENT_ACTION_LOG|${record.id}|${record.action_code}|${this.version}`;
     const idempotencyKey = crypto.createHash("sha256").update(idempotencyPayload).digest("hex");
 
     return {

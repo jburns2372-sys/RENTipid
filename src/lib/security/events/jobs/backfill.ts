@@ -54,6 +54,7 @@ export async function runBackfill(options: BackfillOptions): Promise<BackfillRes
     "DAMAGE_CLAIM": { delegate: prisma.damageClaim, dateColumn: "created_at" },
     "DISPUTE_CASE": { delegate: prisma.disputeCase, dateColumn: "created_at" },
     "INSPECTION_REPORT": { delegate: prisma.inspectionReport, dateColumn: "created_at" },
+    "PAYMENT_ACTION_LOG": { delegate: prisma.paymentActionLog, dateColumn: "occurred_at" },
   };
 
   const config = sourceConfig[options.sourceType];
