@@ -389,6 +389,8 @@ model PaymentActionLog {
 
   amount   Decimal? @db.Decimal(20, 4)
   currency String?
+  expected_amount Decimal? @db.Decimal(20,4)
+  received_amount Decimal? @db.Decimal(20,4)
 
   outcome        String // "SUCCESS"
   failure_reason String?

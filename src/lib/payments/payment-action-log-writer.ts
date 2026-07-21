@@ -40,6 +40,8 @@ export async function writePaymentActionLog(
     outcome: string;
     source_workflow: string;
     source_operation_id: string;
+    expected_amount?: number | string | Prisma.Decimal | null;
+    received_amount?: number | string | Prisma.Decimal | null;
   }
 ) {
   validatePaymentVocabulary(data.action_code, data.actor_type, data.outcome, data.source_workflow);
@@ -62,6 +64,52 @@ export async function writePaymentActionLog(
     }
   }
 
+  let canonicalExpectedAmount: Prisma.Decimal | undefined | null = null;
+  let canonicalReceivedAmount: Prisma.Decimal | undefined | null = null;
+
+  if (data.action_code === 'PAYMENT_AMOUNT_MISMATCH') {
+    if (data.source_workflow !== 'PAYMENT_RECONCILIATION') {
+      throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: source_workflow must be PAYMENT_RECONCILIATION');
+    }
+    if (data.actor_type !== 'SYSTEM') {
+      throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: actor_type must be SYSTEM');
+    }
+    if (data.outcome !== 'MISMATCH_DETECTED') {
+      throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: outcome must be MISMATCH_DETECTED');
+    }
+    if (!canonicalCurrency) {
+      throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: Missing currency');
+    }
+    if (data.expected_amount === undefined || data.expected_amount === null) {
+      throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: Missing expected_amount');
+    }
+    if (data.received_amount === undefined || data.received_amount === null) {
+      throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: Missing received_amount');
+    }
+    if (!data.source_operation_id || data.source_operation_id.trim() === '') {
+      throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: Missing source_operation_id');
+    }
+    if (!data.booking_id || data.booking_id.trim() === '') {
+      throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: Missing booking_id');
+    }
+
+    canonicalExpectedAmount = parseToDecimal(data.expected_amount);
+    if (!canonicalExpectedAmount) {
+      throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: Invalid expected_amount');
+    }
+    canonicalReceivedAmount = parseToDecimal(data.received_amount);
+    if (!canonicalReceivedAmount) {
+      throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: Invalid received_amount');
+    }
+  } else {
+    if (data.expected_amount !== undefined && data.expected_amount !== null) {
+      throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: expected_amount must be omitted for this action');
+    }
+    if (data.received_amount !== undefined && data.received_amount !== null) {
+      throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: received_amount must be omitted for this action');
+    }
+  }
+
   // Business Action Idempotency Contract
   const idempotencyRaw = `${data.source_workflow}|${data.action_code}|${data.source_operation_id}`;
   const idempotencyKey = createHash('sha256').update(idempotencyRaw).digest('hex');
@@ -79,6 +127,8 @@ export async function writePaymentActionLog(
       outcome: data.outcome,
       source_workflow: data.source_workflow,
       source_operation_id: data.source_operation_id,
+      expected_amount: canonicalExpectedAmount,
+      received_amount: canonicalReceivedAmount,
       idempotency_key: idempotencyKey,
       occurred_at: new Date(),
     }
