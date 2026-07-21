@@ -1,5 +1,9 @@
 # GATE 4B-4 / GATE 4E-A IMPLEMENTATION PLAN
 
+> [!WARNING]
+> **LOCAL SCOPE CLOSED WITH EXTERNAL DEPENDENCIES**
+> This local implementation package is closed. The remaining sources (`DamageClaim`, `InspectionReport`, `DisputeCase`, `VerificationDocument`) are deferred to the Azure backend contract backlog.
+
 ## 1. Authoritative Rule Definitions (PHASE4_RULE_CATALOG.md)
 
 | Rule Code | Name | Threat Cat | Class | Event Cat | Sev | Exact Source Code | Thresh | Window | Cool | Correlation | Evid | Lifecycle |
