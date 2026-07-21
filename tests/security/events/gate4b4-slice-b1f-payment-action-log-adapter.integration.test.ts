@@ -31,8 +31,8 @@ describe('GATE4B4_SLICE_B1F - PaymentActionLogAdapter Integration', () => {
     provider: null
   };
 
-  it('declares the correct stable source type fallback (AUDIT_LOG)', () => {
-    expect(adapter.sourceType).toBe(SecurityEventSource.AUDIT_LOG);
+  it('declares the correct stable source type fallback (PAYMENT_ACTION_LOG)', () => {
+    expect(adapter.sourceType).toBe(SecurityEventSource.PAYMENT_ACTION_LOG);
   });
 
   it('supports valid PaymentActionLog structures', () => {
@@ -61,7 +61,7 @@ describe('GATE4B4_SLICE_B1F - PaymentActionLogAdapter Integration', () => {
     );
 
     expect(result.event_code).toBe('PAYMENT_FREEZE_BLOCKED');
-    expect(result.source_type).toBe(SecurityEventSource.AUDIT_LOG);
+    expect(result.source_type).toBe(SecurityEventSource.PAYMENT_ACTION_LOG);
     expect(result.source_record_id).toBe('act_123');
     expect(result.security_domain).toBe(SecurityDomain.PAYMENT_SECURITY);
     expect(result.event_classification).toBe(SecurityEventClassification.COUNTERMEASURE);

@@ -2,15 +2,17 @@ import { Prisma } from '@prisma/client';
 import { createHash } from 'crypto';
 import { parseToDecimal } from '@/lib/security/financial';
 
-export const PAYMENT_ACTION_CODES = ['PAYMENT_INITIALIZED', 'PAYMENT_FREEZE_BLOCKED'] as const;
-export const PAYMENT_ACTOR_TYPES = ['RENTER'] as const;
-export const PAYMENT_ACTION_OUTCOMES = ['SUCCESS', 'DENIED'] as const;
+export const PAYMENT_ACTION_CODES = ['PAYMENT_INITIALIZED', 'PAYMENT_FREEZE_BLOCKED', 'PAYMENT_AMOUNT_MISMATCH'] as const;
+export const PAYMENT_ACTOR_TYPES = ['RENTER', 'SYSTEM'] as const;
+export const PAYMENT_ACTION_OUTCOMES = ['SUCCESS', 'DENIED', 'MISMATCH_DETECTED'] as const;
+export const SOURCE_WORKFLOWS = ['CHECKOUT_INITIALIZATION', 'PAYMENT_RECONCILIATION'] as const;
 
 export type PaymentActionCode = typeof PAYMENT_ACTION_CODES[number];
 export type PaymentActorType = typeof PAYMENT_ACTOR_TYPES[number];
 export type PaymentActionOutcome = typeof PAYMENT_ACTION_OUTCOMES[number];
+export type PaymentSourceWorkflow = typeof SOURCE_WORKFLOWS[number];
 
-export function validatePaymentVocabulary(actionCode: string, actorType: string, outcome: string) {
+export function validatePaymentVocabulary(actionCode: string, actorType: string, outcome: string, sourceWorkflow: string) {
   if (!PAYMENT_ACTION_CODES.includes(actionCode as PaymentActionCode)) {
     throw new Error(`GATE4B4_SLICE_B1C_VOCABULARY_VIOLATION: Invalid action_code ${actionCode}`);
   }
@@ -19,6 +21,9 @@ export function validatePaymentVocabulary(actionCode: string, actorType: string,
   }
   if (!PAYMENT_ACTION_OUTCOMES.includes(outcome as PaymentActionOutcome)) {
     throw new Error(`GATE4B4_SLICE_B1C_VOCABULARY_VIOLATION: Invalid outcome ${outcome}`);
+  }
+  if (!SOURCE_WORKFLOWS.includes(sourceWorkflow as PaymentSourceWorkflow)) {
+    throw new Error(`GATE4B4_SLICE_B1C_VOCABULARY_VIOLATION: Invalid source_workflow ${sourceWorkflow}`);
   }
 }
 
@@ -29,7 +34,7 @@ export async function writePaymentActionLog(
     booking_id: string;
     action_code: string;
     actor_type: string;
-    actor_user_id: string;
+    actor_user_id: string | null;
     amount?: number | string | Prisma.Decimal | null;
     currency?: string | null;
     outcome: string;
@@ -37,7 +42,7 @@ export async function writePaymentActionLog(
     source_operation_id: string;
   }
 ) {
-  validatePaymentVocabulary(data.action_code, data.actor_type, data.outcome);
+  validatePaymentVocabulary(data.action_code, data.actor_type, data.outcome, data.source_workflow);
 
   // Financial Precision Contract
   let canonicalAmount: Prisma.Decimal | undefined | null = null;

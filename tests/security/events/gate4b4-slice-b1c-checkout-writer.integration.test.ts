@@ -1,13 +1,13 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, User, Listing, Booking } from '@prisma/client';
 import { recordPaymentInitializedAction } from '@/lib/payments/payment-action-log-writer';
 
 const prisma = new PrismaClient();
 
 describe('GATE4B4_SLICE_B1C: Checkout Writer Integration', () => {
   const namespace = `gate4b4-slice-b1c-${Date.now()}`;
-  let syntheticUser: any;
-  let syntheticListing: any;
-  let syntheticBooking: any;
+  let syntheticUser: User;
+  let syntheticListing: Listing;
+  let syntheticBooking: Booking;
 
   beforeAll(async () => {
     // Check local database guard implicitly by creating data
@@ -193,7 +193,7 @@ describe('GATE4B4_SLICE_B1C: Checkout Writer Integration', () => {
         amount: 1000,
         currency: 'PHP',
         outcome: 'SUCCESS',
-        source_workflow: 'TEST',
+        source_workflow: 'CHECKOUT_INITIALIZATION',
         source_operation_id: 'test-1'
       });
     })).rejects.toThrow(/VOCABULARY_VIOLATION/);
@@ -211,7 +211,7 @@ describe('GATE4B4_SLICE_B1C: Checkout Writer Integration', () => {
         amount: 1000,
         currency: 'PHP',
         outcome: 'SUCCESS',
-        source_workflow: 'TEST',
+        source_workflow: 'CHECKOUT_INITIALIZATION',
         source_operation_id: 'test-2'
       });
     })).rejects.toThrow(/VOCABULARY_VIOLATION/);
@@ -229,7 +229,7 @@ describe('GATE4B4_SLICE_B1C: Checkout Writer Integration', () => {
         amount: 1000,
         currency: 'PHP',
         outcome: 'FAILURE',
-        source_workflow: 'TEST',
+        source_workflow: 'CHECKOUT_INITIALIZATION',
         source_operation_id: 'test-3'
       });
     })).rejects.toThrow(/VOCABULARY_VIOLATION/);
@@ -350,8 +350,8 @@ describe('GATE4B4_SLICE_B1C: Checkout Writer Integration', () => {
           await recordPaymentInitializedAction(tx, newTx, { id: syntheticBooking.id }, syntheticUser.id, idempotencyKey);
           return newTx;
         });
-      } catch (error: any) {
-        if (error.code === 'P2002') {
+      } catch (error: unknown) {
+        if (error && typeof error === 'object' && 'code' in error && error.code === 'P2002') {
           const existing = await prisma.gatewayTransaction.findUnique({
             where: { idempotency_key: idempotencyKey }
           });

@@ -74,3 +74,39 @@ This catalog details the proposed Phase 4 deterministic DRAFT rules. No rule may
 *   **WEB-CSRF-FAILURE-01**: Status: UNVERIFIED. Initial Lifecycle: DRAFT. Ineligible for activation.
 *   **BOT-SCRAPING-01**: Status: UNVERIFIED. Initial Lifecycle: DRAFT. Ineligible for activation. Writer verified as MISSING.
 *   **BOT-BOOKING-ABUSE-01**: Status: UNVERIFIED. Initial Lifecycle: DRAFT. Deferred to Gate 4B-4.
+
+### Gate 4B-4 Source Contracts
+
+#### PAYMENT_AMOUNT_MISMATCH
+*   **Source event code**: PAYMENT_AMOUNT_MISMATCH
+*   **SecurityEvent source type**: PAYMENT_ACTION_LOG
+*   **Adapter version**: 1.0
+*   **Authoritative workflow**: `src/lib/payments/payment-reconciliation.ts`
+*   **Expected-amount source**: `booking.estimated_total_amount`
+*   **Received-amount source**: `transaction.amount`
+*   **Secondary webhook workflow**: NOT_AUTHORITATIVE
+*   **Financial comparison contract**: Prisma.Decimal end-to-end with canonical currency scale and exact minor-unit comparison. No Number conversion, parseFloat, Math.round, or JavaScript float equality. Equal amounts produce no mismatch source. A one-minor-unit difference produces PAYMENT_AMOUNT_MISMATCH. Currency-only disagreement is not PAYMENT_AMOUNT_MISMATCH (PAYMENT_CURRENCY_MISMATCH remains separately blocked).
+*   **Actor type**: SYSTEM
+*   **Outcome**: MISMATCH_DETECTED
+*   **Required source fields**: PaymentActionLog ID, Booking reference, Actor reference when authoritative, Source workflow, Source operation ID, Source idempotency key, Currency, Expected amount, Received amount, occurred_at.
+*   **Business idempotency formula**: SHA256(PAYMENT_RECONCILIATION | PAYMENT_AMOUNT_MISMATCH | source_operation_id)
+*   **SecurityEvent idempotency formula**: SHA256(PAYMENT_ACTION_LOG | payment_action_log_id | PAYMENT_AMOUNT_MISMATCH | 1.0)
+*   **Security domain**: PAYMENT_SECURITY
+*   **Event category**: Payment Reconciliation
+*   **Event classification**: FRAUD_INDICATOR
+*   **Severity**: HIGH
+*   **Action attempted**: RECONCILE_PAYMENT_AMOUNT
+*   **Action result**: AMOUNT_MISMATCH_DETECTED
+*   **Target module**: Payments
+*   **Booking correlation field**: `SecurityEvent.correlation_key` (HMAC domain: booking-reference, Reference type: CORRELATION_KEY)
+*   **SYSTEM actor privacy contract**: `SecurityEvent.actor_user_id` is null. No renter or user reference is required for a SYSTEM reconciliation event. Do not create account_reference_hash for a nonexistent human actor. `source_summary` may store actor_type = SYSTEM.
+*   **Raw identifier storage result**: PROHIBITED
+*   **Ingestion & Failure Behavior**: PaymentActionLog commits before SecurityEvent ingestion. SecurityEvent ingestion will be best effort. Ingestion failure must not remove the source row. Source operation ID must be stable across retries. Source operation ID and source idempotency key must not appear in SecurityEvent metadata.
+*   **Backfill and recovery requirement**: Required
+*   **Relationship to PAYMENT-ANOMALY-01**: It is evidence for later PAYMENT-ANOMALY-01 evaluation. The system detected an authoritative payment discrepancy. The event is an indicator requiring analysis, not proof of confirmed fraud. It must not be classified as CONFIRMED_COMPROMISE. It must not use CRITICAL severity merely because the amounts differ. It must not automatically modify a payment, booking, account, or payout.
+
+**Statuses**:
+*   **PAYMENT_AMOUNT_MISMATCH**: CATALOG_DEFINED_NOT_IMPLEMENTED
+*   **PAYMENT_CURRENCY_MISMATCH**: BLOCKED_NOT_IMPLEMENTED
+*   **PAYMENT_FREEZE_BLOCKED**: AVAILABLE
+*   **PAYMENT-ANOMALY-01**: DRAFT (Evaluator: NOT_RUN, Worker: DISABLED, Alert count: 0, Incident-case count: 0, Rule activation: PROHIBITED)
