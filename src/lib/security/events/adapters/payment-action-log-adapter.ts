@@ -143,6 +143,63 @@ export class PaymentActionLogAdapter implements SecurityEventSourceAdapter<Payme
       };
     }
 
+    // Exact match predicate for PAYMENT_CURRENCY_MISMATCH
+    if (
+      record.action_code === 'PAYMENT_CURRENCY_MISMATCH' &&
+      record.source_workflow === 'PAYMENT_RECONCILIATION' &&
+      record.actor_type === 'SYSTEM' &&
+      record.outcome === 'MISMATCH_DETECTED'
+    ) {
+      if (!record.expected_currency || !record.received_currency || record.expected_currency === record.received_currency || !record.booking_id || !record.source_operation_id || !record.occurred_at) {
+        throw new Error(`Unsupported PaymentActionLog for SecurityEvent adapter: Missing currency evidence`);
+      }
+
+      const domain = SecurityDomain.PAYMENT_SECURITY;
+      const classification = SecurityEventClassification.FRAUD_INDICATOR;
+      const severity = SecuritySeverity.HIGH;
+      const classification_reason = "Detected a payment currency mismatch between expected booking contract currency and received gateway transaction currency.";
+
+      const idempotencyPayload = `PAYMENT_ACTION_LOG|${record.id}|${record.action_code}|${this.version}`;
+      const idempotencyKey = crypto.createHash("sha256").update(idempotencyPayload).digest("hex");
+
+      return {
+        event_code: record.action_code,
+        source_type: this.sourceType,
+        source_record_id: record.id,
+        adapter_version: this.version,
+        security_domain: domain,
+        event_category: "Payment Reconciliation",
+        event_classification: classification,
+        severity,
+        confidence_score: null,
+        environment,
+        lifecycle_type: lifecycle,
+        
+        actor_user_id: null, // SYSTEM actor, no human identity
+        target_user_id: null,
+        target_module: "Payments",
+        action_attempted: "RECONCILE_PAYMENT_CURRENCY",
+        action_result: "CURRENCY_MISMATCH_DETECTED",
+        
+        source_summary: {
+          action_code: record.action_code,
+          actor_type: record.actor_type,
+          outcome: record.outcome,
+          source_workflow: record.source_workflow,
+          has_gateway_transaction: !!record.gateway_transaction_id,
+          expected_currency: record.expected_currency,
+          received_currency: record.received_currency
+        },
+        classification_reason,
+        correlation_key: pseudonymizeTelemetryContext("booking-reference", record.booking_id),
+        idempotency_key: idempotencyKey,
+        processing_status: SecurityProcessingStatus.NORMALIZED,
+        
+        occurred_at: record.occurred_at, 
+        source_received_at: record.occurred_at
+      };
+    }
+
     throw new Error(`Unsupported PaymentActionLog for SecurityEvent adapter: ${record.action_code}`);
 
 

@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client';
 import { createHash } from 'crypto';
 import { parseToDecimal } from '@/lib/security/financial';
 
-export const PAYMENT_ACTION_CODES = ['PAYMENT_INITIALIZED', 'PAYMENT_FREEZE_BLOCKED', 'PAYMENT_AMOUNT_MISMATCH'] as const;
+export const PAYMENT_ACTION_CODES = ['PAYMENT_INITIALIZED', 'PAYMENT_FREEZE_BLOCKED', 'PAYMENT_AMOUNT_MISMATCH', 'PAYMENT_CURRENCY_MISMATCH'] as const;
 export const PAYMENT_ACTOR_TYPES = ['RENTER', 'SYSTEM'] as const;
 export const PAYMENT_ACTION_OUTCOMES = ['SUCCESS', 'DENIED', 'MISMATCH_DETECTED'] as const;
 export const SOURCE_WORKFLOWS = ['CHECKOUT_INITIALIZATION', 'PAYMENT_RECONCILIATION'] as const;
@@ -42,6 +42,8 @@ export async function writePaymentActionLog(
     source_operation_id: string;
     expected_amount?: number | string | Prisma.Decimal | null;
     received_amount?: number | string | Prisma.Decimal | null;
+    expected_currency?: string | null;
+    received_currency?: string | null;
   }
 ) {
   validatePaymentVocabulary(data.action_code, data.actor_type, data.outcome, data.source_workflow);
@@ -101,6 +103,34 @@ export async function writePaymentActionLog(
     if (!canonicalReceivedAmount) {
       throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: Invalid received_amount');
     }
+  } else if (data.action_code === 'PAYMENT_CURRENCY_MISMATCH') {
+    if (data.source_workflow !== 'PAYMENT_RECONCILIATION') {
+      throw new Error('GATE4B4_SLICE_B1H_WRITER_VIOLATION: source_workflow must be PAYMENT_RECONCILIATION');
+    }
+    if (data.actor_type !== 'SYSTEM') {
+      throw new Error('GATE4B4_SLICE_B1H_WRITER_VIOLATION: actor_type must be SYSTEM');
+    }
+    if (data.outcome !== 'MISMATCH_DETECTED') {
+      throw new Error('GATE4B4_SLICE_B1H_WRITER_VIOLATION: outcome must be MISMATCH_DETECTED');
+    }
+    if (!data.expected_currency) {
+      throw new Error('GATE4B4_SLICE_B1H_WRITER_VIOLATION: Missing expected_currency');
+    }
+    if (!data.received_currency) {
+      throw new Error('GATE4B4_SLICE_B1H_WRITER_VIOLATION: Missing received_currency');
+    }
+    if (data.expected_amount !== undefined && data.expected_amount !== null) {
+      throw new Error('GATE4B4_SLICE_B1H_WRITER_VIOLATION: expected_amount must be omitted for this action');
+    }
+    if (data.received_amount !== undefined && data.received_amount !== null) {
+      throw new Error('GATE4B4_SLICE_B1H_WRITER_VIOLATION: received_amount must be omitted for this action');
+    }
+    if (!data.source_operation_id || data.source_operation_id.trim() === '') {
+      throw new Error('GATE4B4_SLICE_B1H_WRITER_VIOLATION: Missing source_operation_id');
+    }
+    if (!data.booking_id || data.booking_id.trim() === '') {
+      throw new Error('GATE4B4_SLICE_B1H_WRITER_VIOLATION: Missing booking_id');
+    }
   } else {
     if (data.expected_amount !== undefined && data.expected_amount !== null) {
       throw new Error('GATE4B4_SLICE_B1G_WRITER_VIOLATION: expected_amount must be omitted for this action');
@@ -129,6 +159,8 @@ export async function writePaymentActionLog(
       source_operation_id: data.source_operation_id,
       expected_amount: canonicalExpectedAmount,
       received_amount: canonicalReceivedAmount,
+      expected_currency: data.expected_currency || null,
+      received_currency: data.received_currency || null,
       idempotency_key: idempotencyKey,
       occurred_at: new Date(),
     }

@@ -208,6 +208,6 @@ This catalog details the proposed Phase 4 deterministic DRAFT rules. No rule may
 
 **Statuses**:
 *   **PAYMENT_AMOUNT_MISMATCH**: AVAILABLE
-*   **PAYMENT_CURRENCY_MISMATCH**: BLOCKED_NOT_IMPLEMENTED
+*   **PAYMENT_CURRENCY_MISMATCH**: AVAILABLE
 *   **PAYMENT_FREEZE_BLOCKED**: AVAILABLE
 *   **PAYMENT-ANOMALY-01**: DRAFT (Evaluator: NOT_RUN, Worker: DISABLED, Alerts: 0, Incident cases: 0)

@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { gatewayRegistry } from '@/lib/payments/payment-gateway-registry';
 import { redirect } from 'next/navigation';
+import { resolvePaymentContractCurrency } from '@/lib/payments/payment-currency-policy';
 
 import { createHash } from 'crypto';
 
@@ -175,7 +176,7 @@ export async function processCheckout(formData: FormData) {
           provider_mode: paymentMode === 'paymongo_live_pilot' ? 'Live Pilot' : 'Sandbox',
           gateway_status: 'Created',
           amount: booking.estimated_total_amount,
-          currency: 'PHP',
+          currency: resolvePaymentContractCurrency(),
           verification_status: 'Not Verified',
           reconciliation_status: 'Pending'
         }
@@ -231,7 +232,7 @@ export async function processCheckout(formData: FormData) {
     const checkoutReq = {
       bookingId: booking.id,
       amount: booking.estimated_total_amount,
-      currency: 'PHP',
+      currency: resolvePaymentContractCurrency(),
       renterEmail: user.email,
       renterName: user.name,
       description: `Payment for ${booking.listing.title}`,

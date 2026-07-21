@@ -3,6 +3,7 @@ import { compareFinancials } from '@/lib/security/financial';
 import { writePaymentActionLog } from '@/lib/payments/payment-action-log-writer';
 import { processSecurityEvent } from '@/lib/security/events/event-ingestion';
 import { resolveSecurityRuntimeContext } from '@/lib/security/events/runtime-context';
+import { resolvePaymentContractCurrency } from '@/lib/payments/payment-currency-policy';
 
 const prisma = new PrismaClient();
 
@@ -18,10 +19,14 @@ export async function processPaymentReconciliation(gatewayTransactionId: string)
   const expectedAmount = booking.estimated_total_amount;
   const receivedAmount = transaction.amount;
 
-  const expectedCurrency = "PHP"; // Canonical canonical currency for bookings
+  const expectedCurrency = resolvePaymentContractCurrency();
   const receivedCurrency = transaction.currency;
 
   const comparison = compareFinancials(expectedAmount, receivedAmount, expectedCurrency, receivedCurrency);
+
+  if (comparison === "UNSUPPORTED_CURRENCY") {
+    throw new Error("GATE4B4_SLICE_B1H_RECONCILIATION_VIOLATION: Missing or malformed received currency");
+  }
 
   const isMatched = comparison === "MATCH";
   const status = isMatched ? "Matched" : "Mismatch";
@@ -51,24 +56,39 @@ export async function processPaymentReconciliation(gatewayTransactionId: string)
       data: { reconciliation_status: "Manual Review Required" }
     });
 
-    if (comparison === "MISMATCH") {
+    if (comparison === "CURRENCY_MISMATCH" || comparison === "MISMATCH") {
       const sourceOperationId = transaction.id; // stable operation identity
 
       try {
         const log = await prisma.$transaction(async (tx) => {
-          return writePaymentActionLog(tx, {
-            gateway_transaction_id: transaction.id,
-            booking_id: booking.id,
-            action_code: 'PAYMENT_AMOUNT_MISMATCH',
-            actor_type: 'SYSTEM',
-            actor_user_id: null,
-            currency: receivedCurrency,
-            outcome: 'MISMATCH_DETECTED',
-            source_workflow: 'PAYMENT_RECONCILIATION',
-            source_operation_id: sourceOperationId,
-            expected_amount: expectedAmount,
-            received_amount: receivedAmount,
-          });
+          if (comparison === "CURRENCY_MISMATCH") {
+            return writePaymentActionLog(tx, {
+              gateway_transaction_id: transaction.id,
+              booking_id: booking.id,
+              action_code: 'PAYMENT_CURRENCY_MISMATCH',
+              actor_type: 'SYSTEM',
+              actor_user_id: null,
+              outcome: 'MISMATCH_DETECTED',
+              source_workflow: 'PAYMENT_RECONCILIATION',
+              source_operation_id: sourceOperationId,
+              expected_currency: expectedCurrency,
+              received_currency: receivedCurrency,
+            });
+          } else {
+            return writePaymentActionLog(tx, {
+              gateway_transaction_id: transaction.id,
+              booking_id: booking.id,
+              action_code: 'PAYMENT_AMOUNT_MISMATCH',
+              actor_type: 'SYSTEM',
+              actor_user_id: null,
+              currency: receivedCurrency,
+              outcome: 'MISMATCH_DETECTED',
+              source_workflow: 'PAYMENT_RECONCILIATION',
+              source_operation_id: sourceOperationId,
+              expected_amount: expectedAmount,
+              received_amount: receivedAmount,
+            });
+          }
         });
 
         // Best effort post-commit ingestion
@@ -78,7 +98,7 @@ export async function processPaymentReconciliation(gatewayTransactionId: string)
         });
       } catch (err) {
         // Do not rollback the reconciliation if log fails
-        console.error("Failed to write PAYMENT_AMOUNT_MISMATCH source", err);
+        console.error("Failed to write mismatch source", err);
       }
     }
 
