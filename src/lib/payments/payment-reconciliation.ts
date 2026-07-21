@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { compareFinancials } from '@/lib/security/financial';
 import { writePaymentActionLog } from '@/lib/payments/payment-action-log-writer';
 import { processSecurityEvent } from '@/lib/security/events/event-ingestion';
+import { SecurityEnvironment, SecurityLifecycle } from '@/lib/security/events/taxonomy';
 
 const prisma = new PrismaClient();
 
@@ -71,8 +72,10 @@ export async function processPaymentReconciliation(gatewayTransactionId: string)
         });
 
         // Best effort post-commit ingestion
-        processSecurityEvent(log, "LIVE", "PRODUCTION").catch(() => {
-          // Swallow telemetry failure to preserve business behavior
+        const lifecycle = process.env.NODE_ENV === 'test' ? 'TEST' : 'LIVE';
+        const environment = process.env.NODE_ENV === 'test' ? 'TEST' : 'PRODUCTION';
+        processSecurityEvent(log, lifecycle as SecurityLifecycle, environment as SecurityEnvironment).catch(() => {
+          // Failure ingestion is best effort, must not throw
         });
       } catch (err) {
         // Do not rollback the reconciliation if log fails

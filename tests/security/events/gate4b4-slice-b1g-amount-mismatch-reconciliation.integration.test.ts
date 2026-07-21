@@ -86,7 +86,7 @@ describe('GATE4B4_SLICE_B1G_R2: PaymentAmountMismatch Reconciliation Telemetry',
         provider: 'Mock',
         provider_mode: 'Sandbox',
         gateway_status: 'Created',
-        amount,
+        amount: typeof amount === 'number' ? amount : amount.toNumber(),
         currency,
         verification_status: 'Not Verified',
         reconciliation_status: 'Pending'
@@ -117,7 +117,7 @@ describe('GATE4B4_SLICE_B1G_R2: PaymentAmountMismatch Reconciliation Telemetry',
       where: { gateway_transaction_id: tx.id, action_code: 'PAYMENT_AMOUNT_MISMATCH' }
     });
     expect(log).not.toBeNull();
-    
+
     // 9. Source contract values exact
     expect(log?.expected_amount?.toNumber()).toBe(110.00);
     expect(log?.received_amount?.toNumber()).toBe(110.01);
@@ -153,9 +153,13 @@ describe('GATE4B4_SLICE_B1G_R2: PaymentAmountMismatch Reconciliation Telemetry',
     const tx = await createTestGatewayTransaction(`${namespace}-tx-seq`, 50.00);
     await processPaymentReconciliation(tx.id);
     // Ignore duplicate key error on subsequent calls
-    try { await processPaymentReconciliation(tx.id); } catch (e) {}
-    try { await processPaymentReconciliation(tx.id); } catch (e) {}
-    
+    try { await processPaymentReconciliation(tx.id); } catch {}
+    try {
+      await processPaymentReconciliation(tx.id);
+    } catch {
+      // Expected to fail on concurrent attempt without corrupting state
+    }
+
     const logs = await prisma.paymentActionLog.findMany({
       where: { gateway_transaction_id: tx.id, action_code: 'PAYMENT_AMOUNT_MISMATCH' }
     });
@@ -164,13 +168,13 @@ describe('GATE4B4_SLICE_B1G_R2: PaymentAmountMismatch Reconciliation Telemetry',
 
   it('11. Concurrent source retry creates one row', async () => {
     const tx = await createTestGatewayTransaction(`${namespace}-tx-conc`, 60.00);
-    
+
     await Promise.allSettled([
       processPaymentReconciliation(tx.id),
       processPaymentReconciliation(tx.id),
       processPaymentReconciliation(tx.id)
     ]);
-    
+
     const logs = await prisma.paymentActionLog.findMany({
       where: { gateway_transaction_id: tx.id, action_code: 'PAYMENT_AMOUNT_MISMATCH' }
     });
@@ -205,11 +209,11 @@ describe('GATE4B4_SLICE_B1G_R2: PaymentAmountMismatch Reconciliation Telemetry',
     const tx = await createTestGatewayTransaction(`${namespace}-tx-adap`, 70.00);
     await processPaymentReconciliation(tx.id);
     const log = await prisma.paymentActionLog.findFirst({ where: { gateway_transaction_id: tx.id, action_code: 'PAYMENT_AMOUNT_MISMATCH' }});
-    
+
     const adapter = getAdapterForRecord(log);
     expect(adapter).toBeInstanceOf(PaymentActionLogAdapter);
 
-    const normalized = adapter!.normalize(log!, "LIVE", "PRODUCTION");
+    const normalized = adapter!.normalize(log!, "TEST", "TEST");
     expect(normalized.event_code).toBe('PAYMENT_AMOUNT_MISMATCH');
     expect(normalized.source_type).toBe(SecurityEventSource.PAYMENT_ACTION_LOG);
     expect(normalized.event_category).toBe('Payment Reconciliation');
@@ -222,7 +226,7 @@ describe('GATE4B4_SLICE_B1G_R2: PaymentAmountMismatch Reconciliation Telemetry',
 
     // 18. Booking correlation is HMAC protected
     expect(normalized.correlation_key).toBe(pseudonymizeTelemetryContext('booking-reference', testBookingId));
-    
+
     // 20. Raw identifier leak count is zero
     expect(JSON.stringify(normalized)).not.toContain(tx.id);
     expect(JSON.stringify(normalized)).not.toContain(testBookingId);
@@ -233,12 +237,12 @@ describe('GATE4B4_SLICE_B1G_R2: PaymentAmountMismatch Reconciliation Telemetry',
     const tx = await createTestGatewayTransaction(`${namespace}-tx-evnt-retry`, 77.00);
     await processPaymentReconciliation(tx.id);
     const log = await prisma.paymentActionLog.findFirst({ where: { gateway_transaction_id: tx.id, action_code: 'PAYMENT_AMOUNT_MISMATCH' }});
-    
+
     await Promise.allSettled([
-      processSecurityEvent(log, "LIVE", "PRODUCTION"),
-      processSecurityEvent(log, "LIVE", "PRODUCTION")
+      processSecurityEvent(log, "TEST", "TEST"),
+      processSecurityEvent(log, "TEST", "TEST")
     ]);
-    await processSecurityEvent(log, "LIVE", "PRODUCTION");
+    await processSecurityEvent(log, "TEST", "TEST");
 
     const events = await prisma.securityEvent.findMany({
       where: { source_record_id: log!.id, event_code: 'PAYMENT_AMOUNT_MISMATCH' }
@@ -262,8 +266,8 @@ describe('GATE4B4_SLICE_B1G_R2: PaymentAmountMismatch Reconciliation Telemetry',
     const log = await prisma.paymentActionLog.findFirst({ where: { gateway_transaction_id: tx.id, action_code: 'PAYMENT_AMOUNT_MISMATCH' }});
 
     // Simulate failure provenance by sending missing currency
-    await processSecurityEvent({ ...log, currency: null } as any, "LIVE", "PRODUCTION");
-    
+    await processSecurityEvent({ ...log, currency: null } as unknown, "TEST", "TEST");
+
     const failures = await prisma.securityEventIngestionFailure.findMany({
       where: { source_record_id: log!.id, source_type: 'PAYMENT_ACTION_LOG' }
     });
