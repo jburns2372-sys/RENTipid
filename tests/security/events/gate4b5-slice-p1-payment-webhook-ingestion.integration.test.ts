@@ -3,8 +3,8 @@ import { processWebhookEvent } from "../../../src/lib/payments/payment-webhook-s
 import { getAdapterForRecord } from "../../../src/lib/security/events/adapters/registry";
 import { processSecurityEvent } from "../../../src/lib/security/events/event-ingestion";
 import { runBackfill } from "../../../src/lib/security/events/jobs/backfill";
-import { recoverSecurityEvent } from "../../../src/lib/security/events/jobs/recovery";
-import * as runtimeContext from "../../../src/lib/security/events/runtime-context";
+import { runRecovery } from "../../../src/lib/security/events/jobs/recovery";
+
 import { assertSafeLocalTestDatabaseTarget } from "../../../src/lib/test-database-guard";
 
 const prisma = new PrismaClient();
@@ -116,6 +116,9 @@ describe("GATE4B5_GATE4D_SLICE_P1_PAYMENT_WEBHOOK_INGESTION", () => {
       }
     });
 
+    expect(tx).toBeDefined();
+    expect(sandboxTx).toBeDefined();
+
 
 
     process.env.PAYMONGO_WEBHOOK_SECRET_LIVE = "secret";
@@ -162,7 +165,12 @@ describe("GATE4B5_GATE4D_SLICE_P1_PAYMENT_WEBHOOK_INGESTION", () => {
 
     // 11. Sequential source retry creates one source.
     // 13. Sequential event retry creates one event.
-    await processSecurityEvent(failedLogs[0], "TEST", "TEST");
+    await runRecovery({
+      sourceType: "PAYMENT_WEBHOOK_LOG",
+      lifecycle: "TEST",
+      environment: "TEST",
+      batchSize: 10
+    });
     events = await prisma.securityEvent.findMany();
     expect(events.length).toBe(1);
 
@@ -178,14 +186,14 @@ describe("GATE4B5_GATE4D_SLICE_P1_PAYMENT_WEBHOOK_INGESTION", () => {
 
     // 9. Ingestion failure preserves the source.
     try {
-      await processSecurityEvent({ ...failedLogs[0], event_type: null as any });
+      await processSecurityEvent({ ...failedLogs[0], event_type: null } as unknown as import("@prisma/client").PaymentWebhookLog);
     } catch {}
     const finalLogs = await prisma.paymentWebhookLog.findMany();
     expect(finalLogs.length).toBe(3); // untouched
 
     // 17. Privacy leak and AuditLog misrouting counts are zero.
     expect(events[0].source_summary).toBeDefined();
-    const summary = events[0].source_summary as any;
+    const summary = events[0].source_summary as Record<string, unknown>;
     expect(summary.payload_summary).not.toContain("secret"); // We don't store secrets
     expect(events[0].correlation_key).not.toBe("test-booking-webhooks"); // Pseudonymized
 
