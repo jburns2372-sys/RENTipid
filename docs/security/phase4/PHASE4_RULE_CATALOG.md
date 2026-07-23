@@ -211,3 +211,12 @@ This catalog details the proposed Phase 4 deterministic DRAFT rules. No rule may
 *   **PAYMENT_CURRENCY_MISMATCH**: AVAILABLE
 *   **PAYMENT_FREEZE_BLOCKED**: AVAILABLE
 *   **PAYMENT-ANOMALY-01**: DRAFT (Evaluator: NOT_RUN, Worker: DISABLED, Alerts: 0, Incident cases: 0)
+
+### Gate 4B-5 / 4D Local Scope Closeout
+*   **PaymentWebhookLog**: LIVE LOCAL SOURCE IMPLEMENTED (immediate ingestion implemented).
+*   **Gate 4B-5 / 4D Package**: CLOSED with controlled dependencies.
+*   **ApiSecurityLog**: FOUNDATION COMPLETE — ACTIVE WRITER REQUIRED.
+*   **SystemErrorLog**: INACTIVE — AUTHORITATIVE WRITER REQUIRED.
+*   **AIBotLog**: INACTIVE — AUTHORITATIVE WRITER REQUIRED.
+*   **Outbound PayMongo/provider failures**: EXTERNAL CONTRACT REQUIRED.
+*   **High-volume external telemetry**: HIGH-VOLUME EXTERNAL ONLY.
