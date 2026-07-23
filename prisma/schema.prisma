@@ -51,6 +51,13 @@ model User {
   // Phase 15: Mobile & Compliance
   accountDeletionRequests AccountDeletionRequest[]
   paymentActionLogs       PaymentActionLog[]
+
+  // SOC Incident Cases
+  assigned_incident_cases IncidentCase[]         @relation("AssignedIncidentCases")
+  created_incident_cases  IncidentCase[]         @relation("CreatedIncidentCases")
+  incident_case_histories IncidentCaseHistory[]
+  incident_case_notes     IncidentCaseNote[]
+  incident_case_evidences IncidentCaseEvidence[]
 }
 
 model UserProfile {
@@ -387,10 +394,10 @@ model PaymentActionLog {
   provider           String?
   provider_reference String?
 
-  amount   Decimal? @db.Decimal(20, 4)
-  currency String?
-  expected_amount Decimal? @db.Decimal(20,4)
-  received_amount Decimal? @db.Decimal(20,4)
+  amount            Decimal? @db.Decimal(20, 4)
+  currency          String?
+  expected_amount   Decimal? @db.Decimal(20, 4)
+  received_amount   Decimal? @db.Decimal(20, 4)
   expected_currency String?
   received_currency String?
 
@@ -1222,6 +1229,9 @@ model SecurityEvent {
   evidenceRecords SecurityAlertEvidence[] @relation("AlertEvidenceEvent")
   candidateLogs   RuleEvaluationLog[]     @relation("CandidateEvent")
 
+  // SOC Incident Cases
+  primary_incident_cases IncidentCase[] @relation("OriginatingSecurityEvent")
+
   @@index([lifecycle_type, occurred_at, id])
   @@index([source_type, source_record_id])
   @@index([security_domain, occurred_at])
@@ -1500,4 +1510,162 @@ model DetectionEvaluationCheckpoint {
   updated_at DateTime @updatedAt
 
   @@unique([rule_id, rule_version, environment, lifecycle_type])
+}
+
+// ----------------------------------------------------------------------
+// Phase 4: Incident Case Foundation (Gate 4F)
+// ----------------------------------------------------------------------
+
+enum IncidentCaseStatus {
+  OPEN
+  TRIAGED
+  INVESTIGATING
+  CONTAINMENT_PENDING
+  RESOLVED
+  CLOSED
+  REOPENED
+}
+
+enum IncidentCaseSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum IncidentCaseOrigin {
+  MANUAL
+  SECURITY_EVENT
+  SECURITY_ALERT
+  EXTERNAL_PROVIDER
+  ADMIN_ESCALATION
+}
+
+enum IncidentCaseHistoryReason {
+  CREATED
+  TRIAGED
+  ASSIGNED
+  REASSIGNED
+  INVESTIGATION_STARTED
+  CONTAINMENT_REQUESTED
+  RESOLVED
+  CLOSED
+  REOPENED
+  ESCALATED
+  CORRECTION_RECORDED
+}
+
+enum IncidentCaseNoteType {
+  TRIAGE
+  INVESTIGATION
+  EVIDENCE_REVIEW
+  ESCALATION
+  RESOLUTION
+  CLOSURE
+  REOPENING
+  INTERNAL
+}
+
+enum IncidentCaseEvidenceType {
+  SECURITY_EVENT
+  AUDIT_LOG
+  SYSTEM_LOG
+  PROVIDER_EVENT
+  TRANSACTION_REFERENCE
+  DOCUMENT_REFERENCE
+  IMAGE_REFERENCE
+  USER_STATEMENT
+  OTHER
+}
+
+enum IncidentCaseEvidenceSource {
+  INTERNAL_SYSTEM
+  EXTERNAL_PROVIDER
+  USER_SUBMITTED
+  ADMINISTRATIVE
+}
+
+model IncidentCase {
+  id                            String               @id @default(cuid())
+  case_reference                String               @unique // length 21
+  status                        IncidentCaseStatus   @default(OPEN)
+  severity                      IncidentCaseSeverity
+  origin                        IncidentCaseOrigin
+  title                         String // max 160
+  summary                       String? // max 2000
+  created_at                    DateTime             @default(now())
+  updated_at                    DateTime             @updatedAt
+  opened_at                     DateTime
+  resolved_at                   DateTime?
+  closed_at                     DateTime?
+  reopened_at                   DateTime?
+  assigned_user_id              String?
+  assigned_user                 User?                @relation("AssignedIncidentCases", fields: [assigned_user_id], references: [id], onDelete: SetNull)
+  created_by_user_id            String?
+  created_by_user               User?                @relation("CreatedIncidentCases", fields: [created_by_user_id], references: [id], onDelete: SetNull)
+  originating_security_event_id String?
+  originating_security_event    SecurityEvent?       @relation("OriginatingSecurityEvent", fields: [originating_security_event_id], references: [id], onDelete: Restrict)
+  version                       Int                  @default(1)
+  legal_hold                    Boolean              @default(false)
+  retention_until               DateTime?
+
+  histories IncidentCaseHistory[]
+  notes     IncidentCaseNote[]
+  evidences IncidentCaseEvidence[]
+}
+
+model IncidentCaseHistory {
+  id               String                    @id @default(cuid())
+  incident_case_id String
+  incident_case    IncidentCase              @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  previous_status  IncidentCaseStatus?
+  new_status       IncidentCaseStatus
+  reason           IncidentCaseHistoryReason
+  reason_note      String? // max 1000
+  actor_user_id    String?
+  actor_user       User?                     @relation(fields: [actor_user_id], references: [id], onDelete: SetNull)
+  occurred_at      DateTime
+  idempotency_key  String
+
+  @@unique([incident_case_id, idempotency_key])
+  @@index([incident_case_id, occurred_at, id])
+}
+
+model IncidentCaseNote {
+  id               String               @id @default(cuid())
+  incident_case_id String
+  incident_case    IncidentCase         @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  actor_user_id    String?
+  actor_user       User?                @relation(fields: [actor_user_id], references: [id], onDelete: SetNull)
+  note_type        IncidentCaseNoteType
+  content          String // max 4000
+  content_hash     String // length 64 hex
+  is_redacted      Boolean              @default(false)
+  created_at       DateTime             @default(now())
+  idempotency_key  String
+
+  @@unique([incident_case_id, idempotency_key])
+  @@index([incident_case_id, created_at, id])
+}
+
+model IncidentCaseEvidence {
+  id                    String                     @id @default(cuid())
+  incident_case_id      String
+  incident_case         IncidentCase               @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  evidence_type         IncidentCaseEvidenceType
+  source_classification IncidentCaseEvidenceSource
+  added_by_user_id      String?
+  added_by_user         User?                      @relation(fields: [added_by_user_id], references: [id], onDelete: SetNull)
+  collected_at          DateTime
+  created_at            DateTime                   @default(now())
+  reference_key         String // max 256
+  integrity_hash        String // length 64 hex
+  content_type          String? // max 120
+  size_bytes            Int? // non-negative
+  idempotency_key       String
+  legal_hold            Boolean                    @default(false)
+  retention_until       DateTime?
+
+  @@unique([incident_case_id, idempotency_key])
+  @@index([incident_case_id, collected_at, id])
 }
