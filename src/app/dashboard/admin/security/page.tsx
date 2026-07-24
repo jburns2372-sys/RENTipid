@@ -53,6 +53,22 @@ export default async function SecurityDashboardPage() {
         >
           Incident Cases
         </Link>
+        {authContext.activePermissions.includes(SECURITY_PERMISSIONS.PLAYBOOK_VIEW) && (
+          <Link
+            href="/dashboard/admin/security/playbooks"
+            className="px-4 py-2 text-gray-300 font-medium hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+          >
+            Playbooks
+          </Link>
+        )}
+        {(authContext.activePermissions.includes(SECURITY_PERMISSIONS.RESPONSE_REQUEST) || authContext.activePermissions.includes(SECURITY_PERMISSIONS.RESPONSE_APPROVE)) && (
+          <Link
+            href="/dashboard/admin/security/approvals"
+            className="px-4 py-2 text-gray-300 font-medium hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+          >
+            Approvals
+          </Link>
+        )}
         {["Countermeasures", "Detection Rules", "Simulations", "Reports", "Maintenance"].map(tab => (
           <div key={tab} className="px-4 py-2 text-gray-600 font-medium cursor-not-allowed opacity-50 flex items-center gap-2" title="Not Yet Enabled">
             {tab} <Lock className="w-3 h-3" />
@@ -81,27 +97,27 @@ export default async function SecurityDashboardPage() {
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div className="flex justify-between items-center bg-gray-800 p-2 rounded">
               <span className="text-gray-400">AuditLog</span>
-              <span className="text-xs font-medium text-green-400">CONFIGURED — ACTIVE SOURCE</span>
+              <span className="text-xs font-medium text-green-400">CONFIGURED - ACTIVE SOURCE</span>
             </div>
             <div className="flex justify-between items-center bg-gray-800 p-2 rounded">
               <span className="text-gray-400">SystemErrorLog</span>
-              <span className="text-xs font-medium text-green-400">CONFIGURED — ACTIVE SOURCE</span>
+              <span className="text-xs font-medium text-green-400">CONFIGURED - ACTIVE SOURCE</span>
             </div>
             <div className="flex justify-between items-center bg-gray-800 p-2 rounded">
               <span className="text-gray-400">PaymentWebhookLog</span>
-              <span className="text-xs font-medium text-green-400">CONFIGURED — ACTIVE SOURCE</span>
+              <span className="text-xs font-medium text-green-400">CONFIGURED - ACTIVE SOURCE</span>
             </div>
             <div className="flex justify-between items-center bg-gray-800 p-2 rounded">
               <span className="text-gray-400">AIBotLog</span>
-              <span className="text-xs font-medium text-yellow-400">CONFIGURED — NO ACTIVE WRITER</span>
+              <span className="text-xs font-medium text-yellow-400">CONFIGURED - NO ACTIVE WRITER</span>
             </div>
             <div className="flex justify-between items-center bg-gray-800 p-2 rounded">
               <span className="text-gray-400">VerificationDoc</span>
-              <span className="text-xs font-medium text-yellow-400">CONFIGURED — NO SOURCE RECORDS</span>
+              <span className="text-xs font-medium text-yellow-400">CONFIGURED - NO SOURCE RECORDS</span>
             </div>
             <div className="flex justify-between items-center bg-gray-800 p-2 rounded">
               <span className="text-gray-400">Trust & Safety</span>
-              <span className="text-xs font-medium text-yellow-400">CONFIGURED — NO ACTIVE WRITER</span>
+              <span className="text-xs font-medium text-yellow-400">CONFIGURED - NO ACTIVE WRITER</span>
             </div>
           </div>
           <div className="mt-3 text-xs text-gray-500">
