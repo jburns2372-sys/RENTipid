@@ -10,7 +10,6 @@ import {
   rejectResponseRequest,
   cancelResponseRequest,
   revokeApprovalGrant,
-  consumeApprovalGrant,
   expireResponseRequest
 } from './security-response-approval.service';
 

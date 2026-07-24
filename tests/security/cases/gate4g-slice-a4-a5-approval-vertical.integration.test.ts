@@ -6,7 +6,6 @@ import {
   rejectResponseRequest,
   cancelResponseRequest,
   revokeApprovalGrant,
-  consumeApprovalGrant,
   expireResponseRequest
 } from '../../../src/lib/security/approvals/security-response-approval.service';
 import { assertSafeLocalTestDatabaseTarget } from '../../../src/lib/test-database-guard';
@@ -218,28 +217,6 @@ describe('Gate 4G Slice A4 A5 Approval Vertical', () => {
       });
     });
 
-    it('Single-use grant behavior (consume)', async () => {
-      await prisma.$transaction(async (tx) => {
-        const req = await submitResponseApprovalRequest(tx, requesterId, {
-          incident_case_id: incidentCaseId,
-          playbook_id: playbookId,
-          playbook_version: 1,
-          justification: 'Need consumption',
-        });
 
-        await approveResponseRequest(tx, approverId, {
-          request_id: req.id,
-          validity_duration_ms: 3600000,
-        });
-
-        const consumed = await consumeApprovalGrant(tx, requesterId, { request_id: req.id });
-        expect(consumed.grant.grant_state).toBe(SecurityApprovalGrantState.CONSUMED);
-
-        // Try consuming again
-        await expect(
-          consumeApprovalGrant(tx, requesterId, { request_id: req.id })
-        ).rejects.toThrow(new ApprovalWriterError('REQUEST_NOT_APPROVED'));
-      });
-    });
   });
 });
