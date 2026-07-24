@@ -1750,6 +1750,7 @@ model SecurityResponsePlaybook {
   created_by     User?                  @relation("PlaybookCreator", fields: [created_by_id], references: [id], onDelete: SetNull)
   approved_by_id String?
   approved_by    User?                  @relation("PlaybookApprover", fields: [approved_by_id], references: [id], onDelete: SetNull)
+  lock_version   Int                    @default(0)
   created_at     DateTime               @default(now())
   updated_at     DateTime               @updatedAt
 
