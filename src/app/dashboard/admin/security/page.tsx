@@ -3,6 +3,7 @@ import { SECURITY_PERMISSIONS } from "@/lib/security/permissions";
 import { Shield, ShieldAlert, CheckCircle2, Lock, Activity, Database, AlertCircle } from "lucide-react";
 import { PrismaClient } from "@prisma/client";
 import { EventsTable } from "./events-table";
+import Link from "next/link";
 
 const prisma = new PrismaClient();
 
@@ -46,7 +47,13 @@ export default async function SecurityDashboardPage() {
         <div className="px-4 py-2 border-b-2 border-blue-500 text-blue-500 font-medium">
           Events & Feed
         </div>
-        {["Incidents", "Countermeasures", "Detection Rules", "Simulations", "Reports", "Maintenance"].map(tab => (
+        <Link
+          href="/dashboard/admin/security/cases"
+          className="px-4 py-2 text-gray-300 font-medium hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+        >
+          Incident Cases
+        </Link>
+        {["Countermeasures", "Detection Rules", "Simulations", "Reports", "Maintenance"].map(tab => (
           <div key={tab} className="px-4 py-2 text-gray-600 font-medium cursor-not-allowed opacity-50 flex items-center gap-2" title="Not Yet Enabled">
             {tab} <Lock className="w-3 h-3" />
           </div>
