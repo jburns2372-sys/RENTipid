@@ -10,7 +10,7 @@ Prisma enum: `IncidentCaseStatus`
 - **CONTAINMENT_PENDING**: A containment or response recommendation exists but no response is authorized or executed by this slice.
 - **RESOLVED**: Investigation has reached a documented resolution. The case is not yet administratively closed.
 - **CLOSED**: Resolution and closure requirements have been completed.
-- **REOPENED**: A previously closed case has been reopened because of new evidence, recurrence or an authorized review decision.
+- **REOPENED**: A previously resolved or closed case has been reopened because of new evidence, recurrence or an authorized review decision.
 
 ## B. CASE SEVERITY
 
@@ -86,28 +86,62 @@ Prisma enum: `IncidentCaseEvidenceSource`
 ## APPROVED LIFECYCLE TRANSITIONS
 
 Allowed transitions:
+
 - OPEN -> TRIAGED
-- OPEN -> INVESTIGATING
-- OPEN -> CLOSED
 - TRIAGED -> INVESTIGATING
-- TRIAGED -> CLOSED
+- TRIAGED -> CONTAINMENT_PENDING
 - INVESTIGATING -> CONTAINMENT_PENDING
 - INVESTIGATING -> RESOLVED
-- INVESTIGATING -> CLOSED
 - CONTAINMENT_PENDING -> INVESTIGATING
 - CONTAINMENT_PENDING -> RESOLVED
-- CONTAINMENT_PENDING -> CLOSED
 - RESOLVED -> CLOSED
-- RESOLVED -> INVESTIGATING
+- RESOLVED -> REOPENED
 - CLOSED -> REOPENED
 - REOPENED -> TRIAGED
 - REOPENED -> INVESTIGATING
-- REOPENED -> RESOLVED
-- REOPENED -> CLOSED
+
+History representation and reason mapping:
+
+| Required current status | Resulting status | History reason | `previous_status` | `new_status` |
+| --- | --- | --- | --- | --- |
+| OPEN | TRIAGED | TRIAGED | OPEN | TRIAGED |
+| TRIAGED | INVESTIGATING | INVESTIGATION_STARTED | TRIAGED | INVESTIGATING |
+| TRIAGED | CONTAINMENT_PENDING | CONTAINMENT_REQUESTED | TRIAGED | CONTAINMENT_PENDING |
+| INVESTIGATING | CONTAINMENT_PENDING | CONTAINMENT_REQUESTED | INVESTIGATING | CONTAINMENT_PENDING |
+| INVESTIGATING | RESOLVED | RESOLVED | INVESTIGATING | RESOLVED |
+| CONTAINMENT_PENDING | INVESTIGATING | INVESTIGATION_STARTED | CONTAINMENT_PENDING | INVESTIGATING |
+| CONTAINMENT_PENDING | RESOLVED | RESOLVED | CONTAINMENT_PENDING | RESOLVED |
+| RESOLVED | CLOSED | CLOSED | RESOLVED | CLOSED |
+| RESOLVED | REOPENED | REOPENED | RESOLVED | REOPENED |
+| CLOSED | REOPENED | REOPENED | CLOSED | REOPENED |
+| REOPENED | TRIAGED | TRIAGED | REOPENED | TRIAGED |
+| REOPENED | INVESTIGATING | INVESTIGATION_STARTED | REOPENED | INVESTIGATING |
+
+Case creation is represented by `reason = CREATED`,
+`previous_status = null`, and `new_status = OPEN`. No previous lifecycle
+state may be fabricated.
+
+`ASSIGNED`, `REASSIGNED`, `ESCALATED`, and `CORRECTION_RECORDED` are
+non-status history events. They record the unchanged current status in both
+`previous_status` and `new_status`; the approved history reason classifies
+the event without fabricating a lifecycle transition.
+
+Assignment changes only the mutable root assignment. `ASSIGNED` and
+`REASSIGNED` history records preserve the assignment target, assigning actor,
+occurrence time, and unchanged status snapshot.
+
+`ESCALATED` is a history-only event in this contract. It does not itself
+change status, severity, or assignment and does not authorize automation or
+notification.
+
+`CORRECTION_RECORDED` appends a bounded correction explanation without
+updating or deleting an earlier history, note, or evidence row. Structured
+corrected-record linkage is not part of this contract.
 
 Prohibited:
+
 - Any transition from a status to itself
-- Any direct CLOSED -> OPEN transition
+- Any transition not explicitly listed above
 - Any transition that deletes or rewrites prior history
 - Any transition that authorizes or executes a response
 - Any automatic transition in this slice
