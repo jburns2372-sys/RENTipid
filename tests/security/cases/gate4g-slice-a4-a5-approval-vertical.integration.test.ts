@@ -67,7 +67,7 @@ describe('Gate 4G Slice A4 A5 Approval Vertical', () => {
         severity: 'MEDIUM',
         status: 'OPEN',
         created_by_user_id: reporter.id,
-        case_reference: 'INC-20240101-ABCDEF12',
+        case_reference: `INC-20240101-${Math.random().toString(36).substring(2, 10).toUpperCase().padEnd(8, '0')}`,
         origin: 'MANUAL',
         opened_at: new Date(),
       },

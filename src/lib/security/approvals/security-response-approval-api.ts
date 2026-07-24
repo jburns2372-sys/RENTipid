@@ -75,14 +75,15 @@ export function createApprovalApiHandlers(deps: ApprovalApiDependencies) {
   return {
     submitRequest: async (req: Request) => {
       const user = await getAuthenticatedUser();
-      if (!user || !user.id) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
+      const userId = user?.id;
+      if (!userId) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
 
       try {
         const body = await req.json();
         const input = submitRequestSchema.parse(body);
 
         const result = await db.$transaction(async (tx) => {
-          return await submitResponseApprovalRequest(tx, user.id, input);
+          return await submitResponseApprovalRequest(tx, userId, input);
         });
 
         return NextResponse.json(result, { status: 201 });
@@ -96,14 +97,15 @@ export function createApprovalApiHandlers(deps: ApprovalApiDependencies) {
 
     approveRequest: async (req: Request) => {
       const user = await getAuthenticatedUser();
-      if (!user || !user.id) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
+      const userId = user?.id;
+      if (!userId) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
 
       try {
         const body = await req.json();
         const input = approveRequestSchema.parse(body);
 
         const result = await db.$transaction(async (tx) => {
-          return await approveResponseRequest(tx, user.id, input);
+          return await approveResponseRequest(tx, userId, input);
         });
 
         return NextResponse.json(result, { status: 200 });
@@ -117,14 +119,15 @@ export function createApprovalApiHandlers(deps: ApprovalApiDependencies) {
 
     rejectRequest: async (req: Request) => {
       const user = await getAuthenticatedUser();
-      if (!user || !user.id) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
+      const userId = user?.id;
+      if (!userId) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
 
       try {
         const body = await req.json();
         const input = rejectRequestSchema.parse(body);
 
         const result = await db.$transaction(async (tx) => {
-          return await rejectResponseRequest(tx, user.id, input);
+          return await rejectResponseRequest(tx, userId, input);
         });
 
         return NextResponse.json(result, { status: 200 });
@@ -138,14 +141,15 @@ export function createApprovalApiHandlers(deps: ApprovalApiDependencies) {
 
     cancelRequest: async (req: Request) => {
       const user = await getAuthenticatedUser();
-      if (!user || !user.id) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
+      const userId = user?.id;
+      if (!userId) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
 
       try {
         const body = await req.json();
         const input = cancelRequestSchema.parse(body);
 
         const result = await db.$transaction(async (tx) => {
-          return await cancelResponseRequest(tx, user.id, input);
+          return await cancelResponseRequest(tx, userId, input);
         });
 
         return NextResponse.json(result, { status: 200 });
@@ -159,14 +163,15 @@ export function createApprovalApiHandlers(deps: ApprovalApiDependencies) {
 
     revokeGrant: async (req: Request) => {
       const user = await getAuthenticatedUser();
-      if (!user || !user.id) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
+      const userId = user?.id;
+      if (!userId) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
 
       try {
         const body = await req.json();
         const input = revokeGrantSchema.parse(body);
 
         const result = await db.$transaction(async (tx) => {
-          return await revokeApprovalGrant(tx, user.id, input);
+          return await revokeApprovalGrant(tx, userId, input);
         });
 
         return NextResponse.json(result, { status: 200 });
