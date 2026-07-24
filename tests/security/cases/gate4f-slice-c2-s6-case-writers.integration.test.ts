@@ -73,7 +73,7 @@ describe('Gate 4F Slice C2-S6: Incident Case Transactional Service Writers', () 
         email: `c2-s6-${label}-${unique()}@example.test`,
         full_name: `C2-S6 ${label}`,
         account_type: 'Individual',
-        role: 'Admin',
+        role: 'Super Admin',
         status: 'Verified',
         is_test_data: true,
       },

@@ -32,7 +32,10 @@ describe("SOC Authorization Service Matrix", () => {
   it("AUTHZ-P1-001 - Unauthenticated user denied", async () => {
     (getServerSession as jest.Mock).mockResolvedValue(null);
     await expect(requireSecurityPermission(SECURITY_PERMISSIONS.DASHBOARD_VIEW)).rejects.toThrow('NEXT_REDIRECT');
-    expect(createAuditLog).toHaveBeenCalledWith(expect.objectContaining({ action: "SOC_ACCESS_DENIED_UNAUTHENTICATED" }));
+    expect(createAuditLog).toHaveBeenCalledWith(expect.objectContaining({
+      action: "ADMIN_AUTHORIZATION_DENIED",
+      details: expect.stringContaining("SOC_ACCESS_DENIED_UNAUTHENTICATED"),
+    }));
   });
 
   it("AUTHZ-P1-017 & AUTHZ-P1-018 - Deleted/Missing User or Expired session denied", async () => {
@@ -40,7 +43,10 @@ describe("SOC Authorization Service Matrix", () => {
     (getServerSession as jest.Mock).mockResolvedValue({ user: { id } });
     prismaMock.user.findUnique.mockResolvedValue(null);
     await expect(requireSecurityPermission(SECURITY_PERMISSIONS.DASHBOARD_VIEW)).rejects.toThrow('NEXT_REDIRECT');
-    expect(createAuditLog).toHaveBeenCalledWith(expect.objectContaining({ action: "SOC_ACCESS_DENIED_USER_NOT_FOUND" }));
+    expect(createAuditLog).toHaveBeenCalledWith(expect.objectContaining({
+      action: "ADMIN_AUTHORIZATION_DENIED",
+      details: expect.stringContaining("SOC_ACCESS_DENIED_USER_NOT_FOUND"),
+    }));
   });
 
   function setupAuthContext(role: string, status: string) {
@@ -64,7 +70,10 @@ describe("SOC Authorization Service Matrix", () => {
       
       if (expectedDenialReason) {
         await expect(requireSecurityPermission(SECURITY_PERMISSIONS.DASHBOARD_VIEW)).rejects.toThrow('NEXT_REDIRECT');
-        expect(createAuditLog).toHaveBeenCalledWith(expect.objectContaining({ action: expectedDenialReason }));
+        expect(createAuditLog).toHaveBeenCalledWith(expect.objectContaining({
+          action: "ADMIN_AUTHORIZATION_DENIED",
+          details: expect.stringContaining(expectedDenialReason),
+        }));
       } else {
         const result = await requireSecurityPermission(SECURITY_PERMISSIONS.DASHBOARD_VIEW);
         expect(result.userId).toBe(userId);
@@ -93,7 +102,10 @@ describe("SOC Authorization Service Matrix", () => {
     // DB says Renter / Verified
     prismaMock.user.findUnique.mockResolvedValueOnce({ id: id1, role: "Renter", status: "Verified" });
     await expect(requireSecurityPermission(SECURITY_PERMISSIONS.DASHBOARD_VIEW)).rejects.toThrow('NEXT_REDIRECT');
-    expect(createAuditLog).toHaveBeenCalledWith(expect.objectContaining({ action: "SOC_ACCESS_DENIED_ROLE" }));
+    expect(createAuditLog).toHaveBeenCalledWith(expect.objectContaining({
+      action: "ADMIN_AUTHORIZATION_DENIED",
+      details: expect.stringContaining("SOC_ACCESS_DENIED_ROLE"),
+    }));
 
     jest.clearAllMocks();
     (redirect as unknown as jest.Mock).mockImplementation(() => { throw new Error('NEXT_REDIRECT'); });
@@ -103,7 +115,10 @@ describe("SOC Authorization Service Matrix", () => {
     // DB says Super Admin / Suspended
     prismaMock.user.findUnique.mockResolvedValueOnce({ id: id2, role: "Super Admin", status: "Suspended" });
     await expect(requireSecurityPermission(SECURITY_PERMISSIONS.DASHBOARD_VIEW)).rejects.toThrow('NEXT_REDIRECT');
-    expect(createAuditLog).toHaveBeenCalledWith(expect.objectContaining({ action: "SOC_ACCESS_DENIED_ACCOUNT_STATUS" }));
+    expect(createAuditLog).toHaveBeenCalledWith(expect.objectContaining({
+      action: "ADMIN_AUTHORIZATION_DENIED",
+      details: expect.stringContaining("SOC_ACCESS_DENIED_ACCOUNT_STATUS"),
+    }));
   });
 
   it("AUTHZ-P1-022 - Database failure fails closed", async () => {
@@ -114,7 +129,10 @@ describe("SOC Authorization Service Matrix", () => {
     // requireSecurityPermission calls getCurrentDatabaseUser which swallows error and returns null
     await expect(requireSecurityPermission(SECURITY_PERMISSIONS.DASHBOARD_VIEW)).rejects.toThrow('NEXT_REDIRECT');
     // Resulting in user_not_found denial
-    expect(createAuditLog).toHaveBeenCalledWith(expect.objectContaining({ action: "SOC_ACCESS_DENIED_USER_NOT_FOUND" }));
+    expect(createAuditLog).toHaveBeenCalledWith(expect.objectContaining({
+      action: "ADMIN_AUTHORIZATION_DENIED",
+      details: expect.stringContaining("SOC_ACCESS_DENIED_USER_NOT_FOUND"),
+    }));
   });
 
   it("AUTHZ-P1-023 - AuditLog failure does not grant access", async () => {

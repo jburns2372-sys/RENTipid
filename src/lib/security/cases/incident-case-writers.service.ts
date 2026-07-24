@@ -9,6 +9,11 @@ import {
   Prisma,
 } from '@prisma/client';
 import { createHash, randomBytes } from 'crypto';
+import {
+  getPhase1PermissionsForRole,
+  SECURITY_PERMISSIONS,
+  SecurityPermission,
+} from '../permissions';
 
 export interface IncidentCaseTransactionRunner {
   $transaction<T>(
@@ -115,6 +120,133 @@ async function inTransaction<T>(
   return operation(database);
 }
 
+type IncidentCaseAuthorizationOutcome<T> =
+  | { allowed: true; value: T }
+  | { allowed: false };
+
+async function resolveDatabasePermission(
+  tx: Prisma.TransactionClient,
+  actorUserId: string,
+  permission: SecurityPermission,
+) {
+  const actor = await tx.user.findUnique({
+    where: { id: actorUserId },
+    select: { id: true, role: true, status: true },
+  });
+  const allowed =
+    actor?.status === 'Verified' &&
+    getPhase1PermissionsForRole(actor.role).includes(permission);
+  return { actor, allowed };
+}
+
+async function appendCaseAudit(
+  tx: Prisma.TransactionClient,
+  input: {
+    actorUserId: string | null;
+    action: string;
+    targetId?: string;
+    permission: SecurityPermission;
+    metadata?: Record<string, string>;
+  },
+) {
+  return tx.auditLog.create({
+    data: {
+      actor_user_id: input.actorUserId,
+      action: input.action,
+      module: 'SecurityOperationsCenter',
+      target_id: input.targetId,
+      details: JSON.stringify({
+        required_permission: input.permission,
+        ...input.metadata,
+      }),
+    },
+  });
+}
+
+async function authorizeAndMutate<T>(
+  database: IncidentCaseDatabase,
+  actorUserId: string,
+  permission: SecurityPermission,
+  successAction: string,
+  operation: (tx: Prisma.TransactionClient) => Promise<T>,
+  targetId: (value: T) => string,
+  metadata?: (value: T) => Record<string, string>,
+): Promise<T> {
+  const outcome = await inTransaction<
+    IncidentCaseAuthorizationOutcome<T>
+  >(database, async (tx) => {
+    const authorization = await resolveDatabasePermission(
+      tx,
+      actorUserId,
+      permission,
+    );
+    if (!authorization.allowed) {
+      await appendCaseAudit(tx, {
+        actorUserId: authorization.actor?.id ?? null,
+        action: 'SOC_INCIDENT_CASE_AUTHORIZATION_DENIED',
+        permission,
+      });
+      return { allowed: false };
+    }
+
+    const value = await operation(tx);
+    await appendCaseAudit(tx, {
+      actorUserId: authorization.actor!.id,
+      action: successAction,
+      targetId: targetId(value),
+      permission,
+      metadata: metadata?.(value),
+    });
+    return { allowed: true, value };
+  });
+
+  if (!outcome.allowed) {
+    throw new IncidentCaseWriterError('INCIDENT_CASE_PERMISSION_DENIED');
+  }
+  return outcome.value;
+}
+
+export async function requireIncidentCasePermission(
+  database: IncidentCaseDatabase,
+  actorUserId: string,
+  permission: SecurityPermission,
+) {
+  const outcome = await inTransaction<
+    IncidentCaseAuthorizationOutcome<{
+      actorUserId: string;
+      role: string;
+      permission: SecurityPermission;
+    }>
+  >(database, async (tx) => {
+    const authorization = await resolveDatabasePermission(
+      tx,
+      actorUserId,
+      permission,
+    );
+    if (!authorization.allowed) {
+      await appendCaseAudit(tx, {
+        actorUserId: authorization.actor?.id ?? null,
+        action: 'SOC_INCIDENT_CASE_AUTHORIZATION_DENIED',
+        permission,
+      });
+      return { allowed: false };
+    }
+    return {
+      allowed: true,
+      value: {
+        actorUserId: authorization.actor!.id,
+        role: authorization.actor!.role,
+        permission,
+      },
+    };
+  });
+
+  if (!outcome.allowed) {
+    throw new IncidentCaseWriterError('INCIDENT_CASE_PERMISSION_DENIED');
+  }
+  return outcome.value;
+}
+
 function assertNonEmptyBounded(
   value: string,
   maximum: number,
@@ -181,7 +313,7 @@ export type CreateIncidentCaseInput = {
   historyIdempotencyKey: string;
 };
 
-export async function createIncidentCase(
+async function createIncidentCaseUnchecked(
   database: IncidentCaseDatabase,
   input: CreateIncidentCaseInput,
 ) {
@@ -269,7 +401,7 @@ export type TransitionIncidentCaseStatusInput = {
   historyIdempotencyKey: string;
 };
 
-export async function transitionIncidentCaseStatus(
+async function transitionIncidentCaseStatusUnchecked(
   database: IncidentCaseDatabase,
   input: TransitionIncidentCaseStatusInput,
 ) {
@@ -361,7 +493,7 @@ export type AssignIncidentCaseInput = {
   historyIdempotencyKey: string;
 };
 
-export async function assignIncidentCase(
+async function assignIncidentCaseUnchecked(
   database: IncidentCaseDatabase,
   input: AssignIncidentCaseInput,
 ) {
@@ -435,7 +567,7 @@ export type AddIncidentCaseNoteInput = {
   idempotencyKey: string;
 };
 
-export async function addIncidentCaseNote(
+async function addIncidentCaseNoteUnchecked(
   database: IncidentCaseDatabase,
   input: AddIncidentCaseNoteInput,
 ) {
@@ -481,7 +613,7 @@ export type AddIncidentCaseEvidenceInput = {
   idempotencyKey: string;
 };
 
-export async function addIncidentCaseEvidence(
+async function addIncidentCaseEvidenceUnchecked(
   database: IncidentCaseDatabase,
   input: AddIncidentCaseEvidenceInput,
 ) {
@@ -547,4 +679,141 @@ export async function addIncidentCaseEvidence(
       },
     });
   });
+}
+
+const TRANSITION_PERMISSION_BY_STATUS: Readonly<
+  Record<IncidentCaseStatus, SecurityPermission>
+> = {
+  OPEN: SECURITY_PERMISSIONS.INCIDENT_CASE_TRIAGE,
+  TRIAGED: SECURITY_PERMISSIONS.INCIDENT_CASE_TRIAGE,
+  INVESTIGATING: SECURITY_PERMISSIONS.INCIDENT_CASE_INVESTIGATE,
+  CONTAINMENT_PENDING:
+    SECURITY_PERMISSIONS.INCIDENT_CASE_REQUEST_CONTAINMENT,
+  RESOLVED: SECURITY_PERMISSIONS.INCIDENT_CASE_RESOLVE,
+  CLOSED: SECURITY_PERMISSIONS.INCIDENT_CASE_CLOSE,
+  REOPENED: SECURITY_PERMISSIONS.INCIDENT_CASE_REOPEN,
+};
+
+export function permissionForIncidentCaseTransition(
+  newStatus: IncidentCaseStatus,
+): SecurityPermission {
+  if (newStatus === IncidentCaseStatus.TRIAGED) {
+    return SECURITY_PERMISSIONS.INCIDENT_CASE_TRIAGE;
+  }
+  if (newStatus === IncidentCaseStatus.INVESTIGATING) {
+    return SECURITY_PERMISSIONS.INCIDENT_CASE_INVESTIGATE;
+  }
+  return TRANSITION_PERMISSION_BY_STATUS[newStatus];
+}
+
+export async function createIncidentCase(
+  database: IncidentCaseDatabase,
+  input: CreateIncidentCaseInput,
+) {
+  return authorizeAndMutate(
+    database,
+    input.actorUserId,
+    SECURITY_PERMISSIONS.INCIDENT_CASE_CREATE,
+    'SOC_INCIDENT_CASE_CREATED',
+    (tx) => createIncidentCaseUnchecked(tx, input),
+    (result) => result.incidentCase.id,
+  );
+}
+
+export async function transitionIncidentCaseStatus(
+  database: IncidentCaseDatabase,
+  input: TransitionIncidentCaseStatusInput,
+) {
+  const permission = permissionForIncidentCaseTransition(input.newStatus);
+  return authorizeAndMutate(
+    database,
+    input.actorUserId,
+    permission,
+    'SOC_INCIDENT_CASE_STATUS_TRANSITIONED',
+    (tx) => transitionIncidentCaseStatusUnchecked(tx, input),
+    (result) => result.incidentCase.id,
+    (result) => ({
+      previous_status: result.history.previous_status ?? 'NONE',
+      new_status: result.history.new_status,
+      reason: result.history.reason,
+    }),
+  );
+}
+
+export async function assignIncidentCase(
+  database: IncidentCaseDatabase,
+  input: AssignIncidentCaseInput,
+) {
+  const outcome = await inTransaction<
+    IncidentCaseAuthorizationOutcome<
+      Awaited<ReturnType<typeof assignIncidentCaseUnchecked>>
+    >
+  >(database, async (tx) => {
+    const current = await tx.incidentCase.findUnique({
+      where: { id: input.incidentCaseId },
+      select: { assigned_user_id: true },
+    });
+    const permission = current?.assigned_user_id
+      ? SECURITY_PERMISSIONS.INCIDENT_CASE_REASSIGN
+      : SECURITY_PERMISSIONS.INCIDENT_CASE_ASSIGN;
+    const authorization = await resolveDatabasePermission(
+      tx,
+      input.actorUserId,
+      permission,
+    );
+    if (!authorization.allowed) {
+      await appendCaseAudit(tx, {
+        actorUserId: authorization.actor?.id ?? null,
+        action: 'SOC_INCIDENT_CASE_AUTHORIZATION_DENIED',
+        targetId: input.incidentCaseId,
+        permission,
+      });
+      return { allowed: false };
+    }
+
+    const value = await assignIncidentCaseUnchecked(tx, input);
+    await appendCaseAudit(tx, {
+      actorUserId: authorization.actor!.id,
+      action:
+        value.history.reason === IncidentCaseHistoryReason.ASSIGNED
+          ? 'SOC_INCIDENT_CASE_ASSIGNED'
+          : 'SOC_INCIDENT_CASE_REASSIGNED',
+      targetId: value.incidentCase.id,
+      permission,
+      metadata: { assignment_reason: value.history.reason },
+    });
+    return { allowed: true, value };
+  });
+  if (!outcome.allowed) {
+    throw new IncidentCaseWriterError('INCIDENT_CASE_PERMISSION_DENIED');
+  }
+  return outcome.value;
+}
+
+export async function addIncidentCaseNote(
+  database: IncidentCaseDatabase,
+  input: AddIncidentCaseNoteInput,
+) {
+  return authorizeAndMutate(
+    database,
+    input.actorUserId,
+    SECURITY_PERMISSIONS.INCIDENT_CASE_ADD_NOTE,
+    'SOC_INCIDENT_CASE_NOTE_APPENDED',
+    (tx) => addIncidentCaseNoteUnchecked(tx, input),
+    (note) => note.incident_case_id,
+  );
+}
+
+export async function addIncidentCaseEvidence(
+  database: IncidentCaseDatabase,
+  input: AddIncidentCaseEvidenceInput,
+) {
+  return authorizeAndMutate(
+    database,
+    input.actorUserId,
+    SECURITY_PERMISSIONS.INCIDENT_CASE_ADD_EVIDENCE,
+    'SOC_INCIDENT_CASE_EVIDENCE_APPENDED',
+    (tx) => addIncidentCaseEvidenceUnchecked(tx, input),
+    (evidence) => evidence.incident_case_id,
+  );
 }

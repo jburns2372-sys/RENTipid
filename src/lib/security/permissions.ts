@@ -12,6 +12,19 @@ export const SECURITY_PERMISSIONS = {
   INCIDENTS_ASSIGN: "security.incidents.assign",
   INCIDENTS_UPDATE: "security.incidents.update",
   INCIDENTS_CLOSE: "security.incidents.close",
+  INCIDENT_CASE_VIEW: "security.incident_cases.view",
+  INCIDENT_CASE_CREATE: "security.incident_cases.create",
+  INCIDENT_CASE_TRIAGE: "security.incident_cases.triage",
+  INCIDENT_CASE_INVESTIGATE: "security.incident_cases.investigate",
+  INCIDENT_CASE_ASSIGN: "security.incident_cases.assign",
+  INCIDENT_CASE_REASSIGN: "security.incident_cases.reassign",
+  INCIDENT_CASE_ADD_NOTE: "security.incident_cases.add_note",
+  INCIDENT_CASE_ADD_EVIDENCE: "security.incident_cases.add_evidence",
+  INCIDENT_CASE_REQUEST_CONTAINMENT: "security.incident_cases.request_containment",
+  INCIDENT_CASE_RESOLVE: "security.incident_cases.resolve",
+  INCIDENT_CASE_CLOSE: "security.incident_cases.close",
+  INCIDENT_CASE_REOPEN: "security.incident_cases.reopen",
+  INCIDENT_CASE_ESCALATE: "security.incident_cases.escalate",
   COUNTERMEASURES_EXECUTE: "security.countermeasures.execute",
   COUNTERMEASURES_ROLLBACK: "security.countermeasures.rollback",
   RULES_VIEW: "security.rules.view",
@@ -41,7 +54,29 @@ export type UserRole =
   | "Admin" 
   | "Finance Admin" 
   | "Compliance Admin" 
+  | "SOC_ANALYST"
+  | "SOC_SUPERVISOR"
   | "Super Admin";
+
+export const SOC_ANALYST_CASE_PERMISSIONS: readonly SecurityPermission[] = [
+  SECURITY_PERMISSIONS.INCIDENT_CASE_VIEW,
+  SECURITY_PERMISSIONS.INCIDENT_CASE_CREATE,
+  SECURITY_PERMISSIONS.INCIDENT_CASE_TRIAGE,
+  SECURITY_PERMISSIONS.INCIDENT_CASE_INVESTIGATE,
+  SECURITY_PERMISSIONS.INCIDENT_CASE_ADD_NOTE,
+  SECURITY_PERMISSIONS.INCIDENT_CASE_ADD_EVIDENCE,
+];
+
+export const SOC_SUPERVISOR_CASE_PERMISSIONS: readonly SecurityPermission[] = [
+  ...SOC_ANALYST_CASE_PERMISSIONS,
+  SECURITY_PERMISSIONS.INCIDENT_CASE_ASSIGN,
+  SECURITY_PERMISSIONS.INCIDENT_CASE_REASSIGN,
+  SECURITY_PERMISSIONS.INCIDENT_CASE_REQUEST_CONTAINMENT,
+  SECURITY_PERMISSIONS.INCIDENT_CASE_RESOLVE,
+  SECURITY_PERMISSIONS.INCIDENT_CASE_CLOSE,
+  SECURITY_PERMISSIONS.INCIDENT_CASE_REOPEN,
+  SECURITY_PERMISSIONS.INCIDENT_CASE_ESCALATE,
+];
 
 /**
  * Returns the currently active Phase 1 permissions for a given verified role.
@@ -62,7 +97,12 @@ export function getPhase1PermissionsForRole(role: string): SecurityPermission[] 
         SECURITY_PERMISSIONS.RULES_ARCHIVE,
         SECURITY_PERMISSIONS.ALERTS_VIEW,
         SECURITY_PERMISSIONS.ALERTS_REVIEW,
+        ...SOC_SUPERVISOR_CASE_PERMISSIONS,
       ];
+    case "SOC_ANALYST":
+      return [...SOC_ANALYST_CASE_PERMISSIONS];
+    case "SOC_SUPERVISOR":
+      return [...SOC_SUPERVISOR_CASE_PERMISSIONS];
     case "Admin":
       return [];
     case "Finance Admin":
