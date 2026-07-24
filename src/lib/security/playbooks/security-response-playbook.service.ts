@@ -287,7 +287,7 @@ export async function updateSecurityResponseStep(
     where: { id: stepId, playbook_id: draft.playbook_id, playbook_version: draft.version },
     data: input as Prisma.SecurityResponseStepUpdateInput
   });
-  
+
   if (stepUpdateResult.count === 0) throw new PlaybookWriterError('STEP_NOT_FOUND');
 
   await appendPlaybookAudit(db, {
@@ -413,7 +413,7 @@ export async function createSecurityResponsePlaybookVersion(
   }
 
   const draft = await db.securityResponsePlaybook.findUniqueOrThrow({ where: { id: playbookId } });
-  
+
   // Find next version number
   const maxVersion = await db.securityResponsePlaybook.aggregate({
     where: { playbook_id: draft.playbook_id },
@@ -501,5 +501,54 @@ export async function submitSecurityResponsePlaybookForReview(
     action: 'SOC_PLAYBOOK_SUBMITTED_FOR_REVIEW',
     targetId: playbookId,
     permission: SECURITY_PERMISSIONS.PLAYBOOK_SUBMIT_REVIEW,
+  });
+}
+
+
+export async function activateSecurityResponsePlaybook(
+  db: PlaybookDatabase,
+  actorUserId: string,
+  playbookId: string,
+  expectedLockVersion: number,
+) {
+  assertInTransaction(db);
+  const allowed = await assertSecurityPermissionForService(actorUserId, SECURITY_PERMISSIONS.PLAYBOOK_ACTIVATE, db as Prisma.TransactionClient);
+  if (!allowed) {
+    await appendPlaybookAudit(db, {
+      actorUserId,
+      action: 'SOC_PLAYBOOK_AUTHORIZATION_DENIED',
+      permission: SECURITY_PERMISSIONS.PLAYBOOK_ACTIVATE,
+      targetId: playbookId,
+    });
+    throw new PlaybookWriterError('UNAUTHORIZED');
+  }
+
+  const playbookUpdate = await db.securityResponsePlaybook.updateMany({
+    where: {
+      id: playbookId,
+      status: SecurityPlaybookStatus.REVIEW_PENDING,
+      lock_version: expectedLockVersion
+    },
+    data: {
+      status: SecurityPlaybookStatus.ACTIVE,
+      lock_version: { increment: 1 }
+    }
+  });
+
+  if (playbookUpdate.count === 0) {
+    await appendPlaybookAudit(db, {
+      actorUserId,
+      action: 'SOC_PLAYBOOK_STALE_MUTATION_REJECTED',
+      permission: SECURITY_PERMISSIONS.PLAYBOOK_ACTIVATE,
+      targetId: playbookId,
+    });
+    throw new PlaybookWriterError('STALE_OR_INVALID_STATE');
+  }
+
+  await appendPlaybookAudit(db, {
+    actorUserId,
+    action: 'SOC_PLAYBOOK_ACTIVATED',
+    targetId: playbookId,
+    permission: SECURITY_PERMISSIONS.PLAYBOOK_ACTIVATE,
   });
 }
