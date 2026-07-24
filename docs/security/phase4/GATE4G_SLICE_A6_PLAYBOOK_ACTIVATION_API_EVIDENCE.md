@@ -66,3 +66,61 @@ No response execution, active defense action, webhook triggering, or automation 
 
 ## Schema Status
 No schema changes or database migrations occurred.
+
+## Final Validation Evidence
+
+### Focused lifecycle and API tests
+- A3 suite filename: tests/security/cases/gate4g-slice-a3-playbook-lifecycle.integration.test.ts
+- A3 exact status and test count: PASS, 13 tests
+- A6 suite filename: tests/security/cases/gate4g-slice-a6-playbook-activation-api.integration.test.ts
+- A6 exact status and test count: PASS, 7 tests
+- Combined suite and test totals: 2 passed suites, 20 passed tests
+
+### Database guard
+- Exact suite filename: tests/security/database-guard.test.ts
+- Exact status and count: PASS, 12 passed tests
+
+### Changed-file ESLint
+- Exact TypeScript/TSX files checked:
+  - src/app/api/soc/playbooks/activate/route.ts
+  - src/app/api/soc/playbooks/draft-create/route.ts
+  - src/app/api/soc/playbooks/draft-update/route.ts
+  - src/app/api/soc/playbooks/review-submit/route.ts
+  - src/app/api/soc/playbooks/step-add/route.ts
+  - src/app/api/soc/playbooks/step-remove/route.ts
+  - src/app/api/soc/playbooks/step-reorder/route.ts
+  - src/app/api/soc/playbooks/step-update/route.ts
+  - src/app/api/soc/playbooks/version-create/route.ts
+  - src/lib/security/playbooks/security-response-playbook-api.ts
+  - src/lib/security/playbooks/security-response-playbook-route-handlers.ts
+  - src/lib/security/playbooks/security-response-playbook.service.ts
+  - tests/security/cases/gate4g-slice-a6-playbook-activation-api.integration.test.ts
+- Errors: 0
+- Warnings: 0
+- Result: PASS
+
+### TypeScript baseline
+- Pre-existing errors: 7
+- New errors: 0
+- Pre-existing errors confined to:
+  tests/security/rules/phase3-lifecycle.integration.test.ts
+- Classification:
+  ACCEPTED_PRE_EXISTING_TYPESCRIPT_BASELINE
+
+### Git validation
+- git diff --check result: Clean
+- git fsck result: Passed (informational dangling objects only)
+
+### Scope confirmation
+- No implementation source changed during A6-R1
+- No test source changed
+- No Prisma schema or migration changed
+- No UI implemented
+- No Gate 4H response execution implemented
+- No database schema action occurred
+- No push, production, Azure, Vercel, or deployment action occurred
+
+### Corrective publication strategy
+- The original A6 implementation commit and original A6 tag remain unchanged.
+- A6-R1 is a documentation-only corrective checkpoint.
+- The new R1 tag represents the complete A6 implementation plus reconciled validation evidence.
