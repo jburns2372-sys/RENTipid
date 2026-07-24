@@ -53,11 +53,12 @@ model User {
   paymentActionLogs       PaymentActionLog[]
 
   // SOC Incident Cases
-  assigned_incident_cases IncidentCase[]         @relation("AssignedIncidentCases")
-  created_incident_cases  IncidentCase[]         @relation("CreatedIncidentCases")
-  incident_case_histories IncidentCaseHistory[]
-  incident_case_notes     IncidentCaseNote[]
-  incident_case_evidences IncidentCaseEvidence[]
+  assigned_incident_cases             IncidentCase[]        @relation("AssignedIncidentCases")
+  created_incident_cases              IncidentCase[]        @relation("CreatedIncidentCases")
+  incident_case_histories             IncidentCaseHistory[] @relation("IncidentCaseHistoryActor")
+  incident_case_assignment_histories  IncidentCaseHistory[] @relation("IncidentCaseHistoryAssignedTo")
+  incident_case_notes                 IncidentCaseNote[]
+  incident_case_evidences             IncidentCaseEvidence[]
 }
 
 model UserProfile {
@@ -1615,17 +1616,19 @@ model IncidentCase {
 }
 
 model IncidentCaseHistory {
-  id               String                    @id @default(cuid())
-  incident_case_id String
-  incident_case    IncidentCase              @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
-  previous_status  IncidentCaseStatus?
-  new_status       IncidentCaseStatus
-  reason           IncidentCaseHistoryReason
-  reason_note      String? // max 1000
-  actor_user_id    String?
-  actor_user       User?                     @relation(fields: [actor_user_id], references: [id], onDelete: SetNull)
-  occurred_at      DateTime
-  idempotency_key  String
+  id                  String                    @id @default(cuid())
+  incident_case_id    String
+  incident_case       IncidentCase              @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  previous_status     IncidentCaseStatus?
+  new_status          IncidentCaseStatus
+  reason              IncidentCaseHistoryReason
+  reason_note         String? // max 1000
+  actor_user_id       String?
+  actor_user          User?                     @relation("IncidentCaseHistoryActor", fields: [actor_user_id], references: [id], onDelete: SetNull)
+  assigned_to_user_id String?
+  assigned_to_user    User?                     @relation("IncidentCaseHistoryAssignedTo", fields: [assigned_to_user_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  occurred_at         DateTime
+  idempotency_key     String
 
   @@unique([incident_case_id, idempotency_key])
   @@index([incident_case_id, occurred_at, id])
