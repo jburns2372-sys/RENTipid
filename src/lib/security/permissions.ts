@@ -35,6 +35,15 @@ export const SECURITY_PERMISSIONS = {
   PLAYBOOK_EDIT: "security.playbooks.edit",
   PLAYBOOK_VERSION_CREATE: "security.playbooks.version_create",
   PLAYBOOK_SUBMIT_REVIEW: "security.playbooks.submit_review",
+  PLAYBOOK_REVIEW: "security.playbooks.review",
+  PLAYBOOK_APPROVE: "security.playbooks.approve",
+  PLAYBOOK_REJECT: "security.playbooks.reject",
+  PLAYBOOK_ACTIVATE: "security.playbooks.activate",
+  RESPONSE_REQUEST: "security.response.request",
+  RESPONSE_APPROVE: "security.response.approve",
+  RESPONSE_REJECT: "security.response.reject",
+  RESPONSE_CANCEL: "security.response.cancel",
+  RESPONSE_REVOKE: "security.response.revoke",
 
   RULES_VIEW: "security.rules.view",
   RULES_MANAGE: "security.rules.manage", // Unused, keeping for compatibility
@@ -93,6 +102,18 @@ export const SOC_PLAYBOOK_PERMISSIONS: readonly SecurityPermission[] = [
   SECURITY_PERMISSIONS.PLAYBOOK_EDIT,
   SECURITY_PERMISSIONS.PLAYBOOK_VERSION_CREATE,
   SECURITY_PERMISSIONS.PLAYBOOK_SUBMIT_REVIEW,
+  SECURITY_PERMISSIONS.PLAYBOOK_REVIEW,
+  SECURITY_PERMISSIONS.PLAYBOOK_APPROVE,
+  SECURITY_PERMISSIONS.PLAYBOOK_REJECT,
+  SECURITY_PERMISSIONS.PLAYBOOK_ACTIVATE,
+];
+
+export const SOC_RESPONSE_PERMISSIONS: readonly SecurityPermission[] = [
+  SECURITY_PERMISSIONS.RESPONSE_REQUEST,
+  SECURITY_PERMISSIONS.RESPONSE_APPROVE,
+  SECURITY_PERMISSIONS.RESPONSE_REJECT,
+  SECURITY_PERMISSIONS.RESPONSE_CANCEL,
+  SECURITY_PERMISSIONS.RESPONSE_REVOKE,
 ];
 
 /**
@@ -116,16 +137,20 @@ export function getPhase1PermissionsForRole(role: string): SecurityPermission[] 
         SECURITY_PERMISSIONS.ALERTS_REVIEW,
         ...SOC_SUPERVISOR_CASE_PERMISSIONS,
         ...SOC_PLAYBOOK_PERMISSIONS,
+        ...SOC_RESPONSE_PERMISSIONS,
       ];
     case "SOC_ANALYST":
       return [
         ...SOC_ANALYST_CASE_PERMISSIONS,
         ...SOC_PLAYBOOK_PERMISSIONS,
+        SECURITY_PERMISSIONS.RESPONSE_REQUEST,
+        SECURITY_PERMISSIONS.RESPONSE_CANCEL,
       ];
     case "SOC_SUPERVISOR":
       return [
         ...SOC_SUPERVISOR_CASE_PERMISSIONS,
         ...SOC_PLAYBOOK_PERMISSIONS,
+        ...SOC_RESPONSE_PERMISSIONS,
       ];
     case "Admin":
     case "Finance Admin":
