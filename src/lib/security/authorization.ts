@@ -1,7 +1,7 @@
 import "server-only";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import { getPhase1PermissionsForRole, SecurityPermission } from "./permissions";
 import { createPrivacySafeAuthorizationContext, serializePrivacySafeIp } from "./serializers";
 import { logAdministrationEvent } from "./events/writers/administration-writer";
@@ -167,5 +167,48 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
     // Any unexpected authorization service failure fails closed
     console.error("Authorization Service Failure", e);
     redirect("/dashboard");
+  }
+}
+
+/**
+ * Service-level authorization guard for SOC operations.
+ * Returns true if allowed, false if denied. Denies by default.
+ * Requires an explicit authenticated actorUserId from the caller.
+ * Creates NO database or audit mutation.
+ */
+export async function assertSecurityPermissionForService(
+  actorUserId: string,
+  permission: SecurityPermission,
+  db: Prisma.TransactionClient | PrismaClient = prisma
+): Promise<boolean> {
+  try {
+    const dbUser = await db.user.findUnique({
+      where: { id: actorUserId },
+      select: {
+        id: true,
+        email: true,
+        full_name: true,
+        role: true,
+        status: true,
+      }
+    });
+    if (!dbUser) {
+      return false;
+    }
+
+    const policyResult = await assertAccountAllowedForSocAccess(dbUser);
+    if (!policyResult.allowed) {
+      return false;
+    }
+
+    const activePermissions = policyResult.permissions!;
+    if (!canAccessSecurityPermission(activePermissions, permission)) {
+      return false;
+    }
+
+    return true;
+  } catch (e: unknown) {
+    console.error("Service Authorization Failure", e);
+    return false;
   }
 }

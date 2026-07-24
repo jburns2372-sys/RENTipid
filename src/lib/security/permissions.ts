@@ -1,4 +1,5 @@
 import "server-only";
+import "server-only";
 
 export const SECURITY_PERMISSIONS = {
   // Phase 1 Foundations
@@ -27,6 +28,14 @@ export const SECURITY_PERMISSIONS = {
   INCIDENT_CASE_ESCALATE: "security.incident_cases.escalate",
   COUNTERMEASURES_EXECUTE: "security.countermeasures.execute",
   COUNTERMEASURES_ROLLBACK: "security.countermeasures.rollback",
+
+  // Gate 4G Playbook Lifecycle
+  PLAYBOOK_VIEW: "security.playbooks.view",
+  PLAYBOOK_CREATE: "security.playbooks.create",
+  PLAYBOOK_EDIT: "security.playbooks.edit",
+  PLAYBOOK_VERSION_CREATE: "security.playbooks.version_create",
+  PLAYBOOK_SUBMIT_REVIEW: "security.playbooks.submit_review",
+
   RULES_VIEW: "security.rules.view",
   RULES_MANAGE: "security.rules.manage", // Unused, keeping for compatibility
   RULES_CREATE: "security.rules.create",
@@ -78,6 +87,14 @@ export const SOC_SUPERVISOR_CASE_PERMISSIONS: readonly SecurityPermission[] = [
   SECURITY_PERMISSIONS.INCIDENT_CASE_ESCALATE,
 ];
 
+export const SOC_PLAYBOOK_PERMISSIONS: readonly SecurityPermission[] = [
+  SECURITY_PERMISSIONS.PLAYBOOK_VIEW,
+  SECURITY_PERMISSIONS.PLAYBOOK_CREATE,
+  SECURITY_PERMISSIONS.PLAYBOOK_EDIT,
+  SECURITY_PERMISSIONS.PLAYBOOK_VERSION_CREATE,
+  SECURITY_PERMISSIONS.PLAYBOOK_SUBMIT_REVIEW,
+];
+
 /**
  * Returns the currently active Phase 1 permissions for a given verified role.
  * Unimplemented phase permissions are omitted even if they exist in the vocabulary.
@@ -98,13 +115,19 @@ export function getPhase1PermissionsForRole(role: string): SecurityPermission[] 
         SECURITY_PERMISSIONS.ALERTS_VIEW,
         SECURITY_PERMISSIONS.ALERTS_REVIEW,
         ...SOC_SUPERVISOR_CASE_PERMISSIONS,
+        ...SOC_PLAYBOOK_PERMISSIONS,
       ];
     case "SOC_ANALYST":
-      return [...SOC_ANALYST_CASE_PERMISSIONS];
+      return [
+        ...SOC_ANALYST_CASE_PERMISSIONS,
+        ...SOC_PLAYBOOK_PERMISSIONS,
+      ];
     case "SOC_SUPERVISOR":
-      return [...SOC_SUPERVISOR_CASE_PERMISSIONS];
+      return [
+        ...SOC_SUPERVISOR_CASE_PERMISSIONS,
+        ...SOC_PLAYBOOK_PERMISSIONS,
+      ];
     case "Admin":
-      return [];
     case "Finance Admin":
     case "Compliance Admin":
     case "Guest":
