@@ -53,12 +53,21 @@ model User {
   paymentActionLogs       PaymentActionLog[]
 
   // SOC Incident Cases
-  assigned_incident_cases             IncidentCase[]        @relation("AssignedIncidentCases")
-  created_incident_cases              IncidentCase[]        @relation("CreatedIncidentCases")
-  incident_case_histories             IncidentCaseHistory[] @relation("IncidentCaseHistoryActor")
-  incident_case_assignment_histories  IncidentCaseHistory[] @relation("IncidentCaseHistoryAssignedTo")
-  incident_case_notes                 IncidentCaseNote[]
-  incident_case_evidences             IncidentCaseEvidence[]
+  assigned_incident_cases            IncidentCase[]         @relation("AssignedIncidentCases")
+  created_incident_cases             IncidentCase[]         @relation("CreatedIncidentCases")
+  incident_case_histories            IncidentCaseHistory[]  @relation("IncidentCaseHistoryActor")
+  incident_case_assignment_histories IncidentCaseHistory[]  @relation("IncidentCaseHistoryAssignedTo")
+  incident_case_notes                IncidentCaseNote[]
+  incident_case_evidences            IncidentCaseEvidence[]
+
+  // SOC Playbooks & Approvals (Gate 4G)
+  created_playbooks     SecurityResponsePlaybook[]         @relation("PlaybookCreator")
+  approved_playbooks    SecurityResponsePlaybook[]         @relation("PlaybookApprover")
+  linked_case_playbooks IncidentCasePlaybookLink[]         @relation("CasePlaybookLinker")
+  requested_approvals   SecurityResponseApprovalRequest[]  @relation("ApprovalRequester")
+  reviewed_approvals    SecurityResponseApprovalRequest[]  @relation("ApprovalReviewer")
+  approval_decisions    SecurityResponseApprovalDecision[] @relation("ApprovalDecisionActor")
+  revoked_grants        SecurityResponseApprovalGrant[]    @relation("GrantRevoker")
 }
 
 model UserProfile {
@@ -1610,9 +1619,12 @@ model IncidentCase {
   legal_hold                    Boolean              @default(false)
   retention_until               DateTime?
 
-  histories IncidentCaseHistory[]
-  notes     IncidentCaseNote[]
-  evidences IncidentCaseEvidence[]
+  histories         IncidentCaseHistory[]
+  notes             IncidentCaseNote[]
+  evidences         IncidentCaseEvidence[]
+  playbook_links    IncidentCasePlaybookLink[]
+  approval_requests SecurityResponseApprovalRequest[]
+  approval_grants   SecurityResponseApprovalGrant[]
 }
 
 model IncidentCaseHistory {
@@ -1671,4 +1683,171 @@ model IncidentCaseEvidence {
 
   @@unique([incident_case_id, idempotency_key])
   @@index([incident_case_id, collected_at, id])
+}
+
+// ----------------------------------------------------------------------
+// Phase 4: SOC Playbooks & Approvals (Gate 4G)
+// ----------------------------------------------------------------------
+
+enum SecurityPlaybookStatus {
+  DRAFT
+  REVIEW_PENDING
+  ACTIVE
+  ARCHIVED
+}
+
+enum SecurityResponseActionType {
+  ACCOUNT_RESTRICTION
+  PAYMENT_FREEZE
+  BOOKING_FREEZE
+  SESSION_REVOCATION
+  CREDENTIAL_ROTATION
+  INFRASTRUCTURE_ENFORCEMENT
+  MANUAL_PROCEDURE
+}
+
+enum SecurityResponseReversibility {
+  REVERSIBLE
+  IRREVERSIBLE
+  MANUAL_INTERVENTION_REQUIRED
+}
+
+enum SecurityApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+  EXPIRED
+  REVOKED
+  CONSUMED
+}
+
+enum SecurityApprovalEventType {
+  REQUESTED
+  APPROVED
+  REJECTED
+  CANCELLED
+  EXPIRED
+  REVOKED
+  CONSUMED
+}
+
+enum SecurityApprovalGrantState {
+  AVAILABLE
+  CONSUMED
+  REVOKED
+  EXPIRED
+}
+
+model SecurityResponsePlaybook {
+  id             String                 @id @default(cuid())
+  playbook_id    String
+  version        Int
+  name           String
+  description    String
+  status         SecurityPlaybookStatus @default(DRAFT)
+  created_by_id  String?
+  created_by     User?                  @relation("PlaybookCreator", fields: [created_by_id], references: [id], onDelete: SetNull)
+  approved_by_id String?
+  approved_by    User?                  @relation("PlaybookApprover", fields: [approved_by_id], references: [id], onDelete: SetNull)
+  created_at     DateTime               @default(now())
+  updated_at     DateTime               @updatedAt
+
+  steps             SecurityResponseStep[]
+  case_links        IncidentCasePlaybookLink[]
+  approval_requests SecurityResponseApprovalRequest[]
+
+  @@unique([playbook_id, version])
+  @@index([status])
+}
+
+model SecurityResponseStep {
+  id                String                        @id @default(cuid())
+  playbook_id       String
+  playbook_version  Int
+  playbook          SecurityResponsePlaybook      @relation(fields: [playbook_id, playbook_version], references: [playbook_id, version], onDelete: Restrict)
+  step_order        Int
+  action_type       SecurityResponseActionType
+  human_instruction String
+  expected_evidence String?
+  reversibility     SecurityResponseReversibility
+  duration_seconds  Int?
+  risk_level        SecuritySeverity
+  approval_required Boolean                       @default(true)
+
+  @@unique([playbook_id, playbook_version, step_order])
+}
+
+model IncidentCasePlaybookLink {
+  id               String                   @id @default(cuid())
+  incident_case_id String
+  incident_case    IncidentCase             @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  playbook_id      String
+  playbook_version Int
+  playbook         SecurityResponsePlaybook @relation(fields: [playbook_id, playbook_version], references: [playbook_id, version], onDelete: Restrict)
+  linked_by_id     String?
+  linked_by        User?                    @relation("CasePlaybookLinker", fields: [linked_by_id], references: [id], onDelete: SetNull)
+  linked_at        DateTime                 @default(now())
+
+  @@unique([incident_case_id, playbook_id, playbook_version])
+}
+
+model SecurityResponseApprovalRequest {
+  id               String                   @id @default(cuid())
+  requester_id     String
+  requester        User                     @relation("ApprovalRequester", fields: [requester_id], references: [id], onDelete: Restrict)
+  approver_id      String?
+  approver         User?                    @relation("ApprovalReviewer", fields: [approver_id], references: [id], onDelete: SetNull)
+  incident_case_id String
+  incident_case    IncidentCase             @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  playbook_id      String
+  playbook_version Int
+  playbook         SecurityResponsePlaybook @relation(fields: [playbook_id, playbook_version], references: [playbook_id, version], onDelete: Restrict)
+  status           SecurityApprovalStatus   @default(PENDING)
+  justification    String                   @db.Text
+  requested_at     DateTime                 @default(now())
+  decision_at      DateTime?
+  expires_at       DateTime?
+  idempotency_key  String                   @unique
+
+  decisions SecurityResponseApprovalDecision[]
+  grants    SecurityResponseApprovalGrant[]
+
+  @@index([incident_case_id])
+  @@index([status])
+}
+
+model SecurityResponseApprovalDecision {
+  id              String                          @id @default(cuid())
+  request_id      String
+  request         SecurityResponseApprovalRequest @relation(fields: [request_id], references: [id], onDelete: Restrict)
+  event_type      SecurityApprovalEventType
+  actor_id        String?
+  actor           User?                           @relation("ApprovalDecisionActor", fields: [actor_id], references: [id], onDelete: SetNull)
+  reason          String?                         @db.Text
+  occurred_at     DateTime                        @default(now())
+  idempotency_key String
+
+  @@unique([request_id, idempotency_key])
+  @@index([request_id, occurred_at])
+}
+
+model SecurityResponseApprovalGrant {
+  id               String                          @id @default(cuid())
+  request_id       String                          @unique
+  request          SecurityResponseApprovalRequest @relation(fields: [request_id], references: [id], onDelete: Restrict)
+  incident_case_id String
+  incident_case    IncidentCase                    @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  playbook_id      String
+  playbook_version Int
+  grant_state      SecurityApprovalGrantState      @default(AVAILABLE)
+  issued_at        DateTime                        @default(now())
+  expires_at       DateTime
+  consumed_at      DateTime?
+  revoked_at       DateTime?
+  revoked_by_id    String?
+  revoked_by       User?                           @relation("GrantRevoker", fields: [revoked_by_id], references: [id], onDelete: SetNull)
+
+  @@index([incident_case_id])
+  @@index([grant_state, expires_at])
 }
