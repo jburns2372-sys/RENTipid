@@ -10,9 +10,11 @@ import { SecurityExecutionStatus } from "@prisma/client";
 export function ResponseDetailClient({
   initialExecution,
   activePermissions,
+  isEmergencyFreeze,
 }: {
   initialExecution: any;
   activePermissions: readonly string[];
+  isEmergencyFreeze: boolean;
 }) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
@@ -35,6 +37,18 @@ export function ResponseDetailClient({
           )}
         </div>
       </header>
+
+      {isEmergencyFreeze && (
+        <div className="rounded-xl border border-red-800 bg-red-950 p-4 mb-6">
+          <div className="flex items-center gap-3">
+            <span className="text-red-500 font-bold text-xl">⚠️</span>
+            <div>
+              <h3 className="font-bold text-red-400">EMERGENCY FREEZE ACTIVE</h3>
+              <p className="text-red-300 text-sm">All new security response executions are currently blocked by system policy.</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <section className="rounded-xl border border-gray-800 bg-gray-900 p-6 text-gray-300 space-y-2 text-sm">
         <p><strong className="text-white">Response Type:</strong> {initialExecution.response_type}</p>

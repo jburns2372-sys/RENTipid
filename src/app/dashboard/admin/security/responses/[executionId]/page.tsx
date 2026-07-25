@@ -29,10 +29,16 @@ export default async function ResponseDetailPage({ params }: { params: { executi
     notFound();
   }
 
+  const freezeSetting = await prisma.systemSetting.findUnique({
+    where: { setting_key: 'SOC_RESPONSE_EMERGENCY_FREEZE' }
+  });
+  const isEmergencyFreeze = freezeSetting?.setting_value === 'true';
+
   return (
     <ResponseDetailClient
       initialExecution={execution}
       activePermissions={permissions}
+      isEmergencyFreeze={isEmergencyFreeze}
     />
   );
 }

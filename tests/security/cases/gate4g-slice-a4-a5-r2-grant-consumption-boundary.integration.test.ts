@@ -92,6 +92,9 @@ describe('Gate 4G Slice A4 A5 R2 Grant Consumption Boundary', () => {
         playbook_id: playbookId,
         playbook_version: 1,
         justification: 'Need consumption test',
+        response_type: 'NOOP_SIMULATION',
+        target_type: 'SYSTEM',
+        target_id: 'sys_123',
       });
 
       const approved = await approveResponseRequest(tx, approverId, {

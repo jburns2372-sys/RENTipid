@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { Prisma, PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient, SecurityResponseActionType } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import {
@@ -25,6 +25,9 @@ const submitRequestSchema = z.object({
   playbook_id: z.string().min(1),
   playbook_version: z.number().int().min(0),
   justification: z.string().min(1),
+  response_type: z.nativeEnum(SecurityResponseActionType),
+  target_type: z.string().min(1),
+  target_id: z.string().min(1),
 });
 
 const approveRequestSchema = z.object({

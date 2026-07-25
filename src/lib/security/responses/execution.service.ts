@@ -111,23 +111,33 @@ export async function executeSecurityResponse(
         throw new ExecutionError('GRANT_NOT_FOUND');
     }
 
+    if (!grant.request.response_type || !grant.request.target_type || !grant.request.target_id) {
+       throw new ExecutionError('APPROVAL_SCOPE_MISSING');
+    }
+
     if (grant.incident_case_id !== input.incident_case_id ||
         grant.playbook_id !== input.playbook_id ||
         grant.playbook_version !== input.playbook_version) {
        throw new ExecutionError('GRANT_MISMATCH');
     }
 
-    // 4. Create the execution record
+    if (grant.request.response_type !== input.response_type ||
+        grant.request.target_type !== input.target_type ||
+        grant.request.target_id !== input.target_id) {
+       throw new ExecutionError('GRANT_MISMATCH');
+    }
+
+    // 4. Create the execution record (using derived scope)
     const execution = await tx.securityResponseExecution.create({
       data: {
-        incident_case_id: input.incident_case_id,
-        playbook_id: input.playbook_id,
-        playbook_version: input.playbook_version,
+        incident_case_id: grant.incident_case_id,
+        playbook_id: grant.playbook_id,
+        playbook_version: grant.playbook_version,
         approval_grant_id: input.approval_grant_id,
         approval_request_id: grant.request_id,
-        response_type: input.response_type,
-        target_type: input.target_type,
-        target_id: input.target_id,
+        response_type: grant.request.response_type,
+        target_type: grant.request.target_type,
+        target_id: grant.request.target_id,
         status: SecurityExecutionStatus.EXECUTING,
         idempotency_key: input.idempotency_key,
         requested_by_id: grant.request.requester_id,
@@ -141,47 +151,47 @@ export async function executeSecurityResponse(
       action: 'SOC_RESPONSE_ACTION_STARTED',
       targetId: execution.id,
       permission: SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
-      metadata: { response_type: input.response_type }
+      metadata: { response_type: grant.request.response_type }
     });
 
     // 5. Execute the specific action
-    let finalStatus = SecurityExecutionStatus.SUCCEEDED;
+    let finalStatus: SecurityExecutionStatus = SecurityExecutionStatus.SUCCEEDED;
     let failureCode: string | null = null;
     let failedAt: Date | null = null;
     let completedAt: Date | null = null;
 
     try {
-      if (input.response_type === 'NOOP_SIMULATION') {
+      if (grant.request.response_type === 'NOOP_SIMULATION') {
         await tx.securityResponseAction.create({
           data: {
             execution_id: execution.id,
             sequence: 1,
             action_type: 'NOOP_SIMULATION',
-            target_reference: input.target_id,
+            target_reference: grant.request.target_id,
             status: SecurityExecutionStatus.SUCCEEDED,
             executed_at: new Date(),
           },
         });
-      } else if (input.response_type === 'MANUAL_PROCEDURE') {
+      } else if (grant.request.response_type === 'MANUAL_PROCEDURE') {
          await tx.securityResponseAction.create({
           data: {
             execution_id: execution.id,
             sequence: 1,
             action_type: 'MANUAL_PROCEDURE',
-            target_reference: input.target_id,
+            target_reference: grant.request.target_id,
             status: SecurityExecutionStatus.SUCCEEDED,
             executed_at: new Date(),
           },
         });
-      } else if (input.response_type === 'ACCOUNT_RESTRICTION') {
-        if (input.target_type !== 'USER') {
+      } else if (grant.request.response_type === 'ACCOUNT_RESTRICTION') {
+        if (grant.request.target_type !== 'USER') {
           throw new Error('ACCOUNT_RESTRICTION requires target_type USER');
         }
-        const targetUser = await tx.user.findUnique({ where: { id: input.target_id } });
+        const targetUser = await tx.user.findUnique({ where: { id: grant.request.target_id } });
         if (!targetUser) throw new Error('Target user not found');
         
         await tx.user.update({
-          where: { id: input.target_id },
+          where: { id: grant.request.target_id },
           data: { status: 'Suspended' }
         });
 
@@ -190,7 +200,7 @@ export async function executeSecurityResponse(
             execution_id: execution.id,
             sequence: 1,
             action_type: 'ACCOUNT_RESTRICTION',
-            target_reference: input.target_id,
+            target_reference: grant.request.target_id,
             before_state: targetUser.status, // Capture before-state safely
             after_state: 'Suspended',
             status: SecurityExecutionStatus.SUCCEEDED,
@@ -207,14 +217,14 @@ export async function executeSecurityResponse(
         action: 'SOC_RESPONSE_ACTION_SUCCEEDED',
         targetId: execution.id,
         permission: SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
-        metadata: { response_type: input.response_type }
+        metadata: { response_type: grant.request.response_type }
       });
       await appendExecutionAudit(tx, {
         actorUserId,
         action: 'SOC_RESPONSE_EXECUTION_SUCCEEDED',
         targetId: execution.id,
         permission: SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
-        metadata: { response_type: input.response_type }
+        metadata: { response_type: grant.request.response_type }
       });
     } catch (execError: any) {
       finalStatus = SecurityExecutionStatus.FAILED;
@@ -225,14 +235,14 @@ export async function executeSecurityResponse(
         action: 'SOC_RESPONSE_ACTION_FAILED',
         targetId: execution.id,
         permission: SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
-        metadata: { response_type: input.response_type, failureCode }
+        metadata: { response_type: grant.request.response_type, failureCode }
       });
       await appendExecutionAudit(tx, {
         actorUserId,
         action: 'SOC_RESPONSE_EXECUTION_FAILED',
         targetId: execution.id,
         permission: SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
-        metadata: { response_type: input.response_type, failureCode }
+        metadata: { response_type: grant.request.response_type, failureCode }
       });
     }
 
@@ -282,7 +292,7 @@ export async function rollbackSecurityResponse(
     });
 
     // Execute rollback logic
-    let finalStatus = SecurityExecutionStatus.ROLLED_BACK;
+    let finalStatus: SecurityExecutionStatus = SecurityExecutionStatus.ROLLED_BACK;
     let rollbackFailed = false;
     
     for (const action of execution.actions) {

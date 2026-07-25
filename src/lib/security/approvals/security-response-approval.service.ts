@@ -59,6 +59,9 @@ export async function submitResponseApprovalRequest(
     playbook_id: string;
     playbook_version: number;
     justification: string;
+    response_type: SecurityResponseActionType;
+    target_type: string;
+    target_id: string;
   }
 ) {
   assertInTransaction(db);
@@ -80,7 +83,7 @@ export async function submitResponseApprovalRequest(
   }
 
   // Idempotency key for this exact combination
-  const idempotency_key = `REQ-${input.incident_case_id}-${input.playbook_id}-${input.playbook_version}-${Date.now()}-${randomBytes(4).toString('hex')}`;
+  const idempotency_key = `REQ-${input.incident_case_id}-${input.playbook_id}-${input.playbook_version}-${input.response_type}-${input.target_type}-${input.target_id}-${Date.now()}-${randomBytes(4).toString('hex')}`;
 
   const request = await db.securityResponseApprovalRequest.create({
     data: {
@@ -89,6 +92,9 @@ export async function submitResponseApprovalRequest(
       playbook_id: input.playbook_id,
       playbook_version: input.playbook_version,
       justification: input.justification,
+      response_type: input.response_type,
+      target_type: input.target_type,
+      target_id: input.target_id,
       status: SecurityApprovalStatus.PENDING,
       idempotency_key,
     },
@@ -112,6 +118,9 @@ export async function submitResponseApprovalRequest(
       incident_case_id: input.incident_case_id,
       playbook_id: input.playbook_id,
       playbook_version: input.playbook_version,
+      response_type: input.response_type,
+      target_type: input.target_type,
+      target_id: input.target_id,
     },
   });
 

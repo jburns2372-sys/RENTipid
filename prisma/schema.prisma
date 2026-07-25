@@ -1813,6 +1813,9 @@ model SecurityResponseApprovalRequest {
   playbook         SecurityResponsePlaybook @relation(fields: [playbook_id, playbook_version], references: [playbook_id, version], onDelete: Restrict)
   status           SecurityApprovalStatus   @default(PENDING)
   justification    String                   @db.Text
+  response_type    SecurityResponseActionType?
+  target_type      String?
+  target_id        String?
   requested_at     DateTime                 @default(now())
   decision_at      DateTime?
   expires_at       DateTime?

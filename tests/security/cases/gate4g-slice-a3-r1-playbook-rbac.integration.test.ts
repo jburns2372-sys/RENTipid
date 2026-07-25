@@ -116,8 +116,8 @@ describe('Gate 4G Slice A3-R1: Playbook Lifecycle RBAC Foundation', () => {
       expect(keys).toContain('RESPONSE_CANCEL');
       expect(keys).toContain('RESPONSE_REVOKE');
 
-      // Gate 4H boundary
-      expect(keys).not.toContain('RESPONSE_EXECUTE');
+      // Gate 4H boundary crossed
+      expect(keys).toContain('RESPONSE_EXECUTE');
     });
 
     it('Existing Gate 4F incident-case permissions remain unchanged', () => {

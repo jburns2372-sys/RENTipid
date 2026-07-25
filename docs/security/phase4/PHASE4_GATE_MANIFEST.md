@@ -62,10 +62,10 @@
 - Gate 4H boundary: Reversible response execution and approval-grant consumption remain deferred
 
 ## Gate 4H
-- Status: COMPLETE ?" FINAL CLOSEOUT READY FOR PUBLICATION
-- Scope: Reversible response execution, internal approval grant consumption, and NOOP simulation execution
+- Status: COMPLETE — FINAL CLOSEOUT READY FOR PUBLICATION (R2)
+- Scope: Reversible response execution, internal approval grant consumption, NOOP simulation execution, and R2 approved-scope execution binding
 - Canonical tag: rentipid-soc-phase4-gate4h-reversible-response-execution-complete
-- Final validation: Gate 4H integration test suite passed
+- Final validation: Gate 4H integration test suite passed, R2 boundary bindings verified
 - Gate 4I: NOT STARTED
 
 ## Gate 4I

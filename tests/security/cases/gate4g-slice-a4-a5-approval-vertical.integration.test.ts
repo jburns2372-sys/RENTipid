@@ -98,7 +98,7 @@ describe('Gate 4G Slice A4 A5 Approval Vertical', () => {
           incident_case_id: incidentCaseId,
           playbook_id: playbookId,
           playbook_version: 1,
-          justification: 'Need approval',
+          justification: 'Need approval', response_type: 'NOOP_SIMULATION', target_type: 'SYSTEM', target_id: 'sys_123',
         });
         expect(req.status).toBe(SecurityApprovalStatus.PENDING);
         expect(req.requester_id).toBe(requesterId);
@@ -112,7 +112,7 @@ describe('Gate 4G Slice A4 A5 Approval Vertical', () => {
             incident_case_id: incidentCaseId,
             playbook_id: playbookId,
             playbook_version: 1,
-            justification: 'Hax',
+            justification: 'Hax', response_type: 'NOOP_SIMULATION', target_type: 'SYSTEM', target_id: 'sys_123',
           })
         ).rejects.toThrow(new ApprovalWriterError('UNAUTHORIZED'));
       });
@@ -126,7 +126,7 @@ describe('Gate 4G Slice A4 A5 Approval Vertical', () => {
           incident_case_id: incidentCaseId,
           playbook_id: playbookId,
           playbook_version: 1,
-          justification: 'Self request',
+          justification: 'Self request', response_type: 'NOOP_SIMULATION', target_type: 'SYSTEM', target_id: 'sys_123',
         });
 
         await expect(
@@ -144,7 +144,7 @@ describe('Gate 4G Slice A4 A5 Approval Vertical', () => {
           incident_case_id: incidentCaseId,
           playbook_id: playbookId,
           playbook_version: 1,
-          justification: 'Please approve',
+          justification: 'Please approve', response_type: 'NOOP_SIMULATION', target_type: 'SYSTEM', target_id: 'sys_123',
         });
 
         const { request, grant } = await approveResponseRequest(tx, approverId, {
@@ -164,7 +164,7 @@ describe('Gate 4G Slice A4 A5 Approval Vertical', () => {
           incident_case_id: incidentCaseId,
           playbook_id: playbookId,
           playbook_version: 1,
-          justification: 'Please approve',
+          justification: 'Please approve', response_type: 'NOOP_SIMULATION', target_type: 'SYSTEM', target_id: 'sys_123',
         });
 
         const result = await rejectResponseRequest(tx, approverId, {
@@ -184,7 +184,7 @@ describe('Gate 4G Slice A4 A5 Approval Vertical', () => {
           incident_case_id: incidentCaseId,
           playbook_id: playbookId,
           playbook_version: 1,
-          justification: 'Cancel me',
+          justification: 'Cancel me', response_type: 'NOOP_SIMULATION', target_type: 'SYSTEM', target_id: 'sys_123',
         });
 
         const cancelled = await cancelResponseRequest(tx, requesterId, { request_id: req.id });
@@ -203,7 +203,7 @@ describe('Gate 4G Slice A4 A5 Approval Vertical', () => {
           incident_case_id: incidentCaseId,
           playbook_id: playbookId,
           playbook_version: 1,
-          justification: 'Please approve',
+          justification: 'Please approve', response_type: 'NOOP_SIMULATION', target_type: 'SYSTEM', target_id: 'sys_123',
         });
 
         await approveResponseRequest(tx, approverId, {

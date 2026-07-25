@@ -22,7 +22,7 @@ describe('Response Operations UI', () => {
       completed_at: new Date(),
       actions: []
     };
-    render(<ResponseDetailClient initialExecution={mockExecution} activePermissions={[SECURITY_PERMISSIONS.RESPONSE_ROLLBACK]} />);
+    render(<ResponseDetailClient initialExecution={mockExecution} activePermissions={[SECURITY_PERMISSIONS.RESPONSE_ROLLBACK]} isEmergencyFreeze={false} />);
     expect(screen.getByText('Rollback Execution')).not.toBeNull();
   });
 
@@ -39,7 +39,7 @@ describe('Response Operations UI', () => {
       completed_at: new Date(),
       actions: []
     };
-    render(<ResponseDetailClient initialExecution={mockExecution} activePermissions={[]} />);
+    render(<ResponseDetailClient initialExecution={mockExecution} activePermissions={[]} isEmergencyFreeze={false} />);
     expect(screen.queryByText('Rollback Execution')).toBeNull();
   });
 });
