@@ -25,22 +25,60 @@ RENTipid is a cloud-based application. Its context includes tenant data, user id
 - Non-RENTipid corporate networks outside the production boundaries.
 
 ## 7. Adopted Security Targets
-1. **NIST Cybersecurity Framework 2.0 Target Profile**
-   - Operating characteristics comparable to Tier 4 Adaptive.
-   - *Note: No claim of NIST certification is made.*
-2. **OWASP Application Security Verification Standard 5.0.0**
-   - Target verification depth: Level 3.
-   - *Note: No ASVS Level 3 compliance is claimed until every requirement is independently verified.*
-3. **NIST SP 800-207**
-   - Identity, device, workload, network, data, and transaction-level trust decisions.
-4. **ISO/IEC 27001:2022 with Amendment 1:2024**
-   - Initial target: alignment and ISMS readiness.
-   - *Note: Certification is a separate independently audited future decision.*
-5. **PCI DSS 4.0.1**
-   - Applies only to the actual payment-data and cardholder-data scope. Scope will not be expanded unnecessarily.
-   - *Note: No compliance is claimed.*
-6. **OWASP AI Security and Privacy Guide / AISVS 1.0 target**
-   - Applies to AI-enabled RENTipid functions and future autonomous capabilities.
+
+### 1. NIST Cybersecurity Framework (CSF)
+- **Official title:** NIST Cybersecurity Framework
+- **Edition or version:** 2.0
+- **Official publisher:** National Institute of Standards and Technology (NIST)
+- **Official source reference:** https://www.nist.gov/cyberframework
+- **Date accessed:** 2026-07-26
+- **Applicability to RENTipid:** Core framework for governance and risk management.
+- **Mapping limitations:** Mappings are broad. RENTipid targets operating characteristics comparable to NIST CSF 2.0 Implementation Tier 4 — Adaptive. It is a future operating target, not a current attainment, equivalence, certification or compliance claim.
+
+### 2. OWASP Application Security Verification Standard (ASVS)
+- **Official title:** Application Security Verification Standard
+- **Edition or version:** 5.0.0
+- **Official publisher:** OWASP Foundation
+- **Official source reference:** https://owasp.org/www-project-application-security-verification-standard/
+- **Date accessed:** 2026-07-26
+- **Applicability to RENTipid:** Target verification depth is Level 3 for application and API security.
+- **Mapping limitations:** No ASVS Level 3 compliance is claimed until every requirement is independently verified.
+
+### 3. NIST Zero Trust Architecture
+- **Official title:** Zero Trust Architecture (SP 800-207)
+- **Edition or version:** SP 800-207
+- **Official publisher:** National Institute of Standards and Technology (NIST)
+- **Official source reference:** https://csrc.nist.gov/publications/detail/sp/800-207/final
+- **Date accessed:** 2026-07-26
+- **Applicability to RENTipid:** Identity, device, workload, network, data, and transaction-level trust decisions.
+- **Mapping limitations:** Architectural guidance only; specific enforcement relies on implementation-specific controls.
+
+### 4. ISO/IEC 27001
+- **Official title:** Information security, cybersecurity and privacy protection — Information security management systems — Requirements
+- **Edition or version:** ISO/IEC 27001:2022 with Amendment 1:2024
+- **Official publisher:** International Organization for Standardization (ISO) / International Electrotechnical Commission (IEC)
+- **Official source reference:** https://www.iso.org/standard/82875.html
+- **Date accessed:** 2026-07-26
+- **Applicability to RENTipid:** Alignment and ISMS readiness are targeted.
+- **Mapping limitations:** Certification is not currently claimed. Certification would require an accredited independent certification process. Repository inspection alone cannot establish certification readiness.
+
+### 5. PCI DSS
+- **Official title:** Payment Card Industry Data Security Standard
+- **Edition or version:** 4.0.1
+- **Official publisher:** PCI Security Standards Council (PCI SSC)
+- **Official source reference:** https://www.pcisecuritystandards.org/
+- **Date accessed:** 2026-07-26
+- **Applicability to RENTipid:** Applies only to the actual payment-data and cardholder-data scope. Scope will not be expanded unnecessarily.
+- **Mapping limitations:** No compliance is claimed.
+
+### 6. OWASP AI Security and Privacy Guide / AISVS
+- **Official title:** OWASP AI Security and Privacy Guide / AI Security Verification Standard
+- **Edition or version:** 1.0
+- **Official publisher:** OWASP Foundation
+- **Official source reference:** https://owasp.org/www-project-ai-security-and-privacy-guide/
+- **Date accessed:** 2026-07-26
+- **Applicability to RENTipid:** Applies to AI-enabled RENTipid functions and future autonomous capabilities.
+- **Mapping limitations:** Framework mappings are best-effort given the evolving nature of AI security.
 
 ## 8. Risk Appetite
 RENTipid maintains a very low risk appetite for unauthorized data disclosure, payment manipulation, and identity compromise. Moderate risk appetite is accepted for feature availability during active threat responses (e.g., emergency freezes).

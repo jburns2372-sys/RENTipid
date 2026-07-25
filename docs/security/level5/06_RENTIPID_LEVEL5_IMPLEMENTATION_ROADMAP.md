@@ -3,7 +3,9 @@
 ## Overview
 This roadmap outlines the systematic execution of cybersecurity Level 5 across RENTipid.
 
-**Production Exposure Gate:** All P0 and P1 risks across Phases 5B through 5N must be completed and independently verified before any expanded production launch.
+**Production Exposure Gate:** All P0 and P1 risks across Phases 5B through 5N must be completed and independently verified before any expanded production launch. The following blocking P0/P1 items must be cleared:
+- **Gaps:** GAP-006 (Data Encryption), GAP-007 (PCI Scope Isolation)
+- **Risks:** RSK-001 (Privileged account), RSK-003 (Session theft), RSK-009 (KYC data), RSK-013 (Supply chain), RSK-014 (Dependency), RSK-018 (Restore), RSK-027 (AI leakage), RSK-028 (AI actions), RSK-030 (Third-party outages).
 
 ---
 

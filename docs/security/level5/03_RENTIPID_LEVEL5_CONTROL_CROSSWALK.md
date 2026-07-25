@@ -1,7 +1,7 @@
 # RENTIPID LEVEL 5 CONTROL CROSSWALK
 
 ## Overview
-This crosswalk maps RENTipid Level 5 security domains to adopted target frameworks (NIST CSF 2.0, OWASP ASVS 5.0.0, Zero Trust, ISO 27001, PCI DSS, AISVS).
+This crosswalk maps RENTipid Level 5 security domains to adopted target frameworks (NIST CSF 2.0, OWASP ASVS 5.0.0, NIST SP 800-207 Zero Trust, ISO/IEC 27001:2022 with Amendment 1:2024, PCI DSS 4.0.1, AISVS 1.0).
 
 *Note: Mappings may be broad. Where uncertain, they are marked with MAPPING_REQUIRES_SPECIALIST_VALIDATION.*
 

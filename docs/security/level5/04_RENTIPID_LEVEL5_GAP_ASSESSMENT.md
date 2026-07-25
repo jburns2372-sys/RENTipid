@@ -3,6 +3,8 @@
 ## Overview
 This document identifies evidenced-based gaps against the Level 5 Target Profile.
 
+*Note on sparse numbering: Identifiers such as GAP-001 through GAP-004, and GAP-011 through GAP-014 correspond to controls that are currently IMPLEMENTED_AND_EVIDENCED (see Control Crosswalk and Evidence Register) and are therefore reserved and not reported as gaps.*
+
 ---
 
 ## 1. Actual Implementation Gaps
@@ -24,6 +26,7 @@ This document identifies evidenced-based gaps against the Level 5 Target Profile
 - **Likelihood:** Medium
 - **Impact:** High
 - **Risk severity:** HIGH
+- **Priority:** P1 — Required before expanded production exposure
 - **Exploitability or failure mode:** Database compromise exposes plain text PII.
 - **Recommended treatment:** Implement Prisma field-level encryption for sensitive columns.
 - **Target Level 5 phase:** Phase 5F
@@ -49,6 +52,7 @@ This document identifies evidenced-based gaps against the Level 5 Target Profile
 - **Likelihood:** Low
 - **Impact:** Medium
 - **Risk severity:** MEDIUM
+- **Priority:** P2 — Required for Level 5 target completion
 - **Exploitability or failure mode:** Admin triggers rollback during a transient network failure, resulting in corrupted state.
 - **Recommended treatment:** Add strict state-machine checks and distributed transaction sagas for rollbacks.
 - **Target Level 5 phase:** Phase 5L
@@ -78,6 +82,7 @@ This document identifies evidenced-based gaps against the Level 5 Target Profile
 - **Likelihood:** Low
 - **Impact:** High
 - **Risk severity:** HIGH
+- **Priority:** P1 — Required before expanded production exposure
 - **Exploitability or failure mode:** Application vulnerability leads to unauthorized access of the payment network segment.
 - **Recommended treatment:** Map data flows, ensure client-side tokenization bypasses server infrastructure.
 - **Target Level 5 phase:** Phase 5G
@@ -107,6 +112,7 @@ This document identifies evidenced-based gaps against the Level 5 Target Profile
 - **Likelihood:** Low
 - **Impact:** Low
 - **Risk severity:** OBSERVATION
+- **Priority:** P3 — Continuous improvement
 - **Exploitability or failure mode:** A developer's local log could expose a temporary string.
 - **Recommended treatment:** Implement secret scanning and automated masking in local dev tools.
 - **Target Level 5 phase:** Phase 5F
@@ -136,6 +142,7 @@ This document identifies evidenced-based gaps against the Level 5 Target Profile
 - **Likelihood:** Low
 - **Impact:** High
 - **Risk severity:** HIGH
+- **Priority:** P2 — Required for Level 5 target completion
 - **Exploitability or failure mode:** Misconfigured IAM roles allow attacker to pivot from web tier to database.
 - **Recommended treatment:** Commission third-party cloud security assessment.
 - **Target Level 5 phase:** Phase 5H
@@ -165,6 +172,7 @@ This document identifies evidenced-based gaps against the Level 5 Target Profile
 - **Likelihood:** Low
 - **Impact:** High
 - **Risk severity:** MEDIUM
+- **Priority:** P2 — Required for Level 5 target completion
 - **Exploitability or failure mode:** Attacker manipulates AI bot into revealing internal data or bypassing logic.
 - **Recommended treatment:** Integrate AISVS v1.0 controls when AI features are built.
 - **Target Level 5 phase:** Phase 5K
@@ -190,6 +198,7 @@ This document identifies evidenced-based gaps against the Level 5 Target Profile
 - **Likelihood:** Low
 - **Impact:** Medium
 - **Risk severity:** LOW
+- **Priority:** P2 — Required for Level 5 target completion
 - **Exploitability or failure mode:** Unmanaged exceptions lead to prolonged vulnerabilities.
 - **Recommended treatment:** Formalize exception approval workflows.
 - **Target Level 5 phase:** Phase 5B
