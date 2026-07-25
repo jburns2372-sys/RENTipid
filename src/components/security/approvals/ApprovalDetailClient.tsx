@@ -124,10 +124,57 @@ export function ApprovalDetailClient({
         ) : (
           <ul className="space-y-2">
             {initialApproval.grants.map((g, i) => (
-              <li key={i} className="text-sm text-gray-300">
-                Status: {formatEnumLabel(g.grant_state)}, Issued: {formatDate(g.issued_at)}, Expires: {formatDate(g.expires_at)}
-                {g.revoked_at && <span> - Revoked on {formatDate(g.revoked_at)} by {g.revoked_by?.full_name ?? "Unknown"}</span>}
-                {g.consumed_at && <span> - Consumed on {formatDate(g.consumed_at)}</span>}
+              <li key={i} className="text-sm text-gray-300 flex flex-col gap-2 border border-gray-800 p-4 rounded bg-gray-800/50">
+                <div>
+                  Status: {formatEnumLabel(g.grant_state)}, Issued: {formatDate(g.issued_at)}, Expires: {formatDate(g.expires_at)}
+                  {g.revoked_at && <span> - Revoked on {formatDate(g.revoked_at)} by {g.revoked_by?.full_name ?? "Unknown"}</span>}
+                  {g.consumed_at && <span> - Consumed on {formatDate(g.consumed_at)}</span>}
+                </div>
+                {g.grant_state === "AVAILABLE" && activePermissions.includes(SECURITY_PERMISSIONS.RESPONSE_EXECUTE) && (
+                  <div className="mt-2 pt-2 border-t border-gray-700 flex items-center justify-between">
+                    <div>
+                      <p className="font-semibold text-white text-base">Execute Control</p>
+                      <p className="text-gray-400">Target: {initialApproval.target_type} ({initialApproval.target_id})</p>
+                      <p className="text-gray-400">Response: {initialApproval.response_type}</p>
+                    </div>
+                    <button 
+                      className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded"
+                      disabled={pending}
+                      onClick={async () => {
+                         if (confirm(`Final confirmation to execute ${initialApproval.response_type} on ${initialApproval.target_id}?`)) {
+                           if (pending) return;
+                           setPending(true);
+                           try {
+                             const res = await fetch("/api/soc/responses/execute", {
+                               method: "POST",
+                               headers: { "Content-Type": "application/json" },
+                               body: JSON.stringify({
+                                 incident_case_id: initialApproval.incident_case_id,
+                                 playbook_id: initialApproval.playbook_id,
+                                 playbook_version: initialApproval.playbook_version,
+                                 approval_grant_id: g.id,
+                                 response_type: initialApproval.response_type,
+                                 target_type: initialApproval.target_type,
+                                 target_id: initialApproval.target_id,
+                                 idempotency_key: createIdempotencyKey("execute-response")
+                               })
+                             });
+                             const data = await res.json();
+                             if (res.ok) {
+                               router.push(`/dashboard/admin/security/responses/${data.id}`);
+                             } else {
+                               alert(data.error || "Execution failed");
+                             }
+                           } finally {
+                             setPending(false);
+                           }
+                         }
+                      }}
+                    >
+                      Execute Response
+                    </button>
+                  </div>
+                )}
               </li>
             ))}
           </ul>

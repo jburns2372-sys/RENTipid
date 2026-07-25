@@ -1,6 +1,6 @@
 import { PrismaClient, Prisma, SecurityExecutionStatus, SecurityResponseActionType, SecurityApprovalGrantState } from '@prisma/client';
 import { consumeApprovalGrantForExecution, ApprovalWriterError } from '../approvals/security-response-approval.service';
-import { randomBytes } from 'crypto';
+import { SECURITY_PERMISSIONS, SecurityPermission } from '../permissions';
 
 const prisma = new PrismaClient();
 
@@ -9,6 +9,31 @@ export class ExecutionError extends Error {
     super(code);
     this.name = 'ExecutionError';
   }
+}
+
+async function appendExecutionAudit(
+  tx: Prisma.TransactionClient,
+  input: {
+    actorUserId: string | null;
+    action: string;
+    targetId?: string;
+    permission: SecurityPermission;
+    metadata?: Record<string, unknown>;
+  },
+) {
+  return tx.auditLog.create({
+    data: {
+      actor_user_id: input.actorUserId,
+      action: input.action,
+      module: 'SecurityOperationsCenter',
+      target_id: input.targetId,
+      details: JSON.stringify({
+        permission: input.permission,
+        timestamp: new Date().toISOString(),
+        ...input.metadata,
+      }),
+    },
+  });
 }
 
 export async function executeSecurityResponse(
@@ -21,17 +46,53 @@ export async function executeSecurityResponse(
     response_type: SecurityResponseActionType;
     target_type: string;
     target_id: string;
+    idempotency_key: string;
   }
 ) {
-  // Use a transaction for atomic grant consumption and execution record creation
   return await prisma.$transaction(async (tx) => {
-    // 1. Consumer approval grant internally
-    const idempotency_key = `EXEC-${input.incident_case_id}-${input.approval_grant_id}-${randomBytes(4).toString('hex')}`;
-    
+    // 0. Check emergency freeze
+    const freezeSetting = await tx.systemSetting.findUnique({
+      where: { setting_key: 'SOC_RESPONSE_EMERGENCY_FREEZE' }
+    });
+    if (!freezeSetting || freezeSetting.setting_value !== 'FALSE') {
+      throw new ExecutionError('EMERGENCY_FREEZE_ACTIVE');
+    }
+
+    // 1. Audit Request
+    await appendExecutionAudit(tx, {
+      actorUserId,
+      action: 'SOC_RESPONSE_EXECUTION_REQUESTED',
+      permission: SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
+      metadata: { input }
+    });
+
+    // 2. Check Idempotency Key
+    const existingExecution = await tx.securityResponseExecution.findUnique({
+      where: { idempotency_key: input.idempotency_key },
+      include: { actions: true }
+    });
+
+    if (existingExecution) {
+      if (existingExecution.approval_grant_id !== input.approval_grant_id) {
+        throw new ExecutionError('IDEMPOTENCY_CONFLICT');
+      }
+      return existingExecution;
+    }
+
+    // Check grant mismatch
+    const existingGrantExec = await tx.securityResponseExecution.findUnique({
+      where: { approval_grant_id: input.approval_grant_id }
+    });
+    if (existingGrantExec) {
+      throw new ExecutionError('GRANT_ALREADY_CONSUMED');
+    }
+
+    // 3. Consume Approval Grant Internally
+    // The grant itself handles expiration, revocation, state checks.
     try {
       await consumeApprovalGrantForExecution(tx, actorUserId, {
         grant_id: input.approval_grant_id,
-        idempotency_key,
+        idempotency_key: input.idempotency_key,
       });
     } catch (error) {
       if (error instanceof ApprovalWriterError) {
@@ -40,42 +101,50 @@ export async function executeSecurityResponse(
       throw error;
     }
 
-    // 2. Create the execution record
+    // Verify properties match
+    const grant = await tx.securityResponseApprovalGrant.findUnique({
+      where: { id: input.approval_grant_id },
+      include: { request: true },
+    });
+    
+    if (!grant) {
+        throw new ExecutionError('GRANT_NOT_FOUND');
+    }
+
+    if (grant.incident_case_id !== input.incident_case_id ||
+        grant.playbook_id !== input.playbook_id ||
+        grant.playbook_version !== input.playbook_version) {
+       throw new ExecutionError('GRANT_MISMATCH');
+    }
+
+    // 4. Create the execution record
     const execution = await tx.securityResponseExecution.create({
       data: {
         incident_case_id: input.incident_case_id,
         playbook_id: input.playbook_id,
         playbook_version: input.playbook_version,
         approval_grant_id: input.approval_grant_id,
-        approval_request_id: 'unknown_at_this_layer', // We'll patch this by finding it from grant
+        approval_request_id: grant.request_id,
         response_type: input.response_type,
         target_type: input.target_type,
         target_id: input.target_id,
         status: SecurityExecutionStatus.EXECUTING,
-        idempotency_key,
-        requested_by_id: actorUserId, // Technically should be the original requester, but we use actorUserId here for simplicity or we can fetch it
+        idempotency_key: input.idempotency_key,
+        requested_by_id: grant.request.requester_id,
         executed_by_id: actorUserId,
         started_at: new Date(),
       },
     });
 
-    // Patch approval_request_id and requested_by_id
-    const grant = await tx.securityResponseApprovalGrant.findUnique({
-      where: { id: input.approval_grant_id },
-      include: { request: true },
+    await appendExecutionAudit(tx, {
+      actorUserId,
+      action: 'SOC_RESPONSE_ACTION_STARTED',
+      targetId: execution.id,
+      permission: SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
+      metadata: { response_type: input.response_type }
     });
-    
-    if (grant) {
-      await tx.securityResponseExecution.update({
-        where: { id: execution.id },
-        data: {
-          approval_request_id: grant.request_id,
-          requested_by_id: grant.request.requester_id,
-        },
-      });
-    }
 
-    // 3. Execute the specific action
+    // 5. Execute the specific action
     let finalStatus = SecurityExecutionStatus.SUCCEEDED;
     let failureCode: string | null = null;
     let failedAt: Date | null = null;
@@ -83,7 +152,6 @@ export async function executeSecurityResponse(
 
     try {
       if (input.response_type === 'NOOP_SIMULATION') {
-        // Just record action
         await tx.securityResponseAction.create({
           data: {
             execution_id: execution.id,
@@ -123,7 +191,7 @@ export async function executeSecurityResponse(
             sequence: 1,
             action_type: 'ACCOUNT_RESTRICTION',
             target_reference: input.target_id,
-            before_state: targetUser.status,
+            before_state: targetUser.status, // Capture before-state safely
             after_state: 'Suspended',
             status: SecurityExecutionStatus.SUCCEEDED,
             executed_at: new Date(),
@@ -134,13 +202,41 @@ export async function executeSecurityResponse(
       }
 
       completedAt = new Date();
+      await appendExecutionAudit(tx, {
+        actorUserId,
+        action: 'SOC_RESPONSE_ACTION_SUCCEEDED',
+        targetId: execution.id,
+        permission: SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
+        metadata: { response_type: input.response_type }
+      });
+      await appendExecutionAudit(tx, {
+        actorUserId,
+        action: 'SOC_RESPONSE_EXECUTION_SUCCEEDED',
+        targetId: execution.id,
+        permission: SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
+        metadata: { response_type: input.response_type }
+      });
     } catch (execError: any) {
       finalStatus = SecurityExecutionStatus.FAILED;
-      failureCode = execError.message;
+      failureCode = 'EXECUTION_FAILED';
       failedAt = new Date();
+      await appendExecutionAudit(tx, {
+        actorUserId,
+        action: 'SOC_RESPONSE_ACTION_FAILED',
+        targetId: execution.id,
+        permission: SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
+        metadata: { response_type: input.response_type, failureCode }
+      });
+      await appendExecutionAudit(tx, {
+        actorUserId,
+        action: 'SOC_RESPONSE_EXECUTION_FAILED',
+        targetId: execution.id,
+        permission: SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
+        metadata: { response_type: input.response_type, failureCode }
+      });
     }
 
-    // 4. Update the execution record with the outcome
+    // 6. Update the execution record with the outcome
     const finalizedExecution = await tx.securityResponseExecution.update({
       where: { id: execution.id },
       data: {
@@ -163,23 +259,58 @@ export async function rollbackSecurityResponse(
   return await prisma.$transaction(async (tx) => {
     const execution = await tx.securityResponseExecution.findUnique({
       where: { id: execution_id },
-      include: { actions: true },
+      include: { actions: { orderBy: { sequence: 'desc' } } }, // Reverse-order rollback
     });
 
     if (!execution) {
       throw new ExecutionError('EXECUTION_NOT_FOUND');
     }
 
-    if (execution.status !== SecurityExecutionStatus.SUCCEEDED) {
-      throw new ExecutionError('CANNOT_ROLLBACK_NON_SUCCEEDED_EXECUTION');
+    if (execution.status === SecurityExecutionStatus.ROLLED_BACK) {
+        return execution;
     }
+
+    if (execution.status !== SecurityExecutionStatus.SUCCEEDED && execution.status !== SecurityExecutionStatus.FAILED) {
+      throw new ExecutionError('CANNOT_ROLLBACK_INCOMPLETE_EXECUTION');
+    }
+
+    await appendExecutionAudit(tx, {
+      actorUserId,
+      action: 'SOC_RESPONSE_ROLLBACK_REQUESTED',
+      targetId: execution.id,
+      permission: SECURITY_PERMISSIONS.RESPONSE_ROLLBACK,
+    });
 
     // Execute rollback logic
     let finalStatus = SecurityExecutionStatus.ROLLED_BACK;
+    let rollbackFailed = false;
     
-    // In NOOP_SIMULATION and MANUAL_PROCEDURE, rollback is trivial
     for (const action of execution.actions) {
+       if (action.status !== SecurityExecutionStatus.SUCCEEDED) {
+           continue; // Skip failed actions
+       }
+
        if (action.action_type === 'ACCOUNT_RESTRICTION' && action.before_state) {
+         const currentUser = await tx.user.findUnique({ where: { id: action.target_reference } });
+         if (!currentUser) {
+            rollbackFailed = true;
+            await appendExecutionAudit(tx, {
+               actorUserId, action: 'SOC_RESPONSE_ROLLBACK_FAILED', targetId: execution.id,
+               permission: SECURITY_PERMISSIONS.RESPONSE_ROLLBACK, metadata: { code: 'TARGET_MISSING' }
+            });
+            break;
+         }
+         
+         // Divergence detection
+         if (currentUser.status !== action.after_state) {
+            rollbackFailed = true;
+            await appendExecutionAudit(tx, {
+               actorUserId, action: 'SOC_RESPONSE_ROLLBACK_FAILED', targetId: execution.id,
+               permission: SECURITY_PERMISSIONS.RESPONSE_ROLLBACK, metadata: { code: 'STATE_DIVERGENCE' }
+            });
+            break;
+         }
+
          await tx.user.update({
            where: { id: action.target_reference },
            data: { status: action.before_state }
@@ -193,14 +324,33 @@ export async function rollbackSecurityResponse(
            rolled_back_at: new Date(),
          },
        });
+       await appendExecutionAudit(tx, {
+         actorUserId, action: 'SOC_RESPONSE_ACTION_ROLLED_BACK', targetId: execution.id,
+         permission: SECURITY_PERMISSIONS.RESPONSE_ROLLBACK, metadata: { action_id: action.id }
+       });
     }
 
+    if (rollbackFailed) {
+      finalStatus = SecurityExecutionStatus.ROLLBACK_FAILED;
+    } else {
+      await appendExecutionAudit(tx, {
+        actorUserId, action: 'SOC_RESPONSE_EXECUTION_ROLLED_BACK', targetId: execution.id,
+        permission: SECURITY_PERMISSIONS.RESPONSE_ROLLBACK
+      });
+    }
+
+    // Increment lock_version for concurrency
     return await tx.securityResponseExecution.update({
-      where: { id: execution_id },
+      where: { 
+         id: execution_id,
+         lock_version: execution.lock_version // conditional update
+      },
       data: {
         status: finalStatus,
-        rolled_back_at: new Date(),
+        rolled_back_at: rollbackFailed ? null : new Date(),
+        lock_version: { increment: 1 }
       },
+      include: { actions: true },
     });
   });
 }

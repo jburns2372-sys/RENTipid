@@ -39,12 +39,14 @@ export const SECURITY_PERMISSIONS = {
   PLAYBOOK_APPROVE: "security.playbooks.approve",
   PLAYBOOK_REJECT: "security.playbooks.reject",
   PLAYBOOK_ACTIVATE: "security.playbooks.activate",
+  RESPONSE_VIEW: "security.response.view",
   RESPONSE_REQUEST: "security.response.request",
   RESPONSE_APPROVE: "security.response.approve",
   RESPONSE_REJECT: "security.response.reject",
   RESPONSE_CANCEL: "security.response.cancel",
   RESPONSE_REVOKE: "security.response.revoke",
   RESPONSE_EXECUTE: "security.response.execute",
+  RESPONSE_ROLLBACK: "security.response.rollback",
 
   RULES_VIEW: "security.rules.view",
   RULES_MANAGE: "security.rules.manage", // Unused, keeping for compatibility
@@ -140,11 +142,14 @@ export function getPhase1PermissionsForRole(role: string): SecurityPermission[] 
         ...SOC_SUPERVISOR_CASE_PERMISSIONS,
         ...SOC_PLAYBOOK_PERMISSIONS,
         ...SOC_RESPONSE_PERMISSIONS,
+        SECURITY_PERMISSIONS.RESPONSE_VIEW,
+        SECURITY_PERMISSIONS.RESPONSE_ROLLBACK,
       ];
     case "SOC_ANALYST":
       return [
         ...SOC_ANALYST_CASE_PERMISSIONS,
         ...SOC_PLAYBOOK_PERMISSIONS,
+        SECURITY_PERMISSIONS.RESPONSE_VIEW,
         SECURITY_PERMISSIONS.RESPONSE_REQUEST,
         SECURITY_PERMISSIONS.RESPONSE_CANCEL,
       ];
@@ -153,6 +158,7 @@ export function getPhase1PermissionsForRole(role: string): SecurityPermission[] 
         ...SOC_SUPERVISOR_CASE_PERMISSIONS,
         ...SOC_PLAYBOOK_PERMISSIONS,
         ...SOC_RESPONSE_PERMISSIONS,
+        SECURITY_PERMISSIONS.RESPONSE_VIEW,
       ];
     case "Admin":
     case "Finance Admin":

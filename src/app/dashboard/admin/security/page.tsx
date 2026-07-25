@@ -69,6 +69,14 @@ export default async function SecurityDashboardPage() {
             Approvals
           </Link>
         )}
+        {authContext.activePermissions.includes(SECURITY_PERMISSIONS.RESPONSE_VIEW) && (
+          <Link
+            href="/dashboard/admin/security/responses"
+            className="px-4 py-2 text-gray-300 font-medium hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+          >
+            Responses
+          </Link>
+        )}
         {["Countermeasures", "Detection Rules", "Simulations", "Reports", "Maintenance"].map(tab => (
           <div key={tab} className="px-4 py-2 text-gray-600 font-medium cursor-not-allowed opacity-50 flex items-center gap-2" title="Not Yet Enabled">
             {tab} <Lock className="w-3 h-3" />

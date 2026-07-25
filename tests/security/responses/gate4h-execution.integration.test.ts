@@ -11,6 +11,12 @@ describe('Gate 4H Reversible Response Execution', () => {
   let grantId: string;
 
   beforeAll(async () => {
+    await prisma.systemSetting.upsert({
+      where: { setting_key: 'SOC_RESPONSE_EMERGENCY_FREEZE' },
+      update: { setting_value: 'FALSE' },
+      create: { setting_key: 'SOC_RESPONSE_EMERGENCY_FREEZE', setting_value: 'FALSE' }
+    });
+
     // Setup users
     const admin = await prisma.user.create({
       data: {
@@ -115,7 +121,8 @@ describe('Gate 4H Reversible Response Execution', () => {
       approval_grant_id: grantId,
       response_type: SecurityResponseActionType.ACCOUNT_RESTRICTION,
       target_type: 'USER',
-      target_id: targetUserId
+      target_id: targetUserId,
+      idempotency_key: `exec-${Date.now()}`
     });
 
     expect(execution).toBeDefined();
