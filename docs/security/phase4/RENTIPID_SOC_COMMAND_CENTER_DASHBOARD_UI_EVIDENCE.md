@@ -29,3 +29,19 @@ This document serves as proof of the modernization of the RENTipid SOC Command C
 - **Type Safety & Code Quality:** All dashboard React components and API routes pass strict `tsc` checks. `eslint` confirms 0 rules violations.
 
 The dashboard accurately reflects the architectural maturity requested by the stakeholder and represents a functional, highly-visible checkpoint for the Phase 4 SOC pipeline.
+
+## R6 Least-Privilege Access and Authentic Browser Acceptance
+- **Least-privilege gap discovered**: The SOC_ANALYST role lacked the explicit DASHBOARD_VIEW permission while Super Admin had sweeping privileges.
+- **Why Super Admin was rejected for browser review**: Super Admin implicitly grants RESPONSE_EXECUTE, RESPONSE_ROLLBACK, and approval authorities, violating the least-privilege boundary requirement.
+- **Existing SOC_ANALYST role confirmed**: Confirmed in src/lib/security/permissions.ts.
+- **Exact permission added**: SECURITY_PERMISSIONS.DASHBOARD_VIEW
+- **Exact denied high-risk permissions**: RESPONSE_EXECUTE, RESPONSE_ROLLBACK, PLAYBOOK_APPROVE, etc.
+- **Files changed**: src/lib/security/permissions.ts, tests/security/ui/soc-analyst-dashboard-access.test.ts
+- **Test command and totals**: npx jest ... --runInBand. 4 suites passed, 42 tests passed.
+- **ESLint result**: 0 errors, 0 warnings.
+- **TypeScript baseline**:
+  - total: 17
+  - Phase 3: 7
+  - unrelated: 10
+  - new: 0
+- No schema change, no migration, no database reset, no production access, no push, no deployment.

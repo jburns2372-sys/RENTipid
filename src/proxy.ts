@@ -29,7 +29,7 @@ export default async function proxy(request: NextRequest) {
     if (path.startsWith('/dashboard/business') && role !== 'Business Provider' && role !== 'Super Admin') {
       return NextResponse.redirect(new URL('/unauthorized', request.url));
     }
-    if (path.startsWith('/dashboard/admin') && role !== 'Admin' && role !== 'Super Admin') {
+    if (path.startsWith('/dashboard/admin') && role !== 'Admin' && role !== 'Super Admin' && role !== 'SOC_ANALYST' && role !== 'SOC_SUPERVISOR') {
       return NextResponse.redirect(new URL('/unauthorized', request.url));
     }
     if (path.startsWith('/dashboard/finance') && role !== 'Finance Admin' && role !== 'Super Admin') {
