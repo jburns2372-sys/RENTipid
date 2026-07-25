@@ -81,7 +81,7 @@ flowchart TD
 - **Existing evidence IDs:** EV-012
 - **Related gap IDs:** GAP-006
 - **Related risk IDs:** RSK-009
-- **Evidence classification:** PARTIALLY_IMPLEMENTED (VERIFIED_IMPLEMENTATION for local guard)
+- **Evidence classification:** VERIFIED_IMPLEMENTATION
 - **Target Phase 5 control:** Phase 5F
 
 ### TB-004: Backend API to Payment Gateway (PayMongo)
@@ -146,6 +146,153 @@ flowchart TD
 - **Related risk IDs:** RSK-026, RSK-027, RSK-028
 - **Evidence classification:** NOT_EVIDENCED
 - **Target Phase 5 control:** Phase 5K
+
+### TB-007: Application to Authentication/Session System
+- **Boundary ID:** TB-007
+- **Source zone:** Server-side application
+- **Destination zone:** Authentication subsystem
+- **Assets crossing:** Session tokens
+- **Identities involved:** User
+- **Data classifications involved:** CREDENTIAL_OR_SECRET
+- **Protocol or interaction type:** Internal memory / API
+- **Authentication control:** NextAuth internal
+- **Authorization control:** Session validity
+- **Integrity control:** HMAC
+- **Confidentiality control:** Encryption
+- **Replay or idempotency control:** Token expiry
+- **Logging control:** Auth logs
+- **Failure behavior:** Deny access
+- **Existing evidence IDs:** EV-001
+- **Related gap IDs:** N/A
+- **Related risk IDs:** RSK-003
+- **Evidence classification:** VERIFIED_IMPLEMENTATION
+- **Target Phase 5 control:** Phase 5D
+
+### TB-008: Application to File Storage
+- **Boundary ID:** TB-008
+- **Source zone:** Server-side application
+- **Destination zone:** File-storage boundary
+- **Assets crossing:** KYC docs, images
+- **Identities involved:** System Service Account
+- **Data classifications involved:** RESTRICTED_IDENTITY
+- **Protocol or interaction type:** HTTPS API
+- **Authentication control:** Cloud IAM
+- **Authorization control:** Bucket policies
+- **Integrity control:** TLS
+- **Confidentiality control:** TLS
+- **Replay or idempotency control:** Unique file keys
+- **Logging control:** Cloud storage logs
+- **Failure behavior:** Upload fails
+- **Existing evidence IDs:** N/A
+- **Related gap IDs:** GAP-008
+- **Related risk IDs:** RSK-010
+- **Evidence classification:** NOT_EVIDENCED
+- **Target Phase 5 control:** Phase 5E
+
+### TB-009: Application to Notification/Email Service
+- **Boundary ID:** TB-009
+- **Source zone:** Server-side application
+- **Destination zone:** Email provider boundary
+- **Assets crossing:** Transactional emails, auth links
+- **Identities involved:** System Service Account
+- **Data classifications involved:** CONFIDENTIAL
+- **Protocol or interaction type:** HTTPS API
+- **Authentication control:** API Key
+- **Authorization control:** Vendor scope
+- **Integrity control:** TLS
+- **Confidentiality control:** TLS
+- **Replay or idempotency control:** Idempotency keys
+- **Logging control:** Provider logs
+- **Failure behavior:** Email drops
+- **Existing evidence IDs:** N/A
+- **Related gap IDs:** N/A
+- **Related risk IDs:** RSK-030
+- **Evidence classification:** PLANNED_ARCHITECTURE
+- **Target Phase 5 control:** Phase 5M
+
+### TB-010: Application to Audit/SOC Processing
+- **Boundary ID:** TB-010
+- **Source zone:** Server-side application
+- **Destination zone:** SOC Logging boundary
+- **Assets crossing:** Security events
+- **Identities involved:** System
+- **Data classifications involved:** SECURITY_SENSITIVE
+- **Protocol or interaction type:** Internal DB writes
+- **Authentication control:** DB connection
+- **Authorization control:** DB roles
+- **Integrity control:** ORM / WORM (planned)
+- **Confidentiality control:** TLS
+- **Replay or idempotency control:** Event sequence IDs
+- **Logging control:** Syslog
+- **Failure behavior:** Event buffered or dropped
+- **Existing evidence IDs:** EV-003
+- **Related gap IDs:** N/A
+- **Related risk IDs:** RSK-020
+- **Evidence classification:** VERIFIED_IMPLEMENTATION
+- **Target Phase 5 control:** Phase 5J
+
+### TB-011: Source Control/CI to Deployment Environment
+- **Boundary ID:** TB-011
+- **Source zone:** Source-control and CI/CD boundary
+- **Destination zone:** Production Cloud-management
+- **Assets crossing:** Code, build artifacts
+- **Identities involved:** CI/CD Service Account
+- **Data classifications involved:** INTERNAL
+- **Protocol or interaction type:** HTTPS API
+- **Authentication control:** Deployment Tokens
+- **Authorization control:** Cloud IAM
+- **Integrity control:** Commit signatures (planned)
+- **Confidentiality control:** TLS
+- **Replay or idempotency control:** Build IDs
+- **Logging control:** GitHub Actions logs
+- **Failure behavior:** Build fails
+- **Existing evidence IDs:** N/A
+- **Related gap IDs:** N/A
+- **Related risk IDs:** RSK-013, RSK-014
+- **Evidence classification:** NOT_EVIDENCED
+- **Target Phase 5 control:** Phase 5I
+
+### TB-012: Local Development to Isolated Local Test Database
+- **Boundary ID:** TB-012
+- **Source zone:** Local-development boundary
+- **Destination zone:** Isolated local-test boundary
+- **Assets crossing:** Test data, mock events
+- **Identities involved:** Local dev account
+- **Data classifications involved:** INTERNAL
+- **Protocol or interaction type:** TCP/PG
+- **Authentication control:** Local credentials
+- **Authorization control:** Local DB roles
+- **Integrity control:** None required
+- **Confidentiality control:** None required
+- **Replay or idempotency control:** None required
+- **Logging control:** Local stdout
+- **Failure behavior:** Dev failure
+- **Existing evidence IDs:** EV-004, EV-005, EV-006, EV-007
+- **Related gap IDs:** N/A
+- **Related risk IDs:** N/A
+- **Evidence classification:** VERIFIED_IMPLEMENTATION
+- **Target Phase 5 control:** Phase 5D
+
+### TB-013: Cloud-Management to Production Administration
+- **Boundary ID:** TB-013
+- **Source zone:** Administrative devices
+- **Destination zone:** Cloud-management boundary
+- **Assets crossing:** IAM policies, DB admin commands
+- **Identities involved:** DevOps Admin
+- **Data classifications involved:** SECURITY_SENSITIVE, HIGHLY_CONFIDENTIAL
+- **Protocol or interaction type:** HTTPS Console
+- **Authentication control:** Cloud MFA
+- **Authorization control:** Cloud IAM
+- **Integrity control:** TLS
+- **Confidentiality control:** TLS
+- **Replay or idempotency control:** IAM auditing
+- **Logging control:** CloudTrail
+- **Failure behavior:** Access denied
+- **Existing evidence IDs:** N/A
+- **Related gap IDs:** GAP-008
+- **Related risk IDs:** RSK-001, RSK-016
+- **Evidence classification:** NOT_EVIDENCED
+- **Target Phase 5 control:** Phase 5H
 
 ## 3. Trust Boundary Diagram
 

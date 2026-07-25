@@ -88,3 +88,20 @@ This charter and all associated Level 5 governance documents must be reviewed an
 ## 25. Prohibited Claims
 - No compliance with ISO 27001, PCI DSS, NIST CSF, or OWASP ASVS is claimed based on internal documentation alone.
 - Certification requires independent audit.
+
+
+## 26. Role Assignment Statuses
+- Executive Sponsor: ROLE_ASSIGNMENT_PENDING
+- System Owner: ROLE_ASSIGNMENT_PENDING
+- Security Program Owner / CISO: ROLE_ASSIGNMENT_PENDING
+- Engineering Lead: ROLE_ASSIGNMENT_PENDING
+- Security Architect: ROLE_ASSIGNMENT_PENDING
+- SOC Lead: ROLE_ASSIGNMENT_PENDING
+- Privacy Officer: ROLE_ASSIGNMENT_PENDING
+- Payment Security Owner: ROLE_ASSIGNMENT_PENDING
+- Compliance Coordinator: ROLE_ASSIGNMENT_PENDING
+- Change Approver: ROLE_ASSIGNMENT_PENDING
+- Independent Assessor: ROLE_ASSIGNMENT_PENDING
+- Security Steering Committee: ROLE_ASSIGNMENT_PENDING
+- Architecture Review Board: ROLE_ASSIGNMENT_PENDING
+- Incident Response Team: ROLE_ASSIGNMENT_PENDING
