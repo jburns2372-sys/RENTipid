@@ -1,10 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { SocCommandCenterHeader } from "./SocCommandCenterHeader";
 import { SocKpiStrip } from "./SocKpiStrip";
 import { SocThreatMap } from "./SocThreatMap";
@@ -12,6 +8,11 @@ import { SocEventDetailsPanel } from "./SocEventDetailsPanel";
 import { SocLiveEventFeed } from "./SocLiveEventFeed";
 import { SocApprovedResponsesPanel } from "./SocApprovedResponsesPanel";
 import { SocSimulationTray } from "./SocSimulationTray";
+import type { 
+  SocDashboardSummaryDto, 
+  SocEventFeedItemDto, 
+  SocApprovedResponseSummaryDto 
+} from "@/lib/security/dashboard/dto";
 
 export function SocCommandCenterClient() {
   const [includeSimulations, setIncludeSimulations] = useState(false);
@@ -19,29 +20,28 @@ export function SocCommandCenterClient() {
   const [lifecycle, setLifecycle] = useState<string>("");
   const [isPaused, setIsPaused] = useState(false);
   
-  const [summaryData, setSummaryData] = useState<any>(null);
-  const [feedData, setFeedData] = useState<any[]>([]);
-  const [responsesData, setResponsesData] = useState<any[]>([]);
+  const [summaryData, setSummaryData] = useState<SocDashboardSummaryDto | null>(null);
+  const [feedData, setFeedData] = useState<SocEventFeedItemDto[]>([]);
+  const [responsesData, setResponsesData] = useState<SocApprovedResponseSummaryDto[]>([]);
   
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
-  const [eventDetails, setEventDetails] = useState<any>(null);
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchDashboardData = useCallback(async () => {
-    try {
-      if (isPaused) return;
+  const fetchDashboardData = useCallback(async (abortSignal?: AbortSignal) => {
+    if (isPaused) return;
 
+    try {
       const params = new URLSearchParams();
       if (environment) params.append("environment", environment);
       if (lifecycle) params.append("lifecycle", lifecycle);
       if (includeSimulations) params.append("includeSimulations", "true");
 
       const [summaryRes, feedRes, responsesRes] = await Promise.all([
-        fetch(`/api/soc/dashboard?action=summary&${params.toString()}`),
-        fetch(`/api/soc/dashboard?action=feed&limit=50&${params.toString()}`),
-        fetch(`/api/soc/dashboard?action=responses&limit=20&${params.toString()}`)
+        fetch(`/api/soc/dashboard?action=summary&${params.toString()}`, { signal: abortSignal }),
+        fetch(`/api/soc/dashboard?action=feed&limit=50&${params.toString()}`, { signal: abortSignal }),
+        fetch(`/api/soc/dashboard?action=responses&limit=20&${params.toString()}`, { signal: abortSignal })
       ]);
 
       if (!summaryRes.ok) throw new Error("Failed to load summary");
@@ -54,17 +54,24 @@ export function SocCommandCenterClient() {
       setFeedData(feed.events || []);
       setResponsesData(responses.responses || []);
       setError(null);
-    } catch (err: any) {
-      setError(err.message || "An error occurred fetching dashboard data.");
+    } catch (err: unknown) {
+      if (err instanceof Error && err.name === 'AbortError') {
+        return; // Ignore abort errors
+      }
+      setError(err instanceof Error ? err.message : "An error occurred fetching dashboard data.");
     } finally {
       setIsLoading(false);
     }
   }, [environment, lifecycle, includeSimulations, isPaused]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    fetchDashboardData();
-    const interval = setInterval(fetchDashboardData, 45000); // 45s refresh
+    const controller = new AbortController();
+    
+    // Initial fetch, wrap to avoid returning a promise in effect
+    const doFetch = () => fetchDashboardData(controller.signal);
+    doFetch();
+    
+    const interval = setInterval(doFetch, 45000); // 45s refresh
     
     // Pause refresh when tab is hidden
     const handleVisibilityChange = () => {
@@ -72,35 +79,21 @@ export function SocCommandCenterClient() {
         setIsPaused(true);
       } else {
         setIsPaused(false);
-        fetchDashboardData();
+        doFetch();
       }
     };
     
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    if (typeof document !== "undefined") document.addEventListener("visibilitychange", handleVisibilityChange);
     return () => {
+      controller.abort();
       clearInterval(interval);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      if (typeof document !== "undefined") document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [fetchDashboardData]);
 
-  // Fetch event details when selected
-  useEffect(() => {
-    if (!selectedEventId) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setEventDetails(null);
-      return;
-    }
-    const fetchDetails = async () => {
-      try {
-        const found = feedData.find(e => e.id === selectedEventId);
-        if (found) {
-          setEventDetails(found);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchDetails();
+  const eventDetails = useMemo(() => {
+    if (!selectedEventId) return null;
+    return feedData.find(e => e.id === selectedEventId) || null;
   }, [selectedEventId, feedData]);
 
   return (
@@ -114,8 +107,8 @@ export function SocCommandCenterClient() {
         onLifecycleChange={setLifecycle}
         isPaused={isPaused}
         onPauseChange={setIsPaused}
-        onManualRefresh={fetchDashboardData}
-        lastRefreshed={summaryData?.lastRefreshed}
+        onManualRefresh={() => fetchDashboardData()}
+        lastRefreshed={summaryData?.lastRefreshed || ""}
         emergencyFreezeActive={summaryData?.emergencyFreezeActive || false}
       />
 
@@ -130,11 +123,7 @@ export function SocCommandCenterClient() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 flex flex-col gap-6">
-            <SocThreatMap 
-                events={feedData} 
-                onSelectEvent={setSelectedEventId} 
-                selectedEventId={selectedEventId}
-            />
+            <SocThreatMap />
         </div>
         <div className="lg:col-span-1 flex flex-col gap-6">
             <SocEventDetailsPanel 

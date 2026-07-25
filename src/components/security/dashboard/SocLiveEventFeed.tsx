@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import { Activity } from 'lucide-react';
 
-export function SocLiveEventFeed({ events, isLoading, selectedEventId, onSelectEvent }: any) {
+import type { SocEventFeedItemDto } from "@/lib/security/dashboard/dto";
+
+export function SocLiveEventFeed({ events, isLoading, selectedEventId, onSelectEvent }: { events: SocEventFeedItemDto[], isLoading: boolean, selectedEventId: string | null, onSelectEvent: (id: string) => void }) {
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-lg flex flex-col h-[500px] overflow-hidden">
       <div className="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
@@ -41,7 +39,7 @@ export function SocLiveEventFeed({ events, isLoading, selectedEventId, onSelectE
                 </td>
               </tr>
             ) : (
-              events.map((event: any) => (
+              events.map((event: SocEventFeedItemDto) => (
                 <tr 
                   key={event.id} 
                   onClick={() => onSelectEvent(event.id)}

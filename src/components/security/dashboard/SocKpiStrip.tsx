@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import { Activity, ShieldAlert, AlertTriangle, Key, Crosshair } from 'lucide-react';
 
-export function SocKpiStrip({ kpis, isLoading }: any) {
+import type { SocKpiValuesDto } from "@/lib/security/dashboard/dto";
+
+export function SocKpiStrip({ kpis, isLoading }: { kpis?: SocKpiValuesDto, isLoading: boolean }) {
   const defaultKpis = kpis || { eventsToday: 0, blockedAttempts: 0, criticalFindings: 0, authenticationEvents: 0, activeIncidents: 0 };
   
   return (
@@ -19,7 +17,7 @@ export function SocKpiStrip({ kpis, isLoading }: any) {
   );
 }
 
-function KpiCard({ title, value, icon, color, bg, border, tooltip, isLoading }: any) {
+function KpiCard({ title, value, icon, color, bg, border, tooltip, isLoading }: { title: string, value: number, icon: React.ReactNode, color: string, bg: string, border: string, tooltip: string, isLoading: boolean }) {
   return (
     <div className={`p-4 rounded-xl border ${border} bg-slate-900/80 shadow-lg relative group`} title={tooltip}>
       <div className="flex items-center justify-between mb-3">

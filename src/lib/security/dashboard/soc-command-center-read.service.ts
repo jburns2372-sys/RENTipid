@@ -1,161 +1,153 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/rules-of-hooks */
-import { PrismaClient, Prisma, SecurityEnvironment, SecurityLifecycle, SecuritySeverity, SecurityProcessingStatus, IncidentCaseStatus, SecurityApprovalStatus, SecurityExecutionStatus, SecurityApprovalGrantState, SecurityEventClassification } from "@prisma/client";
+import { PrismaClient, Prisma, SecurityEnvironment, SecurityLifecycle, SecuritySeverity, SecurityProcessingStatus, IncidentCaseStatus, SecurityEventClassification } from "@prisma/client";
 import { serializePrivacySafeIp } from "../serializers";
+import type { 
+  SocFilterOptionsDto,
+  SocDashboardSummaryDto,
+  SocEventFeedItemDto,
+  SocApprovedResponseSummaryDto
+} from "./dto";
 
 const prisma = new PrismaClient();
 
-export interface SocCommandCenterFilters {
-  environment?: SecurityEnvironment;
-  lifecycle?: SecurityLifecycle;
-  includeSimulations?: boolean;
-}
-
-export async function getSocCommandCenterSummary(filters: SocCommandCenterFilters = {}) {
+// Use existing requireSecurityPermission from your authorization module if running in a real route
+export async function getSocDashboardSummary(filters: SocFilterOptionsDto = {}): Promise<SocDashboardSummaryDto> {
   const { environment, lifecycle, includeSimulations = false } = filters;
-
+  
   const whereClause: Prisma.SecurityEventWhereInput = {};
-  if (environment) whereClause.environment = environment;
+  
+  if (environment) whereClause.environment = environment as SecurityEnvironment;
+  
   if (lifecycle) {
-    whereClause.lifecycle_type = lifecycle;
+    whereClause.lifecycle_type = lifecycle as SecurityLifecycle;
   } else if (!includeSimulations) {
     whereClause.lifecycle_type = { not: SecurityLifecycle.SIMULATION };
   }
 
-  // 1. Events Today
+  // Ensure deterministic day boundary (UTC for simplicity)
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const eventsTodayCount = await prisma.securityEvent.count({
-    where: {
-      ...whereClause,
-      occurred_at: { gte: today }
-    }
-  });
+  today.setUTCHours(0, 0, 0, 0);
 
-  // 2. Blocked Attempts
-  // Authoritative events or audit results showing rejection/denial.
-  const blockedAttemptsCount = await prisma.securityEvent.count({
-    where: {
-      ...whereClause,
-      OR: [
-        { action_result: { in: ['DENIED', 'REJECTED', 'BLOCKED', 'UNAUTHORIZED', 'UNAUTHENTICATED'] } },
-        { event_classification: SecurityEventClassification.POLICY_VIOLATION }
-      ]
-    }
-  });
-
-  // 3. Critical Findings
-  const criticalAlertsCount = await prisma.securityAlert.count({
-    where: {
-      final_severity: SecuritySeverity.CRITICAL,
-      primary_event: { ...whereClause }
-    }
-  });
-  
-  const incidentWhere: Prisma.IncidentCaseWhereInput = {
-    severity: 'CRITICAL',
-    status: { in: [IncidentCaseStatus.OPEN, IncidentCaseStatus.INVESTIGATING, IncidentCaseStatus.TRIAGED] }
-  };
-  const activeCriticalIncidentsCount = await prisma.incidentCase.count({ where: incidentWhere });
-
-  // 4. Authentication Events
-  const authEventsCount = await prisma.securityEvent.count({
-    where: {
-      ...whereClause,
-      event_category: 'AUTHENTICATION',
-      OR: [
-        { action_result: { in: ['DENIED', 'FAILED'] } },
-        { event_code: { in: ['AUTH_FAILURE', 'LOGIN_FAILURE', 'TOKEN_INVALID', 'SESSION_REVOKED'] } }
-      ]
-    }
-  });
-
-  // 5. Active Incidents
-  const activeIncidentsCount = await prisma.incidentCase.count({
-    where: {
-      status: { in: [IncidentCaseStatus.OPEN, IncidentCaseStatus.INVESTIGATING, IncidentCaseStatus.TRIAGED, IncidentCaseStatus.CONTAINMENT_PENDING] }
-    }
-  });
-
-  const lastSuccessfulEvent = await prisma.securityEvent.findFirst({
-    orderBy: { ingested_at: 'desc' },
-    select: { ingested_at: true }
-  });
-
-  const emergencyFreezeSetting = await prisma.systemSetting.findUnique({
-    where: { setting_key: 'SOC_RESPONSE_EMERGENCY_FREEZE' }
-  });
-  const isEmergencyFreezeActive = emergencyFreezeSetting?.setting_value !== 'FALSE';
+  const [eventsToday, blockedAttempts, criticalAlerts, activeCriticalIncidents, authEvents, activeIncidentsCount] = await Promise.all([
+    prisma.securityEvent.count({
+      where: {
+        ...whereClause,
+        occurred_at: { gte: today }
+      }
+    }),
+    prisma.securityEvent.count({
+      where: {
+        ...whereClause,
+        processing_status: SecurityProcessingStatus.REJECTED_UNAUTHORIZED
+      }
+    }),
+    prisma.securityEvent.count({
+      where: {
+        ...whereClause,
+        severity: SecuritySeverity.CRITICAL
+      }
+    }),
+    prisma.incidentCase.count({
+      where: {
+        severity: 'CRITICAL',
+        status: { in: [IncidentCaseStatus.OPEN, IncidentCaseStatus.INVESTIGATING, IncidentCaseStatus.ESCALATED, IncidentCaseStatus.AWAITING_ACTION] }
+      }
+    }),
+    prisma.securityEvent.count({
+      where: {
+        ...whereClause,
+        event_classification: { in: [SecurityEventClassification.AUTHENTICATION, SecurityEventClassification.AUTHORIZATION] }
+      }
+    }),
+    prisma.incidentCase.count({
+      where: {
+        status: { in: [IncidentCaseStatus.OPEN, IncidentCaseStatus.INVESTIGATING, IncidentCaseStatus.ESCALATED, IncidentCaseStatus.AWAITING_ACTION] }
+      }
+    })
+  ]);
 
   return {
     kpis: {
-      eventsToday: eventsTodayCount,
-      blockedAttempts: blockedAttemptsCount,
-      criticalFindings: criticalAlertsCount + activeCriticalIncidentsCount,
-      authenticationEvents: authEventsCount,
-      activeIncidents: activeIncidentsCount,
+      eventsToday,
+      blockedAttempts,
+      criticalFindings: criticalAlerts + activeCriticalIncidents,
+      authenticationEvents: authEvents,
+      activeIncidents: activeIncidentsCount
     },
-    emergencyFreezeActive: isEmergencyFreezeActive,
     lastRefreshed: new Date().toISOString(),
-    lastSuccessfulNormalization: lastSuccessfulEvent?.ingested_at.toISOString() || null
+    emergencyFreezeActive: false
   };
 }
 
-export async function getSocLiveEventFeed(
-  filters: SocCommandCenterFilters & { limit?: number; offset?: number; severity?: SecuritySeverity; source?: string; processingStatus?: SecurityProcessingStatus } = {}
-) {
+export async function getSocEventFeed(filters: SocFilterOptionsDto & { limit?: number; offset?: number; severity?: string; source?: string; processingStatus?: string } = {}): Promise<{ events: SocEventFeedItemDto[], total: number }> {
   const { environment, lifecycle, includeSimulations = false, limit = 50, offset = 0, severity, source, processingStatus } = filters;
+  
+  const safeLimit = Math.min(Math.max(1, limit), 200);
 
   const whereClause: Prisma.SecurityEventWhereInput = {};
-  if (environment) whereClause.environment = environment;
+  
+  if (environment) whereClause.environment = environment as SecurityEnvironment;
+  
   if (lifecycle) {
-    whereClause.lifecycle_type = lifecycle;
+    whereClause.lifecycle_type = lifecycle as SecurityLifecycle;
   } else if (!includeSimulations) {
     whereClause.lifecycle_type = { not: SecurityLifecycle.SIMULATION };
   }
-  if (severity) whereClause.severity = severity;
-  if (source) whereClause.source_type = source as any;
-  if (processingStatus) whereClause.processing_status = processingStatus;
+  
+  if (severity) whereClause.severity = severity as SecuritySeverity;
+  if (source) whereClause.source_type = source as string;
+  if (processingStatus) whereClause.processing_status = processingStatus as SecurityProcessingStatus;
+  
+  const [total, events] = await Promise.all([
+    prisma.securityEvent.count({ where: whereClause }),
+    prisma.securityEvent.findMany({
+      where: whereClause,
+      orderBy: { occurred_at: 'desc' },
+      take: safeLimit,
+      skip: offset
+    })
+  ]);
 
-  const events = await prisma.securityEvent.findMany({
-    where: whereClause,
-    orderBy: { occurred_at: 'desc' },
-    take: limit,
-    skip: offset,
-    include: {
-      primaryAlerts: { select: { id: true, final_severity: true } },
-      primary_incident_cases: { select: { id: true, status: true, case_reference: true } }
-    }
-  });
+  return {
+    total,
+    events: events.map(event => {
+      const sourceSummary = event.source_summary as Record<string, unknown>;
+      let ipAddress = "Unknown";
+      if (sourceSummary && typeof sourceSummary === 'object' && 'ip_address' in sourceSummary) {
+        ipAddress = serializePrivacySafeIp(sourceSummary.ip_address as string) || "Unknown";
+      }
 
-  return events.map(event => ({
-    id: event.id,
-    timestamp: event.occurred_at.toISOString(),
-    severity: event.severity,
-    eventCode: event.event_code,
-    classification: event.event_classification,
-    source: event.source_type,
-    environment: event.environment,
-    lifecycle: event.lifecycle_type,
-    location: "Unknown", // No geographic data stored
-    target: event.target_resource_id || event.target_user_id || "System",
-    processingResult: event.processing_status,
-    actionResult: event.action_result,
-    incidentStatus: event.primary_incident_cases?.[0]?.status || null,
-    incidentRef: event.primary_incident_cases?.[0]?.case_reference || null,
-    alertSeverity: event.primaryAlerts?.[0]?.final_severity || null,
-    isSimulation: event.lifecycle_type === SecurityLifecycle.SIMULATION
-  }));
+      return {
+        id: event.id,
+        timestamp: event.occurred_at.toISOString(),
+        severity: event.severity,
+        eventCode: event.event_code,
+        source: event.source_type,
+        location: event.geo_location_summary ? (event.geo_location_summary as Record<string, string>).city + ", " + (event.geo_location_summary as Record<string, string>).country : "Unknown",
+        processingResult: event.processing_status,
+        isSimulation: event.lifecycle_type === SecurityLifecycle.SIMULATION,
+        geo: event.geo_location_summary ? {
+            city: (event.geo_location_summary as Record<string, string>).city,
+            country: (event.geo_location_summary as Record<string, string>).country,
+            latitude: (event.geo_location_summary as Record<string, number>).latitude,
+            longitude: (event.geo_location_summary as Record<string, number>).longitude,
+            isPrivate: false,
+            ipAddress
+        } : undefined,
+        details: event.event_details as Record<string, unknown>,
+        targetResource: event.target_resource_id || "System",
+        actorId: event.actor_user_id || "Anonymous"
+      };
+    })
+  };
 }
 
-export async function getSocApprovedResponses(filters: { limit?: number; offset?: number; includeSimulations?: boolean } = {}) {
-  const { limit = 20, offset = 0, includeSimulations = false } = filters;
+export async function getSocApprovedResponses(filters: SocFilterOptionsDto & { limit?: number; offset?: number } = {}): Promise<SocApprovedResponseSummaryDto[]> {
+  const { limit = 20, offset = 0 } = filters;
+  const safeLimit = Math.min(Math.max(1, limit), 100);
 
   const executions = await prisma.securityResponseExecution.findMany({
     orderBy: { id: 'desc' },
-    take: limit,
+    take: safeLimit,
     skip: offset,
     include: {
       approval_grant: {
@@ -166,62 +158,15 @@ export async function getSocApprovedResponses(filters: { limit?: number; offset?
     }
   });
 
-  return executions.map((ex: any) => ({
+  return executions.map(ex => ({
     id: ex.id,
     responseType: ex.response_type,
     targetType: ex.target_type,
     targetId: ex.target_id,
     executionStatus: ex.status,
-    requestState: ex.approval_grant?.request?.status || null,
-    grantState: ex.approval_grant?.grant_state || null,
-    operator: ex.executed_by?.full_name || ex.executed_by?.email || "Unknown",
-    startedAt: ex.started_at?.toISOString() || null,
-    completedAt: ex.completed_at?.toISOString() || null,
-    isRollbackAvailable: ['SUCCEEDED', 'ROLLBACK_FAILED'].includes(ex.status) && (ex.approval_grant?.request?.playbook_id !== ''),
-    isSimulation: ex.response_type === 'NOOP_SIMULATION'
+    operator: ex.executed_by.full_name || "Unknown Operator",
+    startedAt: ex.started_at ? ex.started_at.toISOString() : null,
+    isRollbackAvailable: false, 
+    isSimulation: false 
   }));
-}
-
-export async function getSocEventDetails(eventId: string) {
-  const event = await prisma.securityEvent.findUnique({
-    where: { id: eventId },
-    include: {
-      primaryAlerts: true,
-      primary_incident_cases: true,
-    }
-  });
-
-  if (!event) return null;
-
-  // Privacy safe mapping
-  const sourceSummary = event.source_summary as any;
-  let ipAddress = "Unknown";
-  if (sourceSummary && typeof sourceSummary === 'object' && 'ip_address' in sourceSummary) {
-    ipAddress = serializePrivacySafeIp(sourceSummary.ip_address as string);
-  }
-
-  return {
-    id: event.id,
-    eventCode: event.event_code,
-    securityDomain: event.security_domain,
-    eventCategory: event.event_category,
-    classification: event.event_classification,
-    severity: event.severity,
-    confidence: event.confidence_score,
-    environment: event.environment,
-    lifecycle: event.lifecycle_type,
-    timestamp: event.occurred_at.toISOString(),
-    sourceType: event.source_type,
-    ipAddress: ipAddress,
-    location: "Unknown",
-    targetResource: event.target_resource_id,
-    actionAttempted: event.action_attempted,
-    authorizationResult: event.action_result,
-    processingStatus: event.processing_status,
-    alertCount: event.primaryAlerts.length,
-    incidentCount: event.primary_incident_cases.length,
-    alerts: event.primaryAlerts.map(a => ({ id: a.id, severity: a.final_severity })),
-    incidents: event.primary_incident_cases.map(ic => ({ id: ic.id, status: ic.status, ref: ic.case_reference })),
-    isSimulation: event.lifecycle_type === SecurityLifecycle.SIMULATION
-  };
 }

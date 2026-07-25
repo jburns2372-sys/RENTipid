@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import { Shield, Lock } from 'lucide-react';
+import type { SocApprovedResponseSummaryDto } from "@/lib/security/dashboard/dto";
 
-export function SocApprovedResponsesPanel({ responses, isLoading }: { responses: Record<string, unknown>[]; isLoading: boolean }) {
+export function SocApprovedResponsesPanel({ responses, isLoading }: { responses: SocApprovedResponseSummaryDto[]; isLoading: boolean }) {
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-lg flex flex-col h-[500px] overflow-hidden">
       <div className="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
@@ -21,7 +18,7 @@ export function SocApprovedResponsesPanel({ responses, isLoading }: { responses:
         ) : responses.length === 0 ? (
           <div className="text-center text-slate-500 p-8">No approved responses executed recently.</div>
         ) : (
-          responses.map((resp: any) => (
+          responses.map((resp: SocApprovedResponseSummaryDto) => (
             <div key={resp.id as string} className="bg-slate-950 border border-slate-800 rounded-lg p-3 hover:border-slate-700 transition">
               <div className="flex justify-between items-start mb-2">
                 <div>

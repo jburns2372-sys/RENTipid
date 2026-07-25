@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import { X, Info, Shield, Activity, Database, Server, Fingerprint } from 'lucide-react';
 
-export function SocEventDetailsPanel({ event, onClose }: any) {
+import type { SocSelectedEventDetailsDto } from "@/lib/security/dashboard/dto";
+
+export function SocEventDetailsPanel({ event, onClose }: { event: SocSelectedEventDetailsDto | null, onClose: () => void }) {
   if (!event) {
     return (
       <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg h-[400px] flex items-center justify-center text-slate-500">
@@ -61,7 +59,7 @@ export function SocEventDetailsPanel({ event, onClose }: any) {
   );
 }
 
-function DetailItem({ label, value, icon }: any) {
+function DetailItem({ label, value, icon }: { label: string, value: React.ReactNode, icon?: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1">
       <span className="text-xs text-slate-500 flex items-center gap-1">{icon}{label}</span>

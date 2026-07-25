@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
     console.error("SOC Dashboard API Error:", error);
     // If the error was thrown by requireSecurityPermission it might have already redirected, but in an API route we should handle it as 403/401.
     // In Next.js App Router, redirects inside API routes throw an error that is caught here, we should pass it along or return 401.
-    if (error && typeof error === 'object' && 'message' in error && (error as any).message === 'NEXT_REDIRECT') {
+    if (error && typeof error === 'object' && 'message' in error && (error as Record<string, unknown>).message === 'NEXT_REDIRECT') {
       throw error;
     }
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

@@ -1,11 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import { Map, AlertCircle } from 'lucide-react';
 
-export function SocThreatMap({ events, onSelectEvent, selectedEventId }: any) {
+export function SocThreatMap() {
   // Option 4 fallback: Geographic empty-state canvas because no verified coordinates exist
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg h-[400px] flex flex-col">

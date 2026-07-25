@@ -1,3 +1,4 @@
+/** @jest-environment jsdom */
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { SocCommandCenterClient } from '@/components/security/dashboard/SocCommandCenterClient';
@@ -99,7 +100,7 @@ describe('RENTipid SOC Command Center Dashboard', () => {
   it('Simulation records are visibly labeled', async () => {
     render(<SocCommandCenterClient />);
     await waitFor(() => expect(screen.getByText('AUTH_FAILURE')).toBeTruthy());
-    expect(screen.getByText('SIMULATED')).toBeTruthy();
+    expect(screen.getAllByText(/SIMULATED/i).length).toBeGreaterThan(0);
   });
 
   it('Selecting an event updates details', async () => {

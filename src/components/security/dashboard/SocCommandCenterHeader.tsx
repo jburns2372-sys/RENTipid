@@ -1,13 +1,23 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import { ShieldCheck, RefreshCw, Pause, Play, AlertOctagon } from 'lucide-react';
 
+interface SocCommandCenterHeaderProps {
+  includeSimulations: boolean;
+  onSimulationsChange: (v: boolean) => void;
+  environment: string;
+  onEnvironmentChange: (v: string) => void;
+  lifecycle: string;
+  onLifecycleChange: (v: string) => void;
+  isPaused: boolean;
+  onPauseChange: (v: boolean) => void;
+  onManualRefresh: () => void;
+  lastRefreshed: string;
+  emergencyFreezeActive: boolean;
+}
+
 export function SocCommandCenterHeader({
   includeSimulations, onSimulationsChange, environment, onEnvironmentChange, lifecycle, onLifecycleChange, isPaused, onPauseChange, onManualRefresh, lastRefreshed, emergencyFreezeActive
-}: any) {
+}: SocCommandCenterHeaderProps) {
   return (
     <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl">
       <div className="flex items-center gap-4">
