@@ -10,7 +10,7 @@ import { SocApprovedResponsesPanel } from "./SocApprovedResponsesPanel";
 import { SocSimulationTray } from "./SocSimulationTray";
 import type { 
   SocDashboardSummaryDto, 
-  SocCommandCenterEvent, 
+  SocCommandCenterEvent,
   SocApprovedResponseSummaryDto 
 } from "@/lib/security/dashboard/dto";
 
@@ -152,4 +152,3 @@ export function SocCommandCenterClient() {
     </div>
   );
 }
-
