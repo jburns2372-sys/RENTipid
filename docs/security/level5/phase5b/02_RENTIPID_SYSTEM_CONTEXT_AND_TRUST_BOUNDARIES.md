@@ -157,8 +157,8 @@ flowchart TD
 - **Protocol or interaction type:** Internal memory / API
 - **Authentication control:** NextAuth internal
 - **Authorization control:** Session validity
-- **Integrity control:** HMAC
-- **Confidentiality control:** Encryption
+- **Integrity control:** Signed token
+- **Confidentiality control:** NOT_EVIDENCED
 - **Replay or idempotency control:** Token expiry
 - **Logging control:** Auth logs
 - **Failure behavior:** Deny access
@@ -176,13 +176,7 @@ flowchart TD
 - **Identities involved:** System Service Account
 - **Data classifications involved:** RESTRICTED_IDENTITY
 - **Protocol or interaction type:** HTTPS API
-- **Authentication control:** Cloud IAM
-- **Authorization control:** Bucket policies
-- **Integrity control:** TLS
-- **Confidentiality control:** TLS
-- **Replay or idempotency control:** Unique file keys
-- **Logging control:** Cloud storage logs
-- **Failure behavior:** Upload fails
+- **Authentication control:** NOT_EVIDENCED\n- **Authorization control:** NOT_EVIDENCED\n- **Integrity control:** NOT_EVIDENCED\n- **Confidentiality control:** NOT_EVIDENCED\n- **Replay or idempotency control:** NOT_EVIDENCED\n- **Logging control:** NOT_EVIDENCED\n- **Failure behavior:** NOT_EVIDENCED
 - **Existing evidence IDs:** N/A
 - **Related gap IDs:** GAP-008
 - **Related risk IDs:** RSK-010
@@ -197,13 +191,7 @@ flowchart TD
 - **Identities involved:** System Service Account
 - **Data classifications involved:** CONFIDENTIAL
 - **Protocol or interaction type:** HTTPS API
-- **Authentication control:** API Key
-- **Authorization control:** Vendor scope
-- **Integrity control:** TLS
-- **Confidentiality control:** TLS
-- **Replay or idempotency control:** Idempotency keys
-- **Logging control:** Provider logs
-- **Failure behavior:** Email drops
+- **Authentication control:** PLANNED_ARCHITECTURE\n- **Authorization control:** PLANNED_ARCHITECTURE\n- **Integrity control:** PLANNED_ARCHITECTURE\n- **Confidentiality control:** PLANNED_ARCHITECTURE\n- **Replay or idempotency control:** PLANNED_ARCHITECTURE\n- **Logging control:** PLANNED_ARCHITECTURE\n- **Failure behavior:** PLANNED_ARCHITECTURE
 - **Existing evidence IDs:** N/A
 - **Related gap IDs:** N/A
 - **Related risk IDs:** RSK-030
@@ -220,11 +208,7 @@ flowchart TD
 - **Protocol or interaction type:** Internal DB writes
 - **Authentication control:** DB connection
 - **Authorization control:** DB roles
-- **Integrity control:** ORM / WORM (planned)
-- **Confidentiality control:** TLS
-- **Replay or idempotency control:** Event sequence IDs
-- **Logging control:** Syslog
-- **Failure behavior:** Event buffered or dropped
+- **Integrity control:** Database persistence\n- **Confidentiality control:** NOT_EVIDENCED\n- **Replay or idempotency control:** NOT_EVIDENCED\n- **Logging control:** Database persistence\n- **Failure behavior:** Application error
 - **Existing evidence IDs:** EV-003
 - **Related gap IDs:** N/A
 - **Related risk IDs:** RSK-020
@@ -239,13 +223,7 @@ flowchart TD
 - **Identities involved:** CI/CD Service Account
 - **Data classifications involved:** INTERNAL
 - **Protocol or interaction type:** HTTPS API
-- **Authentication control:** Deployment Tokens
-- **Authorization control:** Cloud IAM
-- **Integrity control:** Commit signatures (planned)
-- **Confidentiality control:** TLS
-- **Replay or idempotency control:** Build IDs
-- **Logging control:** GitHub Actions logs
-- **Failure behavior:** Build fails
+- **Authentication control:** NOT_EVIDENCED\n- **Authorization control:** NOT_EVIDENCED\n- **Integrity control:** NOT_EVIDENCED\n- **Confidentiality control:** NOT_EVIDENCED\n- **Replay or idempotency control:** NOT_EVIDENCED\n- **Logging control:** NOT_EVIDENCED\n- **Failure behavior:** NOT_EVIDENCED
 - **Existing evidence IDs:** N/A
 - **Related gap IDs:** N/A
 - **Related risk IDs:** RSK-013, RSK-014
@@ -260,13 +238,7 @@ flowchart TD
 - **Identities involved:** Local dev account
 - **Data classifications involved:** INTERNAL
 - **Protocol or interaction type:** TCP/PG
-- **Authentication control:** Local credentials
-- **Authorization control:** Local DB roles
-- **Integrity control:** None required
-- **Confidentiality control:** None required
-- **Replay or idempotency control:** None required
-- **Logging control:** Local stdout
-- **Failure behavior:** Dev failure
+- **Authentication control:** Authenticated database access\n- **Authorization control:** Dedicated least-privileged database role\n- **Integrity control:** Mutation guard\n- **Confidentiality control:** Credential protection\n- **Replay or idempotency control:** No production-data use\n- **Logging control:** Localhost-only network restriction\n- **Failure behavior:** Isolated test database name\n- **Transport protection status:** NOT_EVIDENCED
 - **Existing evidence IDs:** EV-004, EV-005, EV-006, EV-007
 - **Related gap IDs:** N/A
 - **Related risk IDs:** N/A
@@ -281,17 +253,7 @@ flowchart TD
 - **Identities involved:** DevOps Admin
 - **Data classifications involved:** SECURITY_SENSITIVE, HIGHLY_CONFIDENTIAL
 - **Protocol or interaction type:** HTTPS Console
-- **Authentication control:** Cloud MFA
-- **Authorization control:** Cloud IAM
-- **Integrity control:** TLS
-- **Confidentiality control:** TLS
-- **Replay or idempotency control:** IAM auditing
-- **Logging control:** CloudTrail
-- **Failure behavior:** Access denied
-- **Existing evidence IDs:** N/A
-- **Related gap IDs:** GAP-008
-- **Related risk IDs:** RSK-001, RSK-016
-- **Evidence classification:** NOT_EVIDENCED
+- **Authentication control:** EXTERNAL_VALIDATION_REQUIRED\n- **Authorization control:** EXTERNAL_VALIDATION_REQUIRED\n- **Integrity control:** EXTERNAL_VALIDATION_REQUIRED\n- **Confidentiality control:** EXTERNAL_VALIDATION_REQUIRED\n- **Replay or idempotency control:** EXTERNAL_VALIDATION_REQUIRED\n- **Logging control:** EXTERNAL_VALIDATION_REQUIRED\n- **Failure behavior:** EXTERNAL_VALIDATION_REQUIRED\n- **Existing evidence IDs:** N/A\n- **Related gap IDs:** GAP-008\n- **Related risk IDs:** RSK-001, RSK-016\n- **Evidence classification:** EXTERNAL_VALIDATION_REQUIRED
 - **Target Phase 5 control:** Phase 5H
 
 ## 3. Trust Boundary Diagram

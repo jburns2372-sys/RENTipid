@@ -7,7 +7,7 @@ To establish the authoritative governance, system context, asset, data flow, thr
 1. Request submitted by System Owner.
 2. Initial review by Security Architect.
 3. Formal documentation of compensating controls.
-4. Approval by CISO and Executive Sponsor.
+4. Approval by Security Program Owner and Executive Sponsor.
 5. Registration in Risk Register.
 
 ## 3. Required Exception Fields
@@ -57,7 +57,7 @@ Any architectural change modifying a trust boundary must be documented via a for
 - **Required tests:** Integration tests, targeted security tests
 - **Required evidence:** CI success, security test pass
 - **Rollback requirements:** Documented rollback plan
-- **Production approval:** CISO
+- **Production approval:** Security Program Owner
 - **Independent assurance requirement:** Post-deployment review
 
 ### CLASS S3 — Payment, privileged operation, production infrastructure or cryptographic boundary
@@ -73,7 +73,7 @@ Any architectural change modifying a trust boundary must be documented via a for
 - **Required tests:** Minimal operational tests
 - **Required evidence:** Incident declaration log
 - **Rollback requirements:** Reversible containment playbooks
-- **Production approval:** CISO or Executive Sponsor
+- **Production approval:** Security Program Owner or Executive Sponsor
 - **Independent assurance requirement:** No (Prioritizes containment)
 
 ## 10. Emergency Change Procedure
@@ -101,11 +101,26 @@ Evidence must be reproducible, version-controlled, and tied directly to reposito
 - RACI matrix published.
 
 ## 16. Phase 5B Residual Limitations
-- Governance roles (CISO, Privacy Officer, etc.) are pending formal assignment.
+- Governance roles (Security Program Owner, Privacy Officer, etc.) are pending formal assignment.
 - Several identified threats lack implemented controls (mapped to later phases).
 
 ## 17. Phase 5C Entry Criteria
-Phase 5B acceptance is the prerequisite for initiating Phase 5C (Identity, MFA, and privileged-access security).
+1. Phase 5B documents accepted.
+2. Executive Sponsor assignment evidenced or formally pending with written interim authority.
+3. Security Program Owner assignment evidenced or interim authority approved.
+4. Engineering Lead identified.
+5. Identity and privileged-access scope approved.
+6. Current authentication and session architecture inventoried.
+7. Privileged-role inventory approved.
+8. P1 risks RSK-001 and RSK-003 have named owner roles.
+9. No unresolved Phase 5B documentation-integrity blocker.
+10. Any governance exception has owner, expiry and compensating controls.
+
+Where assignments remain pending, Phase 5C implementation cannot reach operational acceptance until the required authorities are appointed.
 
 ## 18. Phase 5B Acceptance Decision
 Phase 5B documentation is formally recognized as the baseline for program governance, triggering progression to implementation phases.
+
+**Status:**
+- DOCUMENTATION_BASELINE_ACCEPTED
+- OPERATIONAL_GOVERNANCE_ACTIVE: No (Pending required role assignments)

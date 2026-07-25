@@ -11,7 +11,7 @@ This document defines decision rights and operational responsibilities across th
 
 ## 2. RACI Matrix
 
-| Activity / Decision | System Owner | CISO (ROLE_ASSIGNMENT_PENDING) | Executive Sponsor | Security Architect | Lead Engineer | SOC Lead | Privacy Officer (ROLE_ASSIGNMENT_PENDING) | Payment Security Owner (ROLE_ASSIGNMENT_PENDING) | Developer |
+| Activity / Decision | System Owner | Security Program Owner (ROLE_ASSIGNMENT_PENDING) | Executive Sponsor | Security Architect | Lead Engineer | SOC Lead | Privacy Officer (ROLE_ASSIGNMENT_PENDING) | Payment Security Owner (ROLE_ASSIGNMENT_PENDING) | Developer |
 |---|---|---|---|---|---|---|---|---|---|
 | **Security-policy approval** | C | A | I | R | C | C | C | C | I |
 | **Risk ownership** | A | R | I | C | C | C | C | C | I |
@@ -42,6 +42,6 @@ This document defines decision rights and operational responsibilities across th
 1. **Exactly One Accountable Role:** No activity may have zero or multiple "A" designations.
 2. **Developer Separation:** Developers must not self-approve high-risk production changes.
 3. **Payment Separation:** Payment activation requires Finance or Payment Security Owner authority.
-4. **Execution Separation:** Security-response execution (SOC Lead) is separated from playbook approval (CISO).
+4. **Execution Separation:** Security-response execution (SOC Lead) is separated from playbook approval (Security Program Owner).
 5. **Risk Acceptance Constraint:** Executive Sponsor risk acceptance is strictly contingent on documented expiration, compensating controls, and periodic review.
 6. **Launch Constraint:** Final Level 5 launch authorization is held by the Executive Sponsor, not the implementer or engineering lead.

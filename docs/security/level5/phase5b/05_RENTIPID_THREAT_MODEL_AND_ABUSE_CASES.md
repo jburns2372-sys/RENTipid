@@ -63,3 +63,17 @@
 | AI sensitive-data leakage | THR-004 | Prevented by data masking prior to API call (5K). |
 | AI unauthorized action | THR-004 | Mitigated by keeping AI strictly read-only (5K). |
 | Third-party outage | THR-007 | Addressed by multi-region/multi-cloud DR (5L). |
+
+## 4. Phase 5A P1 Risk Relationships
+
+| Risk ID | Relevant Assets | Relevant Boundaries | Relevant Flows | Threats & Abuse Cases | Planned Phase | Evidence Classification | Production Blocking Criterion |
+|---|---|---|---|---|---|---|---|
+| **RSK-001** | AST-003, AST-005 | TB-013 | DF-025 | ABU-005 | 5D, 5H | VERIFIED_IMPLEMENTATION | Prevent admin proxy bypass. |
+| **RSK-003** | AST-004 | TB-007 | DF-010 | THR-001 | 5C | VERIFIED_IMPLEMENTATION | Enforce MFA and strict session limits. |
+| **RSK-009** | AST-006 | TB-008 | DF-013 | ABU-004, ABU-006 | 5F | NOT_EVIDENCED | Encryption at rest and isolated storage. |
+| **RSK-013** | AST-019 | TB-011 | DF-029 | ABU-007 | 5I | NOT_EVIDENCED | Require branch protection and signed commits. |
+| **RSK-014** | AST-020 | TB-011 | DF-029 | ABU-007 | 5I | NOT_EVIDENCED | Enforce automated SCA/SAST pipeline. |
+| **RSK-018** | AST-022 | TB-013 | DF-027, DF-028 | THR-007 | 5L | NOT_EVIDENCED | Implement automated, tested offline backups. |
+| **RSK-027** | AST-024 | TB-006 | DF-009 | THR-004 | 5K | NOT_EVIDENCED | Prevent prompt injection and data leakage. |
+| **RSK-028** | AST-024 | TB-006 | DF-009 | THR-004 | 5K | NOT_EVIDENCED | Eliminate autonomous write capabilities. |
+| **RSK-030** | N/A | TB-009 | DF-011 | THR-007 | 5M | NOT_EVIDENCED | Establish multi-provider fallback. |
