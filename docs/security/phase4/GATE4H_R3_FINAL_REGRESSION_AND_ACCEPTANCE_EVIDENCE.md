@@ -25,3 +25,9 @@ Complete the remaining Gate 4H acceptance work in one corrective run by repairin
 
 ## 4. Final Verdict
 Gate 4H-R3 successfully implemented missing fixes and produced clean validation evidence. Approved-scope binding is technically complete.
+
+## 5. Canonical Acceptance Reconciliation
+- The implementation commit remains: `1298c4d8795bc7687d28083e78d9752f0e0212c7`
+- Its historical R3 tag remains unchanged.
+- This documentation-only reconciliation establishes the canonical evidence path and canonical accepted tag.
+- No implementation or validation result changed.
