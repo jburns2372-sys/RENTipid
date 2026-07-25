@@ -30,18 +30,25 @@ This document serves as proof of the modernization of the RENTipid SOC Command C
 
 The dashboard accurately reflects the architectural maturity requested by the stakeholder and represents a functional, highly-visible checkpoint for the Phase 4 SOC pipeline.
 
-## R6 Least-Privilege Access and Authentic Browser Acceptance
-- **Least-privilege gap discovered**: The SOC_ANALYST role lacked the explicit DASHBOARD_VIEW permission while Super Admin had sweeping privileges.
-- **Why Super Admin was rejected for browser review**: Super Admin implicitly grants RESPONSE_EXECUTE, RESPONSE_ROLLBACK, and approval authorities, violating the least-privilege boundary requirement.
-- **Existing SOC_ANALYST role confirmed**: Confirmed in src/lib/security/permissions.ts.
-- **Exact permission added**: SECURITY_PERMISSIONS.DASHBOARD_VIEW
-- **Exact denied high-risk permissions**: RESPONSE_EXECUTE, RESPONSE_ROLLBACK, PLAYBOOK_APPROVE, etc.
-- **Files changed**: src/lib/security/permissions.ts, tests/security/ui/soc-analyst-dashboard-access.test.ts
-- **Test command and totals**: npx jest ... --runInBand. 4 suites passed, 42 tests passed.
-- **ESLint result**: 0 errors, 0 warnings.
-- **TypeScript baseline**:
-  - total: 17
-  - Phase 3: 7
-  - unrelated: 10
-  - new: 0
+## R6/R7 Least-Privilege Access and Authentic Browser Acceptance
+- **Actual R6 commit hash**: `7d8010ca0af1d56cd268b475488b30d090cfd237`
+- **Confirmation the R6 commit was amended**: Yes, R6 was amended to include `src/proxy.ts`.
+- **Actual R6 committed-file manifest**: 
+  - `src/lib/security/permissions.ts`
+  - `src/proxy.ts`
+  - `tests/security/ui/soc-analyst-dashboard-access.test.ts`
+  - `docs/security/phase4/RENTIPID_SOC_COMMAND_CENTER_DASHBOARD_UI_EVIDENCE.md`
+- **Reason the proxy change was required**: The SOC_ANALYST lacked explicit proxy access to the `/dashboard/admin/security` route.
+- **Exact proxy boundary**: Explicit allowlist for `SOC_ANALYST` mapped strictly to `/dashboard/admin/security`. Overbroad prefix-based access was removed.
+- **Exact permission granted to SOC_ANALYST**: `SECURITY_PERMISSIONS.DASHBOARD_VIEW`
+- **Exact denied high-risk permissions**: `RESPONSE_EXECUTE`, `RESPONSE_ROLLBACK`, `PLAYBOOK_APPROVE`, user/role admin, system settings mutation, payment admin.
+- **Proxy test coverage**: Added `tests/security/proxy/soc-analyst-proxy-boundary.test.ts` validating boundaries.
+- **Temporary local credential exposure**: A temporary local review password was exposed in a background task log. The credential is now designated as [REDACTED_EXPOSED_TEMPORARY_LOCAL_TEST_CREDENTIAL].
+- **Credential invalidation**: The exposed credential was explicitly a temporary test credential. It was invalidated and never reused.
+- **Temporary user/session cleanup**: Confirmed the test user was fully deleted from the database. No residual storage state or session remains.
+- **Screenshot authenticity evidence**: Four screenshots successfully captured via local Playwright automation against `rentipid_test_soc`. 
+- **Validation results**: 
+  - All automated tests passed.
+  - TypeScript baseline: 17 total (7 Phase 3, 10 unrelated, 0 new).
+  - ESLint: 0 errors, 0 warnings.
 - No schema change, no migration, no database reset, no production access, no push, no deployment.
