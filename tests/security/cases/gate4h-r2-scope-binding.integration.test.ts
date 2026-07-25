@@ -78,6 +78,47 @@ describe('Gate 4H-R2 Approved-Scope Binding', () => {
     await prisma.$disconnect();
   });
 
+  it('Legacy missing scope rejection: Grant remains unconsumed when execution fails due to missing scope', async () => {
+    const request = await prisma.securityResponseApprovalRequest.create({
+      data: {
+        requester_id: requesterId,
+        incident_case_id: incidentCaseId,
+        playbook_id: playbookId,
+        playbook_version: 1,
+        justification: 'Legacy missing scope',
+        status: SecurityApprovalStatus.APPROVED,
+        idempotency_key: `req-legacy-${Date.now()}`
+      }
+    });
+
+    const grant = await prisma.securityResponseApprovalGrant.create({
+      data: {
+        request_id: request.id,
+        incident_case_id: incidentCaseId,
+        playbook_id: playbookId,
+        playbook_version: 1,
+        grant_state: SecurityApprovalGrantState.AVAILABLE,
+        expires_at: new Date(Date.now() + 1000 * 60 * 60)
+      }
+    });
+
+    await expect(
+      executeSecurityResponse(approverId, {
+        incident_case_id: incidentCaseId,
+        playbook_id: playbookId,
+        playbook_version: 1,
+        approval_grant_id: grant.id,
+        response_type: 'NOOP_SIMULATION',
+        target_type: 'SYSTEM',
+        target_id: 'sys_123',
+        idempotency_key: `exec-legacy-${Date.now()}`
+      })
+    ).rejects.toThrow(new ExecutionError('APPROVAL_SCOPE_MISSING'));
+
+    const reloadedGrant = await prisma.securityResponseApprovalGrant.findUnique({ where: { id: grant.id } });
+    expect(reloadedGrant?.grant_state).toBe(SecurityApprovalGrantState.AVAILABLE);
+  });
+
   it('Rejects execution request with mismatched caller-provided scope without consuming grant', async () => {
     let grantId = '';
     await prisma.$transaction(async (tx) => {

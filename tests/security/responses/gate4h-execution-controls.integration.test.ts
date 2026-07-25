@@ -47,7 +47,7 @@ describe('Gate 4H Execution Controls', () => {
 
   async function createGrant(state: SecurityApprovalGrantState = SecurityApprovalGrantState.AVAILABLE) {
     const request = await prisma.securityResponseApprovalRequest.create({
-      data: { requester_id: targetUserId, incident_case_id: incidentCaseId, playbook_id: playbookId, playbook_version: 1, justification: 'Test', status: SecurityApprovalStatus.APPROVED, idempotency_key: `req-c-${Date.now()}-${Math.random()}` }
+      data: { requester_id: targetUserId, incident_case_id: incidentCaseId, playbook_id: playbookId, playbook_version: 1, justification: 'Test', status: SecurityApprovalStatus.APPROVED, idempotency_key: `req-c-${Date.now()}-${Math.random()}`, response_type: 'ACCOUNT_RESTRICTION', target_type: 'USER', target_id: targetUserId }
     });
     return await prisma.securityResponseApprovalGrant.create({
       data: { request_id: request.id, incident_case_id: incidentCaseId, playbook_id: playbookId, playbook_version: 1, grant_state: state, expires_at: new Date(Date.now() + 1000 * 60 * 60) }
@@ -86,10 +86,10 @@ describe('Gate 4H Execution Controls', () => {
 
     const key = `idemp-key-${Date.now()}`;
     const exec1 = await executeSecurityResponse(adminId, {
-      incident_case_id: incidentCaseId, playbook_id: playbookId, playbook_version: 1, approval_grant_id: grant.id, response_type: 'NOOP_SIMULATION', target_type: 'USER', target_id: targetUserId, idempotency_key: key
+      incident_case_id: incidentCaseId, playbook_id: playbookId, playbook_version: 1, approval_grant_id: grant.id, response_type: 'ACCOUNT_RESTRICTION', target_type: 'USER', target_id: targetUserId, idempotency_key: key
     });
     const exec2 = await executeSecurityResponse(adminId, {
-      incident_case_id: incidentCaseId, playbook_id: playbookId, playbook_version: 1, approval_grant_id: grant.id, response_type: 'NOOP_SIMULATION', target_type: 'USER', target_id: targetUserId, idempotency_key: key
+      incident_case_id: incidentCaseId, playbook_id: playbookId, playbook_version: 1, approval_grant_id: grant.id, response_type: 'ACCOUNT_RESTRICTION', target_type: 'USER', target_id: targetUserId, idempotency_key: key
     });
     expect(exec1.id).toBe(exec2.id);
   });

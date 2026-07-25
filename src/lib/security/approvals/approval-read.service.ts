@@ -17,6 +17,9 @@ export type ApprovalListItem = {
 
 export type ApprovalDetail = Omit<ApprovalListItem, "grants"> & {
   justification: string;
+  response_type: string | null;
+  target_type: string | null;
+  target_id: string | null;
   decision_at: Date | null;
   approver: { full_name: string } | null;
   decisions: {
@@ -26,6 +29,7 @@ export type ApprovalDetail = Omit<ApprovalListItem, "grants"> & {
     actor: { full_name: string } | null;
   }[];
   grants: {
+    id: string;
     grant_state: string;
     issued_at: Date;
     expires_at: Date;

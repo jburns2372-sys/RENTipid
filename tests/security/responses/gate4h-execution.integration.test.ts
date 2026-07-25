@@ -93,6 +93,9 @@ describe('Gate 4H Reversible Response Execution', () => {
         justification: 'Test',
         status: SecurityApprovalStatus.APPROVED,
         idempotency_key: `req-${Date.now()}`,
+        response_type: 'ACCOUNT_RESTRICTION',
+        target_type: 'USER',
+        target_id: targetUserId,
       }
     });
 

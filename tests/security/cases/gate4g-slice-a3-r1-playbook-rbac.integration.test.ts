@@ -105,7 +105,7 @@ describe('Gate 4G Slice A3-R1: Playbook Lifecycle RBAC Foundation', () => {
       expect(perms).toHaveLength(0);
     });
 
-    it('Playbook and response approval permissions are present, but RESPONSE_EXECUTE remains absent', () => {
+    it('Playbook and response approval permissions are present, and Gate 4H introduces RESPONSE_EXECUTE', () => {
       const keys = Object.keys(SECURITY_PERMISSIONS);
       expect(keys).toContain('PLAYBOOK_APPROVE');
       expect(keys).toContain('PLAYBOOK_REJECT');
@@ -116,8 +116,11 @@ describe('Gate 4G Slice A3-R1: Playbook Lifecycle RBAC Foundation', () => {
       expect(keys).toContain('RESPONSE_CANCEL');
       expect(keys).toContain('RESPONSE_REVOKE');
 
-      // Gate 4H boundary crossed
+      // Gate 4H boundary crossed: execution is now legitimately present.
+      // We are preserving the historical intent that Gate 4G stopped at approval,
+      // while acknowledging the current branch has progressed to Gate 4H.
       expect(keys).toContain('RESPONSE_EXECUTE');
+      expect(keys).not.toContain('ARBITRARY_UNAPPROVED_EXECUTION'); // Ensure no generic backdoor exists
     });
 
     it('Existing Gate 4F incident-case permissions remain unchanged', () => {

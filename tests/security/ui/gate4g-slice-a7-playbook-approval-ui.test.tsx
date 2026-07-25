@@ -51,33 +51,33 @@ describe('Gate 4G Slice A7 UI', () => {
 
   describe('Approvals UI', () => {
     it('ApprovalDetailClient shows cancel button for pending requester', () => {
-      const app = { id: '1', incident_case_id: 'c1', playbook_id: 'p1', playbook_version: 1, status: 'PENDING', requester_id: 'u1', requested_at: new Date(), expires_at: null, requester: null, grants: [], justification: '', decision_at: null, approver: null, decisions: [] };
+      const app = { id: '1', incident_case_id: 'c1', playbook_id: 'p1', playbook_version: 1, status: 'PENDING', requester_id: 'u1', requested_at: new Date(), expires_at: null, requester: null, grants: [], justification: '', decision_at: null, approver: null, decisions: [], response_type: 'NOOP_SIMULATION', target_type: 'SYSTEM', target_id: 'sys' };
       render(<ApprovalDetailClient initialApproval={app} activePermissions={[SECURITY_PERMISSIONS.RESPONSE_CANCEL]} currentUserId="u1" />);
       expect(screen.getByText('Cancel Request')).not.toBeNull();
     });
 
     it('ApprovalDetailClient hides cancel button for non-requester', () => {
-      const app = { id: '1', incident_case_id: 'c1', playbook_id: 'p1', playbook_version: 1, status: 'PENDING', requester_id: 'u1', requested_at: new Date(), expires_at: null, requester: null, grants: [], justification: '', decision_at: null, approver: null, decisions: [] };
+      const app = { id: '1', incident_case_id: 'c1', playbook_id: 'p1', playbook_version: 1, status: 'PENDING', requester_id: 'u1', requested_at: new Date(), expires_at: null, requester: null, grants: [], justification: '', decision_at: null, approver: null, decisions: [], response_type: 'NOOP_SIMULATION', target_type: 'SYSTEM', target_id: 'sys' };
       render(<ApprovalDetailClient initialApproval={app} activePermissions={[SECURITY_PERMISSIONS.RESPONSE_CANCEL]} currentUserId="u2" />);
       expect(screen.queryByText('Cancel Request')).toBeNull();
     });
 
     it('ApprovalDetailClient shows approve/reject for non-requester analyst', () => {
-      const app = { id: '1', incident_case_id: 'c1', playbook_id: 'p1', playbook_version: 1, status: 'PENDING', requester_id: 'u1', requested_at: new Date(), expires_at: null, requester: null, grants: [], justification: '', decision_at: null, approver: null, decisions: [] };
+      const app = { id: '1', incident_case_id: 'c1', playbook_id: 'p1', playbook_version: 1, status: 'PENDING', requester_id: 'u1', requested_at: new Date(), expires_at: null, requester: null, grants: [], justification: '', decision_at: null, approver: null, decisions: [], response_type: 'NOOP_SIMULATION', target_type: 'SYSTEM', target_id: 'sys' };
       render(<ApprovalDetailClient initialApproval={app} activePermissions={[SECURITY_PERMISSIONS.RESPONSE_APPROVE, SECURITY_PERMISSIONS.RESPONSE_REJECT]} currentUserId="u2" />);
       expect(screen.getByText('Approve')).not.toBeNull();
       expect(screen.getByText('Reject')).not.toBeNull();
     });
 
     it('ApprovalDetailClient prevents self-approval', () => {
-      const app = { id: '1', incident_case_id: 'c1', playbook_id: 'p1', playbook_version: 1, status: 'PENDING', requester_id: 'u1', requested_at: new Date(), expires_at: null, requester: null, grants: [], justification: '', decision_at: null, approver: null, decisions: [] };
+      const app = { id: '1', incident_case_id: 'c1', playbook_id: 'p1', playbook_version: 1, status: 'PENDING', requester_id: 'u1', requested_at: new Date(), expires_at: null, requester: null, grants: [], justification: '', decision_at: null, approver: null, decisions: [], response_type: 'NOOP_SIMULATION', target_type: 'SYSTEM', target_id: 'sys' };
       render(<ApprovalDetailClient initialApproval={app} activePermissions={[SECURITY_PERMISSIONS.RESPONSE_APPROVE, SECURITY_PERMISSIONS.RESPONSE_REJECT]} currentUserId="u1" />);
       expect(screen.queryByText('Approve')).toBeNull();
       expect(screen.queryByText('Reject')).toBeNull();
     });
 
     it('ApprovalDetailClient shows revoke button for active grant', () => {
-      const app = { id: '1', incident_case_id: 'c1', playbook_id: 'p1', playbook_version: 1, status: 'APPROVED', requester_id: 'u1', requested_at: new Date(), expires_at: null, requester: null, grants: [{ grant_state: 'AVAILABLE', issued_at: new Date(), expires_at: new Date(), consumed_at: null, revoked_at: null, revoked_by: null }], justification: '', decision_at: null, approver: null, decisions: [] };
+      const app = { id: '1', incident_case_id: 'c1', playbook_id: 'p1', playbook_version: 1, status: 'APPROVED', requester_id: 'u1', requested_at: new Date(), expires_at: null, requester: null, grants: [{ id: 'g1', grant_state: 'AVAILABLE', issued_at: new Date(), expires_at: new Date(), consumed_at: null, revoked_at: null, revoked_by: null }], justification: '', decision_at: null, approver: null, decisions: [], response_type: 'NOOP_SIMULATION', target_type: 'SYSTEM', target_id: 'sys' };
       render(<ApprovalDetailClient initialApproval={app} activePermissions={[SECURITY_PERMISSIONS.RESPONSE_REVOKE]} currentUserId="u2" />);
       expect(screen.getByText('Revoke Grant')).not.toBeNull();
     });

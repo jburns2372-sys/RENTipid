@@ -1,4 +1,4 @@
-import { Prisma, SecurityApprovalStatus, SecurityApprovalEventType, SecurityApprovalGrantState } from '@prisma/client';
+import { Prisma, SecurityApprovalStatus, SecurityApprovalEventType, SecurityApprovalGrantState, SecurityResponseActionType } from '@prisma/client';
 import { assertSecurityPermissionForService } from '../authorization';
 import { SECURITY_PERMISSIONS, SecurityPermission } from '../permissions';
 import { randomBytes } from 'crypto';
