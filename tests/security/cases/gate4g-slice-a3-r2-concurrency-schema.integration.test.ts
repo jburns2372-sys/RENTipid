@@ -209,19 +209,11 @@ describe('Gate 4G Slice A3-R2: Playbook Optimistic-Concurrency Schema', () => {
       });
     });
 
-    it('Existing playbook rows have lock_version 0 after migration', async () => {
+    it('A newly created isolated playbook defaults to lock_version 0 and is unaffected by other suites', async () => {
       await withRollback(async (tx) => {
-        // Any playbook in the DB should have lock_version >= 0, most likely 0 if not incremented
-        const count = await tx.securityResponsePlaybook.count();
-        if (count > 0) {
-          const nonZeroCount = await tx.securityResponsePlaybook.count({
-            where: { lock_version: { not: 0 } }
-          });
-          // Since our tests rollback, any pre-existing unmutated rows from seed would be 0
-          expect(nonZeroCount).toBe(0);
-        } else {
-          expect(count).toBe(0);
-        }
+        const isolatedId = `isolated-pb-${unique()}`;
+        const pb = await createPlaybook(tx, isolatedId, 1);
+        expect(pb.lock_version).toBe(0);
       });
     });
   });

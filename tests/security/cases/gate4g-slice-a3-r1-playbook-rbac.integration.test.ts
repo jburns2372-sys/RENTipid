@@ -105,13 +105,19 @@ describe('Gate 4G Slice A3-R1: Playbook Lifecycle RBAC Foundation', () => {
       expect(perms).toHaveLength(0);
     });
 
-    it('No PLAYBOOK_APPROVE, RESPONSE_REQUEST, or RESPONSE_APPROVE permission is introduced', () => {
+    it('Playbook and response approval permissions are present, but RESPONSE_EXECUTE remains absent', () => {
       const keys = Object.keys(SECURITY_PERMISSIONS);
-      expect(keys).not.toContain('PLAYBOOK_APPROVE');
-      expect(keys).not.toContain('RESPONSE_REQUEST');
-      expect(keys).not.toContain('RESPONSE_APPROVE');
+      expect(keys).toContain('PLAYBOOK_APPROVE');
+      expect(keys).toContain('PLAYBOOK_REJECT');
+      expect(keys).toContain('PLAYBOOK_SUBMIT_REVIEW');
+      expect(keys).toContain('RESPONSE_REQUEST');
+      expect(keys).toContain('RESPONSE_APPROVE');
+      expect(keys).toContain('RESPONSE_REJECT');
+      expect(keys).toContain('RESPONSE_CANCEL');
+      expect(keys).toContain('RESPONSE_REVOKE');
+
+      // Gate 4H boundary
       expect(keys).not.toContain('RESPONSE_EXECUTE');
-      expect(keys).not.toContain('RESPONSE_REVOKE');
     });
 
     it('Existing Gate 4F incident-case permissions remain unchanged', () => {
