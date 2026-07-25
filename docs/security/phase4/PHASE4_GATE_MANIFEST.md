@@ -70,10 +70,20 @@
 - Gate 4I: NEXT — CONTROLLED SIMULATION AND RESPONSE VALIDATION
 
 ## Gate 4I
-[Empty placeholder for Gate 4I]
+- Status: COMPLETE — CONTROLLED SIMULATION AND RESPONSE VALIDATION
+- Implementation commit: d69d7c95df728ac8d1f6ca6ff772c3a39462d4dc
+- Canonical tag: rentipid-soc-phase4-gate4i-controlled-simulation-complete
 
 ## Gate 4J
-[Empty placeholder for Gate 4J]
+- Status: COMPLETE — MAINTENANCE, UAT, AND FINAL ACCEPTANCE
+- Canonical tag: rentipid-soc-phase4-gate4j-phase4-final-acceptance-complete
+- Historical noncanonical tag: rentipid-soc-phase4-gate4j-maintenance-and-uat-complete
+- Historical tag status: Preserved unchanged
+
+## Phase 4
+- Status: COMPLETE — SOC PHASE 4 FINAL ACCEPTANCE
+- Operations runbook: docs/security/phase4/PHASE4_SOC_OPERATIONS_AND_RECOVERY_RUNBOOK.md
+- Production deployment: NOT PERFORMED — REQUIRES SEPARATE AUTHORIZATION
 
 ### Gate 4D-A Manifest
 *   tests/security/rules/gate4da-api-detection.test.ts
