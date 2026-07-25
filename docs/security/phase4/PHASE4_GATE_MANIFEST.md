@@ -54,7 +54,12 @@
 [Empty placeholder for Gate 4F]
 
 ## Gate 4G
-[Empty placeholder for Gate 4G]
+- Status: COMPLETE — FINAL CLOSEOUT READY FOR PUBLICATION
+- Scope: Playbooks, approval workflows, authenticated APIs, read models, operations UI, RBAC, idempotency, concurrency, and sanitized auditing
+- Canonical tag: rentipid-soc-phase4-gate4g-complete
+- Final validation: 7 Gate 4G suites / 62 tests passed, Database guard 12 tests passed, TypeScript baseline 7 pre-existing / 0 new
+- Gate 4H: NOT STARTED
+- Gate 4H boundary: Reversible response execution and approval-grant consumption remain deferred
 
 ## Gate 4H
 [Empty placeholder for Gate 4H]
