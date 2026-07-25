@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireSecurityPermission } from "@/lib/security/authorization";
 import { SECURITY_PERMISSIONS } from "@/lib/security/permissions";
-import { getSocCommandCenterSummary, getSocLiveEventFeed, getSocApprovedResponses, SocCommandCenterFilters } from "@/lib/security/dashboard/soc-command-center-read.service";
+import { getSocDashboardSummary, getSocEventFeed, getSocApprovedResponses } from "@/lib/security/dashboard/soc-command-center-read.service";
+import type { SocFilterOptionsDto } from "@/lib/security/dashboard/dto";
 import { SecurityEnvironment, SecurityLifecycle, SecuritySeverity, SecurityProcessingStatus } from "@prisma/client";
 
 export async function GET(request: NextRequest) {
@@ -14,14 +15,14 @@ export async function GET(request: NextRequest) {
     const lifecycle = searchParams.get("lifecycle") as SecurityLifecycle || undefined;
     const includeSimulations = searchParams.get("includeSimulations") === "true";
 
-    const filters: SocCommandCenterFilters = {
+    const filters: SocFilterOptionsDto = {
       environment,
       lifecycle,
       includeSimulations
     };
 
     if (action === "summary") {
-      const summary = await getSocCommandCenterSummary(filters);
+      const summary = await getSocDashboardSummary(filters);
       return NextResponse.json(summary);
     } else if (action === "feed") {
       const limit = parseInt(searchParams.get("limit") || "50", 10);
@@ -30,7 +31,7 @@ export async function GET(request: NextRequest) {
       const source = searchParams.get("source") || undefined;
       const processingStatus = searchParams.get("processingStatus") as SecurityProcessingStatus || undefined;
 
-      const feed = await getSocLiveEventFeed({
+      const feed = await getSocEventFeed({
         ...filters,
         limit,
         offset,
@@ -38,12 +39,12 @@ export async function GET(request: NextRequest) {
         source,
         processingStatus
       });
-      return NextResponse.json({ events: feed });
+      return NextResponse.json(feed); // Already returns { events, total }
     } else if (action === "responses") {
       const limit = parseInt(searchParams.get("limit") || "20", 10);
       const offset = parseInt(searchParams.get("offset") || "0", 10);
       
-      const responses = await getSocApprovedResponses({ limit, offset, includeSimulations });
+      const responses = await getSocApprovedResponses({ ...filters, limit, offset });
       return NextResponse.json({ responses });
     }
 

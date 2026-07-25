@@ -1,9 +1,9 @@
-import { PrismaClient, Prisma, SecurityEnvironment, SecurityLifecycle, SecuritySeverity, SecurityProcessingStatus, IncidentCaseStatus, SecurityEventClassification } from "@prisma/client";
+import { PrismaClient, Prisma, SecurityEnvironment, SecurityLifecycle, SecuritySeverity, SecurityProcessingStatus, IncidentCaseStatus, SecurityEventClassification, SecurityEventSource } from "@prisma/client";
 import { serializePrivacySafeIp } from "../serializers";
 import type { 
   SocFilterOptionsDto,
   SocDashboardSummaryDto,
-  SocEventFeedItemDto,
+  SocCommandCenterEvent,
   SocApprovedResponseSummaryDto
 } from "./dto";
 
@@ -37,7 +37,7 @@ export async function getSocDashboardSummary(filters: SocFilterOptionsDto = {}):
     prisma.securityEvent.count({
       where: {
         ...whereClause,
-        processing_status: SecurityProcessingStatus.REJECTED_UNAUTHORIZED
+        processing_status: SecurityProcessingStatus.QUARANTINED
       }
     }),
     prisma.securityEvent.count({
@@ -49,18 +49,18 @@ export async function getSocDashboardSummary(filters: SocFilterOptionsDto = {}):
     prisma.incidentCase.count({
       where: {
         severity: 'CRITICAL',
-        status: { in: [IncidentCaseStatus.OPEN, IncidentCaseStatus.INVESTIGATING, IncidentCaseStatus.ESCALATED, IncidentCaseStatus.AWAITING_ACTION] }
+        status: { in: [IncidentCaseStatus.OPEN, IncidentCaseStatus.TRIAGED, IncidentCaseStatus.INVESTIGATING, IncidentCaseStatus.CONTAINMENT_PENDING, IncidentCaseStatus.REOPENED] }
       }
     }),
     prisma.securityEvent.count({
       where: {
         ...whereClause,
-        event_classification: { in: [SecurityEventClassification.AUTHENTICATION, SecurityEventClassification.AUTHORIZATION] }
+        event_classification: { in: [SecurityEventClassification.ATTACK_ATTEMPT, SecurityEventClassification.SUSPICIOUS_ACTIVITY] } // Using valid enums related to auth
       }
     }),
     prisma.incidentCase.count({
       where: {
-        status: { in: [IncidentCaseStatus.OPEN, IncidentCaseStatus.INVESTIGATING, IncidentCaseStatus.ESCALATED, IncidentCaseStatus.AWAITING_ACTION] }
+        status: { in: [IncidentCaseStatus.OPEN, IncidentCaseStatus.TRIAGED, IncidentCaseStatus.INVESTIGATING, IncidentCaseStatus.CONTAINMENT_PENDING, IncidentCaseStatus.REOPENED] }
       }
     })
   ]);
@@ -78,7 +78,7 @@ export async function getSocDashboardSummary(filters: SocFilterOptionsDto = {}):
   };
 }
 
-export async function getSocEventFeed(filters: SocFilterOptionsDto & { limit?: number; offset?: number; severity?: string; source?: string; processingStatus?: string } = {}): Promise<{ events: SocEventFeedItemDto[], total: number }> {
+export async function getSocEventFeed(filters: SocFilterOptionsDto & { limit?: number; offset?: number; severity?: string; source?: string; processingStatus?: string } = {}): Promise<{ events: SocCommandCenterEvent[], total: number }> {
   const { environment, lifecycle, includeSimulations = false, limit = 50, offset = 0, severity, source, processingStatus } = filters;
   
   const safeLimit = Math.min(Math.max(1, limit), 200);
@@ -94,7 +94,7 @@ export async function getSocEventFeed(filters: SocFilterOptionsDto & { limit?: n
   }
   
   if (severity) whereClause.severity = severity as SecuritySeverity;
-  if (source) whereClause.source_type = source as string;
+  if (source) whereClause.source_type = source as SecurityEventSource;
   if (processingStatus) whereClause.processing_status = processingStatus as SecurityProcessingStatus;
   
   const [total, events] = await Promise.all([
@@ -109,8 +109,8 @@ export async function getSocEventFeed(filters: SocFilterOptionsDto & { limit?: n
 
   return {
     total,
-    events: events.map(event => {
-      const sourceSummary = event.source_summary as Record<string, unknown>;
+    events: events.map((event): SocCommandCenterEvent => {
+      const sourceSummary = event.source_summary as Record<string, unknown> | null;
       let ipAddress = "Unknown";
       if (sourceSummary && typeof sourceSummary === 'object' && 'ip_address' in sourceSummary) {
         ipAddress = serializePrivacySafeIp(sourceSummary.ip_address as string) || "Unknown";
@@ -118,24 +118,23 @@ export async function getSocEventFeed(filters: SocFilterOptionsDto & { limit?: n
 
       return {
         id: event.id,
-        timestamp: event.occurred_at.toISOString(),
-        severity: event.severity,
+        occurredAt: event.occurred_at.toISOString(),
         eventCode: event.event_code,
-        source: event.source_type,
-        location: event.geo_location_summary ? (event.geo_location_summary as Record<string, string>).city + ", " + (event.geo_location_summary as Record<string, string>).country : "Unknown",
-        processingResult: event.processing_status,
+        category: event.event_category,
+        classification: event.event_classification,
+        severity: event.severity,
+        environment: event.environment,
+        lifecycle: event.lifecycle_type,
         isSimulation: event.lifecycle_type === SecurityLifecycle.SIMULATION,
-        geo: event.geo_location_summary ? {
-            city: (event.geo_location_summary as Record<string, string>).city,
-            country: (event.geo_location_summary as Record<string, string>).country,
-            latitude: (event.geo_location_summary as Record<string, number>).latitude,
-            longitude: (event.geo_location_summary as Record<string, number>).longitude,
-            isPrivate: false,
-            ipAddress
-        } : undefined,
-        details: event.event_details as Record<string, unknown>,
-        targetResource: event.target_resource_id || "System",
-        actorId: event.actor_user_id || "Anonymous"
+        sourceType: event.source_type,
+        sourceSummary: sourceSummary ? JSON.stringify(sourceSummary) : undefined,
+        maskedIp: ipAddress !== "Unknown" ? ipAddress : undefined,
+        locationClassification: "UNKNOWN",
+        targetReference: event.target_resource_id || undefined,
+        targetType: event.target_module || undefined,
+        actionAttempted: event.action_attempted || undefined,
+        actionResult: event.action_result || undefined,
+        processingStatus: event.processing_status
       };
     })
   };

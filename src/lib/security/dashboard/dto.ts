@@ -12,39 +12,46 @@ export interface SocDashboardSummaryDto {
   emergencyFreezeActive: boolean;
 }
 
-export interface SocLocationSummaryDto {
-  city: string | null;
-  country: string | null;
-  latitude: number | null;
-  longitude: number | null;
-  isPrivate: boolean;
-  ipAddress: string | null;
-}
-
-export interface SocEventFeedItemDto {
+export type SocCommandCenterEvent = {
   id: string;
-  timestamp: string;
-  severity: string;
+  occurredAt: string;
   eventCode: string;
-  source: string;
-  location: string;
-  processingResult: string;
-  isSimulation: boolean;
-  geo?: SocLocationSummaryDto;
-  details?: Record<string, unknown>;
-  targetResource?: string;
-  actorId?: string;
-}
-
-export interface SocSelectedEventDetailsDto extends SocEventFeedItemDto {
-  incidentCaseId?: string;
-}
-
-export interface SocIncidentReferenceDto {
-  id: string;
-  status: string;
+  category: string;
+  classification: string;
   severity: string;
-}
+  environment: string;
+  lifecycle: string;
+  isSimulation: boolean;
+  sourceType: string;
+  sourceSummary?: string;
+  maskedIp?: string;
+  locationClassification:
+    | "VERIFIED"
+    | "PRIVATE_IP"
+    | "LOOPBACK"
+    | "RESERVED_IP"
+    | "TEST_IP"
+    | "UNKNOWN";
+  country?: string;
+  city?: string;
+  latitude?: number;
+  longitude?: number;
+  targetType?: string;
+  targetReference?: string;
+  actionAttempted?: string;
+  actionResult?: string;
+  processingStatus: string;
+  incident?: {
+    reference: string;
+    status: string;
+  };
+  response?: {
+    reference: string;
+    responseType: string;
+    status: string;
+    rollbackAvailable: boolean;
+  };
+};
 
 export interface SocApprovedResponseSummaryDto {
   id: string;

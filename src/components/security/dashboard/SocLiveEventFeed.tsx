@@ -1,9 +1,9 @@
 import React from 'react';
 import { Activity } from 'lucide-react';
 
-import type { SocEventFeedItemDto } from "@/lib/security/dashboard/dto";
+import type { SocCommandCenterEvent } from "@/lib/security/dashboard/dto";
 
-export function SocLiveEventFeed({ events, isLoading, selectedEventId, onSelectEvent }: { events: SocEventFeedItemDto[], isLoading: boolean, selectedEventId: string | null, onSelectEvent: (id: string) => void }) {
+export function SocLiveEventFeed({ events, isLoading, selectedEventId, onSelectEvent }: { events: SocCommandCenterEvent[], isLoading: boolean, selectedEventId: string | null, onSelectEvent: (id: string) => void }) {
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-lg flex flex-col h-[500px] overflow-hidden">
       <div className="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
@@ -39,13 +39,13 @@ export function SocLiveEventFeed({ events, isLoading, selectedEventId, onSelectE
                 </td>
               </tr>
             ) : (
-              events.map((event: SocEventFeedItemDto) => (
+              events.map((event: SocCommandCenterEvent) => (
                 <tr 
                   key={event.id} 
                   onClick={() => onSelectEvent(event.id)}
                   className={`hover:bg-slate-800/50 cursor-pointer transition ${selectedEventId === event.id ? 'bg-slate-800 border-l-2 border-blue-500' : ''}`}
                 >
-                  <td className="px-4 py-3 text-xs whitespace-nowrap">{new Date(event.timestamp).toLocaleTimeString()}</td>
+                  <td className="px-4 py-3 text-xs whitespace-nowrap">{new Date(event.occurredAt).toLocaleTimeString()}</td>
                   <td className="px-4 py-3">
                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${getSeverityColor(event.severity)}`}>
                       {event.severity}
@@ -55,12 +55,12 @@ export function SocLiveEventFeed({ events, isLoading, selectedEventId, onSelectE
                     <div className="font-medium text-slate-200">{event.eventCode}</div>
                     {event.isSimulation && <div className="text-[9px] text-yellow-500 font-bold mt-0.5">SIMULATED</div>}
                   </td>
-                  <td className="px-4 py-3 text-xs text-slate-400">{event.source}</td>
+                  <td className="px-4 py-3 text-xs text-slate-400">{event.sourceType}</td>
                   <td className="px-4 py-3 text-xs">
-                     {event.location === "Unknown" ? <span className="text-slate-500 italic">LOCATION UNKNOWN</span> : event.location}
+                     {event.locationClassification === "UNKNOWN" ? <span className="text-slate-500 italic">LOCATION UNKNOWN</span> : `${event.city || ''}, ${event.country || ''}`.replace(/^, /, '')}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">{event.processingResult}</span>
+                    <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">{event.processingStatus}</span>
                   </td>
                 </tr>
               ))

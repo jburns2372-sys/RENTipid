@@ -10,7 +10,7 @@ import { SocApprovedResponsesPanel } from "./SocApprovedResponsesPanel";
 import { SocSimulationTray } from "./SocSimulationTray";
 import type { 
   SocDashboardSummaryDto, 
-  SocEventFeedItemDto, 
+  SocCommandCenterEvent, 
   SocApprovedResponseSummaryDto 
 } from "@/lib/security/dashboard/dto";
 
@@ -21,7 +21,7 @@ export function SocCommandCenterClient() {
   const [isPaused, setIsPaused] = useState(false);
   
   const [summaryData, setSummaryData] = useState<SocDashboardSummaryDto | null>(null);
-  const [feedData, setFeedData] = useState<SocEventFeedItemDto[]>([]);
+  const [feedData, setFeedData] = useState<SocCommandCenterEvent[]>([]);
   const [responsesData, setResponsesData] = useState<SocApprovedResponseSummaryDto[]>([]);
   
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
@@ -152,3 +152,4 @@ export function SocCommandCenterClient() {
     </div>
   );
 }
+
