@@ -3,7 +3,7 @@
 ## 1. Internal Assets
 
 | Asset ID | Asset Name | Asset Category | Description | Security Owner | System Owner | Environment | Trust Zone | Data Classification | Criticality | Availability Req | Integrity Req | Confidentiality Req | AuthN Dependency | AuthZ Dependency | Logging Req | Backup Req | Recovery Req | Existing Controls | Evidence IDs | Gap IDs | Risk IDs | Lifecycle Status | Evidence Classification |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | **AST-001** | **Primary Database** | Data Store | Main PostgreSQL database | Lead Engineer | System Owner | MULTI_ENVIRONMENT | Restricted Data Zone | HIGHLY_CONFIDENTIAL | High | High | High | High | DB Credentials | DB Roles | High | High | High | Local guard | EV-012 | GAP-006 | RSK-009 | IMPLEMENTED | VERIFIED_IMPLEMENTATION |
 | **AST-002** | **Backend API** | Application | Core Next.js API server | Security Architect | Engineering Lead | MULTI_ENVIRONMENT | Internal Network Zone | CONFIDENTIAL | High | High | High | High | NextAuth | Proxy / Permissions | High | N/A | High | Idempotency | EV-001, EV-009 | N/A | RSK-002 | IMPLEMENTED | VERIFIED_IMPLEMENTATION |
 | **AST-003** | **SOC Dashboard** | Application | Command center UI | SOC Lead | Security Program Owner | MULTI_ENVIRONMENT | Internal Network Zone | SECURITY_SENSITIVE | High | Medium | High | High | NextAuth | Proxy | High | N/A | High | Proxy boundary | EV-002, EV-011 | N/A | RSK-001 | IMPLEMENTED | VERIFIED_IMPLEMENTATION |
@@ -31,16 +31,16 @@
 
 ## 2. External Dependencies
 
-| Dependency ID | Service or Package | Purpose | Data Exchanged | Trust Boundary | AuthN Mechanism | Failure Effect | Security Responsibility | Vendor Assurance | Contingency Strategy | Evidence IDs | Related Risks | Evidence Classification |
+| Dependency ID | Service or Package | Purpose | Data Exchanged | Trust Boundary | Protocol | AuthN Mechanism | Failure Effect | Security Responsibility | Vendor Assurance | Contingency Strategy | Evidence IDs | Related Risks | Evidence Classification |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | **DEP-001** | **PayMongo** | Payment Gateway | Escrow funding | TB-004, TB-005 | Webhooks, REST | API Keys, Webhook signatures | Payment failures | Shared (Vendor for PAN, RENTipid for API) | EXTERNAL_VALIDATION_REQUIRED | Manual escrow | EV-010 | RSK-006, RSK-007 | VERIFIED_DOCUMENTED_ARCHITECTURE |
 | **DEP-002** | **Vercel** | Hosting Provider | Cloud Infrastructure | TB-001 | Application Data | Cloud IAM / Deploy Keys | Complete application outage | Shared (Vendor for infra, RENTipid for app) | EXTERNAL_VALIDATION_REQUIRED | Multi-cloud strategy (planned) | EV-012 | RSK-016 | VERIFIED_DOCUMENTED_ARCHITECTURE |
 | **DEP-003** | **NextAuth** | Authentication Library | Session Management | TB-002 | Session Cookies | JWT / Sessions | Unauthorized access | Shared (Library for logic, RENTipid for config) | NOT_EVIDENCED | Switch auth provider | EV-001 | RSK-002 | VERIFIED_IMPLEMENTATION |
 | **DEP-004** | **Prisma** | ORM Library | Database Access | TB-003 | DB Queries | Environment Variables | Data corruption or breach | Shared | NOT_EVIDENCED | Fallback to raw SQL | EV-012 | RSK-009 | VERIFIED_IMPLEMENTATION |
-| **DEP-005** | **Email Provider** | Mail Delivery | Auth Links | TB-009 | API Key | Login delays | Shared | NOT_EVIDENCED | Alternative Provider | N/A | RSK-030 | PLANNED_ARCHITECTURE |
-| **DEP-006** | **GitHub** | Source Control | Codebase | TB-011 | MFA/IAM | Build failures | Shared | NOT_EVIDENCED | Git mirroring | N/A | RSK-013 | NOT_EVIDENCED |
-| **DEP-007** | **NPM** | Package Registry | Node modules | TB-011 | N/A | Supply chain breach | Shared | NOT_EVIDENCED | Private registry | N/A | RSK-014 | NOT_EVIDENCED |
-| **DEP-008** | **App Stores** | Distribution | Binaries | N/A | IAM | Updates delayed | Shared | NOT_EVIDENCED | None | N/A | RSK-030 | NOT_EVIDENCED |
-| **DEP-009** | **KYC Provider** | Identity | Gov IDs | N/A | API Key | KYC stalled | Shared | NOT_EVIDENCED | Manual review | N/A | RSK-009 | PLANNED_ARCHITECTURE |
-| **DEP-010** | **Cloud Storage** | Files | KYC Docs | TB-008 | IAM | Uploads fail | Shared | NOT_EVIDENCED | Multi-cloud | N/A | RSK-010 | PLANNED_ARCHITECTURE |
-| **DEP-011** | **SIEM/Logging** | Logs | SOC Events | TB-010 | API Key | Blind spot | Shared | NOT_EVIDENCED | Local logs | N/A | RSK-020 | PLANNED_ARCHITECTURE |
+| **DEP-005** | **Email Provider** | Mail Delivery | Auth Links | TB-009 | N/A | API Key | Login delays | Shared | NOT_EVIDENCED | Alternative Provider | N/A | RSK-030 | PLANNED_ARCHITECTURE |
+| **DEP-006** | **GitHub** | Source Control | Codebase | TB-011 | N/A | MFA/IAM | Build failures | Shared | NOT_EVIDENCED | Git mirroring | N/A | RSK-013 | NOT_EVIDENCED |
+| **DEP-007** | **NPM** | Package Registry | Node modules | TB-011 | N/A | N/A | Supply chain breach | Shared | NOT_EVIDENCED | Private registry | N/A | RSK-014 | NOT_EVIDENCED |
+| **DEP-008** | **App Stores** | Distribution | Binaries | N/A | N/A | IAM | Updates delayed | Shared | NOT_EVIDENCED | None | N/A | RSK-030 | NOT_EVIDENCED |
+| **DEP-009** | **KYC Provider** | Identity | Gov IDs | N/A | N/A | API Key | KYC stalled | Shared | NOT_EVIDENCED | Manual review | N/A | RSK-009 | PLANNED_ARCHITECTURE |
+| **DEP-010** | **Cloud Storage** | Files | KYC Docs | TB-008 | N/A | IAM | Uploads fail | Shared | NOT_EVIDENCED | Multi-cloud | N/A | RSK-010 | PLANNED_ARCHITECTURE |
+| **DEP-011** | **SIEM/Logging** | Logs | SOC Events | TB-010 | N/A | API Key | Blind spot | Shared | NOT_EVIDENCED | Local logs | N/A | RSK-020 | PLANNED_ARCHITECTURE |

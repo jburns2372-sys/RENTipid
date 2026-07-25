@@ -66,14 +66,14 @@
 
 ## 4. Phase 5A P1 Risk Relationships
 
-| Risk ID | Relevant Assets | Relevant Boundaries | Relevant Flows | Threats & Abuse Cases | Planned Phase | Evidence Classification | Production Blocking Criterion |
-|---|---|---|---|---|---|---|---|
-| **RSK-001** | AST-003, AST-005 | TB-013 | DF-025 | ABU-005 | 5D, 5H | VERIFIED_IMPLEMENTATION | Prevent admin proxy bypass. |
-| **RSK-003** | AST-004 | TB-007 | DF-010 | THR-001 | 5C | VERIFIED_IMPLEMENTATION | Enforce MFA and strict session limits. |
-| **RSK-009** | AST-006 | TB-008 | DF-013 | ABU-004, ABU-006 | 5F | NOT_EVIDENCED | Encryption at rest and isolated storage. |
-| **RSK-013** | AST-019 | TB-011 | DF-029 | ABU-007 | 5I | NOT_EVIDENCED | Require branch protection and signed commits. |
-| **RSK-014** | AST-020 | TB-011 | DF-029 | ABU-007 | 5I | NOT_EVIDENCED | Enforce automated SCA/SAST pipeline. |
-| **RSK-018** | AST-022 | TB-013 | DF-027, DF-028 | THR-007 | 5L | NOT_EVIDENCED | Implement automated, tested offline backups. |
-| **RSK-027** | AST-024 | TB-006 | DF-009 | THR-004 | 5K | NOT_EVIDENCED | Prevent prompt injection and data leakage. |
-| **RSK-028** | AST-024 | TB-006 | DF-009 | THR-004 | 5K | NOT_EVIDENCED | Eliminate autonomous write capabilities. |
-| **RSK-030** | N/A | TB-009 | DF-011 | THR-007 | 5M | NOT_EVIDENCED | Establish multi-provider fallback. |
+| Risk ID | Assets & Dependencies | Boundaries & Flows | Threats & Abuse Cases | Architecture Evidence Status | Existing Mitigating Controls | Missing or Incomplete Controls | Residual Production Blocker | Target Phase |
+|---|---|---|---|---|---|---|---|---|
+| **RSK-001** | AST-003, AST-005, DEP-003 | TB-013, DF-025 | ABU-005 | VERIFIED_IMPLEMENTATION | Proxy boundary routing, baseline permissions. | Formal governance assignments, explicit role separation. | Prevent admin proxy bypass and formalize assignments. | 5D, 5H |
+| **RSK-003** | AST-004, DEP-003 | TB-007, DF-010 | THR-001 | VERIFIED_IMPLEMENTATION | Basic NextAuth session tokens. | MFA, strict session timeouts, rotation. | Enforce MFA and strict session limits. | 5C |
+| **RSK-009** | AST-006, DEP-010 | TB-008, DF-013 | ABU-004, ABU-006 | NOT_EVIDENCED | None evidenced. | Encryption at rest, isolated storage. | Encryption at rest and isolated storage. | 5F |
+| **RSK-013** | AST-019, DEP-006 | TB-011, DF-029 | ABU-007 | NOT_EVIDENCED | None evidenced. | Branch protection, signed commits. | Require branch protection and signed commits. | 5I |
+| **RSK-014** | AST-020, DEP-007 | TB-011, DF-029 | ABU-007 | NOT_EVIDENCED | None evidenced. | Automated SCA/SAST pipeline. | Enforce automated SCA/SAST pipeline. | 5I |
+| **RSK-018** | AST-022, DEP-002 | TB-013, DF-027, DF-028 | THR-007 | NOT_EVIDENCED | None evidenced. | Automated offline backups, DR tests. | Implement automated, tested offline backups. | 5L |
+| **RSK-027** | AST-024, DEP-002 | TB-006, DF-009 | THR-004 | NOT_EVIDENCED | None evidenced. | Prompt injection defense, data masking. | Prevent prompt injection and data leakage. | 5K |
+| **RSK-028** | AST-024, DEP-002 | TB-006, DF-009 | THR-004 | NOT_EVIDENCED | None evidenced. | Read-only AI enforcement, action approvals. | Eliminate autonomous write capabilities. | 5K |
+| **RSK-030** | AST-001, AST-002, DEP-002, DEP-005 | TB-009, DF-011 | THR-007 | NOT_EVIDENCED | None evidenced. | Multi-provider fallback, failover routing. | Establish multi-provider fallback. | 5M |

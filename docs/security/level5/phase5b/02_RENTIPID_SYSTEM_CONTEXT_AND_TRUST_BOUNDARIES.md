@@ -176,7 +176,13 @@ flowchart TD
 - **Identities involved:** System Service Account
 - **Data classifications involved:** RESTRICTED_IDENTITY
 - **Protocol or interaction type:** HTTPS API
-- **Authentication control:** NOT_EVIDENCED\n- **Authorization control:** NOT_EVIDENCED\n- **Integrity control:** NOT_EVIDENCED\n- **Confidentiality control:** NOT_EVIDENCED\n- **Replay or idempotency control:** NOT_EVIDENCED\n- **Logging control:** NOT_EVIDENCED\n- **Failure behavior:** NOT_EVIDENCED
+- **Authentication control:** NOT_EVIDENCED
+- **Authorization control:** NOT_EVIDENCED
+- **Integrity control:** NOT_EVIDENCED
+- **Confidentiality control:** NOT_EVIDENCED
+- **Replay or idempotency control:** NOT_EVIDENCED
+- **Logging control:** NOT_EVIDENCED
+- **Failure behavior:** NOT_EVIDENCED
 - **Existing evidence IDs:** N/A
 - **Related gap IDs:** GAP-008
 - **Related risk IDs:** RSK-010
@@ -191,7 +197,13 @@ flowchart TD
 - **Identities involved:** System Service Account
 - **Data classifications involved:** CONFIDENTIAL
 - **Protocol or interaction type:** HTTPS API
-- **Authentication control:** PLANNED_ARCHITECTURE\n- **Authorization control:** PLANNED_ARCHITECTURE\n- **Integrity control:** PLANNED_ARCHITECTURE\n- **Confidentiality control:** PLANNED_ARCHITECTURE\n- **Replay or idempotency control:** PLANNED_ARCHITECTURE\n- **Logging control:** PLANNED_ARCHITECTURE\n- **Failure behavior:** PLANNED_ARCHITECTURE
+- **Authentication control:** PLANNED_ARCHITECTURE
+- **Authorization control:** PLANNED_ARCHITECTURE
+- **Integrity control:** PLANNED_ARCHITECTURE
+- **Confidentiality control:** PLANNED_ARCHITECTURE
+- **Replay or idempotency control:** PLANNED_ARCHITECTURE
+- **Logging control:** PLANNED_ARCHITECTURE
+- **Failure behavior:** PLANNED_ARCHITECTURE
 - **Existing evidence IDs:** N/A
 - **Related gap IDs:** N/A
 - **Related risk IDs:** RSK-030
@@ -208,7 +220,11 @@ flowchart TD
 - **Protocol or interaction type:** Internal DB writes
 - **Authentication control:** DB connection
 - **Authorization control:** DB roles
-- **Integrity control:** Database persistence\n- **Confidentiality control:** NOT_EVIDENCED\n- **Replay or idempotency control:** NOT_EVIDENCED\n- **Logging control:** Database persistence\n- **Failure behavior:** Application error
+- **Integrity control:** Database persistence
+- **Confidentiality control:** NOT_EVIDENCED
+- **Replay or idempotency control:** NOT_EVIDENCED
+- **Logging control:** Database persistence
+- **Failure behavior:** Application error
 - **Existing evidence IDs:** EV-003
 - **Related gap IDs:** N/A
 - **Related risk IDs:** RSK-020
@@ -223,7 +239,13 @@ flowchart TD
 - **Identities involved:** CI/CD Service Account
 - **Data classifications involved:** INTERNAL
 - **Protocol or interaction type:** HTTPS API
-- **Authentication control:** NOT_EVIDENCED\n- **Authorization control:** NOT_EVIDENCED\n- **Integrity control:** NOT_EVIDENCED\n- **Confidentiality control:** NOT_EVIDENCED\n- **Replay or idempotency control:** NOT_EVIDENCED\n- **Logging control:** NOT_EVIDENCED\n- **Failure behavior:** NOT_EVIDENCED
+- **Authentication control:** NOT_EVIDENCED
+- **Authorization control:** NOT_EVIDENCED
+- **Integrity control:** NOT_EVIDENCED
+- **Confidentiality control:** NOT_EVIDENCED
+- **Replay or idempotency control:** NOT_EVIDENCED
+- **Logging control:** NOT_EVIDENCED
+- **Failure behavior:** NOT_EVIDENCED
 - **Existing evidence IDs:** N/A
 - **Related gap IDs:** N/A
 - **Related risk IDs:** RSK-013, RSK-014
@@ -238,7 +260,19 @@ flowchart TD
 - **Identities involved:** Local dev account
 - **Data classifications involved:** INTERNAL
 - **Protocol or interaction type:** TCP/PG
-- **Authentication control:** Authenticated database access\n- **Authorization control:** Dedicated least-privileged database role\n- **Integrity control:** Mutation guard\n- **Confidentiality control:** Credential protection\n- **Replay or idempotency control:** No production-data use\n- **Logging control:** Localhost-only network restriction\n- **Failure behavior:** Isolated test database name\n- **Transport protection status:** NOT_EVIDENCED
+- **Authentication control:** Authenticated PostgreSQL connection using a dedicated local test identity
+- **Authorization control:** Dedicated least-privileged local database role and mutation guard
+- **Integrity control:** Database constraints, transaction behavior and mutation guard
+- **Confidentiality control:** Credentials must remain protected and test data must exclude production personal or payment data
+- **Replay or idempotency control:** NOT_EVIDENCED
+- **Logging control:** Local application logging
+- **Failure behavior:** Mutation guard fails closed when the target is not the approved localhost database
+- **Network restriction:** Localhost-only network restriction
+- **Data-use restriction:** No production-data use
+- **Database-name restriction:** Isolated test database name
+- **Transport-protection status:** NOT_EVIDENCED
+- **Evidence basis:** EV-004, EV-005, EV-006, EV-007
+- **Evidence limitation:** Testing logic limits
 - **Existing evidence IDs:** EV-004, EV-005, EV-006, EV-007
 - **Related gap IDs:** N/A
 - **Related risk IDs:** N/A
@@ -253,7 +287,17 @@ flowchart TD
 - **Identities involved:** DevOps Admin
 - **Data classifications involved:** SECURITY_SENSITIVE, HIGHLY_CONFIDENTIAL
 - **Protocol or interaction type:** HTTPS Console
-- **Authentication control:** EXTERNAL_VALIDATION_REQUIRED\n- **Authorization control:** EXTERNAL_VALIDATION_REQUIRED\n- **Integrity control:** EXTERNAL_VALIDATION_REQUIRED\n- **Confidentiality control:** EXTERNAL_VALIDATION_REQUIRED\n- **Replay or idempotency control:** EXTERNAL_VALIDATION_REQUIRED\n- **Logging control:** EXTERNAL_VALIDATION_REQUIRED\n- **Failure behavior:** EXTERNAL_VALIDATION_REQUIRED\n- **Existing evidence IDs:** N/A\n- **Related gap IDs:** GAP-008\n- **Related risk IDs:** RSK-001, RSK-016\n- **Evidence classification:** EXTERNAL_VALIDATION_REQUIRED
+- **Authentication control:** EXTERNAL_VALIDATION_REQUIRED
+- **Authorization control:** EXTERNAL_VALIDATION_REQUIRED
+- **Integrity control:** EXTERNAL_VALIDATION_REQUIRED
+- **Confidentiality control:** EXTERNAL_VALIDATION_REQUIRED
+- **Replay or idempotency control:** EXTERNAL_VALIDATION_REQUIRED
+- **Logging control:** EXTERNAL_VALIDATION_REQUIRED
+- **Failure behavior:** EXTERNAL_VALIDATION_REQUIRED
+- **Existing evidence IDs:** N/A
+- **Related gap IDs:** GAP-008
+- **Related risk IDs:** RSK-001, RSK-016
+- **Evidence classification:** EXTERNAL_VALIDATION_REQUIRED
 - **Target Phase 5 control:** Phase 5H
 
 ## 3. Trust Boundary Diagram

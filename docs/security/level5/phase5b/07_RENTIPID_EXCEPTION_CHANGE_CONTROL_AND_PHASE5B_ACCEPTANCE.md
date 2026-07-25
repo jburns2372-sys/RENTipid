@@ -122,5 +122,7 @@ Where assignments remain pending, Phase 5C implementation cannot reach operation
 Phase 5B documentation is formally recognized as the baseline for program governance, triggering progression to implementation phases.
 
 **Status:**
-- DOCUMENTATION_BASELINE_ACCEPTED
-- OPERATIONAL_GOVERNANCE_ACTIVE: No (Pending required role assignments)
+- Phase 5B documentation baseline status: DOCUMENTATION_BASELINE_ACCEPTED
+- Operational-governance status: No (Pending required role assignments)
+- Phase 5C documentation/planning entry status: APPROVED
+- Phase 5C operational-acceptance prerequisites: Governance authorities must be formally appointed.
