@@ -93,20 +93,27 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
         token.role = (user as { role?: string }).role;
         token.status = (user as { status?: string }).status;
       }
+
+      if (trigger === 'update') {
+        // Client cannot assert MFA verification.
+        // Server-side state (last_verified_at) is authoritative.
+      }
+
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        const sessionUser = session.user as { id?: unknown; role?: unknown; status?: unknown };
+        const sessionUser = session.user as any;
         sessionUser.id = token.id;
         sessionUser.role = token.role;
         sessionUser.status = token.status;
+        sessionUser.iat = token.iat;
       }
       return session;
     }

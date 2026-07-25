@@ -68,6 +68,7 @@ export async function getCurrentDatabaseUser(userId: string) {
         full_name: true,
         role: true,
         status: true,
+        updated_at: true,
       }
     });
     return user;
@@ -157,7 +158,39 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
       redirect("/dashboard");
     }
 
-    // 4. Return explicit privacy-safe context
+    // 4. Step-up Authentication Enforcement
+    // Privileged SOC operations require recent MFA verification in the authoritative DB.
+    const mfa = await prisma.userMfa.findUnique({ where: { user_id: dbUser.id } });
+    const sessionIat = (sessionUser as any).iat ? (sessionUser as any).iat * 1000 : 0;
+    
+    // Password reset invalidates existing session security state
+    // We use dbUser.updated_at > iat (with a 2 second buffer) to detect password changes or critical user updates
+    if (sessionIat > 0 && dbUser.updated_at.getTime() > sessionIat + 2000) {
+      redirect("/login");
+    }
+
+    // MFA reset invalidates existing session security state
+    if (mfa && mfa.reset_at && sessionIat > 0 && mfa.reset_at.getTime() > sessionIat + 2000) {
+      redirect("/login");
+    }
+
+    const STEP_UP_EXPIRY_MS = 4 * 60 * 60 * 1000; // 4 hours bounded expiry
+    const now = Date.now();
+    let isMfaVerified = false;
+
+    if (mfa && mfa.status === 'ENABLED' && mfa.last_verified_at) {
+      if (now - mfa.last_verified_at.getTime() < STEP_UP_EXPIRY_MS) {
+        isMfaVerified = true;
+      }
+    }
+
+    if (mfa && mfa.status === 'ENABLED' && !isMfaVerified) {
+      redirect("/mfa-challenge");
+    } else if (!mfa || mfa.status !== 'ENABLED') {
+      redirect("/mfa-enroll");
+    }
+
+    // 5. Return explicit privacy-safe context
     return createPrivacySafeAuthorizationContext(dbUser, activePermissions);
 
   } catch (e: unknown) {
@@ -190,6 +223,7 @@ export async function assertSecurityPermissionForService(
         full_name: true,
         role: true,
         status: true,
+        updated_at: true,
       }
     });
     if (!dbUser) {

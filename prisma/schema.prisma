@@ -64,6 +64,9 @@ model User {
   incident_case_notes                IncidentCaseNote[]
   incident_case_evidences            IncidentCaseEvidence[]
 
+  // MFA
+  mfa UserMfa?
+
   // SOC Playbooks & Approvals (Gate 4G)
   created_playbooks     SecurityResponsePlaybook[]         @relation("PlaybookCreator")
   approved_playbooks    SecurityResponsePlaybook[]         @relation("PlaybookApprover")
@@ -72,6 +75,27 @@ model User {
   reviewed_approvals    SecurityResponseApprovalRequest[]  @relation("ApprovalReviewer")
   approval_decisions    SecurityResponseApprovalDecision[] @relation("ApprovalDecisionActor")
   revoked_grants        SecurityResponseApprovalGrant[]    @relation("GrantRevoker")
+}
+
+model UserMfa {
+  id                      String    @id @default(cuid())
+  user_id                 String    @unique
+  status                  String    // "DISABLED" | "ENROLLMENT_PENDING" | "ENABLED" | "RECOVERY_REQUIRED"
+  envelope_version        String
+  envelope_algorithm      String
+  envelope_key_id         String
+  envelope_nonce          String
+  envelope_ciphertext     String
+  envelope_auth_tag       String
+  recovery_code_hashes    String[]
+  recovery_codes_consumed Int       @default(0)
+  security_version        Int       @default(1)
+  enrolled_at             DateTime  @default(now())
+  activated_at            DateTime?
+  last_verified_at        DateTime?
+  reset_at                DateTime?
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
 model UserProfile {

@@ -7,14 +7,15 @@ const prisma = new PrismaClient();
 
 export async function GET(
   request: Request,
-  { params }: { params: { requestId: string } }
+  { params }: { params: Promise<{ requestId: string }> }
 ) {
   try {
+    const { requestId } = await params;
     const user = await requireAuthenticatedUser();
     if (!user) return NextResponse.json({ error: "UNAUTHORIZED" }, { status: 401 });
     const userId = (user as { id: string }).id;
     
-    const result = await getApprovalDetail(prisma, userId, params.requestId);
+    const result = await getApprovalDetail(prisma, userId, requestId);
     if (!result) return NextResponse.json({ error: "NOT_FOUND" }, { status: 404 });
     
     return NextResponse.json(result);

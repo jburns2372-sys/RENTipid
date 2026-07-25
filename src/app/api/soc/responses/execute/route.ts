@@ -11,7 +11,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const hasPermission = await assertSecurityPermissionForService(user.id, SECURITY_PERMISSIONS.RESPONSE_EXECUTE);
+    const hasPermission = await assertSecurityPermissionForService((user as any).id, SECURITY_PERMISSIONS.RESPONSE_EXECUTE);
     if (!hasPermission) {
        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const execution = await executeSecurityResponse(user.id, {
+    const execution = await executeSecurityResponse((user as any).id, {
       incident_case_id,
       playbook_id,
       playbook_version,

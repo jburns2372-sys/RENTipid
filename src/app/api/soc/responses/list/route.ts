@@ -12,7 +12,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const hasPermission = await assertSecurityPermissionForService(user.id, SECURITY_PERMISSIONS.RESPONSE_VIEW);
+    const hasPermission = await assertSecurityPermissionForService((user as any).id, SECURITY_PERMISSIONS.RESPONSE_VIEW);
     if (!hasPermission) {
        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
