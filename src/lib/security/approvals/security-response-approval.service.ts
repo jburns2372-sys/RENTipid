@@ -513,3 +513,82 @@ export async function revokeApprovalGrant(
 
   return { request: { ...request, status: SecurityApprovalStatus.REVOKED }, grant: { ...grant, grant_state: SecurityApprovalGrantState.REVOKED } };
 }
+
+export async function consumeApprovalGrantForExecution(
+  db: ApprovalDatabase,
+  actorUserId: string,
+  input: {
+    grant_id: string;
+    idempotency_key: string;
+  }
+) {
+  assertInTransaction(db);
+
+  const allowed = await assertSecurityPermissionForService(
+    actorUserId,
+    SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
+    db
+  );
+
+  if (!allowed) {
+    throw new ApprovalWriterError('UNAUTHORIZED');
+  }
+
+  const grant = await db.securityResponseApprovalGrant.findUnique({
+    where: { id: input.grant_id },
+    include: { request: true },
+  });
+
+  if (!grant) {
+    throw new ApprovalWriterError('GRANT_NOT_FOUND');
+  }
+
+  if (grant.grant_state !== SecurityApprovalGrantState.AVAILABLE) {
+    throw new ApprovalWriterError('GRANT_NOT_AVAILABLE');
+  }
+
+  if (grant.expires_at < new Date()) {
+    throw new ApprovalWriterError('GRANT_EXPIRED');
+  }
+
+  // Prevent self-execution if the policy requires it
+  if (grant.request.requester_id === actorUserId) {
+    throw new ApprovalWriterError('SELF_EXECUTION_PROHIBITED');
+  }
+
+  const consumedGrant = await db.securityResponseApprovalGrant.update({
+    where: { id: input.grant_id, grant_state: SecurityApprovalGrantState.AVAILABLE },
+    data: {
+      grant_state: SecurityApprovalGrantState.CONSUMED,
+      consumed_at: new Date(),
+    },
+  });
+
+  await db.securityResponseApprovalRequest.update({
+    where: { id: grant.request_id },
+    data: { status: SecurityApprovalStatus.CONSUMED },
+  });
+
+  await db.securityResponseApprovalDecision.create({
+    data: {
+      request_id: grant.request_id,
+      event_type: SecurityApprovalEventType.CONSUMED,
+      actor_id: actorUserId,
+      idempotency_key: input.idempotency_key,
+    },
+  });
+
+  await appendApprovalAudit(db, {
+    actorUserId,
+    action: 'SOC_APPROVAL_GRANT_CONSUMED',
+    targetId: grant.id,
+    permission: SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
+    metadata: {
+      request_id: grant.request_id,
+      incident_case_id: grant.incident_case_id,
+    },
+  });
+
+  return consumedGrant;
+}
+

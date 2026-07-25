@@ -33,6 +33,10 @@ model User {
   providerBookings Booking[]      @relation("ProviderBookings")
   notifications    Notification[]
 
+  // SOC Responses
+  security_response_execution_requests   SecurityResponseExecution[] @relation("ExecutionRequester")
+  security_response_execution_operations SecurityResponseExecution[] @relation("ExecutionOperator")
+
   // Finance
   payments      Payment[]
   ledgerEntries FinanceLedger[]
@@ -1625,6 +1629,7 @@ model IncidentCase {
   playbook_links    IncidentCasePlaybookLink[]
   approval_requests SecurityResponseApprovalRequest[]
   approval_grants   SecurityResponseApprovalGrant[]
+  security_response_executions SecurityResponseExecution[]
 }
 
 model IncidentCaseHistory {
@@ -1704,6 +1709,7 @@ enum SecurityResponseActionType {
   CREDENTIAL_ROTATION
   INFRASTRUCTURE_ENFORCEMENT
   MANUAL_PROCEDURE
+  NOOP_SIMULATION
 }
 
 enum SecurityResponseReversibility {
@@ -1757,6 +1763,7 @@ model SecurityResponsePlaybook {
   steps             SecurityResponseStep[]
   case_links        IncidentCasePlaybookLink[]
   approval_requests SecurityResponseApprovalRequest[]
+  security_response_executions SecurityResponseExecution[]
 
   @@unique([playbook_id, version])
   @@index([status])
@@ -1849,6 +1856,70 @@ model SecurityResponseApprovalGrant {
   revoked_by_id    String?
   revoked_by       User?                           @relation("GrantRevoker", fields: [revoked_by_id], references: [id], onDelete: SetNull)
 
+  execution        SecurityResponseExecution?
+
   @@index([incident_case_id])
   @@index([grant_state, expires_at])
+}
+
+enum SecurityExecutionStatus {
+  PENDING
+  EXECUTING
+  SUCCEEDED
+  FAILED
+  ROLLBACK_PENDING
+  ROLLED_BACK
+  ROLLBACK_FAILED
+  CANCELLED
+}
+
+model SecurityResponseExecution {
+  id                  String                      @id @default(cuid())
+  incident_case_id    String
+  incident_case       IncidentCase                @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  playbook_id         String
+  playbook_version    Int
+  playbook            SecurityResponsePlaybook    @relation(fields: [playbook_id, playbook_version], references: [playbook_id, version], onDelete: Restrict)
+  approval_request_id String
+  approval_grant_id   String                      @unique
+  approval_grant      SecurityResponseApprovalGrant @relation(fields: [approval_grant_id], references: [id], onDelete: Restrict)
+  response_type       SecurityResponseActionType
+  target_type         String
+  target_id           String
+  status              SecurityExecutionStatus     @default(PENDING)
+  idempotency_key     String                      @unique
+  requested_by_id     String
+  requested_by        User                        @relation("ExecutionRequester", fields: [requested_by_id], references: [id], onDelete: Restrict)
+  executed_by_id      String
+  executed_by         User                        @relation("ExecutionOperator", fields: [executed_by_id], references: [id], onDelete: Restrict)
+  started_at          DateTime?
+  completed_at        DateTime?
+  failed_at           DateTime?
+  rolled_back_at      DateTime?
+  failure_code        String?                     @db.Text
+  lock_version        Int                         @default(0)
+  created_at          DateTime                    @default(now())
+  updated_at          DateTime                    @updatedAt
+
+  actions             SecurityResponseAction[]
+
+  @@index([incident_case_id])
+  @@index([status])
+}
+
+model SecurityResponseAction {
+  id                  String                    @id @default(cuid())
+  execution_id        String
+  execution           SecurityResponseExecution @relation(fields: [execution_id], references: [id], onDelete: Restrict)
+  sequence            Int
+  action_type         SecurityResponseActionType
+  target_reference    String
+  before_state        String?                   @db.Text
+  after_state         String?                   @db.Text
+  status              SecurityExecutionStatus   @default(PENDING)
+  executed_at         DateTime?
+  rolled_back_at      DateTime?
+  failure_metadata    String?                   @db.Text
+
+  @@unique([execution_id, sequence])
 }

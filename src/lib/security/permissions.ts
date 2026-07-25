@@ -44,6 +44,7 @@ export const SECURITY_PERMISSIONS = {
   RESPONSE_REJECT: "security.response.reject",
   RESPONSE_CANCEL: "security.response.cancel",
   RESPONSE_REVOKE: "security.response.revoke",
+  RESPONSE_EXECUTE: "security.response.execute",
 
   RULES_VIEW: "security.rules.view",
   RULES_MANAGE: "security.rules.manage", // Unused, keeping for compatibility
@@ -114,6 +115,7 @@ export const SOC_RESPONSE_PERMISSIONS: readonly SecurityPermission[] = [
   SECURITY_PERMISSIONS.RESPONSE_REJECT,
   SECURITY_PERMISSIONS.RESPONSE_CANCEL,
   SECURITY_PERMISSIONS.RESPONSE_REVOKE,
+  SECURITY_PERMISSIONS.RESPONSE_EXECUTE,
 ];
 
 /**
