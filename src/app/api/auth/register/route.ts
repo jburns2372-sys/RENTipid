@@ -49,25 +49,29 @@ export async function POST(req: Request) {
     }
 
     // Resolve storage values based on operating mode
-    let userAddressLegacy = address;
-    let userAddressEncrypted = null;
+    let userAddressLegacy: string | null = address;
+    let userAddressEncrypted: string | null = null;
     
-    let businessAddressLegacy = address;
-    let businessAddressEncrypted = null;
+    let businessAddressLegacy: string | null = address;
+    let businessAddressEncrypted: string | null = null;
     
-    let businessRegLegacy = business_registration_number;
-    let businessRegEncrypted = null;
+    let businessRegistrationNumberLegacy: string | null = business_registration_number;
+    let businessRegistrationNumberEncrypted: string | null = null;
 
     if (mode === ProfileProtectionMode.DUAL_READ_ENCRYPTED_WRITE || mode === ProfileProtectionMode.ENCRYPTED_ONLY) {
       // New writes only go to encrypted companions. Legacy field is null.
       userAddressLegacy = null;
-      if (address) userAddressEncrypted = ProfileFieldProtection.protect(address, ProfileFieldContext.USER_ADDRESS);
-
       businessAddressLegacy = null;
-      if (address) businessAddressEncrypted = ProfileFieldProtection.protect(address, ProfileFieldContext.BUSINESS_ADDRESS);
+      businessRegistrationNumberLegacy = null;
 
-      businessRegLegacy = null;
-      if (business_registration_number) businessRegEncrypted = ProfileFieldProtection.protect(business_registration_number, ProfileFieldContext.BUSINESS_REGISTRATION_NUMBER);
+      if (address) {
+        userAddressEncrypted = ProfileFieldProtection.protect(address, ProfileFieldContext.USER_ADDRESS);
+        businessAddressEncrypted = ProfileFieldProtection.protect(address, ProfileFieldContext.BUSINESS_ADDRESS);
+      }
+      
+      if (business_registration_number) {
+        businessRegistrationNumberEncrypted = ProfileFieldProtection.protect(business_registration_number, ProfileFieldContext.BUSINESS_REGISTRATION_NUMBER);
+      }
     }
 
     // 4. Check duplicate account
@@ -101,8 +105,8 @@ export async function POST(req: Request) {
         data: {
           user_id: user.id,
           business_name: business_name || full_name,
-          business_registration_number: businessRegLegacy !== null ? businessRegLegacy : (mode === ProfileProtectionMode.LEGACY_ONLY ? '' : null),
-          business_registration_number_encrypted: businessRegEncrypted,
+          business_registration_number: businessRegistrationNumberLegacy !== null ? businessRegistrationNumberLegacy : (mode === ProfileProtectionMode.LEGACY_ONLY ? '' : null),
+          business_registration_number_encrypted: businessRegistrationNumberEncrypted,
           business_address: businessAddressLegacy !== null ? businessAddressLegacy : (mode === ProfileProtectionMode.LEGACY_ONLY ? '' : null),
           business_address_encrypted: businessAddressEncrypted,
           authorized_representative: authorized_representative || full_name,

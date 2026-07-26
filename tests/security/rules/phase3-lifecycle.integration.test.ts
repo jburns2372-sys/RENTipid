@@ -17,7 +17,7 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
         id: superAdminUserId,
         email: "gate3h-test-admin@test.com",
         full_name: "Gate3H Test Admin",
-        phone_number: "+15550000003",
+        mobile_number: "+15550000003",
         role: "Super Admin",
         status: "Verified",
         onboarding_step: "Completed"

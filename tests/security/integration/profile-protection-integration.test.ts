@@ -10,7 +10,7 @@ import {
 } from '../../../src/lib/security/crypto/profile-field-protection';
 import { KeyProvider } from '../../../src/lib/security/crypto/key-provider';
 import { FakeKeyProvider } from '../crypto/fake-key-provider';
-import crypto from 'crypto';
+// Removed unused crypto import
 
 const prisma = new PrismaClient();
 let fakeKeyProvider: FakeKeyProvider;
