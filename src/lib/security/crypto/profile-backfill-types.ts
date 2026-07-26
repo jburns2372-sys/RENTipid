@@ -53,9 +53,15 @@ export interface ProfileBackfillKeyPinMetadata {
   version?: string;
 }
 
-export interface ProfileBackfillWriteResult {
+export interface ProfileBackfillStructuredWriteResult {
   outcome: ProfileBackfillRecordOutcome;
-  sanitizedReason?: string;
+  profileType: 'User' | 'Business';
+  fieldsEligible: number;
+  fieldsBackfilled: number;
+  fieldsAlreadyCompliant: number;
+  fieldsNotRequired: number;
+  fieldsQuarantined: number;
+  fieldsConcurrent: number;
 }
 
 export interface ProfileBackfillAggregateWriteResult {
@@ -115,6 +121,7 @@ export interface ProfileBackfillCommandConfig extends ProfileBackfillConfig {
   environment: string;
   acknowledgePlaintextPreserved: boolean;
   confirmationToken: string;
+  syntheticPrefix?: string;
 }
 
 export interface ProfileBackfillReport {

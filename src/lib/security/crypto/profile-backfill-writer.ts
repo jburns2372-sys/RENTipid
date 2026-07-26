@@ -3,7 +3,9 @@ import {
   ProfileBackfillField,
   ProfileBackfillState,
   ProfileBackfillRecordOutcome,
-  ProfileBackfillLockOutcome} from './profile-backfill-types';
+  ProfileBackfillLockOutcome,
+  ProfileBackfillStructuredWriteResult
+} from './profile-backfill-types';
 import { ProfileBackfillClassifier } from './profile-backfill-classifier';
 import { ProfileFieldProtection, ProfileFieldContext } from './profile-field-protection';
 import { KeyProvider, KeyPurpose } from './key-provider';
@@ -11,15 +13,23 @@ import { KeyProvider, KeyPurpose } from './key-provider';
 export class ProfileBackfillWriter {
   private readonly LOCK_ID = 5054321; // Derived hash for rentipid.phase5f.profile-backfill.v1
   private pinnedKeyVersion?: string;
+  private readonly lockPrisma: PrismaClient;
 
   constructor(
     private readonly prisma: PrismaClient,
-    private readonly lockPrisma: PrismaClient,
     private readonly delayFn: (ms: number) => Promise<void> = (ms) => new Promise(r => setTimeout(r, ms))
-  ) {}
+  ) {
+    const dbUrl = process.env.DATABASE_URL;
+    if (!dbUrl) throw new Error('DATABASE_URL missing');
+    const url = new URL(dbUrl);
+    url.searchParams.set('connection_limit', '1');
+    this.lockPrisma = new PrismaClient({
+      datasources: { db: { url: url.toString() } }
+    });
+  }
 
   public async acquireLock(): Promise<ProfileBackfillLockOutcome> {
-    const result: { pg_try_advisory_lock?: boolean; pg_advisory_unlock?: boolean }[] = await this.lockPrisma.$queryRawUnsafe('SELECT pg_try_advisory_lock(' + this.LOCK_ID + ');');
+    const result = await this.lockPrisma.$queryRaw<{ pg_try_advisory_lock?: boolean }[]>`SELECT pg_try_advisory_lock(${this.LOCK_ID})`;
     if (result && result.length > 0 && result[0].pg_try_advisory_lock === true) {
       return ProfileBackfillLockOutcome.LOCK_ACQUIRED;
     }
@@ -28,7 +38,7 @@ export class ProfileBackfillWriter {
 
   public async releaseLock(): Promise<ProfileBackfillLockOutcome> {
     try {
-      const result: { pg_try_advisory_lock?: boolean; pg_advisory_unlock?: boolean }[] = await this.lockPrisma.$queryRawUnsafe('SELECT pg_advisory_unlock(' + this.LOCK_ID + ');');
+      const result = await this.lockPrisma.$queryRaw<{ pg_advisory_unlock?: boolean }[]>`SELECT pg_advisory_unlock(${this.LOCK_ID})`;
       if (result && result.length > 0 && result[0].pg_advisory_unlock === true) {
         return ProfileBackfillLockOutcome.LOCK_RELEASED;
       }
@@ -36,6 +46,10 @@ export class ProfileBackfillWriter {
     } catch {
       return ProfileBackfillLockOutcome.LOCK_RELEASE_FAILED;
     }
+  }
+
+  public async disconnectLock(): Promise<void> {
+    await this.lockPrisma.$disconnect();
   }
 
   public pinKeyVersion(): string {
@@ -52,7 +66,20 @@ export class ProfileBackfillWriter {
     }
   }
 
-  private async retryTransient<T>(operation: () => Promise<T>, retries: number = 3): Promise<T> {
+  private verifyEnvelopeMetadata(ciphertext: string): void {
+    if (!this.pinnedKeyVersion) throw new Error('Key not pinned');
+    let envelope: { keyId?: string };
+    try {
+      envelope = JSON.parse(ciphertext);
+    } catch {
+      throw new Error('Malformed envelope JSON');
+    }
+    if (envelope.keyId !== this.pinnedKeyVersion) {
+      throw new Error('Envelope key version does not match pinned version');
+    }
+  }
+
+  private async retryTransient<T>(operation: () => Promise<T>, retries: number = 2): Promise<T> {
     let attempt = 0;
     while (attempt <= retries) {
       try {
@@ -60,8 +87,7 @@ export class ProfileBackfillWriter {
       } catch (e: Error | unknown) {
         if (attempt >= retries) throw e;
         
-        // Only retry transient DB issues (e.g., deadlock, timeout, connectivity)
-        const msg = e.message?.toLowerCase() || '';
+        const msg = e instanceof Error ? e.message.toLowerCase() : String(e).toLowerCase();
         const isTransient = msg.includes('timeout') || msg.includes('deadlock') || msg.includes('connection');
         if (!isTransient) throw e;
         
@@ -72,13 +98,24 @@ export class ProfileBackfillWriter {
     throw new Error('Unreachable retry state');
   }
 
-  public async processUserProfile(id: string): Promise<ProfileBackfillRecordOutcome> {
+  public async processUserProfile(id: string): Promise<ProfileBackfillStructuredWriteResult> {
+    const res: ProfileBackfillStructuredWriteResult = {
+      outcome: ProfileBackfillRecordOutcome.NOT_REQUIRED,
+      profileType: 'User',
+      fieldsEligible: 0,
+      fieldsBackfilled: 0,
+      fieldsAlreadyCompliant: 0,
+      fieldsNotRequired: 0,
+      fieldsQuarantined: 0,
+      fieldsConcurrent: 0
+    };
+
     return this.retryTransient(async () => {
       this.verifyKeyPinned();
 
       return this.prisma.$transaction(async (tx) => {
         const record = await tx.userProfile.findUnique({ where: { id } });
-        if (!record) return ProfileBackfillRecordOutcome.NOT_REQUIRED;
+        if (!record) return res;
 
         const classification = ProfileBackfillClassifier.classifyField(
           ProfileBackfillField.USER_ADDRESS, 
@@ -87,20 +124,34 @@ export class ProfileBackfillWriter {
         );
 
         if (classification.isQuarantined) {
-           return this.mapQuarantineState(classification.state);
+           res.outcome = this.mapQuarantineState(classification.state);
+           res.fieldsQuarantined = 1;
+           return res;
         }
 
-        if (classification.state !== ProfileBackfillState.LEGACY_ONLY) {
-          return ProfileBackfillRecordOutcome.ALREADY_COMPLIANT; 
+        if (classification.state === ProfileBackfillState.ABSENT) {
+          res.outcome = ProfileBackfillRecordOutcome.NOT_REQUIRED;
+          res.fieldsNotRequired = 1;
+          return res;
         }
 
+        if (classification.state === ProfileBackfillState.ENCRYPTED_ONLY || classification.state === ProfileBackfillState.DUAL_MATCH) {
+          res.outcome = ProfileBackfillRecordOutcome.ALREADY_COMPLIANT;
+          res.fieldsAlreadyCompliant = 1;
+          return res;
+        }
+
+        res.fieldsEligible = 1;
         const legacyValue = record.address;
         if (legacyValue === null || legacyValue === undefined) {
-           return ProfileBackfillRecordOutcome.NOT_REQUIRED;
+           res.outcome = ProfileBackfillRecordOutcome.NOT_REQUIRED;
+           res.fieldsNotRequired = 1;
+           res.fieldsEligible = 0;
+           return res;
         }
 
         const encrypted = ProfileFieldProtection.protect(legacyValue, ProfileFieldContext.USER_ADDRESS);
-        
+        this.verifyEnvelopeMetadata(encrypted);
         this.verifyKeyPinned();
 
         const updateResult = await tx.userProfile.updateMany({
@@ -115,7 +166,9 @@ export class ProfileBackfillWriter {
         });
 
         if (updateResult.count === 0) {
-          return ProfileBackfillRecordOutcome.SKIPPED_CONCURRENT_CHANGE;
+          res.outcome = ProfileBackfillRecordOutcome.SKIPPED_CONCURRENT_CHANGE;
+          res.fieldsConcurrent = 1;
+          return res;
         }
         if (updateResult.count > 1) {
           throw new Error('Invariant violation: update count > 1');
@@ -131,18 +184,31 @@ export class ProfileBackfillWriter {
            throw new Error('Verification failure: decrypted companion does not match legacy value');
         }
 
-        return ProfileBackfillRecordOutcome.BACKFILLED;
+        res.outcome = ProfileBackfillRecordOutcome.BACKFILLED;
+        res.fieldsBackfilled = 1;
+        return res;
       });
     });
   }
 
-  public async processBusinessProfile(id: string): Promise<ProfileBackfillRecordOutcome> {
+  public async processBusinessProfile(id: string): Promise<ProfileBackfillStructuredWriteResult> {
+    const res: ProfileBackfillStructuredWriteResult = {
+      outcome: ProfileBackfillRecordOutcome.NOT_REQUIRED,
+      profileType: 'Business',
+      fieldsEligible: 0,
+      fieldsBackfilled: 0,
+      fieldsAlreadyCompliant: 0,
+      fieldsNotRequired: 0,
+      fieldsQuarantined: 0,
+      fieldsConcurrent: 0
+    };
+
     return this.retryTransient(async () => {
       this.verifyKeyPinned();
 
       return this.prisma.$transaction(async (tx) => {
         const record = await tx.businessProfile.findUnique({ where: { id } });
-        if (!record) return ProfileBackfillRecordOutcome.NOT_REQUIRED;
+        if (!record) return res;
 
         const addrCls = ProfileBackfillClassifier.classifyField(
           ProfileBackfillField.BUSINESS_ADDRESS,
@@ -155,31 +221,42 @@ export class ProfileBackfillWriter {
           record.business_registration_number_encrypted
         );
 
-        if (addrCls.isQuarantined) return this.mapQuarantineState(addrCls.state);
-        if (regCls.isQuarantined) return this.mapQuarantineState(regCls.state);
-
-        const addrEligible = addrCls.state === ProfileBackfillState.LEGACY_ONLY;
-        const regEligible = regCls.state === ProfileBackfillState.LEGACY_ONLY;
-
-        if (!addrEligible && !regEligible) {
-          return ProfileBackfillRecordOutcome.ALREADY_COMPLIANT;
+        if (addrCls.isQuarantined || regCls.isQuarantined) {
+          res.outcome = addrCls.isQuarantined ? this.mapQuarantineState(addrCls.state) : this.mapQuarantineState(regCls.state);
+          res.fieldsQuarantined = (addrCls.isQuarantined ? 1 : 0) + (regCls.isQuarantined ? 1 : 0);
+          return res;
         }
 
-        const updateWhere: Error | unknown = { id };
+        if (addrCls.state === ProfileBackfillState.ABSENT) res.fieldsNotRequired++;
+        else if (addrCls.state === ProfileBackfillState.ENCRYPTED_ONLY || addrCls.state === ProfileBackfillState.DUAL_MATCH) res.fieldsAlreadyCompliant++;
+        else res.fieldsEligible++;
+
+        if (regCls.state === ProfileBackfillState.ABSENT) res.fieldsNotRequired++;
+        else if (regCls.state === ProfileBackfillState.ENCRYPTED_ONLY || regCls.state === ProfileBackfillState.DUAL_MATCH) res.fieldsAlreadyCompliant++;
+        else res.fieldsEligible++;
+
+        if (res.fieldsEligible === 0) {
+          res.outcome = ProfileBackfillRecordOutcome.ALREADY_COMPLIANT;
+          return res;
+        }
+
+        const updateWhere: Record<string, unknown> = { id };
         const updateData: Record<string, unknown> = {};
         
         let encryptedAddr: string | null = null;
         let encryptedReg: string | null = null;
 
-        if (addrEligible && record.business_address !== null && record.business_address !== undefined) {
+        if (addrCls.state === ProfileBackfillState.LEGACY_ONLY && record.business_address !== null && record.business_address !== undefined) {
            encryptedAddr = ProfileFieldProtection.protect(record.business_address, ProfileFieldContext.BUSINESS_ADDRESS);
+           this.verifyEnvelopeMetadata(encryptedAddr);
            updateWhere.business_address_encrypted = null;
            updateWhere.business_address = record.business_address;
            updateData.business_address_encrypted = encryptedAddr;
         }
 
-        if (regEligible && record.business_registration_number !== null && record.business_registration_number !== undefined) {
+        if (regCls.state === ProfileBackfillState.LEGACY_ONLY && record.business_registration_number !== null && record.business_registration_number !== undefined) {
            encryptedReg = ProfileFieldProtection.protect(record.business_registration_number, ProfileFieldContext.BUSINESS_REGISTRATION_NUMBER);
+           this.verifyEnvelopeMetadata(encryptedReg);
            updateWhere.business_registration_number_encrypted = null;
            updateWhere.business_registration_number = record.business_registration_number;
            updateData.business_registration_number_encrypted = encryptedReg;
@@ -193,7 +270,9 @@ export class ProfileBackfillWriter {
         });
 
         if (updateResult.count === 0) {
-          return ProfileBackfillRecordOutcome.SKIPPED_CONCURRENT_CHANGE;
+          res.outcome = ProfileBackfillRecordOutcome.SKIPPED_CONCURRENT_CHANGE;
+          res.fieldsConcurrent = res.fieldsEligible;
+          return res;
         }
         if (updateResult.count > 1) {
           throw new Error('Invariant violation: update count > 1');
@@ -202,19 +281,21 @@ export class ProfileBackfillWriter {
         const verifiedRecord = await tx.businessProfile.findUnique({ where: { id } });
         if (!verifiedRecord) throw new Error('Verification failure: record vanished');
 
-        if (addrEligible) {
+        if (addrCls.state === ProfileBackfillState.LEGACY_ONLY) {
           if (verifiedRecord.business_address !== record.business_address) throw new Error('Verification failure: addr legacy altered');
           const rd = ProfileFieldProtection.read(verifiedRecord.business_address_encrypted, null, ProfileFieldContext.BUSINESS_ADDRESS);
           if (rd.value !== record.business_address) throw new Error('Verification failure: addr mismatch');
         }
 
-        if (regEligible) {
+        if (regCls.state === ProfileBackfillState.LEGACY_ONLY) {
           if (verifiedRecord.business_registration_number !== record.business_registration_number) throw new Error('Verification failure: reg legacy altered');
           const rd = ProfileFieldProtection.read(verifiedRecord.business_registration_number_encrypted, null, ProfileFieldContext.BUSINESS_REGISTRATION_NUMBER);
           if (rd.value !== record.business_registration_number) throw new Error('Verification failure: reg mismatch');
         }
 
-        return ProfileBackfillRecordOutcome.BACKFILLED;
+        res.outcome = ProfileBackfillRecordOutcome.BACKFILLED;
+        res.fieldsBackfilled = res.fieldsEligible;
+        return res;
       });
     });
   }
@@ -228,4 +309,3 @@ export class ProfileBackfillWriter {
     }
   }
 }
-

@@ -12,7 +12,7 @@ import { createHash } from 'node:crypto';
 export class ProfileBackfillDryRun {
   constructor(private readonly prisma: PrismaClient) {}
 
-  public async scan(batchSize: number = 10): Promise<ProfileBackfillReport> {
+  public async scan(batchSize: number = 10, syntheticPrefix?: string): Promise<ProfileBackfillReport> {
     if (batchSize < 1) throw new Error('Batch size must be positive');
     if (batchSize > 1000) throw new Error('Batch size exceeds maximum limit');
 
@@ -23,8 +23,9 @@ export class ProfileBackfillDryRun {
     try {
       const activeKey = KeyProvider.getActiveKey(KeyPurpose.FIELD_ENCRYPTION);
       pinnedKeyVersion = activeKey.id;
-    } catch (e: any) {
-      throw new Error('Key provider failure: ' + e.message);
+    } catch (e: Error | unknown) {
+      const msg = e instanceof Error ? e.message : String(e);
+      throw new Error('Key provider failure: ' + msg);
     }
 
     const counters: ProfileBackfillCounters = {
@@ -51,6 +52,7 @@ export class ProfileBackfillDryRun {
     let lastUserId: string | undefined = undefined;
     while (true) {
       const batch = await this.prisma.userProfile.findMany({
+        where: syntheticPrefix ? { id: { startsWith: syntheticPrefix } } : undefined,
         take: batchSize,
         skip: lastUserId ? 1 : 0,
         cursor: lastUserId ? { id: lastUserId } : undefined,
@@ -85,6 +87,7 @@ export class ProfileBackfillDryRun {
     let lastBusinessId: string | undefined = undefined;
     while (true) {
       const batch = await this.prisma.businessProfile.findMany({
+        where: syntheticPrefix ? { id: { startsWith: syntheticPrefix } } : undefined,
         take: batchSize,
         skip: lastBusinessId ? 1 : 0,
         cursor: lastBusinessId ? { id: lastBusinessId } : undefined,
