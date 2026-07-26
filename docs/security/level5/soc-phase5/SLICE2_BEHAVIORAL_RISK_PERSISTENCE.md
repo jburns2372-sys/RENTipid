@@ -12,7 +12,7 @@ To provide the minimum additive persistence and read-only investigation data lay
 - **Foundation**: Slice 1 (Explainable Behavioral Intelligence Foundation) is restored and remains completely unchanged.
 
 ### Schema and Migration
-The existing Slice 2 additive schema and migration are accepted and unchanged. It utilizes a three-structure design:
+The existing Slice 2 additive schema and migration are accepted and unchanged. No migration reapplication occurred. It utilizes a three-structure design:
 - `BehavioralRiskAssessment`
 - `BehavioralRiskSignal`
 - `BehavioralRiskEvidenceLink`
@@ -54,46 +54,29 @@ Three read functions were implemented in `behavioral-risk.queries.ts`:
 - Contains no authorization or mutation logic.
 
 ### 20-Behavior Test Matrix
-The integration test suite (`tests/security/intelligence/behavioral-risk.persistence.integration.test.ts`) executed on the guarded isolated local PostgreSQL test database, successfully asserting:
+The integration test suite (`tests/security/intelligence/behavioral-risk.persistence.integration.test.ts`) executed on the guarded isolated local PostgreSQL test database, successfully asserting 20 required behaviors.
 
-1. **Atomic assessment, signal, and evidence-link persistence**
-2. **Identical logical assessment is idempotent**
-3. **Concurrent duplicates result in one assessment**
-4. **Score below 0 and above 100 rejected**
-5. **advisoryOnly false rejected**
-6. **Malformed dates rejected**
-7. **Duplicate signal codes rejected**
-8. **Duplicate evidence IDs normalize safely**
-9. **Missing SecurityEvent ID rejected before persistence**
-10. **Existing SecurityEvent rows remain unchanged**
-11. **Assessment-by-ID returns the correct privacy-safe record**
-12. **Latest assessment query returns the correct record**
-13. **History ordering is deterministic**
-14. **Maximum page size is enforced**
-15. **Environment isolation**
-16. **Lifecycle isolation**
-17. **Subject isolation**
-18. **Signals link to exact evidence IDs without raw metadata**
-19. **No alert or incident case is created**
-20. **No response, approval, permission, account, marketplace, or payment mutation occurs**
-
-**Exact Test Totals**:
-- 1 suite passed
+**Exact Inherited Test Totals**:
+- 1 focused suite passed
 - 20 tests passed
 - 0 failed or skipped
 
-### Validation Results
-- **Changed-File ESLint**: 0 errors on target changed files.
-- **TypeScript Classification**: Zero new Slice 2 errors. Inherited phase 3 test typing issues accurately reported without modification.
-- **Build**: Production build completed successfully.
+### Validation History and R2 Correction
+- **R1 Context**: The initial R1 TypeScript result occurred before the final import-related edit and was therefore not final evidence. The initial R1 build failed because `BehavioralSignalCode` was used but not imported.
+- **R2 Context**: R2 added the missing type import without runtime or behavioral changes. Integration tests and ESLint were not repeated because the R2 production change was type-import-only. Inherited targeted ESLint result is 0 errors.
+- **R2 TypeScript Validation**: Completed. Zero new Slice 2 errors or persistence errors. (Command: `node --max-old-space-size=8192 node_modules/typescript/bin/tsc --noEmit`, Exit code: 1 due to existing inherited Phase 3 test typing issues).
+- **R2 Build Validation**: Production build completed successfully without Slice 1 or Slice 2 errors. Checkout and protected-route corrections remain intact. (Command: `npx cross-env NODE_ENV=production dotenv -e .env.test.local -e .env.test -- npm run build`, Exit code: 0).
+- **R2 Commit**: `fix(security): finalize Slice 2 build evidence` (committed following this document's creation).
 
-### Prohibitions Verified
-- No schema or migration changes were made.
-- No database reset or global seed occurred.
-- No API, dashboard, or React components were added.
-- No AI or automatic schedulers were implemented.
-- No production database, push, or deployment access occurred.
-- No alerts, cases, or automatic enforcement workflows were triggered.
+### Boundary and Compliance Statements
+- Complete repository production readiness is not claimed solely by this slice.
+- No schema modification or migration reapplication.
+- No database access during R2.
+- No API or dashboard.
+- No AI.
+- No autonomous enforcement.
+- No production access, push, or deployment.
+- This document does not claim certification, compliance, external assurance, or autonomous intelligence.
 
 ### Next Planned Slice
 The next planned slice will build the protected investigation API and Phase 5 dashboard read interface over these queries.

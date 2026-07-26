@@ -5,6 +5,7 @@ import {
   BehavioralRiskSignal,
   RiskBand,
   RiskConfidence,
+  BehavioralSignalCode,
 } from "./behavioral-risk.types";
 import { DEFAULT_BEHAVIORAL_POLICY } from "./behavioral-risk.policy";
 
