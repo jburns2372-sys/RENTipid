@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { requireAuthenticatedUser, assertSecurityPermissionForService } from '@/lib/security/authorization';
+import { requireAuthenticatedUser, assertSecurityPermissionForService, getValidSessionIdentity } from '@/lib/security/authorization';
 import { SECURITY_PERMISSIONS } from '@/lib/security/permissions';
 import { PrismaClient } from '@prisma/client';
 
@@ -12,7 +12,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const hasPermission = await assertSecurityPermissionForService((user as any).id, SECURITY_PERMISSIONS.RESPONSE_VIEW);
+    const hasPermission = await assertSecurityPermissionForService(getValidSessionIdentity({ user }), SECURITY_PERMISSIONS.RESPONSE_VIEW);
     if (!hasPermission) {
        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
@@ -53,3 +53,4 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
+

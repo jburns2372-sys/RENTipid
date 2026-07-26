@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { requireAuthenticatedUser } from '@/lib/security/authorization';
+import { requireAuthenticatedUser, getValidSessionIdentity } from '@/lib/security/authorization';
 import { PrismaClient } from '@prisma/client';
 import { getApprovalDetail } from '@/lib/security/approvals/approval-read.service';
 
@@ -7,15 +7,14 @@ const prisma = new PrismaClient();
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ requestId: string }> }
+  { params }: { params: { requestId: string } }
 ) {
   try {
-    const { requestId } = await params;
     const user = await requireAuthenticatedUser();
     if (!user) return NextResponse.json({ error: "UNAUTHORIZED" }, { status: 401 });
-    const userId = (user as { id: string }).id;
+    const userId = getValidSessionIdentity({ user });
     
-    const result = await getApprovalDetail(prisma, userId, requestId);
+    const result = await getApprovalDetail(prisma, userId, params.requestId);
     if (!result) return NextResponse.json({ error: "NOT_FOUND" }, { status: 404 });
     
     return NextResponse.json(result);

@@ -11,7 +11,7 @@ import { createHash } from 'crypto';
 
 const prisma = new PrismaClient();
 
-export async function validateCheckoutRequestId(rawId: any): Promise<string> {
+export function validateCheckoutRequestId(rawId: any): string {
   if (!rawId || typeof rawId !== 'string') {
     throw new Error("Missing or invalid checkout operation identity");
   }
@@ -36,7 +36,7 @@ export async function validateCheckoutRequestId(rawId: any): Promise<string> {
   return trimmedKey;
 }
 
-export async function deriveCheckoutIdempotencyKey(userId: string, bookingId: string, requestId: string): Promise<string> {
+export function deriveCheckoutIdempotencyKey(userId: string, bookingId: string, requestId: string): string {
   const idempotencyRaw = `RENTIPID_CHECKOUT_V1|${userId}|${bookingId}|${requestId}`;
   return createHash('sha256').update(idempotencyRaw).digest('hex');
 }
@@ -50,7 +50,7 @@ export async function processCheckout(formData: FormData) {
   const paymentMode = formData.get('payment_mode') as string;
   const rawIdempotencyKey = formData.get('checkout_request_id');
 
-  const idempotencyKey = await validateCheckoutRequestId(rawIdempotencyKey);
+  const idempotencyKey = validateCheckoutRequestId(rawIdempotencyKey);
 
   const booking = await prisma.booking.findUnique({
     where: { id: bookingId },
@@ -83,7 +83,7 @@ export async function processCheckout(formData: FormData) {
     const isHttps = appBaseUrl.startsWith('https://') && !appBaseUrl.includes('localhost') && !appBaseUrl.includes('127.0.0.1') && !appBaseUrl.includes('0.0.0.0');
 
     // Derive server-scoped idempotency digest early for authoritative telemetry tracking
-    serverScopedIdempotencyKey = await deriveCheckoutIdempotencyKey(user.id, booking.id, idempotencyKey);
+    serverScopedIdempotencyKey = deriveCheckoutIdempotencyKey(user.id, booking.id, idempotencyKey);
 
     if (s['PAYMENT_EMERGENCY_FREEZE'] === 'true') {
       type CheckoutTransactionResult = {
@@ -150,7 +150,7 @@ export async function processCheckout(formData: FormData) {
     }
   } else {
     // For non-paymongo_live_pilot modes, we still need idempotency key
-    serverScopedIdempotencyKey = await deriveCheckoutIdempotencyKey(user.id, booking.id, idempotencyKey);
+    serverScopedIdempotencyKey = deriveCheckoutIdempotencyKey(user.id, booking.id, idempotencyKey);
   }
 
   let transaction;

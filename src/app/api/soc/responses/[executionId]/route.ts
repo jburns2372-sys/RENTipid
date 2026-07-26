@@ -1,29 +1,28 @@
 import { NextResponse } from 'next/server';
-import { requireAuthenticatedUser, assertSecurityPermissionForService } from '@/lib/security/authorization';
+import { requireAuthenticatedUser, assertSecurityPermissionForService, getValidSessionIdentity } from '@/lib/security/authorization';
 import { SECURITY_PERMISSIONS } from '@/lib/security/permissions';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function GET(req: Request, { params }: { params: Promise<{ executionId: string }> }) {
+export async function GET(req: Request, { params }: { params: { executionId: string } }) {
   try {
-    const { executionId } = await params;
     const user = await requireAuthenticatedUser();
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const hasPermission = await assertSecurityPermissionForService((user as any).id, SECURITY_PERMISSIONS.RESPONSE_VIEW);
+    const hasPermission = await assertSecurityPermissionForService(getValidSessionIdentity({ user }), SECURITY_PERMISSIONS.RESPONSE_VIEW);
     if (!hasPermission) {
        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
-    if (!executionId) {
+    if (!params.executionId) {
       return NextResponse.json({ error: 'Missing execution ID' }, { status: 400 });
     }
 
     const execution = await prisma.securityResponseExecution.findUnique({
-      where: { id: executionId },
+      where: { id: params.executionId },
       include: {
         actions: {
           orderBy: { sequence: 'asc' },

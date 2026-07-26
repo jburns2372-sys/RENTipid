@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { requireAuthenticatedUser } from '@/lib/security/authorization';
+import { requireAuthenticatedUser, getValidSessionIdentity } from '@/lib/security/authorization';
 import { PrismaClient } from '@prisma/client';
 import { listPlaybooks } from '@/lib/security/playbooks/playbook-read.service';
 
@@ -9,7 +9,7 @@ export async function GET(request: Request) {
   try {
     const user = await requireAuthenticatedUser();
     if (!user) return NextResponse.json({ error: "UNAUTHORIZED" }, { status: 401 });
-    const userId = (user as { id: string }).id;
+    const userId = getValidSessionIdentity({ user });
     
     const { searchParams } = new URL(request.url);
     const limit = parseInt(searchParams.get('limit') || '25');
@@ -24,3 +24,4 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "INTERNAL_SERVER_ERROR" }, { status: 500 });
   }
 }
+

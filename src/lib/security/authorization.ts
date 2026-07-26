@@ -45,6 +45,24 @@ export type DenialCategory =
   | "SOC_ACCESS_DENIED_PERMISSION"
   | "SOC_ACCESS_DENIED_AUTHORIZATION_SERVICE_FAILURE";
 
+export function getValidSessionIdentity(session: unknown): string {
+  if (
+    session &&
+    typeof session === "object" &&
+    "user" in session &&
+    session.user &&
+    typeof session.user === "object" &&
+    "id" in session.user &&
+    typeof (session.user as { id: unknown }).id === "string"
+  ) {
+    const id = (session.user as { id: string }).id.trim();
+    if (id !== "") {
+      return id;
+    }
+  }
+  throw new Error("UNAUTHORIZED_SESSION_IDENTITY");
+}
+
 export async function requireAuthenticatedUser() {
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
@@ -138,9 +156,10 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
     }
 
     // 1. Force PostgreSQL authoritative check (override JWT)
-    const dbUser = await getCurrentDatabaseUser((sessionUser as { id: string }).id);
+    const validUserId = getValidSessionIdentity({ user: sessionUser });
+    const dbUser = await getCurrentDatabaseUser(validUserId);
     if (!dbUser) {
-      await recordSecurityAccessDenied((sessionUser as { id: string }).id, "SOC_ACCESS_DENIED_USER_NOT_FOUND", permission);
+      await recordSecurityAccessDenied(validUserId, "SOC_ACCESS_DENIED_USER_NOT_FOUND", permission);
       redirect("/login");
     }
 

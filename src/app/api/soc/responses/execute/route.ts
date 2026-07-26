@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { executeSecurityResponse, ExecutionError } from '@/lib/security/responses/execution.service';
-import { requireAuthenticatedUser, assertSecurityPermissionForService } from '@/lib/security/authorization';
+import { requireAuthenticatedUser, assertSecurityPermissionForService, getValidSessionIdentity } from '@/lib/security/authorization';
 import { SECURITY_PERMISSIONS } from '@/lib/security/permissions';
 import { SecurityResponseActionType } from '@prisma/client';
 
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const hasPermission = await assertSecurityPermissionForService((user as any).id, SECURITY_PERMISSIONS.RESPONSE_EXECUTE);
+    const hasPermission = await assertSecurityPermissionForService(getValidSessionIdentity({ user }), SECURITY_PERMISSIONS.RESPONSE_EXECUTE);
     if (!hasPermission) {
        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const execution = await executeSecurityResponse((user as any).id, {
+    const execution = await executeSecurityResponse(getValidSessionIdentity({ user }), {
       incident_case_id,
       playbook_id,
       playbook_version,
@@ -44,3 +44,4 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
+

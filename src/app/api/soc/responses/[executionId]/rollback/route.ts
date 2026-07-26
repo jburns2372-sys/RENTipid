@@ -1,26 +1,25 @@
 import { NextResponse } from 'next/server';
 import { rollbackSecurityResponse, ExecutionError } from '@/lib/security/responses/execution.service';
-import { requireAuthenticatedUser, assertSecurityPermissionForService } from '@/lib/security/authorization';
+import { requireAuthenticatedUser, assertSecurityPermissionForService, getValidSessionIdentity } from '@/lib/security/authorization';
 import { SECURITY_PERMISSIONS } from '@/lib/security/permissions';
 
-export async function POST(req: Request, { params }: { params: Promise<{ executionId: string }> }) {
+export async function POST(req: Request, { params }: { params: { executionId: string } }) {
   try {
-    const { executionId } = await params;
     const user = await requireAuthenticatedUser();
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const hasPermission = await assertSecurityPermissionForService((user as any).id, SECURITY_PERMISSIONS.RESPONSE_ROLLBACK);
+    const hasPermission = await assertSecurityPermissionForService(getValidSessionIdentity({ user }), SECURITY_PERMISSIONS.RESPONSE_ROLLBACK);
     if (!hasPermission) {
        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
-    if (!executionId) {
+    if (!params.executionId) {
       return NextResponse.json({ error: 'Missing execution ID' }, { status: 400 });
     }
 
-    const execution = await rollbackSecurityResponse((user as any).id, executionId);
+    const execution = await rollbackSecurityResponse(getValidSessionIdentity({ user }), params.executionId);
 
     return NextResponse.json(execution, { status: 200 });
   } catch (error: any) {

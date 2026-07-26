@@ -1,15 +1,26 @@
+import { randomBytes } from 'crypto';
+process.env.MFA_ENCRYPTION_KEY_ID = 'test_v1';
+process.env.MFA_ENCRYPTION_KEY = randomBytes(32).toString('hex');
 import { MfaService } from '../../src/lib/security/auth/mfa-service';
 import { PrismaClient } from '@prisma/client';
 import { authenticator } from 'otplib';
 
-jest.mock('otplib', () => ({
-  authenticator: {
-    generateSecret: jest.fn(() => 'MOCKED_SECRET_12345678'),
-    keyuri: jest.fn((user, issuer, secret) => `otpauth://totp/${issuer}:${user}?secret=${secret}&issuer=${issuer}`),
-    generate: jest.fn(() => '123456'),
-    verify: jest.fn(({ token, secret }) => token === '123456' && secret === 'MOCKED_SECRET_12345678')
-  }
-}));
+jest.mock('otplib', () => {
+  const generateSecret = jest.fn(() => 'MOCKED_SECRET_12345678');
+  const generateURI = jest.fn(() => `otpauth://totp/RENTipid:test@example.com?secret=MOCKED_SECRET_12345678&issuer=RENTipid`);
+  const verifySync = jest.fn(({ token, secret }) => ({ valid: token === '123456' && secret === 'MOCKED_SECRET_12345678' }));
+  return {
+    generateSecret,
+    generateURI,
+    verifySync,
+    authenticator: {
+      generateSecret,
+      keyuri: jest.fn(() => `otpauth://totp/RENTipid:test@example.com?secret=MOCKED_SECRET_12345678&issuer=RENTipid`),
+      generate: jest.fn(() => '123456'),
+      verify: jest.fn(({ token, secret }) => token === '123456' && secret === 'MOCKED_SECRET_12345678')
+    }
+  };
+});
 
 const prisma = new PrismaClient();
 

@@ -1,3 +1,6 @@
+import { randomBytes } from 'crypto';
+process.env.MFA_ENCRYPTION_KEY_ID = 'test_v1';
+process.env.MFA_ENCRYPTION_KEY = randomBytes(32).toString('hex');
 import { requireSecurityPermission, assertSecurityPermissionForService } from '../../src/lib/security/authorization';
 import { PrismaClient } from '@prisma/client';
 import { getServerSession } from 'next-auth';
@@ -8,7 +11,7 @@ jest.mock('next-auth', () => ({
 }));
 
 jest.mock('next/navigation', () => ({
-  redirect: jest.fn()
+  redirect: jest.fn().mockImplementation(() => { throw new Error('NEXT_REDIRECT'); })
 }));
 
 const prisma = new PrismaClient();
@@ -85,8 +88,7 @@ describe('MFA Authorization Integration', () => {
       user: { id: testUserFinanceId, iat: Math.floor(Date.now() / 1000) }
     });
 
-    await requireSecurityPermission('security.response.execute');
-    // Finance Admin lacks RESPOND_INCIDENT. Should redirect to dashboard.
+    try { await requireSecurityPermission('security.response.execute'); } catch(e) {}
     expect(redirect).toHaveBeenCalledWith('/dashboard');
   });
 
@@ -111,8 +113,7 @@ describe('MFA Authorization Integration', () => {
       user: { id: testUserId, iat: Math.floor(Date.now() / 1000) }
     });
 
-    await requireSecurityPermission('security.response.execute');
-    // Admin has permission, but step-up is expired.
+    try { await requireSecurityPermission('security.response.execute'); } catch(e) {}
     expect(redirect).toHaveBeenCalledWith('/mfa-challenge');
   });
 
@@ -168,7 +169,7 @@ describe('MFA Authorization Integration', () => {
     expect(context).toBeDefined();
 
     // Should fail for write
-    await requireSecurityPermission('security.response.execute');
+    try { await requireSecurityPermission('security.response.execute'); } catch(e) {}
     expect(redirect).toHaveBeenCalledWith('/dashboard');
   });
 
@@ -195,7 +196,7 @@ describe('MFA Authorization Integration', () => {
 
     // We don't spy on logAdministrationEvent directly here to avoid breaking module boundaries,
     // but we can check if it redirects without throwing error.
-    await requireSecurityPermission('RESPOND_INCIDENT');
+    try { await requireSecurityPermission('RESPOND_INCIDENT' as any); } catch(e) {}
     expect(redirect).toHaveBeenCalledWith('/dashboard');
   });
 });
