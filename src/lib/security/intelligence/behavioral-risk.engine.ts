@@ -102,6 +102,8 @@ export function evaluateBehavioralRisk(
       contributingSignals: [],
       evidenceEventIds: [],
       sourceDiversity: 0,
+      environment: context.environment,
+      lifecycle: context.lifecycle,
       advisoryOnly: true,
     };
   }
@@ -208,6 +210,8 @@ export function evaluateBehavioralRisk(
     contributingSignals: signals,
     evidenceEventIds: allEvidenceIds,
     sourceDiversity: sourceCount,
+    environment: context.environment,
+    lifecycle: context.lifecycle,
     advisoryOnly: true,
   };
 }

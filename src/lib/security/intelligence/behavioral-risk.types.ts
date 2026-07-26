@@ -54,5 +54,7 @@ export interface BehavioralRiskAssessment {
   contributingSignals: BehavioralRiskSignal[];
   evidenceEventIds: string[];
   sourceDiversity: number;
+  environment: SecurityEnvironment;
+  lifecycle: SecurityLifecycle;
   advisoryOnly: true;
 }

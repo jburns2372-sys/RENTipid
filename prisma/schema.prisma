@@ -1279,6 +1279,8 @@ model SecurityEvent {
   @@index([target_user_id, occurred_at])
   @@index([target_resource_id, occurred_at])
   @@index([correlation_key, occurred_at])
+
+  behavioral_evidence_links BehavioralRiskEvidenceLink[]
 }
 
 model SecurityEventIngestionFailure {
@@ -1949,4 +1951,64 @@ model SecurityResponseAction {
   failure_metadata    String?                   @db.Text
 
   @@unique([execution_id, sequence])
+}
+
+// ----------------------------------------------------------------------
+// Phase 5: Behavioral Risk Engine (Slice 2 Persistence)
+// ----------------------------------------------------------------------
+
+model BehavioralRiskAssessment {
+  id                String              @id @default(cuid())
+  subject_reference String
+  score             Int
+  risk_band         String
+  confidence        String
+  policy_version    String
+  environment       SecurityEnvironment
+  lifecycle         SecurityLifecycle
+  window_start      DateTime
+  window_end        DateTime
+  generated_time    DateTime
+  advisory_only     Boolean             @default(true)
+  source_diversity  Int
+  fingerprint       String              @unique
+  created_at        DateTime            @default(now())
+
+  signals BehavioralRiskSignal[]
+
+  @@index([subject_reference, environment, lifecycle])
+  @@index([environment, lifecycle])
+  @@index([generated_time])
+  @@index([policy_version])
+}
+
+model BehavioralRiskSignal {
+  id               String                   @id @default(cuid())
+  assessment_id    String
+  assessment       BehavioralRiskAssessment @relation(fields: [assessment_id], references: [id], onDelete: Cascade)
+  signal_code      String
+  title            String
+  explanation      String
+  raw_weight       Int
+  effective_weight Int
+  confidence       String
+  first_observed   DateTime
+  last_observed    DateTime
+  source_count     Int
+  sort_ordinal     Int
+
+  evidence_links   BehavioralRiskEvidenceLink[]
+
+  @@unique([assessment_id, signal_code])
+}
+
+model BehavioralRiskEvidenceLink {
+  signal_id         String
+  signal            BehavioralRiskSignal @relation(fields: [signal_id], references: [id], onDelete: Cascade)
+  security_event_id String
+  security_event    SecurityEvent        @relation(fields: [security_event_id], references: [id], onDelete: Restrict)
+  created_at        DateTime             @default(now())
+
+  @@id([signal_id, security_event_id])
+  @@index([security_event_id])
 }
