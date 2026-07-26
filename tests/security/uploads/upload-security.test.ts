@@ -3,19 +3,20 @@ import { validateUploadRequest, FINANCE_UPLOAD_POLICY, KYC_DOCUMENT_POLICY, LIST
 describe('Shared Upload Security Module', () => {
   const createMockFile = (name: string, type: string, size: number, firstHex: string = ''): File => {
     // We simulate enough of the ArrayBuffer for signature validation
-    let buffer: Buffer;
-    if (firstHex) {
-      buffer = Buffer.alloc(Math.max(16, size));
-      buffer.fill(0x20); // space
-      Buffer.from(firstHex, 'hex').copy(buffer, 0);
-    } else {
-      buffer = Buffer.alloc(size);
-      buffer.fill(0x20); // space
+    const arrayBuffer = new ArrayBuffer(size);
+    const view = new Uint8Array(arrayBuffer);
+    view.fill(0x20); // space
+
+    if (firstHex && size >= firstHex.length / 2) {
+      const hexBytes = Buffer.from(firstHex, 'hex');
+      for (let i = 0; i < hexBytes.length; i++) {
+        view[i] = hexBytes[i];
+      }
     }
-    
-    const file = new File([buffer as any], name, { type });
+
+    const file = new File([view], name, { type });
     // Mock the arrayBuffer since standard jsdom File might not implement it perfectly depending on version
-    file.arrayBuffer = async () => (buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength) as ArrayBuffer);
+    file.arrayBuffer = async () => arrayBuffer;
     return file;
   };
 
@@ -147,7 +148,7 @@ describe('Shared Upload Security Module', () => {
     const result = await validateUploadRequest(createFormData(file), 'file', LISTING_PHOTO_POLICY);
     expect(result.isValid).toBe(false);
     expect(result.error).toBe('UPLOAD_TYPE_MISMATCH');
-    
+
     // jpg extension, correct mime, but wrong signature
     const file2 = createMockFile('img.jpg', 'image/jpeg', 100, '000000');
     const result2 = await validateUploadRequest(createFormData(file2), 'file', LISTING_PHOTO_POLICY);
@@ -169,7 +170,7 @@ describe('Shared Upload Security Module', () => {
     const file = createMockFile('data.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 100, '504B0304');
     // Finance policy allows XLSX
     expect((await validateUploadRequest(createFormData(file), 'file', FINANCE_UPLOAD_POLICY)).isValid).toBe(true);
-    
+
     // Try passing xlsx to photos policy - but extension will be rejected first
     // If we bypass extension check, we also want it to fail elsewhere, but extension check catches it first.
     // We already assert it's accepted in Finance.
@@ -178,9 +179,10 @@ describe('Shared Upload Security Module', () => {
   it('21. Binary CSV rejected', async () => {
     const file = createMockFile('data.csv', 'text/csv', 100);
     // write a null byte
-    const buffer = Buffer.alloc(100);
-    buffer[50] = 0;
-    file.arrayBuffer = async () => buffer.buffer;
+    const arrayBuffer = new ArrayBuffer(100);
+    const view = new Uint8Array(arrayBuffer);
+    view[50] = 0;
+    file.arrayBuffer = async () => arrayBuffer;
 
     const result = await validateUploadRequest(createFormData(file), 'file', FINANCE_UPLOAD_POLICY);
     expect(result.isValid).toBe(false);
@@ -196,9 +198,9 @@ describe('Shared Upload Security Module', () => {
   });
 
   it('23. Policies cannot be mutated accidentally', () => {
-    expect(() => {
-      // @ts-expect-error testing readonly violation
-      FINANCE_UPLOAD_POLICY.maxFiles = 5;
-    }).toThrow();
+    expect(Object.isFrozen(FINANCE_UPLOAD_POLICY)).toBe(true);
+    const mutationResult = Reflect.set(FINANCE_UPLOAD_POLICY, 'maxFiles', 5);
+    expect(mutationResult).toBe(false);
+    expect(FINANCE_UPLOAD_POLICY.maxFiles).toBe(1);
   });
 });
