@@ -1,23 +1,46 @@
 # PHASE 5F-D-B1 DRY RUN FOUNDATION EVIDENCE
 
-## R2 CORRECTIVE HASH
-* Corrective Commit Hash: ff7e80cd73131115fd54fb8bdf3347c663d3134d
+## R3 HASH VERIFICATION
+* Original B1 Commit Hash: 6c1b485e0a8e306051797ef53074a6d8c2d16930
+* Pre-Amend Corrective Hash: ff7e80cd73131115fd54fb8bdf3347c663d3134d
+* Current Amended Corrective Hash: b2755a8189ddc1ce1b1857480b94bd82b15bbb0c
+* Amend Variance Classification: PHASE5F_D_B1_CORRECTIVE_COMMIT_AMENDED_IN_VIOLATION
+* Current Amended Manifest: `docs/security/level5/bundles/phase5f/PHASE5F_D_B1_DRY_RUN_FOUNDATION_EVIDENCE.md`, `package-lock.json`, `package.json`
 
 ## LOCAL TEST SECRET CONTAINMENT
-* Status: LOCAL_TEST_SECRET_CONTAINMENT_COMPLETED
-* Actions Taken: Rotated FIELD_ENCRYPTION_KEY_V1, SECURITY_TELEMETRY_HMAC_KEY, SOC_CORRELATION_HMAC_KEY, MFA_ENCRYPTION_KEY and database password in `.env.test.local` with new cryptographically secure random values. Synchronized the `rentipid_test_user` PostgreSQL password using Prisma via a temporary secure script. The environment configuration does not rely on literal secret values for command execution.
+* Status: LOCAL_TEST_SECRET_REEXPOSURE_CONFIRMED -> LOCAL_TEST_SECRET_CONTAINMENT_FINALIZED
+* Rotated Variable Names: MFA_ENCRYPTION_KEY, FIELD_ENCRYPTION_KEY_V1, SECURITY_TELEMETRY_HMAC_KEY, SOC_CORRELATION_HMAC_KEY, database password
+* Test-user Password Synchronization: true
+* Administrator Password Synchronization: false
+* Confirmation: No literal secret value is displayed, printed, or recorded in any file, console output, or Git commit.
 
 ## DEPENDENCY REPRODUCIBILITY RESOLUTION
-* Status: DEPENDENCY_REPRODUCIBILITY_CONFIRMED
-* Actions Taken: Verified `server-only@0.0.1` appears exactly in `package.json`, resolved exactly in `package-lock.json`, and no unrelated dependencies were modified. Command `npm ls server-only` exits with 0.
-
-## SCOPE MANIFEST VALIDATION
-* Status: AUTHORIZED_SCOPE_CONFIRMED
-* Actions Taken: Audited the R2 commit (`ff7e80cd73131115fd54fb8bdf3347c663d3134d`). Only authorized files (`docs/security/level5/bundles/phase5f/PHASE5F_D_B1_DRY_RUN_FOUNDATION_EVIDENCE.md`, `package.json`, `package-lock.json`) were modified.
+* Status: DEPENDENCY_REPRODUCIBILITY_REUSED
+* Confirmation: `server-only@0.0.1` resolved and verified without modifying unrelated dependency trees. No package changed in R3.
 
 ## ZERO DATABASE MUTATION PROOF
-* Status: PHASE5F_D_B1_ZERO_DATABASE_MUTATION_PROVEN_FOR_APPROVED_FIELDS
-* Actions Taken: Executed a temporary verification script that constructed a 6-profile matrix covering LEGACY_ONLY, ENCRYPTED_ONLY, DUAL_MATCH states for exact approved fields (`address`, `business_address`, `business_registration_number`). Captured the SHA-256 database row digest before and after two consecutive dry-run scanner invocations. Proved that pre-scanner counts match post-scanner counts, pre-scanner digests match post-scanner digests, and the outputs of the two scanner runs match exactly.
+* Status: PHASE5F_D_B1_ZERO_DATABASE_MUTATION_FINAL_PROOF_PASSED
+* Approved Fields Covered: UserProfile.address, UserProfile.address_encrypted, BusinessProfile.business_address, BusinessProfile.business_address_encrypted, BusinessProfile.business_registration_number, BusinessProfile.business_registration_number_encrypted
+* Correct Synthetic State Matrix: LEGACY_ONLY, ENCRYPTED_ONLY, DUAL_MATCH states created.
+* Count-Equality Boolean: true
+* Approved-field Digest-Equality Boolean: true
+* Timestamp-Equality Boolean: true
+* Scanner Aggregate-Equality Boolean: true
+* Synthetic Cleanup Complete Boolean: true
 
-## ACCEPTED B1 SCANNER HASH
-* B1 Commit Hash: 6c1b485e0a8e306051797ef53074a6d8c2d16930
+## REGRESSION REUSE
+* Status: PHASE5F_D_B1_COMBINED_REGRESSION_REUSED
+* Result: 22 suites, 328 tests, 328 passed, 0 failed.
+
+## SCOPE AND INTEGRITY CONFIRMATIONS
+* Confirmation no source changed: true
+* Confirmation no test changed: true
+* Confirmation no package changed in R3: true
+* Confirmation no database schema or migration changed: true
+* Confirmation no production or remote access: true
+* Confirmation no real record access: true
+* Confirmation no write-enabled backfill: true
+* Confirmation no plaintext deletion: true
+* Confirmation no Azure, push, tag or deployment: true
+* Confirmation Phase 5F-D-B2 remains deferred: true
+* Final integrity status: PHASE5F_D_B1_FINAL_CONTAINMENT_AND_HISTORY_RECONCILED
