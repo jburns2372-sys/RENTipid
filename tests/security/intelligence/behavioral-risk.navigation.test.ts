@@ -34,7 +34,7 @@ describe("Behavioral Risk Navigation Integration (Slice 5A)", () => {
 
   it("1. Authorized navigation contains Behavioral Risk, 2. URL is exact, 5. Entry appears exactly once", async () => {
     await renderPage([SECURITY_PERMISSIONS.DASHBOARD_VIEW, SECURITY_PERMISSIONS.PLAYBOOK_VIEW, SECURITY_PERMISSIONS.RESPONSE_REQUEST, SECURITY_PERMISSIONS.RESPONSE_VIEW]);
-    
+
     const links = screen.getAllByRole("link", { name: /Behavioral Risk/i });
     expect(links).toHaveLength(1);
     expect(links[0].getAttribute("href")).toBe("/dashboard/admin/security/intelligence/behavioral-risk");
@@ -49,7 +49,7 @@ describe("Behavioral Risk Navigation Integration (Slice 5A)", () => {
 
   it("6. Existing security links remain present", async () => {
     await renderPage([SECURITY_PERMISSIONS.DASHBOARD_VIEW, SECURITY_PERMISSIONS.PLAYBOOK_VIEW, SECURITY_PERMISSIONS.RESPONSE_REQUEST, SECURITY_PERMISSIONS.RESPONSE_VIEW]);
-    
+
     expect(screen.getByRole("link", { name: /Incident Cases/i })).not.toBeNull();
     expect(screen.getByRole("link", { name: /Playbooks/i })).not.toBeNull();
     expect(screen.getByRole("link", { name: /Approvals/i })).not.toBeNull();
@@ -58,7 +58,7 @@ describe("Behavioral Risk Navigation Integration (Slice 5A)", () => {
 
   it("7. Active-state matching recognizes the dashboard URL, 8. Neighboring unrelated routes are not falsely marked active", async () => {
     await renderPage([SECURITY_PERMISSIONS.DASHBOARD_VIEW]);
-    
+
     // The "Dashboard" text is active (border-blue-500)
     const dashboardTab = screen.getByText("Dashboard");
     expect(dashboardTab.className).toContain("border-blue-500");
@@ -80,7 +80,7 @@ describe("Behavioral Risk Navigation Integration (Slice 5A)", () => {
 
   it("10. No database, API, persistence, or scoring module is imported", () => {
     // This is tested implicitly by the fact that we can render the page with only auth mocked
-    // and no database calls fail. 
+    // and no database calls fail.
     expect(true).toBe(true);
   });
 });
