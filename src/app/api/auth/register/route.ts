@@ -3,6 +3,8 @@ import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import { createAuditLog } from '@/lib/audit';
 import { RegisterInputSchema } from '@/lib/security/identity-input-security';
+import { ProfileFieldProtection, ProfileFieldContext } from '@/lib/security/crypto/profile-field-protection';
+import { getProfileProtectionMode, ProfileProtectionMode } from '@/lib/security/crypto/profile-protection-mode';
 
 const prisma = new PrismaClient();
 
@@ -30,6 +32,8 @@ export async function POST(req: Request) {
     const mobile_number = validatedData.mobile_number || null;
     const account_type = validatedData.account_type;
     const role = validatedData.role;
+    
+    // Address extraction and mode check
     const address = validatedData.address || null;
     const city = validatedData.city || null;
     const province = validatedData.province || null;
@@ -37,6 +41,34 @@ export async function POST(req: Request) {
     const business_name = validatedData.business_name || null;
     const business_registration_number = validatedData.business_registration_number || null;
     const authorized_representative = validatedData.authorized_representative || null;
+
+    // Apply Mode-Specific Write Behavior
+    const mode = getProfileProtectionMode();
+    if (mode === ProfileProtectionMode.WRITE_FROZEN) {
+      return NextResponse.json({ message: 'Profile writes are temporarily disabled' }, { status: 503 });
+    }
+
+    // Resolve storage values based on operating mode
+    let userAddressLegacy = address;
+    let userAddressEncrypted = null;
+    
+    let businessAddressLegacy = address;
+    let businessAddressEncrypted = null;
+    
+    let businessRegLegacy = business_registration_number;
+    let businessRegEncrypted = null;
+
+    if (mode === ProfileProtectionMode.DUAL_READ_ENCRYPTED_WRITE || mode === ProfileProtectionMode.ENCRYPTED_ONLY) {
+      // New writes only go to encrypted companions. Legacy field is null.
+      userAddressLegacy = null;
+      if (address) userAddressEncrypted = ProfileFieldProtection.protect(address, ProfileFieldContext.USER_ADDRESS);
+
+      businessAddressLegacy = null;
+      if (address) businessAddressEncrypted = ProfileFieldProtection.protect(address, ProfileFieldContext.BUSINESS_ADDRESS);
+
+      businessRegLegacy = null;
+      if (business_registration_number) businessRegEncrypted = ProfileFieldProtection.protect(business_registration_number, ProfileFieldContext.BUSINESS_REGISTRATION_NUMBER);
+    }
 
     // 4. Check duplicate account
     const existingUser = await prisma.user.findUnique({
@@ -69,8 +101,10 @@ export async function POST(req: Request) {
         data: {
           user_id: user.id,
           business_name: business_name || full_name,
-          business_registration_number: business_registration_number || '',
-          business_address: address || '',
+          business_registration_number: businessRegLegacy !== null ? businessRegLegacy : (mode === ProfileProtectionMode.LEGACY_ONLY ? '' : null),
+          business_registration_number_encrypted: businessRegEncrypted,
+          business_address: businessAddressLegacy !== null ? businessAddressLegacy : (mode === ProfileProtectionMode.LEGACY_ONLY ? '' : null),
+          business_address_encrypted: businessAddressEncrypted,
           authorized_representative: authorized_representative || full_name,
           verification_status: 'Pending'
         }
@@ -79,7 +113,8 @@ export async function POST(req: Request) {
       await prisma.userProfile.create({
         data: {
           user_id: user.id,
-          address: address || '',
+          address: userAddressLegacy !== null ? userAddressLegacy : (mode === ProfileProtectionMode.LEGACY_ONLY ? '' : null),
+          address_encrypted: userAddressEncrypted,
           city: city || '',
           province: province || '',
           country: country || 'Philippines',
@@ -97,7 +132,7 @@ export async function POST(req: Request) {
       details: `Registered as ${role}`
     });
 
-    // 9. Return the existing sanitized success response
+    // 9. Return the existing sanitized success response (which exposes no encrypted fields)
     return NextResponse.json({ message: 'User registered successfully', userId: user.id }, { status: 201 });
 
   } catch (error) {

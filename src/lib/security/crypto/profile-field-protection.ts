@@ -1,5 +1,6 @@
 import { SecretEnvelope, SecretEnvelopeService } from './secret-envelope';
 import { KeyPurpose } from './key-provider';
+import { getProfileProtectionMode, ProfileProtectionMode } from './profile-protection-mode';
 
 export enum ProfileFieldContext {
   USER_ADDRESS = 'rentipid.profile.user.address.v1',
@@ -107,6 +108,11 @@ export class ProfileFieldProtection {
     }
 
     if (legacyPlaintext !== null && legacyPlaintext !== undefined) {
+      const mode = getProfileProtectionMode();
+      if (mode === ProfileProtectionMode.ENCRYPTED_ONLY) {
+        throw new ProfileFieldProtectionError('Legacy-only reads are rejected in ENCRYPTED_ONLY mode.');
+      }
+
       return {
         value: legacyPlaintext,
         source: ProtectedValueSource.LEGACY,
