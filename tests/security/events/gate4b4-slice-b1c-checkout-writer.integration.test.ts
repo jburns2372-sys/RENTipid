@@ -425,59 +425,59 @@ describe('GATE4B4_SLICE_B1C: Checkout Writer Integration', () => {
 
   describe('R4: Idempotency Security Binding', () => {
     it('12. Valid request ID is accepted', async () => {
-      const { validateCheckoutRequestId } = await import('@/app/checkout/[bookingId]/actions');
+      const { validateCheckoutRequestId } = await import('@/app/checkout/[bookingId]/checkout-helpers');
       const valid = '123e4567-e89b-12d3-a456-426614174000';
       expect(validateCheckoutRequestId(valid)).toBe(valid);
     });
 
     it('13. Missing request ID is rejected', async () => {
-      const { validateCheckoutRequestId } = await import('@/app/checkout/[bookingId]/actions');
+      const { validateCheckoutRequestId } = await import('@/app/checkout/[bookingId]/checkout-helpers');
       expect(() => validateCheckoutRequestId(undefined)).toThrow();
       expect(() => validateCheckoutRequestId(null)).toThrow();
       expect(() => validateCheckoutRequestId('')).toThrow();
     });
 
     it('14. Malformed request ID is rejected', async () => {
-      const { validateCheckoutRequestId } = await import('@/app/checkout/[bookingId]/actions');
+      const { validateCheckoutRequestId } = await import('@/app/checkout/[bookingId]/checkout-helpers');
       expect(() => validateCheckoutRequestId('not-a-uuid')).toThrow();
     });
 
     it('15. Oversized request ID is rejected', async () => {
-      const { validateCheckoutRequestId } = await import('@/app/checkout/[bookingId]/actions');
+      const { validateCheckoutRequestId } = await import('@/app/checkout/[bookingId]/checkout-helpers');
       const oversized = 'a'.repeat(65);
       expect(() => validateCheckoutRequestId(oversized)).toThrow();
     });
 
     it('16. Whitespace-modified request ID is rejected', async () => {
-      const { validateCheckoutRequestId } = await import('@/app/checkout/[bookingId]/actions');
+      const { validateCheckoutRequestId } = await import('@/app/checkout/[bookingId]/checkout-helpers');
       const valid = '123e4567-e89b-12d3-a456-426614174000';
       expect(() => validateCheckoutRequestId(` ${valid} `)).toThrow();
       expect(() => validateCheckoutRequestId(`${valid}\n`)).toThrow();
     });
 
     it('17. Same renter, booking and request ID derive the same key', async () => {
-      const { deriveCheckoutIdempotencyKey } = await import('@/app/checkout/[bookingId]/actions');
+      const { deriveCheckoutIdempotencyKey } = await import('@/app/checkout/[bookingId]/checkout-helpers');
       const key1 = deriveCheckoutIdempotencyKey('user-1', 'booking-1', 'req-1');
       const key2 = deriveCheckoutIdempotencyKey('user-1', 'booking-1', 'req-1');
       expect(key1).toBe(key2);
     });
 
     it('18. Different booking derives a different key', async () => {
-      const { deriveCheckoutIdempotencyKey } = await import('@/app/checkout/[bookingId]/actions');
+      const { deriveCheckoutIdempotencyKey } = await import('@/app/checkout/[bookingId]/checkout-helpers');
       const key1 = deriveCheckoutIdempotencyKey('user-1', 'booking-1', 'req-1');
       const key2 = deriveCheckoutIdempotencyKey('user-1', 'booking-2', 'req-1');
       expect(key1).not.toBe(key2);
     });
 
     it('19. Different renter derives a different key', async () => {
-      const { deriveCheckoutIdempotencyKey } = await import('@/app/checkout/[bookingId]/actions');
+      const { deriveCheckoutIdempotencyKey } = await import('@/app/checkout/[bookingId]/checkout-helpers');
       const key1 = deriveCheckoutIdempotencyKey('user-1', 'booking-1', 'req-1');
       const key2 = deriveCheckoutIdempotencyKey('user-2', 'booking-1', 'req-1');
       expect(key1).not.toBe(key2);
     });
 
     it('20. Different request ID derives a different key', async () => {
-      const { deriveCheckoutIdempotencyKey } = await import('@/app/checkout/[bookingId]/actions');
+      const { deriveCheckoutIdempotencyKey } = await import('@/app/checkout/[bookingId]/checkout-helpers');
       const key1 = deriveCheckoutIdempotencyKey('user-1', 'booking-1', 'req-1');
       const key2 = deriveCheckoutIdempotencyKey('user-1', 'booking-1', 'req-2');
       expect(key1).not.toBe(key2);
