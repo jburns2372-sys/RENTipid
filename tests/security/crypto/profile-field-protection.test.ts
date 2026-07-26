@@ -14,6 +14,18 @@ describe('ProfileFieldProtection', () => {
     jest.restoreAllMocks();
   });
 
+  const mutateBase64Byte = (base64: string, byteIndex: number = 0): string => {
+    const buf = Buffer.from(base64, 'base64');
+    if (buf.length > byteIndex) {
+      buf[byteIndex] ^= 0x01; // flip one bit
+    }
+    return buf.toString('base64');
+  };
+
+  const getEnvelope = (cipher: string): Record<string, string> => {
+    return JSON.parse(cipher) as Record<string, string>;
+  };
+
   describe('Context isolation', () => {
     it('User address encrypts and decrypts with the user-address context', () => {
       const plaintext = '123 User St';
@@ -84,8 +96,9 @@ describe('ProfileFieldProtection', () => {
     });
 
     it('Unknown context is rejected', () => {
+      const invalidContext = 'INVALID_CONTEXT' as ProfileFieldContext;
       expect(() => {
-        ProfileFieldProtection.protect('Data', 'INVALID_CONTEXT' as unknown as ProfileFieldContext);
+        ProfileFieldProtection.protect('Data', invalidContext);
       }).toThrow(ProfileFieldProtectionError);
     });
 
@@ -137,11 +150,47 @@ describe('ProfileFieldProtection', () => {
       }).toThrow(ProfileFieldProtectionError);
     });
 
-    it('Tampered ciphertext with legacy plaintext fails closed', () => {
+    it('Malformed envelope properties with legacy plaintext fail closed', () => {
       const cipher = ProfileFieldProtection.protect('Data', ProfileFieldContext.USER_ADDRESS);
       const tampered = cipher.replace('version', 'ver'); // break JSON properties
       expect(() => {
         ProfileFieldProtection.read(tampered, 'Legacy', ProfileFieldContext.USER_ADDRESS);
+      }).toThrow(ProfileFieldProtectionError);
+    });
+
+    it('Authenticated ciphertext tampering with legacy plaintext fails closed', () => {
+      const cipher = ProfileFieldProtection.protect('Data', ProfileFieldContext.USER_ADDRESS);
+      const env = getEnvelope(cipher);
+      env.ciphertext = mutateBase64Byte(env.ciphertext);
+      const mutatedCipher = JSON.stringify(env);
+
+      expect(mutatedCipher).not.toEqual(cipher);
+      expect(() => {
+        ProfileFieldProtection.read(mutatedCipher, 'Legacy', ProfileFieldContext.USER_ADDRESS);
+      }).toThrow(ProfileFieldProtectionError);
+    });
+
+    it('Authentication-tag tampering fails closed without legacy fallback', () => {
+      const cipher = ProfileFieldProtection.protect('Data', ProfileFieldContext.USER_ADDRESS);
+      const env = getEnvelope(cipher);
+      env.authenticationTag = mutateBase64Byte(env.authenticationTag);
+      const mutatedCipher = JSON.stringify(env);
+
+      expect(mutatedCipher).not.toEqual(cipher);
+      expect(() => {
+        ProfileFieldProtection.read(mutatedCipher, 'Legacy', ProfileFieldContext.USER_ADDRESS);
+      }).toThrow(ProfileFieldProtectionError);
+    });
+
+    it('Nonce tampering fails closed without legacy fallback', () => {
+      const cipher = ProfileFieldProtection.protect('Data', ProfileFieldContext.USER_ADDRESS);
+      const env = getEnvelope(cipher);
+      env.nonce = mutateBase64Byte(env.nonce);
+      const mutatedCipher = JSON.stringify(env);
+
+      expect(mutatedCipher).not.toEqual(cipher);
+      expect(() => {
+        ProfileFieldProtection.read(mutatedCipher, 'Legacy', ProfileFieldContext.USER_ADDRESS);
       }).toThrow(ProfileFieldProtectionError);
     });
 
@@ -229,7 +278,8 @@ describe('ProfileFieldProtection', () => {
     it('Errors do not contain test plaintext', () => {
       const secret = 'SECRET_DO_NOT_LEAK';
       try {
-        ProfileFieldProtection.protect(secret, 'INVALID_CTX' as unknown as ProfileFieldContext);
+        const invalidContext = 'INVALID_CTX' as ProfileFieldContext;
+        ProfileFieldProtection.protect(secret, invalidContext);
         fail('Should have thrown error');
       } catch (err: unknown) {
         expect(err).toBeInstanceOf(Error);
