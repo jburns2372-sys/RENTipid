@@ -9,7 +9,7 @@ export class FakeKeyProvider implements IKeyProvider {
   // Use predictable arrays for tests (32 bytes each)
   private encryptionKeyV1 = Buffer.alloc(32, 0x11);
   private encryptionKeyV2 = Buffer.alloc(32, 0x22);
-  
+
   private blindIndexKeyV1 = Buffer.alloc(32, 0xAA);
 
   private activeEncryptionVersion = 'test-enc-v2';
@@ -23,7 +23,7 @@ export class FakeKeyProvider implements IKeyProvider {
         purpose
       };
     }
-    
+
     if (purpose === KeyPurpose.BLIND_INDEX) {
       return {
         id: this.activeBlindIndexVersion,
@@ -31,7 +31,7 @@ export class FakeKeyProvider implements IKeyProvider {
         purpose
       };
     }
-    
+
     throw new Error(`FakeKeyProvider: Unknown purpose ${purpose}`);
   }
 
@@ -41,7 +41,7 @@ export class FakeKeyProvider implements IKeyProvider {
       if (id === 'test-enc-v2') return this.encryptionKeyV2;
       throw new Error(`FakeKeyProvider: Unknown key ID ${id} for FIELD_ENCRYPTION`);
     }
-    
+
     if (purpose === KeyPurpose.BLIND_INDEX) {
       if (id === 'test-idx-v1') return this.blindIndexKeyV1;
       throw new Error(`FakeKeyProvider: Unknown key ID ${id} for BLIND_INDEX`);

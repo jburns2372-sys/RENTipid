@@ -15,7 +15,7 @@
 - **Deferred to Azure Key Vault**: Azure Managed Identity authentication, active production key lookup, key rotation orchestration, production telemetry, and production migration.
 
 ## Files Tracked
-- **Inspected**: 
+- **Inspected**:
   - `src/lib/security/crypto/secret-envelope.ts`
   - `src/lib/security/crypto/key-provider.ts`
   - `src/lib/security/auth/mfa-service.ts`

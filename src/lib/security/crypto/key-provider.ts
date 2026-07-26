@@ -19,7 +19,7 @@ export interface IKeyProvider {
 
 /**
  * A backward-compatible local/development adapter that uses environment variables.
- * This is explicitly NOT a production KMS. It serves as a temporary non-KMS adapter 
+ * This is explicitly NOT a production KMS. It serves as a temporary non-KMS adapter
  * and external prerequisite placeholder until Azure Key Vault is provisioned.
  */
 export class EnvironmentKeyProvider implements IKeyProvider {
@@ -38,8 +38,8 @@ export class EnvironmentKeyProvider implements IKeyProvider {
       }
 
       return { id: keyId, value, purpose };
-    } 
-    
+    }
+
     if (purpose === KeyPurpose.BLIND_INDEX) {
       const keyId = process.env.BLIND_INDEX_KEY_ID;
       const keyHex = process.env.BLIND_INDEX_KEY;

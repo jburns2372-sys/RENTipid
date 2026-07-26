@@ -45,18 +45,18 @@ export class SecretEnvelopeService {
     }
 
     const nonce = randomBytes(NONCE_LENGTH);
-    
+
     const cipher = createCipheriv(ALGORITHM, keyMaterial.value, nonce, {
       authTagLength: AUTH_TAG_LENGTH
     });
-    
+
     cipher.setAAD(Buffer.from(context, 'utf8'));
-    
+
     let encrypted = cipher.update(plaintext, 'utf8', 'base64');
     encrypted += cipher.final('base64');
-    
+
     const authTag = cipher.getAuthTag();
-    
+
     return {
       version: VERSION,
       algorithm: ALGORITHM,
@@ -81,7 +81,7 @@ export class SecretEnvelopeService {
     if (envelope.version !== VERSION) {
       throw new CryptoError('Unsupported envelope version.');
     }
-    
+
     if (envelope.algorithm !== ALGORITHM) {
       throw new CryptoError('Unsupported cryptographic algorithm.');
     }
@@ -89,21 +89,21 @@ export class SecretEnvelopeService {
     if (envelope.ciphertext.length > MAX_CIPHERTEXT_SIZE) {
       throw new CryptoError('Malformed envelope: ciphertext exceeds maximum size limit.');
     }
-    
+
     let nonce: Buffer;
     let authTag: Buffer;
-    
+
     try {
       nonce = Buffer.from(envelope.nonce, 'base64');
       authTag = Buffer.from(envelope.authenticationTag, 'base64');
     } catch {
       throw new CryptoError('Malformed envelope: invalid base64 encoding.');
     }
-    
+
     if (nonce.length !== NONCE_LENGTH) {
       throw new CryptoError('Invalid nonce length.');
     }
-    
+
     if (authTag.length !== AUTH_TAG_LENGTH) {
       throw new CryptoError('Invalid authentication tag length.');
     }
@@ -114,14 +114,14 @@ export class SecretEnvelopeService {
     } catch (err: unknown) {
       throw new CryptoError(`Missing or invalid key configuration: ${err instanceof Error ? err.message : String(err)}`);
     }
-    
+
     const decipher = createDecipheriv(ALGORITHM, keyMaterial, nonce, {
       authTagLength: AUTH_TAG_LENGTH
     });
-    
+
     decipher.setAAD(Buffer.from(expectedContext, 'utf8'));
     decipher.setAuthTag(authTag);
-    
+
     try {
       let decrypted = decipher.update(envelope.ciphertext, 'base64', 'utf8');
       decrypted += decipher.final('utf8');

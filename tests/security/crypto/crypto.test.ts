@@ -1,6 +1,6 @@
 import { KeyProvider, KeyPurpose } from '../../../src/lib/security/crypto/key-provider';
-import { SecretEnvelopeService, CryptoError } from '../../../src/lib/security/crypto/secret-envelope';
-import { BlindIndexService } from '../../../src/lib/security/crypto/blind-index';
+import { SecretEnvelopeService, CryptoError, SecretEnvelope } from '../../../src/lib/security/crypto/secret-envelope';
+import { BlindIndexService, BlindIndex } from '../../../src/lib/security/crypto/blind-index';
 import { FakeKeyProvider } from './fake-key-provider';
 
 describe('Phase 5F-B Cryptographic Foundation', () => {
@@ -112,7 +112,7 @@ describe('Phase 5F-B Cryptographic Foundation', () => {
 
   describe('SecretEnvelopeService - Tamper Detection & Wrong Key', () => {
     const context = 'tamper-context';
-    let envelope: Record<string, unknown>;
+    let envelope: SecretEnvelope;
 
     beforeEach(() => {
       envelope = SecretEnvelopeService.encryptSecret('Important Data', context);
@@ -170,8 +170,8 @@ describe('Phase 5F-B Cryptographic Foundation', () => {
     const context = 'format-context';
 
     it('fails on missing envelope fields', () => {
-      const malformed: Record<string, unknown> = { version: 'v1' };
-      expect(() => SecretEnvelopeService.decryptSecret(malformed, context)).toThrow(CryptoError);
+      const malformed: Partial<SecretEnvelope> = { version: 'v1' };
+      expect(() => SecretEnvelopeService.decryptSecret(malformed as SecretEnvelope, context)).toThrow(CryptoError);
     });
 
     it('fails on invalid base64 encoding', () => {
@@ -231,8 +231,8 @@ describe('Phase 5F-B Cryptographic Foundation', () => {
     });
 
     it('rejects malformed blind index payloads safely', () => {
-      const index: Record<string, unknown> = { version: 'v2', hash: 'abc' };
-      expect(BlindIndexService.verifyIndex('data', index)).toBe(false);
+      const index: Partial<BlindIndex> = { version: 'v2', hash: 'abc' };
+      expect(BlindIndexService.verifyIndex('data', index as BlindIndex)).toBe(false);
     });
 
     it('ensures output contains no plaintext', () => {
