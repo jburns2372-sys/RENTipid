@@ -36,6 +36,14 @@ export default async function SecurityDashboardPage() {
             Playbooks
           </Link>
         )}
+        {authContext.activePermissions.includes(SECURITY_PERMISSIONS.DASHBOARD_VIEW) && (
+          <Link
+            href="/dashboard/admin/security/intelligence/behavioral-risk"
+            className="px-4 py-2 text-slate-400 font-medium hover:text-blue-400"
+          >
+            Behavioral Risk
+          </Link>
+        )}
         {(authContext.activePermissions.includes(SECURITY_PERMISSIONS.RESPONSE_REQUEST) || authContext.activePermissions.includes(SECURITY_PERMISSIONS.RESPONSE_APPROVE)) && (
           <Link
             href="/dashboard/admin/security/approvals"
