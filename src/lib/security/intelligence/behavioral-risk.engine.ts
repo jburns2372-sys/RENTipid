@@ -1,14 +1,14 @@
 import { SecurityEnvironment, SecurityLifecycle } from "../events/taxonomy";
-import { 
-  BehavioralRiskPolicy, 
-  DEFAULT_BEHAVIORAL_POLICY, 
-  determineRiskBand, 
-  determineConfidence 
+import {
+  BehavioralRiskPolicy,
+  DEFAULT_BEHAVIORAL_POLICY,
+  determineRiskBand,
+  determineConfidence
 } from "./behavioral-risk.policy";
-import { 
-  NormalizedEventEvidence, 
-  BehavioralRiskAssessment, 
-  BehavioralRiskSignal, 
+import {
+  NormalizedEventEvidence,
+  BehavioralRiskAssessment,
+  BehavioralRiskSignal,
   BehavioralSignalCode,
   RiskConfidence
 } from "./behavioral-risk.types";
@@ -22,9 +22,9 @@ export interface RiskEngineEvaluationContext {
 }
 
 function calculateTimeDecay(
-  weight: number, 
-  occurredAt: Date, 
-  evaluationTime: Date, 
+  weight: number,
+  occurredAt: Date,
+  evaluationTime: Date,
   halfLifeMs: number
 ): number {
   const elapsedMs = evaluationTime.getTime() - occurredAt.getTime();
@@ -40,7 +40,7 @@ function isAuthDenial(event: NormalizedEventEvidence): boolean {
 
   const isAuth = category.includes("AUTH") || type.includes("AUTH") || type.includes("LOGIN");
   const isDenial = outcome.includes("FAIL") || outcome.includes("DENY") || outcome.includes("DENIED") || type.includes("FAIL");
-  
+
   return isAuth && isDenial;
 }
 
@@ -48,9 +48,9 @@ function isPrivilegedAction(event: NormalizedEventEvidence): boolean {
   const category = (event.category || "").toUpperCase();
   const type = (event.eventType || "").toUpperCase();
 
-  return category.includes("ADMIN") || 
-         type.includes("ROLE") || 
-         type.includes("PERMISSION") || 
+  return category.includes("ADMIN") ||
+         type.includes("ROLE") ||
+         type.includes("PERMISSION") ||
          type.includes("PRIVILEGED");
 }
 
@@ -60,7 +60,7 @@ export function evaluateBehavioralRisk(
 ): BehavioralRiskAssessment {
   const policy = context.policy || DEFAULT_BEHAVIORAL_POLICY;
   const windowStart = new Date(context.evaluationTime.getTime() - policy.evaluationWindowMs);
-  
+
   // 1. Filter, deduplicate, and validate evidence
   const seenIds = new Set<string>();
   const validEvidence: NormalizedEventEvidence[] = [];
@@ -75,10 +75,10 @@ export function evaluateBehavioralRisk(
 
     // Reject invalid timestamps
     if (!(event.occurredAt instanceof Date) || isNaN(event.occurredAt.getTime())) continue;
-    
+
     // Ignore future events safely
     if (event.occurredAt.getTime() > context.evaluationTime.getTime()) continue;
-    
+
     // Ignore events outside the time window
     if (event.occurredAt.getTime() < windowStart.getTime()) continue;
 
@@ -110,14 +110,14 @@ export function evaluateBehavioralRisk(
   const authDenials = validEvidence.filter(isAuthDenial);
   const privilegedActions = validEvidence.filter(isPrivilegedAction);
   const highSeverityEvents = validEvidence.filter(e => e.severity === "HIGH" || e.severity === "CRITICAL");
-  
+
   const sources = new Set(validEvidence.map(e => e.sourceId));
   const sourceCount = sources.size;
 
   const signals: BehavioralRiskSignal[] = [];
 
   const createSignal = (
-    code: BehavioralSignalCode, 
+    code: BehavioralSignalCode,
     events: NormalizedEventEvidence[],
     title: string,
     explanation: string
@@ -128,7 +128,7 @@ export function evaluateBehavioralRisk(
     let totalEffectiveWeight = 0;
     let firstObservedAt = events[0].occurredAt;
     let lastObservedAt = events[0].occurredAt;
-    
+
     const eventIds: string[] = [];
     const eventTypes = new Set<string>();
     const signalSources = new Set<string>();
@@ -136,7 +136,7 @@ export function evaluateBehavioralRisk(
     for (const e of events) {
       if (e.occurredAt.getTime() < firstObservedAt.getTime()) firstObservedAt = e.occurredAt;
       if (e.occurredAt.getTime() > lastObservedAt.getTime()) lastObservedAt = e.occurredAt;
-      
+
       eventIds.push(e.eventId);
       eventTypes.add(e.eventType);
       signalSources.add(e.sourceId);
@@ -170,7 +170,7 @@ export function evaluateBehavioralRisk(
   createSignal("AUTH_REPEATED_DENIAL", authDenials, "Repeated Authentication Denials", "Multiple authentication or access denial events observed.");
   createSignal("PRIVILEGED_ACTION_ANOMALY", privilegedActions, "Privileged Action Anomaly", "Sensitive or administrative actions were performed.");
   createSignal("HIGH_SEVERITY_CONCENTRATION", highSeverityEvents, "High Severity Concentration", "Multiple high or critical severity events observed.");
-  
+
   if (sourceCount > 1) {
     createSignal("CROSS_SOURCE_ANOMALY", validEvidence, "Cross-Source Anomaly", "Risk activity observed across multiple independent sources.");
   }

@@ -55,7 +55,7 @@ Signals employ a mathematical time decay over a specified half-life (default 3 d
 The engine strictly rejects cross-environment (e.g. `PRODUCTION` vs `STAGING`) and cross-lifecycle (e.g. `LIVE` vs `DRY_RUN`/`TESTING`) contamination.
 
 ## Privacy-Safe Output
-Raw database payloads, passwords, and user-sensitive text are implicitly stripped by the input interface `NormalizedEventEvidence`. The output contains exactly the defined bounds and references. 
+Raw database payloads, passwords, and user-sensitive text are implicitly stripped by the input interface `NormalizedEventEvidence`. The output contains exactly the defined bounds and references.
 
 ## Evidence-Linking Behavior
 Every returned `BehavioralRiskSignal` retains the exact `eventId` strings that contributed to its creation, ensuring a perfect audit trail from the advisory risk output back to the SOC Phase 0 immutable ingestion record.
@@ -73,7 +73,7 @@ The final generated assessment strictly specifies `advisoryOnly: true`. It calcu
 0 errors, 0 warnings. (Any suppressions explicitly avoided).
 
 ## TypeScript Classification
-0 new TS errors from the intelligence module. 
+0 new TS errors from the intelligence module.
 
 ## Build Result
 Production Turbopack build `npm run build` completed successfully with 0 errors. The existing Next.js `context.params` fixes remain perfectly intact.

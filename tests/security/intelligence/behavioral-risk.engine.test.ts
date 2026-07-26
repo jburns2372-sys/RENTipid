@@ -50,7 +50,7 @@ describe("Behavioral Risk Engine", () => {
   it("excludes events outside the time window and future events safely", () => {
     const eventOld = createEvent({ occurredAt: new Date("2020-01-01T00:00:00.000Z"), severity: "CRITICAL" });
     const eventFuture = createEvent({ occurredAt: new Date("2026-07-27T00:00:00.000Z"), severity: "CRITICAL" });
-    
+
     const result = evaluateBehavioralRisk(baseContext, [eventOld, eventFuture]);
     expect(result.evidenceEventIds.length).toBe(0);
     expect(result.score).toBe(0);
@@ -59,11 +59,11 @@ describe("Behavioral Risk Engine", () => {
   it("isolates different environments and lifecycles", () => {
     const eventStaging = createEvent({ environment: "STAGING" as "PRODUCTION" }); // invalid env but bypass TS using as
     const eventTest = createEvent({ lifecycle: "TESTING" as "LIVE" }); // invalid lifecycle but bypass TS using as
-    
+
     // forcefully override values at runtime
     Object.assign(eventStaging, { environment: "STAGING" });
     Object.assign(eventTest, { lifecycle: "TESTING" });
-    
+
     const result = evaluateBehavioralRisk(baseContext, [eventStaging, eventTest]);
     expect(result.evidenceEventIds.length).toBe(0);
   });
@@ -86,7 +86,7 @@ describe("Behavioral Risk Engine", () => {
       category: "ADMIN",
       eventType: "ROLE_CHANGE"
     });
-    
+
     const result = evaluateBehavioralRisk(baseContext, [privEvent]);
     const signal = result.contributingSignals.find(s => s.signalCode === "PRIVILEGED_ACTION_ANOMALY");
     expect(signal).toBeDefined();
@@ -97,7 +97,7 @@ describe("Behavioral Risk Engine", () => {
     const events = Array.from({ length: 3 }).map(() => createEvent({
       severity: "CRITICAL"
     }));
-    
+
     const result = evaluateBehavioralRisk(baseContext, events);
     const signal = result.contributingSignals.find(s => s.signalCode === "HIGH_SEVERITY_CONCENTRATION");
     expect(signal).toBeDefined();
@@ -108,7 +108,7 @@ describe("Behavioral Risk Engine", () => {
       createEvent({ sourceId: "SRC_A" }),
       createEvent({ sourceId: "SRC_B" })
     ];
-    
+
     const result = evaluateBehavioralRisk(baseContext, events);
     expect(result.sourceDiversity).toBe(2);
     const signal = result.contributingSignals.find(s => s.signalCode === "CROSS_SOURCE_ANOMALY");
@@ -119,14 +119,14 @@ describe("Behavioral Risk Engine", () => {
   it("applies time decay to older evidence", () => {
     // Both are privileged actions. One is very recent, one is exactly at half-life.
     const recentEvent = createEvent({ category: "ADMIN", occurredAt: baseContext.evaluationTime });
-    const olderEvent = createEvent({ 
-      category: "ADMIN", 
+    const olderEvent = createEvent({
+      category: "ADMIN",
       occurredAt: new Date(baseContext.evaluationTime.getTime() - DEFAULT_BEHAVIORAL_POLICY.timeDecay.halfLifeMs)
     });
-    
+
     const recentResult = evaluateBehavioralRisk(baseContext, [recentEvent]);
     const olderResult = evaluateBehavioralRisk(baseContext, [olderEvent]);
-    
+
     expect(recentResult.score).toBeGreaterThan(olderResult.score);
   });
 
@@ -137,12 +137,12 @@ describe("Behavioral Risk Engine", () => {
       category: "ADMIN",
       sourceId: "SRC_" + (i % 5) // high diversity
     }));
-    
+
     const result = evaluateBehavioralRisk(baseContext, events);
-    
+
     expect(result.score).toBeLessThanOrEqual(100);
     expect(result.score).toBeGreaterThan(0);
-    
+
     const privSignal = result.contributingSignals.find(s => s.signalCode === "PRIVILEGED_ACTION_ANOMALY");
     expect(privSignal?.effectiveWeight).toBeLessThanOrEqual(DEFAULT_BEHAVIORAL_POLICY.signalRules.PRIVILEGED_ACTION_ANOMALY.maxWeight);
   });
@@ -150,7 +150,7 @@ describe("Behavioral Risk Engine", () => {
   it("links every signal to evidence IDs and ensures no raw metadata leaks", () => {
     const event = createEvent({ category: "ADMIN", eventId: "secret_123" });
     const result = evaluateBehavioralRisk(baseContext, [event]);
-    
+
     const signal = result.contributingSignals[0];
     expect(signal.evidenceEventIds).toContain("secret_123");
     expect(result.evidenceEventIds).toContain("secret_123");

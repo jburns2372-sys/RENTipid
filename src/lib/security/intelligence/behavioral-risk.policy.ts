@@ -32,7 +32,7 @@ export interface BehavioralRiskPolicy {
   timeDecay: {
     halfLifeMs: number; // For exponential decay
   };
-  
+
   sourceDiversityMultiplier: {
     [sourceCount: number]: number; // e.g., 1: 1.0, 2: 1.2, 3: 1.5
   };
