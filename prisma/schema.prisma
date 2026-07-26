@@ -103,6 +103,7 @@ model UserProfile {
   user_id             String  @unique
   user                User    @relation(fields: [user_id], references: [id])
   address             String?
+  address_encrypted   String?
   city                String?
   province            String?
   country             String?
@@ -117,7 +118,9 @@ model BusinessProfile {
   user                         User    @relation(fields: [user_id], references: [id])
   business_name                String
   business_registration_number String?
+  business_registration_number_encrypted String?
   business_address             String?
+  business_address_encrypted   String?
   authorized_representative    String?
   verification_status          String // "Unverified" | "Pending" | "Verified" | "Rejected"
 }
