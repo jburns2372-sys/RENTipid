@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, useRef, useCallback, useEffect } from "react";
+import { BehavioralRiskHandoff } from "./behavioral-risk-handoff";
 
 // DTOs for client to avoid importing Prisma types
-interface SignalDto {
+export interface SignalDto {
   signalCode: string;
   title: string;
   explanation: string;
@@ -17,7 +18,7 @@ interface SignalDto {
   sourceCount: number;
 }
 
-interface AssessmentDto {
+export interface AssessmentDto {
   id?: string;
   subjectRef: string;
   score: number;
@@ -447,6 +448,18 @@ export function BehavioralRiskInvestigationClient({ initialContext = {} }: { ini
                 </div>
               </dl>
             </section>
+
+            {/* Analyst Handoff Integration */}
+            <BehavioralRiskHandoff
+              context={{
+                subjectRef: latestAssessment.subjectRef,
+                environment,
+                lifecycle,
+                limit,
+                assessmentId: selectedAssessmentId || latestAssessment.id
+              }}
+              assessment={selectedAssessmentDetails || latestAssessment}
+            />
 
             {/* D. Assessment-history table */}
             <section className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
