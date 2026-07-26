@@ -80,7 +80,7 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
     it("4. Required-field validation prevents an invalid request", async () => {
       render(<BehavioralRiskInvestigationClient />);
       const searchButton = screen.getByRole("button", { name: /search/i });
-      
+
       fireEvent.submit(searchButton.closest("form")!);
       expect(global.fetch).not.toHaveBeenCalled();
       expect(screen.getByText(/Subject reference is required/i)).toBeTruthy();
@@ -88,7 +88,7 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
 
     it("5. Subject reference is trimmed, 6. Environment/lifecycle passed exactly, 7. Limit cannot exceed 50, 8. Search requests latest and history only", async () => {
       render(<BehavioralRiskInvestigationClient />);
-      
+
       (global.fetch as jest.Mock).mockResolvedValue({
         ok: true,
         status: 200,
@@ -111,17 +111,17 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
       expect(latestCall).toContain("limit=50");
       expect(latestCall).toContain("environment=PRODUCTION");
       expect(latestCall).toContain("lifecycle=LIVE");
-      
+
       expect(latestCall).toContain("/api/soc/intelligence/behavioral-risk/latest");
       expect(historyCall).toContain("/api/soc/intelligence/behavioral-risk/history");
-      
+
       expect((global.fetch as jest.Mock).mock.calls[0][1]?.method).toBeUndefined();
     });
 
     it("9. Loading state is visible", async () => {
       render(<BehavioralRiskInvestigationClient />);
-      
-      let resolveLatest: any;
+
+      let resolveLatest: ((value: { ok: boolean; status: number; json: () => Promise<unknown> }) => void) | undefined;
       (global.fetch as jest.Mock).mockReturnValue(new Promise(resolve => {
         resolveLatest = resolve;
       }));
@@ -130,13 +130,15 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
       fireEvent.submit(screen.getByRole("button", { name: /search/i }).closest("form")!);
 
       await screen.findByText(/Loading assessment data\.\.\./i);
-      
-      resolveLatest({ ok: true, status: 200, json: async () => ({}) });
+
+      if (resolveLatest) {
+        resolveLatest({ ok: true, status: 200, json: async () => ({}) });
+      }
     });
 
     it("10. Latest assessment summary renders safely, 11. History renders in API-provided order, 14. Empty state is handled", async () => {
       render(<BehavioralRiskInvestigationClient />);
-      
+
       (global.fetch as jest.Mock).mockImplementation((url) => {
         if (url.includes("latest")) {
           return Promise.resolve({ ok: true, status: 200, json: async () => mockValidAssessment });
@@ -160,7 +162,7 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
 
     it("12. Details render explainable signals, 13. Evidence IDs render", async () => {
       render(<BehavioralRiskInvestigationClient />);
-      
+
       (global.fetch as jest.Mock).mockImplementation((url) => {
         if (url.includes("latest")) return Promise.resolve({ ok: true, status: 200, json: async () => mockValidAssessment });
         if (url.includes("history")) return Promise.resolve({ ok: true, status: 200, json: async () => ({ history: [mockValidAssessment] }) });
@@ -183,7 +185,7 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
 
     it("15. Unauthorized handled, 16. Forbidden handled, 17. Not-found handled safely, 18. Generic server error sanitized", async () => {
       render(<BehavioralRiskInvestigationClient />);
-      
+
       // Test 401
       (global.fetch as jest.Mock).mockResolvedValue({ status: 401 });
       fireEvent.change(screen.getByLabelText(/Subject Reference/i), { target: { value: "u1" } });
@@ -208,7 +210,7 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
 
     it("21. Clear control removes the result state", async () => {
       render(<BehavioralRiskInvestigationClient />);
-      
+
       (global.fetch as jest.Mock).mockImplementation((url) => {
         if (url.includes("latest")) return Promise.resolve({ ok: true, status: 200, json: async () => mockValidAssessment });
         if (url.includes("history")) return Promise.resolve({ ok: true, status: 200, json: async () => ({ history: [mockValidAssessment] }) });
@@ -216,7 +218,7 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
       });
       fireEvent.change(screen.getByLabelText(/Subject Reference/i), { target: { value: "u1" } });
       fireEvent.submit(screen.getByRole("button", { name: /search/i }).closest("form")!);
-      
+
       await screen.findByText(/Latest Assessment Summary/i);
 
       fireEvent.click(screen.getByRole("button", { name: /clear/i }));
@@ -225,13 +227,13 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
 
     it("22. Stale request result cannot overwrite a newer search", async () => {
       render(<BehavioralRiskInvestigationClient />);
-      
-      let resolveFirst: any;
+
+      let resolveFirst: (() => void) | undefined;
       const firstPromise = new Promise((resolve, reject) => {
         resolveFirst = () => reject(new DOMException("Aborted", "AbortError"));
       });
-      
-      let resolveSecond: any;
+
+      let resolveSecond: (() => void) | undefined;
       const secondPromise = new Promise(resolve => {
         resolveSecond = () => resolve({ ok: true, status: 200, json: async () => mockValidAssessment });
       });
@@ -243,15 +245,15 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
 
       fireEvent.change(screen.getByLabelText(/Subject Reference/i), { target: { value: "u1" } });
       fireEvent.submit(screen.getByRole("button", { name: /search/i }).closest("form")!);
-      
+
       (global.fetch as jest.Mock).mockImplementation((url) => {
         if (url.includes("history")) return Promise.resolve({ ok: true, status: 200, json: async () => ({ history: [] }) });
         return secondPromise;
       });
       fireEvent.submit(screen.getByRole("button", { name: /search/i }).closest("form")!);
 
-      resolveFirst();
-      resolveSecond();
+      if (resolveFirst) resolveFirst();
+      if (resolveSecond) resolveSecond();
 
       await screen.findByText(/Latest Assessment Summary/i);
       expect(screen.queryByText(/Error/i)).toBeNull();

@@ -47,7 +47,7 @@ export function BehavioralRiskInvestigationClient() {
 
   const [latestAssessment, setLatestAssessment] = useState<AssessmentDto | null>(null);
   const [history, setHistory] = useState<AssessmentDto[]>([]);
-  
+
   const [selectedAssessmentId, setSelectedAssessmentId] = useState<string | null>(null);
   const [selectedAssessmentDetails, setSelectedAssessmentDetails] = useState<AssessmentDto | null>(null);
   const [isDetailsLoading, setIsDetailsLoading] = useState(false);
@@ -66,13 +66,13 @@ export function BehavioralRiskInvestigationClient() {
 
   const handleSearch = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const trimmedSubject = subjectRef.trim();
     if (!trimmedSubject) {
       setError("Subject reference is required");
       return;
     }
-    
+
     // Bounds check limit
     const safeLimit = Math.min(Math.max(1, limit), 50);
     setLimit(safeLimit);
@@ -101,7 +101,7 @@ export function BehavioralRiskInvestigationClient() {
 
       if (latestRes.status === 401 || historyRes.status === 401) throw new Error("UNAUTHORIZED");
       if (latestRes.status === 403 || historyRes.status === 403) throw new Error("FORBIDDEN");
-      
+
       // Allow 404 for latest to mean "no data found"
       if (!latestRes.ok && latestRes.status !== 404) throw new Error("INTERNAL_SERVER_ERROR");
       if (!historyRes.ok && historyRes.status !== 404) throw new Error("INTERNAL_SERVER_ERROR");
@@ -110,7 +110,7 @@ export function BehavioralRiskInvestigationClient() {
         const latestData = await latestRes.json();
         setLatestAssessment(latestData);
       }
-      
+
       if (historyRes.status === 200) {
         const historyData = await historyRes.json();
         setHistory(historyData.history || []);
@@ -144,8 +144,8 @@ export function BehavioralRiskInvestigationClient() {
     setIsDetailsLoading(true);
     try {
       const params = new URLSearchParams({ environment, lifecycle });
-      const res = await fetch(`/api/soc/intelligence/behavioral-risk/${assessmentId}?${params.toString()}`, { 
-        signal: detailsAbortController.current.signal 
+      const res = await fetch(`/api/soc/intelligence/behavioral-risk/${assessmentId}?${params.toString()}`, {
+        signal: detailsAbortController.current.signal
       });
 
       if (res.status === 401) throw new Error("UNAUTHORIZED");
@@ -171,7 +171,7 @@ export function BehavioralRiskInvestigationClient() {
       <header className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Behavioral Risk Investigation</h1>
         <p className="text-sm text-gray-500 mt-1">
-          Review advisory and explainable behavioral risk assessments. 
+          Review advisory and explainable behavioral risk assessments.
           No automated enforcement occurs based on this data.
         </p>
       </header>
@@ -183,7 +183,7 @@ export function BehavioralRiskInvestigationClient() {
             <h2 className="text-sm font-medium text-yellow-800">Advisory Only</h2>
             <div className="mt-2 text-sm text-yellow-700">
               <p>
-                This information requires human review. No account, payment, KYC, listing, booking, 
+                This information requires human review. No account, payment, KYC, listing, booking,
                 permission, or response action is executed from this page.
               </p>
             </div>
@@ -196,9 +196,9 @@ export function BehavioralRiskInvestigationClient() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
           <div>
             <label htmlFor="subjectRef" className="block text-sm font-medium text-gray-700 mb-1">Subject Reference</label>
-            <input 
+            <input
               id="subjectRef"
-              type="text" 
+              type="text"
               required
               value={subjectRef}
               onChange={e => setSubjectRef(e.target.value)}
@@ -242,7 +242,7 @@ export function BehavioralRiskInvestigationClient() {
               />
             </div>
             <div className="flex items-end space-x-2 pb-1">
-              <button 
+              <button
                 type="submit"
                 disabled={isLoading}
                 className="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
