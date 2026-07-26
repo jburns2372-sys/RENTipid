@@ -1,59 +1,69 @@
-# Phase 5I: Software Supply Chain Security Evidence
+﻿# Phase 5I: Software Supply Chain Security Evidence
 
 ## Scope and Manifest
-This bundle implements Phase 5I independently from Phase 5E, focusing entirely on CI/CD workflow security, deterministic installation, lockfile enforcement, and SBOM capabilities.
+This document records the completion of Phase 5I supply-chain security, specifically the remediation of the production-critical next-auth vulnerability.
 
 **File Manifest:**
-- `.github/workflows/azure-deploy.yml` (Modified: SHA pinned, `npm ci`, `npm audit`, least privilege permissions)
-- `tests/security/supply-chain/workflow.test.ts` (New: Static configuration tests)
-- `docs/security/level5/bundles/bundle1/SBOM.json` (New: Generated SBOM)
-- `docs/security/level5/bundles/bundle1/PHASE5I_SUPPLY_CHAIN_EVIDENCE.md` (New: This evidence document)
+- package.json (Modified: pinned next-auth exactly to 4.24.15)
+- package-lock.json (Modified: next-auth 4.24.15 resolution)
+- docs/security/level5/bundles/bundle1/SBOM.json (Modified: Regenerated SBOM with patched dependency)
+- docs/security/level5/bundles/bundle1/PHASE5I_SUPPLY_CHAIN_EVIDENCE.md (Modified: This evidence document)
 
-## CI/CD Workflow Controls
-- **Deterministic Installation:** The Azure deployment workflow now uses `npm ci --ignore-scripts` instead of `npm install` for dependency review, ensuring the `package-lock.json` is strictly honored.
-- **Lockfile Enforcement:** `npm ci` fails the build if the lockfile and package manifest are inconsistent.
-- **Secret Safety:** No secret values are echoed, printed, or persisted. No environment dumps exist. Secrets are exclusively referenced via the GitHub secrets context.
-- **Dependency Audit:** Vulnerability detection is now natively integrated in the CI pipeline via `npm audit || true` (running without failing the deployment prematurely or automatically upgrading).
+## Critical Remediation
+- **Target:**
+ext-auth
+- **Original Vulnerable Version:** 4.24.14
+- **Patched Version:** 4.24.15
+- **Advisory:** GHSA-7rqj-j65f-68wh
+- **Delta:** package.json and package-lock.json updated to pin exact version 4.24.15. No unrelated dependencies were altered.
 
-## Action SHA Pinning
-Third-party GitHub Actions are pinned to immutable commit SHAs, documented in comments:
-- `actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26` (v3)
-- `actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020` (v4)
-- `azure/login@33b121a1597278045654f321b0e9861297c5e9c0` (v1)
-- `azure/container-apps-deploy-action@29ee19866ec987ededd70b8412d9ee241a9102d1` (v1)
-
-## Permission Controls
-- The workflow has been explicitly limited to `contents: read` and `id-token: write` (required for Azure OIDC login). No wildcard write permissions exist.
-
-## Dependency Audit
-- **Command:** `npm audit --json`
-- **Exit Code:** 1
-- **Critical Findings:** 1 (`next-auth`)
-- **High Findings:** 31 (`next`, `sharp`, `postcss`, etc.)
-- **Moderate Findings:** 5 (`tar`, `uuid`, etc.)
-- **Affects Production Dependencies:** Yes
-- **Deferred Remediation:** Yes. Consistent with bundle constraints, no automatic dependency fix (`npm audit fix`) or update was performed. Vulnerability suppression was not utilized.
-
-## SBOM (Software Bill of Materials)
-- **Command:** `npm sbom --sbom-format cyclonedx > docs/security/level5/bundles/bundle1/SBOM.json`
-- **Tooling Gap:** None. Native `npm sbom` tooling is supported and successfully generated a CycloneDX manifest.
-- **Output Path:** `docs/security/level5/bundles/bundle1/SBOM.json`
-
-## Focused Static Testing
-- **Command:** `npx cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- jest tests/security/supply-chain/workflow.test.ts`
-- **Result:** 1 test suite, 8 tests passed, 0 failed.
+## CI/CD and Prisma Reproducibility
+- **Deterministic Install:**
+pm ci completed successfully (exit code 0).
+- **Prisma Generation Context:** The initial authentication test failure was caused by the missing generated Prisma client after
+pm ci. The failure occurred during module initialization before any authentication behavior was evaluated.
+- **CI Gap Analysis:** Evaluated clean-install Prisma reproducibility. It was confirmed that CI Prisma generation was already reproducible via the production build script (PRISMA_GENERATION_ALREADY_REPRODUCIBLE). No workflow correction was required.
+- **Local Generation:**
+px cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- npx prisma generate executed successfully (exit 0).
+- **Database Safety:** Confirmed no migration, schema change, or database mutation occurred during generation.
 
 ## Validation Results
-- **Targeted ESLint:** `npx eslint tests/security/supply-chain/workflow.test.ts`
-  - Result: 0 errors, 0 warnings.
-- **TypeScript:** `node --max-old-space-size=8192 node_modules/typescript/bin/tsc --noEmit`
-  - Exit code: 1
-  - Classification: `NONZERO_INHERITED_BASELINE_ONLY`. Zero new Bundle 1A errors. Only the seven inherited Phase 3 errors remain.
-- **Build Applicability:** `BUILD_NOT_APPLICABLE_SUPPLY_CHAIN_CONFIGURATION_ONLY`
+- **Testing:** Authentication and supply-chain test suites completed successfully.
+  - Result: 4 suites passed, 26 tests passed, 0 failed, 0 skipped.
+- **Targeted ESLint:** ESLINT_NOT_RERUN_TEST_FILE_UNCHANGED (workflow.test.ts was not modified).
+- **TypeScript:** TYPESCRIPT_NONZERO_INHERITED_BASELINE_ONLY. Exit code 1. Zero new errors. Only the seven inherited Phase 3 errors remain.
+- **Production Build:**
+pm run build completed successfully (exit code 0).
+
+## Dependency Audit
+- **Before Remediation:** One production-critical vulnerability (next-auth).
+- **After Remediation (Production Only):**
+  - Critical: 0
+  - High: 5
+  - Moderate: 3
+  - Low: 0
+  - Total: 8
+  -
+ext-auth is no longer reported as production critical.
+- **Full Audit Totals (including devDependencies):**
+  - Critical: 0
+  - High: 31
+  - Moderate: 4
+  - Low: 0
+  - Total: 35
+- **Remaining Remediation Plan:** High and moderate vulnerabilities are deferred. Consistent with constraints, no
+pm audit fix or unrelated dependency update was performed.
+
+## SBOM (Software Bill of Materials)
+- **Tooling:** Native
+pm sbom --sbom-format cyclonedx
+- **Output Path:** docs/security/level5/bundles/bundle1/SBOM.json
+- **Verification:** Successfully generated valid CycloneDX JSON representing
+ext-auth@4.24.15. No 4.24.14 component remains. No sensitive data was exposed.
 
 ## Final Confirmations
-- **No application source modification.**
-- **No database or migration execution.**
-- **No Azure, Vercel, or production access.**
-- **No push or deployment.**
-- **Phase 5E remains unstarted by this bundle.**
+- **No authentication redesign was performed.**
+- **No database access or mutation occurred beyond authorized isolated testing.**
+- **No production access or deployment occurred.**
+- **Phase 5E remains unstarted.**
+- **Process Deviation Note:** There is a historical amend process deviation from the preceding Phase 5I commit (eb4cb5d523b464dcedd6f73d0640709fbc1c3c7c). No further amend occurred in this remediation commit.
