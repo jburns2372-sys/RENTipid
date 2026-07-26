@@ -88,7 +88,7 @@ describe('MFA Authorization Integration', () => {
       user: { id: testUserFinanceId, iat: Math.floor(Date.now() / 1000) }
     });
 
-    try { await requireSecurityPermission('security.response.execute'); } catch(e) {}
+    await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
     expect(redirect).toHaveBeenCalledWith('/dashboard');
   });
 
@@ -113,7 +113,7 @@ describe('MFA Authorization Integration', () => {
       user: { id: testUserId, iat: Math.floor(Date.now() / 1000) }
     });
 
-    try { await requireSecurityPermission('security.response.execute'); } catch(e) {}
+    await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
     expect(redirect).toHaveBeenCalledWith('/mfa-challenge');
   });
 
@@ -169,12 +169,12 @@ describe('MFA Authorization Integration', () => {
     expect(context).toBeDefined();
 
     // Should fail for write
-    try { await requireSecurityPermission('security.response.execute'); } catch(e) {}
+    await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
     expect(redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   it('Finance permission does not imply security permission', async () => {
-    const isAllowed = await assertSecurityPermissionForService(testUserFinanceId, 'RESPOND_INCIDENT');
+    const isAllowed = await assertSecurityPermissionForService(testUserFinanceId, 'security.response.execute');
     expect(isAllowed).toBe(false);
   });
 
@@ -196,7 +196,7 @@ describe('MFA Authorization Integration', () => {
 
     // We don't spy on logAdministrationEvent directly here to avoid breaking module boundaries,
     // but we can check if it redirects without throwing error.
-    try { await requireSecurityPermission('RESPOND_INCIDENT' as any); } catch(e) {}
+    await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
     expect(redirect).toHaveBeenCalledWith('/dashboard');
   });
 });

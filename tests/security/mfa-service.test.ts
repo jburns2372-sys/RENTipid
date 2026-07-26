@@ -3,7 +3,6 @@ process.env.MFA_ENCRYPTION_KEY_ID = 'test_v1';
 process.env.MFA_ENCRYPTION_KEY = randomBytes(32).toString('hex');
 import { MfaService } from '../../src/lib/security/auth/mfa-service';
 import { PrismaClient } from '@prisma/client';
-import { authenticator } from 'otplib';
 
 jest.mock('otplib', () => {
   const generateSecret = jest.fn(() => 'MOCKED_SECRET_12345678');
@@ -83,7 +82,7 @@ describe('MfaService', () => {
 
   it('activates MFA with valid challenge', async () => {
     const { secret } = await MfaService.generateEnrollment(testUserId, testUserEmail);
-    const token = authenticator.generate(secret);
+    const token = '123456';
     
     const { recoveryCodes } = await MfaService.activateMfa(testUserId, token);
     
@@ -100,7 +99,7 @@ describe('MfaService', () => {
 
   it('rejects replay of recovery code', async () => {
     const { secret } = await MfaService.generateEnrollment(testUserId, testUserEmail);
-    const token = authenticator.generate(secret);
+    const token = '123456';
     const { recoveryCodes } = await MfaService.activateMfa(testUserId, token);
     
     const codeToUse = recoveryCodes[0];
@@ -116,7 +115,7 @@ describe('MfaService', () => {
 
   it('invalidates old codes on regeneration', async () => {
     const { secret } = await MfaService.generateEnrollment(testUserId, testUserEmail);
-    const token = authenticator.generate(secret);
+    const token = '123456';
     const { recoveryCodes: oldCodes } = await MfaService.activateMfa(testUserId, token);
     
     const { recoveryCodes: newCodes } = await MfaService.regenerateRecoveryCodes(testUserId);
@@ -134,7 +133,7 @@ describe('MfaService', () => {
 
   it('reset invalidates session-security state', async () => {
     const { secret } = await MfaService.generateEnrollment(testUserId, testUserEmail);
-    const token = authenticator.generate(secret);
+    const token = '123456';
     await MfaService.activateMfa(testUserId, token);
     
     await MfaService.resetMfa(testUserId);

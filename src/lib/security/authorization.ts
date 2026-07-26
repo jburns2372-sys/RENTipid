@@ -63,6 +63,19 @@ export function getValidSessionIdentity(session: unknown): string {
   throw new Error("UNAUTHORIZED_SESSION_IDENTITY");
 }
 
+export function getValidSessionTimestamp(sessionUser: unknown): number {
+  if (
+    sessionUser &&
+    typeof sessionUser === "object" &&
+    "iat" in sessionUser &&
+    typeof (sessionUser as { iat: unknown }).iat === "number" &&
+    Number.isFinite((sessionUser as { iat: number }).iat)
+  ) {
+    return (sessionUser as { iat: number }).iat * 1000;
+  }
+  throw new Error("UNAUTHORIZED_SESSION_TIMESTAMP");
+}
+
 export async function requireAuthenticatedUser() {
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
@@ -180,7 +193,7 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
     // 4. Step-up Authentication Enforcement
     // Privileged SOC operations require recent MFA verification in the authoritative DB.
     const mfa = await prisma.userMfa.findUnique({ where: { user_id: dbUser.id } });
-    const sessionIat = (sessionUser as any).iat ? (sessionUser as any).iat * 1000 : 0;
+    const sessionIat = getValidSessionTimestamp(sessionUser);
     
     // Password reset invalidates existing session security state
     // We use dbUser.updated_at > iat (with a 2 second buffer) to detect password changes or critical user updates

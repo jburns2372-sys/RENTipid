@@ -58,7 +58,7 @@ describe('Session Step-Up Controls', () => {
       user: { id: testUserId, iat: Math.floor(Date.now() / 1000) }
     });
 
-    try { await requireSecurityPermission('security.response.execute'); } catch(e) {}
+    await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
     expect(redirect).toHaveBeenCalledWith('/dashboard');
   });
 
@@ -80,7 +80,7 @@ describe('Session Step-Up Controls', () => {
       user: { id: testUserId, iat: Math.floor(Date.now() / 1000) }
     });
 
-    try { await requireSecurityPermission('security.response.execute'); } catch(e) {}
+    await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
     expect(redirect).toHaveBeenCalledWith('/mfa-challenge');
   });
 
@@ -104,7 +104,7 @@ describe('Session Step-Up Controls', () => {
       user: { id: testUserId, iat: Math.floor(Date.now() / 1000) }
     });
 
-    try { await requireSecurityPermission('security.response.execute'); } catch(e) {}
+    await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
     expect(redirect).toHaveBeenCalledWith('/mfa-challenge');
   });
 
@@ -127,8 +127,7 @@ describe('Session Step-Up Controls', () => {
       user: { id: testUserId, iat: Math.floor(Date.now() / 1000) }
     });
 
-    let context;
-    try { context = await requireSecurityPermission('security.response.execute'); } catch(e) {}
+    const context = await requireSecurityPermission('security.response.execute');
     expect(context).toBeDefined();
     expect(redirect).not.toHaveBeenCalled();
   });
@@ -147,7 +146,7 @@ describe('Session Step-Up Controls', () => {
       user: { id: testUserId, iat: pastIat }
     });
 
-    try { await requireSecurityPermission('security.response.execute'); } catch(e) {}
+    await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
     // Expect redirect to login due to session invalidation
     expect(redirect).toHaveBeenCalledWith('/login');
   });
@@ -173,7 +172,7 @@ describe('Session Step-Up Controls', () => {
       user: { id: testUserId, iat: pastIat }
     });
 
-    try { await requireSecurityPermission('security.response.execute'); } catch(e) {}
+    await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
     // Expect redirect to login due to MFA reset
     expect(redirect).toHaveBeenCalledWith('/login');
   });
@@ -188,7 +187,7 @@ describe('Session Step-Up Controls', () => {
       user: { id: testUserId, iat: Math.floor(Date.now() / 1000) }
     });
 
-    try { await requireSecurityPermission('security.response.execute'); } catch(e) {}
+    await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
     expect(redirect).toHaveBeenCalledWith('/dashboard');
   });
 
@@ -212,7 +211,7 @@ describe('Session Step-Up Controls', () => {
       user: { id: testUserId, iat: Math.floor(Date.now() / 1000), mfa_verified: true }
     });
 
-    try { await requireSecurityPermission('security.response.execute' as any); } catch(e) {}
+    await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
     // Should still redirect to mfa-challenge because DB is authoritative
     expect(redirect).toHaveBeenCalledWith('/mfa-challenge');
   });
