@@ -5,9 +5,13 @@ import { FakeKeyProvider } from './fake-key-provider';
 describe('ProfileFieldProtection', () => {
   let fakeKeyProvider: FakeKeyProvider;
 
-  beforeAll(() => {
+  beforeEach(() => {
     fakeKeyProvider = new FakeKeyProvider();
     KeyProvider.__setTestProvider(fakeKeyProvider);
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   describe('Context isolation', () => {
@@ -81,15 +85,19 @@ describe('ProfileFieldProtection', () => {
 
     it('Unknown context is rejected', () => {
       expect(() => {
-        ProfileFieldProtection.protect('Data', 'INVALID_CONTEXT' as ProfileFieldContext);
+        ProfileFieldProtection.protect('Data', 'INVALID_CONTEXT' as unknown as ProfileFieldContext);
       }).toThrow(ProfileFieldProtectionError);
     });
 
     it('No plaintext is included in expected error messages', () => {
       try {
         ProfileFieldProtection.protect('', ProfileFieldContext.USER_ADDRESS);
+        fail('Should have thrown error');
       } catch (err: unknown) {
-        expect((err as Error).message).not.toContain('   ');
+        expect(err).toBeInstanceOf(Error);
+        if (err instanceof Error) {
+          expect(err.message).not.toContain('   ');
+        }
       }
     });
   });
@@ -131,10 +139,27 @@ describe('ProfileFieldProtection', () => {
 
     it('Tampered ciphertext with legacy plaintext fails closed', () => {
       const cipher = ProfileFieldProtection.protect('Data', ProfileFieldContext.USER_ADDRESS);
-      const tampered = cipher.replace('"', '\"'); // break JSON or tampered string
+      const tampered = cipher.replace('version', 'ver'); // break JSON properties
       expect(() => {
         ProfileFieldProtection.read(tampered, 'Legacy', ProfileFieldContext.USER_ADDRESS);
-      }).toThrow();
+      }).toThrow(ProfileFieldProtectionError);
+    });
+
+    it('Wrong key material with legacy plaintext fails closed', () => {
+      const cipher = ProfileFieldProtection.protect('Data', ProfileFieldContext.USER_ADDRESS);
+
+      const anotherFakeProvider = new FakeKeyProvider();
+      // Rotate the active key so it returns different bytes
+      // But we need to make sure the key ID remains the same, wait FakeKeyProvider always returns same bytes for same ID.
+      // I will mock the getActiveKey / getKey on the second provider
+      const fakeBuffer = Buffer.alloc(32, 0x99);
+      jest.spyOn(anotherFakeProvider, 'getKey').mockReturnValue(fakeBuffer);
+
+      KeyProvider.__setTestProvider(anotherFakeProvider);
+
+      expect(() => {
+        ProfileFieldProtection.read(cipher, 'Legacy', ProfileFieldContext.USER_ADDRESS);
+      }).toThrow(ProfileFieldProtectionError);
     });
 
     it('Wrong key version with legacy plaintext fails closed', () => {
@@ -189,7 +214,14 @@ describe('ProfileFieldProtection', () => {
       const tooLarge = 'A'.repeat(2001);
       expect(() => {
         ProfileFieldProtection.protect(tooLarge, ProfileFieldContext.USER_ADDRESS);
-      }).toThrow('size');
+      }).toThrow(ProfileFieldProtectionError);
+    });
+
+    it('Oversized ciphertext is rejected', () => {
+      const oversizedCiphertext = 'A'.repeat(1_048_577);
+      expect(() => {
+        ProfileFieldProtection.read(oversizedCiphertext, 'Legacy', ProfileFieldContext.USER_ADDRESS);
+      }).toThrow(ProfileFieldProtectionError);
     });
   });
 
@@ -197,9 +229,13 @@ describe('ProfileFieldProtection', () => {
     it('Errors do not contain test plaintext', () => {
       const secret = 'SECRET_DO_NOT_LEAK';
       try {
-        ProfileFieldProtection.protect(secret, 'INVALID_CTX' as ProfileFieldContext);
+        ProfileFieldProtection.protect(secret, 'INVALID_CTX' as unknown as ProfileFieldContext);
+        fail('Should have thrown error');
       } catch (err: unknown) {
-        expect((err as Error).message).not.toContain(secret);
+        expect(err).toBeInstanceOf(Error);
+        if (err instanceof Error) {
+          expect(err.message).not.toContain(secret);
+        }
       }
     });
 
@@ -207,27 +243,32 @@ describe('ProfileFieldProtection', () => {
       const key = fakeKeyProvider.getActiveKey(KeyPurpose.FIELD_ENCRYPTION);
       try {
         ProfileFieldProtection.read('INVALID', null, ProfileFieldContext.USER_ADDRESS);
+        fail('Should have thrown error');
       } catch (err: unknown) {
-        expect((err as Error).message).not.toContain(key.value.toString('base64'));
+        expect(err).toBeInstanceOf(Error);
+        if (err instanceof Error) {
+          expect(err.message).not.toContain(key.value.toString('base64'));
+        }
       }
     });
 
     it('Adapter performs no console logging', () => {
       const consoleSpy = jest.spyOn(console, 'log');
       const errorSpy = jest.spyOn(console, 'error');
+      const warnSpy = jest.spyOn(console, 'warn');
 
       const cipher = ProfileFieldProtection.protect('Data', ProfileFieldContext.USER_ADDRESS);
       ProfileFieldProtection.read(cipher, null, ProfileFieldContext.USER_ADDRESS);
 
       try {
         ProfileFieldProtection.read('INVALID', null, ProfileFieldContext.USER_ADDRESS);
-      } catch {}
+      } catch {
+        // Ignored for test
+      }
 
       expect(consoleSpy).not.toHaveBeenCalled();
       expect(errorSpy).not.toHaveBeenCalled();
-
-      consoleSpy.mockRestore();
-      errorSpy.mockRestore();
+      expect(warnSpy).not.toHaveBeenCalled();
     });
   });
 });

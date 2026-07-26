@@ -29,6 +29,7 @@ export class ProfileFieldProtection {
   // Maximum accepted plaintext size is 2000 characters to prevent DoS attacks
   // while being generous enough for any valid address or registration number.
   private static readonly MAX_PLAINTEXT_LENGTH = 2000;
+  private static readonly MAX_CIPHERTEXT_LENGTH = 1_048_576;
 
   /**
    * Protects a string value using authenticated envelope encryption.
@@ -80,6 +81,10 @@ export class ProfileFieldProtection {
     }
 
     if (encryptedCompanion) {
+      if (typeof encryptedCompanion !== 'string' || encryptedCompanion.length > ProfileFieldProtection.MAX_CIPHERTEXT_LENGTH) {
+        throw new ProfileFieldProtectionError('Malformed ciphertext rejected safely.');
+      }
+
       try {
         const envelope = JSON.parse(encryptedCompanion) as SecretEnvelope;
 
