@@ -36,7 +36,7 @@ export function BehavioralRiskHandoff({ context, assessment }: HandoffProps) {
   const handleCopySummary = useCallback(async () => {
     try {
       const link = getDeepLink();
-      const signals = assessment.contributingSignals?.map(s => 
+      const signals = assessment.contributingSignals?.map(s =>
         `- ${s.title || s.signalCode} (${s.signalCode}): ${s.explanation}`
       ).join("\n") || "None";
 

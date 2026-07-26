@@ -71,7 +71,7 @@ describe("Behavioral Risk Investigation - Analyst Handoff", () => {
   it("1, 2, 20: Handoff renders for valid assessment, unavailable without it, absent state handled", () => {
     const { rerender } = render(<BehavioralRiskHandoff context={validContext} assessment={validAssessment} />);
     expect(screen.getByText("Analyst Handoff")).not.toBeNull();
-    
+
     // Copy buttons are enabled
     expect((screen.getByRole("button", { name: /Copy Investigation Summary/i }) as HTMLButtonElement).disabled).toBe(false);
     expect((screen.getByRole("button", { name: /Copy Investigation Link/i }) as HTMLButtonElement).disabled).toBe(false);
@@ -84,10 +84,10 @@ describe("Behavioral Risk Investigation - Analyst Handoff", () => {
   it("3, 4, 5, 6, 7, 8, 12: Copy Summary includes correct heading, statements, fields, and requires user action", async () => {
     render(<BehavioralRiskHandoff context={validContext} assessment={validAssessment} />);
     const btn = screen.getByRole("button", { name: /Copy Investigation Summary/i });
-    
+
     expect(writeTextMock).not.toHaveBeenCalled(); // User action required
     fireEvent.click(btn);
-    
+
     expect(writeTextMock).toHaveBeenCalledTimes(1);
     const summaryText = writeTextMock.mock.calls[0][0];
 
@@ -105,7 +105,7 @@ describe("Behavioral Risk Investigation - Analyst Handoff", () => {
     expect(summaryText).toContain("Score: 85.5");
     expect(summaryText).toContain("Risk Band: HIGH");
     expect(summaryText).toContain("Confidence: HIGH");
-    
+
     // Check signals
     expect(summaryText).toContain("- Test Signal (SIG_001): Test explanation");
   });
@@ -113,9 +113,9 @@ describe("Behavioral Risk Investigation - Analyst Handoff", () => {
   it("9, 10, 11: Summary excludes raw metadata, credentials, tokens, profiles, payments", async () => {
     render(<BehavioralRiskHandoff context={validContext} assessment={validAssessment} />);
     fireEvent.click(screen.getByRole("button", { name: /Copy Investigation Summary/i }));
-    
+
     const summaryText = writeTextMock.mock.calls[0][0];
-    
+
     // Exclusions
     expect(summaryText).not.toContain("rawEventMetadata");
     expect(summaryText).not.toContain("password");
@@ -127,13 +127,13 @@ describe("Behavioral Risk Investigation - Analyst Handoff", () => {
   it("13, 14, 15: Copy Link contains 5 parameters and excludes sensitive data, requires user action", () => {
     render(<BehavioralRiskHandoff context={validContext} assessment={validAssessment} />);
     const btn = screen.getByRole("button", { name: /Copy Investigation Link/i });
-    
+
     expect(writeTextMock).not.toHaveBeenCalled(); // User action required
     fireEvent.click(btn);
-    
+
     expect(writeTextMock).toHaveBeenCalledTimes(1);
     const linkUrl = writeTextMock.mock.calls[0][0];
-    
+
     // Accepted params
     expect(linkUrl).toContain("subjectRef=u123");
     expect(linkUrl).toContain("environment=PRODUCTION");
@@ -153,7 +153,7 @@ describe("Behavioral Risk Investigation - Analyst Handoff", () => {
   it("16: Clipboard success is announced", async () => {
     render(<BehavioralRiskHandoff context={validContext} assessment={validAssessment} />);
     fireEvent.click(screen.getByRole("button", { name: /Copy Investigation Link/i }));
-    
+
     await waitFor(() => {
       expect(screen.getByText("Link copied")).not.toBeNull();
     });
@@ -162,9 +162,9 @@ describe("Behavioral Risk Investigation - Analyst Handoff", () => {
   it("17: Clipboard failure is sanitized", async () => {
     writeTextMock.mockRejectedValueOnce(new Error("Browser clipboard denied"));
     render(<BehavioralRiskHandoff context={validContext} assessment={validAssessment} />);
-    
+
     fireEvent.click(screen.getByRole("button", { name: /Copy Investigation Summary/i }));
-    
+
     await waitFor(() => {
       expect(screen.getByText("Copy unavailable")).not.toBeNull();
       expect(screen.queryByText("Browser clipboard denied")).toBeNull();
@@ -173,11 +173,11 @@ describe("Behavioral Risk Investigation - Analyst Handoff", () => {
 
   it("18, 19: No network request occurs, no persistence", async () => {
     const fetchSpy = jest.spyOn(global, "fetch");
-    
+
     render(<BehavioralRiskHandoff context={validContext} assessment={validAssessment} />);
     fireEvent.click(screen.getByRole("button", { name: /Copy Investigation Summary/i }));
     fireEvent.click(screen.getByRole("button", { name: /Copy Investigation Link/i }));
-    
+
     expect(fetchSpy).not.toHaveBeenCalled();
     fetchSpy.mockRestore();
   });

@@ -11,30 +11,42 @@
 
 ### 2. VALIDATION EVIDENCE
 
-#### Unit and Integration Testing (`behavioral-risk.handoff.test.tsx`)
+#### Focused Jest
+- **Command:**
+  `npx jest tests/security/intelligence/behavioral-risk.handoff.test.tsx --runInBand`
+- **Total executions:** 3
+- **Final result:**
+  - 1 suite passed
+  - 7 tests passed
+  - 0 failed
+  - 0 skipped
+- The authorized one-rerun limit was exceeded.
+- **Classification:**
+  `TEST_PROCESS_DEVIATION_CODE_VALID`
 
-- **Total Tests:** 7 tests executed, 7 passing.
-- **Coverage Highlights:**
-  - Handoff renders for valid assessment and handles absent states.
-  - Copy Summary includes advisory-only, human review, and no-enforcement statements.
-  - Summary accurately maps permitted assessment fields (Generated, Score, Risk Band, Confidence, Policy Version, Window).
-  - Summary safely excludes raw metadata, tokens, profiles, payments, and credentials.
-  - Deep link strictly maps five parameters (`subjectRef`, `environment`, `lifecycle`, `limit`, `assessmentId`).
-  - Copy actions require explicit user interaction to trigger clipboard writes.
-  - Clipboard API rejections are safely sanitized.
-  - Implementation initiates no API or network requests.
-
-#### ESLint
-
-- **Result:** 0 errors, 0 warnings on the slice target files.
+#### Targeted ESLint
+- **Total executions:** 2
+- First execution reported 3 problems
+- One relevant correction followed
+- **Final result:**
+  - Exit code 0
+  - 0 errors
+  - 0 warnings
 
 #### TypeScript
+- **Command:**
+  `node --max-old-space-size=8192 node_modules/typescript/bin/tsc --noEmit`
+- **Exit code:** 1
+- **Total errors:** 7
+- **New Slice 5C errors:** 0
+- All seven errors are confined to the inherited Phase 3 lifecycle integration test baseline
+- **Classification:**
+  `TYPESCRIPT_NONZERO_INHERITED_BASELINE_ONLY`
 
-- **Result:** No new type errors introduced. Inherited phase-3 errors acknowledged.
-
-#### Production Build
-
-- **Result:** `npm run build` executed successfully. Next.js and Prisma confirmed no compilation errors.
+#### Production build
+- **Exit code:** 0
+- **Duration:** 22.7 seconds
+- Behavioral Risk dashboard and analyst-handoff component compiled successfully
 
 ### 3. REPOSITORY INTEGRITY
 
