@@ -1,7 +1,11 @@
-import { NextRequest } from "next/server";
 import { GET as getAssessmentById } from "@/app/api/soc/intelligence/behavioral-risk/[assessmentId]/route";
 import { GET as getLatestAssessment } from "@/app/api/soc/intelligence/behavioral-risk/latest/route";
 import { GET as getHistory } from "@/app/api/soc/intelligence/behavioral-risk/history/route";
+import * as assessmentByIdRoute from "@/app/api/soc/intelligence/behavioral-risk/[assessmentId]/route";
+import * as latestRoute from "@/app/api/soc/intelligence/behavioral-risk/latest/route";
+import * as historyRoute from "@/app/api/soc/intelligence/behavioral-risk/history/route";
+import fs from "fs";
+import path from "path";
 
 jest.mock("@/lib/security/authorization", () => ({
   requireAuthenticatedUser: jest.fn(),
@@ -203,6 +207,34 @@ describe("Behavioral Risk API Slice 3", () => {
       expect(data.tokens).toBeUndefined();
       expect(data.paymentData).toBeUndefined();
       expect(data.advisoryOnly).toBe(true);
+    });
+  });
+
+  describe("Implementation Requirements", () => {
+    it("No mutation service is imported or called", () => {
+      const routes = [
+        "src/app/api/soc/intelligence/behavioral-risk/[assessmentId]/route.ts",
+        "src/app/api/soc/intelligence/behavioral-risk/latest/route.ts",
+        "src/app/api/soc/intelligence/behavioral-risk/history/route.ts"
+      ];
+      routes.forEach(route => {
+        const content = fs.readFileSync(path.resolve(process.cwd(), route), 'utf-8');
+        expect(content).not.toContain("behavioral-risk.persistence");
+        expect(content).not.toContain("persistBehavioralRiskAssessment");
+      });
+    });
+
+    it("Unsupported HTTP methods are unavailable", () => {
+      const unsupported = ['POST', 'PUT', 'PATCH', 'DELETE'];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const modules: any[] = [assessmentByIdRoute, latestRoute, historyRoute];
+
+      modules.forEach(routeModule => {
+        unsupported.forEach(method => {
+          expect(routeModule[method]).toBeUndefined();
+        });
+        expect(routeModule.GET).toBeDefined();
+      });
     });
   });
 });

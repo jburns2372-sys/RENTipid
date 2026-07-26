@@ -32,14 +32,36 @@ Three strictly scoped, read-only GET routes were implemented:
 
 ### Test Matrix
 - **Test File**: `tests/security/intelligence/behavioral-risk.api.test.ts`
-- **Focus**: Evaluates authorization boundaries, validation boundaries, input parameters, safe 404 behavior, correct query integration, and response payload safety.
-- **Total Tests**: 13 passed tests across 1 suite.
+- **Focus**: Evaluates authorization boundaries, validation boundaries, input parameters, safe 404 behavior, correct query integration, response payload safety, and API method constraints.
+- **Total Tests**: 15 passed tests across 1 suite.
 - **Failures/Skipped**: 0 failed, 0 skipped.
 
+#### 20-Behavior Coverage Mapping
+1. **Unauthenticated request rejected**: `EXPLICITLY_TESTED` (Test: "Unauthenticated request is rejected (401)")
+2. **Authenticated user without permission forbidden**: `EXPLICITLY_TESTED` (Test: "Authenticated user without SOC read permission is forbidden (403)")
+3. **Authorized assessment-by-ID succeeds**: `EXPLICITLY_TESTED` (Test: "Authorized assessment-by-ID request succeeds")
+4. **Assessment-by-ID validates environment and lifecycle**: `EXPLICITLY_TESTED` (Test: "Assessment-by-ID validates environment and lifecycle")
+5. **Missing assessment returns safe not-found**: `EXPLICITLY_TESTED` (Test: "Missing assessment returns safe not-found")
+6. **Latest requires subject, environment, and lifecycle**: `EXPLICITLY_TESTED` (Test: "Latest route requires subject, environment, and lifecycle")
+7. **Latest preserves subject isolation**: `EXPLICITLY_TESTED` (Test: "Latest route preserves subject isolation")
+8. **History requires subject, environment, and lifecycle**: `EXPLICITLY_TESTED` (Test: "History route requires subject, environment, and lifecycle")
+9. **History enforces maximum page size**: `EXPLICITLY_TESTED` (Test: "History route enforces maximum page size")
+10. **History passes stable pagination correctly**: `EXPLICITLY_TESTED` (Test: "History route passes stable pagination values correctly")
+11. **Query receives sanitized subject reference**: `EXPLICITLY_TESTED` (Test: "Query service receives sanitized subject reference")
+12. **Query receives exact environment and lifecycle**: `TESTED_WITHIN_ANOTHER_CASE` (Tested within successful route queries)
+13. **Output contains signals and evidence IDs**: `EXPLICITLY_TESTED` (Test: "API output contains signals and evidence IDs, absent raw events")
+14. **Raw event metadata absent**: `EXPLICITLY_TESTED` (Test: "API output contains signals and evidence IDs, absent raw events")
+15. **Credentials, tokens, documents, and payment fields absent**: `EXPLICITLY_TESTED` (Test: "API output contains signals and evidence IDs, absent raw events")
+16. **advisoryOnly remains true**: `EXPLICITLY_TESTED` (Test: "API output contains signals and evidence IDs, absent raw events")
+17. **No mutation service imported or called**: `EXPLICITLY_TESTED` (Test: "No mutation service is imported or called")
+18. **Unsupported HTTP methods unavailable**: `EXPLICITLY_TESTED` (Test: "Unsupported HTTP methods are unavailable")
+19. **Authentication and authorization sequencing preserved**: `TESTED_WITHIN_ANOTHER_CASE` (Tested within "Unauthenticated request is rejected (401)" and "Authenticated user without SOC read permission is forbidden (403)")
+20. **No record-existence disclosure across forbidden boundaries**: `EXPLICITLY_TESTED` (Test: "No record-existence disclosure occurs across forbidden boundaries")
+
 ### Code Quality and Integrity
-- **ESLint**: 0 errors, 1 valid warning on the changed files. No suppression or `any` was introduced.
-- **TypeScript Classification**: Zero new errors. Type checks fully complete with inherited Phase 3 errors explicitly preserved and unmodified.
-- **Build Result**: Production build successfully completed without Slice 1, Slice 2, or Slice 3 route errors. Existing checkout route typing and build states remain fully operational.
+- **ESLint**: 0 errors, 0 warnings. The unused `NextRequest` test import was successfully removed.
+- **TypeScript Classification**: Zero new errors. Type checks fully complete with inherited Phase 3 errors explicitly preserved and unmodified. (Production build inherited from original acceptance).
+- **Build Result**: Production build successfully completed without Slice 1, Slice 2, or Slice 3 route errors. Existing checkout route typing and build states remain fully operational. (Production build inherited from original acceptance).
 
 ### Boundary and Compliance Statements
 - **No Database Migration**: No Prisma schema changes or migrations occurred.
