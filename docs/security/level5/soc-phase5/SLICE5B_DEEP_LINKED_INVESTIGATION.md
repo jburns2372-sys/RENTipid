@@ -46,7 +46,25 @@ The initial context hydration was refactored from a synchronous effect setter in
 ### Final Execution Quality Summary
 - **Tests**: 1 suite, 20 passing (including 9 specific deep-link cases).
 - **ESLint**: 0 errors across target files.
-- **TypeScript**: 0 compilation errors.
-- **Production Build**: Passed with static generation verified.
+
+### TypeScript validation
+
+Command:
+
+node --max-old-space-size=8192 node_modules/typescript/bin/tsc --noEmit
+
+Result:
+
+- Exit code: 1
+- Total reported errors: 7
+- New Slice 5B errors: 0
+- All seven errors were confined to the inherited Phase 3 lifecycle integration
+  test baseline
+- No inherited error file was modified
+- Classification:
+  NONZERO_INHERITED_BASELINE_ONLY
+
+- The production build exited successfully and compiled the Behavioral Risk
+  dashboard route.
 - **Integrity**: No `any`/`as any` types, no unsafe disables, and no mutations to production APIs.
 
