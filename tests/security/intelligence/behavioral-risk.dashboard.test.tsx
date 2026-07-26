@@ -59,13 +59,13 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
   describe("Server Page Constraints", () => {
     it("1. Unauthorized page access is blocked", async () => {
       (requireSecurityPermission as jest.Mock).mockRejectedValueOnce(new Error("Unauthorized"));
-      await expect(BehavioralRiskInvestigationPage()).rejects.toThrow("Unauthorized");
+      await expect(BehavioralRiskInvestigationPage({ searchParams: Promise.resolve({}) })).rejects.toThrow("Unauthorized");
       expect(requireSecurityPermission).toHaveBeenCalledWith(SECURITY_PERMISSIONS.DASHBOARD_VIEW);
     });
 
     it("2. Authorized page renders the investigation client", async () => {
       (requireSecurityPermission as jest.Mock).mockResolvedValueOnce({ activePermissions: [SECURITY_PERMISSIONS.DASHBOARD_VIEW] });
-      const jsx = await BehavioralRiskInvestigationPage();
+      const jsx = await BehavioralRiskInvestigationPage({ searchParams: Promise.resolve({}) });
       expect(jsx.type).toBe("div");
     });
   });
@@ -257,6 +257,153 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
 
       await screen.findByText(/Latest Assessment Summary/i);
       expect(screen.queryByText(/Error/i)).toBeNull();
+    });
+  });
+
+  describe("Slice 5B: Deep-Linked Investigation Context", () => {
+    beforeEach(() => {
+      jest.spyOn(window.history, 'replaceState').mockImplementation(() => {});
+      delete (window as any).location;
+      window.location = new URL('http://localhost/dashboard/admin/security/intelligence/behavioral-risk') as any;
+    });
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it("S5B.1: Valid initial URL context prefills controls and performs one initial load", async () => {
+      (global.fetch as jest.Mock).mockResolvedValue({ ok: true, status: 200, json: async () => ({}) });
+      
+      render(<BehavioralRiskInvestigationClient initialContext={{ subjectRef: "user-123", environment: "TEST", lifecycle: "SIMULATION", limit: 25 }} />);
+      
+      const subjectInput = screen.getByLabelText(/Subject Reference/i) as HTMLInputElement;
+      expect(subjectInput.value).toBe("user-123");
+      const envInput = screen.getByLabelText(/Environment/i) as HTMLSelectElement;
+      expect(envInput.value).toBe("TEST");
+      const lcInput = screen.getByLabelText(/Lifecycle/i) as HTMLSelectElement;
+      expect(lcInput.value).toBe("SIMULATION");
+      const limitInput = screen.getByLabelText(/Limit/i) as HTMLInputElement;
+      expect(limitInput.value).toBe("25");
+
+      await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(2));
+      const url = (global.fetch as jest.Mock).mock.calls[0][0];
+      expect(url).toContain("subjectRef=user-123");
+      expect(url).toContain("environment=TEST");
+      expect(url).toContain("lifecycle=SIMULATION");
+      expect(url).toContain("limit=25");
+      
+      expect(global.fetch).toHaveBeenCalledTimes(2);
+    });
+
+    it("S5B.2: Incomplete context does not fetch", () => {
+      render(<BehavioralRiskInvestigationClient initialContext={{ subjectRef: "user-123" }} />); 
+      expect(global.fetch).not.toHaveBeenCalled();
+    });
+
+    it("S5B.3: Invalid environment/lifecycle is safely ignored and limit bounded on server", async () => {
+      (requireSecurityPermission as jest.Mock).mockResolvedValueOnce({ activePermissions: [SECURITY_PERMISSIONS.DASHBOARD_VIEW] });
+      const jsx = await BehavioralRiskInvestigationPage({ searchParams: Promise.resolve({ subjectRef: "   user-123   ", environment: "INVALID", lifecycle: "HACK", limit: "999" }) });
+      
+      const clientProps = jsx.props.children.props.initialContext;
+      expect(clientProps.subjectRef).toBe("user-123");
+      expect(clientProps.environment).toBeUndefined(); 
+      expect(clientProps.lifecycle).toBeUndefined(); 
+      expect(clientProps.limit).toBe(50); 
+    });
+
+    it("S5B.4: Initial assessmentId loads details", async () => {
+      (global.fetch as jest.Mock).mockImplementation((url) => {
+        if (url.includes("latest") || url.includes("history")) return Promise.resolve({ ok: true, status: 200, json: async () => ({}) });
+        if (url.includes("assess-1")) return Promise.resolve({ ok: true, status: 200, json: async () => mockValidAssessment });
+        return Promise.resolve({ ok: true, status: 200, json: async () => ({}) });
+      });
+
+      render(<BehavioralRiskInvestigationClient initialContext={{ subjectRef: "u1", environment: "PRODUCTION", lifecycle: "LIVE", limit: 10, assessmentId: "assess-1" }} />);
+      
+      await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(3));
+      const detailsCall = (global.fetch as jest.Mock).mock.calls.find(c => c[0].includes("assess-1"));
+      expect(detailsCall).toBeDefined();
+    });
+
+    it("S5B.5: Manual search updates URL with sanitized values, no sensitive response fields", async () => {
+      (global.fetch as jest.Mock).mockResolvedValue({ ok: true, status: 200, json: async () => mockValidAssessment });
+      
+      render(<BehavioralRiskInvestigationClient />);
+      fireEvent.change(screen.getByLabelText(/Subject Reference/i), { target: { value: "manual-search" } });
+      fireEvent.submit(screen.getByRole("button", { name: /search/i }).closest("form")!);
+      
+      await waitFor(() => expect(window.history.replaceState).toHaveBeenCalled());
+      const lastCall = (window.history.replaceState as jest.Mock).mock.calls.slice(-1)[0][2];
+      expect(lastCall).toContain("subjectRef=manual-search");
+      expect(lastCall).not.toContain("rawEventMetadata"); 
+      expect(lastCall).not.toContain("score=");
+    });
+
+    it("S5B.6: Assessment selection updates assessmentId", async () => {
+      (global.fetch as jest.Mock).mockImplementation((url) => {
+        if (url.includes("latest")) return Promise.resolve({ ok: true, status: 200, json: async () => mockValidAssessment });
+        if (url.includes("history")) return Promise.resolve({ ok: true, status: 200, json: async () => ({ history: [mockValidAssessment] }) });
+        return Promise.resolve({ ok: true, status: 200, json: async () => mockValidAssessment });
+      });
+
+      render(<BehavioralRiskInvestigationClient />);
+      fireEvent.change(screen.getByLabelText(/Subject Reference/i), { target: { value: "u1" } });
+      fireEvent.submit(screen.getByRole("button", { name: /search/i }).closest("form")!);
+      
+      const detailsBtn = await screen.findByRole("button", { name: /Details/i });
+      fireEvent.click(detailsBtn);
+      
+      await waitFor(() => {
+        const lastCall = (window.history.replaceState as jest.Mock).mock.calls.slice(-1)[0][2];
+        expect(lastCall).toContain("assessmentId=assess-1");
+      });
+    });
+
+    it("S5B.7: Clear removes investigation parameters", async () => {
+      render(<BehavioralRiskInvestigationClient />);
+      fireEvent.click(screen.getByRole("button", { name: /clear/i }));
+      
+      await waitFor(() => {
+        const lastCall = (window.history.replaceState as jest.Mock).mock.calls.slice(-1)[0][2];
+        expect(lastCall).not.toContain("subjectRef=");
+        expect(lastCall).not.toContain("assessmentId=");
+      });
+    });
+
+    it("S5B.8: Stale initial response cannot overwrite a newer manual search", async () => {
+      let resolveInitial: (() => void) | undefined;
+      const initialPromise = new Promise((resolve, reject) => {
+        resolveInitial = () => reject(new DOMException("Aborted", "AbortError"));
+      });
+      let resolveManual: (() => void) | undefined;
+      const manualPromise = new Promise(resolve => {
+        resolveManual = () => resolve({ ok: true, status: 200, json: async () => mockValidAssessment });
+      });
+
+      let callCount = 0;
+      (global.fetch as jest.Mock).mockImplementation((url) => {
+        callCount++;
+        if (callCount <= 2) return initialPromise; 
+        if (url.includes("history")) return Promise.resolve({ ok: true, status: 200, json: async () => ({ history: [] }) });
+        return manualPromise;
+      });
+
+      render(<BehavioralRiskInvestigationClient initialContext={{ subjectRef: "slow-initial", environment: "PRODUCTION", lifecycle: "LIVE" }} />);
+      
+      fireEvent.change(screen.getByLabelText(/Subject Reference/i), { target: { value: "fast-manual" } });
+      fireEvent.submit(screen.getByRole("button", { name: /search/i }).closest("form")!);
+      
+      if (resolveInitial) resolveInitial();
+      if (resolveManual) resolveManual();
+      
+      await screen.findByText(/Latest Assessment Summary/i);
+      expect(screen.queryByText(/Error/i)).toBeNull();
+    });
+
+    it("S5B.9: Server page enforces authorization independently of initial context", async () => {
+      (requireSecurityPermission as jest.Mock).mockRejectedValueOnce(new Error("Unauthorized"));
+      await expect(BehavioralRiskInvestigationPage({ searchParams: Promise.resolve({ subjectRef: "u1" }) })).rejects.toThrow("Unauthorized");
+      expect(requireSecurityPermission).toHaveBeenCalledWith(SECURITY_PERMISSIONS.DASHBOARD_VIEW);
     });
   });
 });

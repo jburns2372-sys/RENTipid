@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 
 // DTOs for client to avoid importing Prisma types
 interface SignalDto {
@@ -36,11 +36,19 @@ interface AssessmentDto {
 const VALID_ENVIRONMENTS = ["DEVELOPMENT", "TEST", "UAT", "STAGING", "PRODUCTION"];
 const VALID_LIFECYCLES = ["LIVE", "TEST", "SIMULATION"];
 
-export function BehavioralRiskInvestigationClient() {
-  const [subjectRef, setSubjectRef] = useState("");
-  const [environment, setEnvironment] = useState("PRODUCTION");
-  const [lifecycle, setLifecycle] = useState("LIVE");
-  const [limit, setLimit] = useState<number>(10);
+export interface InvestigationContext {
+  subjectRef?: string;
+  environment?: string;
+  lifecycle?: string;
+  limit?: number;
+  assessmentId?: string;
+}
+
+export function BehavioralRiskInvestigationClient({ initialContext = {} }: { initialContext?: InvestigationContext }) {
+  const [subjectRef, setSubjectRef] = useState(initialContext.subjectRef || "");
+  const [environment, setEnvironment] = useState(initialContext.environment || "PRODUCTION");
+  const [lifecycle, setLifecycle] = useState(initialContext.lifecycle || "LIVE");
+  const [limit, setLimit] = useState<number>(initialContext.limit || 10);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -55,8 +63,9 @@ export function BehavioralRiskInvestigationClient() {
   // Abort controller to prevent stale responses overwriting newer searches
   const searchAbortController = useRef<AbortController | null>(null);
   const detailsAbortController = useRef<AbortController | null>(null);
+  const hasInitialLoadFired = useRef(false);
 
-  const handleClear = useCallback(() => {
+  const resetResults = useCallback(() => {
     setLatestAssessment(null);
     setHistory([]);
     setSelectedAssessmentId(null);
@@ -64,18 +73,44 @@ export function BehavioralRiskInvestigationClient() {
     setError(null);
   }, []);
 
-  const handleSearch = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleClear = useCallback(() => {
+    if (searchAbortController.current) searchAbortController.current.abort();
+    if (detailsAbortController.current) detailsAbortController.current.abort();
 
-    const trimmedSubject = subjectRef.trim();
+    resetResults();
+    setSubjectRef("");
+    setEnvironment("PRODUCTION");
+    setLifecycle("LIVE");
+    setLimit(10);
+
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.delete("subjectRef");
+    currentUrl.searchParams.delete("environment");
+    currentUrl.searchParams.delete("lifecycle");
+    currentUrl.searchParams.delete("limit");
+    currentUrl.searchParams.delete("assessmentId");
+    window.history.replaceState(null, "", currentUrl.toString());
+  }, [resetResults]);
+
+  const executeSearch = useCallback(async (
+    searchSubject: string, 
+    searchEnv: string, 
+    searchLifecycle: string, 
+    searchLimit: number,
+    autoLoadAssessmentId?: string
+  ) => {
+    const trimmedSubject = searchSubject.trim();
     if (!trimmedSubject) {
       setError("Subject reference is required");
       return;
     }
 
     // Bounds check limit
-    const safeLimit = Math.min(Math.max(1, limit), 50);
+    const safeLimit = Math.min(Math.max(1, searchLimit), 50);
     setLimit(safeLimit);
+    setSubjectRef(trimmedSubject);
+    setEnvironment(searchEnv);
+    setLifecycle(searchLifecycle);
 
     if (searchAbortController.current) {
       searchAbortController.current.abort();
@@ -84,13 +119,13 @@ export function BehavioralRiskInvestigationClient() {
 
     setIsLoading(true);
     setError(null);
-    handleClear(); // Clear existing results
+    resetResults(); // Clear existing results
 
     try {
       const params = new URLSearchParams({
         subjectRef: trimmedSubject,
-        environment,
-        lifecycle,
+        environment: searchEnv,
+        lifecycle: searchLifecycle,
         limit: safeLimit.toString()
       });
 
@@ -115,6 +150,18 @@ export function BehavioralRiskInvestigationClient() {
         const historyData = await historyRes.json();
         setHistory(historyData.history || []);
       }
+
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set("subjectRef", trimmedSubject);
+      currentUrl.searchParams.set("environment", searchEnv);
+      currentUrl.searchParams.set("lifecycle", searchLifecycle);
+      currentUrl.searchParams.set("limit", safeLimit.toString());
+      if (autoLoadAssessmentId) {
+        currentUrl.searchParams.set("assessmentId", autoLoadAssessmentId);
+      } else {
+        currentUrl.searchParams.delete("assessmentId");
+      }
+      window.history.replaceState(null, "", currentUrl.toString());
     } catch (err: unknown) {
       if (err instanceof Error && err.name === 'AbortError') return;
       if (err instanceof Error) {
@@ -127,9 +174,14 @@ export function BehavioralRiskInvestigationClient() {
     } finally {
       setIsLoading(false);
     }
-  }, [subjectRef, environment, lifecycle, limit, handleClear]);
+  }, [resetResults]);
 
-  const fetchDetails = useCallback(async (assessmentId: string) => {
+  const handleSearch = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    executeSearch(subjectRef, environment, lifecycle, limit);
+  }, [subjectRef, environment, lifecycle, limit, executeSearch]);
+
+  const fetchDetails = useCallback(async (assessmentId: string, searchEnv: string, searchLifecycle: string) => {
     setSelectedAssessmentId(assessmentId);
     if (!assessmentId) {
       setSelectedAssessmentDetails(null);
@@ -143,7 +195,7 @@ export function BehavioralRiskInvestigationClient() {
 
     setIsDetailsLoading(true);
     try {
-      const params = new URLSearchParams({ environment, lifecycle });
+      const params = new URLSearchParams({ environment: searchEnv, lifecycle: searchLifecycle });
       const res = await fetch(`/api/soc/intelligence/behavioral-risk/${assessmentId}?${params.toString()}`, {
         signal: detailsAbortController.current.signal
       });
@@ -155,6 +207,10 @@ export function BehavioralRiskInvestigationClient() {
 
       const data = await res.json();
       setSelectedAssessmentDetails(data);
+
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set("assessmentId", assessmentId);
+      window.history.replaceState(null, "", currentUrl.toString());
     } catch (err: unknown) {
       if (err instanceof Error && err.name === 'AbortError') return;
       // Fail silently for details
@@ -163,7 +219,25 @@ export function BehavioralRiskInvestigationClient() {
     } finally {
       setIsDetailsLoading(false);
     }
-  }, [environment, lifecycle]);
+  }, []);
+
+  useEffect(() => {
+    if (hasInitialLoadFired.current) return;
+    if (initialContext.subjectRef && initialContext.environment && initialContext.lifecycle) {
+      hasInitialLoadFired.current = true;
+      executeSearch(
+        initialContext.subjectRef, 
+        initialContext.environment, 
+        initialContext.lifecycle, 
+        initialContext.limit || 10, 
+        initialContext.assessmentId
+      ).then(() => {
+        if (initialContext.assessmentId) {
+          fetchDetails(initialContext.assessmentId, initialContext.environment!, initialContext.lifecycle!);
+        }
+      });
+    }
+  }, [initialContext, executeSearch, fetchDetails]);
 
   return (
     <div className="space-y-6">
@@ -354,7 +428,7 @@ export function BehavioralRiskInvestigationClient() {
                         </td>
                         <td className="px-3 py-2 whitespace-nowrap text-right text-sm font-medium">
                           <button
-                            onClick={() => item.id && fetchDetails(item.id)}
+                            onClick={() => item.id && fetchDetails(item.id, environment, lifecycle)}
                             className="text-blue-600 hover:text-blue-900 focus:outline-none focus:underline"
                           >
                             Details
