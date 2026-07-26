@@ -1,4 +1,4 @@
-﻿# Phase 5I: Software Supply Chain Security Evidence
+# Phase 5I: Software Supply Chain Security Evidence
 
 ## Scope and Manifest
 This document records the completion of Phase 5I supply-chain security, specifically the remediation of the production-critical next-auth vulnerability.
@@ -66,4 +66,10 @@ ext-auth@4.24.15. No 4.24.14 component remains. No sensitive data was exposed.
 - **No database access or mutation occurred beyond authorized isolated testing.**
 - **No production access or deployment occurred.**
 - **Phase 5E remains unstarted.**
-- **Process Deviation Note:** There is a historical amend process deviation from the preceding Phase 5I commit (eb4cb5d523b464dcedd6f73d0640709fbc1c3c7c). No further amend occurred in this remediation commit.
+- **Process Deviation Note:**
+  - The original Phase 5I supply-chain commit was amended once.
+  - The final amended Phase 5I commit was: `e3b6d196509bce7e1941b3cb5c53cf4f12eda817`
+  - Its direct parent was: `eb4cb5d523b464dcedd6f73d0640709fbc1c3c7c`
+  - The subsequent next-auth remediation commit was created normally without amendment: `a5bcdecf453ab34db138fd3bc1b821f4343072d5`
+  - Classification: `PROCESS_DEVIATION_COMMIT_AMENDED_AFTER_INITIAL_COMMIT`
+  - No further history rewriting occurred.
