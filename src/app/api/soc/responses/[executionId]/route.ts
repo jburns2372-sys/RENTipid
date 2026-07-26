@@ -5,8 +5,9 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function GET(req: Request, { params }: { params: { executionId: string } }) {
+export async function GET(req: Request, context: { params: Promise<{ executionId: string }> }) {
   try {
+    const { executionId } = await context.params;
     const user = await requireAuthenticatedUser();
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -17,12 +18,12 @@ export async function GET(req: Request, { params }: { params: { executionId: str
        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
-    if (!params.executionId) {
+    if (!executionId) {
       return NextResponse.json({ error: 'Missing execution ID' }, { status: 400 });
     }
 
     const execution = await prisma.securityResponseExecution.findUnique({
-      where: { id: params.executionId },
+      where: { id: executionId },
       include: {
         actions: {
           orderBy: { sequence: 'asc' },
@@ -48,7 +49,7 @@ export async function GET(req: Request, { params }: { params: { executionId: str
     const { idempotency_key, lock_version, ...safeExecution } = execution;
 
     return NextResponse.json(safeExecution, { status: 200 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Get execution error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }

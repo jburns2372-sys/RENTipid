@@ -7,14 +7,15 @@ const prisma = new PrismaClient();
 
 export async function GET(
   request: Request,
-  { params }: { params: { playbookId: string } }
+  context: { params: Promise<{ playbookId: string }> }
 ) {
   try {
+    const { playbookId } = await context.params;
     const user = await requireAuthenticatedUser();
     if (!user) return NextResponse.json({ error: "UNAUTHORIZED" }, { status: 401 });
     const userId = getValidSessionIdentity({ user });
     
-    const result = await getPlaybookDetail(prisma, userId, params.playbookId);
+    const result = await getPlaybookDetail(prisma, userId, playbookId);
     if (!result) return NextResponse.json({ error: "NOT_FOUND" }, { status: 404 });
     
     return NextResponse.json(result);

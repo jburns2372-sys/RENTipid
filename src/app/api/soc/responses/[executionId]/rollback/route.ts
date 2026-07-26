@@ -3,8 +3,9 @@ import { rollbackSecurityResponse, ExecutionError } from '@/lib/security/respons
 import { requireAuthenticatedUser, assertSecurityPermissionForService, getValidSessionIdentity } from '@/lib/security/authorization';
 import { SECURITY_PERMISSIONS } from '@/lib/security/permissions';
 
-export async function POST(req: Request, { params }: { params: { executionId: string } }) {
+export async function POST(req: Request, context: { params: Promise<{ executionId: string }> }) {
   try {
+    const { executionId } = await context.params;
     const user = await requireAuthenticatedUser();
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -15,14 +16,14 @@ export async function POST(req: Request, { params }: { params: { executionId: st
        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
-    if (!params.executionId) {
+    if (!executionId) {
       return NextResponse.json({ error: 'Missing execution ID' }, { status: 400 });
     }
 
-    const execution = await rollbackSecurityResponse(getValidSessionIdentity({ user }), params.executionId);
+    const execution = await rollbackSecurityResponse(getValidSessionIdentity({ user }), executionId);
 
     return NextResponse.json(execution, { status: 200 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (error instanceof ExecutionError) {
       return NextResponse.json({ error: error.code }, { status: 409 });
     }
