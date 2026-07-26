@@ -262,9 +262,12 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
 
   describe("Slice 5B: Deep-Linked Investigation Context", () => {
     beforeEach(() => {
-      jest.spyOn(window.history, 'replaceState').mockImplementation(() => {});
-      delete (window as any).location;
-      window.location = new URL('http://localhost/dashboard/admin/security/intelligence/behavioral-risk') as any;
+      window.history.replaceState(
+        {},
+        "",
+        "/dashboard/admin/security/intelligence/behavioral-risk"
+      );
+      jest.spyOn(window.history, 'replaceState');
     });
 
     afterEach(() => {
@@ -273,9 +276,9 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
 
     it("S5B.1: Valid initial URL context prefills controls and performs one initial load", async () => {
       (global.fetch as jest.Mock).mockResolvedValue({ ok: true, status: 200, json: async () => ({}) });
-      
+
       render(<BehavioralRiskInvestigationClient initialContext={{ subjectRef: "user-123", environment: "TEST", lifecycle: "SIMULATION", limit: 25 }} />);
-      
+
       const subjectInput = screen.getByLabelText(/Subject Reference/i) as HTMLInputElement;
       expect(subjectInput.value).toBe("user-123");
       const envInput = screen.getByLabelText(/Environment/i) as HTMLSelectElement;
@@ -291,24 +294,24 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
       expect(url).toContain("environment=TEST");
       expect(url).toContain("lifecycle=SIMULATION");
       expect(url).toContain("limit=25");
-      
+
       expect(global.fetch).toHaveBeenCalledTimes(2);
     });
 
     it("S5B.2: Incomplete context does not fetch", () => {
-      render(<BehavioralRiskInvestigationClient initialContext={{ subjectRef: "user-123" }} />); 
+      render(<BehavioralRiskInvestigationClient initialContext={{ subjectRef: "user-123" }} />);
       expect(global.fetch).not.toHaveBeenCalled();
     });
 
     it("S5B.3: Invalid environment/lifecycle is safely ignored and limit bounded on server", async () => {
       (requireSecurityPermission as jest.Mock).mockResolvedValueOnce({ activePermissions: [SECURITY_PERMISSIONS.DASHBOARD_VIEW] });
       const jsx = await BehavioralRiskInvestigationPage({ searchParams: Promise.resolve({ subjectRef: "   user-123   ", environment: "INVALID", lifecycle: "HACK", limit: "999" }) });
-      
+
       const clientProps = jsx.props.children.props.initialContext;
       expect(clientProps.subjectRef).toBe("user-123");
-      expect(clientProps.environment).toBeUndefined(); 
-      expect(clientProps.lifecycle).toBeUndefined(); 
-      expect(clientProps.limit).toBe(50); 
+      expect(clientProps.environment).toBeUndefined();
+      expect(clientProps.lifecycle).toBeUndefined();
+      expect(clientProps.limit).toBe(50);
     });
 
     it("S5B.4: Initial assessmentId loads details", async () => {
@@ -319,7 +322,7 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
       });
 
       render(<BehavioralRiskInvestigationClient initialContext={{ subjectRef: "u1", environment: "PRODUCTION", lifecycle: "LIVE", limit: 10, assessmentId: "assess-1" }} />);
-      
+
       await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(3));
       const detailsCall = (global.fetch as jest.Mock).mock.calls.find(c => c[0].includes("assess-1"));
       expect(detailsCall).toBeDefined();
@@ -327,15 +330,15 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
 
     it("S5B.5: Manual search updates URL with sanitized values, no sensitive response fields", async () => {
       (global.fetch as jest.Mock).mockResolvedValue({ ok: true, status: 200, json: async () => mockValidAssessment });
-      
+
       render(<BehavioralRiskInvestigationClient />);
       fireEvent.change(screen.getByLabelText(/Subject Reference/i), { target: { value: "manual-search" } });
       fireEvent.submit(screen.getByRole("button", { name: /search/i }).closest("form")!);
-      
+
       await waitFor(() => expect(window.history.replaceState).toHaveBeenCalled());
       const lastCall = (window.history.replaceState as jest.Mock).mock.calls.slice(-1)[0][2];
       expect(lastCall).toContain("subjectRef=manual-search");
-      expect(lastCall).not.toContain("rawEventMetadata"); 
+      expect(lastCall).not.toContain("rawEventMetadata");
       expect(lastCall).not.toContain("score=");
     });
 
@@ -349,10 +352,10 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
       render(<BehavioralRiskInvestigationClient />);
       fireEvent.change(screen.getByLabelText(/Subject Reference/i), { target: { value: "u1" } });
       fireEvent.submit(screen.getByRole("button", { name: /search/i }).closest("form")!);
-      
+
       const detailsBtn = await screen.findByRole("button", { name: /Details/i });
       fireEvent.click(detailsBtn);
-      
+
       await waitFor(() => {
         const lastCall = (window.history.replaceState as jest.Mock).mock.calls.slice(-1)[0][2];
         expect(lastCall).toContain("assessmentId=assess-1");
@@ -362,7 +365,7 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
     it("S5B.7: Clear removes investigation parameters", async () => {
       render(<BehavioralRiskInvestigationClient />);
       fireEvent.click(screen.getByRole("button", { name: /clear/i }));
-      
+
       await waitFor(() => {
         const lastCall = (window.history.replaceState as jest.Mock).mock.calls.slice(-1)[0][2];
         expect(lastCall).not.toContain("subjectRef=");
@@ -383,19 +386,19 @@ describe("Behavioral Risk Investigation Dashboard (Slice 4)", () => {
       let callCount = 0;
       (global.fetch as jest.Mock).mockImplementation((url) => {
         callCount++;
-        if (callCount <= 2) return initialPromise; 
+        if (callCount <= 2) return initialPromise;
         if (url.includes("history")) return Promise.resolve({ ok: true, status: 200, json: async () => ({ history: [] }) });
         return manualPromise;
       });
 
       render(<BehavioralRiskInvestigationClient initialContext={{ subjectRef: "slow-initial", environment: "PRODUCTION", lifecycle: "LIVE" }} />);
-      
+
       fireEvent.change(screen.getByLabelText(/Subject Reference/i), { target: { value: "fast-manual" } });
       fireEvent.submit(screen.getByRole("button", { name: /search/i }).closest("form")!);
-      
+
       if (resolveInitial) resolveInitial();
       if (resolveManual) resolveManual();
-      
+
       await screen.findByText(/Latest Assessment Summary/i);
       expect(screen.queryByText(/Error/i)).toBeNull();
     });

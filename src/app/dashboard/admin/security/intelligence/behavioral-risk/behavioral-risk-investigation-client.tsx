@@ -64,6 +64,7 @@ export function BehavioralRiskInvestigationClient({ initialContext = {} }: { ini
   const searchAbortController = useRef<AbortController | null>(null);
   const detailsAbortController = useRef<AbortController | null>(null);
   const hasInitialLoadFired = useRef(false);
+  const stableInitialContext = useRef<InvestigationContext>(initialContext);
 
   const resetResults = useCallback(() => {
     setLatestAssessment(null);
@@ -93,9 +94,9 @@ export function BehavioralRiskInvestigationClient({ initialContext = {} }: { ini
   }, [resetResults]);
 
   const executeSearch = useCallback(async (
-    searchSubject: string, 
-    searchEnv: string, 
-    searchLifecycle: string, 
+    searchSubject: string,
+    searchEnv: string,
+    searchLifecycle: string,
     searchLimit: number,
     autoLoadAssessmentId?: string
   ) => {
@@ -223,21 +224,67 @@ export function BehavioralRiskInvestigationClient({ initialContext = {} }: { ini
 
   useEffect(() => {
     if (hasInitialLoadFired.current) return;
-    if (initialContext.subjectRef && initialContext.environment && initialContext.lifecycle) {
+    const ctx = stableInitialContext.current;
+    if (ctx.subjectRef && ctx.environment && ctx.lifecycle) {
       hasInitialLoadFired.current = true;
-      executeSearch(
-        initialContext.subjectRef, 
-        initialContext.environment, 
-        initialContext.lifecycle, 
-        initialContext.limit || 10, 
-        initialContext.assessmentId
-      ).then(() => {
-        if (initialContext.assessmentId) {
-          fetchDetails(initialContext.assessmentId, initialContext.environment!, initialContext.lifecycle!);
+
+      const performInitialLoad = async () => {
+        setIsLoading(true);
+        setError(null);
+
+        if (searchAbortController.current) {
+          searchAbortController.current.abort();
         }
-      });
+        searchAbortController.current = new AbortController();
+
+        try {
+          const params = new URLSearchParams({
+            subjectRef: ctx.subjectRef!,
+            environment: ctx.environment!,
+            lifecycle: ctx.lifecycle!,
+            limit: (ctx.limit || 10).toString()
+          });
+
+          const [latestRes, historyRes] = await Promise.all([
+            fetch(`/api/soc/intelligence/behavioral-risk/latest?${params.toString()}`, { signal: searchAbortController.current.signal }),
+            fetch(`/api/soc/intelligence/behavioral-risk/history?${params.toString()}`, { signal: searchAbortController.current.signal })
+          ]);
+
+          if (latestRes.status === 401 || historyRes.status === 401) throw new Error("UNAUTHORIZED");
+          if (latestRes.status === 403 || historyRes.status === 403) throw new Error("FORBIDDEN");
+
+          if (!latestRes.ok && latestRes.status !== 404) throw new Error("INTERNAL_SERVER_ERROR");
+          if (!historyRes.ok && historyRes.status !== 404) throw new Error("INTERNAL_SERVER_ERROR");
+
+          if (latestRes.status === 200) {
+            const latestData = await latestRes.json();
+            setLatestAssessment(latestData);
+          }
+
+          if (historyRes.status === 200) {
+            const historyData = await historyRes.json();
+            setHistory(historyData.history || []);
+          }
+
+          if (ctx.assessmentId) {
+            fetchDetails(ctx.assessmentId, ctx.environment!, ctx.lifecycle!);
+          }
+        } catch (err: unknown) {
+          if (err instanceof Error && err.name === 'AbortError') return;
+          console.error(err);
+          if (err instanceof Error && (err.message === "UNAUTHORIZED" || err.message === "FORBIDDEN")) {
+            setError(err.message === "UNAUTHORIZED" ? "Unauthorized: Please log in again." : "Forbidden: You do not have permission to view these records.");
+          } else {
+            setError("Failed to load assessments. Please try again later.");
+          }
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      performInitialLoad();
     }
-  }, [initialContext, executeSearch, fetchDetails]);
+  }, [fetchDetails]);
 
   return (
     <div className="space-y-6">

@@ -54,3 +54,8 @@ During the Slice 4 original execution and R1 correction, no server-page changes,
 
 ## Next Planned Slice
 Navigation integration and investigation workflow refinement.
+
+## Cross-Reference: Slice 5B
+Slice 5B added validated deep-linkable investigation context.
+It did not change behavioral scoring, persistence, protected APIs, authorization, advisory-only restrictions, or enforcement boundaries.
+Primary evidence is: SLICE5B_DEEP_LINKED_INVESTIGATION.md
