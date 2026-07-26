@@ -29,7 +29,7 @@ export class ProfileFieldProtectionError extends Error {
 export class ProfileFieldProtection {
   // Maximum accepted plaintext size is 2000 characters to prevent DoS attacks
   // while being generous enough for any valid address or registration number.
-  private static readonly MAX_PLAINTEXT_LENGTH = 2000;
+  public static readonly MAX_PLAINTEXT_LENGTH = 2000;
   private static readonly MAX_CIPHERTEXT_LENGTH = 1_048_576;
 
   /**
