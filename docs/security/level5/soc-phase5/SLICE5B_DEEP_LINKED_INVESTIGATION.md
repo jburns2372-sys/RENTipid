@@ -67,4 +67,3 @@ Result:
 - The production build exited successfully and compiled the Behavioral Risk
   dashboard route.
 - **Integrity**: No `any`/`as any` types, no unsafe disables, and no mutations to production APIs.
-
