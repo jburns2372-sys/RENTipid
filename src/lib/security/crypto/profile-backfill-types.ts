@@ -15,6 +15,63 @@ export enum ProfileBackfillState {
   UNSUPPORTED_STATE = 'UNSUPPORTED_STATE',
 }
 
+export enum ProfileBackfillRunState {
+  PLANNED = 'PLANNED',
+  APPROVED_FOR_ISOLATED_TEST = 'APPROVED_FOR_ISOLATED_TEST',
+  RUNNING = 'RUNNING',
+  PAUSED = 'PAUSED',
+  COMPLETED = 'COMPLETED',
+  COMPLETED_WITH_QUARANTINE = 'COMPLETED_WITH_QUARANTINE',
+  FAILED = 'FAILED',
+  CANCELLED = 'CANCELLED'
+}
+
+export enum ProfileBackfillRecordOutcome {
+  BACKFILLED = 'BACKFILLED',
+  ALREADY_COMPLIANT = 'ALREADY_COMPLIANT',
+  NOT_REQUIRED = 'NOT_REQUIRED',
+  SKIPPED_CONCURRENT_CHANGE = 'SKIPPED_CONCURRENT_CHANGE',
+  QUARANTINED_DUAL_MISMATCH = 'QUARANTINED_DUAL_MISMATCH',
+  QUARANTINED_INVALID_CIPHERTEXT = 'QUARANTINED_INVALID_CIPHERTEXT',
+  QUARANTINED_INVALID_LEGACY = 'QUARANTINED_INVALID_LEGACY',
+  QUARANTINED_UNSUPPORTED = 'QUARANTINED_UNSUPPORTED',
+  FAILED_RETRYABLE = 'FAILED_RETRYABLE',
+  FAILED_FINAL = 'FAILED_FINAL'
+}
+
+export enum ProfileBackfillLockOutcome {
+  LOCK_ACQUIRED = 'LOCK_ACQUIRED',
+  LOCK_ALREADY_HELD = 'LOCK_ALREADY_HELD',
+  LOCK_RELEASED = 'LOCK_RELEASED',
+  LOCK_RELEASE_FAILED = 'LOCK_RELEASE_FAILED'
+}
+
+export interface ProfileBackfillKeyPinMetadata {
+  keyPurpose: string;
+  isPinned: boolean;
+  hasChangedDuringRun: boolean;
+  version?: string;
+}
+
+export interface ProfileBackfillWriteResult {
+  outcome: ProfileBackfillRecordOutcome;
+  sanitizedReason?: string;
+}
+
+export interface ProfileBackfillAggregateWriteResult {
+  runState: ProfileBackfillRunState;
+  profilesUnchanged: number;
+  profilesBackfilled: number;
+  profilesQuarantined: number;
+  profilesConcurrentlyChanged: number;
+  profilesFailed: number;
+
+  fieldsBackfilled: number;
+  fieldsSkippedConcurrentChange: number;
+  fieldsFailedRetryable: number;
+  fieldsFailedFinal: number;
+}
+
 export interface ProfileBackfillFieldResult {
   field: ProfileBackfillField;
   state: ProfileBackfillState;
@@ -53,10 +110,24 @@ export interface ProfileBackfillConfig {
   batchSize: number;
 }
 
+export interface ProfileBackfillCommandConfig extends ProfileBackfillConfig {
+  apply: boolean;
+  environment: string;
+  acknowledgePlaintextPreserved: boolean;
+  confirmationToken: string;
+}
+
 export interface ProfileBackfillReport {
   startTimestamp: string;
   completionTimestamp: string;
   config: ProfileBackfillConfig;
   counters: ProfileBackfillCounters;
   pinnedKeyVersion?: string;
+  writeAggregate?: ProfileBackfillAggregateWriteResult;
+}
+
+export interface ProfileBackfillCheckpoint {
+  lastUserId?: string;
+  lastBusinessId?: string;
+  batchesCompleted: number;
 }
