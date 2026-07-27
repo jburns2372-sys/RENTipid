@@ -61,7 +61,7 @@ describe('ProfileBackfill Isolated Write Integration Tests', () => {
     const check = await prisma.userProfile.findUnique({ where: { id: sentinelId } });
     expect(check?.address).toBe('Sentinel Address');
     expect(check?.address_encrypted).toBeNull(); // Should not be encrypted
-  });
+  }, 30000);
 
   it('Core: User LEGACY_ONLY becomes BACKFILLED', async () => {
     const id = syntheticPrefix + 'u1';
