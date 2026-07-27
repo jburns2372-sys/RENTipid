@@ -54,7 +54,7 @@ describe('ProfileBackfill Isolated Write Integration Tests', () => {
     // Should not be modified by backfill targeting the synthetic prefix
     try {
       execSync(`npx tsx --conditions=react-server scripts/security/phase5f-profile-backfill-isolated-write.ts --apply --environment=isolated-test --acknowledge-plaintext-preserved --batch-size=10 --confirmation-token=DUMMY --synthetic-prefix=${syntheticPrefix}`, { stdio: 'pipe' });
-    } catch (e: any) {
+    } catch (e) {
       // It might fail token check, but we only care about data survival
     }
 
@@ -139,10 +139,35 @@ describe('ProfileBackfill Isolated Write Integration Tests', () => {
 
   it('Command contract: Missing apply rejected', () => {
     try {
-      execSync('npx tsx --conditions=react-server scripts/security/phase5f-profile-backfill-isolated-write.ts --environment=isolated-test', { stdio: 'pipe' });
+      const out = execSync('npx tsx --conditions=react-server scripts/security/phase5f-profile-backfill-isolated-write.ts --apply --environment=isolated-test --acknowledge-plaintext-preserved --batch-size=10 --synthetic-prefix=phase5f_b2_abc', { stdio: 'pipe' });
+      const match = out.toString().match(/RENTIPID_B2_[a-f0-9]+/);
+      if (!match) fail('Token not found');
+      const token = match[0];
+      execSync(`npx tsx --conditions=react-server scripts/security/phase5f-profile-backfill-isolated-write.ts --environment=isolated-test --acknowledge-plaintext-preserved --batch-size=10 --synthetic-prefix=phase5f_b2_abc --confirmation-token=${token}`, { stdio: 'pipe' });
       fail('Should have rejected');
-    } catch (e: any) {
-      expect(e.stderr.toString()).toContain('Rejection: Missing plaintext-preservation acknowledgement');
+    } catch (e) {
+      const err = e as { stderr: Buffer };
+      expect(err.stderr.toString()).toContain('Rejection: Missing --apply');
+    }
+  });
+
+  it('Command contract: Missing acknowledgement rejected', () => {
+    try {
+      execSync('npx tsx --conditions=react-server scripts/security/phase5f-profile-backfill-isolated-write.ts --apply --environment=isolated-test --batch-size=10 --synthetic-prefix=phase5f_b2_abc', { stdio: 'pipe' });
+      fail('Should have rejected');
+    } catch (e) {
+      const err = e as { stderr: Buffer };
+      expect(err.stderr.toString()).toContain('Rejection: Missing plaintext-preservation acknowledgement');
+    }
+  });
+
+  it('Command contract: Wrong environment rejected', () => {
+    try {
+      execSync('npx tsx --conditions=react-server scripts/security/phase5f-profile-backfill-isolated-write.ts --apply --environment=staging --acknowledge-plaintext-preserved --batch-size=10 --synthetic-prefix=phase5f_b2_abc', { stdio: 'pipe' });
+      fail('Should have rejected');
+    } catch (e) {
+      const err = e as { stderr: Buffer };
+      expect(err.stderr.toString()).toContain('Rejection: Environment not exactly isolated test');
     }
   });
 
@@ -150,8 +175,9 @@ describe('ProfileBackfill Isolated Write Integration Tests', () => {
     try {
       execSync('npx tsx --conditions=react-server scripts/security/phase5f-profile-backfill-isolated-write.ts --apply --environment=isolated-test --acknowledge-plaintext-preserved --batch-size=10 --synthetic-prefix=invalid_prefix', { stdio: 'pipe' });
       fail('Should have exited');
-    } catch (e: any) {
-      expect(e.stderr.toString()).toContain('Rejection: Invalid or missing synthetic prefix');
+    } catch (e) {
+      const err = e as { stderr: Buffer };
+      expect(err.stderr.toString()).toContain('Rejection: Invalid or missing synthetic prefix');
     }
   });
 
@@ -159,8 +185,23 @@ describe('ProfileBackfill Isolated Write Integration Tests', () => {
     try {
       execSync('npx tsx --conditions=react-server scripts/security/phase5f-profile-backfill-isolated-write.ts --apply --environment=isolated-test --acknowledge-plaintext-preserved --batch-size=10 --synthetic-prefix=phase5f_b2_abc --confirmation-token=BAD', { stdio: 'pipe' });
       fail('Should have exited requiring correct token');
-    } catch (e: any) {
-      expect(e.stderr.toString()).toContain('Rejection: Invalid confirmation token');
+    } catch (e) {
+      const err = e as { stderr: Buffer };
+      expect(err.stderr.toString()).toContain('Rejection: Invalid confirmation token');
     }
+  });
+
+  it('Command contract: Missing token prints expected token', () => {
+    const out = execSync('npx tsx --conditions=react-server scripts/security/phase5f-profile-backfill-isolated-write.ts --apply --environment=isolated-test --acknowledge-plaintext-preserved --batch-size=10 --synthetic-prefix=phase5f_b2_abc', { stdio: 'pipe' });
+    expect(out.toString()).toContain('Expected confirmation token: RENTIPID_B2_');
+  });
+
+  it('Command contract: Valid token executes', () => {
+    const out1 = execSync('npx tsx --conditions=react-server scripts/security/phase5f-profile-backfill-isolated-write.ts --apply --environment=isolated-test --acknowledge-plaintext-preserved --batch-size=10 --synthetic-prefix=phase5f_b2_xyz', { stdio: 'pipe' });
+    const match = out1.toString().match(/RENTIPID_B2_[a-f0-9]+/);
+    if (!match) fail('Token not found');
+    const token = match[0];
+    const out2 = execSync(`npx tsx --conditions=react-server scripts/security/phase5f-profile-backfill-isolated-write.ts --apply --environment=isolated-test --acknowledge-plaintext-preserved --batch-size=10 --synthetic-prefix=phase5f_b2_xyz --confirmation-token=${token}`, { stdio: 'pipe' });
+    expect(out2.toString()).toContain('"runState":"COMPLETED"');
   });
 });

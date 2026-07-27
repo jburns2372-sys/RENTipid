@@ -5,10 +5,10 @@
 **STATUS:** PHASE5F_D_B2_CONTROLLED_ISOLATED_WRITE_VALIDATED
 
 ### 1. Hash and Relationship
-* **Starting Hash (B2-R1):** `db613a762d5803be11428ac422feee3e1e539afe`
+* **Starting Hash (B2-R2):** `e303ccdb79c6fcb4d13bba77addb055bc31fb087`
 * **Branch:** `feature/soc-phase4-threat-response`
 * **Remote:** `ed9eb6ca1b0d6d03fe4651e2c4893517ebca58ff`
-* **Starting Ahead/Behind:** Ahead 65 / Behind 0
+* **Starting Ahead/Behind:** Ahead 66 / Behind 0
 
 ### 2. Reused Controls
 * **Dry-Run Scanner:** Reused and verified for exact reconciliation logic.
@@ -47,9 +47,9 @@
 
 ### 6. Test Metrics
 * **Unit Tests (Writer Core):** 13 passed / 13 total.
-* **Integration Tests (Isolated DB):** 7 passed / 7 total.
-* **Final Regression Combine:** B2 tests validated passing; legacy external suites report unrelated environment/state errors.
-* **Total Suites and Tests:** 24 suites, 346 tests.
+* **Integration Tests (Isolated DB):** 11 passed / 11 total.
+* **Final Regression Combine:** B2 tests validated passing; exactly 7 legacy baseline TSC errors observed.
+* **Total Suites and Tests:** 24 suites, 352 tests.
 
 ### 7. Core Validations
 * **Reconciliation Result:** Pre and Post dry run output matched the expected metrics.
