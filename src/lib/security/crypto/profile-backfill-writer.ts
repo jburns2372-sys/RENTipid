@@ -11,14 +11,16 @@ import { ProfileFieldProtection, ProfileFieldContext } from './profile-field-pro
 import { KeyProvider, KeyPurpose } from './key-provider';
 
 export class ProfileBackfillWriter {
-  private readonly LOCK_ID = 5054321; // Derived hash for rentipid.phase5f.profile-backfill.v1
+  private readonly LOCK_ID: number;
   private pinnedKeyVersion?: string;
   private readonly lockPrisma: PrismaClient;
 
   constructor(
     private readonly prisma: PrismaClient,
-    private readonly delayFn: (ms: number) => Promise<void> = (ms) => new Promise(r => setTimeout(r, ms))
+    private readonly delayFn: (ms: number) => Promise<void> = (ms) => new Promise(r => setTimeout(r, ms)),
+    lockId: number = 5054321
   ) {
+    this.LOCK_ID = lockId;
     const dbUrl = process.env.DATABASE_URL;
     if (!dbUrl) throw new Error('DATABASE_URL missing');
     const url = new URL(dbUrl);

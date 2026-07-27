@@ -124,6 +124,13 @@ export interface ProfileBackfillCommandConfig extends ProfileBackfillConfig {
   syntheticPrefix?: string;
 }
 
+export interface ProfileBackfillStagingCommandConfig extends ProfileBackfillCommandConfig {
+  databaseIdentityHash: string;
+  approvalFile: string;
+  approvalId: string;
+  acknowledgeNoRealData: boolean;
+}
+
 export interface ProfileBackfillReport {
   startTimestamp: string;
   completionTimestamp: string;
