@@ -1,13 +1,13 @@
 import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
-import { 
-  ProfileBackfillApprovalArtifact, 
-  validateStagingApproval, 
-  ApprovalAuthenticityVerifier 
+import {
+  ProfileBackfillApprovalArtifact,
+  validateStagingApproval,
+  ApprovalAuthenticityVerifier
 } from '../../src/lib/security/crypto/profile-backfill-approval';
-import { 
-  StagingEnvironmentIdentity, 
-  validateStagingEnvironmentIdentity 
+import {
+  StagingEnvironmentIdentity,
+  validateStagingEnvironmentIdentity
 } from '../../src/lib/security/crypto/profile-backfill-environment-identity';
 
 export interface StagingCommandDependencies {
@@ -17,10 +17,23 @@ export interface StagingCommandDependencies {
   databaseClientFactory: () => unknown;
   lockClientFactory: (dbClient: unknown) => { acquireLock: () => Promise<string>, releaseLock: () => Promise<void>, disconnectLock: () => Promise<void> };
   dryRunScannerFactory: (dbClient: unknown) => { scan: (batchSize: number, prefix: string) => Promise<{ counters: { totalQuarantined: number, totalProfilesScanned: number } }> };
-  writerFactory: (dbClient: unknown) => { pinKeyVersion: () => void };
+  writerFactory: (dbClient: unknown) => {
+    pinKeyVersion: () => void;
+    processUserProfile: (id: string) => Promise<{ outcome: string, fieldsBackfilled: number, fieldsConcurrent: number }>;
+    processBusinessProfile: (id: string) => Promise<{ outcome: string, fieldsBackfilled: number, fieldsConcurrent: number }>;
+  };
   clock: () => number;
   logger: { log: (msg: string) => void, error: (msg: string) => void };
   gitHeadProvider: () => string;
+}
+
+interface TestPrismaClient {
+  userProfile: {
+    findMany(args: { where: { id: { startsWith: string } }, take: number, skip: number, cursor?: { id: string }, orderBy: { id: 'asc' }, select: { id: true } }): Promise<{ id: string }[]>;
+  };
+  businessProfile: {
+    findMany(args: { where: { id: { startsWith: string } }, take: number, skip: number, cursor?: { id: string }, orderBy: { id: 'asc' }, select: { id: true } }): Promise<{ id: string }[]>;
+  };
 }
 
 export async function runStagingCommand(args: string[], deps: StagingCommandDependencies): Promise<number> {
@@ -36,7 +49,7 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
     batchSize?: number;
     confirmationToken?: string;
   } = {};
-  
+
   for (const arg of args) {
     const key = arg.split('=')[0];
     if (args.filter(a => a.startsWith(key)).length > 1 || args.filter(a => a === key).length > 1) {
@@ -131,11 +144,11 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
 
   const envIdentity = deps.environmentIdentityProvider();
   const envVal = validateStagingEnvironmentIdentity(
-    envIdentity, 
-    config.databaseIdentityHash, 
-    'project-id-mock', 
-    'branch-id-mock', 
-    gitCommit 
+    envIdentity,
+    config.databaseIdentityHash,
+    'project-id-mock',
+    'branch-id-mock',
+    gitCommit
   );
 
   if (!envVal.isValid) {
@@ -155,7 +168,7 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
     deps.logger.error('Rejection: Failed lock');
     return 1;
   }
-  
+
   if (lockRes !== 'LOCK_ACQUIRED') {
     deps.logger.error('Rejection: Failed lock gate');
     await lockClient.disconnectLock();
@@ -165,7 +178,7 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
   let errorCode = 0;
   try {
     const preRun = await scanner.scan(config.batchSize, config.syntheticPrefix);
-    
+
     if (preRun.counters.totalQuarantined > 0) {
        deps.logger.error('Rejection: quarantine count prevents writer');
        errorCode = 1;
@@ -177,7 +190,7 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
        errorCode = 1;
        return errorCode;
     }
-    
+
     writer.pinKeyVersion();
 
     const agg = {
@@ -193,9 +206,8 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
       fieldsFailedFinal: 0,
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const prisma = dbClient as any;
-    
+    const prisma = dbClient as unknown as TestPrismaClient;
+
     let lastUserId: string | undefined;
     while (true) {
       const users = await prisma.userProfile.findMany({
@@ -208,8 +220,7 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
       });
       if (users.length === 0) break;
       for (const u of users) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const out = await (writer as any).processUserProfile(u.id);
+        const out = await writer.processUserProfile(u.id);
         if (out.outcome === 'BACKFILLED') { agg.profilesBackfilled++; agg.fieldsBackfilled += out.fieldsBackfilled; }
         else if (out.outcome === 'NOT_REQUIRED' || out.outcome === 'ALREADY_COMPLIANT') agg.profilesUnchanged++;
         else if (out.outcome.startsWith('QUARANTINE')) agg.profilesQuarantined++;
@@ -230,8 +241,7 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
       });
       if (businesses.length === 0) break;
       for (const b of businesses) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const out = await (writer as any).processBusinessProfile(b.id);
+        const out = await writer.processBusinessProfile(b.id);
         if (out.outcome === 'BACKFILLED') { agg.profilesBackfilled++; agg.fieldsBackfilled += out.fieldsBackfilled; }
         else if (out.outcome === 'NOT_REQUIRED' || out.outcome === 'ALREADY_COMPLIANT') agg.profilesUnchanged++;
         else if (out.outcome.startsWith('QUARANTINE')) agg.profilesQuarantined++;
