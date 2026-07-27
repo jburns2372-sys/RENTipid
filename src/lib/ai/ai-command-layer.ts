@@ -57,6 +57,37 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     return { success: false, message: errorMsg, isBlocked: true };
   }
 
+  // Phase 5K Integration: AIGuard
+  const { AIGuard } = require('../security/detection/ai-guard');
+  const { DetectionEvaluator } = require('../security/detection/evaluator');
+  const aiGuard = new AIGuard(new DetectionEvaluator());
+
+  // Check Prompt Injection
+  const injectionCheck = aiGuard.checkPromptInjection(prompt, userId || 'anonymous', '127.0.0.1');
+  if (injectionCheck.blocked) {
+      return { success: false, message: 'Request blocked due to security policy violations.', isBlocked: true };
+  }
+
+  // Simulate Tool Dispatch Guard (Since actual tool dispatch is not implemented yet)
+  // We check if the prompt explicitly tries to run a tool
+  const toolMatch = prompt.match(/execute tool:\s*([a-zA-Z0-9_]+)/i);
+  if (toolMatch) {
+     const toolName = toolMatch[1];
+     const session = {
+         sessionId: 'session-' + Date.now(),
+         authenticatedUserId: userId || 'anonymous',
+         currentRole: userRole || 'Guest',
+         authorizedResourceScope: [],
+         expiration: Date.now() + 3600000,
+         modelOrProvider: 'mock',
+         allowedToolSet: [] // Empty toolset means all tools will be rejected as UNKNOWN
+     };
+     const toolAuth = aiGuard.authorizeToolExecution(session, toolName, userId || 'anonymous', '127.0.0.1');
+     if (!toolAuth.authorized) {
+         return { success: false, message: `Tool execution blocked: ${toolAuth.reason}`, isBlocked: true };
+     }
+  }
+
   // 3. Guardrail Check
   const guardrailCheck = checkGuardrails(prompt);
   if (!guardrailCheck.isSafe) {
@@ -84,6 +115,13 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     // For Phase 7, default to mock even if configured otherwise, to prevent uncontrolled execution
     responseMessage = await processMockAIRequest(botId, prompt, safeContext, systemPrompt);
   }
+
+  // Phase 5K Integration: Output Filter
+  const outputCheck = aiGuard.checkOutputProtection(responseMessage, userId || 'anonymous', '127.0.0.1');
+  if (outputCheck.blocked) {
+      return { success: false, message: 'Response blocked due to sensitive content policy.', isBlocked: true };
+  }
+  responseMessage = outputCheck.redactedOutput || responseMessage;
 
   // 6. Log Interaction
   if (settings.loggingEnabled) {

@@ -7,8 +7,10 @@ import { getAdapterForRecord } from "./adapters/registry";
 import { PrismaClient, Prisma } from "@prisma/client";
 import crypto from "crypto";
 import { validateSummaryBounds } from "../serializers";
+import { DetectionEvaluator } from "../detection/evaluator";
 
 const prisma = new PrismaClient();
+const globalDetectionEvaluator = new DetectionEvaluator();
 
 export async function processSecurityEvent(
   record: unknown,
@@ -24,6 +26,10 @@ export async function processSecurityEvent(
       errorMessage: "No adapter configured for this source record type."
     };
   }
+
+  let isMatched = false;
+  let isCooldownSuppressed = false;
+  let isCriticalFailed = false;
 
   try {
     const normalized = adapter.normalize(record, lifecycle, environment);
@@ -45,6 +51,29 @@ export async function processSecurityEvent(
     ]).join("|");
     const idempotencyKey = crypto.createHash("sha256").update(canonicalMaterial, "utf8").digest("hex");
     console.log("IDEMP_KEY:", idempotencyKey, "MATERIAL:", canonicalMaterial);
+
+    const mappedSourceType = normalized.source_type.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('');
+
+    const evaluation = globalDetectionEvaluator.evaluateEvent({
+      sourceType: mappedSourceType,
+      eventType: normalized.event_code,
+      actorId: normalized.actor_user_id || undefined,
+      resourceId: normalized.target_resource_id || undefined,
+      timestamp: normalized.occurred_at.getTime(),
+      payload: (normalized.source_summary as Record<string, unknown>) || {}
+    });
+
+    console.log(`[TESTING] Eval result for ${normalized.event_code} (source: ${mappedSourceType}):`, evaluation);
+
+    if (evaluation.triggered) {
+        isMatched = true;
+        if (evaluation.action === 'FREEZE_HIGH_RISK_WORKFLOW' || evaluation.action === 'ALERT_ADMIN') {
+            isCriticalFailed = true;
+        }
+    } else if (globalDetectionEvaluator['rules']?.some(r => r.EVENT_TYPE === normalized.event_code)) {
+        isCooldownSuppressed = true;
+    }
+
     
     try {
       const result = await prisma.securityEvent.create({
@@ -100,7 +129,14 @@ export async function processSecurityEvent(
 
       return {
         success: true,
-        eventId: result.id
+        eventId: result.id,
+        evaluated: true,
+        matched: isMatched,
+        persisted: true,
+        cooldownSuppressed: isCooldownSuppressed,
+        deduplicated: false,
+        failed: false,
+        criticalFailed: isCriticalFailed
       };
     } catch (createError) {
       if (createError instanceof Prisma.PrismaClientKnownRequestError && createError.code === "P2002") {
@@ -127,7 +163,18 @@ export async function processSecurityEvent(
             });
           } catch { }
 
-          return { success: true, duplicate: true, eventId: existing.id };
+          return { 
+            success: true, 
+            duplicate: true, 
+            eventId: existing.id,
+            evaluated: true,
+            matched: isMatched,
+            persisted: false,
+            deduplicated: true,
+            cooldownSuppressed: isCooldownSuppressed,
+            failed: false,
+            criticalFailed: false
+          };
         }
       }
       throw createError; // Proceed to fallback failure logging
@@ -169,7 +216,14 @@ export async function processSecurityEvent(
     return {
       success: false,
       errorCode: safeErrorCode,
-      errorMessage: "Normalization or persistence failed. Pre-persistence failure recorded."
+      errorMessage: "Normalization or persistence failed. Pre-persistence failure recorded.",
+      evaluated: true,
+      matched: isMatched,
+      persisted: false,
+      deduplicated: false,
+      cooldownSuppressed: isCooldownSuppressed,
+      failed: true,
+      criticalFailed: isCriticalFailed
     };
   }
 }

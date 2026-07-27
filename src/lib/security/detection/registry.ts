@@ -180,7 +180,7 @@ export const DetectionRegistry: DetectionRule[] = [
   // Payment and Escrow
   {
     RULE_ID: 'WEBHOOK_REPLAY_DETECTED',
-    EVENT_TYPE: 'PAYMENT_WEBHOOK_REPLAY',
+    EVENT_TYPE: 'WEBHOOK_FAIL',
     DESCRIPTION: 'Replayed payment webhook signatures detected.',
     SEVERITY: 'HIGH',
     SOURCE_TYPES: ['PaymentWebhookLog'],
