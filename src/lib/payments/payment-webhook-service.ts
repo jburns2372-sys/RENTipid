@@ -6,8 +6,7 @@ import { resolveSecurityRuntimeContext } from '../security/events/runtime-contex
 
 const prisma = new PrismaClient();
 
-export async function processWebhookEvent(providerName: string, eventType: string, payload: any, signature: string) {
-  const adapter = gatewayRegistry.getAdapter(providerName);
+export async function processWebhookEvent(providerName: string, eventType: string, payload: any, signature: string) { // eslint-disable-line @typescript-eslint/no-explicit-any
 
   // Extract reference depending on provider
   let gatewayReference = null;
@@ -33,12 +32,24 @@ export async function processWebhookEvent(providerName: string, eventType: strin
   }
   const verificationStatus = verified ? "Verified" : (isLivePilot ? "Failed" : "Skipped Sandbox");
 
+  // Sanitize payload summary to prevent PAN/CVV logging
+  const sanitizedPayload = JSON.parse(JSON.stringify(payload));
+  if (sanitizedPayload?.data?.attributes?.data?.attributes) {
+    if (sanitizedPayload.data.attributes.data.attributes.payment_method) {
+      sanitizedPayload.data.attributes.data.attributes.payment_method = "[REDACTED]";
+    }
+    // Redact other potentially sensitive fields if they ever appear
+    if (sanitizedPayload.data.attributes.data.attributes.metadata?.pan) {
+      sanitizedPayload.data.attributes.data.attributes.metadata.pan = "[REDACTED]";
+    }
+  }
+
   const log = await prisma.paymentWebhookLog.create({
     data: {
       provider: providerName,
       event_type: eventType,
       gateway_reference: gatewayReference,
-      payload_summary: JSON.stringify(payload).substring(0, 500),
+      payload_summary: JSON.stringify(sanitizedPayload).substring(0, 500),
       verification_status: verificationStatus,
       processing_status: "Received"
     }
@@ -79,6 +90,22 @@ export async function processWebhookEvent(providerName: string, eventType: strin
     });
     await updateLogStatus(log.id, "Failed", "Critical Mismatch: Webhook mode does not match transaction mode");
     return log.id;
+  }
+
+  // Amount & Currency Validation
+  let payloadAmount = null;
+  let payloadCurrency = null;
+  if (providerName === 'PayMongo') {
+     payloadAmount = payload?.data?.attributes?.data?.attributes?.amount;
+     payloadCurrency = payload?.data?.attributes?.data?.attributes?.currency;
+  }
+  if (payloadAmount !== null && transaction.amount !== (payloadAmount / 100)) {
+      await updateLogStatus(log.id, "Failed", "Critical Mismatch: Amount does not match");
+      return log.id;
+  }
+  if (payloadCurrency !== null && transaction.currency !== payloadCurrency) {
+      await updateLogStatus(log.id, "Failed", "Critical Mismatch: Currency does not match");
+      return log.id;
   }
 
   // Idempotency check

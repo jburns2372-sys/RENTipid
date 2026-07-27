@@ -59,6 +59,8 @@ afterEach(async () => {
 afterAll(async () => {
   await prisma.listing.deleteMany({});
   await prisma.category.deleteMany({});
+  await prisma.securityResponseApprovalDecision.deleteMany({});
+  await prisma.securityResponseApprovalRequest.deleteMany({});
   await prisma.user.deleteMany({});
   await prisma.$disconnect();
 });

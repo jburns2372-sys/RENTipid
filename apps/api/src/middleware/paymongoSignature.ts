@@ -23,12 +23,23 @@ export const verifyPaymongoSignature = (req: Request, res: Response, next: NextF
   }
 
   // Reconstruct payload and hash
-  // NOTE: This assumes req.body has NOT been parsed to JSON yet, or we have rawBody access.
-  // For production, express.raw({type: 'application/json'}) is required before this middleware.
-  const payload = `${t}.${(req as any).rawBody || JSON.stringify(req.body)}`;
-  const expectedSignature = crypto.createHmac('sha256', webhookSecret).update(payload).digest('hex');
+  // Enforce exact raw request bytes
+  const rawBody = (req as { rawBody?: unknown }).rawBody;
+  if (!rawBody) {
+    return res.status(500).json({ error: 'Raw body is required for signature verification' });
+  }
 
-  if (expectedSignature !== te) {
+  const payloadString = typeof rawBody === 'string' ? `${t}.${rawBody}` : `${t}.${(rawBody as Buffer).toString('utf8')}`;
+  const expectedSignature = crypto.createHmac('sha256', webhookSecret).update(payloadString).digest('hex');
+
+  try {
+    const expectedBuffer = Buffer.from(expectedSignature, 'hex');
+    const providedBuffer = Buffer.from(te, 'hex');
+    
+    if (expectedBuffer.length !== providedBuffer.length || !crypto.timingSafeEqual(expectedBuffer, providedBuffer)) {
+      return res.status(401).json({ error: 'Webhook signature verification failed' });
+    }
+  } catch {
     return res.status(401).json({ error: 'Webhook signature verification failed' });
   }
 
