@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import { getClassificationForCategory } from './data-classification';
-import { getRetentionPolicy } from './retention-policy';
+
+
 
 const prisma = new PrismaClient();
 
@@ -108,11 +108,11 @@ export async function correctUserData(actorUserId: string, targetUserId: string,
   
   // Ensure we don't update protected columns like password_hash directly via this method
   const allowedKeys = ['full_name'];
-  const updatePayload: any = {};
+  const updatePayload: Record<string, unknown> = {};
   
   for (const key of Object.keys(updates)) {
     if (allowedKeys.includes(key)) {
-      updatePayload[key] = (updates as any)[key];
+      updatePayload[key] = (updates as Record<string, unknown>)[key];
     } else {
       throw new Error(`Direct protected column write attempt rejected for key: ${key}`);
     }

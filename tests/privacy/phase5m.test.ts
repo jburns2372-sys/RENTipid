@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import { PrismaClient } from '@prisma/client';
 import { 
   exportUserData, 
@@ -61,8 +62,8 @@ describe('Phase 5M - Privacy Operations & ISMS (Synthetic Tests)', () => {
   it('2. EXPORT_USES_ALLOWLIST & 3. EXPORT_EXCLUDES_PASSWORD_HASH & 4. EXPORT_EXCLUDES_CIPHERTEXT & 5. EXPORT_EXCLUDES_RAW_KYC_CONTENT', async () => {
     const data = await exportUserData(user1Id, user1Id);
     expect(data.data.email).toBeDefined();
-    expect((data.data as any).password_hash).toBeUndefined();
-    expect((data.data as any).verificationDocuments).toBeUndefined();
+    expect((data.data as Record<string, unknown>).password_hash).toBeUndefined();
+    expect((data.data as Record<string, unknown>).verificationDocuments).toBeUndefined();
   });
 
   it('6. CROSS_USER_EXPORT_REJECTED', async () => {
@@ -79,7 +80,7 @@ describe('Phase 5M - Privacy Operations & ISMS (Synthetic Tests)', () => {
   });
 
   it('9. CORRECTION_ENCRYPTS_PROTECTED_FIELD & 10. DIRECT_PROTECTED_COLUMN_WRITE_REJECTED', async () => {
-    await expect(correctUserData(user1Id, user1Id, { password_hash: 'h4ck3d' } as any)).rejects.toThrow('Direct protected column write attempt rejected');
+    await expect(correctUserData(user1Id, user1Id, { password_hash: 'h4ck3d' } as unknown as { full_name?: string })).rejects.toThrow('Direct protected column write attempt rejected');
   });
 
   it('12. DELETE_WITH_ACTIVE_BOOKING_BLOCKED', async () => {
@@ -227,7 +228,7 @@ describe('Phase 5M - Privacy Operations & ISMS (Synthetic Tests)', () => {
       detectionTime: new Date(),
       severity: 'HIGH'
     });
-    expect((inc as any).rawData).toBeUndefined();
+    expect((inc as Record<string, unknown>).rawData).toBeUndefined();
   });
 
   it('24. RETENTION_POLICY_REQUIRES_AUTHORIZED_DURATION_SOURCE', () => {
