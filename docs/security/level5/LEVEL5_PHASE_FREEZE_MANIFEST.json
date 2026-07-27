@@ -1,0 +1,205 @@
+{
+  "program": "RENTipid Level 5 Security",
+  "normalization_start_hash": "5b4b3826c9d9fe5be22d8d3f02e2860b119f75cc",
+  "frozen_phases": [
+    {
+      "phase": "5F-A",
+      "status": "FULLY_ACCEPTED_AND_FROZEN",
+      "original_implementation_hash": "0498fa1e448971c639ade9f4851bbe77d3241b64",
+      "corrective_commit_hashes": [],
+      "final_accepted_hash": "0498fa1e448971c639ade9f4851bbe77d3241b64",
+      "evidence_paths": [
+        "docs/security/level5/bundles/phase5f/PHASE5F_A_CRYPTOGRAPHIC_MIGRATION_PLAN.md"
+      ],
+      "retest_required": false,
+      "reopen_prohibited": true,
+      "authorized_reopen_conditions": [
+        "A genuine new Critical or High security defect",
+        "A later approved change invalidating a foundational assumption",
+        "A security incident proving the accepted control ineffective",
+        "An explicit corrective authorization from the user"
+      ]
+    },
+    {
+      "phase": "5F-B",
+      "status": "FULLY_ACCEPTED_AND_FROZEN",
+      "original_implementation_hash": "603d7c2f9fba8e94540a1e8a57bcb3959d034d0f",
+      "corrective_commit_hashes": [],
+      "final_accepted_hash": "603d7c2f9fba8e94540a1e8a57bcb3959d034d0f",
+      "evidence_paths": [
+        "docs/security/level5/bundles/phase5f/PHASE5F_B_CRYPTOGRAPHIC_FOUNDATION_EVIDENCE.md"
+      ],
+      "retest_required": false,
+      "reopen_prohibited": true,
+      "authorized_reopen_conditions": [
+        "A genuine new Critical or High security defect",
+        "A later approved change invalidating a foundational assumption",
+        "A security incident proving the accepted control ineffective",
+        "An explicit corrective authorization from the user"
+      ]
+    },
+    {
+      "phase": "5F-C-A",
+      "status": "FULLY_ACCEPTED_AND_FROZEN",
+      "original_implementation_hash": "ac019648826adea7fc4c8fffe9606b26af90e4ad",
+      "corrective_commit_hashes": [],
+      "final_accepted_hash": "ac019648826adea7fc4c8fffe9606b26af90e4ad",
+      "evidence_paths": [
+        "docs/security/level5/bundles/phase5f/PHASE5F_C_A_NEW_WRITE_DUAL_READ_INTEGRATION_PLAN.md"
+      ],
+      "retest_required": false,
+      "reopen_prohibited": true,
+      "authorized_reopen_conditions": [
+        "A genuine new Critical or High security defect",
+        "A later approved change invalidating a foundational assumption",
+        "A security incident proving the accepted control ineffective",
+        "An explicit corrective authorization from the user"
+      ]
+    },
+    {
+      "phase": "5F-C-B1",
+      "status": "FULLY_ACCEPTED_AND_FROZEN",
+      "original_implementation_hash": "3e512ca6162d4bef0c211db40b006ef8f538fefa",
+      "corrective_commit_hashes": [],
+      "final_accepted_hash": "3e512ca6162d4bef0c211db40b006ef8f538fefa",
+      "evidence_paths": [
+        "docs/security/level5/bundles/phase5f/PHASE5F_C_B1_PROFILE_PROTECTION_FOUNDATION_EVIDENCE.md"
+      ],
+      "retest_required": false,
+      "reopen_prohibited": true,
+      "authorized_reopen_conditions": [
+        "A genuine new Critical or High security defect",
+        "A later approved change invalidating a foundational assumption",
+        "A security incident proving the accepted control ineffective",
+        "An explicit corrective authorization from the user"
+      ]
+    },
+    {
+      "phase": "5F-C-B2",
+      "status": "FULLY_ACCEPTED_AND_FROZEN",
+      "original_implementation_hash": "3e512ca6162d4bef0c211db40b006ef8f538fefa",
+      "corrective_commit_hashes": [],
+      "final_accepted_hash": "3e512ca6162d4bef0c211db40b006ef8f538fefa",
+      "evidence_paths": [
+        "docs/security/level5/bundles/phase5f/PHASE5F_C_B2_PROFILE_INTEGRATION_EVIDENCE.md"
+      ],
+      "retest_required": false,
+      "reopen_prohibited": true,
+      "authorized_reopen_conditions": [
+        "A genuine new Critical or High security defect",
+        "A later approved change invalidating a foundational assumption",
+        "A security incident proving the accepted control ineffective",
+        "An explicit corrective authorization from the user"
+      ]
+    },
+    {
+      "phase": "5F-D",
+      "status": "FULLY_ACCEPTED_AND_FROZEN",
+      "original_implementation_hash": "f29410b011859c6b46a974a5d28c4cbf6199d516",
+      "corrective_commit_hashes": [
+        "289ea3f3",
+        "2ad4670c",
+        "e2017498",
+        "e04152fd",
+        "db613a76",
+        "e303ccdb"
+      ],
+      "final_accepted_hash": "b6e5f45a85ca569af94dc25f336735051b83c468",
+      "evidence_paths": [
+        "docs/security/level5/bundles/phase5f/PHASE5F_D_C_FINAL_LOCAL_REHEARSAL_EVIDENCE.md"
+      ],
+      "retest_required": false,
+      "reopen_prohibited": true,
+      "authorized_reopen_conditions": [
+        "A genuine new Critical or High security defect",
+        "A later approved change invalidating a foundational assumption",
+        "A security incident proving the accepted control ineffective",
+        "An explicit corrective authorization from the user"
+      ]
+    },
+    {
+      "phase": "5F-E",
+      "status": "FULLY_ACCEPTED_AND_FROZEN",
+      "original_implementation_hash": "c12c88a56263465ffeb4dd26c708af78aab8b435",
+      "corrective_commit_hashes": [
+        "5b4b3826c9d9fe5be22d8d3f02e2860b119f75cc"
+      ],
+      "final_accepted_hash": "5b4b3826c9d9fe5be22d8d3f02e2860b119f75cc",
+      "evidence_paths": [
+        "docs/security/level5/bundles/phase5f/PHASE5F_E_ENCRYPTED_ONLY_ROTATION_EVIDENCE.md"
+      ],
+      "retest_required": false,
+      "reopen_prohibited": true,
+      "authorized_reopen_conditions": [
+        "A genuine new Critical or High security defect",
+        "A later approved change invalidating a foundational assumption",
+        "A security incident proving the accepted control ineffective",
+        "An explicit corrective authorization from the user"
+      ]
+    },
+    {
+      "phase": "5G",
+      "status": "FULLY_ACCEPTED_AND_FROZEN",
+      "original_implementation_hash": "545b0a9da62db71bd5d0a7effe568ceba577f7f9",
+      "corrective_commit_hashes": [],
+      "final_accepted_hash": "545b0a9da62db71bd5d0a7effe568ceba577f7f9",
+      "evidence_paths": [
+        "docs/security/level5/bundles/phase5g/PHASE5G_PAYMENT_SECURITY_EVIDENCE.md"
+      ],
+      "retest_required": false,
+      "reopen_prohibited": true,
+      "authorized_reopen_conditions": [
+        "A genuine new Critical or High security defect",
+        "A later approved change invalidating a foundational assumption",
+        "A security incident proving the accepted control ineffective",
+        "An explicit corrective authorization from the user"
+      ]
+    },
+    {
+      "phase": "5H",
+      "status": "FULLY_ACCEPTED_AND_FROZEN",
+      "original_implementation_hash": "d0232fe30e4489b4d770f11c66c68568bf1456c2",
+      "corrective_commit_hashes": [],
+      "final_accepted_hash": "d0232fe30e4489b4d770f11c66c68568bf1456c2",
+      "evidence_paths": [
+        "docs/security/level5/bundles/phase5h/PHASE5H_CLOUD_ZERO_TRUST_EVIDENCE.md"
+      ],
+      "retest_required": false,
+      "reopen_prohibited": true,
+      "authorized_reopen_conditions": [
+        "A genuine new Critical or High security defect",
+        "A later approved change invalidating a foundational assumption",
+        "A security incident proving the accepted control ineffective",
+        "An explicit corrective authorization from the user"
+      ]
+    },
+    {
+      "phase": "5L",
+      "status": "FULLY_ACCEPTED_AND_FROZEN",
+      "original_implementation_hash": "9c436262671780837ae4eb9d52954cbd0e952c1b",
+      "corrective_commit_hashes": [
+        "3f9fc59621acd5e85a8ea4a3e1cc997a03328881"
+      ],
+      "final_accepted_hash": "3f9fc59621acd5e85a8ea4a3e1cc997a03328881",
+      "evidence_paths": [
+        "docs/security/level5/bundles/phase5l/PHASE5L_RESILIENCE_RECOVERY_EVIDENCE.md"
+      ],
+      "retest_required": false,
+      "reopen_prohibited": true,
+      "authorized_reopen_conditions": [
+        "A genuine new Critical or High security defect",
+        "A later approved change invalidating a foundational assumption",
+        "A security incident proving the accepted control ineffective",
+        "An explicit corrective authorization from the user"
+      ]
+    }
+  ],
+  "not_frozen_phases": [],
+  "pending_phases": [
+    "5I",
+    "5J",
+    "5K",
+    "5M",
+    "5N"
+  ]
+}
