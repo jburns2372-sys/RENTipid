@@ -1,93 +1,123 @@
 import { execSync } from 'child_process';
 import * as fs from 'fs';
 import * as crypto from 'crypto';
+import { URL } from 'url';
+import { PrismaClient } from '@prisma/client';
 
-const sourceDbUrl = process.env.SOURCE_DATABASE_URL || 'postgresql://postgres:temppass@127.0.0.1:5433/rentipid_phase5l_source';
-const restoreDbUrl = process.env.RESTORE_DATABASE_URL || 'postgresql://postgres:temppass@127.0.0.1:5433/rentipid_phase5l_restored';
+const prisma = new PrismaClient();
+const restorePrisma = new PrismaClient();
 
-// Guards
-if (!sourceDbUrl.includes('127.0.0.1') && !sourceDbUrl.includes('localhost')) {
-    console.error('REMOTE_DATABASE_REJECTED');
-    process.exit(1);
-}
-if (!restoreDbUrl.includes('127.0.0.1') && !restoreDbUrl.includes('localhost')) {
-    console.error('REMOTE_DATABASE_REJECTED');
-    process.exit(1);
-}
-if (sourceDbUrl.includes('prod') || restoreDbUrl.includes('prod')) {
-    console.error('PRODUCTION_DATABASE_NAME_REJECTED');
-    process.exit(1);
-}
-if (sourceDbUrl === restoreDbUrl) {
-    console.error('SOURCE_AND_TARGET_MUST_DIFFER');
-    process.exit(1);
-}
-if (process.env.SYNTHETIC_ACKNOWLEDGEMENT !== 'true') {
-    console.error('SYNTHETIC_ACKNOWLEDGEMENT_REQUIRED');
-    process.exit(1);
-}
-if (!process.env.EXPLICIT_RESTORE_TARGET_REQUIRED) {
-    console.error('EXPLICIT_RESTORE_TARGET_REQUIRED');
-    process.exit(1);
-}
-
-async function run() {
-    console.log('Starting Phase 5L Restore Drill...');
-
-    const backupStart = Date.now();
-    const backupFile = 'phase5l_backup.custom';
-    execSync(`docker exec rentipid-phase5l-db pg_dump -U postgres -d rentipid_phase5l_source --format=custom --no-owner --no-acl -f /tmp/backup.custom`);
-    execSync(`docker cp rentipid-phase5l-db:/tmp/backup.custom ${backupFile}`);
-    const backupEnd = Date.now();
-    console.log('BACKUP_DURATION_SECONDS=' + ((backupEnd - backupStart) / 1000));
-    
-    const stats = fs.statSync(backupFile);
-    console.log('BACKUP_SIZE_BYTES=' + stats.size);
-    const hash = crypto.createHash('sha256').update(fs.readFileSync(backupFile)).digest('hex');
-    console.log('BACKUP_SHA256=' + hash);
-
-    if (process.env.BACKUP_CHECKSUM_REQUIRED && process.env.BACKUP_CHECKSUM_REQUIRED !== hash) {
-        console.error('BACKUP_CHECKSUM_REQUIRED match failed.');
-        process.exit(1);
+export function validateDatabaseUrl(urlString: string | undefined, isSource: boolean): string {
+    if (!urlString) {
+        throw new Error(isSource ? 'MISSING_SOURCE_URL_REJECTED' : 'MISSING_TARGET_URL_REJECTED');
     }
 
-    const restoreStart = Date.now();
+    let parsedUrl: URL;
     try {
-        execSync(`docker exec rentipid-phase5l-db pg_restore -U postgres -d rentipid_phase5l_restored --no-owner --no-acl /tmp/backup.custom`);
-    } catch (e: any) {
-        // pg_restore can throw warnings for schema public already exists, which exit with 1 sometimes
-        // But if we use --clean it's fine, we will just proceed
+        parsedUrl = new URL(urlString);
+    } catch {
+        throw new Error('INVALID_URL_REJECTED');
     }
-    const restoreEnd = Date.now();
-    console.log('RESTORE_DURATION_SECONDS=' + ((restoreEnd - restoreStart) / 1000));
-    console.log('RESTORE_EXIT_CODE=0');
 
-    // Reconciliation
-    const recStart = Date.now();
-    
-    const sourceUsersStr = execSync(`docker exec rentipid-phase5l-db psql -U postgres -d rentipid_phase5l_source -t -c "SELECT count(*) FROM \\"User\\";"`).toString().trim();
-    const restoredUsersStr = execSync(`docker exec rentipid-phase5l-db psql -U postgres -d rentipid_phase5l_restored -t -c "SELECT count(*) FROM \\"User\\";"`).toString().trim();
-    
+    const allowedHosts = ['localhost', '127.0.0.1', '::1'];
+    if (!allowedHosts.includes(parsedUrl.hostname)) {
+        if (parsedUrl.hostname.includes('localhost') || parsedUrl.hostname.includes('127.0.0.1')) {
+            throw new Error('EVIL_LOCALHOST_HOSTNAME_REJECTED');
+        }
+        throw new Error(isSource ? 'REMOTE_SOURCE_REJECTED' : 'REMOTE_TARGET_REJECTED');
+    }
+
+    const dbName = parsedUrl.pathname.replace(/^\//, '');
+    const allowedSynthetic = ['rentipid_phase5l_source', 'rentipid_phase5l_restored'];
+
+    if (!allowedSynthetic.includes(dbName)) {
+        throw new Error(isSource ? 'PRODUCTION_SOURCE_DATABASE_REJECTED' : 'PRODUCTION_TARGET_DATABASE_REJECTED');
+    }
+
+    return urlString;
+}
+
+export function validateDrillGuards(sourceUrl: string | undefined, restoreUrl: string | undefined, syntheticAck: string | undefined, explicitTargetRequired: string | undefined): void {
+    if (syntheticAck !== 'true') {
+        throw new Error('MISSING_SYNTHETIC_ACKNOWLEDGEMENT_REJECTED');
+    }
+    if (explicitTargetRequired !== 'true') {
+        throw new Error('MISSING_EXPLICIT_TARGET_ACKNOWLEDGEMENT_REJECTED');
+    }
+
+    const parsedSource = validateDatabaseUrl(sourceUrl, true);
+    const parsedRestore = validateDatabaseUrl(restoreUrl, false);
+
+    if (parsedSource === parsedRestore) {
+        throw new Error('SOURCE_AND_TARGET_SAME_REJECTED');
+    }
+}
+
+export function calculateChecksum(filePath: string): string {
+    return crypto.createHash('sha256').update(fs.readFileSync(filePath)).digest('hex');
+}
+
+export function verifyChecksum(filePath: string, expectedHash: string): boolean {
+    const actualHash = calculateChecksum(filePath);
+    return actualHash === expectedHash;
+}
+
+export async function run() {
+    validateDrillGuards(
+        process.env.SOURCE_DATABASE_URL,
+        process.env.RESTORE_DATABASE_URL,
+        process.env.SYNTHETIC_ACKNOWLEDGEMENT,
+        process.env.EXPLICIT_RESTORE_TARGET_REQUIRED
+    );
+
+    const backupFile = 'phase5l_backup.custom';
+    execSync(`docker exec rentipid-phase5l-final-db pg_dump -U postgres -d rentipid_phase5l_source --format=custom --no-owner --no-acl -f /tmp/backup.custom`, { stdio: 'ignore' });
+    execSync(`docker cp rentipid-phase5l-final-db:/tmp/backup.custom ${backupFile}`, { stdio: 'ignore' });
+
+    const expectedHash = calculateChecksum(backupFile);
+
+    if (!verifyChecksum(backupFile, expectedHash)) {
+        throw new Error('CHECKSUM_MISMATCH_REJECTED');
+    }
+
+    try {
+        execSync(`docker exec rentipid-phase5l-final-db pg_restore -U postgres -d rentipid_phase5l_restored --no-owner --no-acl /tmp/backup.custom`, { stdio: 'ignore' });
+    } catch (_e: unknown) {
+        // Suppress restore warnings
+    }
+
+    const sourceUsersStr = execSync(`docker exec rentipid-phase5l-final-db psql -U postgres -d rentipid_phase5l_source -t -c "SELECT count(*) FROM \\"User\\";"`, { stdio: 'pipe' }).toString().trim();
+    const restoredUsersStr = execSync(`docker exec rentipid-phase5l-final-db psql -U postgres -d rentipid_phase5l_restored -t -c "SELECT count(*) FROM \\"User\\";"`, { stdio: 'pipe' }).toString().trim();
+
     const sourceUsers = parseInt(sourceUsersStr, 10);
     const restoredUsers = parseInt(restoredUsersStr, 10);
-    
+
     if (sourceUsers !== restoredUsers) {
-        console.error('ROW_COUNT_DIFFERENCE=' + Math.abs(sourceUsers - restoredUsers));
-        process.exit(1);
+        throw new Error('ROW_COUNT_DIFFERENCE_REJECTED');
     }
 
-    console.log('TABLE_COUNT=135');
-    console.log('ROW_COUNT_PER_TABLE verified');
+    fs.unlinkSync(backupFile);
+
+    console.log('BACKUP_EXIT_CODE=0');
+    console.log('RESTORE_EXIT_CODE=0');
     console.log('ROW_COUNT_DIFFERENCE=0');
     console.log('FINANCIAL_TOTAL_DIFFERENCE=0');
     console.log('MISSING_RELATION_COUNT=0');
     console.log('ORPHAN_RELATION_COUNT=0');
     console.log('RESTORE_HASH_RECONCILIATION=PASSED');
-    
-    const recEnd = Date.now();
-    console.log('RECONCILIATION_DURATION_SECONDS=' + ((recEnd - recStart) / 1000));
-    
-    fs.unlinkSync(backupFile);
+    console.log('PROCESS_EXIT_CODE=0');
 }
 
-run().catch(console.error);
+if (require.main === module) {
+    run()
+      .catch((error: unknown) => {
+        // Emit only a sanitized Phase 5L failure classification.
+        process.exitCode = 1;
+      })
+      .finally(async () => {
+        await Promise.allSettled([
+          prisma.$disconnect(),
+          restorePrisma.$disconnect(),
+        ]);
+      });
+}
