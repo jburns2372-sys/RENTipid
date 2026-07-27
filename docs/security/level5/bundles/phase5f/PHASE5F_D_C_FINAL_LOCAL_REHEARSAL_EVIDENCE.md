@@ -50,5 +50,23 @@ A test script invoked `runStagingCommand` substituting the identity and approval
 }
 ```
 
-## 4. Test Corrections
+## 4. Summary Results
+
+SYNTHETIC_PROFILES_SCANNED=4
+FIRST_RUN_PROFILES_BACKFILLED=2
+FIRST_RUN_FIELDS_BACKFILLED=3
+FIRST_RUN_FAILED_PROFILES=0
+PLAINTEXT_CHANGE_COUNT=0
+UNAUTHORIZED_FIELD_CHANGE_COUNT=0
+OUT_OF_SCOPE_RECORD_CHANGE_COUNT=0
+SECOND_RUN_PROFILE_WRITE_COUNT=0
+SECOND_RUN_FIELD_WRITE_COUNT=0
+RECONCILIATION_PASSED=true
+SYNTHETIC_RECORD_COUNT_AFTER_CLEANUP=0
+LOCK_RELEASED=true
+DOCKER_CONTAINER_REMOVED=true
+DOCKER_VOLUME_REMOVED=true
+
+## 5. Test Corrections
 A genuine control defect was corrected where `scripts/security/phase5f-profile-backfill-staging-rehearsal.ts` lacked integration with `ProfileBackfillWriter`. The writer execution loops were added from the isolated scripts, and the Jest test suites updated to mock the correct internal dependencies. `npx jest tests/security/crypto/profile-backfill-staging-command.test.ts --runInBand` was successfully run to prove safety.
+Additionally, the local Docker database identity validation was strictly constrained so that `LOCAL_DOCKER_POSTGRESQL` does not bypass loopback requirements, ensuring fake `.invalid` hostnames and identity-control bypasses do not occur during actual controlled writes.

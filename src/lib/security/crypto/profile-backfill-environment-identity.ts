@@ -71,7 +71,11 @@ export function validateStagingEnvironmentIdentity(
   if (identity.environment !== 'staging-rehearsal') {
     return { isValid: false, failureCode: 'INVALID_ENVIRONMENT' };
   }
-  if (identity.cloudProvider !== 'LOCAL_DOCKER_POSTGRESQL') {
+  if (identity.cloudProvider === 'LOCAL_DOCKER_POSTGRESQL') {
+    if (identity.hostname !== 'localhost' && identity.hostname !== '127.0.0.1' && identity.hostname !== '::1') {
+      return { isValid: false, failureCode: 'HOST_NOT_ALLOWLISTED' };
+    }
+  } else {
     if (!identity.tlsEnabled) {
       return { isValid: false, failureCode: 'TLS_REQUIRED' };
     }

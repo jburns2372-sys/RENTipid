@@ -151,7 +151,7 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
   let lockRes;
   try {
     lockRes = await lockClient.acquireLock();
-  } catch(e) {
+  } catch(_e) {
     deps.logger.error('Rejection: Failed lock');
     return 1;
   }
@@ -193,6 +193,7 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
       fieldsFailedFinal: 0,
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const prisma = dbClient as any;
     
     let lastUserId: string | undefined;
@@ -207,6 +208,7 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
       });
       if (users.length === 0) break;
       for (const u of users) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const out = await (writer as any).processUserProfile(u.id);
         if (out.outcome === 'BACKFILLED') { agg.profilesBackfilled++; agg.fieldsBackfilled += out.fieldsBackfilled; }
         else if (out.outcome === 'NOT_REQUIRED' || out.outcome === 'ALREADY_COMPLIANT') agg.profilesUnchanged++;
@@ -228,6 +230,7 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
       });
       if (businesses.length === 0) break;
       for (const b of businesses) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const out = await (writer as any).processBusinessProfile(b.id);
         if (out.outcome === 'BACKFILLED') { agg.profilesBackfilled++; agg.fieldsBackfilled += out.fieldsBackfilled; }
         else if (out.outcome === 'NOT_REQUIRED' || out.outcome === 'ALREADY_COMPLIANT') agg.profilesUnchanged++;
