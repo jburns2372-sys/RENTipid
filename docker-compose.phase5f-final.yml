@@ -1,0 +1,20 @@
+services:
+  rentipid_phase5f_final_db:
+    image: postgres:15-alpine
+    container_name: rentipid-phase5f-final-db
+    environment:
+      POSTGRES_USER: ${PHASE5F_STAGING_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${PHASE5F_STAGING_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${PHASE5F_STAGING_POSTGRES_DB}
+    ports:
+      - "55433:5432"
+    volumes:
+      - phase5f_final_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PHASE5F_STAGING_POSTGRES_USER} -d ${PHASE5F_STAGING_POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  phase5f_final_pgdata:

@@ -66,7 +66,10 @@ describe('Staging Command Validation', () => {
       }),
       approvalLoader: jest.fn().mockReturnValue(validApproval),
       approvalAuthenticityVerifier: { verify: jest.fn().mockResolvedValue({ verified: true, verificationMethod: 'mock' }) },
-      databaseClientFactory: jest.fn().mockReturnValue({}),
+      databaseClientFactory: jest.fn().mockReturnValue({
+        userProfile: { findMany: jest.fn().mockResolvedValue([]) },
+        businessProfile: { findMany: jest.fn().mockResolvedValue([]) }
+      }),
       lockClientFactory: jest.fn().mockReturnValue({
         acquireLock: jest.fn().mockResolvedValue('LOCK_ACQUIRED'),
         releaseLock: jest.fn().mockResolvedValue(undefined),
@@ -76,7 +79,21 @@ describe('Staging Command Validation', () => {
         scan: jest.fn().mockResolvedValue({ counters: { totalQuarantined: 0, totalProfilesScanned: 10 } })
       }),
       writerFactory: jest.fn().mockReturnValue({
-        pinKeyVersion: jest.fn()
+        pinKeyVersion: jest.fn(),
+        processUserProfile: jest.fn().mockResolvedValue({ outcome: 'NOT_REQUIRED' }),
+        processBusinessProfile: jest.fn().mockResolvedValue({ outcome: 'NOT_REQUIRED' }),
+        execute: jest.fn().mockResolvedValue({
+          runState: 'COMPLETED',
+          profilesUnchanged: 0,
+          profilesBackfilled: 2,
+          profilesQuarantined: 0,
+          profilesConcurrentlyChanged: 0,
+          profilesFailed: 0,
+          fieldsBackfilled: 4,
+          fieldsSkippedConcurrentChange: 0,
+          fieldsFailedRetryable: 0,
+          fieldsFailedFinal: 0
+        })
       }),
       clock: jest.fn().mockReturnValue(Date.now()),
       logger: {

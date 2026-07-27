@@ -192,6 +192,51 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
       fieldsFailedRetryable: 0,
       fieldsFailedFinal: 0,
     };
+
+    const prisma = dbClient as any;
+    
+    let lastUserId: string | undefined;
+    while (true) {
+      const users = await prisma.userProfile.findMany({
+        where: { id: { startsWith: config.syntheticPrefix } },
+        take: config.batchSize || 10,
+        skip: lastUserId ? 1 : 0,
+        cursor: lastUserId ? { id: lastUserId } : undefined,
+        orderBy: { id: 'asc' },
+        select: { id: true }
+      });
+      if (users.length === 0) break;
+      for (const u of users) {
+        const out = await (writer as any).processUserProfile(u.id);
+        if (out.outcome === 'BACKFILLED') { agg.profilesBackfilled++; agg.fieldsBackfilled += out.fieldsBackfilled; }
+        else if (out.outcome === 'NOT_REQUIRED' || out.outcome === 'ALREADY_COMPLIANT') agg.profilesUnchanged++;
+        else if (out.outcome.startsWith('QUARANTINE')) agg.profilesQuarantined++;
+        else if (out.outcome === 'SKIPPED_CONCURRENT_CHANGE') { agg.profilesConcurrentlyChanged++; agg.fieldsSkippedConcurrentChange += out.fieldsConcurrent; }
+      }
+      lastUserId = users[users.length - 1].id;
+    }
+
+    let lastBusinessId: string | undefined;
+    while (true) {
+      const businesses = await prisma.businessProfile.findMany({
+        where: { id: { startsWith: config.syntheticPrefix } },
+        take: config.batchSize || 10,
+        skip: lastBusinessId ? 1 : 0,
+        cursor: lastBusinessId ? { id: lastBusinessId } : undefined,
+        orderBy: { id: 'asc' },
+        select: { id: true }
+      });
+      if (businesses.length === 0) break;
+      for (const b of businesses) {
+        const out = await (writer as any).processBusinessProfile(b.id);
+        if (out.outcome === 'BACKFILLED') { agg.profilesBackfilled++; agg.fieldsBackfilled += out.fieldsBackfilled; }
+        else if (out.outcome === 'NOT_REQUIRED' || out.outcome === 'ALREADY_COMPLIANT') agg.profilesUnchanged++;
+        else if (out.outcome.startsWith('QUARANTINE')) agg.profilesQuarantined++;
+        else if (out.outcome === 'SKIPPED_CONCURRENT_CHANGE') { agg.profilesConcurrentlyChanged++; agg.fieldsSkippedConcurrentChange += out.fieldsConcurrent; }
+      }
+      lastBusinessId = businesses[businesses.length - 1].id;
+    }
+
     deps.logger.log(JSON.stringify(agg));
   } catch(e) {
     deps.logger.error('Rejection: ' + (e as Error).message);
