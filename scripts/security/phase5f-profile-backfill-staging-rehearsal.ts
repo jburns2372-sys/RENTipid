@@ -14,17 +14,28 @@ export interface StagingCommandDependencies {
   environmentIdentityProvider: () => StagingEnvironmentIdentity;
   approvalLoader: (path: string) => ProfileBackfillApprovalArtifact;
   approvalAuthenticityVerifier: ApprovalAuthenticityVerifier;
-  databaseClientFactory: () => any;
-  lockClientFactory: (dbClient: any) => { acquireLock: () => Promise<string>, releaseLock: () => Promise<void>, disconnectLock: () => Promise<void> };
-  dryRunScannerFactory: (dbClient: any) => any;
-  writerFactory: (dbClient: any) => any;
+  databaseClientFactory: () => unknown;
+  lockClientFactory: (dbClient: unknown) => { acquireLock: () => Promise<string>, releaseLock: () => Promise<void>, disconnectLock: () => Promise<void> };
+  dryRunScannerFactory: (dbClient: unknown) => { scan: (batchSize: number, prefix: string) => Promise<{ counters: { totalQuarantined: number, totalProfilesScanned: number } }> };
+  writerFactory: (dbClient: unknown) => { pinKeyVersion: () => void };
   clock: () => number;
   logger: { log: (msg: string) => void, error: (msg: string) => void };
   gitHeadProvider: () => string;
 }
 
 export async function runStagingCommand(args: string[], deps: StagingCommandDependencies): Promise<number> {
-  const config: any = {};
+  const config: {
+    apply?: boolean;
+    acknowledgePlaintextPreserved?: boolean;
+    acknowledgeNoRealData?: boolean;
+    environment?: string;
+    databaseIdentityHash?: string;
+    approvalFile?: string;
+    approvalId?: string;
+    syntheticPrefix?: string;
+    batchSize?: number;
+    confirmationToken?: string;
+  } = {};
   
   for (const arg of args) {
     const key = arg.split('=')[0];
@@ -62,11 +73,11 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
   if (!config.databaseIdentityHash) { deps.logger.error('Rejection: Missing database identity hash'); return 1; }
   if (!config.syntheticPrefix) { deps.logger.error('Rejection: Missing synthetic prefix'); return 1; }
   if (!config.syntheticPrefix.startsWith('phase5f_dc_')) { deps.logger.error('Rejection: Invalid synthetic prefix'); return 1; }
-  if (!config.batchSize || config.batchSize < 1 || config.batchSize > 100) { deps.logger.error('Rejection: Invalid batch size'); return 1; }
+  if (!config.batchSize || (config.batchSize as number) < 1 || (config.batchSize as number) > 100) { deps.logger.error('Rejection: Invalid batch size'); return 1; }
   if (!config.acknowledgePlaintextPreserved) { deps.logger.error('Rejection: Missing plaintext acknowledgement'); return 1; }
   if (!config.acknowledgeNoRealData) { deps.logger.error('Rejection: Missing no real data acknowledgement'); return 1; }
 
-  const absPath = resolve(config.approvalFile);
+  const absPath = resolve(config.approvalFile as string);
   const cwd = process.cwd();
   if (!absPath.startsWith(cwd)) {
     deps.logger.error('Rejection: Approval file outside permitted directory');
@@ -76,7 +87,7 @@ export async function runStagingCommand(args: string[], deps: StagingCommandDepe
   let approval: ProfileBackfillApprovalArtifact;
   try {
     approval = deps.approvalLoader(config.approvalFile);
-  } catch (e) {
+  } catch {
     deps.logger.error('Rejection: Invalid approval artifact');
     return 1;
   }
