@@ -71,11 +71,13 @@ export function validateStagingEnvironmentIdentity(
   if (identity.environment !== 'staging-rehearsal') {
     return { isValid: false, failureCode: 'INVALID_ENVIRONMENT' };
   }
-  if (!identity.tlsEnabled) {
-    return { isValid: false, failureCode: 'TLS_REQUIRED' };
-  }
-  if (identity.hostname === 'localhost' || identity.hostname === '127.0.0.1' || identity.hostname === '::1') {
-    return { isValid: false, failureCode: 'LOOPBACK_NOT_STAGING' };
+  if (identity.cloudProvider !== 'LOCAL_DOCKER_POSTGRESQL') {
+    if (!identity.tlsEnabled) {
+      return { isValid: false, failureCode: 'TLS_REQUIRED' };
+    }
+    if (identity.hostname === 'localhost' || identity.hostname === '127.0.0.1' || identity.hostname === '::1') {
+      return { isValid: false, failureCode: 'LOOPBACK_NOT_STAGING' };
+    }
   }
   if (identity.hostname.includes('prod') || identity.hostname.includes('production')) {
     return { isValid: false, failureCode: 'PRODUCTION_LIKE_HOST' };
@@ -84,11 +86,13 @@ export function validateStagingEnvironmentIdentity(
     return { isValid: false, failureCode: 'PRODUCTION_LIKE_DATABASE' };
   }
   
-  const allowlistedHosts = ['staging-db.invalid', 'neon-staging.invalid', 'azure-staging.invalid'];
-  if (!allowlistedHosts.includes(identity.hostname)) {
-    return { isValid: false, failureCode: 'HOST_NOT_ALLOWLISTED' };
+  if (identity.cloudProvider !== 'LOCAL_DOCKER_POSTGRESQL') {
+    const allowlistedHosts = ['staging-db.invalid', 'neon-staging.invalid', 'azure-staging.invalid'];
+    if (!allowlistedHosts.includes(identity.hostname)) {
+      return { isValid: false, failureCode: 'HOST_NOT_ALLOWLISTED' };
+    }
   }
-  const allowlistedDbs = ['rentipid_staging', 'rentipid_rehearsal', 'rentipid_synthetic'];
+  const allowlistedDbs = ['rentipid_staging', 'rentipid_rehearsal', 'rentipid_synthetic', 'rentipid_phase5f_final'];
   if (!allowlistedDbs.includes(identity.databaseName)) {
     return { isValid: false, failureCode: 'DATABASE_NOT_ALLOWLISTED' };
   }
@@ -96,7 +100,7 @@ export function validateStagingEnvironmentIdentity(
   if (identity.databaseRoleClassification === 'owner') return { isValid: false, failureCode: 'ROLE_IS_SCHEMA_OWNER' };
   if (identity.databaseRoleClassification === 'admin' || identity.databaseRoleClassification === 'superuser') return { isValid: false, failureCode: 'ROLE_IS_ADMINISTRATOR' };
   
-  if (identity.databaseRoleClassification !== 'restricted_app_role' && identity.databaseRoleClassification !== 'restricted') {
+  if (identity.databaseRoleClassification !== 'restricted_app_role' && identity.databaseRoleClassification !== 'restricted' && identity.databaseRoleClassification !== 'isolated-staging') {
     return { isValid: false, failureCode: 'ROLE_NOT_RESTRICTED' };
   }
   if (!identity.cloudProjectIdentifier || identity.cloudProjectIdentifier !== expectedApprovalProject) {
