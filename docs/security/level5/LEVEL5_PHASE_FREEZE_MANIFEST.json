@@ -288,9 +288,9 @@
                                                  ]
                           },
                           {
-                              "original_implementation_hash":  "83c1e9d9522eeaa947568218bbb9dd79d25ba13c",
+                              "original_implementation_hash":  "6463d7242a1369b8e0cd5d6c76e0d7ccf525ece9",
                               "reopen_prohibited":  true,
-                              "final_accepted_hash":  "PENDING_FINAL_COMMIT",
+                              "final_accepted_hash":  "6463d7242a1369b8e0cd5d6c76e0d7ccf525ece9",
                               "retest_required":  false,
                               "corrective_commit_hashes":  [
 
@@ -316,7 +316,6 @@
                        ],
     "level5_final_authorization":  true,
     "authorization_outcome":  "GRANTED_WITH_CONDITIONS",
-    "authorized_commit":  "83c1e9d9522eeaa947568218bbb9dd79d25ba13c",
     "open_critical_findings":  0,
     "open_high_findings":  0,
     "conditions":  [
@@ -329,5 +328,7 @@
                              "Terraform Apply",
                              "Vercel Production Deployment",
                              "Live Data Migration"
-                         ]
+                         ],
+    "authorized_security_baseline_commit":  "83c1e9d9522eeaa947568218bbb9dd79d25ba13c",
+    "phase5n_assurance_commit":  "6463d7242a1369b8e0cd5d6c76e0d7ccf525ece9"
 }
