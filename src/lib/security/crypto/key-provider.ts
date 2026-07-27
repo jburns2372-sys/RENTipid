@@ -17,11 +17,6 @@ export interface IKeyProvider {
   getKey(id: string, purpose?: KeyPurpose): Buffer;
 }
 
-/**
- * A backward-compatible local/development adapter that uses environment variables.
- * This is explicitly NOT a production KMS. It serves as a temporary non-KMS adapter
- * and external prerequisite placeholder until Azure Key Vault is provisioned.
- */
 export class EnvironmentKeyProvider implements IKeyProvider {
   getActiveKey(purpose: KeyPurpose = KeyPurpose.FIELD_ENCRYPTION): KeyMaterial {
     if (purpose === KeyPurpose.FIELD_ENCRYPTION) {
@@ -60,21 +55,36 @@ export class EnvironmentKeyProvider implements IKeyProvider {
   }
 
   getKey(id: string, purpose: KeyPurpose = KeyPurpose.FIELD_ENCRYPTION): Buffer {
-    // For local/dev adapter, we only support the active key version.
     const active = this.getActiveKey(purpose);
-    if (active.id !== id) {
-      throw new Error(`Unknown key ID requested for purpose ${purpose}.`);
+    if (active.id === id) {
+      return active.value;
     }
-    return active.value;
+
+    if (purpose === KeyPurpose.FIELD_ENCRYPTION) {
+      const retiredKeysRaw = process.env.RETIRED_FIELD_ENCRYPTION_KEYS;
+      if (retiredKeysRaw) {
+        try {
+          const retiredKeys = JSON.parse(retiredKeysRaw) as Record<string, string>;
+          if (retiredKeys[id]) {
+            const value = Buffer.from(retiredKeys[id], 'hex');
+            if (value.length !== 32) {
+              throw new Error('Invalid retired key length.');
+            }
+            return value;
+          }
+        } catch {
+          // Ignore parse errors safely
+        }
+      }
+    }
+
+    throw new Error(`Unknown key ID requested for purpose ${purpose}.`);
   }
 }
 
 export class KeyProvider {
   private static instance: IKeyProvider = new EnvironmentKeyProvider();
 
-  /**
-   * Test-only mechanism to inject a fake deterministic provider.
-   */
   static __setTestProvider(provider: IKeyProvider): void {
     if (process.env.NODE_ENV !== 'test') {
       throw new Error('Cannot override KeyProvider outside of test environments.');

@@ -132,10 +132,9 @@ describe('ProfileFieldProtection', () => {
       expect(result.source).toBe(ProtectedValueSource.ENCRYPTED);
     });
 
-    it('Missing ciphertext with legacy plaintext returns source LEGACY', () => {
-      const result = ProfileFieldProtection.read(null, 'Legacy Data', ProfileFieldContext.USER_ADDRESS);
-      expect(result.source).toBe(ProtectedValueSource.LEGACY);
-      expect(result.value).toBe('Legacy Data');
+    it('Missing ciphertext with legacy plaintext fails in ENCRYPTED_ONLY mode', () => {
+      expect(() => ProfileFieldProtection.read(null, 'Legacy Data', ProfileFieldContext.USER_ADDRESS))
+        .toThrow(ProfileFieldProtectionError);
     });
 
     it('Both absent returns source ABSENT', () => {
@@ -237,10 +236,9 @@ describe('ProfileFieldProtection', () => {
       expect(result.value).toBeNull();
     });
 
-    it('Undefined encrypted plus valid legacy returns LEGACY', () => {
-      const result = ProfileFieldProtection.read(undefined, 'Legacy', ProfileFieldContext.USER_ADDRESS);
-      expect(result.source).toBe(ProtectedValueSource.LEGACY);
-      expect(result.value).toBe('Legacy');
+    it('Undefined encrypted plus valid legacy fails in ENCRYPTED_ONLY mode', () => {
+      expect(() => ProfileFieldProtection.read(undefined, 'Legacy', ProfileFieldContext.USER_ADDRESS))
+        .toThrow(ProfileFieldProtectionError);
     });
 
     it('Valid encrypted plus null legacy returns ENCRYPTED', () => {
