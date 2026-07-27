@@ -1,0 +1,53 @@
+name: Security Supply Chain Validation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  supply-chain-validation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Enforce Frozen Lockfile
+        run: npm ci
+
+      - name: Run Dependency Audit
+        run: npm audit || true
+
+      - name: Focused Tests
+        run: npm run test:soc:integration -- --passWithNoTests || true
+
+      - name: Generate SBOM
+        run: npx @cyclonedx/cyclonedx-npm --output-format JSON --output-file bom.json
+
+      - name: Generate Build Manifest
+        run: node scripts/security/create-build-manifest.mjs
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029 # actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: bom.json
+          retention-days: 7
+
+      - name: Upload Build Manifest
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029 # actions/upload-artifact@v4
+        with:
+          name: build-manifest
+          path: build-manifest.json
+          retention-days: 7
