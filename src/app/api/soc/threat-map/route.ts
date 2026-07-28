@@ -47,8 +47,8 @@ export async function GET(req: NextRequest) {
         // Base where clause
         const whereClause: any = {
             occurred_at: { gte: fromTime, lte: toTime },
-            environment: testIncluded ? undefined : environment,
-            lifecycle: simulationIncluded ? undefined : lifecycle
+            environment: 'LOCAL', // In Phase 6A, bind strictly to LOCAL environment
+            lifecycle_type: 'LIVE'    // Only plot LIVE events
         };
 
         if (severity) whereClause.severity = severity;
