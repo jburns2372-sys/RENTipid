@@ -1,7 +1,7 @@
 # SLICE3 Strict Freeze Manifest
 - **Closure report**: docs/governance/phase-closure/SLICE3_CLOSURE_REPORT.md
 - **Accepted implementation baseline**: 72561d6c863f27d6fdfb37edc1011d72a2037001
-- **Governance freeze commit**: PENDING_GOVERNANCE_COMMIT
+- **Governance freeze commit**: 7975e8572b96353d4258e55009a4d5cdd5f2c27b
 - **Freeze tag**: rentipid/general/slice3/closed-frozen-v1
 - **Owned files**: tests/security/intelligence/behavioral-risk.api.test.ts
 - **Shared files**: schema.prisma
@@ -10,4 +10,4 @@
 - **Extension points**: Extensions allowed
 - **Reopening triggers**: File modifications
 - **Revalidation requirements**: Database migrations
-- **Freeze status**: PENDING
+- **Freeze status**: CLOSED_AND_FROZEN
