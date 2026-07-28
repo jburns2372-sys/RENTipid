@@ -226,9 +226,9 @@
         "docs\\security\\phase4\\GATE4B4_GATE4E_LOCAL_SCOPE_CLOSEOUT.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "d509ca7a3a9955d385994dd4ade4ff9a85ede7c9",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
