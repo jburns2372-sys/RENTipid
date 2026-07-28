@@ -310,7 +310,9 @@
       ],
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
     },
     {
       "normalizedId": "PHASE5D",
@@ -345,7 +347,9 @@
       ],
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
     },
     {
       "normalizedId": "PHASE5I",
@@ -380,7 +384,9 @@
       ],
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
     },
     {
       "normalizedId": "PHASE5E",
@@ -418,7 +424,9 @@
       ],
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
     },
     {
       "normalizedId": "PHASE5F",
@@ -470,7 +478,9 @@
       ],
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
     },
     {
       "normalizedId": "REMEDIATION EVIDENCE",
@@ -526,7 +536,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_NEEDS_FOCUSED_TESTS",
+      "primaryStatus": "CLOSED_AND_FROZEN",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -540,7 +550,9 @@
       ],
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
     },
     {
       "normalizedId": "PHASE5H",
@@ -561,7 +573,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_NEEDS_FOCUSED_TESTS",
+      "primaryStatus": "CLOSED_AND_FROZEN",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -575,7 +587,9 @@
       ],
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
     },
     {
       "normalizedId": "PHASE5J",
@@ -609,7 +623,9 @@
       ],
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
     },
     {
       "normalizedId": "PHASE5K",
@@ -643,7 +659,9 @@
       ],
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
     },
     {
       "normalizedId": "PHASE5L",
@@ -663,7 +681,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "primaryStatus": "CLOSED_AND_FROZEN",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -677,7 +695,9 @@
       ],
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
     },
     {
       "normalizedId": "PHASE5M",
@@ -698,7 +718,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "primaryStatus": "CLOSED_AND_FROZEN",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -712,7 +732,9 @@
       ],
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
     },
     {
       "normalizedId": "PHASE5N",
@@ -729,7 +751,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "primaryStatus": "CLOSED_AND_FROZEN",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -743,7 +765,9 @@
       ],
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
     },
     {
       "normalizedId": "PHASE ACCEPTANCE",
@@ -788,7 +812,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "primaryStatus": "CLOSED_AND_FROZEN",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -802,7 +826,9 @@
       ],
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
     },
     {
       "normalizedId": "SLICE1",
@@ -2240,7 +2266,7 @@
       ],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "MATERIAL_IMPLEMENTATION_REQUIRED",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
