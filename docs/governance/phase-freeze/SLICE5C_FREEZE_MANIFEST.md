@@ -1,0 +1,13 @@
+# SLICE5C Strict Freeze Manifest
+- **Closure report**: docs/governance/phase-closure/SLICE5C_CLOSURE_REPORT.md
+- **Accepted implementation baseline**: fa6650fab3c98ec3d3d58cf2171cd50e64122b58
+- **Governance freeze commit**: PENDING_GOVERNANCE_COMMIT
+- **Freeze tag**: rentipid/general/slice5c/closed-frozen-v1
+- **Owned files**: tests/security/intelligence/behavioral-risk.handoff.test.tsx
+- **Shared files**: schema.prisma
+- **Database models**: Target verified
+- **Regression tests**: PASS
+- **Extension points**: Extensions allowed
+- **Reopening triggers**: File modifications
+- **Revalidation requirements**: Database migrations
+- **Freeze status**: PENDING
