@@ -290,7 +290,7 @@
       ],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -301,6 +301,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -318,7 +321,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -329,6 +332,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -348,7 +354,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -359,6 +365,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -381,7 +390,7 @@
       ],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -392,6 +401,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -430,7 +442,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "CLOSED_NOT_FROZEN",
+      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -441,6 +453,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -472,6 +487,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -489,7 +507,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -500,6 +518,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -517,7 +538,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -528,6 +549,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -546,7 +570,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -557,6 +581,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -575,7 +602,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -586,6 +613,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -606,7 +636,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -617,6 +647,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -638,7 +671,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -649,6 +682,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -666,7 +702,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -677,6 +713,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -722,7 +761,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -733,6 +772,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -971,6 +1013,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -1007,7 +1052,7 @@
       ],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
+      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -1018,6 +1063,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -1214,19 +1262,23 @@
         "docs\\security\\phase4\\GATE4F_SLICE_C1_CASE_FOUNDATION_EVIDENCE.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "db17191e55631631a53c66c68d278e77c3468f11",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
       "confidence": 65,
       "blocker": "Validation Pending",
       "requiredAction": "Review Evidence",
-      "freezeEligibility": "NOT_ELIGIBLE",
+      "freezeEligibility": "ELIGIBLE",
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing.",
+        "Technically accepted and validated in SOC pilot. Pending final freeze tag."
       ]
     },
     {
@@ -1313,6 +1365,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -1397,6 +1452,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -1481,6 +1539,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -1565,6 +1626,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -1693,6 +1757,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -1780,6 +1847,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -1867,6 +1937,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -1953,6 +2026,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -2039,6 +2115,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -2245,6 +2324,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
@@ -2273,6 +2355,9 @@
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
       ]
     },
     {
