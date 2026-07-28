@@ -1,7 +1,7 @@
 # GATE4B4 Strict Freeze Manifest
 - **Closure report**: docs/governance/phase-closure/GATE4B4_CLOSURE_REPORT.md
 - **Accepted implementation baseline**: d509ca7a3a9955d385994dd4ade4ff9a85ede7c9
-- **Governance freeze commit**: PENDING_GOVERNANCE_COMMIT
+- **Governance freeze commit**: 8be39a0ae4381ae1dfc46cdf1fd4fe71813ecf13
 - **Freeze tag**: rentipid/general/gate4b4/closed-frozen-v1
 - **Owned files**: tests/security/events/gate4b4-slice-b1c-checkout-writer.integration.test.ts
 - **Shared files**: schema.prisma
@@ -10,4 +10,4 @@
 - **Extension points**: Extensions allowed
 - **Reopening triggers**: File modifications
 - **Revalidation requirements**: Database migrations
-- **Freeze status**: PENDING
+- **Freeze status**: CLOSED_AND_FROZEN
