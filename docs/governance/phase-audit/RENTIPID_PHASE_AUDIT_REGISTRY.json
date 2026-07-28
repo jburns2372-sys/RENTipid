@@ -2141,9 +2141,9 @@
         "docs\\security\\phase4\\GATE4H_REVERSIBLE_RESPONSE_EXECUTION_EVIDENCE.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "b29bf5f313582f66230fb7f2df685c6eaf806fb8",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
