@@ -1,7 +1,7 @@
 # PHASE5I Strict Freeze Manifest
 - **Closure report**: docs/governance/phase-closure/PHASE5I_CLOSURE_REPORT.md
 - **Accepted implementation baseline**: d78bdbebf335fea6d4ef271b957d6c26e3c662c8
-- **Governance freeze commit**: PENDING_GOVERNANCE_COMMIT
+- **Governance freeze commit**: 04c2a6610b6e8c06b207e80f3a74d6c9c71f73d9
 - **Freeze tag**: rentipid/general/phase5i/closed-frozen-v1
 - **Owned files**: tests/security/soc-phase5i.test.ts
 - **Shared files**: schema.prisma
@@ -10,4 +10,4 @@
 - **Extension points**: Extensions allowed
 - **Reopening triggers**: File modifications
 - **Revalidation requirements**: Database migrations
-- **Freeze status**: PENDING
+- **Freeze status**: CLOSED_AND_FROZEN
