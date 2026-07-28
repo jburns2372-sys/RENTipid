@@ -566,15 +566,17 @@
       "objective": "Phase 5J Detection Engineering Evidence; RENTIPID — PHASE 5J (DETECTION ENGINEERING & FRAUD DEFENSE) EVIDENCE",
       "discoveredScope": "Found in 2 docs",
       "implementationEvidence": [],
-      "testEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-phase5j.test.ts"
+      ],
       "documentationEvidence": [
         "docs\\security\\level5\\bundles\\phase5j\\PHASE5J_DETECTION_ENGINEERING_EVIDENCE.md",
         "docs\\security\\level5\\soc-phase5\\PHASE5J_DETECTION_ENGINEERING.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "c99befec129c58c8ac3b04487f22d651be4da44d",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
