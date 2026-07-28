@@ -249,16 +249,18 @@
       "objective": "GATE 4B-4 / GATE 4E-A IMPLEMENTATION PLAN; GATE 4B-4 / GATE 4E-A MARKETPLACE AND FINANCIAL TELEMETRY; GATE 4B-4 / GATE 4E LOCAL SCOPE CLOSEOUT",
       "discoveredScope": "Found in 3 docs",
       "implementationEvidence": [],
-      "testEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-gate4e.test.ts"
+      ],
       "documentationEvidence": [
         "docs\\security\\GATE4B4_GATE4E_IMPLEMENTATION_PLAN.md",
         "docs\\security\\GATE4B4_GATE4E_MARKETPLACE_FINANCIAL_TELEMETRY.md",
         "docs\\security\\phase4\\GATE4B4_GATE4E_LOCAL_SCOPE_CLOSEOUT.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "d899e1b678fc79c66728ea12a7269120613b9dbf",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
