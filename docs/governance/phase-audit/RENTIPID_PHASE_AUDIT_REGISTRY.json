@@ -79,7 +79,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "MATERIAL_IMPLEMENTATION_REQUIRED",
+      "primaryStatus": "BLOCKED_EXTERNAL_ACCESS",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
