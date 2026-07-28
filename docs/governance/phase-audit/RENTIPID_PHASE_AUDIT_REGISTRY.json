@@ -929,14 +929,16 @@
       "objective": "SOC Phase 5 - Slice 5B: Deep-Linkable Investigation Context",
       "discoveredScope": "Found in 1 docs",
       "implementationEvidence": [],
-      "testEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-slice5b.test.ts"
+      ],
       "documentationEvidence": [
         "docs\\security\\level5\\soc-phase5\\SLICE5B_DEEP_LINKED_INVESTIGATION.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "bd8bd6023ed7f2b1eb5265585b8f7e6d09418c21",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
