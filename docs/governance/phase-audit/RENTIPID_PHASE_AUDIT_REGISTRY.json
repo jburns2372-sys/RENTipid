@@ -1749,7 +1749,7 @@
       ],
       "gitEvidence": [],
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -1764,7 +1764,8 @@
       "history": [
         "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing.",
         "Premature Batch 2 closure invalidated because mandatory explicit validation and full SOC-standard closure gates were not completed. Phase restored to its last evidence-supported status."
-      ]
+      ],
+      "acceptedBaseline": "d3822394a61df3ffe5237efad5776725dc029f05"
     },
     {
       "normalizedId": "SLICE A3",
