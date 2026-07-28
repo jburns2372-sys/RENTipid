@@ -1,7 +1,7 @@
 # GATE4H Strict Freeze Manifest
 - **Closure report**: docs/governance/phase-closure/GATE4H_CLOSURE_REPORT.md
 - **Accepted implementation baseline**: b29bf5f313582f66230fb7f2df685c6eaf806fb8
-- **Governance freeze commit**: PENDING_GOVERNANCE_COMMIT
+- **Governance freeze commit**: 093f40c6070309f78126ef81212cc71a9916b41d
 - **Freeze tag**: rentipid/general/gate4h/closed-frozen-v1
 - **Owned files**: tests/security/responses/gate4h-execution.integration.test.ts
 - **Shared files**: schema.prisma
@@ -10,4 +10,4 @@
 - **Extension points**: Extensions allowed
 - **Reopening triggers**: File modifications
 - **Revalidation requirements**: Database migrations
-- **Freeze status**: PENDING
+- **Freeze status**: CLOSED_AND_FROZEN
