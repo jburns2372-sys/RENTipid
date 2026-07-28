@@ -1,7 +1,7 @@
 # GATE4B5 Strict Freeze Manifest
 - **Closure report**: docs/governance/phase-closure/GATE4B5_CLOSURE_REPORT.md
 - **Accepted implementation baseline**: 3394a3c12abe3b36876f00edd7fa4cb8a81018c5
-- **Governance freeze commit**: PENDING_GOVERNANCE_COMMIT
+- **Governance freeze commit**: 70e838fc02d95c5f480998d35d1fb68612e709f3
 - **Freeze tag**: rentipid/general/gate4b5/closed-frozen-v1
 - **Owned files**: tests/security/events/gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts
 - **Shared files**: schema.prisma
@@ -10,4 +10,4 @@
 - **Extension points**: Extensions allowed
 - **Reopening triggers**: File modifications
 - **Revalidation requirements**: Database migrations
-- **Freeze status**: PENDING
+- **Freeze status**: CLOSED_AND_FROZEN
