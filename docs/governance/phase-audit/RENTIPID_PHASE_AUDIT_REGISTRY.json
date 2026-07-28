@@ -1685,7 +1685,7 @@
       ],
       "acceptedBaseline": "d78bdbebf335fea6d4ef271b957d6c26e3c662c8",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
+      "primaryStatus": "CLOSED_AND_FROZEN",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
