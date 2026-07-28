@@ -2019,7 +2019,7 @@
         "Starting Baseline: `43bf7b423221703fd673fcc906a8bc08ea956665`"
       ],
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
+      "primaryStatus": "CLOSED_AND_FROZEN",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
