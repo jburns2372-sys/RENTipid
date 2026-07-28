@@ -1284,6 +1284,7 @@ model SecurityEvent {
   @@index([correlation_key, occurred_at])
 
   behavioral_evidence_links BehavioralRiskEvidenceLink[]
+  geo_enrichment            SecurityEventGeoEnrichment?
 }
 
 model SecurityEventIngestionFailure {
@@ -2014,4 +2015,36 @@ model BehavioralRiskEvidenceLink {
 
   @@id([signal_id, security_event_id])
   @@index([security_event_id])
+}
+
+// ----------------------------------------------------------------------
+// Phase 6A: Live Geospatial Threat Map
+// ----------------------------------------------------------------------
+
+model SecurityEventGeoEnrichment {
+  id                        String        @id @default(cuid())
+  security_event_id         String        @unique
+  security_event            SecurityEvent @relation(fields: [security_event_id], references: [id], onDelete: Cascade)
+  status                    String
+  provider                  String
+  provider_database_version String?
+  ip_fingerprint            String
+  country_code              String?
+  country_name              String?
+  region_name               String?
+  city_name                 String?
+  latitude                  Float?
+  longitude                 Float?
+  accuracy_radius_km        Float?
+  location_precision        String?
+  lookup_attempted_at       DateTime?
+  resolved_at               DateTime?
+  expires_at                DateTime?
+  failure_code              String?
+  created_at                DateTime      @default(now())
+  updated_at                DateTime      @updatedAt
+
+  @@index([status])
+  @@index([country_code])
+  @@index([ip_fingerprint])
 }

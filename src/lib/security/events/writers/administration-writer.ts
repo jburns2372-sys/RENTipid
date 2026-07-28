@@ -6,7 +6,7 @@ export type AdminActionOutcome = "COMPLETED" | "DENIED" | "FAILED";
 export interface AdministrationEventPayload {
   action: string;
   outcome: AdminActionOutcome;
-  actorUserId: string;
+  actorUserId: string | null;
   targetType: string;
   targetId?: string;
   correlationId?: string;
@@ -57,7 +57,7 @@ export async function logAdministrationEvent(payload: AdministrationEventPayload
     action: payload.action,
     module: payload.targetType,
     target_id: payload.targetId,
-    actor_user_id: payload.actorUserId,
+    actor_user_id: payload.actorUserId ?? undefined,
     details: Object.keys(safeMetadata).length > 0 ? JSON.stringify(safeMetadata) : undefined
   });
 }

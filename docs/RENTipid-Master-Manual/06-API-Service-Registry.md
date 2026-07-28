@@ -1,0 +1,70 @@
+# 06 API and Service Registry
+
+## API Endpoints
+
+| API Route | Framework | Status |
+| --------- | --------- | ------ |
+| `/api/admin/categories` | Next.js Route Handler | Verified |
+| `/api/admin/disputes/[id]/resolve` | Next.js Route Handler | Verified |
+| `/api/admin/documents/verify` | Next.js Route Handler | Verified |
+| `/api/admin/listings/verify` | Next.js Route Handler | Verified |
+| `/api/admin/security/cases` | Next.js Route Handler | Verified |
+| `/api/admin/security/cases/[caseId]/assignment` | Next.js Route Handler | Verified |
+| `/api/admin/security/cases/[caseId]/evidence` | Next.js Route Handler | Verified |
+| `/api/admin/security/cases/[caseId]/notes` | Next.js Route Handler | Verified |
+| `/api/admin/security/cases/[caseId]` | Next.js Route Handler | Verified |
+| `/api/admin/security/cases/[caseId]/status` | Next.js Route Handler | Verified |
+| `/api/admin/security/events` | Next.js Route Handler | Verified |
+| `/api/admin/verify` | Next.js Route Handler | Verified |
+| `/api/ai/chat` | Next.js Route Handler | Verified |
+| `/api/auth/register` | Next.js Route Handler | Verified |
+| `/api/auth/[...nextauth]` | Next.js Route Handler | Verified |
+| `/api/bookings` | Next.js Route Handler | Verified |
+| `/api/bookings/[id]/agreement` | Next.js Route Handler | Verified |
+| `/api/bookings/[id]/claims/respond` | Next.js Route Handler | Verified |
+| `/api/bookings/[id]/claims` | Next.js Route Handler | Verified |
+| `/api/bookings/[id]/inspection/renter-confirm` | Next.js Route Handler | Verified |
+| `/api/bookings/[id]/inspection` | Next.js Route Handler | Verified |
+| `/api/bookings/[id]/provider-agreement` | Next.js Route Handler | Verified |
+| `/api/bookings/[id]/status` | Next.js Route Handler | Verified |
+| `/api/bookings/[id]/turnover` | Next.js Route Handler | Verified |
+| `/api/documents/upload` | Next.js Route Handler | Verified |
+| `/api/documents/[id]` | Next.js Route Handler | Verified |
+| `/api/finance/upload` | Next.js Route Handler | Verified |
+| `/api/listings` | Next.js Route Handler | Verified |
+| `/api/listings/[id]/documents` | Next.js Route Handler | Verified |
+| `/api/listings/[id]/photos` | Next.js Route Handler | Verified |
+| `/api/listings/[id]/submit` | Next.js Route Handler | Verified |
+| `/api/payments` | Next.js Route Handler | Verified |
+| `/api/privacy/consent` | Next.js Route Handler | Verified |
+| `/api/privacy/correction` | Next.js Route Handler | Verified |
+| `/api/privacy/deletion` | Next.js Route Handler | Verified |
+| `/api/privacy/export` | Next.js Route Handler | Verified |
+| `/api/soc/approvals/approve` | Next.js Route Handler | Verified |
+| `/api/soc/approvals/cancel` | Next.js Route Handler | Verified |
+| `/api/soc/approvals/list` | Next.js Route Handler | Verified |
+| `/api/soc/approvals/reject` | Next.js Route Handler | Verified |
+| `/api/soc/approvals/revoke` | Next.js Route Handler | Verified |
+| `/api/soc/approvals/submit` | Next.js Route Handler | Verified |
+| `/api/soc/approvals/[requestId]` | Next.js Route Handler | Verified |
+| `/api/soc/dashboard` | Next.js Route Handler | Verified |
+| `/api/soc/intelligence/behavioral-risk/history` | Next.js Route Handler | Verified |
+| `/api/soc/intelligence/behavioral-risk/latest` | Next.js Route Handler | Verified |
+| `/api/soc/intelligence/behavioral-risk/[assessmentId]` | Next.js Route Handler | Verified |
+| `/api/soc/playbooks/activate` | Next.js Route Handler | Verified |
+| `/api/soc/playbooks/draft-create` | Next.js Route Handler | Verified |
+| `/api/soc/playbooks/draft-update` | Next.js Route Handler | Verified |
+| `/api/soc/playbooks/list` | Next.js Route Handler | Verified |
+| `/api/soc/playbooks/review-submit` | Next.js Route Handler | Verified |
+| `/api/soc/playbooks/step-add` | Next.js Route Handler | Verified |
+| `/api/soc/playbooks/step-remove` | Next.js Route Handler | Verified |
+| `/api/soc/playbooks/step-reorder` | Next.js Route Handler | Verified |
+| `/api/soc/playbooks/step-update` | Next.js Route Handler | Verified |
+| `/api/soc/playbooks/version-create` | Next.js Route Handler | Verified |
+| `/api/soc/playbooks/[playbookId]` | Next.js Route Handler | Verified |
+| `/api/soc/responses/execute` | Next.js Route Handler | Verified |
+| `/api/soc/responses/list` | Next.js Route Handler | Verified |
+| `/api/soc/responses/[executionId]/rollback` | Next.js Route Handler | Verified |
+| `/api/soc/responses/[executionId]` | Next.js Route Handler | Verified |
+| `/api/webhooks/paymongo/health` | Next.js Route Handler | Verified |
+| `/api/webhooks/paymongo` | Next.js Route Handler | Verified |

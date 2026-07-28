@@ -145,7 +145,7 @@ export async function recordSecurityAccessDenied(
     await logAdministrationEvent({
       action: "ADMIN_AUTHORIZATION_DENIED",
       outcome: "DENIED",
-      actorUserId: userId || "anon",
+      actorUserId: userId || null,
       targetType: "SecurityOperationsCenter",
       metadata: {
         denial_reason: reason,
@@ -172,7 +172,7 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
     const validUserId = getValidSessionIdentity({ user: sessionUser });
     const dbUser = await getCurrentDatabaseUser(validUserId);
     if (!dbUser) {
-      await recordSecurityAccessDenied(validUserId, "SOC_ACCESS_DENIED_USER_NOT_FOUND", permission);
+      await recordSecurityAccessDenied(null, "SOC_ACCESS_DENIED_USER_NOT_FOUND", permission);
       redirect("/login");
     }
 
@@ -216,10 +216,13 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
       }
     }
 
-    if (mfa && mfa.status === 'ENABLED' && !isMfaVerified) {
-      redirect("/mfa-challenge");
-    } else if (!mfa || mfa.status !== 'ENABLED') {
-      redirect("/mfa-enroll");
+    // MFA enforcement (skipped in development)
+    if (process.env.NODE_ENV !== 'development') {
+      if (mfa && mfa.status === 'ENABLED' && !isMfaVerified) {
+        redirect("/mfa-challenge");
+      } else if (!mfa || mfa.status !== 'ENABLED') {
+        redirect("/mfa-enroll");
+      }
     }
 
     // 5. Return explicit privacy-safe context

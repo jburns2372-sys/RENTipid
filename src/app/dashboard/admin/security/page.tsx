@@ -19,9 +19,12 @@ export default async function SecurityDashboardPage() {
         <div className="px-4 py-2 border-b-2 border-blue-500 text-blue-500 font-bold">
           Dashboard
         </div>
-        <div className="px-4 py-2 text-slate-500 font-medium cursor-not-allowed flex items-center gap-2" title="Use the Dashboard feed">
-          Events & Feed <Lock className="w-3 h-3" />
-        </div>
+        <Link
+          href="/dashboard/admin/security/alerts"
+          className="px-4 py-2 text-slate-400 font-medium hover:text-blue-400"
+        >
+          Events & Feed
+        </Link>
         <Link
           href="/dashboard/admin/security/cases"
           className="px-4 py-2 text-slate-400 font-medium hover:text-blue-400"
@@ -60,10 +63,22 @@ export default async function SecurityDashboardPage() {
             Responses
           </Link>
         )}
-        {["Detection Rules", "Simulations", "Reports", "Maintenance"].map(tab => (
-          <div key={tab} className="px-4 py-2 text-slate-500 font-medium cursor-not-allowed flex items-center gap-2" title="Not Yet Enabled">
-            {tab} <Lock className="w-3 h-3" />
-          </div>
+        {authContext.activePermissions.includes(SECURITY_PERMISSIONS.DASHBOARD_VIEW) && (
+          <Link
+            href="/dashboard/admin/security/rules"
+            className="px-4 py-2 text-slate-400 font-medium hover:text-blue-400"
+          >
+            Detection Rules
+          </Link>
+        )}
+        {["Simulations", "Reports", "Maintenance"].map(tab => (
+          <Link
+            key={tab}
+            href="#"
+            className="px-4 py-2 text-slate-400 font-medium hover:text-blue-400"
+          >
+            {tab}
+          </Link>
         ))}
       </div>
 
