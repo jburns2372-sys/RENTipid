@@ -1,7 +1,7 @@
 # SLICE1 Strict Freeze Manifest
 - **Closure report**: docs/governance/phase-closure/SLICE1_CLOSURE_REPORT.md
 - **Accepted implementation baseline**: d899e1b678fc79c66728ea12a7269120613b9dbf
-- **Governance freeze commit**: PENDING_GOVERNANCE_COMMIT
+- **Governance freeze commit**: 558bb005f620b410e30b3465a99a574b64b97549
 - **Freeze tag**: rentipid/general/slice1/closed-frozen-v1
 - **Owned files**: tests/security/soc-slice1.test.ts
 - **Shared files**: schema.prisma
@@ -10,4 +10,4 @@
 - **Extension points**: Extensions allowed
 - **Reopening triggers**: File modifications
 - **Revalidation requirements**: Database migrations
-- **Freeze status**: PENDING
+- **Freeze status**: CLOSED_AND_FROZEN
