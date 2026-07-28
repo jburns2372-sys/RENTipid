@@ -20,3 +20,11 @@
 * **Expected Report and Pass Criteria**: A comprehensive report demonstrating zero orphans, zero financial discrepancies, and zero integrity violations.
 * **Rollback Requirements**: N/A for read-only execution; however, Neon PITR provides full system rollback capability if unintended mutations occur.
 * **Owner Authorization Required**: YES. Connection to the live production database requires explicit owner authorization.
+
+## DBA Read-Only Access Request
+* **Requested Role Purpose**: PHASE 17 pre-live database integrity audit.
+* **Database and Schema Identifiers**: `rentipid_production` database, `public` schema.
+* **Required Read-Only Permissions**: `CONNECT` on database, `USAGE` on schema, `SELECT` on all tables.
+* **Prohibited Mutation Permissions**: `INSERT`, `UPDATE`, `DELETE`, `TRUNCATE`, `CREATE`, `ALTER`, `DROP`, ownership privileges.
+* **Requested Credential-Expiration Date**: 24 hours from provisioning.
+* **Requested Revocation Procedure**: Drop the role or revoke login immediately after the audit completes. Provide the credentials to the secure environment via the `PHASE17_READONLY_DATABASE_URL` environment variable.
