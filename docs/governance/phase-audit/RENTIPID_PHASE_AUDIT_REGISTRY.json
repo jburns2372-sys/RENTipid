@@ -280,8 +280,12 @@
       "parentPhase": "RENTIPID_MASTER",
       "objective": "Phase 5C: MFA Implementation Evidence; Phase 5C: Session Step-Up Evidence; RENTIPID SOC PHASE 5C DELTA ACCEPTANCE",
       "discoveredScope": "Found in 3 docs",
-      "implementationEvidence": [],
-      "testEvidence": [],
+      "implementationEvidence": [
+        "src/lib/security/auth/mfa-service.ts"
+      ],
+      "testEvidence": [
+        "tests/security/soc-phase5c.test.ts"
+      ],
       "documentationEvidence": [
         "docs\\security\\level5\\bundles\\bundle1\\PHASE5C_MFA_IMPLEMENTATION.md",
         "docs\\security\\level5\\bundles\\bundle1\\PHASE5C_SESSION_STEP_UP.md",
@@ -292,7 +296,7 @@
       ],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
+      "primaryStatus": "CLOSED_AND_FROZEN",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -315,15 +319,19 @@
       "parentPhase": "RENTIPID_MASTER",
       "objective": "Phase 5D: SOC Authorization Evidence",
       "discoveredScope": "Found in 1 docs",
-      "implementationEvidence": [],
-      "testEvidence": [],
+      "implementationEvidence": [
+        "src/lib/security/authorization.ts"
+      ],
+      "testEvidence": [
+        "tests/security/soc-phase5d.test.ts"
+      ],
       "documentationEvidence": [
         "docs\\security\\level5\\bundles\\bundle1\\PHASE5D_SOC_AUTHORIZATION.md"
       ],
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
+      "primaryStatus": "CLOSED_AND_FROZEN",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -448,7 +456,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
+      "primaryStatus": "REVALIDATION_REQUIRED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
