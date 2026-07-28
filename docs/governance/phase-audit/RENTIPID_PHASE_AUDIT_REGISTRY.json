@@ -1440,22 +1440,23 @@
         "docs\\security\\phase4\\GATE4F_SLICE_C3_SOC_INCIDENT_CASE_RBAC_EVIDENCE.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "3b521854587756ed311e63da0d25dcf2e8f40c8d",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
       "confidence": 65,
       "blocker": "Validation Pending",
       "requiredAction": "Review Evidence",
-      "freezeEligibility": "NOT_ELIGIBLE",
+      "freezeEligibility": "ELIGIBLE",
       "reopeningTriggers": [
         "Code change",
         "Schema modification"
       ],
       "history": [
-        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing.",
+        "Technically accepted and validated in scaled batch."
       ]
     },
     {
