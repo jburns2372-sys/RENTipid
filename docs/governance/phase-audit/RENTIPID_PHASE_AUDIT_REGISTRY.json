@@ -1839,9 +1839,9 @@
         "docs\\security\\phase4\\GATE4G_SLICE_A3_R3_LEGACY_TEST_RECONCILIATION_EVIDENCE.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "5158d55124d1fba1060c1b80e38f808f7802baca",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
