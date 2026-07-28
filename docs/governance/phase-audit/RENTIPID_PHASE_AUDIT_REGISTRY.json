@@ -1137,16 +1137,18 @@
       "objective": "Gate 4B-5 / 4D Local Scope Closeout",
       "discoveredScope": "Found in 1 docs",
       "implementationEvidence": [],
-      "testEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-gate4d.test.ts"
+      ],
       "documentationEvidence": [
         "docs\\security\\phase4\\GATE4B5_GATE4D_LOCAL_SCOPE_CLOSEOUT.md"
       ],
       "gitEvidence": [
         "- **Published Commit:** `c050f4326f0a92902dabf13eaff8939cf1f0a91f`"
       ],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "d899e1b678fc79c66728ea12a7269120613b9dbf",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
