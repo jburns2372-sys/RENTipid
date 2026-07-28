@@ -22,7 +22,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "NOT_PREVIOUSLY_CLOSED",
+      "primaryStatus": "MATERIAL_IMPLEMENTATION_REQUIRED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -51,7 +51,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "NOT_PREVIOUSLY_CLOSED",
+      "primaryStatus": "MATERIAL_IMPLEMENTATION_REQUIRED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -521,7 +521,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "primaryStatus": "MATERIAL_IMPLEMENTATION_REQUIRED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -552,7 +552,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "primaryStatus": "MATERIAL_IMPLEMENTATION_REQUIRED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -654,7 +654,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "primaryStatus": "MATERIAL_IMPLEMENTATION_REQUIRED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -689,7 +689,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "primaryStatus": "MATERIAL_IMPLEMENTATION_REQUIRED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -779,7 +779,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "primaryStatus": "MATERIAL_IMPLEMENTATION_REQUIRED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -2347,7 +2347,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "primaryStatus": "MATERIAL_IMPLEMENTATION_REQUIRED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -2378,7 +2378,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "primaryStatus": "MATERIAL_IMPLEMENTATION_REQUIRED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
