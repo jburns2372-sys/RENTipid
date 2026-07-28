@@ -456,7 +456,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "REVALIDATION_REQUIRED",
+      "primaryStatus": "CLOSED_AND_FROZEN",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
