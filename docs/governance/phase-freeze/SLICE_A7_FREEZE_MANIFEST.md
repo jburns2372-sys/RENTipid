@@ -1,7 +1,7 @@
 # SLICE A7 Strict Freeze Manifest
 - **Closure report**: docs/governance/phase-closure/SLICE_A7_CLOSURE_REPORT.md
 - **Accepted implementation baseline**: 5158d55124d1fba1060c1b80e38f808f7802baca
-- **Governance freeze commit**: PENDING_GOVERNANCE_COMMIT
+- **Governance freeze commit**: 71fd21a8cd3a67db0694520842f308a5dc81dff3
 - **Freeze tag**: rentipid/general/slice-a7/closed-frozen-v1
 - **Owned files**: tests/security/ui/gate4g-slice-a7-playbook-approval-ui.test.tsx
 - **Shared files**: schema.prisma
@@ -10,4 +10,4 @@
 - **Extension points**: Extensions allowed
 - **Reopening triggers**: File modifications
 - **Revalidation requirements**: Database migrations
-- **Freeze status**: PENDING
+- **Freeze status**: CLOSED_AND_FROZEN
