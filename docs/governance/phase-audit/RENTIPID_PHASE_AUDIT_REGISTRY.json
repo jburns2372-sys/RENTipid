@@ -347,16 +347,18 @@
       "objective": "Phase 5I: Software Supply Chain Security Evidence; Phase 5I - Dependency and Supply Chain Policy; Phase 5I - Software Supply-Chain, Dependency, CI/CD and Release Integrity Evidence",
       "discoveredScope": "Found in 3 docs",
       "implementationEvidence": [],
-      "testEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-phase5i.test.ts"
+      ],
       "documentationEvidence": [
         "docs\\security\\level5\\bundles\\bundle1\\PHASE5I_SUPPLY_CHAIN_EVIDENCE.md",
         "docs\\security\\level5\\bundles\\phase5i\\PHASE5I_DEPENDENCY_POLICY.md",
         "docs\\security\\level5\\bundles\\phase5i\\PHASE5I_SUPPLY_CHAIN_SECURITY_EVIDENCE.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "d78bdbebf335fea6d4ef271b957d6c26e3c662c8",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
