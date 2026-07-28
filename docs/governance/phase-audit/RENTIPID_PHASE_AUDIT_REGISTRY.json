@@ -785,14 +785,16 @@
       "objective": "SOC Phase 5 Slice 1: Explainable Behavioral Intelligence Foundation",
       "discoveredScope": "Found in 1 docs",
       "implementationEvidence": [],
-      "testEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-slice1.test.ts"
+      ],
       "documentationEvidence": [
         "docs\\security\\level5\\soc-phase5\\SLICE1_BEHAVIORAL_RISK_FOUNDATION.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "d899e1b678fc79c66728ea12a7269120613b9dbf",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
