@@ -380,7 +380,9 @@
       "objective": "Phase 5E-A Upload Security Foundation Evidence; PHASE 5E-B1 IDENTITY AND ACCOUNT MUTATION VALIDATION EVIDENCE; PHASE 5E-B2A PRIVILEGED USER AND ROLE ADMINISTRATION VALIDATION EVIDENCE; PHASE 5E-C CONSOLIDATED MARKETPLACE MUTATION SECURITY EVIDENCE",
       "discoveredScope": "Found in 4 docs",
       "implementationEvidence": [],
-      "testEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-phase5e.test.ts"
+      ],
       "documentationEvidence": [
         "docs\\security\\level5\\bundles\\phase5e\\PHASE5E_A_UPLOAD_SECURITY_EVIDENCE.md",
         "docs\\security\\level5\\bundles\\phase5e\\PHASE5E_B1_IDENTITY_ACCOUNT_VALIDATION_EVIDENCE.md",
@@ -390,9 +392,9 @@
       "gitEvidence": [
         "- R2 restored all four routes exactly to baseline commit: 9765fcc92a82d72aaf51344efbd471718f9542dd"
       ],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "c99befec129c58c8ac3b04487f22d651be4da44d",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
