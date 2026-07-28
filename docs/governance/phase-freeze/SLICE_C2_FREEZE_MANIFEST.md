@@ -1,7 +1,7 @@
 # SLICE C2 Freeze Manifest
 - **Closure report**: docs/governance/phase-closure/SLICE_C2_CLOSURE_REPORT.md
 - **Accepted implementation baseline**: 3b521854587756ed311e63da0d25dcf2e8f40c8d
-- **Governance freeze commit**: PENDING_GOVERNANCE_COMMIT
+- **Governance freeze commit**: c246ea403b57df97749d6613a668a965f80f1423
 - **Freeze tag**: rentipid/general/slice-c2/closed-frozen-v1
 - **Owned files**: tests
 - **Shared files**: schema
@@ -18,6 +18,6 @@
 - **Reopening triggers**: Code modification
 - **Revalidation requirements**: None
 - **Dependency risks**: None
-- **Freeze status**: PENDING
+- **Freeze status**: CLOSED_AND_FROZEN
 
-SLICE_C2_FREEZE_APPROVED_PENDING_TAG_VERIFICATION
+SLICE_C2_CLOSED_AND_FROZEN
