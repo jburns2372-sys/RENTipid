@@ -1,7 +1,7 @@
 # PHASE6A Strict Freeze Manifest
 - **Closure report**: docs/governance/phase-closure/PHASE6A_CLOSURE_REPORT.md
 - **Accepted implementation baseline**: 43612cff7517828032798ec824a61793c9888c3e
-- **Governance freeze commit**: PENDING_GOVERNANCE_COMMIT
+- **Governance freeze commit**: 800eeb6d6303e306790fd1fb0cf8472851fa3d9e
 - **Freeze tag**: rentipid/general/phase6a/closed-frozen-v1
 - **Owned files**: tests/security/soc-phase6a-threat-map.test.ts
 - **Shared files**: schema.prisma
@@ -10,4 +10,4 @@
 - **Extension points**: Extensions allowed
 - **Reopening triggers**: File modifications
 - **Revalidation requirements**: Database migrations
-- **Freeze status**: PENDING
+- **Freeze status**: CLOSED_AND_FROZEN
