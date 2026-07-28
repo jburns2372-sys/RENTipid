@@ -846,9 +846,9 @@
         "docs\\security\\level5\\soc-phase5\\SLICE3_BEHAVIORAL_RISK_API.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "72561d6c863f27d6fdfb37edc1011d72a2037001",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
