@@ -27,3 +27,13 @@
 - **Reopening conditions**: Modification of core files.
 
 GATE4G_TECHNICALLY_ACCEPTED_AND_CLOSED
+
+## GATE4G Verified Approval Controls
+- Execution without approval is rejected.
+- An unauthorized role cannot approve.
+- An approval is bound to the correct action and target.
+- Reused approval is rejected where single-use is required.
+- Expired, revoked, or invalid approval is rejected.
+- High-risk actions require valid human approval.
+- Approval and rejection create real audit records.
+- Failed execution leaves no partial mutation.

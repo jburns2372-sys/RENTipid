@@ -11,3 +11,13 @@
 - **Reopening triggers**: File modifications
 - **Revalidation requirements**: Database migrations
 - **Freeze status**: CLOSED_AND_FROZEN
+
+## GATE4G Verified Approval Controls
+- Execution without approval is rejected.
+- An unauthorized role cannot approve.
+- An approval is bound to the correct action and target.
+- Reused approval is rejected where single-use is required.
+- Expired, revoked, or invalid approval is rejected.
+- High-risk actions require valid human approval.
+- Approval and rejection create real audit records.
+- Failed execution leaves no partial mutation.
