@@ -1,0 +1,13 @@
+# SLICE A4 Strict Freeze Manifest
+- **Closure report**: docs/governance/phase-closure/SLICE_A4_CLOSURE_REPORT.md
+- **Accepted implementation baseline**: 5158d55124d1fba1060c1b80e38f808f7802baca
+- **Governance freeze commit**: PENDING_GOVERNANCE_COMMIT
+- **Freeze tag**: rentipid/general/slice-a4/closed-frozen-v1
+- **Owned files**: tests/security/cases/gate4g-slice-a4-a5-approval-vertical.integration.test.ts
+- **Shared files**: schema.prisma
+- **Database models**: Target verified
+- **Regression tests**: PASS
+- **Extension points**: Extensions allowed
+- **Reopening triggers**: File modifications
+- **Revalidation requirements**: Database migrations
+- **Freeze status**: PENDING
