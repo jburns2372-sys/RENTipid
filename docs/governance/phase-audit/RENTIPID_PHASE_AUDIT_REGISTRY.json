@@ -1616,9 +1616,8 @@
         "docs\\security\\phase4\\GATE4F_SLICE_C5_INCIDENT_CASE_UI_EVIDENCE.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -1631,8 +1630,10 @@
         "Schema modification"
       ],
       "history": [
-        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
-      ]
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing.",
+        "Premature Batch 2 closure invalidated because mandatory explicit validation and full SOC-standard closure gates were not completed. Phase restored to its last evidence-supported status."
+      ],
+      "acceptedBaseline": "d3822394a61df3ffe5237efad5776725dc029f05"
     },
     {
       "normalizedId": "GATE4G",
@@ -1747,7 +1748,6 @@
         "docs\\security\\phase4\\GATE4G_SLICE_A2_SCHEMA_EVIDENCE.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
       "primaryStatus": "IMPLEMENTED_UNVERIFIED",
       "secondaryFlags": [
@@ -1762,7 +1762,8 @@
         "Schema modification"
       ],
       "history": [
-        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing.",
+        "Premature Batch 2 closure invalidated because mandatory explicit validation and full SOC-standard closure gates were not completed. Phase restored to its last evidence-supported status."
       ]
     },
     {
@@ -2016,7 +2017,6 @@
       "gitEvidence": [
         "Starting Baseline: `43bf7b423221703fd673fcc906a8bc08ea956665`"
       ],
-      "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
       "primaryStatus": "IMPLEMENTED_UNVERIFIED",
       "secondaryFlags": [
@@ -2031,7 +2031,8 @@
         "Schema modification"
       ],
       "history": [
-        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing.",
+        "Premature Batch 2 closure invalidated because mandatory explicit validation and full SOC-standard closure gates were not completed. Phase restored to its last evidence-supported status."
       ]
     },
     {
