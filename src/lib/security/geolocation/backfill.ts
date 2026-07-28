@@ -46,11 +46,11 @@ export async function runGeolocationBackfill(options: BackfillOptions = {}) {
 
     // Identify events without enrichment or with failures if retryFailed is true
     if (!retryFailed) {
-        whereClause.geoEnrichment = { is: null };
+        whereClause.geo_enrichment = { is: null };
     } else {
         whereClause.OR = [
-            { geoEnrichment: { is: null } },
-            { geoEnrichment: { status: { in: ['UNRESOLVED', 'PROVIDER_ERROR'] } } }
+            { geo_enrichment: { is: null } },
+            { geo_enrichment: { status: { in: ['UNRESOLVED', 'PROVIDER_ERROR'] } } }
         ];
     }
 

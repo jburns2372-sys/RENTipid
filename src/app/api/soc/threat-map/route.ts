@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
         // Base where clause
         const whereClause: any = {
             occurred_at: { gte: fromTime, lte: toTime },
-            environment: 'LOCAL', // In Phase 6A, bind strictly to LOCAL environment
+            environment: 'DEVELOPMENT', // In Phase 6A, bind strictly to DEVELOPMENT environment
             lifecycle_type: 'LIVE'    // Only plot LIVE events
         };
 
@@ -59,7 +59,7 @@ export async function GET(req: NextRequest) {
             where: whereClause,
             take: limit,
             orderBy: { occurred_at: 'desc' },
-            include: { geoEnrichment: true }
+            include: { geo_enrichment: true }
         });
 
         const markersMap = new Map<string, ThreatMapMarkerDto>();
@@ -78,7 +78,7 @@ export async function GET(req: NextRequest) {
                 criticalHighEvents++;
             }
 
-            const geo = event.geoEnrichment;
+            const geo = event.geo_enrichment;
             if (!geo) {
                 unresolvedLocationCount++;
                 continue;
