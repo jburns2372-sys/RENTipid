@@ -1661,7 +1661,9 @@
       "objective": "Gate 4G Playbooks and Approvals Final Closeout; Gate 4G Playbook & Approval Controlled Vocabulary; Gate 4G Slice A2 Playbook & Approval Schema Evidence; Gate 4G Slice A3 Playbook Lifecycle Services; Gate 4G Slice A3-R1: Playbook Lifecycle RBAC Evidence; Gate 4G Slice A3-R2: Playbook Optimistic-Concurrency Schema Evidence; Gate 4G Slice A3-R3 Legacy Test Assertion Reconciliation Evidence; GATE 4G SLICE A4/A5-R1: APPROVAL VERTICAL PUBLICATION RECONCILIATION; Gate 4G Slice A4/A5-R2 Grant Consumption Boundary Remediation Evidence; Gate 4G Slice A6: Playbook Activation and API Vertical Evidence; GATE 4G SLICE A7 PLAYBOOK AND APPROVAL OPERATIONS UI EVIDENCE",
       "discoveredScope": "Found in 11 docs",
       "implementationEvidence": [],
-      "testEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-gate4g.test.ts"
+      ],
       "documentationEvidence": [
         "docs\\security\\phase4\\GATE4G_PLAYBOOK_APPROVAL_CLOSEOUT_EVIDENCE.md",
         "docs\\security\\phase4\\GATE4G_SLICE_A2_PLAYBOOK_VOCABULARY.md",
@@ -1681,9 +1683,9 @@
         "Starting Baseline: `43bf7b423221703fd673fcc906a8bc08ea956665`",
         "- Parent commit: cdb829cfd0cd866b3946a6ce9b42613e3993d908"
       ],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "d78bdbebf335fea6d4ef271b957d6c26e3c662c8",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
