@@ -1616,9 +1616,9 @@
         "docs\\security\\phase4\\GATE4F_SLICE_C5_INCIDENT_CASE_UI_EVIDENCE.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": "ab4ca3294cb5d8042a66578e9de7800b875f4e42",
+      "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "CLOSED_AND_FROZEN",
+      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -1747,9 +1747,9 @@
         "docs\\security\\phase4\\GATE4G_SLICE_A2_SCHEMA_EVIDENCE.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": "ab4ca3294cb5d8042a66578e9de7800b875f4e42",
+      "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "CLOSED_AND_FROZEN",
+      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -2016,9 +2016,9 @@
       "gitEvidence": [
         "Starting Baseline: `43bf7b423221703fd673fcc906a8bc08ea956665`"
       ],
-      "acceptedBaseline": "ab4ca3294cb5d8042a66578e9de7800b875f4e42",
+      "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "CLOSED_AND_FROZEN",
+      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
