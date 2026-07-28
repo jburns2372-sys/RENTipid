@@ -600,15 +600,17 @@
       "objective": "Phase 5K AI Governance Evidence; RENTIPID — PHASE 5K (AI GOVERNANCE & LLM SECURITY) EVIDENCE",
       "discoveredScope": "Found in 2 docs",
       "implementationEvidence": [],
-      "testEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-phase5k.test.ts"
+      ],
       "documentationEvidence": [
         "docs\\security\\level5\\bundles\\phase5k\\PHASE5K_AI_GOVERNANCE_EVIDENCE.md",
         "docs\\security\\level5\\soc-phase5\\PHASE5K_AI_GOVERNANCE.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "c99befec129c58c8ac3b04487f22d651be4da44d",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "TESTED_PENDING_ACCEPTANCE",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
