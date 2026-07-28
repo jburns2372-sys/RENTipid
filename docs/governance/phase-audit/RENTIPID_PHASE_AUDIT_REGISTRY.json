@@ -1181,7 +1181,9 @@
       "objective": "GATE 4F INCIDENT-CASE CLOSEOUT EVIDENCE; GATE 4F INCIDENT CASE CONTROLLED VOCABULARY; GATE 4F SLICE C1 CASE FOUNDATION EVIDENCE; GATE 4F SLICE C2-S2 SCHEMA AMENDMENT EVIDENCE; GATE 4F SLICE C2-S4-R2 LIFECYCLE RECONCILIATION EVIDENCE; GATE 4F SLICE C2-S6 INCIDENT-CASE SERVICE WRITERS EVIDENCE; GATE 4F SLICE C3 SOC INCIDENT-CASE RBAC EVIDENCE; GATE 4F SLICE C4 INCIDENT-CASE API EVIDENCE; GATE 4F SLICE C5 INCIDENT-CASE UI EVIDENCE",
       "discoveredScope": "Found in 9 docs",
       "implementationEvidence": [],
-      "testEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-gate4f.test.ts"
+      ],
       "documentationEvidence": [
         "docs\\security\\phase4\\GATE4F_INCIDENT_CASE_CLOSEOUT_EVIDENCE.md",
         "docs\\security\\phase4\\GATE4F_INCIDENT_CASE_CONTROLLED_VOCABULARY.md",
@@ -1194,9 +1196,9 @@
         "docs\\security\\phase4\\GATE4F_SLICE_C5_INCIDENT_CASE_UI_EVIDENCE.md"
       ],
       "gitEvidence": [],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "d78bdbebf335fea6d4ef271b957d6c26e3c662c8",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
