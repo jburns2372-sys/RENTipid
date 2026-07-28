@@ -13,6 +13,7 @@ export function SocThreatMap() {
     const [error, setError] = useState<string | null>(null);
     const [selectedMarker, setSelectedMarker] = useState<ThreatMapMarkerDto | null>(null);
     const [position, setPosition] = useState({ coordinates: [0, 20] as [number, number], zoom: 1 });
+    const [isMounted, setIsMounted] = useState(false);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     const fetchData = async () => {
@@ -49,6 +50,23 @@ export function SocThreatMap() {
             }, Math.max(data.refreshAfterSeconds, 15) * 1000);
         }
     }, [data]);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) {
+        return (
+            <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden flex flex-col h-[500px]">
+                <div className="p-4 border-b border-slate-800 bg-slate-950/50 flex justify-between items-center">
+                    <div className="h-6 w-48 bg-slate-800 rounded animate-pulse"></div>
+                </div>
+                <div className="flex-1 bg-slate-950 flex items-center justify-center">
+                    <div className="h-8 w-8 rounded-full border-2 border-slate-700 border-t-slate-400 animate-spin"></div>
+                </div>
+            </div>
+        );
+    }
 
     const handleZoomIn = () => {
         if (position.zoom >= 4) return;
