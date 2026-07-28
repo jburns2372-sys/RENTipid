@@ -2171,9 +2171,9 @@
       "gitEvidence": [
         "- Starting baseline: `4b56feb9ce8476b44dd3b0d2b16696db24abf6fb`"
       ],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "b29bf5f313582f66230fb7f2df685c6eaf806fb8",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],

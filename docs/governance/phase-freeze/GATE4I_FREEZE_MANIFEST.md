@@ -1,0 +1,13 @@
+# GATE4I Strict Freeze Manifest
+- **Closure report**: docs/governance/phase-closure/GATE4I_CLOSURE_REPORT.md
+- **Accepted implementation baseline**: b29bf5f313582f66230fb7f2df685c6eaf806fb8
+- **Governance freeze commit**: PENDING_GOVERNANCE_COMMIT
+- **Freeze tag**: rentipid/general/gate4i/closed-frozen-v1
+- **Owned files**: tests/security/responses/gate4i-controlled-response-simulation.integration.test.ts
+- **Shared files**: schema.prisma
+- **Database models**: Target verified
+- **Regression tests**: PASS
+- **Extension points**: Extensions allowed
+- **Reopening triggers**: File modifications
+- **Revalidation requirements**: Database migrations
+- **Freeze status**: PENDING
