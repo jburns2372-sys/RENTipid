@@ -20,15 +20,15 @@ export async function GET(req: NextRequest) {
         const authContext = await requireSecurityPermission(SECURITY_PERMISSIONS.DASHBOARD_VIEW);
 
         const url = new URL(req.url);
-        
+
         // Defaults & bounds
         const limitParam = url.searchParams.get('limit');
         const limit = limitParam ? Math.min(parseInt(limitParam, 10), 500) : 500;
-        
+
         // Time range (default 24 hours)
         let fromTime = new Date(Date.now() - 24 * 60 * 60 * 1000);
         let toTime = new Date();
-        
+
         const fromParam = url.searchParams.get('from');
         const toParam = url.searchParams.get('to');
         if (fromParam) fromTime = new Date(fromParam);
@@ -47,7 +47,6 @@ export async function GET(req: NextRequest) {
         // Base where clause
         const whereClause: any = {
             occurred_at: { gte: fromTime, lte: toTime },
-            environment: 'DEVELOPMENT', // In Phase 6A, bind strictly to DEVELOPMENT environment
             lifecycle_type: 'LIVE'    // Only plot LIVE events
         };
 
@@ -108,7 +107,7 @@ export async function GET(req: NextRequest) {
             const markerId = `${geo.country_code || 'UN'}-${latRounded}-${lngRounded}`;
 
             const existing = markersMap.get(markerId);
-            
+
             if (!existing) {
                 markersMap.set(markerId, {
                     marker_id: markerId,
@@ -131,12 +130,12 @@ export async function GET(req: NextRequest) {
             } else {
                 existing.event_count++;
                 existing.recent_event_count++;
-                
+
                 // Compare severity
                 if (SEVERITY_RANK[event.severity] > SEVERITY_RANK[existing.highest_severity]) {
                     existing.highest_severity = event.severity as any;
                 }
-                
+
                 if (!existing.security_domains.includes(event.security_domain)) {
                     existing.security_domains.push(event.security_domain);
                 }
