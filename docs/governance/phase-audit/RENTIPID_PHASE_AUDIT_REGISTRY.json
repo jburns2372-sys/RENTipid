@@ -2108,9 +2108,9 @@
       "gitEvidence": [
         "- Parent commit: cdb829cfd0cd866b3946a6ce9b42613e3993d908"
       ],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "5158d55124d1fba1060c1b80e38f808f7802baca",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
