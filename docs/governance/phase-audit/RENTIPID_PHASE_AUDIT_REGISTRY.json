@@ -1264,7 +1264,7 @@
       "gitEvidence": [],
       "acceptedBaseline": "db17191e55631631a53c66c68d278e77c3468f11",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
+      "primaryStatus": "CLOSED_AND_FROZEN",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
