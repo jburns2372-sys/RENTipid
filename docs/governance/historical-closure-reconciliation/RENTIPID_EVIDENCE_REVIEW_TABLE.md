@@ -1,0 +1,13 @@
+# Evidence Table
+
+| Normalized ID | Objective | App Files | Dependencies | Test Files | Historical Reports | Commits | Tags | Parent Evidence | Material Changes | Final Status | Confidence | Reason |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| PHASE5B | RENTIPID EXCEPTION, CHANGE CONTROL, AND PHASE 5B ACCEPTANCE |  | N/A |  | Yes | None | None | N/A | None | GOVERNANCE_ARTIFACT_NOT_A_PHASE | High | Acceptance/Change Control record, not an executable application phase. |
+| PHASE5G | PHASE 5G PAYMENT SECURITY EVIDENCE | apps/api/src/routes/webhooks.ts, src/lib/payments/payment-webhook-service.ts | N/A | tests/security/events/gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts | Yes | None | None | N/A | None | TESTED_PENDING_OWNER_ACCEPTANCE | High | Implementation (webhooks) and tests exist (gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts). Awaiting final security owner acceptance. |
+| PHASE5H | Phase 5H Cloud Zero Trust Evidence | infrastructure/terraform | N/A | infrastructure/terraform/plan | Yes | None | None | N/A | None | TESTED_PENDING_OWNER_ACCEPTANCE | High | Terraform implementation complete and tested (PRODUCTION_DEPLOYMENT_DEFERRED=true). Awaiting owner deployment decision. |
+| PHASE5L | Phase 5L: Backup Recovery Runbook; Phase 5L: Business Continuity Runbook; Phase 5L: Disaster Recovery Runbook; Phase 5L: Resilience, Backup, Recovery, and Continuity Evidence |  | N/A |  | Yes | None | None | N/A | None | GOVERNANCE_ARTIFACT_NOT_A_PHASE | High | Runbooks and continuity evidence bundle. |
+| PHASE5M | ISMS Operations Runbook; ISMS Risk and Control Register; Phase 5M - Privacy Operations & ISMS Evidence Bundle; Processor and Service Register; Security Exception Register |  | N/A |  | Yes | None | None | N/A | None | GOVERNANCE_ARTIFACT_NOT_A_PHASE | High | ISMS Operations Runbook and evidence bundle. |
+| PHASE2 | RENTipid SOC Phase 2 V6 Final Evidence |  | N/A |  | Yes | None | None | N/A | None | GOVERNANCE_ARTIFACT_NOT_A_PHASE | High | Final Evidence package. |
+| GATE3B | FINAL GATE 3B SCHEMA PREFLIGHT REPORT |  | N/A |  | Yes | None | None | N/A | None | GOVERNANCE_ARTIFACT_NOT_A_PHASE | High | Schema preflight report. |
+| GATEWAY | ADR 06: API Gateway Strategy; Phase 14 Roadmap: Payment Gateway Readiness |  | N/A |  | Yes | None | None | N/A | None | GOVERNANCE_ARTIFACT_NOT_A_PHASE | High | API Gateway Strategy ADR and Roadmap. |
+| PHASE 11 | Phase 11 Data Integrity Check; Phase 11 UAT Execution Results |  | N/A |  | Yes | None | None | N/A | None | GOVERNANCE_ARTIFACT_NOT_A_PHASE | High | Data Integrity Check and UAT Execution Results. |
