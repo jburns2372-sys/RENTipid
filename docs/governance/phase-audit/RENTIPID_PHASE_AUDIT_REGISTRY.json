@@ -3,7 +3,14 @@
     "schemaVersion": "1.0",
     "auditDate": "2026-07-28T10:31:32.653Z",
     "repositoryPath": "C:\\Users\\user\\Documents\\JD SOFTWARE PROJECTS\\RENTipid",
-    "warning": "This registry reflects the audited Git HEAD and must not be treated as current after material repository changes without a delta audit."
+    "warning": "This registry reflects the audited Git HEAD and must not be treated as current after material repository changes without a delta audit.",
+    "authoritativeRemainingPhases": [
+      "PHASE 17",
+      "PHASE 19",
+      "PHASE 19B"
+    ],
+    "phase5ProcessingExcluded": true,
+    "productionArchitectureClassification": "HYBRID_OR_UNRESOLVED"
   },
   "phases": [
     {
@@ -74,7 +81,10 @@
       "implementationEvidence": [],
       "testEvidence": [],
       "documentationEvidence": [
-        "docs\\phase-17-pre-live-check.md"
+        "docs\\phase-17-pre-live-check.md",
+        "docs\\governance\\remaining-work\\PHASE17_AZURE_POSTGRESQL_ACCESS_PLAN.md",
+        "docs\\governance\\remaining-work\\PHASE17_READINESS_AND_AUTHORIZATION.md",
+        "docs\\governance\\remaining-work\\RENTIPID_PRODUCTION_ARCHITECTURE_VERIFICATION.md"
       ],
       "gitEvidence": [],
       "acceptedBaseline": null,
@@ -84,8 +94,8 @@
         "TEST_EVIDENCE_GAP"
       ],
       "confidence": 65,
-      "blocker": "Validation Pending",
-      "requiredAction": "Review Evidence",
+      "blocker": "External Azure PostgreSQL read-only access, logical database/schema identity, network path, and backup evidence unavailable",
+      "requiredAction": "DBA provisions approved expiring read-only access to the confirmed logical database on rentipid-postgres-db using kv-rentipid-prod or approved local secure injection",
       "freezeEligibility": "NOT_ELIGIBLE",
       "reopeningTriggers": [
         "Code change",
@@ -141,8 +151,8 @@
         "TEST_EVIDENCE_GAP"
       ],
       "confidence": 65,
-      "blocker": "Validation Pending",
-      "requiredAction": "Review Evidence",
+      "blocker": "Explicit live-pilot authorization and production readiness evidence unavailable",
+      "requiredAction": "Keep live payment flags disabled until PHASE 17 and PHASE 19B are accepted and the owner authorizes the controlled pilot",
       "freezeEligibility": "NOT_ELIGIBLE",
       "reopeningTriggers": [
         "Code change",
@@ -175,8 +185,8 @@
         "TEST_EVIDENCE_GAP"
       ],
       "confidence": 65,
-      "blocker": "Validation Pending",
-      "requiredAction": "Review Evidence",
+      "blocker": "Production backend host, route ownership, secret bindings, monitoring, and restore metadata unresolved",
+      "requiredAction": "Confirm the deployed Vercel/Azure connection path through sanitized runtime metadata without assuming Neon",
       "freezeEligibility": "NOT_ELIGIBLE",
       "reopeningTriggers": [
         "Code change",

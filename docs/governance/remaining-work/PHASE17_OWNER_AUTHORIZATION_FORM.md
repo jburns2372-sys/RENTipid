@@ -2,10 +2,11 @@
 
 ## Authorization Prerequisites
 
-- [ ] Approved Neon project confirmed
-- [ ] Production database confirmed
+- [ ] Azure PostgreSQL server resource `rentipid-postgres-db` confirmed
+- [ ] Logical production database and schema confirmed by the DBA
+- [ ] Authorized audit execution environment and network path confirmed
 - [ ] Read-only audit authorized
-- [ ] Current restore point confirmed
+- [ ] Current Azure backup/restore evidence confirmed
 - [ ] DBA assigned
 - [ ] Security Administrator assigned
 - [ ] Credential expiry approved

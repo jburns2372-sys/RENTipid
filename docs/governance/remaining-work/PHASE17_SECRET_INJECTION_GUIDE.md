@@ -6,6 +6,8 @@ The authorized DBA must securely inject the read-only credentials into the execu
 
 `PHASE17_READONLY_DATABASE_URL`
 
+This variable is audit-only. It must target the DBA-confirmed logical database on Azure PostgreSQL server resource `rentipid-postgres-db`; it must not replace, reuse, reveal, or overwrite the application's `DATABASE_URL`. Use `kv-rentipid-prod` or approved local secure injection. Key Vault references, local injection, and presence checks must never print the value.
+
 ### Prohibited Storage
 The secret value must **NOT** be placed in:
 - Chat interfaces

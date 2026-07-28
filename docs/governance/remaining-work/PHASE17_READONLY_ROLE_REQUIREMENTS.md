@@ -4,6 +4,8 @@
 
 The role designated for PHASE 17 must strictly adhere to the Principle of Least Privilege (PoLP).
 
+The role must be scoped only to the DBA-confirmed logical production database and schema on Azure PostgreSQL server resource `rentipid-postgres-db`. The auditor must not receive server-administrator, owner, or role-management authority.
+
 ### Allowed Privileges
 - `CONNECT` to database
 - `USAGE` on schema

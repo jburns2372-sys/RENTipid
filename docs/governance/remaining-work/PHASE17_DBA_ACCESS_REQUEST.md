@@ -2,9 +2,11 @@
 
 ## Request Details
 * **Requested Role Purpose**: PHASE 17 Pre-Live Database Integrity Audit
-* **Database Identifier**: `rentipid_production`
-* **Schema Identifier**: `public`
-* **Target Environment**: Production Neon PostgreSQL Database
+* **Provider and Service**: Microsoft Azure Database for PostgreSQL
+* **Server Resource**: `rentipid-postgres-db`
+* **Logical Database Identifier**: To be confirmed by the assigned DBA
+* **Schema Identifier**: To be confirmed by the assigned DBA; `public` is expected but not authoritative until confirmed
+* **Target Environment**: Authoritative production database on the named Azure server resource
 
 ## Permission Requirements
 * **Required Read-Only Permissions**: 
@@ -23,5 +25,7 @@
 ## Credential Lifecycle
 * **Requested Credential-Expiration Date**: 24 hours from provisioning.
 * **Requested Revocation Procedure**: Immediately revoke login or drop role after the audit completion confirmation.
+* **Delivery Requirement**: Deliver only to the authorized audit environment through an approved secret path associated with `kv-rentipid-prod` or an equivalently controlled mechanism.
+* **Local Audit Variable**: `PHASE17_READONLY_DATABASE_URL`
 
 **NOTE**: Do not include passwords, connection strings, or tokens in this document. Delivery must use an approved secure secret manager.
