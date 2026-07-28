@@ -2016,9 +2016,9 @@
       "gitEvidence": [
         "Starting Baseline: `43bf7b423221703fd673fcc906a8bc08ea956665`"
       ],
-      "acceptedBaseline": null,
+      "acceptedBaseline": "ab4ca3294cb5d8042a66578e9de7800b875f4e42",
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "IMPLEMENTED_UNVERIFIED",
+      "primaryStatus": "CLOSED_PENDING_FREEZE_TAG",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
