@@ -526,7 +526,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "TESTED_PENDING_OWNER_ACCEPTANCE",
+      "primaryStatus": "IMPLEMENTED_NEEDS_FOCUSED_TESTS",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
@@ -561,7 +561,7 @@
       "gitEvidence": [],
       "acceptedBaseline": null,
       "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
-      "primaryStatus": "TESTED_PENDING_OWNER_ACCEPTANCE",
+      "primaryStatus": "IMPLEMENTED_NEEDS_FOCUSED_TESTS",
       "secondaryFlags": [
         "TEST_EVIDENCE_GAP"
       ],
