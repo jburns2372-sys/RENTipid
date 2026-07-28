@@ -59,7 +59,7 @@ export async function GET(req: NextRequest) {
             where: whereClause,
             take: limit,
             orderBy: { occurred_at: 'desc' },
-            include: { geo_enrichment: true }
+            include: { geoEnrichment: true }
         });
 
         const markersMap = new Map<string, ThreatMapMarkerDto>();
@@ -78,7 +78,7 @@ export async function GET(req: NextRequest) {
                 criticalHighEvents++;
             }
 
-            const geo = event.geo_enrichment;
+            const geo = event.geoEnrichment;
             if (!geo) {
                 unresolvedLocationCount++;
                 continue;
