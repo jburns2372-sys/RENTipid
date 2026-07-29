@@ -28,7 +28,7 @@ The six aggregate remediation findings are secondary schema-drift findings, not 
 | `PaymentActionLog` | Present | `20260720061500_add_payment_action_log` | Not applied; migration 14 is immediately after the inferred 13-record production prefix | Gate 4B-4 / Gate 4E payment telemetry | Reads and writes: checkout plus payment-action writer | After migrations 1-13; then apply 15-18 amendments in order | No; historical immutable events must not be synthesized | Additive table, indexes, and foreign keys | `MODEL_AND_MIGRATION_PRESENT_BUT_NOT_APPLIED` |
 | `IncidentCase` | Present | `20260723053752_add_incident_case_foundation` | Not applied; migration 19 | Gate 4F Slice C1 | Reads and writes: case APIs, writers, dashboard | After payment migrations 14-18; parent for case children and later response tables | No | Additive types, table, indexes, and constraints | `MODEL_AND_MIGRATION_PRESENT_BUT_NOT_APPLIED` |
 | `IncidentCaseEvidence` | Present | `20260723053752_add_incident_case_foundation` | Not applied; migration 19 | Gate 4F Slice C1 | Writes through incident-case writer service | After `IncidentCase`, `SecurityEvent`, and `User` | No | Additive child table | `MODEL_AND_MIGRATION_PRESENT_BUT_NOT_APPLIED` |
-| `IncidentCaseHistory` | Present | `20260723053752_add_incident_case_foundation` | Not applied; migration 19 | Gate 4F Slice C1 | Writes through incident-case writer service | After `IncidentCase`; amendments 20 and 22 follow | No | Additive child table; later non-destructive constraint amendment | `MODEL_AND_MIGRATION_PRESENT_BUT_NOT_APPLIED` |
+| `IncidentCaseHistory` | Present | `20260723053752_add_incident_case_foundation` | Not applied; migration 19 | Gate 4F Slice C1 | Writes through incident-case writer service | After `IncidentCase`; amendments 20 and 22 follow | No | Initial creation is additive; migration 20 later drops/replaces one check constraint | `MODEL_AND_MIGRATION_PRESENT_BUT_NOT_APPLIED` |
 | `IncidentCaseNote` | Present | `20260723053752_add_incident_case_foundation` | Not applied; migration 19 | Gate 4F Slice C1 | Writes through incident-case writer service | After `IncidentCase` and `User` | No | Additive child table | `MODEL_AND_MIGRATION_PRESENT_BUT_NOT_APPLIED` |
 | `SecurityResponsePlaybook` | Present | `20260724140000_soc_gate4g_playbooks` | Not applied; migration 21 | Gate 4G Slice A2 | Reads and writes through playbook services | After incident foundation and amendment; parent for steps, links, approvals, and executions | No | Additive table; migrations 23-24 amend current contract | `MODEL_AND_MIGRATION_PRESENT_BUT_NOT_APPLIED` |
 | `SecurityResponseStep` | Present | `20260724140000_soc_gate4g_playbooks` | Not applied; migration 21 | Gate 4G Slice A2 | Reads and writes through playbook services | After `SecurityResponsePlaybook` | No | Additive child table | `MODEL_AND_MIGRATION_PRESENT_BUT_NOT_APPLIED` |
@@ -61,6 +61,18 @@ The table-creating migrations directly involved are:
 7. Missing artifact: a new additive migration for `SecurityEventGeoEnrichment`
 
 The current-schema migration chain also requires the intervening amendments in strict repository order. No migration may be skipped merely because it does not create one of the 18 tables.
+
+## Destructive-Blocker Boundary
+
+The table classifications remain valid, but they do not make the ordered Prisma chain additive-only:
+
+- `20260724131703_amend_incident_case_history_assignment` drops and replaces `IncidentCaseHistory.chk_incidentcasehistory_status_change`.
+- `20260724145953_reconcile_incident_case_reopen_lifecycle` drops and replaces `IncidentCase.chk_incidentcase_reopened_at_req` and `IncidentCase.chk_incidentcase_reopened_at`.
+- `20260723053752_add_incident_case_foundation` uses `CREATE OR REPLACE FUNCTION prevent_incident_case_mutation()`, whose standalone production presence was not established by the completed audit.
+- `20260727011311_phase5f_profile_encryption_companion_fields` is an intervening pending migration outside the authorized PHASE17 scope; ordinary ordered Prisma deployment cannot skip it.
+- A consolidated final-state schema script would not be equivalent to the authoritative migration files. Manually inserting corresponding `_prisma_migrations` rows would fabricate metadata and is prohibited.
+
+This matrix is reconciliation evidence, not executable remediation authorization. The exact decision is in `PHASE17_DESTRUCTIVE_REMEDIATION_OWNER_DECISION_MATRIX.md`.
 
 ## Frozen-Phase Boundary
 

@@ -2,7 +2,7 @@
 
 ## Status and Scope
 
-**Status:** `READY_FOR_TARGETED_PHASE17_REMEDIATION_AUTHORIZATION`
+**Status:** `PHASE17_OWNER_DECISION_REQUIRED`
 
 This package is analysis and preparation only. It does not authorize or perform a production connection, migration, data correction, role change, Vercel change, application deployment, or PHASE5/PHASE19/PHASE19B processing.
 
@@ -33,6 +33,24 @@ No missing table is renamed, removed from the model, stale in the audit, exclude
 - one missing additive migration artifact accounts for `SecurityEventGeoEnrichment`.
 
 The production audit supplied the record count but not migration names. The 13-record count aligns exactly with the repository prefix ending at `20260719144014_add_correlation_key_subject_fixed`, and the missing-table boundary begins at migration 14. Before any future apply, an authorized read-only preflight must compare every production migration name and checksum with the repository and stop on any divergence.
+
+## Destructive-Remediation Blocker Correction
+
+The earlier additive-only conclusion was incomplete. Three constraint replacements occur in the exact pending migration chain:
+
+1. `20260724131703_amend_incident_case_history_assignment` drops and replaces `IncidentCaseHistory.chk_incidentcasehistory_status_change`.
+2. `20260724145953_reconcile_incident_case_reopen_lifecycle` drops and replaces `IncidentCase.chk_incidentcase_reopened_at_req`.
+3. The same reopen migration drops and replaces `IncidentCase.chk_incidentcase_reopened_at`.
+
+The incident tables are absent according to the completed audit, so these operations are not expected to remove production rows. They remain destructive migration operations because the authoritative SQL removes existing integrity rules, substitutes different lifecycle rules, and can take table locks.
+
+`20260723053752_add_incident_case_foundation` also uses `CREATE OR REPLACE FUNCTION prevent_incident_case_mutation()`. The absent incident tables establish that their triggers are absent, but do not establish that a same-named standalone function is absent. Replacing it is ambiguous without a catalog preflight.
+
+A consolidated final-state script could install only the final constraints on newly created tables, but it would not execute the authoritative migrations. Manually inserting the original names or checksums into `_prisma_migrations` afterward would fabricate migration history and is prohibited.
+
+The ordered chain also includes `20260727011311_phase5f_profile_encryption_companion_fields`. Ordinary Prisma deployment cannot skip it, while the current PHASE17 authorization explicitly excludes PHASE5 processing. A new migration for `SecurityEventGeoEnrichment` cannot be safely deployed through the ordered history until that conflict is decided.
+
+No production execution script is authorized or generated while this decision remains open.
 
 ## Eighteen-Table Reconciliation Matrix
 
@@ -74,30 +92,30 @@ After this chain, a new migration for `SecurityEventGeoEnrichment` must be gener
 
 ## Safe Remediation Order
 
-1. Obtain owner, DBA, Security Administrator, and Infrastructure Administrator approval for a production schema-change window.
-2. Capture a sanitized name-and-checksum inventory of production `_prisma_migrations`; require exact agreement with the repository's first 13 entries.
-3. Generate the missing `SecurityEventGeoEnrichment` migration locally only after authorization. Review it for one additive table, indexes, and its `SecurityEvent` foreign key.
-4. Rehearse migrations 14-28 plus the new geo-enrichment migration against a production-like clone restored from the 13-migration baseline.
-5. Validate migration duration, table locks, constraints, Prisma-client compatibility, and rollback/restore procedure.
-6. Establish a point-in-time restore checkpoint immediately before the production window. Backup retention is 7 days and geo-backup is disabled, so the checkpoint and tested restore path are mandatory.
-7. Coordinate the Vercel runtime and activate a short maintenance/write-freeze window. No application-code deployment is expected, but the deployed application version and generated Prisma Client must be confirmed compatible.
-8. Apply the existing migrations strictly in repository order, then apply the separately reviewed geo-enrichment migration. Do not use ad hoc SQL, `db push`, migration-history edits, or selective skipping.
-9. Verify migration records, tables, indexes, constraints, and the absence of unexpected operations using sanitized metadata.
-10. Grant the existing PHASE 17 audit role only the required read privileges on newly created tables and sequences; preserve its read-only defaults and zero write/schema-create privileges.
-11. Reexecute the complete count-only PHASE 17 audit. The six schema-dependent aggregate checks must then run normally.
-12. Run the P17-024 diagnostic separately and route the two KYC findings to manual evidence review.
+No execution order is approved. The only safe next action is the owner decision in `PHASE17_DESTRUCTIVE_REMEDIATION_OWNER_DECISION_MATRIX.md`.
+
+If the owner later authorizes the exact checksum-verified Prisma chain, a new execution package must:
+
+1. capture a UTC point-in-time recovery reference;
+2. prove that the 13 production migration names and checksums match the repository prefix;
+3. rehearse the exact chain against a production-equivalent restore;
+4. explicitly include the three constraint replacements and the intervening PHASE5F nullable-column migration in the authorization;
+5. use the Prisma migration engine rather than manually inserting `_prisma_migrations` rows;
+6. separately create and review an additive migration for `SecurityEventGeoEnrichment`;
+7. run post-migration verification and the complete read-only PHASE17 audit.
 
 ## Migration Safety and Backfill
 
-The inspected post-baseline migrations contain no row-level `INSERT`, `UPDATE`, or `DELETE`, no table/column/type deletion, and no rename. They create tables, types, indexes, foreign keys, checks, enum values, and additive columns. One incident-case migration replaces a foreign-key constraint non-destructively, and later migrations add checks or defaults.
+The inspected post-baseline migrations contain no row-level `INSERT`, `UPDATE`, or `DELETE`, no table/column/type deletion, and no rename. They do contain three constraint drops/replacements and one ambiguous function replacement.
 
-- **Destructive operations detected:** 0
+- **Destructive operations detected:** 3 constraint drops/replacements
+- **Ambiguous operations detected:** 1 function replacement and 2 migration-history/scope conflicts
 - **Required data backfill:** No
 - **Historical PaymentActionLog reconstruction:** Prohibited unless separately designed and authorized; it is not required for schema creation
 - **Historical geo enrichment:** Optional future work, not required for schema creation
 - **Application deployment coordination:** Required
 - **New application deployment:** Not expected if the deployed application matches the current repository; must be verified before apply
-- **Vercel maintenance mode:** Required as a short controlled migration/write-freeze window for this multi-migration chain
+- **Vercel maintenance mode:** Required unless a production-equivalent rehearsal proves the locks and mixed-version behavior safe and the owner explicitly waives it
 - **Backup/PITR checkpoint:** Required
 
 ## Rollback Considerations
@@ -138,16 +156,8 @@ These two records do not block schema remediation or owner review.
 
 ## Final Owner Authorization
 
-Production remediation remains prohibited until the owner explicitly approves:
+One decision is required:
 
-- the name-and-checksum migration preflight;
-- creation and review of the missing geo-enrichment migration;
-- the production-like rehearsal result;
-- the exact migration sequence;
-- the Vercel maintenance/write-freeze window;
-- the backup/PITR checkpoint and tested restoration path;
-- the read-only grant refresh for new tables;
-- the post-migration PHASE 17 audit rerun;
-- separate handling of the P17-024 record and KYC evidence review.
+> Authorize or reject execution of the exact checksum-verified pending Prisma chain, explicitly including the three constraint drops/replacements and `20260727011311_phase5f_profile_encryption_companion_fields`.
 
-Approval of this document alone does not execute or authorize a production migration.
+Authorization must not be inferred from the earlier additive-only approval. If authorized, a new execution package must be prepared and validated; this document is not execution authorization. If rejected, PHASE17 remains blocked and a separately authorized migration re-baseline design is required. Manual or fabricated Prisma migration metadata is not an acceptable alternative.
