@@ -1,31 +1,42 @@
 # PHASE 17 DBA Access Request
 
-## Request Details
-* **Requested Role Purpose**: PHASE 17 Pre-Live Database Integrity Audit
-* **Provider and Service**: Microsoft Azure Database for PostgreSQL
-* **Server Resource**: `rentipid-postgres-db`
-* **Logical Database Identifier**: To be confirmed by the assigned DBA
-* **Schema Identifier**: To be confirmed by the assigned DBA; `public` is expected but not authoritative until confirmed
-* **Target Environment**: Authoritative production database on the named Azure server resource
+## Request Status
 
-## Permission Requirements
-* **Required Read-Only Permissions**: 
-  * `CONNECT` to database
-  * `USAGE` on schema
-  * `SELECT` on all current and future tables and views
-  * Sequence metadata access only when strictly necessary
-  * PostgreSQL catalog and information-schema reads
-  * Prisma migration-table reads
-* **Prohibited Mutation Permissions**: 
-  * `INSERT`, `UPDATE`, `DELETE`, `TRUNCATE`, `CREATE`, `ALTER`, `DROP`
-  * Role creation or ownership
-  * Database creation or replication
-  * Migration, seed, or backfill authority
+**`BLOCKED_ARCHITECTURE_RESOLUTION` - DO NOT PROVISION YET**
+
+Provisioning may begin only after the owner manually confirms the actual production database connection path.
+
+## Target
+
+- Purpose: PHASE 17 pre-live database integrity audit
+- Provider: Microsoft Azure Database for PostgreSQL Flexible Server
+- Resource group: `rg-rentipid-prod`
+- Server: `rentipid-postgres-db`
+- PostgreSQL version: 15
+- Logical database: `rentipid_db`
+- Schema: DBA-confirmed audit schema
+- Audit variable: `PHASE17_READONLY_DATABASE_URL`
+
+## Required Permissions After Unblocking
+
+- `CONNECT` to `rentipid_db`
+- `USAGE` on the approved schema
+- `SELECT` on approved current and future tables and views
+- Minimum required catalog, information-schema, sequence-metadata, and Prisma migration-table reads
+
+## Prohibited Permissions
+
+- `INSERT`, `UPDATE`, `DELETE`, `TRUNCATE`, `CREATE`, `ALTER`, or `DROP`
+- Ownership, role administration, database creation, or replication
+- Migration, seed, or backfill authority
 
 ## Credential Lifecycle
-* **Requested Credential-Expiration Date**: 24 hours from provisioning.
-* **Requested Revocation Procedure**: Immediately revoke login or drop role after the audit completion confirmation.
-* **Delivery Requirement**: Deliver only to the authorized audit environment through an approved secret path associated with `kv-rentipid-prod` or an equivalently controlled mechanism.
-* **Local Audit Variable**: `PHASE17_READONLY_DATABASE_URL`
 
-**NOTE**: Do not include passwords, connection strings, or tokens in this document. Delivery must use an approved secure secret manager.
+- Expiration: no more than 24 hours after provisioning
+- Delivery: `kv-rentipid-prod` or approved secure local injection only
+- Revocation: immediately after audit completion or any stop condition
+- Governance restriction: never record a password, token, secret value, or connection string
+
+## Security Preconditions
+
+Public network access is enabled, so firewall review and an approved audit network path are mandatory. Backup retention is 7 days and geo-backup is disabled; restore readiness must be accepted before access. Key Vault soft delete is enabled and Azure RBAC is disabled, so access-policy authorization applies. Test and Prisma shadow databases are `REVIEW_REQUIRED_DO_NOT_DELETE` and are outside deletion or cleanup authority.

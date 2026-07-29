@@ -2,53 +2,53 @@
 
 Only PHASE 17, PHASE 19, and PHASE 19B remain unfinished. All PHASE5 entries are completed, closed, frozen, and excluded.
 
-## Architecture Resolution
+## Verified Architecture
 
-- [x] Public frontend confirmed on Vercel.
-- [x] Azure PostgreSQL server `rentipid-postgres-db` confirmed Ready on PostgreSQL 15.
+- [x] Public RENTipid Next.js frontend confirmed on Vercel.
+- [x] Azure PostgreSQL `rentipid-postgres-db` confirmed Ready on PostgreSQL 15.
 - [x] Logical database `rentipid_db` confirmed.
-- [x] Azure Container App deployment confirmed absent.
-- [x] Repository direct Prisma execution path documented.
-- [x] Neon classified as not active in the confirmed production inventory.
-- [ ] Vercel production-scope `DATABASE_URL` presence confirmed through sanitized metadata.
-- [ ] Production `DATABASE_URL` confirmed to select `rentipid-postgres-db` / `rentipid_db` without revealing its value.
-- [ ] Vercel System Environment Variables setting confirmed.
+- [x] Azure Container Apps environment existence recorded.
+- [x] No actual Azure Container App deployment recorded.
+- [x] Direct Vercel-to-Azure PostgreSQL connection classified as not yet confirmed.
+- [x] Neon active status classified as not confirmed.
+- [x] Owner-provided Vercel Production/Preview variable names and scopes recorded.
+- [x] Absence of a shown database connection or Azure backend URL recorded.
+- [ ] Actual production database connection path manually confirmed without credential exposure.
 
 Architecture status: `HYBRID_OR_UNRESOLVED`
 PHASE 17 status: `BLOCKED_ARCHITECTURE_RESOLUTION`
 
-## PHASE 19B — Infrastructure Readiness
+## PHASE 19B - Infrastructure Readiness
 
-- [ ] Treat Vercel Next.js as the only confirmed backend execution host; do not represent a separate Azure backend as deployed.
-- [ ] Review PostgreSQL public network access and firewall rules.
-- [ ] Confirm connection limits and pooling for Vercel server execution.
-- [ ] Accept or remediate 7-day backup retention and disabled geo-redundant backup.
-- [ ] Confirm a usable restore point and restoration procedure.
-- [ ] Confirm Key Vault purge protection and review access-policy authorization.
-- [ ] Review test and migration-shadow databases under `REVIEW_REQUIRED_DO_NOT_DELETE`.
+- [ ] Review PostgreSQL firewall rules because public network access is enabled.
+- [ ] Confirm the approved production execution path, connection limits, and pooling.
+- [ ] Accept or remediate 7-day backup retention and disabled geo-backup; verify restore readiness.
+- [ ] Review Key Vault access policies; preserve soft delete.
+- [ ] Inventory test and Prisma shadow databases under `REVIEW_REQUIRED_DO_NOT_DELETE`.
 - [ ] Confirm Vercel and Azure monitoring and alert routing.
+- [ ] Restrict live PayMongo secrets to Production under normal policy.
+- [ ] Configure Preview with sandbox credentials and non-live settings.
 
-## PHASE 17 — Read-Only Integrity Audit
+## PHASE 17 - Read-Only Integrity Audit
 
-- [ ] Architecture resolution gate completed.
+- [ ] Manual architecture-resolution requirement completed.
 - [ ] Owner, DBA, and Security Administrator authorization recorded.
-- [ ] Approved network path and firewall rules confirmed.
+- [ ] Firewall review and approved audit network path completed.
+- [ ] Restore readiness accepted.
 - [ ] Dedicated, expiring read-only role provisioned for `rentipid_db`.
 - [ ] Credential delivered through `kv-rentipid-prod` or approved secure local injection as `PHASE17_READONLY_DATABASE_URL`.
-- [ ] Effective `CONNECT`, schema `USAGE`, and required `SELECT` grants verified.
-- [ ] Mutation, ownership, role-administration, replication, and DDL permissions denied.
-- [ ] Integrity checks completed with zero unauthorized mutations.
+- [ ] Effective read-only grants verified and all mutation authority denied.
+- [ ] Authorized integrity audit completed.
 - [ ] Credential revoked and sanitized revocation evidence retained.
 
-## PHASE 19 — Live Payment Pilot
+## PHASE 19 - Live Payment Pilot
 
-- [ ] PHASE 19B and PHASE 17 accepted.
-- [ ] PayMongo merchant account approved for live mode.
-- [ ] Live credentials and webhook configuration approved without value exposure.
-- [ ] Pilot user, transaction-count, and budget controls authorized.
-- [ ] Payment, webhook, reconciliation, emergency-freeze, and refund evidence accepted.
+- [ ] PHASE 17 and PHASE 19B accepted.
+- [ ] Preview live-secret scope risk remediated.
+- [ ] Production payment configuration approved without value exposure.
+- [ ] Pilot user, transaction-count, budget, webhook, reconciliation, freeze, and refund controls accepted.
 
-## Decision
+## Final Decision
 
-- [ ] GO decision recorded only after all applicable gates are accepted.
+- [ ] GO decision recorded only after every applicable gate is accepted.
 - [ ] No frozen PHASE5 work reopened or processed.

@@ -1,33 +1,36 @@
-# PHASE 19B — Production Infrastructure Readiness
+# PHASE 19B - Production Infrastructure Readiness
 
 ## Current Architecture
 
 **Status:** UNFINISHED
 **Classification:** `HYBRID_OR_UNRESOLVED`
 
-- The public RENTipid Next.js application is hosted on Vercel.
-- Azure PostgreSQL server `rentipid-postgres-db` is Ready, runs PostgreSQL 15, and contains logical database `rentipid_db`.
-- Key Vault `kv-rentipid-prod` exists.
-- **No Azure Container App is deployed in `rg-rentipid-prod`.**
-- Vercel server code contains direct Prisma database execution through `DATABASE_URL`.
-- Production `DATABASE_URL` presence, scope, and Azure target remain unverified because the single metadata attempt returned `VERCEL_METADATA_AUTHENTICATION_BLOCKED`.
-- Neon is not active in the confirmed production inventory.
-- `NEXT_PUBLIC_USE_AZURE_BACKEND` does not establish an active backend. The repository client still targets `NEXT_PUBLIC_API_URL` or localhost regardless of the flag.
+- Public frontend: Vercel-hosted RENTipid Next.js application
+- Azure PostgreSQL: `rentipid-postgres-db`, Ready, PostgreSQL 15
+- Logical database: `rentipid_db`
+- Direct Vercel-to-Azure PostgreSQL connection: not yet confirmed
+- Azure Container Apps environment: `rg-rentipid-prod-env` exists
+- Azure Container App backend: not deployed
+- Azure Container Registry: `rentipidacr` exists
+- Key Vault: `kv-rentipid-prod`; soft delete enabled; access policies in use because Azure RBAC is disabled
+- Neon active: not confirmed
 
-## Remaining Readiness Work
+The Vercel Production/Preview variable list supplied by the owner did not show a database connection variable or Azure backend URL. `NEXT_PUBLIC_USE_AZURE_BACKEND` is present in both scopes, but its presence cannot prove an active backend when no Container App is deployed and no backend URL was shown.
 
-- Obtain sanitized Vercel metadata confirming production-scope `DATABASE_URL`, its Azure server/database identity without exposing its value, and the System Environment Variables setting.
-- Treat Vercel Next.js as the only confirmed application execution host unless a separately authorized backend is deployed later.
-- Review Azure PostgreSQL public network access and firewall rules before PHASE 17.
-- Record and accept the 7-day backup retention and disabled geo-redundant backup; verify a usable restore point and restoration procedure.
-- Confirm Key Vault purge protection. Record that Key Vault authorization currently uses access policies rather than Azure RBAC.
-- Review the numerous test and migration-shadow databases under `REVIEW_REQUIRED_DO_NOT_DELETE`; do not modify or delete them.
-- Confirm Vercel and Azure monitoring/alert routing.
-- Confirm database connection limits and pooling appropriate for Vercel server execution.
-- Perform non-mutating production smoke checks only under separate authorization.
+## Readiness Work
+
+- Manually confirm the actual production database connection path without exposing credentials.
+- Review PostgreSQL firewall rules because public network access is enabled.
+- Confirm connection limits and pooling after the production execution path is known.
+- Accept or remediate the 7-day backup retention and disabled geo-backup posture; verify restore readiness.
+- Review Key Vault access policies and preserve soft-delete controls.
+- Inventory test and Prisma shadow databases under `REVIEW_REQUIRED_DO_NOT_DELETE`.
+- Confirm Vercel and Azure monitoring and alert routing.
+- Correct Vercel payment scopes so live secrets are normally Production-only and Preview uses sandbox credentials.
+- Perform production smoke checks only under separate authorization.
 
 ## Phase Dependency
 
-PHASE 17 remains `BLOCKED_ARCHITECTURE_RESOLUTION`. Once the direct Vercel-to-Azure PostgreSQL path is confirmed, the next action is dedicated read-only role provisioning under the PHASE 17 access plan. PHASE 19 must not proceed until PHASE 17 and PHASE 19B acceptance gates are satisfied.
+PHASE 17 remains `BLOCKED_ARCHITECTURE_RESOLUTION`. Once the owner confirms the production database path, the next action is the separately authorized DBA read-only provisioning request. PHASE 19 remains blocked until PHASE 17 and PHASE 19B acceptance gates are satisfied.
 
 All PHASE5 entries remain completed, closed, frozen, and excluded.

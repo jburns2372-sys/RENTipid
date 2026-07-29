@@ -1,49 +1,39 @@
-# PHASE 17 — Pre-Live Database Integrity Check Readiness & Authorization
+# PHASE 17 - Pre-Live Database Integrity Check Readiness and Authorization
 
 **Current status:** `BLOCKED_ARCHITECTURE_RESOLUTION`
 **Architecture classification:** `HYBRID_OR_UNRESOLVED`
 
-No production database access is authorized by this document.
+No production database access or role creation is authorized by this document.
 
 ## Intended Execution Parameters
 
-- Target platform: Microsoft Azure Database for PostgreSQL 15
-- Target server: `rentipid-postgres-db`
-- Target logical database: `rentipid_db`
-- Required credential: dedicated, expiring, read-only production credential
-- Audit variable name: `PHASE17_READONLY_DATABASE_URL`
+- Platform: Azure Database for PostgreSQL Flexible Server
+- Resource group: `rg-rentipid-prod`
+- Server: `rentipid-postgres-db`
+- Version: PostgreSQL 15
+- Logical database: `rentipid_db`
 - Secret delivery: `kv-rentipid-prod` or approved secure local injection
-- Mutation permissions: prohibited
+- Audit variable: `PHASE17_READONLY_DATABASE_URL`
+- Credential: dedicated, expiring, read-only
 
-## Unresolved Architecture Prerequisite
+## Architecture Blocker
 
-The repository demonstrates that Vercel-hosted Next.js server code directly uses Prisma through `DATABASE_URL`. It does not prove that the Vercel production variable exists or targets the authoritative Azure server/database. The single Vercel metadata attempt returned `VERCEL_METADATA_AUTHENTICATION_BLOCKED`.
+Vercel is the confirmed frontend host and Azure PostgreSQL is available. The owner-provided Vercel Production/Preview variable list did not show a database connection variable or Azure backend URL. No Azure Container App is deployed, and Neon is not confirmed active. Direct production database connectivity is therefore not confirmed.
 
-No Azure Container App is deployed. `NEXT_PUBLIC_USE_AZURE_BACKEND` therefore must not be treated as evidence of an active separate Azure backend. Its repository behavior only controls a warning; `azureFetch` always uses `NEXT_PUBLIC_API_URL` or a localhost fallback.
-
-The Vercel project owner must provide sanitized confirmation of production-scope `DATABASE_URL`, its Azure server/database identity without revealing the connection string, and the System Environment Variables setting.
+The single unresolved requirement is manual owner confirmation of the actual production database connection path without revealing credentials.
 
 ## Security Readiness
 
-- Public network access: enabled; review required
-- Firewall rules: review required before PHASE 17
+- Public PostgreSQL network access: enabled; firewall review required
 - Backup retention: 7 days
-- Geo-redundant backup: disabled
-- Key Vault authorization: access policies, not Azure RBAC
-- Key Vault purge protection: confirmation outstanding
-- Test and migration-shadow databases: present
-- Test database action: `REVIEW_REQUIRED_DO_NOT_DELETE`
-
-## Required Integrity Checks After Authorization
-
-- Validate core security-event and reference data against the approved baseline.
-- Detect orphaned bookings, listings, users, categories, gateway transactions, and related dependencies.
-- Validate foreign-key and uniqueness expectations.
-- Reconcile financial records without mutation.
-- Validate audit-log integrity without modifying records.
+- Geo-backup: disabled
+- Key Vault soft delete: enabled
+- Key Vault authorization: access policies; Azure RBAC disabled
+- Test and Prisma shadow databases: present
+- Required database action: `REVIEW_REQUIRED_DO_NOT_DELETE`
 
 ## Authorization Gate
 
-After architecture resolution, the owner, DBA, and Security Administrator must approve the network path, sanitized restore evidence, dedicated read-only grants, credential delivery, session enforcement, and revocation procedure. The credential may exist for no more than 24 hours and must be revoked immediately after the audit or any stop condition.
+After architecture resolution, the owner, DBA, and Security Administrator must approve the audit runner, network path, firewall rules, restore readiness, dedicated read-only grants, secret delivery, and revocation procedure. No audit connection may occur before those approvals.
 
-Until every prerequisite is accepted, PHASE 17 remains `BLOCKED_ARCHITECTURE_RESOLUTION`.
+All audit activity must be read-only. Migrations, seeds, backfills, role administration by the auditor, live-payment activity, and all data or schema mutation are prohibited.

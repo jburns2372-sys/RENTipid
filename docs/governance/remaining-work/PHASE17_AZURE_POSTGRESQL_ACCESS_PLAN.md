@@ -4,46 +4,41 @@
 
 **`BLOCKED_ARCHITECTURE_RESOLUTION`**
 
-No production connection was attempted. This plan authorizes no database access, role creation, mutation, migration, seed, backfill, deletion, or infrastructure change.
+This plan authorizes no production connection, role creation, database access, mutation, migration, seed, backfill, deletion, or infrastructure change.
 
-## Authoritative Intended Target
+## Intended Audit Target
 
-- Provider: Microsoft Azure
-- Service: Azure Database for PostgreSQL
-- Server resource: `rentipid-postgres-db`
+- Resource group: `rg-rentipid-prod`
+- Service: Azure Database for PostgreSQL Flexible Server
+- Server: `rentipid-postgres-db`
+- Server state: Ready
 - PostgreSQL version: 15
 - Logical database: `rentipid_db`
-- Audit variable name: `PHASE17_READONLY_DATABASE_URL`
 - Secret delivery: `kv-rentipid-prod` or approved secure local injection
-- Test/migration-shadow databases: `REVIEW_REQUIRED_DO_NOT_DELETE`
+- Audit variable: `PHASE17_READONLY_DATABASE_URL`
 
-## Architecture Entry Gate
+## Blocking Requirement
 
-Before credential provisioning, the Vercel project owner must provide sanitized evidence that:
+Before the DBA provisions any role, the owner must manually confirm the actual production database connection path without disclosing a connection string or secret. The confirmation must establish whether the Vercel production runtime reaches `rentipid-postgres-db` / `rentipid_db` and identify the approved execution path for PHASE 17.
 
-1. `DATABASE_URL` exists in the production scope;
-2. the configured target is `rentipid-postgres-db` / `rentipid_db`, without disclosing any value;
-3. the System Environment Variables setting is confirmed; and
-4. no separate Azure backend is being represented as active.
+The owner-provided Vercel list did not show `DATABASE_URL`, `DIRECT_URL`, `POSTGRES_URL`, or an Azure backend URL. No Azure Container App is deployed. Neon is not confirmed active. These facts keep the architecture unresolved.
 
 ## Security Entry Gate
 
-Before any PHASE 17 connection:
+1. Review Azure PostgreSQL firewall rules because public network access is enabled.
+2. Approve a least-privilege audit network path without widening exposure solely for the audit.
+3. Record the 7-day backup retention and disabled geo-redundant backup in the risk decision.
+4. Confirm restore readiness before audit access.
+5. Use `kv-rentipid-prod`, which has soft delete enabled and uses access policies rather than Azure RBAC, or approved secure local injection.
+6. Inventory the test and Prisma migration-shadow databases under `REVIEW_REQUIRED_DO_NOT_DELETE`; do not delete or modify them.
 
-1. Review and approve Azure PostgreSQL public-network exposure and all firewall rules.
-2. Confirm the audit runner's authorized network path without widening access solely for the audit.
-3. Record the 7-day backup retention and disabled geo-redundant backup in the risk acceptance.
-4. Confirm a usable restore point and restoration procedure.
-5. Confirm Key Vault purge protection; Key Vault currently uses access policies rather than Azure RBAC.
-6. Leave all test and migration-shadow databases unchanged pending owner/DBA review.
+## DBA Action After Architecture Resolution
 
-## DBA Provisioning Action After Architecture Resolution
+1. Provision a dedicated, expiring login limited to `CONNECT` on `rentipid_db`, `USAGE` on the approved schema, and required `SELECT` access.
+2. Deny ownership, role administration, replication, DDL, and all mutations.
+3. Limit the credential lifetime to 24 hours or less.
+4. Deliver it only through the approved secret path as `PHASE17_READONLY_DATABASE_URL`.
+5. Verify effective grants using sanitized metadata.
+6. Revoke the credential immediately after completion or any stop condition.
 
-1. Create a dedicated, expiring login limited to `CONNECT` on `rentipid_db`, `USAGE` on the approved schema, and `SELECT` on approved audit objects.
-2. Deny ownership, role administration, replication, DDL, and all data mutation.
-3. Set a maximum credential lifetime of 24 hours, preferably shorter.
-4. Deliver the credential through `kv-rentipid-prod` or approved secure local injection under the audit variable name `PHASE17_READONLY_DATABASE_URL`.
-5. Verify effective grants using sanitized metadata only, then hand access to the authorized auditor.
-6. Revoke the credential immediately after the audit or any stop condition and retain sanitized revocation evidence.
-
-PHASE 17 remains blocked until architecture evidence, owner authorization, DBA provisioning, network approval, firewall review, restore evidence, and read-only grant verification are complete.
+PHASE 17 remains blocked until manual connection confirmation and all authorization, firewall, network, restore, and least-privilege gates are accepted.

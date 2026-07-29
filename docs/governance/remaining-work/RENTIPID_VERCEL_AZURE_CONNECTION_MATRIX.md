@@ -2,25 +2,20 @@
 
 **Architecture classification:** `HYBRID_OR_UNRESOLVED`
 
-| Source | Destination | Mechanism | Determination |
+| Source | Destination | Evidence | Determination |
 |---|---|---|---|
-| User browser | Vercel Next.js | Public HTTPS application | CONFIRMED |
-| Vercel Next.js server runtime | PostgreSQL | Prisma using `DATABASE_URL` | IMPLEMENTED; production variable presence/provider UNVERIFIED |
-| Vercel Next.js API routes and server rendering | Prisma | Direct server-side `PrismaClient` use | CONFIRMED IN REPOSITORY |
-| Browser client `azureFetch` | Separate API | `NEXT_PUBLIC_API_URL`, with localhost fallback | INCOMPLETE; production target UNVERIFIED |
-| `NEXT_PUBLIC_USE_AZURE_BACKEND` | `azureFetch` behavior | Exact string comparison to `true` | Does not switch request targets; false only emits a warning |
-| Azure Container App | Application backend | Container Apps deployment | NOT DEPLOYED |
-| Production Prisma runtime | Azure PostgreSQL `rentipid-postgres-db` / `rentipid_db` | Production `DATABASE_URL` | NOT CONFIRMED |
-| Production Prisma runtime | Neon PostgreSQL | Production `DATABASE_URL` | NO ACTIVE EVIDENCE |
-| Authorized PHASE 17 audit runner | Azure PostgreSQL `rentipid-postgres-db` / `rentipid_db` | Transient `PHASE17_READONLY_DATABASE_URL` | `BLOCKED_ARCHITECTURE_RESOLUTION` |
-| PHASE 17 credential delivery | `kv-rentipid-prod` or approved secure local injection | Secret value never recorded in governance | PLANNED |
+| User browser | Vercel Next.js | Owner-confirmed public deployment | CONFIRMED |
+| Vercel production runtime | Azure PostgreSQL `rentipid-postgres-db` / `rentipid_db` | No database connection variable was shown in the owner-provided Production/Preview list | NOT YET CONFIRMED |
+| Vercel production runtime | Neon PostgreSQL | No authoritative active-production evidence | NOT CONFIRMED |
+| Vercel client configuration | Separate Azure backend | `NEXT_PUBLIC_USE_AZURE_BACKEND` exists, but no Azure backend URL was shown | UNRESOLVED |
+| Azure Container Apps environment | Azure Container App | Environment exists; Cloud Shell confirmed no application is deployed | NOT DEPLOYED |
+| Authorized PHASE 17 runner | Azure PostgreSQL `rentipid-postgres-db` / `rentipid_db` | Planned transient `PHASE17_READONLY_DATABASE_URL` | `BLOCKED_ARCHITECTURE_RESOLUTION` |
+| PHASE 17 secret delivery | `kv-rentipid-prod` or approved secure local injection | Owner-confirmed Key Vault; value must not enter governance | PLANNED |
 
-## Vercel Metadata Boundary
+## Vercel Scope Finding
 
-The single metadata attempt returned `VERCEL_METADATA_AUTHENTICATION_BLOCKED` because the Vercel CLI was unavailable. Names, scopes, and the System Environment Variables setting were not verified, and no values were retrieved.
+The owner confirmed that authentication, application-base, live PayMongo, payment-mode, and `NEXT_PUBLIC_USE_AZURE_BACKEND` variable names are present in both Preview and Production. The supplied list did not show `DATABASE_URL`, `DIRECT_URL`, `POSTGRES_URL`, or any Azure backend URL. These facts do not establish the production database route.
 
-## Connection Decision
+## Decision
 
-The repository supports Vercel full-stack direct PostgreSQL execution, but available evidence does not prove that the Vercel production `DATABASE_URL` exists or selects Azure PostgreSQL. A separate Azure backend is not active because no Azure Container App is deployed. The connection architecture therefore remains `HYBRID_OR_UNRESOLVED`, not an active Azure-backend architecture.
-
-Required owner evidence: sanitized Vercel metadata confirming the production scope of `DATABASE_URL` and confirming without value disclosure that its target is `rentipid-postgres-db` / `rentipid_db`, plus the System Environment Variables setting.
+Frontend hosting is confirmed on Vercel and Azure PostgreSQL availability is confirmed. Neither a direct Vercel-to-Azure PostgreSQL connection nor an active Neon connection is confirmed. A separate Azure backend cannot be active as a Container App because no application is deployed. The correct classification is `HYBRID_OR_UNRESOLVED` pending manual connection confirmation.
