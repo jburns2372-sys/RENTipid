@@ -1,40 +1,49 @@
 # PHASE 17 — Pre-Live Database Integrity Check Readiness & Authorization
 
-**Current Status**: `BLOCKED_EXTERNAL_ACCESS`
+**Current status:** `BLOCKED_ARCHITECTURE_RESOLUTION`
+**Architecture classification:** `HYBRID_OR_UNRESOLVED`
 
-No production connection is authorized until every entry prerequisite below is satisfied. The active architecture classification is `HYBRID_OR_UNRESOLVED`; this does not change the owner-designated PHASE 17 target from Azure PostgreSQL server resource `rentipid-postgres-db`.
+No production database access is authorized by this document.
 
-## Execution Parameters
-* **Target Database Platform**: Microsoft Azure Database for PostgreSQL.
-* **Target Server Resource**: `rentipid-postgres-db`.
-* **Target Environment**: DBA-confirmed logical production database and schema on the authoritative server.
-* **Required Credentials**: Dedicated, expiring, read-only production credential delivered only to an authorized audit execution environment.
-* **Database and Schema Identifiers**: Must be confirmed by the assigned DBA. Prior references to `rentipid_production`, a Neon branch, or an assumed `public` schema are not authoritative.
-* **Schema Status**: Must be established from sanitized migration and metadata evidence before any integrity conclusion. No migration is authorized.
-* **Network Path**: Must be approved by the DBA and Security Administrator before a connection attempt.
+## Intended Execution Parameters
 
-## Required Integrity Checks
-* **Data-Integrity**: Validate that core SecurityEvents and Reference tables match baseline.
-* **Orphan-Record**: Ensure Bookings have valid Listings and Users. Ensure Listings have valid Categories and Providers. Ensure GatewayTransactions have Bookings.
-* **Foreign-Key and Uniqueness**: Covered natively by Prisma schema constraints; verify no orphaned dependencies exist that bypassed constraints natively.
-* **Financial-Data Reconciliation**: Verify total `PaymentActionLog` amounts correspond mathematically to `GatewayTransaction` amounts and `DepositAction` records.
-* **Security and Audit-Log**: Confirm `AuditLog` immutability controls exist and are untouched.
-* **Backup and Restore Prerequisites**: Current Azure PostgreSQL backup/restore capability and an appropriate restore point must be confirmed from sanitized administrative evidence before connection.
+- Target platform: Microsoft Azure Database for PostgreSQL 15
+- Target server: `rentipid-postgres-db`
+- Target logical database: `rentipid_db`
+- Required credential: dedicated, expiring, read-only production credential
+- Audit variable name: `PHASE17_READONLY_DATABASE_URL`
+- Secret delivery: `kv-rentipid-prod` or approved secure local injection
+- Mutation permissions: prohibited
 
-## Execution and Rollback
-* **Read-Only Execution Method**: Execution via Prisma client configured explicitly in read-only mode, or via a restricted database user with `SELECT`-only grants.
-* **Expected Report and Pass Criteria**: A comprehensive report demonstrating zero orphans, zero financial discrepancies, and zero integrity violations.
-* **Rollback Requirements**: The audit is read-only and must not rely on rollback as a substitute for least privilege. Azure restore capability must still be confirmed as an entry prerequisite.
-* **Owner Authorization Required**: YES. Connection to the live production database requires explicit owner authorization.
+## Unresolved Architecture Prerequisite
 
-## DBA Read-Only Access Request
-* **Requested Role Purpose**: PHASE 17 pre-live database integrity audit.
-* **Database and Schema Identifiers**: DBA-confirmed logical database and schema on Azure PostgreSQL server resource `rentipid-postgres-db`.
-* **Required Read-Only Permissions**: `CONNECT` on database, `USAGE` on schema, `SELECT` on all tables.
-* **Prohibited Mutation Permissions**: `INSERT`, `UPDATE`, `DELETE`, `TRUNCATE`, `CREATE`, `ALTER`, `DROP`, ownership privileges.
-* **Requested Credential-Expiration Date**: 24 hours from provisioning.
-* **Requested Revocation Procedure**: Drop the role or revoke login immediately after the audit completes. Deliver the credential to the authorized audit environment through an approved secret path, using `PHASE17_READONLY_DATABASE_URL` only as the audit process's transient variable name.
+The repository demonstrates that Vercel-hosted Next.js server code directly uses Prisma through `DATABASE_URL`. It does not prove that the Vercel production variable exists or targets the authoritative Azure server/database. The single Vercel metadata attempt returned `VERCEL_METADATA_AUTHENTICATION_BLOCKED`.
 
-## External Access Blocker
+No Azure Container App is deployed. `NEXT_PUBLIC_USE_AZURE_BACKEND` therefore must not be treated as evidence of an active separate Azure backend. Its repository behavior only controls a warning; `azureFetch` always uses `NEXT_PUBLIC_API_URL` or a localhost fallback.
 
-The exact logical database/schema, Azure network path, secure read-only credential, backup evidence, and owner authorization are unavailable. PHASE 17 remains `BLOCKED_EXTERNAL_ACCESS`; no connection attempt or query may occur until the DBA completes `PHASE17_AZURE_POSTGRESQL_ACCESS_PLAN.md`.
+The Vercel project owner must provide sanitized confirmation of production-scope `DATABASE_URL`, its Azure server/database identity without revealing the connection string, and the System Environment Variables setting.
+
+## Security Readiness
+
+- Public network access: enabled; review required
+- Firewall rules: review required before PHASE 17
+- Backup retention: 7 days
+- Geo-redundant backup: disabled
+- Key Vault authorization: access policies, not Azure RBAC
+- Key Vault purge protection: confirmation outstanding
+- Test and migration-shadow databases: present
+- Test database action: `REVIEW_REQUIRED_DO_NOT_DELETE`
+
+## Required Integrity Checks After Authorization
+
+- Validate core security-event and reference data against the approved baseline.
+- Detect orphaned bookings, listings, users, categories, gateway transactions, and related dependencies.
+- Validate foreign-key and uniqueness expectations.
+- Reconcile financial records without mutation.
+- Validate audit-log integrity without modifying records.
+
+## Authorization Gate
+
+After architecture resolution, the owner, DBA, and Security Administrator must approve the network path, sanitized restore evidence, dedicated read-only grants, credential delivery, session enforcement, and revocation procedure. The credential may exist for no more than 24 hours and must be revoked immediately after the audit or any stop condition.
+
+Until every prerequisite is accepted, PHASE 17 remains `BLOCKED_ARCHITECTURE_RESOLUTION`.

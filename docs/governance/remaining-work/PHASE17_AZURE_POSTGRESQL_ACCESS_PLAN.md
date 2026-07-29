@@ -2,33 +2,48 @@
 
 ## Status
 
-**`BLOCKED_EXTERNAL_ACCESS`**
+**`BLOCKED_ARCHITECTURE_RESOLUTION`**
 
-No production connection was attempted. This plan authorizes no database access, mutation, migration, seed, backfill, or live-payment operation.
+No production connection was attempted. This plan authorizes no database access, role creation, mutation, migration, seed, backfill, deletion, or infrastructure change.
 
-## Target
+## Authoritative Intended Target
 
 - Provider: Microsoft Azure
 - Service: Azure Database for PostgreSQL
 - Server resource: `rentipid-postgres-db`
-- Logical database: DBA-confirmed production database on the named server
-- Schema: DBA-confirmed target schema
-- Secret source: `kv-rentipid-prod` or approved local secure injection
-- Local audit variable: `PHASE17_READONLY_DATABASE_URL`
+- PostgreSQL version: 15
+- Logical database: `rentipid_db`
+- Audit variable name: `PHASE17_READONLY_DATABASE_URL`
+- Secret delivery: `kv-rentipid-prod` or approved secure local injection
+- Test/migration-shadow databases: `REVIEW_REQUIRED_DO_NOT_DELETE`
 
-## DBA Provisioning Requirements
+## Architecture Entry Gate
 
-1. Confirm the subscription, resource group, server, logical database, and schema through sanitized metadata.
-2. Confirm Azure PostgreSQL backup/restore configuration and a current restore point.
-3. Approve a network path from a dedicated audit runner; do not expose the database publicly solely for the audit.
-4. Create a dedicated login with only `CONNECT`, schema `USAGE`, and `SELECT` on required current and future audit objects.
-5. Deny ownership, role administration, replication, DDL, and all data mutations.
-6. Set a maximum credential lifetime of 24 hours and an earlier expiry when practical.
-7. Deliver the credential through `kv-rentipid-prod` or approved local secure injection without printing or documenting its value.
-8. Validate effective grants using metadata-only checks before handing access to the auditor.
-9. Revoke the credential immediately after the audit or any stop condition and record sanitized revocation evidence.
+Before credential provisioning, the Vercel project owner must provide sanitized evidence that:
 
-## Entry Gate
+1. `DATABASE_URL` exists in the production scope;
+2. the configured target is `rentipid-postgres-db` / `rentipid_db`, without disclosing any value;
+3. the System Environment Variables setting is confirmed; and
+4. no separate Azure backend is being represented as active.
 
-PHASE 17 may proceed only after owner authorization, DBA target confirmation, Security Administrator network approval, sanitized backup evidence, credential presence verification without value display, and read-only grant verification. Until all are complete, the status remains `BLOCKED_EXTERNAL_ACCESS`.
+## Security Entry Gate
 
+Before any PHASE 17 connection:
+
+1. Review and approve Azure PostgreSQL public-network exposure and all firewall rules.
+2. Confirm the audit runner's authorized network path without widening access solely for the audit.
+3. Record the 7-day backup retention and disabled geo-redundant backup in the risk acceptance.
+4. Confirm a usable restore point and restoration procedure.
+5. Confirm Key Vault purge protection; Key Vault currently uses access policies rather than Azure RBAC.
+6. Leave all test and migration-shadow databases unchanged pending owner/DBA review.
+
+## DBA Provisioning Action After Architecture Resolution
+
+1. Create a dedicated, expiring login limited to `CONNECT` on `rentipid_db`, `USAGE` on the approved schema, and `SELECT` on approved audit objects.
+2. Deny ownership, role administration, replication, DDL, and all data mutation.
+3. Set a maximum credential lifetime of 24 hours, preferably shorter.
+4. Deliver the credential through `kv-rentipid-prod` or approved secure local injection under the audit variable name `PHASE17_READONLY_DATABASE_URL`.
+5. Verify effective grants using sanitized metadata only, then hand access to the authorized auditor.
+6. Revoke the credential immediately after the audit or any stop condition and retain sanitized revocation evidence.
+
+PHASE 17 remains blocked until architecture evidence, owner authorization, DBA provisioning, network approval, firewall review, restore evidence, and read-only grant verification are complete.

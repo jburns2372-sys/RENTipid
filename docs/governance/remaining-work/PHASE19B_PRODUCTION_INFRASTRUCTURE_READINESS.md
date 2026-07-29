@@ -1,29 +1,33 @@
 # PHASE 19B — Production Infrastructure Readiness
 
-## Target Architecture Clarification
+## Current Architecture
 
-* **Verified Public Frontend**: RENTipid Next.js is deployed on Vercel.
-* **Authoritative Database Server**: Azure Database for PostgreSQL resource `rentipid-postgres-db`.
-* **Verified Azure Supporting Resources**: Key Vault `kv-rentipid-prod`, Container Registry `rentipidacr`, Container Apps environment `rg-rentipid-prod-env`, and logging resource `rg-rentipid-prod-log`.
-* **Unsupported Provider Assumption Removed**: Neon is not part of the authoritative production inventory and must not be used for readiness or PHASE 17 decisions.
-* **Unverified Backend Route**: Repository artifacts describe Azure Container Apps, but the supplied inventory and repository do not establish a deployed Container App, public API hostname, or successful Vercel-to-Azure route.
+**Status:** UNFINISHED
+**Classification:** `HYBRID_OR_UNRESOLVED`
 
-The governing evidence and verification boundaries are recorded in `RENTIPID_PRODUCTION_ARCHITECTURE_VERIFICATION.md`.
+- The public RENTipid Next.js application is hosted on Vercel.
+- Azure PostgreSQL server `rentipid-postgres-db` is Ready, runs PostgreSQL 15, and contains logical database `rentipid_db`.
+- Key Vault `kv-rentipid-prod` exists.
+- **No Azure Container App is deployed in `rg-rentipid-prod`.**
+- Vercel server code contains direct Prisma database execution through `DATABASE_URL`.
+- Production `DATABASE_URL` presence, scope, and Azure target remain unverified because the single metadata attempt returned `VERCEL_METADATA_AUTHENTICATION_BLOCKED`.
+- Neon is not active in the confirmed production inventory.
+- `NEXT_PUBLIC_USE_AZURE_BACKEND` does not establish an active backend. The repository client still targets `NEXT_PUBLIC_API_URL` or localhost regardless of the flag.
 
-## Readiness Scope
+## Remaining Readiness Work
 
-* **Vercel Production Readiness**: Confirm the existing production project, canonical domain, protected source integration, and successful build/runtime evidence. This task does not deploy or change Vercel configuration.
-* **Backend Ownership and Routing**: Identify which production operations remain in Vercel and which are served by Azure. If Azure is active, confirm the deployed Container App name, ingress hostname, healthy revision, and the Vercel API-base configuration without exposing values.
-* **Routing Gap**: `NEXT_PUBLIC_USE_AZURE_BACKEND` presence alone is insufficient. The repository client also depends on `NEXT_PUBLIC_API_URL`, which is not in the owner-supplied Vercel production-variable inventory, and no production rewrite is defined.
-* **Azure PostgreSQL Connectivity**: Confirm the logical database, schema, network restrictions, workload identity, pooling approach if required, and the authorized application's connection path to `rentipid-postgres-db`.
-* **Secrets and Identity Configuration**: Confirm the division of responsibility between Vercel production configuration and `kv-rentipid-prod`. Verify managed-identity and secret bindings through sanitized evidence; do not copy secret values into governance records.
-* **Container Registry and Runtime**: Confirm whether an API image in `rentipidacr` is attached to a deployed, healthy Container App. Registry and Container Apps environment existence alone are not deployment evidence.
-* **Monitoring and Alerting**: Confirm Vercel runtime monitoring plus Azure application/database diagnostics and alert routing. Existence of `rg-rentipid-prod-log` alone is not sufficient.
-* **Backups and Disaster Recovery**: Confirm Azure PostgreSQL backup retention, restore capability, and a current sanitized restore-point record.
-* **Post-Deployment Smoke Tests**: After separate authorization, use non-mutating synthetic checks against the verified live domain and API health endpoints. No live-money transaction is part of PHASE 19B readiness verification.
-* **Admin and Emergency-Freeze Validation**: Production state changes require separate explicit authorization and must not be inferred from this documentation correction.
-* **Controlled Payment-Pilot Dependencies**: PHASE 19B and PHASE 17 must be accepted before PHASE 19 can proceed.
+- Obtain sanitized Vercel metadata confirming production-scope `DATABASE_URL`, its Azure server/database identity without exposing its value, and the System Environment Variables setting.
+- Treat Vercel Next.js as the only confirmed application execution host unless a separately authorized backend is deployed later.
+- Review Azure PostgreSQL public network access and firewall rules before PHASE 17.
+- Record and accept the 7-day backup retention and disabled geo-redundant backup; verify a usable restore point and restoration procedure.
+- Confirm Key Vault purge protection. Record that Key Vault authorization currently uses access policies rather than Azure RBAC.
+- Review the numerous test and migration-shadow databases under `REVIEW_REQUIRED_DO_NOT_DELETE`; do not modify or delete them.
+- Confirm Vercel and Azure monitoring/alert routing.
+- Confirm database connection limits and pooling appropriate for Vercel server execution.
+- Perform non-mutating production smoke checks only under separate authorization.
 
-## Current Status
+## Phase Dependency
 
-**UNFINISHED — `HYBRID_OR_UNRESOLVED`.** The resource inventory is corrected, but backend routing, logical database identity, network connectivity, secret bindings, monitoring, and restore evidence remain to be verified by authorized owners.
+PHASE 17 remains `BLOCKED_ARCHITECTURE_RESOLUTION`. Once the direct Vercel-to-Azure PostgreSQL path is confirmed, the next action is dedicated read-only role provisioning under the PHASE 17 access plan. PHASE 19 must not proceed until PHASE 17 and PHASE 19B acceptance gates are satisfied.
+
+All PHASE5 entries remain completed, closed, frozen, and excluded.
