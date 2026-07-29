@@ -91,20 +91,21 @@ The ZIP contains exactly these files:
 7. `scripts/phase17_post_remediation_verification.sql`
 8. `scripts/phase17_readonly_integrity_audit.sql`
 9. `scripts/phase17_readonly_user_role_diagnostic.sql`
-10. `prisma/migrations/20260720061500_add_payment_action_log/migration.sql`
-11. `prisma/migrations/20260720073000_add_checkout_idempotency/migration.sql`
-12. `prisma/migrations/20260720231333_add_payment_action_log_security_event_source/migration.sql`
-13. `prisma/migrations/20260721155006_add_payment_action_log_amount_evidence/migration.sql`
-14. `prisma/migrations/20260721173423_add_payment_action_log_currency_evidence/migration.sql`
-15. `prisma/migrations/20260723053752_add_incident_case_foundation/migration.sql`
-16. `prisma/migrations/20260724131703_amend_incident_case_history_assignment/migration.sql`
-17. `prisma/migrations/20260724140000_soc_gate4g_playbooks/migration.sql`
-18. `prisma/migrations/20260724145953_reconcile_incident_case_reopen_lifecycle/migration.sql`
-19. `prisma/migrations/20260724155000_soc_gate4g_playbook_concurrency/migration.sql`
-20. `prisma/migrations/20260725000000_add_approved_scope_binding/migration.sql`
-21. `prisma/migrations/20260725145200_gate4h_reversible_response_execution/migration.sql`
-22. `prisma/migrations/20260725185900_add_mfa_schema/migration.sql`
-23. `prisma/migrations/20260726162419_add_behavioral_risk_persistence/migration.sql`
-24. `prisma/migrations/20260727011311_phase5f_profile_encryption_companion_fields/migration.sql`
+10. `scripts/run-phase17-rehearsal.ps1`
+11. `prisma/migrations/20260720061500_add_payment_action_log/migration.sql`
+12. `prisma/migrations/20260720073000_add_checkout_idempotency/migration.sql`
+13. `prisma/migrations/20260720231333_add_payment_action_log_security_event_source/migration.sql`
+14. `prisma/migrations/20260721155006_add_payment_action_log_amount_evidence/migration.sql`
+15. `prisma/migrations/20260721173423_add_payment_action_log_currency_evidence/migration.sql`
+16. `prisma/migrations/20260723053752_add_incident_case_foundation/migration.sql`
+17. `prisma/migrations/20260724131703_amend_incident_case_history_assignment/migration.sql`
+18. `prisma/migrations/20260724140000_soc_gate4g_playbooks/migration.sql`
+19. `prisma/migrations/20260724145953_reconcile_incident_case_reopen_lifecycle/migration.sql`
+20. `prisma/migrations/20260724155000_soc_gate4g_playbook_concurrency/migration.sql`
+21. `prisma/migrations/20260725000000_add_approved_scope_binding/migration.sql`
+22. `prisma/migrations/20260725145200_gate4h_reversible_response_execution/migration.sql`
+23. `prisma/migrations/20260725185900_add_mfa_schema/migration.sql`
+24. `prisma/migrations/20260726162419_add_behavioral_risk_persistence/migration.sql`
+25. `prisma/migrations/20260727011311_phase5f_profile_encryption_companion_fields/migration.sql`
 
 `scripts/phase17_authorized_checksums.sha256` hashes every payload file except itself. The detached ZIP checksum remains outside the ZIP. No checksum file hashes itself, and this manifest does not contain the final ZIP hash.

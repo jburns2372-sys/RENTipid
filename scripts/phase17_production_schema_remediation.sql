@@ -54,6 +54,17 @@ SELECT
 
 \ir phase17_pre_remediation_validation.sql
 
+SELECT
+  :'phase17_pre_remediation_result' =
+    'PHASE17_PRE_REMEDIATION_READY' AS phase17_pre_remediation_valid
+\gset
+
+\if :phase17_pre_remediation_valid
+\else
+  \echo 'PHASE17_STOP: pre-remediation validation did not return READY'
+  \quit 3
+\endif
+
 \echo 'PHASE17: applying 01/15 20260720061500_add_payment_action_log'
 INSERT INTO "_prisma_migrations" (
   id, checksum, started_at, migration_name, logs,

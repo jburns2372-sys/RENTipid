@@ -26,7 +26,19 @@ Any mismatch or failed prerequisite is a stop condition.
 
 From the directory containing the ZIP and detached checksum, verify the detached checksum with a local SHA-256 tool. After extraction, change to the extracted package root and verify each path in `scripts/phase17_authorized_checksums.sha256`.
 
-The expected payload contains exactly the 24 paths listed in `PHASE17_AUTHORIZED_MIGRATION_MANIFEST.md`. The detached checksum must not be inside the ZIP.
+The expected payload contains exactly the 25 paths listed in `PHASE17_AUTHORIZED_MIGRATION_MANIFEST.md`. The detached checksum must not be inside the ZIP.
+
+## Single-Command Rehearsal
+
+Run the checksum-locked rehearsal workflow from the repository root:
+
+```text
+powershell -ExecutionPolicy Bypass -File scripts/run-phase17-rehearsal.ps1
+```
+
+The runner accepts only the hard-coded PHASE17 rehearsal hostname, locates `psql.exe`, verifies and extracts the execution package, prompts securely for the administrator and read-only-role credentials, runs every authorized validation and rehearsal step, and writes `phase17-rehearsal-evidence.zip`.
+
+Do not enter manual SQL or invoke the remediation scripts separately during the rehearsal workflow.
 
 ## Pre-Remediation Validation
 
