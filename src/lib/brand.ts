@@ -1,6 +1,6 @@
 export const BRAND = {
   name: "RENTipid",
-  slogan: "Why buy it? RENTipid.",
+  slogan: "Why Buy? RENTipid!",
   logo: "/brand/rentipid-logo.jpg",
   logoFull: "/brand/rentipid-logo-full.jpg",
   logoIcon: "/brand/rentipid-logo-icon.jpg",

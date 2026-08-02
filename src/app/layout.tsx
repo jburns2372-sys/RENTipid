@@ -19,7 +19,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.APP_BASE_URL || "https://www.rentipid.com.ph"),
-  title: "RENTipid | Why buy it? RENTipid.",
+  title: "RENTipid | Why Buy? RENTipid!",
   description: "A verified rental marketplace for tools, equipment, spaces, properties, and legally rentable assets.",
   manifest: "/manifest.json",
   appleWebApp: {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "RENTipid",
   },
   openGraph: {
-    title: "RENTipid | Why buy it? RENTipid.",
+    title: "RENTipid | Why Buy? RENTipid!",
     description: "A verified rental marketplace for tools, equipment, spaces, properties, and legally rentable assets.",
     url: "https://rentipid.com",
     siteName: "RENTipid",
