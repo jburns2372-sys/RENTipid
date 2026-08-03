@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
         if (toParam) toTime = new Date(toParam);
 
         // Filters
-        const environment = url.searchParams.get('environment') || authContext.environment;
+        const environment = url.searchParams.get('environment') || (authContext as any).environment;
         const lifecycle = url.searchParams.get('lifecycle') || 'LIVE';
         const severity = url.searchParams.get('severity');
         const domain = url.searchParams.get('domain');

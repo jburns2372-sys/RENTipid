@@ -6,12 +6,12 @@ import { authOptions } from '@/lib/auth'; // Ensure this matches actual auth pat
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user || !session.user.id) {
+    if (!session || !session.user || !(session.user as any).id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     // Server Session Identity Used. Client supplied target ID is not trusted as authority.
-    const actorUserId = session.user.id;
+    const actorUserId = (session.user as any).id;
 
     // Parse body for target ID if admin export is allowed, otherwise strictly self
     const body = await req.json().catch(() => ({}));

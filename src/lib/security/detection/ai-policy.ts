@@ -1,7 +1,7 @@
 export type AIActionClassification = 'READ_ONLY' | 'USER_CONFIRMATION_REQUIRED' | 'HUMAN_APPROVAL_REQUIRED' | 'PROHIBITED';
 
 export interface AIActionPolicy {
-  toolName: string;
+  toolName?: string;
   classification: AIActionClassification;
   requiresResourceOwnershipCheck: boolean;
   maxCallsPerTurn: number;
