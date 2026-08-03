@@ -59,10 +59,6 @@ export const SECURITY_PERMISSIONS = {
   REPORTS_EXPORT: "security.reports.export",
   ALERTS_VIEW: "security.alerts.view",
 
-  // Compliance & Prohibited Items
-  PROHIBITED_ITEMS_REVIEW_LISTING: "compliance.prohibited_items.review",
-  PROHIBITED_ITEMS_MANAGE_POLICY: "compliance.prohibited_items.manage_policy",
-  PROHIBITED_ITEMS_MANAGE_APPEAL: "compliance.prohibited_items.manage_appeal",
   ALERTS_REVIEW: "security.alerts.review",
   EMERGENCY_ACTIVATE: "security.emergency.activate",
   FINANCE_REVIEW: "security.finance.review",
