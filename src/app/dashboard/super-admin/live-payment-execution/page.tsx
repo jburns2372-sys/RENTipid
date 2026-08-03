@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
 
 export default async function LivePaymentExecutionPage() {
   const session = await getServerSession(authOptions);
-  const role = (session?.user as any)?.role;
+  const role = (session?.user as { role?: string })?.role;
 
   if (role !== 'Super Admin') {
     redirect('/unauthorized');
@@ -30,8 +30,6 @@ export default async function LivePaymentExecutionPage() {
     IS_HTTPS: isHttps,
     PRODUCTION_DEPLOYMENT: isHttps && !isLocalhost
   };
-
-  const envReady = Object.values(envCheck).every(Boolean);
 
   // 2. Pilot & Activation Validation
   const settingsKeys = [
@@ -143,6 +141,11 @@ export default async function LivePaymentExecutionPage() {
               <li className="flex justify-between items-center border-b pb-2">
                 <span>Live Payment Method Active</span>
                 {hasLivePaymentMethod ? <span className="text-green-600 font-bold">Yes</span> : <span className="text-red-600 font-bold">No</span>}
+              </li>
+              
+              <li className="flex justify-between items-center border-b pb-2 mt-2">
+                <span>Ops Dashboard Refund Access (P19-008)</span>
+                <span className="text-orange-600 font-bold flex items-center gap-1"><AlertCircle size={14}/> Verify Manually</span>
               </li>
 
               <li className="flex justify-between items-center mt-2">

@@ -55,6 +55,17 @@ export class PaymentWebhookLogAdapter implements SecurityEventSourceAdapter<Paym
       record.payload_summary || ""
     );
 
+    const source_summary: Record<string, unknown> = {
+      headers_summary,
+      gateway_reference: record.gateway_reference,
+      verification_status: record.verification_status
+    };
+
+    // Ensure privacy: do not log payload of failed/tampered webhooks
+    if (event_code !== "WEBHOOK_FAIL") {
+      source_summary.payload_summary = payload_summary;
+    }
+
     const idempotencyPayload = `${this.sourceType}:${record.id}:${event_code}:${this.version}`;
     const idempotencyKey = crypto.createHash("sha256").update(idempotencyPayload).digest("hex");
 
@@ -77,7 +88,7 @@ export class PaymentWebhookLogAdapter implements SecurityEventSourceAdapter<Paym
       action_attempted: record.event_type,
       action_result: record.processing_status,
       
-      source_summary: { headers_summary, payload_summary, gateway_reference: record.gateway_reference, verification_status: record.verification_status },
+      source_summary,
       classification_reason,
       correlation_key: record.booking_id ? pseudonymizeTelemetryContext("booking", record.booking_id) : null,
       idempotency_key: idempotencyKey,

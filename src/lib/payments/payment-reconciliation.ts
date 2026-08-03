@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client';
-import { compareFinancials } from '@/lib/security/financial';
-import { writePaymentActionLog } from '@/lib/payments/payment-action-log-writer';
-import { processSecurityEvent } from '@/lib/security/events/event-ingestion';
-import { resolveSecurityRuntimeContext } from '@/lib/security/events/runtime-context';
-import { resolvePaymentContractCurrency } from '@/lib/payments/payment-currency-policy';
+import { compareFinancials } from '../security/financial';
+import { writePaymentActionLog } from './payment-action-log-writer';
+import { processSecurityEvent } from '../security/events/event-ingestion';
+import { resolveSecurityRuntimeContext } from '../security/events/runtime-context';
+import { resolvePaymentContractCurrency } from './payment-currency-policy';
 
 const prisma = new PrismaClient();
 
@@ -60,6 +60,12 @@ export async function processPaymentReconciliation(gatewayTransactionId: string)
       const sourceOperationId = transaction.id; // stable operation identity
 
       try {
+        // P19-010: Trigger emergency freeze on reconciliation mismatch
+        await prisma.systemSetting.updateMany({
+          where: { setting_key: 'PAYMENT_EMERGENCY_FREEZE' },
+          data: { setting_value: 'true' }
+        });
+
         const log = await prisma.$transaction(async (tx) => {
           if (comparison === "CURRENCY_MISMATCH") {
             return writePaymentActionLog(tx, {

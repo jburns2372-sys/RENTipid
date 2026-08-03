@@ -1,6 +1,6 @@
 export type SeverityLevel = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
 export type ResponseClass = 'LOG_ONLY' | 'ALERT_ADMIN' | 'REQUIRE_STEP_UP_AUTHENTICATION' | 'TEMPORARY_RATE_LIMIT' | 'FREEZE_HIGH_RISK_WORKFLOW' | 'REQUIRE_HUMAN_REVIEW';
-export type EventSourceType = 'AuthenticationSecurityLog' | 'PaymentWebhookLog' | 'PaymentActionLog' | 'ApiSecurityLog' | 'AIBotLog' | 'SystemErrorLog' | 'AuditLog' | 'SecurityEvent';
+export type EventSourceType = 'AuthenticationSecurityLog' | 'PaymentWebhookLog' | 'PaymentActionLog' | 'PaymentReconciliationLog' | 'ApiSecurityLog' | 'AIBotLog' | 'SystemErrorLog' | 'AuditLog' | 'SecurityEvent';
 
 export interface DetectionRule {
   RULE_ID: string;

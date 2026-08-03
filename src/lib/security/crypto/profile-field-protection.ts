@@ -1,3 +1,4 @@
+import { getProfileProtectionMode, ProfileProtectionMode } from './profile-protection-mode';
 import { SecretEnvelope, SecretEnvelopeService } from './secret-envelope';
 import { KeyPurpose } from './key-provider';
 
@@ -10,6 +11,7 @@ export enum ProfileFieldContext {
 export enum ProtectedValueSource {
   ENCRYPTED = 'ENCRYPTED',
   ABSENT = 'ABSENT',
+  LEGACY = 'LEGACY',
 }
 
 export interface ReadProtectedResult {
@@ -90,7 +92,14 @@ export class ProfileFieldProtection {
     }
 
     if (legacyPlaintext !== null && legacyPlaintext !== undefined) {
-       throw new ProfileFieldProtectionError('Legacy-only reads are rejected in ENCRYPTED_ONLY mode.');
+      const mode = getProfileProtectionMode();
+      if (mode === ProfileProtectionMode.ENCRYPTED_ONLY) {
+        throw new ProfileFieldProtectionError('Legacy-only reads are rejected in ENCRYPTED_ONLY mode.');
+      }
+      return {
+        value: legacyPlaintext,
+        source: ProtectedValueSource.LEGACY as any,
+      };
     }
 
     return {

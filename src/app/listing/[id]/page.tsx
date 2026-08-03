@@ -3,6 +3,7 @@ import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import { PrismaClient } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import BookingRequestForm from '@/components/bookings/BookingRequestForm';
+import { canShowMarketplaceTestData } from '@/lib/marketplace/test-data-visibility';
 
 const prisma = new PrismaClient();
 
@@ -15,7 +16,11 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
   });
 
   // Only show published listings to the public
-  if (!listing || listing.status !== 'Published') {
+  if (
+    !listing ||
+    listing.status !== 'Published' ||
+    (listing.is_test_data && !canShowMarketplaceTestData())
+  ) {
     notFound();
   }
 

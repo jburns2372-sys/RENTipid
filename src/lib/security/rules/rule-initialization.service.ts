@@ -213,7 +213,7 @@ const INITIAL_RULES: readonly RuleDefinition[] = [
     threshold_count: 50,
     window_seconds: 300,
     cooldown_seconds: 3600,
-    max_evidence_events: 20,
+    max_evidence_events: 50,
     evaluation_timeout_ms: 1000,
     correlation_subject_type: DetectionCorrelationSubject.GLOBAL,
     deduplication_strategy: DetectionDeduplicationStrategy.WINDOW_BUCKET,
@@ -280,6 +280,7 @@ export function internalValidateRuleCompatibilityAndDsl(
 
   const dslValidation = validateRuleConfiguration(ruleDef, ruleDef.evaluation_dsl);
   if (!dslValidation.valid) {
+    console.error(`INVALID DSL for ${ruleDef.rule_id}:`, dslValidation.error);
     throw new Error("INVALID_DSL");
   }
 }

@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { createHash } from 'crypto';
-import { parseToDecimal } from '@/lib/security/financial';
+import { parseToDecimal } from '../security/financial';
 
 export const PAYMENT_ACTION_CODES = ['PAYMENT_INITIALIZED', 'PAYMENT_FREEZE_BLOCKED', 'PAYMENT_AMOUNT_MISMATCH', 'PAYMENT_CURRENCY_MISMATCH'] as const;
 export const PAYMENT_ACTOR_TYPES = ['RENTER', 'SYSTEM'] as const;

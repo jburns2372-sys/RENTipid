@@ -123,8 +123,9 @@ export class AlertGeneratorService {
           result.alertsCreated++;
         } catch (e: unknown) {
           const msg = e instanceof Error ? e.message : String(e);
-          if (msg === "IDEMPOTENCY_CONFLICT" || msg === "THRESHOLD_NOT_MET" || msg === "COOLDOWN_ACTIVE") {
+          if (msg === "IDEMPOTENCY_CONFLICT" || msg === "THRESHOLD_NOT_MET" || msg === "COOLDOWN_ACTIVE" || msg === "RULE_QUARANTINED" || msg === "RULE_NO_LONGER_ACTIVE") {
             // Not an error, just skipped
+            console.log("Group skipped due to:", msg);
           } else {
             result.errors.push(`Group ${groupKey} failed: ${msg}`);
           }

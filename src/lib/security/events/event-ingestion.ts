@@ -50,7 +50,7 @@ export async function processSecurityEvent(
       normalized.action_discriminator || ""
     ]).join("|");
     const idempotencyKey = crypto.createHash("sha256").update(canonicalMaterial, "utf8").digest("hex");
-    console.log("IDEMP_KEY:", idempotencyKey, "MATERIAL:", canonicalMaterial);
+
 
     const mappedSourceType = normalized.source_type.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('');
 
@@ -63,7 +63,6 @@ export async function processSecurityEvent(
       payload: (normalized.source_summary as Record<string, unknown>) || {}
     });
 
-    console.log(`[TESTING] Eval result for ${normalized.event_code} (source: ${mappedSourceType}):`, evaluation);
 
     if (evaluation.triggered) {
         isMatched = true;
@@ -180,6 +179,7 @@ export async function processSecurityEvent(
       throw createError; // Proceed to fallback failure logging
     }
   } catch (error) {
+    console.error("ACTUAL INGESTION ERROR:", error);
     const safeErrorCode = error instanceof Error ? error.name : "UNKNOWN_ERROR";
     const sourceId = typeof record === "object" && record !== null && "id" in record ? String(record.id) : "UNKNOWN";
 

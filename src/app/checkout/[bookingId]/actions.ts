@@ -3,10 +3,10 @@
 
 import { PrismaClient } from '@prisma/client';
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
-import { gatewayRegistry } from '@/lib/payments/payment-gateway-registry';
+import { authOptions } from "../../../lib/auth";
+import { gatewayRegistry } from '../../../lib/payments/payment-gateway-registry';
 import { redirect } from 'next/navigation';
-import { resolvePaymentContractCurrency } from '@/lib/payments/payment-currency-policy';
+import { resolvePaymentContractCurrency } from '../../../lib/payments/payment-currency-policy';
 
 import { validateCheckoutRequestId, deriveCheckoutIdempotencyKey } from './checkout-helpers';
 const prisma = new PrismaClient();
@@ -34,6 +34,11 @@ export async function processCheckout(formData: FormData) {
   let serverScopedIdempotencyKey: string;
 
   if (paymentMode === 'paymongo_live_pilot') {
+    const pilotPaymentMethod = formData.get('pilot_payment_method') as string;
+    if (pilotPaymentMethod !== 'gcash' && pilotPaymentMethod !== 'card') {
+      throw new Error("Only standard GCash or standard credit cards are permitted for the live pilot.");
+    }
+
     const settingsKeys = [
       'PAYMENT_LIVE_PILOT_ENABLED',
       'PAYMENT_EMERGENCY_FREEZE',
@@ -48,10 +53,22 @@ export async function processCheckout(formData: FormData) {
     const settingsRaw = await prisma.systemSetting.findMany({ where: { setting_key: { in: settingsKeys } }});
     const s = settingsRaw.reduce((acc: Record<string, string>, curr: any) => ({ ...acc, [curr.setting_key]: curr.setting_value }), {});
 
-    const pilotMaxAmount = parseFloat(s['PILOT_MAX_AMOUNT'] || '5000');
+    const pilotMaxAmount = parseFloat(s['PILOT_MAX_AMOUNT'] || '100');
     
     const appBaseUrl = process.env.APP_BASE_URL || '';
     const isHttps = appBaseUrl.startsWith('https://') && !appBaseUrl.includes('localhost') && !appBaseUrl.includes('127.0.0.1') && !appBaseUrl.includes('0.0.0.0');
+
+    // P19-004: Hard limit of 5 total pilot transactions, max 100 PHP each
+    if (booking.estimated_total_amount > 100) {
+      throw new Error("Live pilot transaction amount exceeds 100 PHP limit.");
+    }
+
+    const livePilotTxnCount = await prisma.gatewayTransaction.count({
+      where: { provider_mode: 'Live Pilot' }
+    });
+    if (livePilotTxnCount >= 5) {
+      throw new Error("Live pilot transaction limit reached (max 5).");
+    }
 
     // Derive server-scoped idempotency digest early for authoritative telemetry tracking
     serverScopedIdempotencyKey = deriveCheckoutIdempotencyKey(user.id, booking.id, idempotencyKey);
@@ -66,7 +83,7 @@ export async function processCheckout(formData: FormData) {
 
       try {
         freezeResult = await prisma.$transaction(async (tx) => {
-          const { recordPaymentFreezeBlockedAction } = await import('@/lib/payments/payment-action-log-writer');
+          const { recordPaymentFreezeBlockedAction } = await import('../../../lib/payments/payment-action-log-writer');
           const log = await recordPaymentFreezeBlockedAction(tx, { id: booking.id }, user.id, serverScopedIdempotencyKey!);
           return {
             kind: 'PAYMENT_FREEZE_BLOCKED' as const,
@@ -93,14 +110,14 @@ export async function processCheckout(formData: FormData) {
         const _handoffTarget = freezeResult.paymentActionLogId;
         
         try {
-          const { processSecurityEvent } = await import('@/lib/security/events/event-ingestion');
+          const { processSecurityEvent } = await import('../../../lib/security/events/event-ingestion');
           const logRecord = await prisma.paymentActionLog.findUnique({
             where: { id: _handoffTarget }
           });
           if (logRecord) {
             processSecurityEvent(logRecord).catch(() => {});
           }
-        } catch (e) {
+        } catch {
           // best-effort, suppress failure
         }
         
@@ -153,7 +170,7 @@ export async function processCheckout(formData: FormData) {
         }
       });
 
-      const { recordPaymentInitializedAction } = await import('@/lib/payments/payment-action-log-writer');
+      const { recordPaymentInitializedAction } = await import('../../../lib/payments/payment-action-log-writer');
       
       await recordPaymentInitializedAction(
         tx,
@@ -231,6 +248,17 @@ export async function processCheckout(formData: FormData) {
           where: { id: transaction.id },
           data: { gateway_status: 'Error', raw_event_summary: msg }
         });
+
+        if (
+          msg.includes('500') || msg.includes('502') || msg.includes('503') || 
+          msg.includes('504') || msg.includes('5xx') || msg.toLowerCase().includes('timeout')
+        ) {
+          await prisma.systemSetting.updateMany({
+            where: { setting_key: 'PAYMENT_EMERGENCY_FREEZE' },
+            data: { setting_value: 'true' }
+          });
+        }
+
         throw e;
       }
     }

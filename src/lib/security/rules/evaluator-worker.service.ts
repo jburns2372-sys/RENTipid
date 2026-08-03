@@ -361,7 +361,7 @@ async function processBatchTransaction(
     try {
       const isMatch = evaluateRuleDsl(dslPayload, event);
       outcome = isMatch ? RuleEvaluationOutcome.MATCH : RuleEvaluationOutcome.NO_MATCH;
-    } catch {
+    } catch (e: unknown) {
       outcome = RuleEvaluationOutcome.ERROR;
       errorCode = "RULE_VALIDATION_FAILED";
     }
