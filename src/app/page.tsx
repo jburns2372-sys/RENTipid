@@ -41,14 +41,14 @@ export default async function Home() {
             A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.
           </p>
 
-          {/* Search Bar */}
+                    {/* Search Bar */}
           <form action="/browse" method="GET" className="bg-white p-2 rounded-full shadow-lg border max-w-2xl mx-auto flex items-center mb-10">
             <div className="flex-1 px-4 text-left">
-              <label htmlFor="category" className="block text-xs font-semibold text-gray-800 cursor-pointer">What are you looking for?</label>
+              <label htmlFor="q" className="block text-xs font-semibold text-gray-800 cursor-pointer">What are you looking for?</label>
               <input
                 type="text"
-                id="category"
-                name="category"
+                id="q"
+                name="q"
                 placeholder="Tools, vehicles, venues..."
                 className="w-full text-sm text-gray-800 placeholder-gray-400 focus:outline-none bg-transparent"
               />
@@ -78,8 +78,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
-      {/* Category Preview */}
+{/* Category Preview */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold mb-8 text-center">Popular Categories</h2>
