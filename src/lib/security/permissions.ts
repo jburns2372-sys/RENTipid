@@ -58,10 +58,23 @@ export const SECURITY_PERMISSIONS = {
   EVIDENCE_VIEW: "security.evidence.view",
   REPORTS_EXPORT: "security.reports.export",
   ALERTS_VIEW: "security.alerts.view",
+
+  // Compliance & Prohibited Items
+  PROHIBITED_ITEMS_REVIEW_LISTING: "compliance.prohibited_items.review",
+  PROHIBITED_ITEMS_MANAGE_POLICY: "compliance.prohibited_items.manage_policy",
+  PROHIBITED_ITEMS_MANAGE_APPEAL: "compliance.prohibited_items.manage_appeal",
   ALERTS_REVIEW: "security.alerts.review",
   EMERGENCY_ACTIVATE: "security.emergency.activate",
   FINANCE_REVIEW: "security.finance.review",
   COMPLIANCE_REVIEW: "security.compliance.review",
+  
+  // Prohibited Items Module
+  PROHIBITED_ITEMS_REVIEW_LISTING: "prohibited_items.review_listing",
+  PROHIBITED_ITEMS_TAKE_DOWN_LISTING: "prohibited_items.take_down_listing",
+  PROHIBITED_ITEMS_MANAGE_POLICY: "prohibited_items.manage_policy",
+  PROHIBITED_ITEMS_MANAGE_APPEAL: "prohibited_items.manage_appeal",
+  PROHIBITED_ITEMS_VIEW_SENSITIVE_EVIDENCE: "prohibited_items.view_sensitive_evidence",
+  PROHIBITED_ITEMS_APPROVE_POLICY_CHANGE: "prohibited_items.approve_policy_change",
 } as const;
 
 export type SecurityPermission = typeof SECURITY_PERMISSIONS[keyof typeof SECURITY_PERMISSIONS];
@@ -143,6 +156,15 @@ export function getPhase1PermissionsForRole(role: string): SecurityPermission[] 
         ...SOC_RESPONSE_PERMISSIONS,
         SECURITY_PERMISSIONS.RESPONSE_VIEW,
         SECURITY_PERMISSIONS.RESPONSE_ROLLBACK,
+        SECURITY_PERMISSIONS.SIMULATIONS_RUN,
+        SECURITY_PERMISSIONS.REPORTS_EXPORT,
+        
+        SECURITY_PERMISSIONS.PROHIBITED_ITEMS_REVIEW_LISTING,
+        SECURITY_PERMISSIONS.PROHIBITED_ITEMS_TAKE_DOWN_LISTING,
+        SECURITY_PERMISSIONS.PROHIBITED_ITEMS_MANAGE_POLICY,
+        SECURITY_PERMISSIONS.PROHIBITED_ITEMS_MANAGE_APPEAL,
+        SECURITY_PERMISSIONS.PROHIBITED_ITEMS_VIEW_SENSITIVE_EVIDENCE,
+        SECURITY_PERMISSIONS.PROHIBITED_ITEMS_APPROVE_POLICY_CHANGE,
       ];
     case "SOC_ANALYST":
       return [
@@ -164,9 +186,17 @@ export function getPhase1PermissionsForRole(role: string): SecurityPermission[] 
         ...SOC_RESPONSE_PERMISSIONS,
         SECURITY_PERMISSIONS.RESPONSE_VIEW,
       ];
+    case "Compliance Admin":
+      return [
+        SECURITY_PERMISSIONS.PROHIBITED_ITEMS_REVIEW_LISTING,
+        SECURITY_PERMISSIONS.PROHIBITED_ITEMS_TAKE_DOWN_LISTING,
+        SECURITY_PERMISSIONS.PROHIBITED_ITEMS_MANAGE_POLICY,
+        SECURITY_PERMISSIONS.PROHIBITED_ITEMS_MANAGE_APPEAL,
+        SECURITY_PERMISSIONS.PROHIBITED_ITEMS_VIEW_SENSITIVE_EVIDENCE,
+        SECURITY_PERMISSIONS.PROHIBITED_ITEMS_APPROVE_POLICY_CHANGE,
+      ];
     case "Admin":
     case "Finance Admin":
-    case "Compliance Admin":
     case "Guest":
     case "Renter":
     case "Individual Provider":
