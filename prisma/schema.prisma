@@ -2048,3 +2048,131 @@ model SecurityEventGeoEnrichment {
   @@index([country_code])
   @@index([ip_fingerprint])
 }
+
+model ProhibitedItemPolicy {
+  id                         String   @id @default(uuid())
+  policyCode                 String   @unique
+  name                       String
+  slug                       String   @unique
+  summary                    String
+  fullDescription            String
+  classification             String
+  riskLevel                  String
+  enforcementAction          String
+  examples                   String
+  prohibitedKeywords         String
+  reviewKeywords             String
+  exclusions                 String
+  regulator                  String?
+  legalReference             String?
+  publicGuidance             String?
+  internalGuidance           String?
+  automaticBlockEnabled      Boolean  @default(false)
+  manualReviewRequired       Boolean  @default(false)
+  securityEscalationRequired Boolean  @default(false)
+  accountEnforcementEligible Boolean  @default(false)
+  isActive                   Boolean  @default(true)
+  effectiveFrom              DateTime
+  effectiveUntil             DateTime?
+  policyVersion              String
+  displayOrder               Int      @default(0)
+  created_at                 DateTime @default(now())
+  updated_at                 DateTime @updatedAt
+  createdByUserId            String?
+  updatedByUserId            String?
+
+  listingPolicyEvaluations   ListingPolicyEvaluation[]
+  listingEnforcementCases    ListingEnforcementCase[]
+  policyChangeRecords        PolicyChangeRecord[]
+}
+
+model ListingPolicyEvaluation {
+  id                       String   @id @default(uuid())
+  listingId                String
+  providerUserId           String
+  evaluationSource         String
+  policyVersion            String
+  submittedTitle           String
+  submittedDescriptionHash String
+  matchedPolicyId          String?
+  matchedTerms             String
+  riskScore                Int
+  classification           String
+  decision                 String
+  reasonCode               String
+  userSafeReason           String
+  internalReason           String
+  rulesEngineVersion       String
+  modelName                String?
+  confidence               Float?
+  requiresManualReview     Boolean  @default(false)
+  evaluatedAt              DateTime @default(now())
+  resolvedAt               DateTime?
+  resolvedByUserId         String?
+
+  matchedPolicy            ProhibitedItemPolicy? @relation(fields: [matchedPolicyId], references: [id])
+  listingEnforcementCases  ListingEnforcementCase[]
+}
+
+model ListingEnforcementCase {
+  id                String   @id @default(uuid())
+  caseNumber        String   @unique
+  listingId         String
+  userId            String
+  evaluationId      String
+  policyId          String
+  caseStatus        String
+  severity          String
+  enforcementAction String
+  evidenceReference String?
+  internalNotes     String?
+  userNotice        String?
+  assignedToUserId  String?
+  openedAt          DateTime @default(now())
+  resolvedAt        DateTime?
+  resolvedByUserId  String?
+  resolution        String?
+  appealEligible    Boolean  @default(false)
+  appealDeadline    DateTime?
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+
+  evaluation        ListingPolicyEvaluation @relation(fields: [evaluationId], references: [id])
+  policy            ProhibitedItemPolicy    @relation(fields: [policyId], references: [id])
+  appeals           ListingPolicyAppeal[]
+}
+
+model ListingPolicyAppeal {
+  id                   String   @id @default(uuid())
+  enforcementCaseId    String
+  appellantUserId      String
+  appealReason         String
+  supportingStatement  String
+  submittedDocumentIds String
+  status               String
+  reviewerUserId       String?
+  reviewerDecision     String?
+  reviewerNotes        String?
+  submittedAt          DateTime @default(now())
+  reviewedAt           DateTime?
+  created_at           DateTime @default(now())
+  updated_at           DateTime @updatedAt
+
+  enforcementCase      ListingEnforcementCase @relation(fields: [enforcementCaseId], references: [id])
+}
+
+model PolicyChangeRecord {
+  id               String   @id @default(uuid())
+  policyId         String
+  previousVersion  String
+  newVersion       String
+  changeType       String
+  changeSummary    String
+  previousValues   String
+  newValues        String
+  changedByUserId  String
+  approvedByUserId String?
+  changedAt        DateTime @default(now())
+
+  policy           ProhibitedItemPolicy @relation(fields: [policyId], references: [id])
+}
