@@ -16,6 +16,11 @@ export interface NormalizedAddress {
   validationLevel: string | null;
   manuallyEdited: boolean;
   validatedAt: string | null;
+  // Philippine PSGC canonical codes (nullable for non-PH)
+  regionPsgcCode?: string | null;
+  provincePsgcCode?: string | null;
+  localityPsgcCode?: string | null;
+  sublocalityPsgcCode?: string | null;
 }
 
 export interface AddressSuggestion {
@@ -58,6 +63,11 @@ export const addressSchema = z.object({
   manuallyEdited: z.boolean(),
   validatedAt: z.string().datetime().nullable().optional(),
   selectionToken: z.string().max(8192).optional(),
+  // Philippine PSGC codes
+  regionPsgcCode: z.string().regex(/^\d{10}$/).nullable().optional(),
+  provincePsgcCode: z.string().regex(/^\d{10}$/).nullable().optional(),
+  localityPsgcCode: z.string().regex(/^\d{10}$/).nullable().optional(),
+  sublocalityPsgcCode: z.string().regex(/^\d{10}$/).nullable().optional(),
 }).strict();
 
 export const tokenPayloadSchema = addressSchema.omit({ selectionToken: true }).extend({

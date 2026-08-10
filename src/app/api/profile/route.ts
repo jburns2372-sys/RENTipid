@@ -9,6 +9,7 @@ import { ProfileFieldProtection, ProfileFieldContext } from '@/lib/security/cryp
 import { AddressService } from '@/lib/address/AddressService';
 import { AddressTokenService } from '@/lib/address/address-token';
 import { COUNTRIES } from '@/lib/address/countryRegistry';
+import { PsgcService } from '@/lib/address/psgc/psgc-service';
 
 const profileUpdateSchema = z.object({
   first_name: z.string().trim().optional().nullable(),
@@ -95,6 +96,11 @@ interface ProcessedAddressPayload {
   validationLevel: string | null;
   manuallyEdited: boolean;
   validatedAt: Date | null;
+  // Philippine PSGC codes
+  regionPsgcCode: string | null;
+  provincePsgcCode: string | null;
+  localityPsgcCode: string | null;
+  sublocalityPsgcCode: string | null;
   _legacyFormatted?: string;
   _legacyPlaintext?: {
     city?: string;
@@ -156,6 +162,11 @@ function processAddressPayload(clientAddressData: z.infer<typeof addressSchema>,
     validationLevel,
     manuallyEdited: clientAddressData.manuallyEdited ?? true,
     validatedAt: provider === 'MANUAL' ? null : (sourceData.validatedAt ? new Date(sourceData.validatedAt) : null),
+    // Philippine PSGC codes — passed through from client, validated server-side in PATCH
+    regionPsgcCode: clientAddressData.regionPsgcCode || null,
+    provincePsgcCode: clientAddressData.provincePsgcCode || null,
+    localityPsgcCode: clientAddressData.localityPsgcCode || null,
+    sublocalityPsgcCode: clientAddressData.sublocalityPsgcCode || null,
     _legacyFormatted: typeof sourceData.formattedAddress === 'string' ? sourceData.formattedAddress : undefined,
     _legacyPlaintext: {
       city: typeof sourceData.locality === 'string' ? sourceData.locality : undefined,
@@ -165,6 +176,31 @@ function processAddressPayload(clientAddressData: z.infer<typeof addressSchema>,
         : undefined,
     }
   };
+}
+
+async function validatePsgcFields(payload: ProcessedAddressPayload | null): Promise<string | null> {
+  if (!payload || payload.countryCode !== 'PH') return null;
+
+  const { localityPsgcCode, sublocalityPsgcCode } = payload;
+  
+  if (!localityPsgcCode) {
+    return 'Philippine address requires a valid City or Municipality.';
+  }
+  if (!sublocalityPsgcCode) {
+    return 'Philippine address requires a valid Barangay or District.';
+  }
+
+  const isValidCity = await PsgcService.validateCity(localityPsgcCode);
+  if (!isValidCity) {
+    return 'The selected City/Municipality is invalid or inactive.';
+  }
+
+  const isValidBarangay = await PsgcService.validateBarangayBelongsToCity(sublocalityPsgcCode, localityPsgcCode);
+  if (!isValidBarangay) {
+    return 'The selected Barangay is invalid or does not belong to the selected City/Municipality.';
+  }
+
+  return null;
 }
 
 export async function PATCH(req: Request) {
@@ -233,6 +269,12 @@ export async function PATCH(req: Request) {
           userProfileData.province = userAddressPayload._legacyPlaintext.province;
           userProfileData.country = userAddressPayload._legacyPlaintext.country;
         }
+        
+        const psgcError = await validatePsgcFields(userAddressPayload);
+        if (psgcError) {
+          return NextResponse.json({ error: psgcError }, { status: 400 });
+        }
+
         if (userAddressPayload) {
           delete userAddressPayload._legacyFormatted;
           delete userAddressPayload._legacyPlaintext;
@@ -255,6 +297,12 @@ export async function PATCH(req: Request) {
         if (businessAddressPayload?._legacyFormatted) {
           businessProfileData.business_address_encrypted = ProfileFieldProtection.protect(businessAddressPayload._legacyFormatted, ProfileFieldContext.BUSINESS_ADDRESS);
         }
+
+        const psgcError = await validatePsgcFields(businessAddressPayload);
+        if (psgcError) {
+          return NextResponse.json({ error: psgcError }, { status: 400 });
+        }
+
         if (businessAddressPayload) {
           delete businessAddressPayload._legacyFormatted;
           delete businessAddressPayload._legacyPlaintext;

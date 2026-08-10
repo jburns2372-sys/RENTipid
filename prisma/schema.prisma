@@ -125,8 +125,33 @@ model Address {
   manuallyEdited                Boolean   @default(false)
   validatedAt                   DateTime?
 
+  // Philippine PSGC canonical codes (nullable for non-PH addresses)
+  regionPsgcCode      String?
+  provincePsgcCode    String?
+  localityPsgcCode    String?
+  sublocalityPsgcCode String?
+
   userProfile     UserProfile?
   businessProfile BusinessProfile?
+}
+
+model PsgcSubdivision {
+  id              String   @id @default(cuid())
+  psgcCode        String   @unique
+  name            String
+  geographicLevel String   // REGION, PROVINCE, CITY, MUNICIPALITY, SUB_MUNICIPALITY, BARANGAY
+  parentPsgcCode  String?
+  isActive        Boolean  @default(true)
+  source          String   @default("PSA_PSGC")
+  sourceVersion   String
+  syncedAt        DateTime @default(now())
+
+  parent   PsgcSubdivision?  @relation("PsgcHierarchy", fields: [parentPsgcCode], references: [psgcCode])
+  children PsgcSubdivision[] @relation("PsgcHierarchy")
+
+  @@index([parentPsgcCode, geographicLevel])
+  @@index([geographicLevel, name])
+  @@index([geographicLevel, isActive])
 }
 
 model AddressApiRateLimit {
