@@ -61,6 +61,10 @@ describe('Address Transaction & Dual-Write Behavior', () => {
       validationLevel: null,
       manuallyEdited: false,
       validatedAt: null,
+      regionPsgcCode: '1300000000',
+      provincePsgcCode: null,
+      localityPsgcCode: '1381300000',
+      sublocalityPsgcCode: '1381300139',
       expiresAt: Date.now() + 100000,
     };
     
@@ -86,6 +90,10 @@ describe('Address Transaction & Dual-Write Behavior', () => {
           validationStatus: tokenPayload.validationStatus,
           validationLevel: tokenPayload.validationLevel,
           manuallyEdited: tokenPayload.manuallyEdited,
+          regionPsgcCode: tokenPayload.regionPsgcCode,
+          provincePsgcCode: tokenPayload.provincePsgcCode,
+          localityPsgcCode: tokenPayload.localityPsgcCode,
+          sublocalityPsgcCode: tokenPayload.sublocalityPsgcCode,
           selectionToken: token,
         }
       })

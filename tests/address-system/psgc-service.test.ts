@@ -1,5 +1,4 @@
 import { PsgcService } from '../../src/lib/address/psgc/psgc-service';
-import { prisma } from '../../src/lib/prisma';
 
 describe('PSGC Service', () => {
   // We assume the DB is already populated via psgc-sync script before tests run

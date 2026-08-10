@@ -80,6 +80,10 @@ describe('Profile Address IDOR & State Tests', () => {
       validationLevel: null,
       manuallyEdited: false,
       validatedAt: null,
+      regionPsgcCode: '1300000000',
+      provincePsgcCode: null,
+      localityPsgcCode: '1381300000',
+      sublocalityPsgcCode: '1381300139',
       expiresAt: Date.now() + 100000,
     };
     
@@ -104,6 +108,10 @@ describe('Profile Address IDOR & State Tests', () => {
         validationLevel: payload.validationLevel,
         manuallyEdited: payload.manuallyEdited,
         validatedAt: null,
+        regionPsgcCode: payload.regionPsgcCode,
+        provincePsgcCode: payload.provincePsgcCode,
+        localityPsgcCode: payload.localityPsgcCode,
+        sublocalityPsgcCode: payload.sublocalityPsgcCode,
       }
     };
   };

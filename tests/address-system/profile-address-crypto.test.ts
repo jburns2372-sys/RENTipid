@@ -23,6 +23,10 @@ describe('Address Crypto Round-trip & Tamper Tests', () => {
       validationLevel: null,
       manuallyEdited: true,
       validatedAt: null,
+      regionPsgcCode: '1300000000',
+      provincePsgcCode: null,
+      localityPsgcCode: '1381300000',
+      sublocalityPsgcCode: '1381300139',
     };
 
     const normalized = AddressService.readNormalizedAddress(dbAddress);
@@ -40,6 +44,10 @@ describe('Address Crypto Round-trip & Tamper Tests', () => {
     expect(normalized!.latitude).toBe(40.7128);
     expect(normalized!.longitude).toBe(-74.0060);
     expect(normalized!.provider).toBe('MANUAL');
+    expect(normalized!.regionPsgcCode).toBe('1300000000');
+    expect(normalized!.provincePsgcCode).toBeNull();
+    expect(normalized!.localityPsgcCode).toBe('1381300000');
+    expect(normalized!.sublocalityPsgcCode).toBe('1381300139');
   });
 
   it('should survive coordinate 0,0 accurately', () => {
@@ -61,6 +69,10 @@ describe('Address Crypto Round-trip & Tamper Tests', () => {
     expect(normalized).not.toBeNull();
     expect(normalized!.latitude).toBe(0);
     expect(normalized!.longitude).toBe(0);
+    expect(normalized!.regionPsgcCode).toBeNull();
+    expect(normalized!.provincePsgcCode).toBeNull();
+    expect(normalized!.localityPsgcCode).toBeNull();
+    expect(normalized!.sublocalityPsgcCode).toBeNull();
   });
 
   it('should reject tampered encrypted fields (return null)', () => {

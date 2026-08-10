@@ -14,7 +14,14 @@
     "test:db:setup": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- prisma db push",
     "test:db:migrate": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- prisma migrate deploy",
     "test:db:reset": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- prisma migrate reset --force",
-    "test:soc:integration": "npm run test:db:guard && cross-env NODE_ENV=test SECURITY_TELEMETRY_HMAC_KEY=0123456789abcdef0123456789abcdef SOC_CORRELATION_HMAC_KEY=0123456789abcdef0123456789abcdef dotenv -e .env.test.local -e .env.test -- jest --runInBand"
+    "test:soc:integration": "npm run test:db:guard && cross-env NODE_ENV=test SECURITY_TELEMETRY_HMAC_KEY=0123456789abcdef0123456789abcdef SOC_CORRELATION_HMAC_KEY=0123456789abcdef0123456789abcdef dotenv -e .env.test.local -e .env.test -- jest --runInBand",
+    "address:local:bootstrap": "tsx scripts/address-local-bootstrap.ts",
+    "app:local:bootstrap": "tsx scripts/address-local-bootstrap.ts",
+    "app:verify:local": "tsx scripts/app-verify.ts local",
+    "app:verify:preview": "tsx scripts/app-verify.ts preview",
+    "app:verify:production-readiness": "tsx scripts/app-verify.ts production-readiness",
+    "app:release:gate": "tsx scripts/app-release-gate.ts",
+    "app:acceptance:local": "tsx scripts/run-local-address-acceptance.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

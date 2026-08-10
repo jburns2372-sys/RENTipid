@@ -64,7 +64,7 @@ export async function POST(req: Request) {
       event: "Address Details Error",
       stage: "ROUTE_HANDLER_CATCH",
       errorType: err instanceof Error ? err.name : typeof err,
-      errorCode: err instanceof Error ? err.message : 'Unknown'
+      errorCode: 'UNHANDLED_PROVIDER_ERROR'
     };
     console.error(JSON.stringify(safeError));
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

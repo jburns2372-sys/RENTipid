@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useId, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useId, useCallback, useMemo } from 'react';
 
 interface BarangayOption {
   psgcCode: string;
@@ -24,12 +24,14 @@ export const BarangaySelect: React.FC<BarangaySelectProps> = ({
   googleSublocalityHint,
   disabled,
 }) => {
-  const [barangays, setBarangays] = useState<BarangayOption[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loadedBarangays, setLoadedBarangays] = useState<{
+    cityPsgcCode: string | null;
+    items: BarangayOption[];
+  }>({ cityPsgcCode: null, items: [] });
   const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [highlightIndex, setHighlightIndex] = useState(-1);
-  const [autoMatchAttempted, setAutoMatchAttempted] = useState(false);
+  const autoMatchKeyRef = useRef<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
@@ -39,38 +41,42 @@ export const BarangaySelect: React.FC<BarangaySelectProps> = ({
 
   // Fetch barangays when city changes
   useEffect(() => {
-    if (!cityPsgcCode) {
-      setBarangays([]);
-      setAutoMatchAttempted(false);
-      return;
-    }
+    if (!cityPsgcCode) return;
 
     let cancelled = false;
-    setLoading(true);
-    setAutoMatchAttempted(false);
+    const requestedCityCode = cityPsgcCode;
 
-    fetch(`/api/address/ph/barangays?cityPsgcCode=${cityPsgcCode}`)
+    fetch(`/api/address/ph/barangays?cityPsgcCode=${requestedCityCode}`)
       .then(res => res.ok ? res.json() : Promise.reject('Failed'))
       .then(data => {
         if (!cancelled) {
-          setBarangays(data.barangays || []);
-          setLoading(false);
+          setLoadedBarangays({
+            cityPsgcCode: requestedCityCode,
+            items: data.barangays || [],
+          });
         }
       })
       .catch(() => {
         if (!cancelled) {
-          setBarangays([]);
-          setLoading(false);
+          setLoadedBarangays({ cityPsgcCode: requestedCityCode, items: [] });
         }
       });
 
     return () => { cancelled = true; };
   }, [cityPsgcCode]);
 
+  const barangays = useMemo(
+    () => loadedBarangays.cityPsgcCode === cityPsgcCode ? loadedBarangays.items : [],
+    [cityPsgcCode, loadedBarangays],
+  );
+  const loading = Boolean(cityPsgcCode && loadedBarangays.cityPsgcCode !== cityPsgcCode);
+
   // Auto-match Google hint when barangays load
   useEffect(() => {
-    if (autoMatchAttempted || !googleSublocalityHint || barangays.length === 0 || value) return;
-    setAutoMatchAttempted(true);
+    if (!cityPsgcCode || !googleSublocalityHint || barangays.length === 0 || value) return;
+    const autoMatchKey = `${cityPsgcCode}:${googleSublocalityHint}`;
+    if (autoMatchKeyRef.current === autoMatchKey) return;
+    autoMatchKeyRef.current = autoMatchKey;
 
     const normalizeForMatch = (s: string) =>
       s.trim().toLowerCase()
@@ -85,7 +91,7 @@ export const BarangaySelect: React.FC<BarangaySelectProps> = ({
     if (matches.length === 1) {
       onChange(matches[0].psgcCode, matches[0].name);
     }
-  }, [barangays, googleSublocalityHint, autoMatchAttempted, value, onChange]);
+  }, [barangays, cityPsgcCode, googleSublocalityHint, value, onChange]);
 
   // Close dropdown on outside click
   useEffect(() => {

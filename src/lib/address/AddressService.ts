@@ -75,6 +75,10 @@ export class AddressService {
       validationStatus: address.validationStatus as string,
       validationLevel: address.validationLevel as string | null,
       manuallyEdited: address.manuallyEdited as boolean,
+      regionPsgcCode: typeof address.regionPsgcCode === 'string' ? address.regionPsgcCode : null,
+      provincePsgcCode: typeof address.provincePsgcCode === 'string' ? address.provincePsgcCode : null,
+      localityPsgcCode: typeof address.localityPsgcCode === 'string' ? address.localityPsgcCode : null,
+      sublocalityPsgcCode: typeof address.sublocalityPsgcCode === 'string' ? address.sublocalityPsgcCode : null,
     } as NormalizedAddress;
   }
 }

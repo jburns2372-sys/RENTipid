@@ -21,7 +21,10 @@ export const PhCitySelect: React.FC<PhCitySelectProps> = ({
   onChange,
   disabled,
 }) => {
-  const [cities, setCities] = useState<CityOption[]>([]);
+  const [cityResults, setCityResults] = useState<{
+    query: string;
+    items: CityOption[];
+  }>({ query: '', items: [] });
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -29,31 +32,31 @@ export const PhCitySelect: React.FC<PhCitySelectProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const uniqueId = useId();
   const selectId = `ph-city-select-${uniqueId}`;
   const listboxId = `ph-city-listbox-${uniqueId}`;
+  const normalizedSearch = search.trim();
+  const cities = cityResults.query === normalizedSearch ? cityResults.items : [];
 
   // Debounced search
   useEffect(() => {
     if (value) return; // Don't search if already selected
-    if (search.trim().length < 2) {
-      setCities([]);
-      return;
-    }
+    if (normalizedSearch.length < 2) return;
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
 
     debounceRef.current = setTimeout(() => {
       setLoading(true);
-      fetch(`/api/address/ph/cities?search=${encodeURIComponent(search.trim())}`)
+      const requestedQuery = normalizedSearch;
+      fetch(`/api/address/ph/cities?search=${encodeURIComponent(requestedQuery)}`)
         .then(res => res.ok ? res.json() : Promise.reject('Failed'))
         .then(data => {
-          setCities(data.cities || []);
+          setCityResults({ query: requestedQuery, items: data.cities || [] });
           setLoading(false);
         })
         .catch(() => {
-          setCities([]);
+          setCityResults({ query: requestedQuery, items: [] });
           setLoading(false);
         });
     }, 300);
@@ -61,7 +64,7 @@ export const PhCitySelect: React.FC<PhCitySelectProps> = ({
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [search, value]);
+  }, [normalizedSearch, value]);
 
   // Close on outside click
   useEffect(() => {
