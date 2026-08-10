@@ -6,6 +6,16 @@ export enum ProfileFieldContext {
   USER_ADDRESS = 'rentipid.profile.user.address.v1',
   BUSINESS_ADDRESS = 'rentipid.profile.business.address.v1',
   BUSINESS_REGISTRATION_NUMBER = 'rentipid.profile.business.registration-number.v1',
+  ADDRESS_LINE_1 = 'rentipid.profile.address.line1.v1',
+  ADDRESS_LINE_2 = 'rentipid.profile.address.line2.v1',
+  ADDRESS_SUBLOCALITY = 'rentipid.profile.address.sublocality.v1',
+  ADDRESS_LOCALITY = 'rentipid.profile.address.locality.v1',
+  ADDRESS_ADMIN_AREA_1 = 'rentipid.profile.address.adminArea1.v1',
+  ADDRESS_ADMIN_AREA_2 = 'rentipid.profile.address.adminArea2.v1',
+  ADDRESS_POSTAL_CODE = 'rentipid.profile.address.postalCode.v1',
+  ADDRESS_FORMATTED = 'rentipid.profile.address.formatted.v1',
+  ADDRESS_LATITUDE = 'rentipid.profile.address.latitude.v1',
+  ADDRESS_LONGITUDE = 'rentipid.profile.address.longitude.v1',
 }
 
 export enum ProtectedValueSource {
@@ -98,7 +108,7 @@ export class ProfileFieldProtection {
       }
       return {
         value: legacyPlaintext,
-        source: ProtectedValueSource.LEGACY as any,
+        source: ProtectedValueSource.LEGACY,
       };
     }
 

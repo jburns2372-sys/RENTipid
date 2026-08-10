@@ -19,7 +19,7 @@ export function assertSafeLocalTestDatabaseTarget() {
   let dbUrl: URL;
   try {
     dbUrl = new URL(dbUrlStr);
-  } catch (e) {
+  } catch {
     throw new Error('DATABASE_SAFETY_GUARD_REJECTED_TARGET: DATABASE_URL malformed');
   }
 
@@ -38,8 +38,8 @@ export function assertSafeLocalTestDatabaseTarget() {
     throw new Error('DATABASE_SAFETY_GUARD_REJECTED_TARGET: Database name is rentipid_db');
   }
 
-  if (dbName !== 'rentipid_test_soc') {
-    throw new Error('DATABASE_SAFETY_GUARD_REJECTED_TARGET: Database name is not exactly rentipid_test_soc');
+  if (!dbName.startsWith('rentipid_test_soc_')) {
+    throw new Error('DATABASE_SAFETY_GUARD_REJECTED_TARGET: Database name must start with rentipid_test_soc_ for disposable testing');
   }
 
   if (!dbName.includes('test')) {
@@ -50,7 +50,7 @@ export function assertSafeLocalTestDatabaseTarget() {
     let directUrl: URL;
     try {
       directUrl = new URL(directUrlStr);
-    } catch (e) {
+    } catch {
       throw new Error('DATABASE_SAFETY_GUARD_REJECTED_TARGET: DIRECT_URL malformed');
     }
     

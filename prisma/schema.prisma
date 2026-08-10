@@ -75,12 +75,19 @@ model User {
   reviewed_approvals    SecurityResponseApprovalRequest[]  @relation("ApprovalReviewer")
   approval_decisions    SecurityResponseApprovalDecision[] @relation("ApprovalDecisionActor")
   revoked_grants        SecurityResponseApprovalGrant[]    @relation("GrantRevoker")
+
+  // Privacy Module v1
+  cookie_consents   CookieConsentReceipt[]
+  dsr_requests      DataSubjectRequest[]   @relation("DSRRequester")
+  dsr_assignments   DataSubjectRequest[]   @relation("DSRAssignee")
+  created_policies  PrivacyPolicyVersion[] @relation("PolicyAuthor")
+  approved_policies PrivacyPolicyVersion[] @relation("PolicyApprover")
 }
 
 model UserMfa {
   id                      String    @id @default(cuid())
   user_id                 String    @unique
-  status                  String    // "DISABLED" | "ENROLLMENT_PENDING" | "ENABLED" | "RECOVERY_REQUIRED"
+  status                  String // "DISABLED" | "ENROLLMENT_PENDING" | "ENABLED" | "RECOVERY_REQUIRED"
   envelope_version        String
   envelope_algorithm      String
   envelope_key_id         String
@@ -98,10 +105,45 @@ model UserMfa {
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
+model Address {
+  id                            String    @id @default(cuid())
+  addressLine1_encrypted        String?
+  addressLine2_encrypted        String?
+  sublocality_encrypted         String?
+  locality_encrypted            String?
+  administrativeArea2_encrypted String?
+  administrativeArea1_encrypted String?
+  postalCode_encrypted          String?
+  countryCode                   String?
+  formattedAddress_encrypted    String?
+  latitude_encrypted            String?
+  longitude_encrypted           String?
+  provider                      String    @default("MANUAL")
+  providerPlaceId               String?
+  validationStatus              String    @default("UNVERIFIED")
+  validationLevel               String?
+  manuallyEdited                Boolean   @default(false)
+  validatedAt                   DateTime?
+
+  userProfile     UserProfile?
+  businessProfile BusinessProfile?
+}
+
+model AddressApiRateLimit {
+  key       String   @id
+  points    Int      @default(0)
+  resetAt   DateTime
+
+  @@index([resetAt])
+}
+
 model UserProfile {
   id                  String  @id @default(cuid())
   user_id             String  @unique
   user                User    @relation(fields: [user_id], references: [id])
+  first_name          String?
+  last_name           String?
+  display_name        String?
   address             String?
   address_encrypted   String?
   city                String?
@@ -110,19 +152,25 @@ model UserProfile {
   profile_photo       String?
   verification_status String // "Unverified" | "Pending" | "Verified" | "Rejected"
   trust_score         Int     @default(0)
+
+  global_address_id String?  @unique
+  global_address    Address? @relation(fields: [global_address_id], references: [id])
 }
 
 model BusinessProfile {
-  id                           String  @id @default(cuid())
-  user_id                      String  @unique
-  user                         User    @relation(fields: [user_id], references: [id])
-  business_name                String
-  business_registration_number String?
+  id                                     String  @id @default(cuid())
+  user_id                                String  @unique
+  user                                   User    @relation(fields: [user_id], references: [id])
+  business_name                          String
+  business_registration_number           String?
   business_registration_number_encrypted String?
-  business_address             String?
-  business_address_encrypted   String?
-  authorized_representative    String?
-  verification_status          String // "Unverified" | "Pending" | "Verified" | "Rejected"
+  business_address                       String?
+  business_address_encrypted             String?
+  authorized_representative              String?
+  verification_status                    String // "Unverified" | "Pending" | "Verified" | "Rejected"
+
+  global_business_address_id String?  @unique
+  global_business_address    Address? @relation(fields: [global_business_address_id], references: [id])
 }
 
 // Category Foundation
@@ -1273,6 +1321,9 @@ model SecurityEvent {
   // SOC Incident Cases
   primary_incident_cases IncidentCase[] @relation("OriginatingSecurityEvent")
 
+  behavioral_evidence_links BehavioralRiskEvidenceLink[]
+  geo_enrichment            SecurityEventGeoEnrichment?
+
   @@index([lifecycle_type, occurred_at, id])
   @@index([source_type, source_record_id])
   @@index([security_domain, occurred_at])
@@ -1282,9 +1333,6 @@ model SecurityEvent {
   @@index([target_user_id, occurred_at])
   @@index([target_resource_id, occurred_at])
   @@index([correlation_key, occurred_at])
-
-  behavioral_evidence_links BehavioralRiskEvidenceLink[]
-  geo_enrichment            SecurityEventGeoEnrichment?
 }
 
 model SecurityEventIngestionFailure {
@@ -1653,12 +1701,12 @@ model IncidentCase {
   legal_hold                    Boolean              @default(false)
   retention_until               DateTime?
 
-  histories         IncidentCaseHistory[]
-  notes             IncidentCaseNote[]
-  evidences         IncidentCaseEvidence[]
-  playbook_links    IncidentCasePlaybookLink[]
-  approval_requests SecurityResponseApprovalRequest[]
-  approval_grants   SecurityResponseApprovalGrant[]
+  histories                    IncidentCaseHistory[]
+  notes                        IncidentCaseNote[]
+  evidences                    IncidentCaseEvidence[]
+  playbook_links               IncidentCasePlaybookLink[]
+  approval_requests            SecurityResponseApprovalRequest[]
+  approval_grants              SecurityResponseApprovalGrant[]
   security_response_executions SecurityResponseExecution[]
 }
 
@@ -1790,9 +1838,9 @@ model SecurityResponsePlaybook {
   created_at     DateTime               @default(now())
   updated_at     DateTime               @updatedAt
 
-  steps             SecurityResponseStep[]
-  case_links        IncidentCasePlaybookLink[]
-  approval_requests SecurityResponseApprovalRequest[]
+  steps                        SecurityResponseStep[]
+  case_links                   IncidentCasePlaybookLink[]
+  approval_requests            SecurityResponseApprovalRequest[]
   security_response_executions SecurityResponseExecution[]
 
   @@unique([playbook_id, version])
@@ -1831,25 +1879,25 @@ model IncidentCasePlaybookLink {
 }
 
 model SecurityResponseApprovalRequest {
-  id               String                   @id @default(cuid())
+  id               String                      @id @default(cuid())
   requester_id     String
-  requester        User                     @relation("ApprovalRequester", fields: [requester_id], references: [id], onDelete: Restrict)
+  requester        User                        @relation("ApprovalRequester", fields: [requester_id], references: [id], onDelete: Restrict)
   approver_id      String?
-  approver         User?                    @relation("ApprovalReviewer", fields: [approver_id], references: [id], onDelete: SetNull)
+  approver         User?                       @relation("ApprovalReviewer", fields: [approver_id], references: [id], onDelete: SetNull)
   incident_case_id String
-  incident_case    IncidentCase             @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  incident_case    IncidentCase                @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
   playbook_id      String
   playbook_version Int
-  playbook         SecurityResponsePlaybook @relation(fields: [playbook_id, playbook_version], references: [playbook_id, version], onDelete: Restrict)
-  status           SecurityApprovalStatus   @default(PENDING)
-  justification    String                   @db.Text
+  playbook         SecurityResponsePlaybook    @relation(fields: [playbook_id, playbook_version], references: [playbook_id, version], onDelete: Restrict)
+  status           SecurityApprovalStatus      @default(PENDING)
+  justification    String                      @db.Text
   response_type    SecurityResponseActionType?
   target_type      String?
   target_id        String?
-  requested_at     DateTime                 @default(now())
+  requested_at     DateTime                    @default(now())
   decision_at      DateTime?
   expires_at       DateTime?
-  idempotency_key  String                   @unique
+  idempotency_key  String                      @unique
 
   decisions SecurityResponseApprovalDecision[]
   grants    SecurityResponseApprovalGrant[]
@@ -1889,7 +1937,7 @@ model SecurityResponseApprovalGrant {
   revoked_by_id    String?
   revoked_by       User?                           @relation("GrantRevoker", fields: [revoked_by_id], references: [id], onDelete: SetNull)
 
-  execution        SecurityResponseExecution?
+  execution SecurityResponseExecution?
 
   @@index([incident_case_id])
   @@index([grant_state, expires_at])
@@ -1907,52 +1955,52 @@ enum SecurityExecutionStatus {
 }
 
 model SecurityResponseExecution {
-  id                  String                      @id @default(cuid())
+  id                  String                        @id @default(cuid())
   incident_case_id    String
-  incident_case       IncidentCase                @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  incident_case       IncidentCase                  @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
   playbook_id         String
   playbook_version    Int
-  playbook            SecurityResponsePlaybook    @relation(fields: [playbook_id, playbook_version], references: [playbook_id, version], onDelete: Restrict)
+  playbook            SecurityResponsePlaybook      @relation(fields: [playbook_id, playbook_version], references: [playbook_id, version], onDelete: Restrict)
   approval_request_id String
-  approval_grant_id   String                      @unique
+  approval_grant_id   String                        @unique
   approval_grant      SecurityResponseApprovalGrant @relation(fields: [approval_grant_id], references: [id], onDelete: Restrict)
   response_type       SecurityResponseActionType
   target_type         String
   target_id           String
-  status              SecurityExecutionStatus     @default(PENDING)
-  idempotency_key     String                      @unique
+  status              SecurityExecutionStatus       @default(PENDING)
+  idempotency_key     String                        @unique
   requested_by_id     String
-  requested_by        User                        @relation("ExecutionRequester", fields: [requested_by_id], references: [id], onDelete: Restrict)
+  requested_by        User                          @relation("ExecutionRequester", fields: [requested_by_id], references: [id], onDelete: Restrict)
   executed_by_id      String
-  executed_by         User                        @relation("ExecutionOperator", fields: [executed_by_id], references: [id], onDelete: Restrict)
+  executed_by         User                          @relation("ExecutionOperator", fields: [executed_by_id], references: [id], onDelete: Restrict)
   started_at          DateTime?
   completed_at        DateTime?
   failed_at           DateTime?
   rolled_back_at      DateTime?
-  failure_code        String?                     @db.Text
-  lock_version        Int                         @default(0)
-  created_at          DateTime                    @default(now())
-  updated_at          DateTime                    @updatedAt
+  failure_code        String?                       @db.Text
+  lock_version        Int                           @default(0)
+  created_at          DateTime                      @default(now())
+  updated_at          DateTime                      @updatedAt
 
-  actions             SecurityResponseAction[]
+  actions SecurityResponseAction[]
 
   @@index([incident_case_id])
   @@index([status])
 }
 
 model SecurityResponseAction {
-  id                  String                    @id @default(cuid())
-  execution_id        String
-  execution           SecurityResponseExecution @relation(fields: [execution_id], references: [id], onDelete: Restrict)
-  sequence            Int
-  action_type         SecurityResponseActionType
-  target_reference    String
-  before_state        String?                   @db.Text
-  after_state         String?                   @db.Text
-  status              SecurityExecutionStatus   @default(PENDING)
-  executed_at         DateTime?
-  rolled_back_at      DateTime?
-  failure_metadata    String?                   @db.Text
+  id               String                     @id @default(cuid())
+  execution_id     String
+  execution        SecurityResponseExecution  @relation(fields: [execution_id], references: [id], onDelete: Restrict)
+  sequence         Int
+  action_type      SecurityResponseActionType
+  target_reference String
+  before_state     String?                    @db.Text
+  after_state      String?                    @db.Text
+  status           SecurityExecutionStatus    @default(PENDING)
+  executed_at      DateTime?
+  rolled_back_at   DateTime?
+  failure_metadata String?                    @db.Text
 
   @@unique([execution_id, sequence])
 }
@@ -2001,7 +2049,7 @@ model BehavioralRiskSignal {
   source_count     Int
   sort_ordinal     Int
 
-  evidence_links   BehavioralRiskEvidenceLink[]
+  evidence_links BehavioralRiskEvidenceLink[]
 
   @@unique([assessment_id, signal_code])
 }
@@ -2050,10 +2098,10 @@ model SecurityEventGeoEnrichment {
 }
 
 model ProhibitedItemPolicy {
-  id                         String   @id @default(uuid())
-  policyCode                 String   @unique
+  id                         String    @id @default(uuid())
+  policyCode                 String    @unique
   name                       String
-  slug                       String   @unique
+  slug                       String    @unique
   summary                    String
   fullDescription            String
   classification             String
@@ -2067,27 +2115,27 @@ model ProhibitedItemPolicy {
   legalReference             String?
   publicGuidance             String?
   internalGuidance           String?
-  automaticBlockEnabled      Boolean  @default(false)
-  manualReviewRequired       Boolean  @default(false)
-  securityEscalationRequired Boolean  @default(false)
-  accountEnforcementEligible Boolean  @default(false)
-  isActive                   Boolean  @default(true)
+  automaticBlockEnabled      Boolean   @default(false)
+  manualReviewRequired       Boolean   @default(false)
+  securityEscalationRequired Boolean   @default(false)
+  accountEnforcementEligible Boolean   @default(false)
+  isActive                   Boolean   @default(true)
   effectiveFrom              DateTime
   effectiveUntil             DateTime?
   policyVersion              String
-  displayOrder               Int      @default(0)
-  created_at                 DateTime @default(now())
-  updated_at                 DateTime @updatedAt
+  displayOrder               Int       @default(0)
+  created_at                 DateTime  @default(now())
+  updated_at                 DateTime  @updatedAt
   createdByUserId            String?
   updatedByUserId            String?
 
-  listingPolicyEvaluations   ListingPolicyEvaluation[]
-  listingEnforcementCases    ListingEnforcementCase[]
-  policyChangeRecords        PolicyChangeRecord[]
+  listingPolicyEvaluations ListingPolicyEvaluation[]
+  listingEnforcementCases  ListingEnforcementCase[]
+  policyChangeRecords      PolicyChangeRecord[]
 }
 
 model ListingPolicyEvaluation {
-  id                       String   @id @default(uuid())
+  id                       String    @id @default(uuid())
   listingId                String
   providerUserId           String
   evaluationSource         String
@@ -2105,18 +2153,18 @@ model ListingPolicyEvaluation {
   rulesEngineVersion       String
   modelName                String?
   confidence               Float?
-  requiresManualReview     Boolean  @default(false)
-  evaluatedAt              DateTime @default(now())
+  requiresManualReview     Boolean   @default(false)
+  evaluatedAt              DateTime  @default(now())
   resolvedAt               DateTime?
   resolvedByUserId         String?
 
-  matchedPolicy            ProhibitedItemPolicy? @relation(fields: [matchedPolicyId], references: [id])
-  listingEnforcementCases  ListingEnforcementCase[]
+  matchedPolicy           ProhibitedItemPolicy?    @relation(fields: [matchedPolicyId], references: [id])
+  listingEnforcementCases ListingEnforcementCase[]
 }
 
 model ListingEnforcementCase {
-  id                String   @id @default(uuid())
-  caseNumber        String   @unique
+  id                String    @id @default(uuid())
+  caseNumber        String    @unique
   listingId         String
   userId            String
   evaluationId      String
@@ -2128,22 +2176,22 @@ model ListingEnforcementCase {
   internalNotes     String?
   userNotice        String?
   assignedToUserId  String?
-  openedAt          DateTime @default(now())
+  openedAt          DateTime  @default(now())
   resolvedAt        DateTime?
   resolvedByUserId  String?
   resolution        String?
-  appealEligible    Boolean  @default(false)
+  appealEligible    Boolean   @default(false)
   appealDeadline    DateTime?
-  created_at        DateTime @default(now())
-  updated_at        DateTime @updatedAt
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
 
-  evaluation        ListingPolicyEvaluation @relation(fields: [evaluationId], references: [id])
-  policy            ProhibitedItemPolicy    @relation(fields: [policyId], references: [id])
-  appeals           ListingPolicyAppeal[]
+  evaluation ListingPolicyEvaluation @relation(fields: [evaluationId], references: [id])
+  policy     ProhibitedItemPolicy    @relation(fields: [policyId], references: [id])
+  appeals    ListingPolicyAppeal[]
 }
 
 model ListingPolicyAppeal {
-  id                   String   @id @default(uuid())
+  id                   String    @id @default(uuid())
   enforcementCaseId    String
   appellantUserId      String
   appealReason         String
@@ -2153,12 +2201,12 @@ model ListingPolicyAppeal {
   reviewerUserId       String?
   reviewerDecision     String?
   reviewerNotes        String?
-  submittedAt          DateTime @default(now())
+  submittedAt          DateTime  @default(now())
   reviewedAt           DateTime?
-  created_at           DateTime @default(now())
-  updated_at           DateTime @updatedAt
+  created_at           DateTime  @default(now())
+  updated_at           DateTime  @updatedAt
 
-  enforcementCase      ListingEnforcementCase @relation(fields: [enforcementCaseId], references: [id])
+  enforcementCase ListingEnforcementCase @relation(fields: [enforcementCaseId], references: [id])
 }
 
 model PolicyChangeRecord {
@@ -2174,5 +2222,63 @@ model PolicyChangeRecord {
   approvedByUserId String?
   changedAt        DateTime @default(now())
 
-  policy           ProhibitedItemPolicy @relation(fields: [policyId], references: [id])
+  policy ProhibitedItemPolicy @relation(fields: [policyId], references: [id])
+}
+
+model CookieConsentReceipt {
+  id                   String    @id @default(cuid())
+  user_id              String?
+  anonymous_consent_id String?
+  policy_version       String
+  consent_version      Int
+  necessary_enabled    Boolean
+  functional_enabled   Boolean
+  analytics_enabled    Boolean
+  marketing_enabled    Boolean
+  consent_action       String
+  source               String?
+  consented_at         DateTime  @default(now())
+  withdrawn_at         DateTime?
+  ip_address           String
+  user_agent           String
+
+  user User? @relation(fields: [user_id], references: [id])
+}
+
+model DataSubjectRequest {
+  id                           String    @id @default(cuid())
+  reference_number             String    @unique
+  user_id                      String
+  request_type                 String
+  status                       String
+  identity_verification_status String?
+  due_at                       DateTime?
+  requester_email_encrypted    String?
+  requester_message            String?
+  submitted_at                 DateTime  @default(now())
+  created_at                   DateTime  @default(now())
+  resolved_at                  DateTime?
+  resolution_notes             String?
+  assigned_to_id               String?
+  dpo_escalation_status        String?
+  dpo_escalated_at             DateTime?
+  dpo_escalated_by_user_id     String?
+  dpo_escalation_reason        String?
+  user                         User      @relation("DSRRequester", fields: [user_id], references: [id])
+  assigned_to                  User?     @relation("DSRAssignee", fields: [assigned_to_id], references: [id])
+}
+
+model PrivacyPolicyVersion {
+  id             String    @id @default(cuid())
+  version        String    @unique
+  status         String
+  effective_at   DateTime?
+  published_at   DateTime  @default(now())
+  created_at     DateTime  @default(now())
+  content_url    String?
+  created_by_id  String?
+  approved_by_id String?
+
+  created_by  User? @relation("PolicyAuthor", fields: [created_by_id], references: [id])
+  approved_by User? @relation("PolicyApprover", fields: [approved_by_id], references: [id])
 }
