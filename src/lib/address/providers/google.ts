@@ -97,7 +97,14 @@ export class GoogleAddressProvider implements AddressProvider {
     });
 
     if (!response.ok) {
-      console.error('Google Place Details Error Status:', response.status);
+      const errBody = await response.json().catch(() => ({}));
+      console.error(JSON.stringify({
+        event: "Address Details Error",
+        stage: "GOOGLE_PLACE_DETAILS",
+        upstreamStatus: response.status,
+        errorType: "GooglePlacesError",
+        errorCode: errBody?.error?.status || errBody?.error?.code || 'UNKNOWN'
+      }));
       if (response.status === 400) throw new Error('INVALID_PROVIDER_REQUEST');
       if (response.status === 403) throw new Error('PROVIDER_CONFIGURATION_MISSING');
       if (response.status === 429) throw new Error('RATE_LIMITED');

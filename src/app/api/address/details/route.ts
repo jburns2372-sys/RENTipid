@@ -59,8 +59,14 @@ export async function POST(req: Request) {
       ...details,
       selectionToken,
     });
-  } catch {
-    console.error('Address Details Error');
+  } catch (err: unknown) {
+    const safeError = {
+      event: "Address Details Error",
+      stage: "ROUTE_HANDLER_CATCH",
+      errorType: err instanceof Error ? err.name : typeof err,
+      errorCode: err instanceof Error ? err.message : 'Unknown'
+    };
+    console.error(JSON.stringify(safeError));
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
