@@ -153,21 +153,12 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
     expect(alerts.length).toBe(1);
 
     const alert = alerts[0];
-<<<<<<< HEAD
-    expect(alert.review_status).toBe("UNREVIEWED");
-    // Advisory alerts start as UNREVIEWED
-
-    expect(typeof alert.evidence_digest).toBe('string');
-    expect(alert.event_count).toBe(1);
-    expect(alert.result_classification).toBe("POLICY_VIOLATION");
-=======
     expect(alert.review_status).toBe("UNREVIEWED"); // Advisory
 
     // Check privacy-safe detail mapping
     expect(alert.primary_event.event_code).toBe("WEBHOOK_TEST_EVENT");
     // Ensure raw payloads aren't dumped into the alert
     expect(JSON.stringify(alert.primary_event.source_summary)).not.toContain("payload_summary");
->>>>>>> 6ae18a2a269ef792906bc2f9ec4d241001d7299b
 
     // 6. Deduplication Check - Re-run alert generator
     const duplicateAlertResult = await AlertGeneratorService.runSecurityAlertGenerationCycle(

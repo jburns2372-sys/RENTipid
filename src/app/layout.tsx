@@ -16,7 +16,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.APP_BASE_URL || "https://www.rentipid.com.ph"),
+  metadataBase: new URL((process.env.APP_BASE_URL && process.env.APP_BASE_URL !== "[SENSITIVE]") ? process.env.APP_BASE_URL : "https://www.rentipid.com.ph"),
   title: "RENTipid | Why Buy? RENTipid!",
   description: "A verified rental marketplace for tools, equipment, spaces, properties, and legally rentable assets.",
   manifest: "/manifest.json",
