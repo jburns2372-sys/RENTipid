@@ -18,9 +18,15 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
         email: "gate3h-test-admin@test.com",
         full_name: "Gate3H Test Admin",
         mobile_number: "+15550000003",
+<<<<<<< HEAD
         role: "Super Admin",
         status: "Verified",
         account_type: "Individual"
+=======
+        account_type: "Individual",
+        role: "Super Admin",
+        status: "Verified"
+>>>>>>> 6ae18a2a269ef792906bc2f9ec4d241001d7299b
       },
       update: {
         role: "Super Admin",
@@ -33,12 +39,18 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
       create: {
         rule_id: testRuleId,
         version: 1,
+<<<<<<< HEAD
         name: "Test Rule",
         description: "Test Rule Description",
+=======
+        name: "Gate 3H Integration Rule",
+        description: "Validates advisory alert generation and deduplication.",
+>>>>>>> 6ae18a2a269ef792906bc2f9ec4d241001d7299b
         status: "ACTIVE",
         security_domain: "PAYMENT_SECURITY",
         result_classification: "POLICY_VIOLATION",
         base_severity: "HIGH",
+        base_confidence_score: 80,
         threshold_count: 1,
         window_seconds: 3600,
         cooldown_seconds: 3600,
@@ -47,7 +59,10 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
         correlation_subject_type: "GLOBAL",
         deduplication_strategy: "WINDOW_BUCKET",
         confidence_formula: "STATIC_BASE",
+<<<<<<< HEAD
         base_confidence_score: 90,
+=======
+>>>>>>> 6ae18a2a269ef792906bc2f9ec4d241001d7299b
         evaluation_dsl: {
           "AND": [
             {
@@ -57,8 +72,13 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
             }
           ]
         },
+<<<<<<< HEAD
         created_by_user_id: superAdminUserId,
         created_by_type: "USER",
+=======
+        created_by_type: "USER",
+        created_by_user_id: superAdminUserId,
+>>>>>>> 6ae18a2a269ef792906bc2f9ec4d241001d7299b
         activated_at: new Date(),
         activated_by_id: superAdminUserId
       },
@@ -146,17 +166,27 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
 
     // 5. Confirm Privacy-Safe DTO and Advisory Status
     const alerts = await prisma.securityAlert.findMany({
-      where: { rule_id: testRuleId }
+      where: { rule_id: testRuleId },
+      include: { primary_event: { select: { event_code: true, source_summary: true } } }
     });
     expect(alerts.length).toBe(1);
 
     const alert = alerts[0];
+<<<<<<< HEAD
     expect(alert.review_status).toBe("UNREVIEWED");
     // Advisory alerts start as UNREVIEWED
 
     expect(typeof alert.evidence_digest).toBe('string');
     expect(alert.event_count).toBe(1);
     expect(alert.result_classification).toBe("POLICY_VIOLATION");
+=======
+    expect(alert.review_status).toBe("UNREVIEWED"); // Advisory
+
+    // Check privacy-safe detail mapping
+    expect(alert.primary_event.event_code).toBe("WEBHOOK_TEST_EVENT");
+    // Ensure raw payloads aren't dumped into the alert
+    expect(JSON.stringify(alert.primary_event.source_summary)).not.toContain("payload_summary");
+>>>>>>> 6ae18a2a269ef792906bc2f9ec4d241001d7299b
 
     // 6. Deduplication Check - Re-run alert generator
     const duplicateAlertResult = await AlertGeneratorService.runSecurityAlertGenerationCycle(

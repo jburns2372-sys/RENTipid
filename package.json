@@ -21,7 +21,8 @@
     "app:verify:preview": "tsx scripts/app-verify.ts preview",
     "app:verify:production-readiness": "tsx scripts/app-verify.ts production-readiness",
     "app:release:gate": "tsx scripts/app-release-gate.ts",
-    "app:acceptance:local": "tsx scripts/run-local-address-acceptance.ts"
+    "app:acceptance:local": "tsx scripts/run-local-address-acceptance.ts",
+    "psgc:production:bootstrap": "tsx scripts/psgc-production-bootstrap.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
