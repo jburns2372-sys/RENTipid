@@ -66,6 +66,7 @@ model User {
 
   // MFA
   mfa UserMfa?
+  password_reset_tokens PasswordResetToken[]
 
   // SOC Playbooks & Approvals (Gate 4G)
   created_playbooks     SecurityResponsePlaybook[]         @relation("PlaybookCreator")
@@ -103,6 +104,29 @@ model UserMfa {
   reset_at                DateTime?
 
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model PasswordResetToken {
+  id         String    @id @default(cuid())
+  user_id    String
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  token_hash String    @unique
+  expires_at DateTime
+  used_at    DateTime?
+  created_at DateTime  @default(now())
+
+  @@index([user_id, created_at])
+  @@index([expires_at])
+}
+
+model PasswordResetRequest {
+  id            String   @id @default(cuid())
+  identity_hash String
+  ip_hash       String
+  requested_at  DateTime @default(now())
+
+  @@index([identity_hash, requested_at])
+  @@index([ip_hash, requested_at])
 }
 
 model Address {
@@ -381,6 +405,8 @@ model Booking {
   rentalAgreement     RentalAgreement?
   ledgerEntries       FinanceLedger[]
   gatewayTransactions GatewayTransaction[]
+  insuranceOffers     InsuranceOffer[]
+  insurancePolicy     InsurancePolicy?
 
   inspectionReports InspectionReport[]
   turnoverRecords   TurnoverRecord[]
@@ -2291,6 +2317,143 @@ model DataSubjectRequest {
   dpo_escalation_reason        String?
   user                         User      @relation("DSRRequester", fields: [user_id], references: [id])
   assigned_to                  User?     @relation("DSRAssignee", fields: [assigned_to_id], references: [id])
+}
+
+// Insurance Technical Foundation — Slice 1
+model InsurancePartner {
+  id             String   @id @default(cuid())
+  adapter_key    String   @unique
+  display_name   String
+  environment    String
+  status         String   @default("DISABLED")
+  is_mock        Boolean  @default(false)
+  is_enabled     Boolean  @default(false)
+  capabilities   Json
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  products       InsuranceProduct[]
+  offers         InsuranceOffer[]
+  policies       InsurancePolicy[]
+  webhook_events InsuranceWebhookEvent[]
+
+  @@index([status, is_enabled])
+}
+
+model InsuranceProduct {
+  id              String   @id @default(cuid())
+  partner_id      String
+  product_code    String
+  display_name    String
+  coverage_type   String
+  status          String   @default("DRAFT")
+  currency        String   @db.VarChar(3)
+  terms_reference String?
+  configuration   Json?
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  partner  InsurancePartner @relation(fields: [partner_id], references: [id], onDelete: Restrict)
+  offers   InsuranceOffer[]
+  policies InsurancePolicy[]
+
+  @@unique([partner_id, product_code])
+  @@index([status])
+}
+
+model InsuranceOffer {
+  id                String   @id @default(cuid())
+  partner_id        String
+  product_id        String
+  booking_id        String
+  external_offer_id String
+  status            String   @default("AVAILABLE")
+  premium_amount    Decimal  @db.Decimal(20, 4)
+  tax_amount        Decimal  @default(0) @db.Decimal(20, 4)
+  currency          String   @db.VarChar(3)
+  coverage_start    DateTime
+  coverage_end      DateTime
+  expires_at        DateTime
+  normalized_terms  Json?
+  created_at        DateTime @default(now())
+
+  partner InsurancePartner @relation(fields: [partner_id], references: [id], onDelete: Restrict)
+  product InsuranceProduct @relation(fields: [product_id], references: [id], onDelete: Restrict)
+  booking Booking          @relation(fields: [booking_id], references: [id], onDelete: Restrict)
+
+  @@unique([partner_id, external_offer_id])
+  @@index([booking_id, status])
+  @@index([expires_at])
+}
+
+model InsurancePolicy {
+  id                       String    @id @default(cuid())
+  partner_id               String
+  product_id               String
+  booking_id               String    @unique
+  external_policy_id       String
+  order_reference          String
+  idempotency_key          String    @unique
+  status                   String    @default("PENDING")
+  premium_amount           Decimal   @db.Decimal(20, 4)
+  tax_amount               Decimal   @default(0) @db.Decimal(20, 4)
+  currency                 String    @db.VarChar(3)
+  coverage_start           DateTime
+  coverage_end             DateTime
+  issued_at                DateTime?
+  cancelled_at             DateTime?
+  cancellation_reason_code String?
+  normalized_snapshot      Json?
+  created_at               DateTime  @default(now())
+  updated_at               DateTime  @updatedAt
+
+  partner InsurancePartner @relation(fields: [partner_id], references: [id], onDelete: Restrict)
+  product InsuranceProduct @relation(fields: [product_id], references: [id], onDelete: Restrict)
+  booking Booking          @relation(fields: [booking_id], references: [id], onDelete: Restrict)
+  claims  InsuranceClaim[]
+
+  @@unique([partner_id, external_policy_id])
+  @@index([status, coverage_end])
+}
+
+model InsuranceClaim {
+  id                  String    @id @default(cuid())
+  policy_id           String
+  external_claim_id   String?
+  idempotency_key     String    @unique
+  status              String    @default("SUBMITTED")
+  incident_type       String
+  incident_at         DateTime
+  incident_summary    String?
+  normalized_snapshot Json?
+  submitted_at        DateTime  @default(now())
+  resolved_at         DateTime?
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
+
+  policy InsurancePolicy @relation(fields: [policy_id], references: [id], onDelete: Restrict)
+
+  @@unique([policy_id, external_claim_id])
+  @@index([status, submitted_at])
+}
+
+model InsuranceWebhookEvent {
+  id                String   @id @default(cuid())
+  partner_id        String
+  external_event_id String
+  event_type        String
+  body_hash         String
+  signature_valid   Boolean
+  processing_status String   @default("PENDING")
+  occurred_at       DateTime?
+  received_at       DateTime @default(now())
+  processed_at      DateTime?
+  failure_code      String?
+
+  partner InsurancePartner @relation(fields: [partner_id], references: [id], onDelete: Restrict)
+
+  @@unique([partner_id, external_event_id])
+  @@index([processing_status, received_at])
 }
 
 model PrivacyPolicyVersion {

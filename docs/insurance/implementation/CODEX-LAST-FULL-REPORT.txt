@@ -1,0 +1,129 @@
+INSURANCE MODULE:
+TRU-01
+
+SLICE:
+Technical Foundation — Slice 1
+
+GATE:
+LOCAL ACCEPTANCE
+
+RESULT:
+PASS
+
+ACCEPTANCE CASES:
+
+Configuration:
+PASS — disabled by default; Mock requires explicit enablement and adapter selection; live issuance remains disabled; absent/invalid configuration fails closed; no production fallback or real credentials.
+
+Domain Service:
+PASS — InsuranceDomainService initialized through PartnerAdapterRegistry and MockInsuranceAdapter, resolved the configured adapter, returned normalized output, and made no external request.
+
+Eligibility:
+PASS — deterministic eligible and ineligible results; no database business record created.
+
+Offers:
+PASS — deterministic mock-offer-f41b52f0, PHP currency, integer minor amount 1000, explicit Mock/non-insurance identity, no InsuranceOffer database prerequisite or write.
+
+Negative Paths:
+PASS — disabled, missing adapter, unknown adapter, unavailable, deterministic failure, no-offer, invalid configuration and live-issuance-disabled paths remained typed, safe and fail-closed; process remained healthy.
+
+Kill Switch:
+PASS — protected operation blocked before adapter invocation; adapter side effects 0.
+
+Audit:
+PASS — exactly one normalized INSURANCE_ORDER_CREATED callback; safe metadata contained only adapterId and status; no secret or raw partner payload.
+
+Database/Prisma:
+PASS — synchronized Prisma Client loaded; all six Insurance delegates existed and completed read-only counts successfully.
+
+Data Safety:
+PASS — InsurancePartner, InsuranceProduct, InsuranceOffer, InsurancePolicy, InsuranceClaim and InsuranceWebhookEvent remained 0 before/after. PsgcSubdivision, PasswordResetToken and PasswordResetRequest also remained 0 before/after. Database writes 0.
+
+RBAC Boundary:
+NOT APPLICABLE TO SLICE 1 — VERIFIED BOUNDARY. No authenticated Insurance API route exists; normalized user/booking/listing identifiers remain interface-only and no RBAC weakening was introduced.
+
+Booking/Payment Boundary:
+PASS — Booking, Payment and escrow mutations 0; no real-booking policy issuance or fabricated payment success.
+
+Provider Neutrality:
+PASS — targeted src/lib/insurance scan found 0 production-provider-name hits and 0 core provider-specific branch hits.
+
+FINAL INSURANCE TESTS:
+PASS — 1 focused suite, 17/17 tests, 0 failed. Initial invocation was rejected by the unchanged disposable-target guard before any test executed; the corrected established non-routable LOCAL test target passed.
+
+INSURANCE TYPECHECK:
+PASS
+
+ROOT TYPECHECK:
+KNOWN UNRELATED BASELINE FAILURE — NOT RERUN
+
+LINT:
+PASS
+
+BUILD:
+NOT REQUIRED
+
+DATABASE WRITES:
+0
+
+EXTERNAL INSURER REQUESTS:
+0
+
+P0:
+NONE
+
+P1:
+NONE
+
+P2:
+No new Gate 5 P2. Existing unrelated/deferred Auth, Booking and database-backed Super Admin kill-switch dependencies remain recorded in R12.
+
+P3:
+NONE
+
+FILES CREATED:
+NONE
+
+FILES MODIFIED:
+- docs/insurance/implementation/R10-tests.md
+- docs/insurance/implementation/R11-evidence.md
+- docs/insurance/implementation/R12-issues-risks.md
+- docs/insurance/implementation/R14-closure-ledger.md
+- docs/RENTipid-Master/10-TEST-REGISTER.md
+- docs/RENTipid-Master/14-CLOSURE-REGISTER.md
+- docs/insurance/implementation/CODEX-LAST-FULL-REPORT.txt
+
+EVIDENCE:
+EVD-INS-S1-GATE5 = PASS
+
+CURRENT STATUS:
+
+CODE COMPLETE:
+PASS
+
+LOCAL FUNCTIONAL:
+PASS
+
+LOCAL DATABASE MIGRATED:
+PASS
+
+LOCAL REQUIRED DATA SEEDED/SYNCED:
+PASS
+
+LOCAL ACCEPTANCE:
+PASS
+
+NEXT PERMITTED GATE:
+PREVIEW MIGRATED
+
+CONFIRM:
+- no repository rediscovery
+- no duplicate gate execution
+- no migration rerun
+- no seed rerun
+- no Auth redesign
+- no Booking change
+- no Payment change
+- no real insurer activation
+- no Preview action
+- no Production action
