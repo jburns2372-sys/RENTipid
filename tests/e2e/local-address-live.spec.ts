@@ -1,6 +1,5 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 import { PrismaClient } from '@prisma/client';
-import { AddressService } from '../../src/lib/address/AddressService';
 
 const databaseUrl = process.env.DATABASE_URL;
 const email = process.env.ADDRESS_LOCAL_TEST_EMAIL;
@@ -126,14 +125,31 @@ test.describe.serial('Local Address application parity', () => {
       expect(raw!.addressLine1_encrypted).not.toContain(selectedLine);
       expect(raw!.localityPsgcCode).toBe('1381300000');
       expect(raw!.sublocalityPsgcCode).toBe('1381300139');
-      const normalized = AddressService.readNormalizedAddress(raw as unknown as Record<string, unknown>);
-      expect(normalized?.addressLine1).toBe(selectedLine);
-      expect(normalized?.locality).toBe('Quezon City');
-      expect(normalized?.sublocality).toBe('Batasan Hills');
-      expect(normalized?.provider).toBe('google');
+      expect(raw!.provider).toBe('google');
     } finally {
       await prisma.$disconnect();
     }
+
+    const profileResponse = await page.request.get('/api/profile');
+    expect(profileResponse.ok()).toBeTruthy();
+    const profilePayload = await profileResponse.json() as {
+      userProfile?: {
+        global_address?: {
+          addressLine1?: string | null;
+          locality?: string | null;
+          sublocality?: string | null;
+          localityPsgcCode?: string | null;
+          sublocalityPsgcCode?: string | null;
+        } | null;
+      };
+    };
+    expect(profilePayload.userProfile?.global_address).toMatchObject({
+      addressLine1: selectedLine,
+      locality: 'Quezon City',
+      sublocality: 'Batasan Hills',
+      localityPsgcCode: '1381300000',
+      sublocalityPsgcCode: '1381300139',
+    });
 
     await page.reload();
     await page.getByRole('button', { name: 'Edit Profile' }).click();

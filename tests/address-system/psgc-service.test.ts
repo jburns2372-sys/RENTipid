@@ -1,4 +1,5 @@
 import { PsgcService } from '../../src/lib/address/psgc/psgc-service';
+import { prisma } from '../../src/lib/prisma';
 
 describe('PSGC Service', () => {
   // We assume the DB is already populated via psgc-sync script before tests run
@@ -9,6 +10,25 @@ describe('PSGC Service', () => {
       expect(res.resolved).toBe(true);
       expect(res.psgcCode).toBe('1381300000');
       expect(res.canonicalName).toBe('Quezon City');
+    });
+
+    it('should prefer canonical Quezon City over municipalities named Quezon', async () => {
+      const findMany = jest.spyOn(prisma.psgcSubdivision, 'findMany').mockResolvedValue([
+        { psgcCode: '1381300000', name: 'Quezon City', geographicLevel: 'CITY' },
+        { psgcCode: '0203122000', name: 'Quezon', geographicLevel: 'MUNICIPALITY' },
+      ] as never);
+
+      try {
+        const res = await PsgcService.resolveCityByName('Quezon City');
+        expect(res).toEqual({
+          resolved: true,
+          psgcCode: '1381300000',
+          canonicalName: 'Quezon City',
+          geographicLevel: 'CITY',
+        });
+      } finally {
+        findMany.mockRestore();
+      }
     });
 
     it('should handle "City of" prefix', async () => {

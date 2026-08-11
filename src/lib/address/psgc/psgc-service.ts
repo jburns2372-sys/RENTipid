@@ -78,6 +78,26 @@ export class PsgcService {
       },
     });
 
+    // Prefer a unique canonical-name match before removing qualifiers such as
+    // City. This keeps Quezon City distinct from municipalities named Quezon.
+    const canonicalInput = cityName.trim().toLowerCase();
+    const canonicalMatches = candidates.filter(
+      candidate => candidate.name.trim().toLowerCase() === canonicalInput,
+    );
+
+    if (canonicalMatches.length === 1) {
+      return {
+        resolved: true,
+        psgcCode: canonicalMatches[0].psgcCode,
+        canonicalName: canonicalMatches[0].name,
+        geographicLevel: canonicalMatches[0].geographicLevel as 'CITY' | 'MUNICIPALITY',
+      };
+    }
+
+    if (canonicalMatches.length > 1) {
+      return { resolved: false };
+    }
+
     // Attempt exact match after normalization
     const exactMatches = candidates.filter(c => normalizeCityName(c.name) === normalizedInput);
 
