@@ -1,4 +1,4 @@
-import { PrismaClient, SecurityPlaybookStatus, SecuritySeverity } from '@prisma/client';
+import { PrismaClient, SecurityPlaybookStatus } from '@prisma/client';
 import { 
   submitResponseApprovalRequest, 
   approveResponseRequest, 
@@ -43,7 +43,7 @@ describe('GATE4G - Playbooks and Approvals', () => {
         version: 1,
         name: 'Test Playbook',
         description: 'Test',
-        status: SecurityPlaybookStatus.PUBLISHED,
+        status: SecurityPlaybookStatus.ACTIVE,
         created_by: { connect: { id: requesterId } },
         approved_by: { connect: { id: approverId } }
       }
