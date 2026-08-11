@@ -30,6 +30,7 @@
     "@maxmind/geoip2-node": "6.3.4",
     "@prisma/client": "^6.19.3",
     "@types/crypto-js": "^4.2.2",
+    "applicationinsights": "3.15.1",
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
