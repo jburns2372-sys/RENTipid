@@ -1,0 +1,11 @@
+stateDiagram-v2
+  [*] --> Draft
+  Draft --> EvidenceReady: photos / documents / requirements
+  EvidenceReady --> Submitted: provider submits
+  Submitted --> UnderReview: authorized review
+  UnderReview --> Published: approved / verified
+  UnderReview --> Draft: correction required
+  Published --> Updated: authorized provider edit
+  Updated --> UnderReview: when review required
+  Published --> Unavailable: service / policy state
+  Unavailable --> [*]

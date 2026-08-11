@@ -1,4 +1,4 @@
-import { SecurityEventSourceAdapter, NormalizedSecurityEvent, SecurityEventSource, SecurityDomain, SecurityEventClassification, SecuritySeverity, SecurityEnvironment, SecurityLifecycle } from "../taxonomy";
+import { SecurityEventSourceAdapter, NormalizedSecurityEvent, SecurityEventSource, SecurityDomain, SecurityEventClassification, SecuritySeverity, SecurityEnvironment, SecurityLifecycle, SecurityProcessingStatus } from "../taxonomy";
 import { AuthenticationSecurityLog } from "@prisma/client";
 
 export class AuthenticationSecurityLogAdapter implements SecurityEventSourceAdapter<AuthenticationSecurityLog> {
@@ -45,7 +45,7 @@ export class AuthenticationSecurityLogAdapter implements SecurityEventSourceAdap
       classification_reason: null,
       correlation_key: sourceRecord.subject_reference_hash,
       idempotency_key: `AUTH_${sourceRecord.id}`,
-      processing_status: "PENDING",
+      processing_status: SecurityProcessingStatus.NORMALIZED,
       occurred_at: sourceRecord.occurred_at,
       source_received_at: new Date(),
       environment: environment,

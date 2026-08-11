@@ -1,0 +1,8 @@
+﻿PATH: src/app/privacy/page.tsx
+SHA256: 469E22C711470DD6546AE2CB872F72A9F19C16A36827641DD6760D5B35405889
+SYMBOL_OR_SECTION: /privacy
+LINE_START: 1
+LINE_END: 10
+EXACT_EXCERPT: export default function PrivacyPage() { ... }
+POTENTIAL_CONTROL: Public Privacy Policy
+NOTES: Route page for privacy.

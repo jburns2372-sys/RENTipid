@@ -1,0 +1,74 @@
+﻿apps/api/dist/middleware/auth.js:10:    const token = req.cookies?.['next-auth.session-token'] || req.headers.authorization?.split(' ')[1];
+apps/api/dist/middleware/cors.js:28:    credentials: true, // Allow cookies if needed for session bridging
+apps/api/package-lock.json:2801:    "node_modules/cookie": {
+apps/api/package-lock.json:2803:      "resolved": "https://registry.npmjs.org/cookie/-/cookie-0.7.2.tgz",
+apps/api/package-lock.json:2810:    "node_modules/cookie-signature": {
+apps/api/package-lock.json:2812:      "resolved": "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.0.7.tgz",
+apps/api/package-lock.json:3263:        "cookie": "~0.7.1",
+apps/api/package-lock.json:3264:        "cookie-signature": "~1.0.6",
+apps/api/src/middleware/auth.ts:21:  const token = req.cookies?.['next-auth.session-token'] || req.headers.authorization?.split(' ')[1];
+apps/api/src/middleware/cors.ts:23:  credentials: true, // Allow cookies if needed for session bridging
+create-placeholders.js:11:  '/privacy',
+docs/RENTipid-Master-Manual/03-Route-Screen-Registry.md:156:| `/privacy` | App Router UI | Verified |
+docs/RENTipid-Master-Manual/04-Account-Lifecycle.md:8:- Session management is handled securely via HTTP-only JWT cookies with a 30-day rolling expiration.
+docs/RENTipid-Master-Manual/06-API-Service-Registry.md:39:| `/api/privacy/consent` | Next.js Route Handler | Verified |
+docs/RENTipid-Master-Manual/06-API-Service-Registry.md:40:| `/api/privacy/correction` | Next.js Route Handler | Verified |
+docs/RENTipid-Master-Manual/06-API-Service-Registry.md:41:| `/api/privacy/deletion` | Next.js Route Handler | Verified |
+docs/RENTipid-Master-Manual/06-API-Service-Registry.md:42:| `/api/privacy/export` | Next.js Route Handler | Verified |
+docs/RENTipid-Master-Manual/RENTipid_Master_Manual.md:318:- Session management is handled securely via HTTP-only JWT cookies with a 30-day rolling expiration.
+docs/android-build-guide.md:20:- **Privacy URL:** Must match `https://rentipid.com/privacy`
+docs/environment-setup.md:19:- `NEXTAUTH_SECRET`: A 32-character random string used to encrypt JWT cookies. Generate via `openssl rand -base64 32`.
+docs/google-play-readiness.md:13:- [ ] Privacy Policy URL active (`https://rentipid.com/privacy`)
+docs/paymongo-approval-follow-up-checklist.md:16:- [ ] Privacy Policy URL submitted (`/privacy`)
+docs/push-notification-roadmap.md:17:- Request permissions on app load (iOS requires explicit user consent).
+docs/security/level5/RENTIPID_LEVEL5_AUTHORIZATION_CONDITIONS.md:44:REQUIRED_ACTION=Review `src/lib/privacy/retention-policy.ts` definitions
+docs/security/level5/bundles/phase5m/PHASE5M_PRIVACY_ISMS_EVIDENCE.md:8:RUNTIME_EXPORT_INTEGRATION_FILE=src/app/api/privacy/export/route.ts
+docs/security/level5/bundles/phase5m/PHASE5M_PRIVACY_ISMS_EVIDENCE.md:10:RUNTIME_CORRECTION_INTEGRATION_FILE=src/app/api/privacy/correction/route.ts
+docs/security/level5/bundles/phase5m/PHASE5M_PRIVACY_ISMS_EVIDENCE.md:12:RUNTIME_DELETION_INTEGRATION_FILE=src/app/api/privacy/deletion/route.ts
+docs/security/level5/bundles/phase5m/PHASE5M_PRIVACY_ISMS_EVIDENCE.md:14:RUNTIME_CONSENT_INTEGRATION_FILE=src/app/api/privacy/consent/route.ts
+docs/security/level5/phase5b/02_RENTIPID_SYSTEM_CONTEXT_AND_TRUST_BOUNDARIES.md:53:- **Authentication control:** NextAuth session cookie validation
+docs/security/phase4/GATE4B5_GATE4D_LOCAL_SCOPE_CLOSEOUT.md:55:- No raw headers, payloads, tokens, cookies, credentials, unrestricted URLs, or high-volume request logs may be copied into SecurityEvent.
+docs/security/phase4/GATE4G_SLICE_A4_A5_R1_APPROVAL_VERTICAL_EVIDENCE.md:33:- **Database-authoritative checks**: The \ssertSecurityPermissionForService\ ensures tokens/cookies cannot bypass database RBAC. Caller-supplied roles are ignored.
+package-lock.json:4826:        "@types/tough-cookie": "*",
+package-lock.json:4901:    "node_modules/@types/tough-cookie": {
+package-lock.json:4903:      "resolved": "https://registry.npmjs.org/@types/tough-cookie/-/tough-cookie-4.0.5.tgz",
+package-lock.json:6823:    "node_modules/cookie": {
+package-lock.json:6825:      "resolved": "https://registry.npmjs.org/cookie/-/cookie-0.7.2.tgz",
+package-lock.json:6832:    "node_modules/cookie-signature": {
+package-lock.json:6834:      "resolved": "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.2.2.tgz",
+package-lock.json:8368:        "cookie": "^0.7.1",
+package-lock.json:8369:        "cookie-signature": "^1.2.1",
+package-lock.json:11387:        "tough-cookie": "^5.1.1",
+package-lock.json:12313:        "cookie": "^0.7.0",
+package-lock.json:15397:    "node_modules/tough-cookie": {
+package-lock.json:15399:      "resolved": "https://registry.npmjs.org/tough-cookie/-/tough-cookie-5.1.2.tgz",
+prisma/schema.prisma:80:  cookie_consents       CookieConsentReceipt[]
+prisma/schema.prisma:2193:  anonymous_consent_id String?
+prisma/schema.prisma:2195:  consent_version      Int
+prisma/schema.prisma:2200:  consent_action       String
+prisma/schema.prisma:2202:  consented_at         DateTime @default(now())
+scripts/create_phase12_frontend.js:39:  "    // Depending on NextAuth config, the JWT might be in cookies or explicitly required as Bearer",
+scripts/create_phase13_mobile.js:31:  "  credentials: true, // Allow cookies if needed for session bridging",
+scripts/create_phase5_auth.js:32:  "  const token = req.cookies?.['next-auth.session-token'] || req.headers.authorization?.split(' ')[1];",
+src/app/api/privacy/consent/route.ts:3:import { withdrawConsent } from '@/lib/privacy/privacy-workflow';
+src/app/api/privacy/correction/route.ts:3:import { correctUserData } from '@/lib/privacy/privacy-workflow';
+src/app/api/privacy/deletion/route.ts:3:import { requestAccountDeletion } from '@/lib/privacy/privacy-workflow';
+src/app/api/privacy/export/route.ts:3:import { exportUserData } from '@/lib/privacy/privacy-workflow';
+src/app/dashboard/super-admin/legal-policy-readiness/page.tsx:13:  { key: 'POLICY_PRIVACY', name: 'Privacy Policy', url: '/privacy' },
+src/app/privacy/page.tsx:14:        <Link href="/privacy/request" className="block text-blue-700 hover:underline">Submit Request</Link>
+src/app/privacy/page.tsx:15:        <Link href="/privacy/cookies" className="block text-blue-700 hover:underline">Cookie Preferences</Link>
+src/app/privacy/page.tsx:16:        <Link href="/dashboard/admin/privacy" className="block text-blue-700 hover:underline">Admin Dashboard</Link>
+src/app/register/business/page.tsx:137:                I agree to the <Link href="/terms" className="text-blue-600 hover:underline">Terms and Conditions</Link> and <Link href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link>.
+src/app/register/individual/page.tsx:123:                I agree to the <Link href="/terms" className="text-blue-600 hover:underline">Terms and Conditions</Link> and <Link href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link>.
+src/app/register/page.tsx:119:              I agree to the <Link href="/terms" className="text-blue-600 hover:underline">Terms and Conditions</Link> and <Link href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link>.
+src/components/layout/Footer.tsx:31:            <li><Link href="/privacy" className="hover:text-blue-600">Privacy Policy</Link></li>
+src/lib/api-client.ts:26:    // Depending on NextAuth config, the JWT might be in cookies or explicitly required as Bearer
+src/lib/security/serializers.ts:12:  "refresh_token", "authorization", "cookie", "cookies", "signature", 
+tests/e2e/deferred-baseline.spec.ts:184:      // Navigate again with existing session cookie (Stale JWT)
+tests/e2e/deferred-baseline.spec.ts:200:      // Navigate again with existing session cookie (Stale JWT)
+tests/privacy/phase5m.test.ts:9:} from '../../src/lib/privacy/privacy-workflow';
+tests/privacy/phase5m.test.ts:10:import { getClassificationForCategory } from '../../src/lib/privacy/data-classification';
+tests/privacy/phase5m.test.ts:11:import { getRetentionPolicy } from '../../src/lib/privacy/retention-policy';
+tests/security/serializers.test.ts:20:  it("SER-P1-003 & SER-P1-004 & SER-P1-005 & SER-P1-006 - Tokens, auth headers, cookies removed", () => {
+tests/security/serializers.test.ts:23:      authorization: "Bearer x", cookie: "session=1", cookies: "x" 
+tests/security/soc-audit.test.ts:27:    expect(details).not.toContain("cookie");

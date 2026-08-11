@@ -1,0 +1,9 @@
+flowchart LR
+  User --> Presentation[Chat / potential digital-human presentation]
+  Presentation --> AIAPI[Guarded AI API]
+  AIAPI --> Policy[Policy, authentication, input and provider-mode guards]
+  Policy --> Mock[Mock / disabled mode]
+  Policy --> Provider[Configured AI provider when available]
+  AIAPI --> Audit[Sanitized AIBotLog]
+  AIAPI --> Handoff[Human support / operator handoff]
+  boundary[No standalone avatar, voice, biometric, or autonomous runtime claimed] --- Presentation

@@ -1,0 +1,13 @@
+flowchart LR
+  Guest[Guest] --> Web[RENTipid web application]
+  Renter[Renter] --> Web
+  Provider[Individual or business provider] --> Web
+  Ops[Admin / Finance / Compliance / SOC] --> Web
+  Web --> Auth[NextAuth session and authorization]
+  Web --> RootAPI[Root Next.js APIs]
+  RootAPI -. transitional routing .-> AzureAPI[Extracted API target]
+  AzureAPI --> Data[(PostgreSQL target)]
+  AzureAPI --> Storage[Blob storage target]
+  Worker[Worker target] --> Data
+  RootAPI --> External[Payment / AI / email / geo / social providers]
+  note[Direction: Vercel frontend with Azure backend and services\nCurrent state: partially split implementation] --- Web

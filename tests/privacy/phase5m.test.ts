@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+
 import { PrismaClient } from '@prisma/client';
 import { 
   exportUserData, 
@@ -44,7 +44,16 @@ describe('Phase 5M - Privacy Operations & ISMS (Synthetic Tests)', () => {
   });
 
   afterAll(async () => {
-      await prisma.listing.deleteMany({
+    await prisma.dataSubjectRequest.deleteMany({
+      where: { user_id: { in: [user1Id, user2Id] } }
+    });
+    await prisma.cookieConsentReceipt.deleteMany({
+      where: { user_id: { in: [user1Id, user2Id] } }
+    });
+    await prisma.booking.deleteMany({
+      where: { OR: [{ provider_id: { in: [user1Id, user2Id] } }, { renter_id: { in: [user1Id, user2Id] } }] }
+    });
+    await prisma.listing.deleteMany({
       where: { provider_id: { in: [user1Id, user2Id] } }
     });
     await prisma.user.deleteMany({
@@ -180,13 +189,14 @@ describe('Phase 5M - Privacy Operations & ISMS (Synthetic Tests)', () => {
     await prisma.apiSecurityLog.delete({ where: { id: event.id } });
   });
 
-  it('16. ELIGIBLE_PROFILE_PSEUDONYMIZED', async () => {
+  it('16. ELIGIBLE_PROFILE_SUBMITTED_NOT_AUTOMATICALLY_PSEUDONYMIZED', async () => {
     const res = await requestAccountDeletion(user1Id, user1Id);
-    expect(res.status).toBe('PSEUDONYMIZED');
+    expect(res.status).toBe('SUBMITTED');
     
+    // Assert production deletion requirement: execution is manual, user is NOT automatically anonymized
     const user = await prisma.user.findUnique({ where: { id: user1Id } });
-    expect(user?.email).toContain('deleted_');
-    expect(user?.full_name).toBe('Anonymized User');
+    expect(user?.email).not.toContain('deleted_');
+    expect(user?.full_name).not.toBe('Anonymized User');
   });
 
   it('17. REPEATED_DELETION_REQUEST_IDEMPOTENT', async () => {

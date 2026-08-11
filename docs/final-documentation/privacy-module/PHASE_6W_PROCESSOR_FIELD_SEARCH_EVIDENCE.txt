@@ -1,0 +1,56 @@
+﻿
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:9:PERSONAL_DATA_CATEGORIES: User IP 
+addresses, web request metadata
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:20:SECURITY_SAFEGUARDS_DOCUMENTED: 
+VALIDATED
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:30:PERSONAL_DATA_CATEGORIES: ALL stored 
+user, booking, and profile records
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:41:SECURITY_SAFEGUARDS_DOCUMENTED: 
+VALIDATED
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:51:PERSONAL_DATA_CATEGORIES: Payment 
+identifiers, billing information
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:62:SECURITY_SAFEGUARDS_DOCUMENTED: 
+VALIDATED
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:72:PERSONAL_DATA_CATEGORIES: Simulated 
+transaction records
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:83:SECURITY_SAFEGUARDS_DOCUMENTED: NOT 
+CURRENTLY ACTIVE
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:93:PERSONAL_DATA_CATEGORIES: Mock user 
+inputs or disabled
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:104:SECURITY_SAFEGUARDS_DOCUMENTED: 
+VALIDATED
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:114:PERSONAL_DATA_CATEGORIES: Government 
+IDs, selfies
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:125:SECURITY_SAFEGUARDS_DOCUMENTED: 
+VALIDATED
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:135:PERSONAL_DATA_CATEGORIES: Usage data, 
+IP addresses
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:146:SECURITY_SAFEGUARDS_DOCUMENTED: 
+VALIDATED
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:156:PERSONAL_DATA_CATEGORIES: Emails
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:167:SECURITY_SAFEGUARDS_DOCUMENTED: 
+VALIDATED
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:177:PERSONAL_DATA_CATEGORIES: Contact 
+numbers
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:188:SECURITY_SAFEGUARDS_DOCUMENTED: 
+VALIDATED
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:198:PERSONAL_DATA_CATEGORIES: Device tokens
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:209:SECURITY_SAFEGUARDS_DOCUMENTED: 
+VALIDATED
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:219:PERSONAL_DATA_CATEGORIES: Uploaded 
+images
+docs\final-documentation\privacy-module\PRIVACY_EXTERNAL_DECISION_PACKET.md:230:SECURITY_SAFEGUARDS_DOCUMENTED: 
+VALIDATED
+docs\final-documentation\privacy-module\PROCESSING_ACTIVITY_REGISTER.md:6:DATA_CATEGORIES: Identity
+docs\final-documentation\privacy-module\PROCESSOR_SUBPROCESSOR_REGISTRY.md:10:DATA_CATEGORIES: 
+docs\final-documentation\privacy-module\PROCESSOR_SUBPROCESSOR_REGISTRY.md:29:DATA_CATEGORIES: 
+docs\final-documentation\privacy-module\PROCESSOR_SUBPROCESSOR_REGISTRY.md:54:SUBPROCESSOR_STATUS: 
+OFFICIAL_MICROSOFT_SUBPROCESSORS
+docs\final-documentation\privacy-module\PROCESSOR_SUBPROCESSOR_REGISTRY.md:56:SECURITY_SAFEGUARDS: VERIFIED
+docs\final-documentation\privacy-module\PROCESSOR_SUBPROCESSOR_REGISTRY.md:58:BACKUP_RETENTION: 7-35 Days
+docs\final-documentation\privacy-module\PROCESSOR_SUBPROCESSOR_REGISTRY.md:59:BACKUP_RETENTION_EVIDENCE: Official 
+Azure Database for PostgreSQL Service Default Range
+docs\final-documentation\privacy-module\PROCESSOR_SUBPROCESSOR_REGISTRY.md:60:DELETION_OR_RETURN_INFORMATION: Official 
+Microsoft Data Protection Terms
+
+

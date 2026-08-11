@@ -109,6 +109,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: 'User registered successfully', userId: user.id }, { status: 201 });
 
   } catch (error) {
-    return NextResponse.json({ message: 'Internal server error during registration' }, { status: 500 });
+    console.error('Registration error:', error);
+    return NextResponse.json({ message: 'Internal server error during registration', error: (error as Error).message }, { status: 500 });
   }
 }

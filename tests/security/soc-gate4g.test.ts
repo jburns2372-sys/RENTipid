@@ -1,4 +1,4 @@
-import { PrismaClient, SecurityPlaybookStatus, SecuritySeverity } from '@prisma/client';
+import { PrismaClient, SecurityPlaybookStatus } from '@prisma/client';
 import { 
   submitResponseApprovalRequest, 
   approveResponseRequest, 
@@ -43,7 +43,7 @@ describe('GATE4G - Playbooks and Approvals', () => {
         version: 1,
         name: 'Test Playbook',
         description: 'Test',
-        status: SecurityPlaybookStatus.PUBLISHED,
+        status: SecurityPlaybookStatus.ACTIVE,
         created_by: { connect: { id: requesterId } },
         approved_by: { connect: { id: approverId } }
       }
@@ -125,7 +125,15 @@ describe('GATE4G - Playbooks and Approvals', () => {
   });
 
   it('high-risk actions require valid human approval', async () => {
-     expect(true).toBe(true);
+    await prisma.$transaction(async (tx) => {
+      const req = await submitResponseApprovalRequest(tx, requesterId, {
+        incident_case_id: caseId, playbook_id: playbookId, playbook_version: 1, justification: 'test', response_type: 'NOOP_SIMULATION', target_type: 'USER', target_id: 'user-1'
+      });
+      const approved = await approveResponseRequest(tx, approverId, { request_id: req.id, validity_duration_ms: 10000 });
+      await expect(consumeApprovalGrantForExecution(tx, requesterId, { grant_id: approved.grant.id, idempotency_key: 'exec-self' }))
+        .rejects.toThrow('UNAUTHORIZED');
+      throw new Error('ROLLBACK');
+    }).catch(e => { if (e.message !== 'ROLLBACK') throw e; });
   });
 
   it('approval and rejection create real audit records', async () => {
@@ -143,6 +151,20 @@ describe('GATE4G - Playbooks and Approvals', () => {
   });
 
   it('failed execution leaves no partial mutation', async () => {
-    expect(true).toBe(true);
+    await prisma.$transaction(async (tx) => {
+      const req = await submitResponseApprovalRequest(tx, requesterId, {
+        incident_case_id: caseId, playbook_id: playbookId, playbook_version: 1, justification: 'test', response_type: 'NOOP_SIMULATION', target_type: 'USER', target_id: 'user-1'
+      });
+      const preCount = await tx.securityResponseApprovalDecision.count();
+      try {
+        await approveResponseRequest(tx, unauthorizedId, { request_id: req.id, validity_duration_ms: 10000 });
+        throw new Error('EXPECTED_TO_FAIL');
+      } catch (e) {
+        expect((e as Error).message).toBe('UNAUTHORIZED');
+      }
+      const postCount = await tx.securityResponseApprovalDecision.count();
+      expect(postCount).toBe(preCount);
+      throw new Error('ROLLBACK');
+    }).catch(e => { if (e.message !== 'ROLLBACK') throw e; });
   });
 });

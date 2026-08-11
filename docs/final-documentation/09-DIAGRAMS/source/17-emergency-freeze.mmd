@@ -1,0 +1,10 @@
+stateDiagram-v2
+  [*] --> Normal
+  Normal --> Frozen: authorized emergency freeze
+  Frozen --> BlockNewExecution: execution fails closed
+  Frozen --> Inspect: preserve cases / grants / execution evidence
+  Inspect --> RollbackEligible: separately authorized + no divergence
+  RollbackEligible --> RolledBack
+  Inspect --> CorrectiveGate: unsafe or divergent state
+  Frozen --> Normal: authorized release after validation
+  RolledBack --> Normal: validated recovery

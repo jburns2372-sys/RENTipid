@@ -1,0 +1,8 @@
+flowchart TB
+  Web[Next.js web application] --> Manifest[PWA manifest]
+  Web --> ServiceWorker[Service-worker tooling]
+  Web --> Install[Install guidance]
+  Web --> Capacitor[Capacitor packaging configuration]
+  Capacitor --> Mobile[Mobile build/readiness surface]
+  Mobile --> Analytics[Mobile analytics records/surface]
+  boundary[Packaging/readiness does not prove app-store publication] --- Mobile

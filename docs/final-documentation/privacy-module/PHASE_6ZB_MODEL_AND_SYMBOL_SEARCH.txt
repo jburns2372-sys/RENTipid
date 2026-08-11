@@ -1,0 +1,28 @@
+﻿apps/api/dist/services/aiService.js:6:const endpoint = process.env.AZURE_OPENAI_ENDPOINT || '';
+apps/api/dist/services/searchService.js:6:const searchEndpoint = process.env.AZURE_SEARCH_ENDPOINT || '';
+apps/api/src/services/aiService.ts:4:const endpoint = process.env.AZURE_OPENAI_ENDPOINT || '';
+apps/api/src/services/searchService.ts:4:const searchEndpoint = process.env.AZURE_SEARCH_ENDPOINT || '';
+docs/security/level5/06_RENTIPID_LEVEL5_IMPLEMENTATION_ROADMAP.md:238:- **Approval authority:** Legal / DPO
+docs/security/level5/bundles/phase5m/PHASE5M_ISMS_OPERATIONS_RUNBOOK.md:13:| PROCESSOR_REVIEW | DPO | Vendor DPAs | ANNUAL | Processor Review Log | Legal Counsel | DPO | Terminate vendor |
+docs/security/level5/bundles/phase5m/PHASE5M_ISMS_OPERATIONS_RUNBOOK.md:14:| PRIVACY_REQUEST_REVIEW | DPO | Privacy Ops Dashboard | MONTHLY | Privacy Request Metrics | Legal Counsel | DPO | Manual audit of requests |
+docs/security/level5/bundles/phase5m/PHASE5M_ISMS_RISK_AND_CONTROL_REGISTER.md:8:| RISK-004 | PII Data | SENSITIVE_DATA_DISCLOSURE | Insecure Direct Object Reference | HIGH | MEDIUM | HIGH | Data Classification, Privacy Serializers | LOW | DPO | ACCEPT | COMPLETED | Management | Phase 5M Tests | ANNUAL |
+docs/security/level5/bundles/phase5m/PHASE5M_ISMS_RISK_AND_CONTROL_REGISTER.md:16:| RISK-012 | Privacy Ops | PRIVACY_REQUEST_FAILURE | Ignored Request | HIGH | LOW | MEDIUM | Privacy Workflow | LOW | DPO | ACCEPT | COMPLETED | Management | Phase 5M Tests | ANNUAL |
+docs/security/level5/bundles/phase5m/PHASE5M_ISMS_RISK_AND_CONTROL_REGISTER.md:17:| RISK-013 | Privacy Ops | UNAUTHORIZED_DATA_EXPORT | Over-permission | HIGH | LOW | HIGH | Identity checks | LOW | DPO | ACCEPT | COMPLETED | Management | Phase 5M Tests | ANNUAL |
+docs/security/level5/bundles/phase5m/PHASE5M_ISMS_RISK_AND_CONTROL_REGISTER.md:18:| RISK-014 | Privacy Ops | RETENTION_FAILURE | Retaining data too long | MEDIUM | LOW | MEDIUM | Retention Policies | LOW | DPO | ACCEPT | COMPLETED | Management | Retention Registry | ANNUAL |
+docs/security/level5/bundles/phase5m/PHASE5M_ISMS_RISK_AND_CONTROL_REGISTER.md:19:| RISK-015 | Vendors | THIRD_PARTY_PROCESSOR_FAILURE | Breach at vendor | HIGH | LOW | HIGH | Processor Register, DPAs | LOW | DPO | ACCEPT | COMPLETED | Management | Processor Register | ANNUAL |
+prisma/schema.prisma:80:  cookie_consents       CookieConsentReceipt[]
+prisma/schema.prisma:81:  dsr_requests          DataSubjectRequest[]               @relation("DSRRequester")
+prisma/schema.prisma:82:  dsr_assignments       DataSubjectRequest[]               @relation("DSRAssignee")
+prisma/schema.prisma:83:  created_policies      PrivacyPolicyVersion[]             @relation("PolicyAuthor")
+prisma/schema.prisma:84:  approved_policies     PrivacyPolicyVersion[]             @relation("PolicyApprover")
+prisma/schema.prisma:2190:model CookieConsentReceipt {
+prisma/schema.prisma:2210:model DataSubjectRequest {
+prisma/schema.prisma:2230:model PrivacyPolicyVersion {
+scripts/create_phase16_ai.js:12:  "const endpoint = process.env.AZURE_OPENAI_ENDPOINT || '';",
+scripts/create_phase16_ai.js:58:  "const searchEndpoint = process.env.AZURE_SEARCH_ENDPOINT || '';",
+src/app/api/privacy/consent/route.ts:3:import { withdrawConsent } from '@/lib/privacy/privacy-workflow';
+src/app/api/privacy/correction/route.ts:3:import { correctUserData } from '@/lib/privacy/privacy-workflow';
+src/app/api/privacy/deletion/route.ts:3:import { requestAccountDeletion } from '@/lib/privacy/privacy-workflow';
+src/app/api/privacy/export/route.ts:3:import { exportUserData } from '@/lib/privacy/privacy-workflow';
+src/app/privacy/page.tsx:12:      <p>Email: dpo@onesystemsphilippines.com</p>
+tests/privacy/phase5m.test.ts:9:} from '../../src/lib/privacy/privacy-workflow';

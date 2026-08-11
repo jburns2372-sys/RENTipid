@@ -1,0 +1,10 @@
+flowchart LR
+  Browse[Browse listing] --> Account[Register / sign in]
+  Account --> KYC[Complete required profile / KYC]
+  KYC --> Request[Request eligible booking]
+  Request --> Agreement[Review agreement]
+  Agreement --> Inspect[Inspection / confirmation]
+  Inspect --> Rental[Rental lifecycle]
+  Rental --> Return[Return inspection]
+  Return --> Outcome[Receipt / review / claim / dispute / support]
+  noGo[Live payment activation: NOT_AUTHORIZED] -. boundary .-> Request

@@ -133,8 +133,11 @@ describe('ProfileFieldProtection', () => {
     });
 
     it('Missing ciphertext with legacy plaintext fails in ENCRYPTED_ONLY mode', () => {
+      const { injectProfileProtectionMode, ProfileProtectionMode } = require('../../../src/lib/security/crypto/profile-protection-mode');
+      injectProfileProtectionMode(ProfileProtectionMode.ENCRYPTED_ONLY);
       expect(() => ProfileFieldProtection.read(null, 'Legacy Data', ProfileFieldContext.USER_ADDRESS))
         .toThrow(ProfileFieldProtectionError);
+      injectProfileProtectionMode(null);
     });
 
     it('Both absent returns source ABSENT', () => {
@@ -237,8 +240,11 @@ describe('ProfileFieldProtection', () => {
     });
 
     it('Undefined encrypted plus valid legacy fails in ENCRYPTED_ONLY mode', () => {
+      const { injectProfileProtectionMode, ProfileProtectionMode } = require('../../../src/lib/security/crypto/profile-protection-mode');
+      injectProfileProtectionMode(ProfileProtectionMode.ENCRYPTED_ONLY);
       expect(() => ProfileFieldProtection.read(undefined, 'Legacy', ProfileFieldContext.USER_ADDRESS))
         .toThrow(ProfileFieldProtectionError);
+      injectProfileProtectionMode(null);
     });
 
     it('Valid encrypted plus null legacy returns ENCRYPTED', () => {

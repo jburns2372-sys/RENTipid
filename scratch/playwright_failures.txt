@@ -1,0 +1,750 @@
+
+◇ injected env (13) from .env.test.local,.env.test // tip: ⌘ override existing { override: true }
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+TARGET_DATABASE:
+rentipid_test_soc
+TARGET_ENVIRONMENT:
+TEST
+PRODUCTION_TARGET:
+NO
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+Running 15 tests using 1 worker
+
+◇ injected env (0) from .env.test.local,.env.test // tip: ◈ encrypted .env [www.dotenvx.com]
+
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+
+TARGET_DATABASE:
+rentipid_test_soc
+
+TARGET_ENVIRONMENT:
+TEST
+
+PRODUCTION_TARGET:
+NO
+
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+[1/15] [chromium] › tests\e2e\privacy-v1.spec.ts:67:7 › Privacy Module v1 Browser Validation › 1. Public Privacy Policy loads and Controller exact name appears
+[2/15] [chromium] › tests\e2e\privacy-v1.spec.ts:73:7 › Privacy Module v1 Browser Validation › 2. Correct DPO name and email appears
+
+[WebServer] [next-auth][warn][NEXTAUTH_URL] 
+[WebServer] https://next-auth.js.org/warnings#nextauth_url
+[3/15] [chromium] › tests\e2e\privacy-v1.spec.ts:79:7 › Privacy Module v1 Browser Validation › 3. Incorrect DPO email and Controller name are absent
+[4/15] [chromium] › tests\e2e\privacy-v1.spec.ts:85:7 › Privacy Module v1 Browser Validation › 4. Policy version and effective date
+[5/15] [chromium] › tests\e2e\privacy-v1.spec.ts:91:7 › Privacy Module v1 Browser Validation › 5. Real Privacy request workflow
+
+[WebServer] [next-auth][warn][NEXTAUTH_URL] 
+[WebServer] https://next-auth.js.org/warnings#nextauth_url
+◇ injected env (0) from .env.test.local,.env.test // tip: ⌘ suppress logs { quiet: true }
+
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+
+TARGET_DATABASE:
+rentipid_test_soc
+
+TARGET_ENVIRONMENT:
+TEST
+
+PRODUCTION_TARGET:
+NO
+
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+[6/15] (retries) [chromium] › tests\e2e\privacy-v1.spec.ts:91:7 › Privacy Module v1 Browser Validation › 5. Real Privacy request workflow (retry #1)
+  1) [chromium] › tests\e2e\privacy-v1.spec.ts:91:7 › Privacy Module v1 Browser Validation › 5. Real Privacy request workflow 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('REQ-1786098628504')
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 10000ms
+      - waiting for getByText('REQ-1786098628504')
+
+
+      113 |     
+      114 |     // Confirm TEST_USER_A can view the created request
+    > 115 |     await expect(page.getByText(refNumber)).toBeVisible();
+          |                                             ^
+      116 |   });
+      117 |
+      118 |   test('6. Real Cross-User Denial', async ({ page }) => {
+        at C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\e2e\privacy-v1.spec.ts:115:45
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--83030-al-Privacy-request-workflow-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--83030-al-Privacy-request-workflow-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\privacy-v1-Privacy-Module--83030-al-Privacy-request-workflow-chromium\error-context.md
+
+    Error Context: test-results\privacy-v1-Privacy-Module--83030-al-Privacy-request-workflow-chromium\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--83030-al-Privacy-request-workflow-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\privacy-v1-Privacy-Module--83030-al-Privacy-request-workflow-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('REQ-1786098645926')
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 10000ms
+      - waiting for getByText('REQ-1786098645926')
+
+
+      113 |     
+      114 |     // Confirm TEST_USER_A can view the created request
+    > 115 |     await expect(page.getByText(refNumber)).toBeVisible();
+          |                                             ^
+      116 |   });
+      117 |
+      118 |   test('6. Real Cross-User Denial', async ({ page }) => {
+        at C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\e2e\privacy-v1.spec.ts:115:45
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--83030-al-Privacy-request-workflow-chromium-retry1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--83030-al-Privacy-request-workflow-chromium-retry1\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\privacy-v1-Privacy-Module--83030-al-Privacy-request-workflow-chromium-retry1\error-context.md
+
+    Error Context: test-results\privacy-v1-Privacy-Module--83030-al-Privacy-request-workflow-chromium-retry1\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--83030-al-Privacy-request-workflow-chromium-retry1\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\privacy-v1-Privacy-Module--83030-al-Privacy-request-workflow-chromium-retry1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+◇ injected env (0) from .env.test.local,.env.test // tip: ◈ secrets for agents [www.dotenvx.com]
+
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+
+TARGET_DATABASE:
+rentipid_test_soc
+
+TARGET_ENVIRONMENT:
+TEST
+
+PRODUCTION_TARGET:
+NO
+
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+[7/15] [chromium] › tests\e2e\privacy-v1.spec.ts:118:7 › Privacy Module v1 Browser Validation › 6. Real Cross-User Denial
+◇ injected env (0) from .env.test.local,.env.test // tip: ⌘ override existing { override: true }
+
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+
+TARGET_DATABASE:
+rentipid_test_soc
+
+TARGET_ENVIRONMENT:
+TEST
+
+PRODUCTION_TARGET:
+NO
+
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+[8/15] (retries) [chromium] › tests\e2e\privacy-v1.spec.ts:118:7 › Privacy Module v1 Browser Validation › 6. Real Cross-User Denial (retry #1)
+  2) [chromium] › tests\e2e\privacy-v1.spec.ts:118:7 › Privacy Module v1 Browser Validation › 6. Real Cross-User Denial 
+
+    Error: expect(received).not.toBeNull()
+
+    Received: null
+
+      123 |       where: { user_id: userA.user.id }
+      124 |     });
+    > 125 |     expect(dsr).not.toBeNull();
+          |                     ^
+      126 |     
+      127 |     const response = await page.goto(`/api/privacy/requests?userId=${userA.user.id}`);
+      128 |     expect(response?.status()).toBe(403);
+        at C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\e2e\privacy-v1.spec.ts:125:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--d5d83-on-6-Real-Cross-User-Denial-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--d5d83-on-6-Real-Cross-User-Denial-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\privacy-v1-Privacy-Module--d5d83-on-6-Real-Cross-User-Denial-chromium\error-context.md
+
+    Error Context: test-results\privacy-v1-Privacy-Module--d5d83-on-6-Real-Cross-User-Denial-chromium\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--d5d83-on-6-Real-Cross-User-Denial-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\privacy-v1-Privacy-Module--d5d83-on-6-Real-Cross-User-Denial-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(received).not.toBeNull()
+
+    Received: null
+
+      123 |       where: { user_id: userA.user.id }
+      124 |     });
+    > 125 |     expect(dsr).not.toBeNull();
+          |                     ^
+      126 |     
+      127 |     const response = await page.goto(`/api/privacy/requests?userId=${userA.user.id}`);
+      128 |     expect(response?.status()).toBe(403);
+        at C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\e2e\privacy-v1.spec.ts:125:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--d5d83-on-6-Real-Cross-User-Denial-chromium-retry1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--d5d83-on-6-Real-Cross-User-Denial-chromium-retry1\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\privacy-v1-Privacy-Module--d5d83-on-6-Real-Cross-User-Denial-chromium-retry1\error-context.md
+
+    Error Context: test-results\privacy-v1-Privacy-Module--d5d83-on-6-Real-Cross-User-Denial-chromium-retry1\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--d5d83-on-6-Real-Cross-User-Denial-chromium-retry1\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\privacy-v1-Privacy-Module--d5d83-on-6-Real-Cross-User-Denial-chromium-retry1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+◇ injected env (0) from .env.test.local,.env.test // tip: ⌁ auth for agents [www.vestauth.com]
+
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+
+TARGET_DATABASE:
+rentipid_test_soc
+
+TARGET_ENVIRONMENT:
+TEST
+
+PRODUCTION_TARGET:
+NO
+
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+[9/15] [chromium] › tests\e2e\privacy-v1.spec.ts:131:7 › Privacy Module v1 Browser Validation › 7. Unauthorized Admin RBAC Denial
+[10/15] [chromium] › tests\e2e\privacy-v1.spec.ts:137:7 › Privacy Module v1 Browser Validation › 8. Authorized Privacy Admin RBAC Granted
+◇ injected env (0) from .env.test.local,.env.test // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+
+TARGET_DATABASE:
+rentipid_test_soc
+
+TARGET_ENVIRONMENT:
+TEST
+
+PRODUCTION_TARGET:
+NO
+
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+[11/15] (retries) [chromium] › tests\e2e\privacy-v1.spec.ts:137:7 › Privacy Module v1 Browser Validation › 8. Authorized Privacy Admin RBAC Granted (retry #1)
+  3) [chromium] › tests\e2e\privacy-v1.spec.ts:137:7 › Privacy Module v1 Browser Validation › 8. Authorized Privacy Admin RBAC Granted 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: /Privacy Operations Center/i })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 10000ms
+      - waiting for getByRole('heading', { name: /Privacy Operations Center/i })
+        - waiting for navigation to finish...
+        - navigated to "http://localhost:3001/mfa-enroll"
+
+
+      138 |     await login(page, adminUser.email);
+      139 |     await page.goto('/dashboard/admin/privacy');
+    > 140 |     await expect(page.getByRole('heading', { name: /Privacy Operations Center/i })).toBeVisible();
+          |                                                                                     ^
+      141 |   });
+      142 |
+      143 |   test('9. Real Cookie Preference Defaults', async ({ page }) => {
+        at C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\e2e\privacy-v1.spec.ts:140:85
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--aa7ac--Privacy-Admin-RBAC-Granted-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--aa7ac--Privacy-Admin-RBAC-Granted-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\privacy-v1-Privacy-Module--aa7ac--Privacy-Admin-RBAC-Granted-chromium\error-context.md
+
+    Error Context: test-results\privacy-v1-Privacy-Module--aa7ac--Privacy-Admin-RBAC-Granted-chromium\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--aa7ac--Privacy-Admin-RBAC-Granted-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\privacy-v1-Privacy-Module--aa7ac--Privacy-Admin-RBAC-Granted-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: /Privacy Operations Center/i })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 10000ms
+      - waiting for getByRole('heading', { name: /Privacy Operations Center/i })
+        - waiting for" http://localhost:3001/mfa-enroll" navigation to finish...
+        - navigated to "http://localhost:3001/mfa-enroll"
+
+
+      138 |     await login(page, adminUser.email);
+      139 |     await page.goto('/dashboard/admin/privacy');
+    > 140 |     await expect(page.getByRole('heading', { name: /Privacy Operations Center/i })).toBeVisible();
+          |                                                                                     ^
+      141 |   });
+      142 |
+      143 |   test('9. Real Cookie Preference Defaults', async ({ page }) => {
+        at C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\e2e\privacy-v1.spec.ts:140:85
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--aa7ac--Privacy-Admin-RBAC-Granted-chromium-retry1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--aa7ac--Privacy-Admin-RBAC-Granted-chromium-retry1\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\privacy-v1-Privacy-Module--aa7ac--Privacy-Admin-RBAC-Granted-chromium-retry1\error-context.md
+
+    Error Context: test-results\privacy-v1-Privacy-Module--aa7ac--Privacy-Admin-RBAC-Granted-chromium-retry1\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--aa7ac--Privacy-Admin-RBAC-Granted-chromium-retry1\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\privacy-v1-Privacy-Module--aa7ac--Privacy-Admin-RBAC-Granted-chromium-retry1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+◇ injected env (0) from .env.test.local,.env.test // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+
+TARGET_DATABASE:
+rentipid_test_soc
+
+TARGET_ENVIRONMENT:
+TEST
+
+PRODUCTION_TARGET:
+NO
+
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+[12/15] [chromium] › tests\e2e\privacy-v1.spec.ts:143:7 › Privacy Module v1 Browser Validation › 9. Real Cookie Preference Defaults
+[13/15] [chromium] › tests\e2e\privacy-v1.spec.ts:151:7 › Privacy Module v1 Browser Validation › 10. Real Cookie Persistence
+[14/15] [chromium] › tests\e2e\privacy-v1.spec.ts:165:7 › Privacy Module v1 Browser Validation › 11. Real Consent Withdrawal
+[15/15] [chromium] › tests\e2e\privacy-v1.spec.ts:182:7 › Privacy Module v1 Browser Validation › 12. Policy archive and Account Deletion
+◇ injected env (0) from .env.test.local,.env.test // tip: ◈ secrets for agents [www.dotenvx.com]
+
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+
+TARGET_DATABASE:
+rentipid_test_soc
+
+TARGET_ENVIRONMENT:
+TEST
+
+PRODUCTION_TARGET:
+NO
+
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+[16/15] (retries) [chromium] › tests\e2e\privacy-v1.spec.ts:182:7 › Privacy Module v1 Browser Validation › 12. Policy archive and Account Deletion (retry #1)
+  4) [chromium] › tests\e2e\privacy-v1.spec.ts:182:7 › Privacy Module v1 Browser Validation › 12. Policy archive and Account Deletion 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: /Delete Account/i })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 10000ms
+      - waiting for getByRole('button', { name: /Delete Account/i })
+
+
+      193 |     await login(userPage, userA.email);
+      194 |     await userPage.goto('/dashboard/profile');
+    > 195 |     await expect(userPage.getByRole('button', { name: /Delete Account/i })).toBeVisible();
+          |                                                                             ^
+      196 |     await userContext.close();
+      197 |   });
+      198 |
+        at C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\e2e\privacy-v1.spec.ts:195:77
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--4298d-rchive-and-Account-Deletion-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--4298d-rchive-and-Account-Deletion-chromium\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\privacy-v1-Privacy-Module--4298d-rchive-and-Account-Deletion-chromium\error-context.md
+
+    Error Context: test-results\privacy-v1-Privacy-Module--4298d-rchive-and-Account-Deletion-chromium\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--4298d-rchive-and-Account-Deletion-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\privacy-v1-Privacy-Module--4298d-rchive-and-Account-Deletion-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: /Delete Account/i })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 10000ms
+      - waiting for getByRole('button', { name: /Delete Account/i })
+
+
+      193 |     await login(userPage, userA.email);
+      194 |     await userPage.goto('/dashboard/profile');
+    > 195 |     await expect(userPage.getByRole('button', { name: /Delete Account/i })).toBeVisible();
+          |                                                                             ^
+      196 |     await userContext.close();
+      197 |   });
+      198 |
+        at C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\e2e\privacy-v1.spec.ts:195:77
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--4298d-rchive-and-Account-Deletion-chromium-retry1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--4298d-rchive-and-Account-Deletion-chromium-retry1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\privacy-v1-Privacy-Module--4298d-rchive-and-Account-Deletion-chromium-retry1\error-context.md
+
+    Error Context: test-results\privacy-v1-Privacy-Module--4298d-rchive-and-Account-Deletion-chromium-retry1\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--4298d-rchive-and-Account-Deletion-chromium-retry1\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\privacy-v1-Privacy-Module--4298d-rchive-and-Account-Deletion-chromium-retry1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+◇ injected env (0) from .env.test.local,.env.test // tip: ◈ secrets for agents [www.dotenvx.com]
+
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+
+TARGET_DATABASE:
+rentipid_test_soc
+
+TARGET_ENVIRONMENT:
+TEST
+
+PRODUCTION_TARGET:
+NO
+
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+[17/15] [chromium] › tests\e2e\privacy-v1.spec.ts:199:7 › Privacy Module v1 Browser Validation › 13. Accessibility Validation
+[chromium] › tests\e2e\privacy-v1.spec.ts:199:7 › Privacy Module v1 Browser Validation › 13. Accessibility Validation
+Accessibility violations on /privacy: [
+  {
+    "id": "landmark-unique",
+    "nodes": 1
+  }
+]
+
+◇ injected env (0) from .env.test.local,.env.test // tip: ⌁ auth for agents [www.vestauth.com]
+
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+
+TARGET_DATABASE:
+rentipid_test_soc
+
+TARGET_ENVIRONMENT:
+TEST
+
+PRODUCTION_TARGET:
+NO
+
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+[18/15] (retries) [chromium] › tests\e2e\privacy-v1.spec.ts:199:7 › Privacy Module v1 Browser Validation › 13. Accessibility Validation (retry #1)
+Accessibility violations on /privacy: [
+  {
+    "id": "landmark-unique",
+    "nodes": 1
+  }
+]
+
+  5) [chromium] › tests\e2e\privacy-v1.spec.ts:199:7 › Privacy Module v1 Browser Validation › 13. Accessibility Validation 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 45
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure landmarks are unique",
+    +     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=playwright",
+    +     "id": "landmark-unique",
+    +     "impact": "moderate",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "accessibleText": null,
+    +               "role": "navigation",
+    +             },
+    +             "id": "landmark-is-unique",
+    +             "impact": "moderate",
+    +             "message": "The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<nav class=\"flex items-center space-x-2\">",
+    +                 "target": Array [
+    +                   ".justify-end > nav",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable",
+    +         "html": "<nav class=\"hidden md:flex gap-6\">",
+    +         "impact": "moderate",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".md\\:flex",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "best-practice",
+    +     ],
+    +   },
+    + ]
+
+      206 |           console.log(`Accessibility violations on ${route}:`, JSON.stringify(accessibilityScanResults.violations.map(v => ({ id: v.id, nodes: v.nodes.length })), null, 2));
+      207 |         }
+    > 208 |         expect(accessibilityScanResults.violations).toEqual([]);
+          |                                                     ^
+      209 |       }
+      210 |     
+      211 |     await login(page, adminUser.email);
+        at C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\e2e\privacy-v1.spec.ts:208:53
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium\video-1.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium\error-context.md
+
+    Error Context: test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium\error-context.md
+
+    attachment #6: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 45
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure landmarks are unique",
+    +     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=playwright",
+    +     "id": "landmark-unique",
+    +     "impact": "moderate",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "accessibleText": null,
+    +               "role": "navigation",
+    +             },
+    +             "id": "landmark-is-unique",
+    +             "impact": "moderate",
+    +             "message": "The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<nav class=\"flex items-center space-x-2\">",
+    +                 "target": Array [
+    +                   ".justify-end > nav",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable",
+    +         "html": "<nav class=\"hidden md:flex gap-6\">",
+    +         "impact": "moderate",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".md\\:flex",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "best-practice",
+    +     ],
+    +   },
+    + ]
+
+      206 |           console.log(`Accessibility violations on ${route}:`, JSON.stringify(accessibilityScanResults.violations.map(v => ({ id: v.id, nodes: v.nodes.length })), null, 2));
+      207 |         }
+    > 208 |         expect(accessibilityScanResults.violations).toEqual([]);
+          |                                                     ^
+      209 |       }
+      210 |     
+      211 |     await login(page, adminUser.email);
+        at C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\e2e\privacy-v1.spec.ts:208:53
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium-retry1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium-retry1\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium-retry1\video-1.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium-retry1\error-context.md
+
+    Error Context: test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium-retry1\error-context.md
+
+    attachment #6: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium-retry1\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\privacy-v1-Privacy-Module--f1d72-13-Accessibility-Validation-chromium-retry1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+◇ injected env (0) from .env.test.local,.env.test // tip: ⌘ enable debugging { debug: true }
+
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+
+TARGET_DATABASE:
+rentipid_test_soc
+
+TARGET_ENVIRONMENT:
+TEST
+
+PRODUCTION_TARGET:
+NO
+
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+[19/15] [chromium] › tests\e2e\privacy-v1.spec.ts:220:7 › Privacy Module v1 Browser Validation › 14. Mobile Validation
+[20/15] [chromium] › tests\e2e\privacy-v1.spec.ts:238:7 › Privacy Module v1 Browser Validation › 15. Print Validation
+  5 failed
+    [chromium] › tests\e2e\privacy-v1.spec.ts:91:7 › Privacy Module v1 Browser Validation › 5. Real Privacy request workflow 
+    [chromium] › tests\e2e\privacy-v1.spec.ts:118:7 › Privacy Module v1 Browser Validation › 6. Real Cross-User Denial 
+    [chromium] › tests\e2e\privacy-v1.spec.ts:137:7 › Privacy Module v1 Browser Validation › 8. Authorized Privacy Admin RBAC Granted 
+    [chromium] › tests\e2e\privacy-v1.spec.ts:182:7 › Privacy Module v1 Browser Validation › 12. Policy archive and Account Deletion 
+    [chromium] › tests\e2e\privacy-v1.spec.ts:199:7 › Privacy Module v1 Browser Validation › 13. Accessibility Validation 
+  10 passed (2.6m)
+

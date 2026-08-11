@@ -10,7 +10,7 @@ export default function Header() {
 
   const getDashboardLink = () => {
     if (!session?.user) return "/login";
-    const role = (session.user as any).role;
+    const role = (session.user as { role?: string }).role;
     switch(role) {
       case 'Renter': return "/dashboard/renter";
       case 'Individual Provider': return "/dashboard/provider";
@@ -30,7 +30,7 @@ export default function Header() {
           <Link href="/" className="flex items-center space-x-2">
             <RentipidLogo variant="full" size="md" />
           </Link>
-          <nav className="hidden md:flex gap-6">
+          <nav aria-label="Main Navigation" className="hidden md:flex gap-6">
             <Link href="/browse" className="flex items-center text-sm font-medium text-gray-600 hover:text-blue-600">
               Browse Rentals
             </Link>
@@ -43,14 +43,17 @@ export default function Header() {
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <nav className="flex items-center space-x-2">
+          <nav aria-label="User Actions" className="flex items-center space-x-2">
             {status === "loading" ? (
-              <span className="text-sm text-gray-400">Loading...</span>
+              <span className="text-sm text-gray-500">Loading...</span>
             ) : session?.user ? (
               <>
                 <span className="text-sm font-medium text-gray-800 mr-2">
                   Hi, {session.user.name}
                 </span>
+                <Link href="/dashboard/profile" className="text-sm font-medium text-gray-600 hover:text-blue-600 px-3 py-2">
+                  Profile
+                </Link>
                 <Link href={getDashboardLink()} className="text-sm font-medium text-gray-600 hover:text-blue-600 px-3 py-2">
                   Dashboard
                 </Link>

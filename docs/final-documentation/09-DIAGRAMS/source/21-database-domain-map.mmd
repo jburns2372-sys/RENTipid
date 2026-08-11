@@ -1,0 +1,12 @@
+flowchart TB
+  Identity[Identity / profile / MFA] --> Marketplace[Catalog / listings]
+  Identity --> Verification[KYC / verification]
+  Marketplace --> Rental[Booking / agreement / inspection]
+  Rental --> Trust[Claims / disputes / reviews]
+  Rental --> Finance[Payments / ledger / refunds / payouts]
+  Identity --> Audit[Platform / auth / API / AI audit]
+  Marketplace --> Marketing[Marketing / social]
+  Identity --> Support[Beta / feedback / issues / support / UAT]
+  Audit --> SOC[SOC events / rules / alerts]
+  SOC --> Cases[Incident cases / playbooks / approvals / responses]
+  SOC --> Intelligence[Behavioral risk / geolocation]

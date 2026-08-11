@@ -1,0 +1,103 @@
+﻿.github/workflows/security-supply-chain.yml:46:          retention-days: 7
+.github/workflows/security-supply-chain.yml:53:          retention-days: 7
+docs/RENTipid-Master-Manual/04-Account-Lifecycle.md:32:Users have the right to request account deletion in compliance with data privacy regulations:
+docs/RENTipid-Master-Manual/04-Account-Lifecycle.md:35:3. **Execution:** If clear, personal data is anonymized or hard-deleted depending on retention policies (e.g., financial records are retained for statutory periods).
+docs/RENTipid-Master-Manual/27-History-and-Governance.md:22:- **Data Minimization:** KYC documents are only accessible to Compliance Admins and are subject to retention policies.
+docs/RENTipid-Master-Manual/RENTipid_Master_Manual.md:342:Users have the right to request account deletion in compliance with data privacy regulations:
+docs/RENTipid-Master-Manual/RENTipid_Master_Manual.md:345:3. **Execution:** If clear, personal data is anonymized or hard-deleted depending on retention policies (e.g., financial records are retained for statutory periods).
+docs/RENTipid-Master-Manual/RENTipid_Master_Manual.md:1231:- **Data Minimization:** KYC documents are only accessible to Compliance Admins and are subject to retention policies.
+docs/backup-and-restore.md:8:- **Retention**: We recommend a 30-day retention period.
+docs/governance/remaining-work/FINAL_GO_NO_GO_CHECKLIST.md:25:- [ ] Accept or remediate 7-day backup retention and disabled geo-backup; verify restore readiness.
+docs/governance/remaining-work/PHASE17_AZURE_POSTGRESQL_ACCESS_PLAN.md:30:3. Record the 7-day backup retention and disabled geo-redundant backup in the risk decision.
+docs/governance/remaining-work/PHASE17_DBA_ACCESS_REQUEST.md:42:Public network access is enabled, so firewall review and an approved audit network path are mandatory. Backup retention is 7 days and geo-backup is disabled; restore readiness must be accepted before access. Key Vault soft delete is enabled and Azure RBAC is disabled, so access-policy authorization applies. Test and Prisma shadow databases are `REVIEW_REQUIRED_DO_NOT_DELETE` and are outside deletion or cleanup authority.
+docs/governance/remaining-work/PHASE17_READINESS_AND_AUTHORIZATION.md:28:- Backup retention: 7 days
+docs/governance/remaining-work/PHASE19B_PRODUCTION_INFRASTRUCTURE_READINESS.md:25:- Accept or remediate the 7-day backup retention and disabled geo-backup posture; verify restore readiness.
+docs/governance/remaining-work/RENTIPID_PRODUCTION_ARCHITECTURE_VERIFICATION.md:45:- Backup retention is 7 days.
+docs/ios-build-guide.md:19:- **Account Deletion Flow:** Apple heavily enforces the requirement that apps supporting account creation MUST support account deletion within the app itself. Ensure `/account/delete` is accessible.
+docs/security/level5/05_RENTIPID_LEVEL5_RISK_REGISTER.md:40:| **RSK-029** | GAP-006 | Privacy-retention failure | User PII | Low | Medium | Medium | P2 | Mitigate | 5M | Open |
+docs/security/level5/06_RENTIPID_LEVEL5_IMPLEMENTATION_ROADMAP.md:225:- **Required evidence:** Privacy impact assessments, retention scripts.
+docs/security/level5/06_RENTIPID_LEVEL5_IMPLEMENTATION_ROADMAP.md:230:- **Required integration tests:** User account deletion.
+docs/security/level5/RENTIPID_LEVEL5_AUTHORIZATION_CONDITIONS.md:41:CONDITION=Confirm standard data retention durations map strictly to local law
+docs/security/level5/RENTIPID_LEVEL5_AUTHORIZATION_CONDITIONS.md:44:REQUIRED_ACTION=Review `src/lib/privacy/retention-policy.ts` definitions
+docs/security/level5/bundles/phase5f/PHASE5F_D_C_C_STAGING_AUTHORIZATION_PACKAGE.md:41:20. Temporary branch cleanup or retention decision
+docs/security/level5/bundles/phase5l/PHASE5L_BACKUP_RECOVERY_RUNBOOK.md:4:- **Database**: Azure Database for PostgreSQL Flexible Server automated backups (30 days retention).
+docs/security/level5/bundles/phase5n/PHASE5N_FINAL_ASSURANCE_REPORT.md:25:OPERATIONAL_CONDITIONS=Verify remote repositories, verify legal retention limits
+docs/security/level5/phase5b/01_RENTIPID_SECURITY_GOVERNANCE_CHARTER.md:56:Led by the Privacy Officer (ROLE_ASSIGNMENT_PENDING). Governs data retention, subject access requests, deletion workflows, and lawful basis tracking.
+docs/security/phase4/GATE4B4_GATE4E_LOCAL_SCOPE_CLOSEOUT.md:73:- Data-retention requirement
+docs/security/phase4/GATE4F_SLICE_C1_CASE_FOUNDATION_EVIDENCE.md:19:  - `legal_hold` (Boolean) and `retention_until` (DateTime) fields exist on both the case root and evidence items, pending future policy execution workflows.
+docs/security/phase4/GATE4F_SLICE_C4_INCIDENT_CASE_API_EVIDENCE.md:73:retention controls, and unrestricted content.
+docs/security/phase4/GATE4F_SLICE_C4_INCIDENT_CASE_API_EVIDENCE.md:78:Evidence is reference-only and excludes idempotency and retention internals.
+docs/security/phase4/PHASE4_DECISION_REGISTER.md:12:- Routine auth retention 180 days
+docs/security/phase4/PHASE4_DECISION_REGISTER.md:13:- Incident-linked retention 365 days after case closure
+docs/security/phase4/PHASE4_RESPONSE_BOUNDARY.md:24:- Permanent automatic account deletion
+docs/security/phase4/PHASE4_SOC_OPERATIONS_AND_RECOVERY_RUNBOOK.md:4:- Actions intentionally not supported: Irreversible actions, payment movement, permanent account deletion, active external defense, arbitrary code execution.
+docs/security/phase4/PHASE4_SOC_OPERATIONS_AND_RECOVERY_RUNBOOK.md:55:- Evidence-retention review: Comply with data retention and purging policies.
+infrastructure/main.tf:57:  soft_delete_retention_days  = 7
+infrastructure/modules/database/main.tf:18:  backup_retention_days         = 30
+infrastructure/modules/storage/main.tf:16:    delete_retention_policy {
+infrastructure/modules/storage/main.tf:19:    container_delete_retention_policy {
+prisma/migrations/20260719122949_add_auth_security_log/migration.sql:14:    "retention_class" TEXT NOT NULL,
+prisma/migrations/20260723053752_add_incident_case_foundation/migration.sql:42:    "retention_until" TIMESTAMP(3),
+prisma/migrations/20260723053752_add_incident_case_foundation/migration.sql:92:    "retention_until" TIMESTAMP(3),
+prisma/migrations/20260723053752_add_incident_case_foundation/migration.sql:202:            IF (NEW.id = OLD.id AND NEW.incident_case_id = OLD.incident_case_id AND NEW.evidence_type = OLD.evidence_type AND NEW.source_classification = OLD.source_classification AND NEW.collected_at = OLD.collected_at AND NEW.created_at = OLD.created_at AND NEW.reference_key = OLD.reference_key AND NEW.integrity_hash = OLD.integrity_hash AND NEW.content_type IS NOT DISTINCT FROM OLD.content_type AND NEW.size_bytes IS NOT DISTINCT FROM OLD.size_bytes AND NEW.idempotency_key = OLD.idempotency_key AND NEW.legal_hold = OLD.legal_hold AND NEW.retention_until IS NOT DISTINCT FROM OLD.retention_until) THEN
+prisma/migrations/20260724131703_amend_incident_case_history_assignment/migration.sql:96:            IF (NEW.id = OLD.id AND NEW.incident_case_id = OLD.incident_case_id AND NEW.evidence_type = OLD.evidence_type AND NEW.source_classification = OLD.source_classification AND NEW.collected_at = OLD.collected_at AND NEW.created_at = OLD.created_at AND NEW.reference_key = OLD.reference_key AND NEW.integrity_hash = OLD.integrity_hash AND NEW.content_type IS NOT DISTINCT FROM OLD.content_type AND NEW.size_bytes IS NOT DISTINCT FROM OLD.size_bytes AND NEW.idempotency_key = OLD.idempotency_key AND NEW.legal_hold = OLD.legal_hold AND NEW.retention_until IS NOT DISTINCT FROM OLD.retention_until) THEN
+prisma/schema.prisma:750:  retention_class        String
+prisma/schema.prisma:1664:  retention_until               DateTime?
+prisma/schema.prisma:1727:  retention_until       DateTime?
+src/app/account/delete/page.tsx:37:          Your account deletion request is currently: <strong>{existingRequest.status}</strong>. 
+src/app/account/delete/page.tsx:60:          Requesting account deletion will permanently remove your personal data, profile, and listings. 
+src/lib/privacy/data-classification.ts:16:  retentionPolicyId: string;
+src/lib/privacy/data-classification.ts:26:    retentionPolicyId: 'RET-001',
+src/lib/privacy/data-classification.ts:34:    retentionPolicyId: 'RET-001',
+src/lib/privacy/data-classification.ts:42:    retentionPolicyId: 'RET-001',
+src/lib/privacy/data-classification.ts:50:    retentionPolicyId: 'RET-002',
+src/lib/privacy/data-classification.ts:58:    retentionPolicyId: 'RET-002',
+src/lib/privacy/data-classification.ts:66:    retentionPolicyId: 'RET-003',
+src/lib/privacy/data-classification.ts:74:    retentionPolicyId: 'RET-003',
+src/lib/privacy/data-classification.ts:82:    retentionPolicyId: 'RET-004',
+src/lib/privacy/data-classification.ts:90:    retentionPolicyId: 'RET-004',
+src/lib/privacy/data-classification.ts:98:    retentionPolicyId: 'RET-004',
+src/lib/privacy/data-classification.ts:106:    retentionPolicyId: 'RET-005',
+src/lib/privacy/data-classification.ts:114:    retentionPolicyId: 'RET-005',
+src/lib/privacy/data-classification.ts:122:    retentionPolicyId: 'RET-005',
+src/lib/privacy/data-classification.ts:130:    retentionPolicyId: 'RET-005',
+src/lib/privacy/data-classification.ts:138:    retentionPolicyId: 'RET-006',
+src/lib/privacy/data-classification.ts:146:    retentionPolicyId: 'RET-UNKNOWN',
+src/lib/privacy/retention-policy.ts:4:  retentionTrigger: 'ACCOUNT_DELETION' | 'TRANSACTION_COMPLETE' | 'RECORD_CREATION' | 'INCIDENT_CLOSURE';
+src/lib/privacy/retention-policy.ts:5:  retentionDurationSource: 'STATUTORY_REQUIREMENT' | 'BUSINESS_JUSTIFICATION' | 'PENDING_MANAGEMENT_CONFIRMATION';
+src/lib/privacy/retention-policy.ts:8:  disposalMethod: 'PHYSICAL_DELETION' | 'PSEUDONYMIZATION' | 'AGGREGATION';
+src/lib/privacy/retention-policy.ts:18:    retentionTrigger: 'ACCOUNT_DELETION',
+src/lib/privacy/retention-policy.ts:19:    retentionDurationSource: 'BUSINESS_JUSTIFICATION',
+src/lib/privacy/retention-policy.ts:22:    disposalMethod: 'PHYSICAL_DELETION',
+src/lib/privacy/retention-policy.ts:25:    automaticDeletionEnabled: false // "Automatic disposal may be implemented only for unambiguous synthetic or operational temporary data."
+src/lib/privacy/retention-policy.ts:30:    retentionTrigger: 'ACCOUNT_DELETION',
+src/lib/privacy/retention-policy.ts:31:    retentionDurationSource: 'PENDING_MANAGEMENT_CONFIRMATION',
+src/lib/privacy/retention-policy.ts:34:    disposalMethod: 'PHYSICAL_DELETION',
+src/lib/privacy/retention-policy.ts:42:    retentionTrigger: 'TRANSACTION_COMPLETE',
+src/lib/privacy/retention-policy.ts:43:    retentionDurationSource: 'STATUTORY_REQUIREMENT',
+src/lib/privacy/retention-policy.ts:46:    disposalMethod: 'PSEUDONYMIZATION',
+src/lib/privacy/retention-policy.ts:54:    retentionTrigger: 'INCIDENT_CLOSURE',
+src/lib/privacy/retention-policy.ts:55:    retentionDurationSource: 'PENDING_MANAGEMENT_CONFIRMATION',
+src/lib/privacy/retention-policy.ts:58:    disposalMethod: 'PSEUDONYMIZATION',
+src/lib/privacy/retention-policy.ts:66:    retentionTrigger: 'RECORD_CREATION',
+src/lib/privacy/retention-policy.ts:67:    retentionDurationSource: 'PENDING_MANAGEMENT_CONFIRMATION',
+src/lib/privacy/retention-policy.ts:70:    disposalMethod: 'PHYSICAL_DELETION',
+src/lib/privacy/retention-policy.ts:78:    retentionTrigger: 'INCIDENT_CLOSURE',
+src/lib/privacy/retention-policy.ts:79:    retentionDurationSource: 'BUSINESS_JUSTIFICATION',
+src/lib/privacy/retention-policy.ts:82:    disposalMethod: 'PHYSICAL_DELETION',
+src/lib/privacy/retention-policy.ts:90:    retentionTrigger: 'RECORD_CREATION',
+src/lib/privacy/retention-policy.ts:91:    retentionDurationSource: 'PENDING_MANAGEMENT_CONFIRMATION',
+src/lib/privacy/retention-policy.ts:94:    disposalMethod: 'PHYSICAL_DELETION',
+src/lib/security/events/adapters/authentication-security-log-adapter.ts:14:      "retention_class" in record
+src/lib/security/events/writers/authentication-writer.ts:19:    // 180 days routine retention
+src/lib/security/events/writers/authentication-writer.ts:34:        retention_class: "AUTH_ROUTINE_180_DAYS",
+tests/privacy/phase5m.test.ts:11:import { getRetentionPolicy } from '../../src/lib/privacy/retention-policy';
+tests/privacy/phase5m.test.ts:236:    expect(['STATUTORY_REQUIREMENT', 'BUSINESS_JUSTIFICATION', 'PENDING_MANAGEMENT_CONFIRMATION']).toContain(policy.retentionDurationSource);
+tests/security/gate4b-adapter-contract.test.ts:22:      retention_class: "AUTH_ROUTINE_180_DAYS",
+tests/security/gate4b-adapter-contract.test.ts:57:      retention_class: "AUTH_ROUTINE_180_DAYS",
+tests/security/gate4b-adapter-contract.test.ts:83:      retention_class: "AUTH_ROUTINE_180_DAYS",
+tests/security/gate4b-authentication-idempotency.test.ts:38:        retention_class: "AUTH",
+tests/security/gate4b-authentication-idempotency.test.ts:77:        retention_class: "AUTH",
+tests/security/gate4b-authentication-writer.test.ts:87:  it("6. occurredAt is persisted correctly, 7. retentionClass is AUTH_ROUTINE_180_DAYS, 8. expiresAt is correct, 9. environment and lifecycle", async () => {
+tests/security/gate4b-authentication-writer.test.ts:96:    expect(log?.retention_class).toBe("AUTH_ROUTINE_180_DAYS");
+tests/security/phase5j5k.test.ts:36:    retention_class: 'STANDARD',

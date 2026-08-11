@@ -1,0 +1,470 @@
+
+
+> rentipid@0.1.0 test:soc:integration
+> npm run test:db:guard && cross-env NODE_ENV=test SECURITY_TELEMETRY_HMAC_KEY=0123456789abcdef0123456789abcdef SOC_CORRELATION_HMAC_KEY=0123456789abcdef0123456789abcdef dotenv -e .env.test.local -e .env.test -- jest --runInBand tests/privacy/ --runInBand
+
+
+> rentipid@0.1.0 test:db:guard
+> cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/run-test-database-guard.ts
+
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+TARGET_DATABASE:
+rentipid_test_soc
+TARGET_ENVIRONMENT:
+TEST
+PRODUCTION_TARGET:
+NO
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+Test database guard passed successfully.
+FAIL tests/privacy/phase5m.test.ts (5.051 s)
+  ● Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+  ● Phase 5M - Privacy Operations & ISMS (Synthetic Tests) › 12. DELETE_WITH_ACTIVE_BOOKING_BLOCKED
+
+    expect(received).rejects.toThrow()
+
+    Received promise resolved instead of rejected
+    Resolved to value: {"reference_number": "DEL-1786098565630", "status": "LEGAL_HOLD"}
+
+      128 |     });
+      129 |
+    > 130 |     await expect(requestAccountDeletion(user1Id, user1Id)).rejects.toThrow('Deletion blocked due to active legal/financial/security hold');
+          |           ^
+      131 |     
+      132 |     // Cleanup
+      133 |     await prisma.booking.delete({ where: { id: booking.id } });
+
+      at expect (node_modules/expect/build/index.js:2116:15)
+      at Object.expect (tests/privacy/phase5m.test.ts:130:11)
+
+  ● Phase 5M - Privacy Operations & ISMS (Synthetic Tests) › 13. DELETE_WITH_PAYMENT_RECORD_BLOCKED
+
+    expect(received).rejects.toThrow()
+
+    Received promise resolved instead of rejected
+    Resolved to value: {"reference_number": "DEL-1786098565695", "status": "LEGAL_HOLD"}
+
+      148 |     });
+      149 |
+    > 150 |     await expect(requestAccountDeletion(user1Id, user1Id)).rejects.toThrow('Deletion blocked due to active legal/financial/security hold');
+          |           ^
+      151 |
+      152 |     await prisma.payment.delete({ where: { id: payment.id } });
+      153 |   });
+
+      at expect (node_modules/expect/build/index.js:2116:15)
+      at Object.expect (tests/privacy/phase5m.test.ts:150:11)
+
+  ● Phase 5M - Privacy Operations & ISMS (Synthetic Tests) › 14. DELETE_WITH_OPEN_DISPUTE_BLOCKED
+
+    expect(received).rejects.toThrow()
+
+    Received promise resolved instead of rejected
+    Resolved to value: {"reference_number": "DEL-1786098565727", "status": "LEGAL_HOLD"}
+
+      166 |     });
+      167 |
+    > 168 |     await expect(requestAccountDeletion(user1Id, user1Id)).rejects.toThrow('Deletion blocked due to active legal/financial/security hold');
+          |           ^
+      169 |
+      170 |     await prisma.disputeCase.delete({ where: { id: dispute.id } });
+      171 |   });
+
+      at expect (node_modules/expect/build/index.js:2116:15)
+      at Object.expect (tests/privacy/phase5m.test.ts:168:11)
+
+  ● Phase 5M - Privacy Operations & ISMS (Synthetic Tests) › 15. SECURITY_EVENT_DELETION_BLOCKED
+
+    expect(received).rejects.toThrow()
+
+    Received promise resolved instead of rejected
+    Resolved to value: {"reference_number": "DEL-1786098565776", "status": "LEGAL_HOLD"}
+
+      185 |     });
+      186 |
+    > 187 |     await expect(requestAccountDeletion(user1Id, user1Id)).rejects.toThrow('Deletion blocked due to active legal/financial/security hold');
+          |           ^
+      188 |
+      189 |     await prisma.apiSecurityLog.delete({ where: { id: event.id } });
+      190 |   });
+
+      at expect (node_modules/expect/build/index.js:2116:15)
+      at Object.expect (tests/privacy/phase5m.test.ts:187:11)
+
+  ● Phase 5M - Privacy Operations & ISMS (Synthetic Tests) › 16. ELIGIBLE_PROFILE_SUBMITTED_NOT_AUTOMATICALLY_PSEUDONYMIZED
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "SUBMITTED"
+    Received: "LEGAL_HOLD"
+
+      192 |   it('16. ELIGIBLE_PROFILE_SUBMITTED_NOT_AUTOMATICALLY_PSEUDONYMIZED', async () => {
+      193 |     const res = await requestAccountDeletion(user1Id, user1Id);
+    > 194 |     expect(res.status).toBe('SUBMITTED');
+          |                        ^
+      195 |     
+      196 |     // Assert production deletion requirement: execution is manual, user is NOT automatically anonymized
+      197 |     const user = await prisma.user.findUnique({ where: { id: user1Id } });
+
+      at Object.toBe (tests/privacy/phase5m.test.ts:194:24)
+
+  ● Phase 5M - Privacy Operations & ISMS (Synthetic Tests) › 17. REPEATED_DELETION_REQUEST_IDEMPOTENT
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "ALREADY_DELETED"
+    Received: "LEGAL_HOLD"
+
+      202 |   it('17. REPEATED_DELETION_REQUEST_IDEMPOTENT', async () => {
+      203 |     const res = await requestAccountDeletion(user1Id, user1Id);
+    > 204 |     expect(res.status).toBe('ALREADY_DELETED');
+          |                        ^
+      205 |   });
+      206 |
+      207 |   it('18. CROSS_USER_DELETION_REJECTED', async () => {
+
+      at Object.toBe (tests/privacy/phase5m.test.ts:204:24)
+
+FAIL tests/privacy/phase6zd-c3-remediation.integration.test.ts
+  ● Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+  ● Phase 6ZD-C3 Remediation Integration Tests › legal-hold blocks deletion processing
+
+    expect(received).rejects.toThrow()
+
+    Received promise resolved instead of rejected
+    Resolved to value: {"reference_number": "DEL-1786098568808", "status": "LEGAL_HOLD"}
+
+       97 |     });
+       98 |
+    >  99 |     await expect(requestAccountDeletion(user.id, user.id)).rejects.toThrow(/legal\/financial\/security hold/);
+          |           ^
+      100 |     
+      101 |     // Validate request was still created but marked as LEGAL_HOLD
+      102 |     const dsrs = await prisma.dataSubjectRequest.findMany({
+
+      at expect (node_modules/expect/build/index.js:2116:15)
+      at Object.expect (tests/privacy/phase6zd-c3-remediation.integration.test.ts:99:11)
+
+PASS tests/privacy/admin-rbac.integration.test.ts
+  ● Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/dsr.integration.test.ts
+  ● Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/privacy-center.spec.ts
+  ● Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/audit.test.ts
+  ● Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/cookie-consent.test.ts
+  ● Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/admin.test.ts
+  ● Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/security-negative.integration.test.ts
+  ● Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/public-policy.test.ts
+  ● Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+
+Test Suites: 2 failed, 8 passed, 10 total
+Tests:       7 failed, 40 passed, 47 total
+Snapshots:   0 total
+Time:        22.634 s
+Ran all test suites matching tests/privacy/.
+

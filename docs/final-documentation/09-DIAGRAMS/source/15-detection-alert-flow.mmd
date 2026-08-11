@@ -1,0 +1,10 @@
+flowchart TB
+  Event[Compatible SecurityEvent] --> Rule[Active validated DetectionRule]
+  Rule --> Evaluate[Deterministic evaluation]
+  Evaluate --> Log[RuleEvaluationLog]
+  Evaluate --> NoMatch[No-match / safe outcome]
+  Evaluate --> Match[Matched result]
+  Match --> Dedup[Deduplicate / correlate]
+  Dedup --> Alert[Create or reuse SecurityAlert]
+  Alert --> Evidence[Bounded SecurityAlertEvidence]
+  Evidence --> Review[Authorized alert review]

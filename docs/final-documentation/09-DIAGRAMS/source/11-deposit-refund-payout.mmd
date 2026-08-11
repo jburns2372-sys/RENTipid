@@ -1,0 +1,10 @@
+flowchart TB
+  Rental[Booking / inspection / claim evidence] --> Deposit[Deposit review]
+  Payment[Payment / gateway / reconciliation evidence] --> Refund[Refund request and review]
+  Payment --> Payout[Provider payout readiness]
+  Deposit --> Finance[Finance Admin control]
+  Refund --> Finance
+  Payout --> Batch[Payout batch / settlement review]
+  Batch --> Finance
+  Finance --> Audit[Sanitized financial audit evidence]
+  guard[No autonomous AI/SOC decision; no live activation authority] --- Finance

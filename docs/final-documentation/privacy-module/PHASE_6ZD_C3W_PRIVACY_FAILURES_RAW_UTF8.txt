@@ -1,0 +1,498 @@
+﻿
+> rentipid@0.1.0 test:soc:integration
+> npm run test:db:guard && cross-env NODE_ENV=test SECURITY_TELEMETRY_HMAC_KEY=0123456789abcdef0123456789abcdef SOC_CORRELATION_HMAC_KEY=0123456789abcdef0123456789abcdef dotenv -e .env.test.local -e .env.test -- jest --runInBand tests/privacy/ --runInBand
+
+
+> rentipid@0.1.0 test:db:guard
+> cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/run-test-database-guard.ts
+
+TARGET_HOST_CLASSIFICATION:
+LOCALHOST
+TARGET_DATABASE:
+rentipid_test_soc
+TARGET_ENVIRONMENT:
+TEST
+PRODUCTION_TARGET:
+NO
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+Test database guard passed successfully.
+npm : FAIL tests/privacy/phase5m.test.ts
+At line:5 char:1
++ npm run test:soc:integration -- tests/privacy/ --runInBand 2>&1 | Tee ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (FAIL tests/privacy/phase5m.test.ts:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  ΓùÅ Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+  ΓùÅ Phase 5M - Privacy Operations & ISMS (Synthetic Tests) ΓÇ║ 13. DELETE_WITH_PAYMENT_RECORD_BLOCKED
+
+    PrismaClientKnownRequestError: 
+    Invalid `prisma.payment.create()` invocation in
+    C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\privacy\phase5m.test.ts:129:42
+
+      126 it('13. DELETE_WITH_PAYMENT_RECORD_BLOCKED', async () => {
+      127   const booking = await prisma.booking.findFirst({ where: { is_test_data: true } }); // find the listing we 
+just created or similar
+      128   if (!booking) return; // safety
+    ΓåÆ 129   const payment = await prisma.payment.create(
+    Unique constraint failed on the fields: (`booking_id`)
+
+    [0m [90m 127 |[39m     [36mconst[39m booking [33m=[39m [36mawait[39m 
+prisma[33m.[39mbooking[33m.[39mfindFirst({ where[33m:[39m { is_test_data[33m:[39m [36mtrue[39m } 
+})[33m;[39m [90m// find the listing we just created or similar[39m
+     [90m 128 |[39m     [36mif[39m ([33m![39mbooking) [36mreturn[39m[33m;[39m [90m// safety[39m
+    [31m[1m>[22m[39m[90m 129 |[39m     [36mconst[39m payment [33m=[39m [36mawait[39m 
+prisma[33m.[39mpayment[33m.[39mcreate({
+     [90m     |[39m                     [31m[1m^[22m[39m
+     [90m 130 |[39m       data[33m:[39m {
+     [90m 131 |[39m         booking_id[33m:[39m booking[33m.[39mid[33m,[39m
+     [90m 132 |[39m         user_id[33m:[39m user1Id[33m,[39m[0m
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:228:13)
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)
+      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)
+      at Object.<anonymous> (tests/privacy/phase5m.test.ts:129:21)
+
+  ΓùÅ Phase 5M - Privacy Operations & ISMS (Synthetic Tests) ΓÇ║ 16. ELIGIBLE_PROFILE_PSEUDONYMIZED
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "PSEUDONYMIZED"
+    Received: "SUBMITTED"
+
+    [0m [90m 182 |[39m   it([32m'16. ELIGIBLE_PROFILE_PSEUDONYMIZED'[39m[33m,[39m [36masync[39m () 
+[33m=>[39m {
+     [90m 183 |[39m     [36mconst[39m res [33m=[39m [36mawait[39m requestAccountDeletion(user1Id[33m,[39m 
+user1Id)[33m;[39m
+    [31m[1m>[22m[39m[90m 184 |[39m     
+expect(res[33m.[39mstatus)[33m.[39mtoBe([32m'PSEUDONYMIZED'[39m)[33m;[39m
+     [90m     |[39m                        [31m[1m^[22m[39m
+     [90m 185 |[39m     
+     [90m 186 |[39m     [36mconst[39m user [33m=[39m [36mawait[39m 
+prisma[33m.[39muser[33m.[39mfindUnique({ where[33m:[39m { id[33m:[39m user1Id } })[33m;[39m
+     [90m 187 |[39m     
+expect(user[33m?[39m[33m.[39memail)[33m.[39mtoContain([32m'deleted_'[39m)[33m;[39m[0m
+
+      at Object.toBe (tests/privacy/phase5m.test.ts:184:24)
+
+  ΓùÅ Phase 5M - Privacy Operations & ISMS (Synthetic Tests) ΓÇ║ 17. REPEATED_DELETION_REQUEST_IDEMPOTENT
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "ALREADY_DELETED"
+    Received: "SUBMITTED"
+
+    [0m [90m 191 |[39m   it([32m'17. REPEATED_DELETION_REQUEST_IDEMPOTENT'[39m[33m,[39m [36masync[39m () 
+[33m=>[39m {
+     [90m 192 |[39m     [36mconst[39m res [33m=[39m [36mawait[39m requestAccountDeletion(user1Id[33m,[39m 
+user1Id)[33m;[39m
+    [31m[1m>[22m[39m[90m 193 |[39m     
+expect(res[33m.[39mstatus)[33m.[39mtoBe([32m'ALREADY_DELETED'[39m)[33m;[39m
+     [90m     |[39m                        [31m[1m^[22m[39m
+     [90m 194 |[39m   })[33m;[39m
+     [90m 195 |[39m
+     [90m 196 |[39m   it([32m'18. CROSS_USER_DELETION_REJECTED'[39m[33m,[39m [36masync[39m () [33m=>[39m 
+{[0m
+
+      at Object.toBe (tests/privacy/phase5m.test.ts:193:24)
+
+  ΓùÅ Phase 5M - Privacy Operations & ISMS (Synthetic Tests) ΓÇ║ 23. INCIDENT_RECORD_REJECTS_RAW_PERSONAL_DATA
+
+    expect(received).rejects.toThrow(expected)
+
+    Expected substring: "PRIVACY_REJECTED"
+    Received message:   "INCIDENT_CASE_PERMISSION_DENIED"
+
+        [0m [90m 202 |[39m
+         [90m 203 |[39m   [36mif[39m ([33m![39moutcome[33m.[39mallowed) {
+        [31m[1m>[22m[39m[90m 204 |[39m     [36mthrow[39m [36mnew[39m 
+[33mIncidentCaseWriterError[39m([32m'INCIDENT_CASE_PERMISSION_DENIED'[39m)[33m;[39m
+         [90m     |[39m           [31m[1m^[22m[39m
+         [90m 205 |[39m   }
+         [90m 206 |[39m   [36mreturn[39m outcome[33m.[39mvalue[33m;[39m
+         [90m 207 |[39m }[0m
+
+      at authorizeAndMutate (src/lib/security/cases/incident-case-writers.service.ts:204:11)
+      at Object.<anonymous> (tests/privacy/phase5m.test.ts:223:5)
+      at Object.toThrow (node_modules/expect/build/index.js:2155:20)
+      at Object.toThrow (tests/privacy/phase5m.test.ts:229:17)
+
+  ΓùÅ Phase 5M - Privacy Operations & ISMS (Synthetic Tests) ΓÇ║ 25. PRIVACY_LOG_EXCLUDES_PERSONAL_VALUES & 26. 
+PRIVACY_OPERATION_CREATES_AUDIT_EVENT
+
+    expect(received).toContain(expected) // indexOf
+
+    Matcher error: received value must not be null nor undefined
+
+    Received has value: undefined
+
+    [0m [90m 241 |[39m     })[33m;[39m
+     [90m 242 |[39m     expect(log)[33m.[39mtoBeDefined()[33m;[39m
+    [31m[1m>[22m[39m[90m 243 |[39m     
+expect(log[33m?[39m[33m.[39maction)[33m.[39mtoContain([32m'PRIVACY_EVENT'[39m)[33m;[39m
+     [90m     |[39m                         [31m[1m^[22m[39m
+     [90m 244 |[39m     expect(log[33m?[39m[33m.[39mdetails)[33m.[39mnot[33m.[39mtoContain([32m'Privacy 
+Test User 2'[39m)[33m;[39m
+     [90m 245 |[39m   })[33m;[39m
+     [90m 246 |[39m[0m
+
+      at Object.toContain (tests/privacy/phase5m.test.ts:243:25)
+
+
+  ΓùÅ Test suite failed to run
+
+    PrismaClientUnknownRequestError: 
+    Invalid `prisma.user.deleteMany()` invocation in
+    C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\privacy\phase5m.test.ts:49:23
+
+      46   await prisma.listing.deleteMany({
+      47   where: { provider_id: { in: [user1Id, user2Id] } }
+      48 });
+    ΓåÆ 49 await prisma.user.deleteMany(
+    Error occurred during query execution:
+    ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: "23001", message: 
+"update or delete on table \"User\" violates RESTRICT setting of foreign key constraint 
+\"DataSubjectRequest_user_id_fkey\" on table \"DataSubjectRequest\"", severity: "ERROR", detail: Some("Key 
+(id)=(cmsifzlnq0000vcqw2mpd5z2c) is referenced from table \"DataSubjectRequest\"."), column: None, hint: None }), 
+transient: false })
+
+    [0m [90m 47 |[39m       where[33m:[39m { provider_id[33m:[39m { [36min[39m[33m:[39m [user1Id[33m,[39m 
+user2Id] } }
+     [90m 48 |[39m     })[33m;[39m
+    [31m[1m>[22m[39m[90m 49 |[39m     [36mawait[39m prisma[33m.[39muser[33m.[39mdeleteMany({
+     [90m    |[39m     [31m[1m^[22m[39m
+     [90m 50 |[39m       where[33m:[39m { id[33m:[39m { [36min[39m[33m:[39m [user1Id[33m,[39m user2Id] } }
+     [90m 51 |[39m     })[33m;[39m
+     [90m 52 |[39m     [36mawait[39m prisma[33m.[39m$disconnect()[33m;[39m[0m
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:237:13)
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)
+      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)
+      at Object.<anonymous> (tests/privacy/phase5m.test.ts:49:5)
+
+PASS tests/privacy/phase6zd-c3-remediation.integration.test.ts
+  ΓùÅ Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/dsr.integration.test.ts
+  ΓùÅ Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/privacy-center.spec.ts
+  ΓùÅ Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/admin.test.ts
+  ΓùÅ Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/admin-rbac.integration.test.ts
+  ΓùÅ Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/audit.test.ts
+  ΓùÅ Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/public-policy.test.ts
+  ΓùÅ Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/security-negative.integration.test.ts
+  ΓùÅ Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+PASS tests/privacy/cookie-consent.test.ts
+  ΓùÅ Console
+
+    console.log
+      TARGET_HOST_CLASSIFICATION:
+      LOCALHOST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:67:13)
+
+    console.log
+      TARGET_DATABASE:
+      rentipid_test_soc
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:68:13)
+
+    console.log
+      TARGET_ENVIRONMENT:
+      TEST
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:69:13)
+
+    console.log
+      PRODUCTION_TARGET:
+      NO
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:70:13)
+
+    console.log
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+      at assertSafeLocalTestDatabaseTarget (src/lib/test-database-guard.ts:71:13)
+
+
+Test Suites: 1 failed, 9 passed, 10 total
+Tests:       5 failed, 42 passed, 47 total
+Snapshots:   0 total
+Time:        6.466 s, estimated 7 s
+Ran all test suites matching tests/privacy/.

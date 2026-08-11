@@ -6,7 +6,8 @@ import {
   SecurityEventClassification, 
   SecuritySeverity, 
   SecurityEnvironment, 
-  SecurityLifecycle 
+  SecurityLifecycle,
+  SecurityProcessingStatus 
 } from "../taxonomy";
 import { ApiSecurityLog } from "@prisma/client";
 
@@ -72,7 +73,7 @@ export class ApiSecurityLogAdapter implements SecurityEventSourceAdapter<ApiSecu
       classification_reason: null,
       correlation_key: this.buildCorrelationKey(sourceRecord),
       idempotency_key: `API_${sourceRecord.id}`,
-      processing_status: "PENDING",
+      processing_status: SecurityProcessingStatus.NORMALIZED,
       occurred_at: sourceRecord.occurred_at,
       source_received_at: new Date(),
       environment: environment,

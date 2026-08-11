@@ -1,0 +1,18 @@
+﻿0001: # CROSS_BORDER_PROCESSING_ASSESSMENT.md
+0002: 
+0003: CROSS_BORDER_REVIEW_DECISION: APPROVED_WITH_CORRECTIONS
+0004: STATUS: COMPLETE
+0005: 
+0006: VERCEL_FUNCTION_REGION: iad1
+0007: VERCEL_GLOBAL_DELIVERY: YES
+0008: DATABASE_PROVIDER: Microsoft Azure
+0009: DATABASE_RESOURCE: rentipid-postgres-db
+0010: DATABASE_PROCESSING_REGION: Southeast Asia
+0011: DATABASE_CONNECTED_TO_VERCEL_PRODUCTION: YES
+0012: PROVIDER_SUBPROCESSORS_POSSIBLE: YES
+0013: CROSS_BORDER_PROCESSING_POSSIBLE: YES
+0014: CROSS_BORDER_DISCLOSURE_COMPLETE: YES
+0015: VALIDATED_PROCESSORS_ACTIVATED: NO
+0016: 
+0017: RENTipid uses cloud hosting via Vercel (with function execution in iad1 and global content delivery infrastructure) and managed database hosting via Microsoft Azure in the Southeast Asia region. Personal information may be stored or processed outside the Philippines through provider infrastructure, backups, and authorized subprocessors. Inactive providers receive no live personal data.
+

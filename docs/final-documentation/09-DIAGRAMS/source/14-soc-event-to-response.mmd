@@ -1,0 +1,11 @@
+flowchart LR
+  Sources[Auth / API / AI / payment / marketplace sources] --> Normalize[Privacy-safe normalization]
+  Normalize --> Checkpoint[Failure + checkpoint controls]
+  Normalize --> Detect[Rule evaluation]
+  Detect --> Alert[Deduplicated alert]
+  Alert --> Case[Incident case]
+  Case --> Playbook[Versioned playbook]
+  Playbook --> Approval[Independent scoped approval]
+  Approval --> Execute[Reversible execution]
+  Execute --> Audit[Sanitized execution audit]
+  Execute --> Rollback[Separately authorized rollback]

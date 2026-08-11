@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export type PrivacyRequestType = 
+export type PrivacyRequestType =
   | 'ACCESS_REQUEST'
   | 'CORRECTION_REQUEST'
   | 'DELETION_REQUEST'
@@ -12,7 +12,7 @@ export type PrivacyRequestType =
   | 'CONSENT_WITHDRAWAL'
   | 'PROCESSING_OBJECTION';
 
-export type PrivacyRequestStatus = 
+export type PrivacyRequestStatus =
   | 'SUBMITTED'
   | 'IDENTITY_VERIFICATION_REQUIRED'
   | 'VERIFIED'
@@ -24,19 +24,33 @@ export type PrivacyRequestStatus =
   | 'CANCELLED';
 
 export async function processPrivacyRequest(
-  userId: string, 
+  userId: string,
   requestType: PrivacyRequestType,
   targetUserId: string,
+  encryptedEmail?: string,
+  message?: string,
   reviewerId?: string
 ) {
   // Ensure reviewer is not the same as target user when review is required
   if (reviewerId && reviewerId === targetUserId) {
     throw new Error('A user must not approve their own request when administrative review is required.');
   }
-  
+
+  const reference_number = `REQ-${Date.now()}`;
+
+  await prisma.dataSubjectRequest.create({
+    data: {
+      reference_number,
+      user_id: targetUserId,
+      request_type: requestType,
+      status: 'SUBMITTED',
+      requester_email_encrypted: encryptedEmail,
+    }
+  });
+
   // Create an audit event (Privacy Safe Logging)
   await logPrivacyEvent({
-    requestId: `REQ-${Date.now()}`,
+    requestId: reference_number,
     requestType,
     actorId: userId,
     targetUserId,
@@ -45,14 +59,14 @@ export async function processPrivacyRequest(
     decision: 'PENDING',
     sanitizedReason: 'User initiated privacy request'
   });
-  
-  return { status: 'SUBMITTED' };
+
+  return { status: 'SUBMITTED', reference_number };
 }
 
 export async function exportUserData(actorUserId: string, targetUserId: string) {
   // 1. Requires an authenticated user
   if (!actorUserId) throw new Error('Unauthenticated');
-  
+
   // 3. Export only records belonging to that user
   if (actorUserId !== targetUserId) {
     await logPrivacyEvent({
@@ -105,11 +119,11 @@ export async function correctUserData(actorUserId: string, targetUserId: string,
   if (actorUserId !== targetUserId) {
     throw new Error('Unauthorized cross-user correction');
   }
-  
+
   // Ensure we don't update protected columns like password_hash directly via this method
   const allowedKeys = ['full_name'];
   const updatePayload: Record<string, unknown> = {};
-  
+
   for (const key of Object.keys(updates)) {
     if (allowedKeys.includes(key)) {
       updatePayload[key] = (updates as Record<string, unknown>)[key];
@@ -163,67 +177,80 @@ export async function checkHolds(targetUserId: string) {
   });
 
   if (activeDisputes > 0) return true;
-  
+
   const hasSecurityEvents = await prisma.apiSecurityLog.count({
     where: { actor_user_id: targetUserId }
   });
-  
+
   if (hasSecurityEvents > 0) return true; // Security hold
 
   return false;
 }
 
-export async function requestAccountDeletion(actorUserId: string, targetUserId: string) {
+export async function requestAccountDeletion(actorUserId: string, targetUserId: string, encryptedEmail?: string) {
   if (actorUserId !== targetUserId) {
     throw new Error('Unauthorized cross-user deletion');
   }
 
+  const user = await prisma.user.findUnique({ where: { id: targetUserId } });
+  if (!user) throw new Error('User not found');
+  if (user.email.startsWith('deleted_')) {
+    return { status: 'ALREADY_DELETED', reference_number: 'N/A' };
+  }
+
+  const existingReq = await prisma.dataSubjectRequest.findFirst({
+    where: { user_id: targetUserId, request_type: 'DELETION_REQUEST' },
+    orderBy: { created_at: 'desc' }
+  });
+  if (existingReq && (existingReq.status === 'PSEUDONYMIZED' || existingReq.status === 'SUBMITTED' || existingReq.status === 'COMPLETED')) {
+    return { status: 'ALREADY_DELETED', reference_number: existingReq.reference_number };
+  }
+
   const hasHold = await checkHolds(targetUserId);
 
-  if (hasHold) {
-    await logPrivacyEvent({
-      requestId: `DEL-${Date.now()}`,
-      requestType: 'DELETION_REQUEST',
-      actorId: actorUserId,
-      targetUserId,
-      status: 'REJECTED',
-      dataCategory: 'ACCOUNT_IDENTITY',
-      decision: 'DENY',
-      sanitizedReason: 'Deletion blocked due to active hold'
+  const txResult = await prisma.$transaction(async (tx) => {
+    const reference_number = "DEL-" + Date.now();
+
+    const requestStatus = hasHold ? 'LEGAL_HOLD' : 'SUBMITTED';
+
+    const createdRequest = await tx.dataSubjectRequest.create({
+      data: {
+        reference_number,
+        user_id: targetUserId,
+        request_type: 'DELETION_REQUEST',
+        status: requestStatus,
+        requester_email_encrypted: encryptedEmail,
+      }
     });
+
+    // Use Privacy module to match audit function logic
+    await tx.auditLog.create({
+      data: {
+        actor_user_id: actorUserId,
+        action: 'PRIVACY_EVENT: DELETION_REQUEST',
+        module: 'Privacy',
+        target_id: targetUserId,
+        details: JSON.stringify({
+          requestId: reference_number,
+          requestType: 'DELETION_REQUEST',
+          actorId: actorUserId,
+          targetUserId,
+          status: requestStatus,
+          dataCategory: 'ACCOUNT_IDENTITY',
+          decision: hasHold ? 'DENY' : 'PENDING',
+          sanitizedReason: hasHold ? 'Deletion blocked due to active hold' : 'User initiated privacy request'
+        })
+      }
+    });
+
+    return createdRequest;
+  });
+
+  if (hasHold) {
     throw new Error('Deletion blocked due to active legal/financial/security hold');
   }
 
-  // Idempotency: check if already deleted/pseudonymized
-  const user = await prisma.user.findUnique({ where: { id: targetUserId } });
-  if (!user || user.email.startsWith('deleted_')) {
-    return { status: 'ALREADY_DELETED' };
-  }
-
-  // Pseudonymize
-  await prisma.user.update({
-    where: { id: targetUserId },
-    data: {
-      email: `deleted_${targetUserId}@anonymized.local`,
-      full_name: 'Anonymized User',
-      mobile_number: null,
-      password_hash: null,
-      status: 'Blacklisted' // Just to disable
-    }
-  });
-
-  await logPrivacyEvent({
-    requestId: `DEL-${Date.now()}`,
-    requestType: 'DELETION_REQUEST',
-    actorId: actorUserId,
-    targetUserId,
-    status: 'COMPLETED',
-    dataCategory: 'ACCOUNT_IDENTITY',
-    decision: 'ALLOW',
-    sanitizedReason: 'User profile pseudonymized'
-  });
-
-  return { status: 'PSEUDONYMIZED' };
+  return { status: txResult.status, reference_number: txResult.reference_number };
 }
 
 export async function withdrawConsent(actorUserId: string, purpose: string) {
@@ -237,8 +264,23 @@ export async function withdrawConsent(actorUserId: string, purpose: string) {
     decision: 'ALLOW',
     sanitizedReason: `Consent withdrawn for ${purpose}`
   });
-  
-  return { status: 'WITHDRAWN' };
+
+  const receipt = await prisma.cookieConsentReceipt.create({
+    data: {
+      user_id: actorUserId,
+      ip_address: '127.0.0.1',
+      user_agent: 'System Event',
+      policy_version: 'v1.0.0',
+      consent_version: 1,
+      necessary_enabled: true,
+      consent_action: 'WITHDRAWN',
+      functional_enabled: false,
+      analytics_enabled: false,
+      marketing_enabled: false
+    }
+  });
+
+  return { status: 'WITHDRAWN', receiptId: receipt.id };
 }
 
 export async function createPrivacyIncident(
@@ -287,4 +329,30 @@ export async function logPrivacyEvent(event: {
       })
     }
   });
+}
+
+export async function escalateToDPO(actorUserId: string, requestId: string, reason: string) {
+  const req = await prisma.dataSubjectRequest.findUnique({ where: { id: requestId } });
+  if (!req) throw new Error('Request not found');
+
+  const updatedReq = await prisma.dataSubjectRequest.update({
+    where: { id: requestId },
+    data: {
+      dpo_escalation_status: 'ESCALATED',
+      dpo_escalation_reason: reason
+    }
+  });
+
+  await logPrivacyEvent({
+    requestId: req.reference_number,
+    requestType: req.request_type,
+    actorId: actorUserId,
+    targetUserId: req.user_id,
+    status: 'UNDER_REVIEW',
+    dataCategory: 'ACCOUNT_IDENTITY',
+    decision: 'PENDING',
+    sanitizedReason: 'Escalated to DPO'
+  });
+
+  return { status: 'ESCALATED', request: updatedReq };
 }

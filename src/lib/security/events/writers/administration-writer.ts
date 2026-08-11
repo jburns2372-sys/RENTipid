@@ -58,6 +58,8 @@ export async function logAdministrationEvent(payload: AdministrationEventPayload
     module: payload.targetType,
     target_id: payload.targetId,
     actor_user_id: payload.actorUserId ?? undefined,
-    details: Object.keys(safeMetadata).length > 0 ? JSON.stringify(safeMetadata) : undefined
+    details: Object.keys(safeMetadata).length > 0 ? JSON.stringify(safeMetadata) : undefined,
+    eventLifecycle: payload.lifecycle,
+    eventEnvironment: payload.environment,
   });
 }

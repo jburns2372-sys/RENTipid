@@ -2,19 +2,37 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { correctUserData } from '@/lib/privacy/privacy-workflow';
 import { authOptions } from '@/lib/auth';
+import { z } from 'zod';
+
+const CorrectionPayloadSchema = z.object({
+  targetUserId: z.string().optional(),
+  updates: z.object({
+    full_name: z.string().optional()
+  }).optional()
+});
 
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user || !(session.user as any).id) {
+    if (!session || !session.user || !(session.user as {id: string}).id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Server Session Identity Used
-    const actorUserId = (session.user as any).id;
-    const body = await req.json().catch(() => ({}));
-    const targetUserId = body.targetUserId || actorUserId;
-    const updates = body.updates || {};
+    const actorUserId = (session.user as {id: string}).id;
+    let body = {};
+    try {
+      body = await req.json();
+    } catch {
+      body = {};
+    }
+
+    const parsed = CorrectionPayloadSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'Validation failed' }, { status: 400 });
+    }
+
+    const targetUserId = parsed.data.targetUserId || actorUserId;
+    const updates = parsed.data.updates || {};
 
     // Workflow enforces protected field rejection and cross user rejection
     await correctUserData(actorUserId, targetUserId, updates);

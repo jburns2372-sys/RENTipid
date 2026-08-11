@@ -1,0 +1,5 @@
+# ACCESSIBILITY_VALIDATION.md
+
+keyboard navigation: PENDING
+focus order: PENDING
+STATUS: PENDING_EXECUTION

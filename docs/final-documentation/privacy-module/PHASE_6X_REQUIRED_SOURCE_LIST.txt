@@ -1,0 +1,16 @@
+﻿docs/final-documentation/privacy-module/FINAL_PRIVACY_V1_SCOPE_DECISION.md
+docs/final-documentation/privacy-module/REQUIREMENTS_TRACEABILITY_MATRIX.md
+docs/final-documentation/privacy-module/IMPLEMENTATION_REGISTRY.md
+docs/final-documentation/privacy-module/FINAL_PRIVACY_V1_REGISTRY.md
+docs/final-documentation/privacy-module/IMPLEMENTATION_REPORT.md
+docs/final-documentation/privacy-module/TEST_EVIDENCE.md
+docs/final-documentation/privacy-module/SECURITY_AND_PRIVACY_VALIDATION.md
+docs/final-documentation/privacy-module/BROWSER_ACCEPTANCE_EVIDENCE.md
+docs/final-documentation/privacy-module/ACCESSIBILITY_EVIDENCE.md
+docs/final-documentation/privacy-module/MOBILE_AND_PRINT_EVIDENCE.md
+docs/final-documentation/privacy-module/RETENTION_AND_DISPOSAL_MATRIX.md
+docs/final-documentation/privacy-module/MANUAL_RETENTION_AND_DISPOSAL_RUNBOOK.md
+docs/final-documentation/privacy-module/PROCESSOR_SUBPROCESSOR_REGISTRY.md
+docs/final-documentation/privacy-module/CROSS_BORDER_PROCESSING_ASSESSMENT.md
+docs/final-documentation/privacy-module/FINAL_CLOSURE_EXECUTION_LEDGER.md
+

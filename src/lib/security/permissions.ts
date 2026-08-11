@@ -4,7 +4,7 @@ export const SECURITY_PERMISSIONS = {
   // Phase 1 Foundations
   DASHBOARD_VIEW: "security.dashboard.view",
   TECHNICAL_DETAILS_VIEW: "security.technical_details.view",
-  
+
   // Future Phases (Defined in vocabulary, but inactive or restricted in Phase 1)
   EVENTS_VIEW: "security.events.view",
   EVENTS_EXPORT: "security.events.export",
@@ -63,7 +63,13 @@ export const SECURITY_PERMISSIONS = {
   EMERGENCY_ACTIVATE: "security.emergency.activate",
   FINANCE_REVIEW: "security.finance.review",
   COMPLIANCE_REVIEW: "security.compliance.review",
-  
+
+  // Privacy Module
+  PRIVACY_REQUEST_READ_OWN: "privacy.request.read_own",
+  PRIVACY_REQUEST_READ_ALL: "privacy.request.read_all",
+  PRIVACY_REQUEST_MANAGE: "privacy.request.manage",
+  PRIVACY_REQUEST_ESCALATE_DPO: "privacy.request.escalate_dpo",
+
   // Prohibited Items Module
   PROHIBITED_ITEMS_REVIEW_LISTING: "prohibited_items.review_listing",
   PROHIBITED_ITEMS_TAKE_DOWN_LISTING: "prohibited_items.take_down_listing",
@@ -75,14 +81,14 @@ export const SECURITY_PERMISSIONS = {
 
 export type SecurityPermission = typeof SECURITY_PERMISSIONS[keyof typeof SECURITY_PERMISSIONS];
 
-export type UserRole = 
-  | "Guest" 
-  | "Renter" 
-  | "Individual Provider" 
-  | "Business Provider" 
-  | "Admin" 
-  | "Finance Admin" 
-  | "Compliance Admin" 
+export type UserRole =
+  | "Guest"
+  | "Renter"
+  | "Individual Provider"
+  | "Business Provider"
+  | "Admin"
+  | "Finance Admin"
+  | "Compliance Admin"
   | "SOC_ANALYST"
   | "SOC_SUPERVISOR"
   | "Super Admin";
@@ -154,13 +160,18 @@ export function getPhase1PermissionsForRole(role: string): SecurityPermission[] 
         SECURITY_PERMISSIONS.RESPONSE_ROLLBACK,
         SECURITY_PERMISSIONS.SIMULATIONS_RUN,
         SECURITY_PERMISSIONS.REPORTS_EXPORT,
-        
+
         SECURITY_PERMISSIONS.PROHIBITED_ITEMS_REVIEW_LISTING,
         SECURITY_PERMISSIONS.PROHIBITED_ITEMS_TAKE_DOWN_LISTING,
         SECURITY_PERMISSIONS.PROHIBITED_ITEMS_MANAGE_POLICY,
         SECURITY_PERMISSIONS.PROHIBITED_ITEMS_MANAGE_APPEAL,
         SECURITY_PERMISSIONS.PROHIBITED_ITEMS_VIEW_SENSITIVE_EVIDENCE,
         SECURITY_PERMISSIONS.PROHIBITED_ITEMS_APPROVE_POLICY_CHANGE,
+
+        SECURITY_PERMISSIONS.PRIVACY_REQUEST_READ_OWN,
+        SECURITY_PERMISSIONS.PRIVACY_REQUEST_READ_ALL,
+        SECURITY_PERMISSIONS.PRIVACY_REQUEST_MANAGE,
+        SECURITY_PERMISSIONS.PRIVACY_REQUEST_ESCALATE_DPO,
       ];
     case "SOC_ANALYST":
       return [
@@ -190,8 +201,18 @@ export function getPhase1PermissionsForRole(role: string): SecurityPermission[] 
         SECURITY_PERMISSIONS.PROHIBITED_ITEMS_MANAGE_APPEAL,
         SECURITY_PERMISSIONS.PROHIBITED_ITEMS_VIEW_SENSITIVE_EVIDENCE,
         SECURITY_PERMISSIONS.PROHIBITED_ITEMS_APPROVE_POLICY_CHANGE,
+
+        SECURITY_PERMISSIONS.PRIVACY_REQUEST_READ_OWN,
+        SECURITY_PERMISSIONS.PRIVACY_REQUEST_READ_ALL,
+        SECURITY_PERMISSIONS.PRIVACY_REQUEST_MANAGE,
+        SECURITY_PERMISSIONS.PRIVACY_REQUEST_ESCALATE_DPO,
       ];
     case "Admin":
+      return [
+        SECURITY_PERMISSIONS.PRIVACY_REQUEST_READ_OWN,
+        SECURITY_PERMISSIONS.PRIVACY_REQUEST_READ_ALL,
+        SECURITY_PERMISSIONS.PRIVACY_REQUEST_MANAGE,
+      ];
     case "Finance Admin":
     case "Guest":
     case "Renter":

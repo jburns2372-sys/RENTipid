@@ -1,0 +1,36 @@
+PHASE17 PRODUCTION PRE-MIGRATION RESTORE CHECKPOINT
+
+Production server:
+rentipid-postgres-db.postgres.database.azure.com
+
+Database:
+rentipid_db
+
+Restore method:
+Azure automatic point-in-time restore
+
+Restore timestamp UTC:
+2026-07-30T01:54:43.313Z
+
+Backup retention:
+7 days
+
+Verified production baseline:
+Completed migrations: 13
+Unfinished migrations: 0
+Latest migration: 20260719144014_add_correlation_key_subject_fixed
+Present PHASE17 tables: 0
+Absent PHASE17 tables: 17
+Production preflight exit: 0
+
+On-demand backup:
+Unavailable because production uses Burstable compute
+
+Production migration executed:
+NO
+PRODUCTION_MIGRATION_EXECUTED: NO
+
+PRODUCTION_MIGRATION_EXECUTED: YES
+PRODUCTION_MIGRATION_COMPLETED_UTC: 2026-07-30T02:04:15.186Z
+PRODUCTION_MIGRATION_DEPLOY_EXIT: 0
+PRODUCTION_PRISMA_STATUS_EXIT: 0

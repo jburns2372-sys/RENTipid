@@ -1,21 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { exportUserData } from '@/lib/privacy/privacy-workflow';
-import { authOptions } from '@/lib/auth'; // Ensure this matches actual auth path, typical NextAuth path
+import { authOptions } from '@/lib/auth';
+import { z } from 'zod';
+
+const ExportPayloadSchema = z.object({
+  targetUserId: z.string().optional()
+});
 
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user || !(session.user as any).id) {
+    if (!session || !session.user || !(session.user as {id: string}).id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Server Session Identity Used. Client supplied target ID is not trusted as authority.
-    const actorUserId = (session.user as any).id;
+    const actorUserId = (session.user as {id: string}).id;
 
-    // Parse body for target ID if admin export is allowed, otherwise strictly self
-    const body = await req.json().catch(() => ({}));
-    const targetUserId = body.targetUserId || actorUserId;
+    let body = {};
+    try {
+      body = await req.json();
+    } catch {
+      body = {};
+    }
+
+    const parsed = ExportPayloadSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'Validation failed' }, { status: 400 });
+    }
+
+    const targetUserId = parsed.data.targetUserId || actorUserId;
 
     // The workflow layer enforces RBAC rechecks and ownership server-side
     const exportResult = await exportUserData(actorUserId, targetUserId);

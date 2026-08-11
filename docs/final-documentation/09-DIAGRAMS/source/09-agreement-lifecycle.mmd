@@ -1,0 +1,12 @@
+sequenceDiagram
+  participant R as Renter
+  participant A as Agreement service
+  participant P as Provider
+  participant H as Booking history
+  R->>A: Review / permitted confirmation
+  A->>A: Validate session, ownership, booking state
+  P->>A: Permitted provider agreement action
+  A->>A: Enforce state and concurrency
+  A->>H: Record effective transition
+  A-->>R: Sanitized current state
+  A-->>P: Sanitized current state

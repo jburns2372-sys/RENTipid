@@ -13,8 +13,6 @@ export const viewport: Viewport = {
   themeColor: "#2563eb",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false, // Prevents zooming on inputs in mobile
 };
 
 export const metadata: Metadata = {
@@ -55,9 +53,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} min-h-screen flex flex-col bg-slate-50 text-slate-900`}>
-        <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold text-center py-1.5 px-4 shadow-sm z-50 relative">
+    <html lang="en" className="overflow-x-hidden max-w-[100vw]">
+      <body className={`${inter.className} min-h-screen flex flex-col bg-slate-50 text-slate-900 overflow-x-hidden w-full max-w-[100vw]`}>
+        <div role="alert" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold text-center py-1.5 px-4 shadow-sm z-50 relative">
           RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.
         </div>
         <AuthProvider>

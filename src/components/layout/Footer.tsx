@@ -14,7 +14,7 @@ export default function Footer() {
         </div>
         
         <div>
-          <h4 className="font-semibold mb-4 text-gray-800">Platform</h4>
+          <h2 className="font-semibold mb-4 text-gray-800">Platform</h2>
           <ul className="space-y-2 text-sm text-gray-600">
             <li><Link href="/browse" className="hover:text-blue-600">Browse Rentals</Link></li>
             <li><Link href="/how-it-works" className="hover:text-blue-600">How It Works</Link></li>
@@ -23,7 +23,7 @@ export default function Footer() {
         </div>
         
         <div>
-          <h4 className="font-semibold mb-4 text-gray-800">Trust & Safety</h4>
+          <h2 className="font-semibold mb-4 text-gray-800">Trust & Safety</h2>
           <ul className="space-y-2 text-sm text-gray-600">
             <li><Link href="/safety" className="hover:text-blue-600">Safety Center</Link></li>
             <li><Link href="/prohibited-items" className="hover:text-blue-600">Prohibited Items</Link></li>
@@ -33,11 +33,11 @@ export default function Footer() {
         </div>
         
         <div>
-          <h4 className="font-semibold mb-4 text-gray-800">Support</h4>
+          <h2 className="font-semibold mb-4 text-gray-800">Support</h2>
           <ul className="space-y-2 text-sm text-gray-600">
             <li><Link href="/help" className="hover:text-blue-600">Help Center</Link></li>
             <li><Link href="/contact" className="hover:text-blue-600">Contact Us</Link></li>
-            <li><span className="text-gray-400">Social Media (Phase 10)</span></li>
+            <li><span className="text-gray-500">Social Media (Phase 10)</span></li>
           </ul>
         </div>
       </div>

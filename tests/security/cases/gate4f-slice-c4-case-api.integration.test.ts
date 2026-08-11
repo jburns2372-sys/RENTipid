@@ -596,6 +596,7 @@ describe('Gate 4F Slice C4: Incident-Case API Routes', () => {
   it('21. non-OPEN caller-selected status is rejected', async () => {
     await withRollback(async (tx) => {
       const analyst = await createUser(tx, 'SOC_ANALYST', 'create-non-open');
+      const beforeCases = await tx.incidentCase.count();
       const response = await handlers(tx, analyst.id).createCase(
         postRequest(
           '/api/admin/security/cases',
@@ -603,7 +604,7 @@ describe('Gate 4F Slice C4: Incident-Case API Routes', () => {
         ),
       );
       expect(response.status).toBe(400);
-      expect(await tx.incidentCase.count()).toBe(0);
+      expect(await tx.incidentCase.count()).toBe(beforeCases);
     });
   });
 

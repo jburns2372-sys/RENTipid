@@ -1,0 +1,65 @@
+﻿0001: # MANUAL RETENTION AND DISPOSAL RUNBOOK
+0002: 
+0003: PROCESS_OWNER: FEDERICO P. DIAGONO JR. OR FORMALLY AUTHORIZED SUCCESSOR
+0004: PRIVACY_OVERSIGHT: MAVERIC SIDNEY DE MESA, DATA PROTECTION OFFICER
+0005: OPERATIONAL_EXECUTOR: AUTHORIZED COMPLIANCE ADMIN
+0006: LEGAL_ESCALATION: ATTY. JOSELYN BONNIE V. VALEROS OR AUTHORIZED LEGAL SUCCESSOR
+0007: 
+0008: PRODUCTION_DISPOSAL_REQUIRES_SEPARATE_AUTHORIZATION: YES
+0009: DRY_REVIEW_REQUIRED_BEFORE_DISPOSAL: YES
+0010: LEGAL_HOLD_CHECK_REQUIRED: YES
+0011: ACTIVE_OBLIGATION_CHECK_REQUIRED: YES
+0012: AUDIT_RECORD_REQUIRED: YES
+0013: PROCESSOR_COORDINATION_REQUIRED_WHEN_APPLICABLE: YES
+0014: AD_HOC_DESTRUCTIVE_SCRIPT_PROHIBITED: YES
+0015: AUTOMATED_SCHEDULED_DELETION_ACTIVE: NO
+0016: AUTOMATED_RETENTION_REOPENING_TRIGGER: YES
+0017: 
+0018: ## STEP 1 â€” REQUEST OR SCHEDULE
+0019: - Compliance Admin initiates a retention review.
+0020: - Record the review ID, date, scope, and requesting authority.
+0021: 
+0022: ## STEP 2 â€” ELIGIBLE-RECORD REPORT
+0023: - Generate a bounded report of potentially eligible records.
+0024: - Do not delete records during report generation.
+0025: 
+0026: ## STEP 3 â€” LEGAL-HOLD REVIEW
+0027: - Check legal, contractual, litigation, regulatory, fraud, and security holds.
+0028: - Exclude held records.
+0029: 
+0030: ## STEP 4 â€” ACTIVE-OBLIGATION REVIEW
+0031: - Exclude active bookings.
+0032: - Exclude pending payments and payouts.
+0033: - Exclude active claims and disputes.
+0034: - Exclude unresolved investigations.
+0035: - Exclude accounting and tax records still within the approved period.
+0036: 
+0037: ## STEP 5 â€” DPO OR COMPLIANCE REVIEW
+0038: - DPO or authorized Compliance Admin reviews the candidate list.
+0039: - Record approval, rejection, or deferral for each category.
+0040: 
+0041: ## STEP 6 â€” OWNER OR AUTHORIZED APPROVAL
+0042: - Obtain required authorization before production disposal.
+0043: - Record the authorizing person, scope, date, and decision.
+0044: 
+0045: ## STEP 7 â€” CONTROLLED DISPOSAL
+0046: - Delete, anonymize, or archive only approved records.
+0047: - Use existing safe application or database procedures.
+0048: - Do not use ad hoc uncontrolled scripts.
+0049: 
+0050: ## STEP 8 â€” PROCESSOR COORDINATION
+0051: - Submit deletion or return requests to active processors where applicable.
+0052: - Record request reference and result.
+0053: 
+0054: ## STEP 9 â€” BACKUP HANDLING
+0055: - Allow approved backup expiration according to the documented lifecycle.
+0056: - Do not selectively alter immutable backup sets unless supported and approved.
+0057: 
+0058: ## STEP 10 â€” AUDIT AND COMPLETION
+0059: - Record affected categories and counts.
+0060: - Record exclusions.
+0061: - Record processor actions.
+0062: - Record failures.
+0063: - Record final reviewer.
+0064: - Produce a disposal-completion report.
+

@@ -33,7 +33,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npx cross-env NODE_ENV=test dotenv -e .env.test -- npx next start -p 3001',
+    command: 'npx cross-env NODE_ENV=test dotenv -e .env.test -- npx next dev -p 3001',
     port: 3001,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
