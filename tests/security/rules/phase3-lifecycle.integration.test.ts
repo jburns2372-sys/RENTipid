@@ -18,15 +18,9 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
         email: "gate3h-test-admin@test.com",
         full_name: "Gate3H Test Admin",
         mobile_number: "+15550000003",
-<<<<<<< HEAD
         role: "Super Admin",
         status: "Verified",
         account_type: "Individual"
-=======
-        account_type: "Individual",
-        role: "Super Admin",
-        status: "Verified"
->>>>>>> 6ae18a2a269ef792906bc2f9ec4d241001d7299b
       },
       update: {
         role: "Super Admin",
@@ -39,13 +33,8 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
       create: {
         rule_id: testRuleId,
         version: 1,
-<<<<<<< HEAD
-        name: "Test Rule",
-        description: "Test Rule Description",
-=======
         name: "Gate 3H Integration Rule",
         description: "Validates advisory alert generation and deduplication.",
->>>>>>> 6ae18a2a269ef792906bc2f9ec4d241001d7299b
         status: "ACTIVE",
         security_domain: "PAYMENT_SECURITY",
         result_classification: "POLICY_VIOLATION",
@@ -59,10 +48,7 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
         correlation_subject_type: "GLOBAL",
         deduplication_strategy: "WINDOW_BUCKET",
         confidence_formula: "STATIC_BASE",
-<<<<<<< HEAD
-        base_confidence_score: 90,
-=======
->>>>>>> 6ae18a2a269ef792906bc2f9ec4d241001d7299b
+
         evaluation_dsl: {
           "AND": [
             {
@@ -72,13 +58,8 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
             }
           ]
         },
-<<<<<<< HEAD
-        created_by_user_id: superAdminUserId,
-        created_by_type: "USER",
-=======
         created_by_type: "USER",
         created_by_user_id: superAdminUserId,
->>>>>>> 6ae18a2a269ef792906bc2f9ec4d241001d7299b
         activated_at: new Date(),
         activated_by_id: superAdminUserId
       },
