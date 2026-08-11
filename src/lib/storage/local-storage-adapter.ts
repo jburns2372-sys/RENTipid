@@ -4,8 +4,9 @@ import path from 'path';
 
 export class LocalStorageAdapter implements StorageAdapter {
   async uploadFile(buffer: Buffer, fileName: string, isPrivate: boolean): Promise<{ url: string; path: string }> {
-    const baseDir = isPrivate ? 'private-uploads' : 'public/uploads';
-    const filePath = path.join(process.cwd(), baseDir, fileName);
+    const filePath = isPrivate
+      ? path.join(process.cwd(), 'private_uploads', fileName)
+      : path.join(process.cwd(), 'public/uploads', fileName);
     
     await writeFile(filePath, buffer);
     
