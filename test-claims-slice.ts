@@ -11,11 +11,9 @@ async function main() {
   const claimRepo = new PrismaInsuranceClaimRepository(prisma);
   const transactionRepo = new PrismaInsuranceTransactionRepository(prisma);
   
-  const mockAdapter = new MockInsuranceAdapter(
-    { enabled: true, liveIssuanceEnabled: false, killSwitchEnabled: false, mockEnabled: true, adapterId: "mock" },
-    () => new Date(),
-    async (r) => console.log("Audit MockAdapter:", r)
-  );
+  const mockAdapter = new MockInsuranceAdapter({
+    now: () => new Date(),
+  });
   
   const registry = new PartnerAdapterRegistry();
   registry.register(mockAdapter);

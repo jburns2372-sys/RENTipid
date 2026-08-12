@@ -113,7 +113,9 @@ export class InsuranceClaimService {
         targetId: updatedClaim.id,
         actorUserId: command.userId,
         bookingId: actualPolicy.bookingId,
-        safeMetadata: { externalClaimId: partnerClaim.externalClaimId },
+        safeMetadata: typeof partnerClaim.externalClaimId === "string"
+          ? { externalClaimId: partnerClaim.externalClaimId }
+          : {},
         occurredAt: this.now(),
       });
 
