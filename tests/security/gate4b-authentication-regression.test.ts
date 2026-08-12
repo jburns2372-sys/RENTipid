@@ -58,7 +58,7 @@ describe("Authentication Instrumentation", () => {
       throw new Error("Should have thrown");
     } catch (e: any) {
       if (e.message === "Should have thrown") throw e;
-      expect(e.message).toContain("Invalid password");
+      expect(e.message).toContain("Invalid credentials");
     }
     
     const endCount = await prisma.authenticationSecurityLog.count();
@@ -72,7 +72,7 @@ describe("Authentication Instrumentation", () => {
       throw new Error("Should have thrown");
     } catch (e: any) {
       if (e.message === "Should have thrown") throw e;
-      expect(e.message).toContain("User not found");
+      expect(e.message).toContain("Invalid credentials");
     }
   });
 
@@ -94,7 +94,7 @@ describe("Authentication Instrumentation", () => {
       throw new Error("Should have thrown");
     } catch (e: any) {
       if (e.message === "Should have thrown") throw e;
-      expect(e.message).toContain("blacklisted");
+      expect(e.message).toContain("Account access denied");
     }
 
     await prisma.user.delete({ where: { id: badUser.id } });
@@ -128,7 +128,7 @@ describe("Authentication Instrumentation", () => {
         throw new Error("Should have thrown");
       } catch (e: any) {
         if (e.message === "Should have thrown") throw e;
-        expect(e.message).toContain("Invalid password");
+        expect(e.message).toContain("Invalid credentials");
       }
     });
 
@@ -150,7 +150,7 @@ describe("Authentication Instrumentation", () => {
         throw new Error("Should have thrown");
       } catch (e: any) {
         if (e.message === "Should have thrown") throw e;
-        expect(e.message).toContain("blacklisted");
+        expect(e.message).toContain("Account access denied");
       }
 
       await prisma.user.delete({ where: { id: badUser.id } });

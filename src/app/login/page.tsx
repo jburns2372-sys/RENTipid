@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, Suspense } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -10,16 +10,8 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [registered, setRegistered] = useState(false);
-
-  useEffect(() => {
-    if (searchParams.get('registered') === 'true') {
-      setRegistered(true);
-    }
-    if (searchParams.get('error')) {
-      setError('Invalid email or password');
-    }
-  }, [searchParams]);
+  const registered = searchParams.get('registered') === 'true';
+  const displayError = error || (searchParams.get('error') ? 'Invalid email or password' : '');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,13 +31,13 @@ function LoginForm() {
       });
 
       if (res?.error) {
-        setError(res.error);
+        setError('Invalid email or password');
         setLoading(false);
       } else {
         router.push(callbackUrl);
         router.refresh();
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred during login');
       setLoading(false);
     }
@@ -59,9 +51,9 @@ function LoginForm() {
         </div>
       )}
 
-      {error && (
+      {displayError && (
         <div className="bg-red-50 text-red-600 p-3 rounded mb-6 text-sm border border-red-200">
-          {error}
+          {displayError}
         </div>
       )}
 
@@ -115,7 +107,7 @@ export default function Login() {
         </Suspense>
 
         <div className="mt-8 pt-6 border-t text-center text-sm text-gray-600">
-          <p className="mb-4">Don't have an account?</p>
+          <p className="mb-4">Don&apos;t have an account?</p>
           <div className="flex flex-col space-y-2">
             <Link href="/register" className="w-full bg-gray-50 border border-gray-200 text-gray-800 font-medium py-2 rounded hover:bg-gray-100 transition">
               Register as Renter

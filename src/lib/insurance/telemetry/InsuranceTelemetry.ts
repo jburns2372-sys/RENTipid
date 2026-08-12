@@ -5,16 +5,16 @@ export class InsuranceTelemetry {
 
   async getRecentWebhookFailures(limit = 50) {
     return this.prisma.insuranceWebhookEvent.findMany({
-      where: { status: { in: ["FAILED", "REJECTED"] } },
-      orderBy: { created_at: "desc" },
+      where: { processing_status: { in: ["FAILED", "REJECTED"] } },
+      orderBy: { received_at: "desc" },
       take: limit,
       select: {
         id: true,
         partner_id: true,
         event_type: true,
-        status: true,
-        created_at: true,
-        error_message: true,
+        processing_status: true,
+        received_at: true,
+        failure_code: true,
         // Omit raw_payload to prevent PII leakage in telemetry
       }
     });
@@ -22,16 +22,16 @@ export class InsuranceTelemetry {
 
   async getRecentReconciliationExceptions(limit = 50) {
     return this.prisma.insuranceReconciliationLog.findMany({
-      where: { status: { not: "MATCHED" } },
+      where: { classification: { not: "MATCHED" } },
       orderBy: { created_at: "desc" },
       take: limit,
       select: {
         id: true,
-        batch_id: true,
+        batch_reference: true,
         partner_id: true,
         policy_id: true,
+        classification: true,
         status: true,
-        discrepancy_details: true,
         created_at: true,
       }
     });
@@ -39,15 +39,14 @@ export class InsuranceTelemetry {
 
   async getRecentFinanceExceptions(limit = 50) {
     return this.prisma.insuranceFinanceException.findMany({
-      where: { resolution_status: "OPEN" },
+      where: { status: "OPEN" },
       orderBy: { created_at: "desc" },
       take: limit,
       select: {
         id: true,
         exception_type: true,
-        severity: true,
         description: true,
-        resolution_status: true,
+        status: true,
         created_at: true,
       }
     });

@@ -1,0 +1,47 @@
+# EVIDENCE LEDGER
+
+| Evidence ID | Phase | Requirement ID | Command / Action | Timestamp | Expected Result | Actual Result | Status | Rerun Reason |
+| ----------- | ----- | -------------- | ---------------- | --------- | --------------- | ------------- | ------ | ------------ |
+| UAICS-DH-EV-001 | P0 | N/A | P0 Baseline Initialization | 2026-08-12T11:15:00Z | Artifacts generated, states recorded | Artifacts generated | PASS | N/A |
+| UAICS-DH-EV-002 | P1 | UAICS-DH-REQ-002 | P1 Discovery Pass | 2026-08-12T11:35:00Z | Classify all capabilities | Capabilities classified into REUSE/EXTEND/NEW | PASS | N/A |
+| UAICS-DH-EV-003 | P2 | UAICS-DH-REQ-004 | P2 Architecture Lock | 2026-08-12T12:15:00Z | Unified architecture / contracts locked | Lock artifacts generated | PASS | N/A |
+
+## EVIDENCE CORRECTION
+- DIGITAL_HUMAN_PROVIDER_RUNTIME_PROOF = PENDING_CREDENTIALS
+- DIGITAL_HUMAN_PROVIDER_CONTRACT = LOCKED
+- TEXT_FALLBACK_ARCHITECTURE = VALIDATED
+- TEXT_FALLBACK_RUNTIME = NOT_YET_PROVEN
+
+| UAICS-DH-EV-004 | P3 | UAICS-DH-REQ-040 | P3 Foundation Migration | 2026-08-12T20:56:13Z | Migration PASS | Migration PASS | PASS | N/A |
+
+- P3_TEST_FIXTURES_CREATED = TRUE
+- LOCAL_REQUIRED_DATA_READY = NOT_YET_PROVEN
+- P0 known unrelated TypeScript failures: NOT_RETESTED / OUTSIDE_P3_SCOPE
+
+| UAICS-DH-EV-005 | P4 | UAICS-DH-REQ-006 | P4 Session Broker Testing | 2026-08-12T23:49:17Z | Broker passes all auth/session rules | Passes all targeted rules | PASS | N/A |
+
+| UAICS-DH-EV-006 | P5 | UAICS-DH-REQ-001 | P5 UI Foundation Testing | 2026-08-12T23:53:24Z | UI passes all layout/rendering rules | Passes all targeted rules | PASS | N/A |
+
+## EVIDENCE CORRECTION
+- P5_UI_STRUCTURE_VALIDATED = TRUE
+- P5_BROWSER_RUNTIME_PROOF = NOT_YET_PROVEN
+
+| UAICS-DH-EV-007 | P6 | UAICS-DH-REQ-002 | P6 Case Platform Testing | 2026-08-12T23:57:00Z | Case Platform passes all targeted lifecycle rules | Passes all targeted rules | PASS | N/A |
+
+| UAICS-DH-EV-008 | P7 | UAICS-DH-REQ-003 | P7 Tool Gateway Testing | 2026-08-13T00:03:46Z | Tool Gateway passes all targeted security rules | Passes all targeted rules | PASS | N/A |
+
+- P7_TEST_RERUN_REASON: Fixed Prisma unique constraint conflicts on idempotencyKey by appending timestamps for isolated local test runs.
+
+| UAICS-DH-EV-009 | P8 | UAICS-DH-REQ-004 | P8 Deterministic Policy Testing | 2026-08-13T00:10:16Z | Policy engine passes all targeted rules | Passes all targeted rules | PASS | N/A |
+
+| UAICS-DH-EV-010 | P9 | UAICS-DH-REQ-005 | P9 Claims/Disputes/KYC/Insurance Testing | 2026-08-13T00:13:54Z | P9 passes all targeted integration/automation rules | Passes all targeted rules | PASS | N/A |
+
+- LOCAL_TEST_POLICY_VALUES:  claims /  disputes deterministic thresholds from P9 are local test thresholds only, keeping production thresholds configurable.
+
+| UAICS-DH-EV-011 | P10 | UAICS-DH-REQ-006 | P10 Contextual AI / Self-Repair Testing | 2026-08-13T00:18:06Z | P10 passes all targeted continuity and diagnostic rules | Passes all targeted rules | PASS | N/A |
+
+- P10_PWA_CAPACITOR_RUNTIME_PROOF = NOT_YET_PROVEN
+
+| UAICS-DH-EV-012 | P11 | UAICS-DH-REQ-007 | P11 Privacy / Security / Resilience Hardening | 2026-08-13T00:23:04Z | P11 passes all targeted security tests | Passes all targeted rules | PASS | N/A |
+
+| UAICS-DH-EV-013 | P12 | UAICS-DH-REQ-008 | P12 Final Release Suite + Deployment Readiness | 2026-08-13T00:30:21Z | P12 tests pass, builds pass, hashes match | Passes all targeted rules | PASS | N/A |

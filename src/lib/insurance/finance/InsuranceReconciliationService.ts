@@ -1,4 +1,4 @@
-import { PrismaClient, InsurancePolicy } from "@prisma/client";
+import { PrismaClient, InsurancePolicy, InsuranceReconciliationLog } from "@prisma/client";
 
 export class InsuranceReconciliationService {
   constructor(private readonly prisma: PrismaClient) {}
@@ -18,7 +18,7 @@ export class InsuranceReconciliationService {
       status: string;
     }>
   ) {
-    const logs = [];
+    const logs: InsuranceReconciliationLog[] = [];
 
     for (const record of partnerData) {
       const policy = await this.prisma.insurancePolicy.findFirst({

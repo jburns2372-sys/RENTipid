@@ -58,7 +58,7 @@ export class InsuranceCancellationService {
           coverageStart: policy.coverage_start,
           coverageEnd: policy.coverage_end,
         },
-        { code: reasonCode, description: "Cancellation requested by user" }
+        { code: reasonCode }
       );
 
       if (result.status === "CANCELLED") {

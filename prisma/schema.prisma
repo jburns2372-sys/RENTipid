@@ -26,6 +26,9 @@ model User {
   auditLogs             AuditLog[]
   apiSecurityLogs       ApiSecurityLog[]
   aiBotLogs             AIBotLog[]
+  aiServiceSessions     AiServiceSession[]
+  aiConversations       AiConversation[]
+  aiSupportCases        AiSupportCase[]
   verificationDocuments VerificationDocument[]
 
   // Bookings and Notifications
@@ -38,8 +41,8 @@ model User {
   security_response_execution_operations SecurityResponseExecution[] @relation("ExecutionOperator")
 
   // Finance
-  payments      Payment[]
-  ledgerEntries FinanceLedger[]
+  payments            Payment[]
+  ledgerEntries       FinanceLedger[]
   insuranceSelections InsuranceSelection[]
   insuranceOrders     InsuranceOrder[]
 
@@ -67,7 +70,7 @@ model User {
   incident_case_evidences            IncidentCaseEvidence[]
 
   // MFA
-  mfa UserMfa?
+  mfa                   UserMfa?
   password_reset_tokens PasswordResetToken[]
 
   // SOC Playbooks & Approvals (Gate 4G)
@@ -165,7 +168,7 @@ model PsgcSubdivision {
   id              String   @id @default(cuid())
   psgcCode        String   @unique
   name            String
-  geographicLevel String   // REGION, PROVINCE, CITY, MUNICIPALITY, SUB_MUNICIPALITY, BARANGAY
+  geographicLevel String // REGION, PROVINCE, CITY, MUNICIPALITY, SUB_MUNICIPALITY, BARANGAY
   parentPsgcCode  String?
   isActive        Boolean  @default(true)
   source          String   @default("PSA_PSGC")
@@ -181,9 +184,9 @@ model PsgcSubdivision {
 }
 
 model AddressApiRateLimit {
-  key       String   @id
-  points    Int      @default(0)
-  resetAt   DateTime
+  key     String   @id
+  points  Int      @default(0)
+  resetAt DateTime
 
   @@index([resetAt])
 }
@@ -570,13 +573,13 @@ model FinanceLedger {
   description      String?
 
   // Extended Financials (Insurance Module)
-  amount_minor      Int?
-  currency          String?
-  idempotency_key   String?  @unique
-  source_reference  String?
-  policy_id         String?
-  insurancePolicy   InsurancePolicy? @relation(fields: [policy_id], references: [id])
-  audit_reference   String?
+  amount_minor     Int?
+  currency         String?
+  idempotency_key  String?          @unique
+  source_reference String?
+  policy_id        String?
+  insurancePolicy  InsurancePolicy? @relation(fields: [policy_id], references: [id])
+  audit_reference  String?
 
   created_at DateTime @default(now())
 }
@@ -2334,21 +2337,21 @@ model DataSubjectRequest {
 
 // Insurance Technical Foundation — Slice 1
 model InsurancePartner {
-  id             String   @id @default(cuid())
-  adapter_key    String   @unique
-  display_name   String
-  environment    String
-  status         String   @default("DISABLED")
-  is_mock        Boolean  @default(false)
-  is_enabled     Boolean  @default(false)
-  capabilities   Json
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
+  id           String   @id @default(cuid())
+  adapter_key  String   @unique
+  display_name String
+  environment  String
+  status       String   @default("DISABLED")
+  is_mock      Boolean  @default(false)
+  is_enabled   Boolean  @default(false)
+  capabilities Json
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
 
-  products       InsuranceProduct[]
-  offers         InsuranceOffer[]
-  policies       InsurancePolicy[]
-  webhook_events InsuranceWebhookEvent[]
+  products           InsuranceProduct[]
+  offers             InsuranceOffer[]
+  policies           InsurancePolicy[]
+  webhook_events     InsuranceWebhookEvent[]
   reconciliationLogs InsuranceReconciliationLog[]
 
   @@index([status, is_enabled])
@@ -2367,7 +2370,7 @@ model InsuranceProduct {
   created_at      DateTime @default(now())
   updated_at      DateTime @updatedAt
 
-  partner  InsurancePartner @relation(fields: [partner_id], references: [id], onDelete: Restrict)
+  partner  InsurancePartner  @relation(fields: [partner_id], references: [id], onDelete: Restrict)
   offers   InsuranceOffer[]
   policies InsurancePolicy[]
 
@@ -2401,25 +2404,25 @@ model InsuranceOffer {
 }
 
 model InsuranceSelection {
-  id                     String   @id @default(cuid())
-  booking_id             String   @unique
-  user_id                String
-  offer_reference        String
-  partner_key            String
-  product_code           String
-  disclosure_version     String
-  premium_minor          Int
-  currency               String   @db.VarChar(3)
-  coverage_start         DateTime
-  coverage_end           DateTime
-  offer_expires_at       DateTime
-  consent_accepted       Boolean
-  consented_at           DateTime
-  idempotency_key        String   @unique
-  request_hash           String
-  status                 String   @default("SELECTED")
-  created_at             DateTime @default(now())
-  updated_at             DateTime @updatedAt
+  id                 String   @id @default(cuid())
+  booking_id         String   @unique
+  user_id            String
+  offer_reference    String
+  partner_key        String
+  product_code       String
+  disclosure_version String
+  premium_minor      Int
+  currency           String   @db.VarChar(3)
+  coverage_start     DateTime
+  coverage_end       DateTime
+  offer_expires_at   DateTime
+  consent_accepted   Boolean
+  consented_at       DateTime
+  idempotency_key    String   @unique
+  request_hash       String
+  status             String   @default("SELECTED")
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
 
   booking Booking         @relation(fields: [booking_id], references: [id], onDelete: Restrict)
   user    User            @relation(fields: [user_id], references: [id], onDelete: Restrict)
@@ -2464,7 +2467,7 @@ model InsurancePolicy {
   external_policy_id       String
   order_reference          String
   idempotency_key          String    @unique
-  status           String   @default("PENDING") // "PENDING" | "ISSUED" | "ACTIVE" | "EXPIRED" | "CANCELLATION_REQUESTED" | "CANCELLATION_PENDING" | "CANCELLED" | "CANCELLATION_REJECTED" | "CANCELLATION_FAILED"
+  status                   String    @default("PENDING") // "PENDING" | "ISSUED" | "ACTIVE" | "EXPIRED" | "CANCELLATION_REQUESTED" | "CANCELLATION_PENDING" | "CANCELLED" | "CANCELLATION_REJECTED" | "CANCELLATION_FAILED"
   premium_amount           Decimal   @db.Decimal(20, 4)
   tax_amount               Decimal   @default(0) @db.Decimal(20, 4)
   currency                 String    @db.VarChar(3)
@@ -2477,40 +2480,40 @@ model InsurancePolicy {
   created_at               DateTime  @default(now())
   updated_at               DateTime  @updatedAt
 
-  partner InsurancePartner @relation(fields: [partner_id], references: [id], onDelete: Restrict)
-  product InsuranceProduct @relation(fields: [product_id], references: [id], onDelete: Restrict)
-  booking Booking          @relation(fields: [booking_id], references: [id], onDelete: Restrict)
-  insurance_order InsuranceOrder? @relation(fields: [insurance_order_id], references: [id], onDelete: Restrict)
-  claims  InsuranceClaim[]
-  ledgerEntries FinanceLedger[]
+  partner            InsurancePartner             @relation(fields: [partner_id], references: [id], onDelete: Restrict)
+  product            InsuranceProduct             @relation(fields: [product_id], references: [id], onDelete: Restrict)
+  booking            Booking                      @relation(fields: [booking_id], references: [id], onDelete: Restrict)
+  insurance_order    InsuranceOrder?              @relation(fields: [insurance_order_id], references: [id], onDelete: Restrict)
+  claims             InsuranceClaim[]
+  ledgerEntries      FinanceLedger[]
   reconciliationLogs InsuranceReconciliationLog[]
-  financeExceptions InsuranceFinanceException[]
+  financeExceptions  InsuranceFinanceException[]
 
   @@unique([partner_id, external_policy_id])
   @@index([status, coverage_end])
 }
 
 model InsuranceReconciliationLog {
-  id                      String   @id @default(cuid())
-  partner_id              String
-  partner                 InsurancePartner @relation(fields: [partner_id], references: [id])
-  policy_id               String?
-  policy                  InsurancePolicy? @relation(fields: [policy_id], references: [id])
-  order_reference         String?
-  
-  batch_reference         String?
-  internal_amount_minor   Int?
-  partner_amount_minor    Int?
-  currency                String   @default("PHP")
-  settlement_reference    String?
-  
-  classification          String   // "MATCHED" | "MISSING_INTERNAL" | "MISSING_PARTNER" | "AMOUNT_MISMATCH" | "CURRENCY_MISMATCH" | "STATUS_MISMATCH" | "DUPLICATE" | "PENDING_REVIEW" | "RESOLVED"
-  status                  String   @default("PENDING") // "PENDING" | "RESOLVED"
-  
-  created_at              DateTime @default(now())
-  resolved_at             DateTime?
-  resolution_reference    String?
-  audit_reference         String?
+  id              String           @id @default(cuid())
+  partner_id      String
+  partner         InsurancePartner @relation(fields: [partner_id], references: [id])
+  policy_id       String?
+  policy          InsurancePolicy? @relation(fields: [policy_id], references: [id])
+  order_reference String?
+
+  batch_reference       String?
+  internal_amount_minor Int?
+  partner_amount_minor  Int?
+  currency              String  @default("PHP")
+  settlement_reference  String?
+
+  classification String // "MATCHED" | "MISSING_INTERNAL" | "MISSING_PARTNER" | "AMOUNT_MISMATCH" | "CURRENCY_MISMATCH" | "STATUS_MISMATCH" | "DUPLICATE" | "PENDING_REVIEW" | "RESOLVED"
+  status         String @default("PENDING") // "PENDING" | "RESOLVED"
+
+  created_at           DateTime  @default(now())
+  resolved_at          DateTime?
+  resolution_reference String?
+  audit_reference      String?
 
   @@index([partner_id])
   @@index([batch_reference])
@@ -2518,20 +2521,20 @@ model InsuranceReconciliationLog {
 }
 
 model InsuranceFinanceException {
-  id                      String   @id @default(cuid())
-  policy_id               String?
-  policy                  InsurancePolicy? @relation(fields: [policy_id], references: [id])
-  order_reference         String?
+  id              String           @id @default(cuid())
+  policy_id       String?
+  policy          InsurancePolicy? @relation(fields: [policy_id], references: [id])
+  order_reference String?
 
-  exception_type          String   // "PREMIUM_COLLECTION_FAILED" | "REFUND_FAILED" | "ORPHANED_POLICY"
-  description             String
-  context                 Json?
-  status                  String   @default("OPEN") // "OPEN" | "REVIEWING" | "RESOLVED"
+  exception_type String // "PREMIUM_COLLECTION_FAILED" | "REFUND_FAILED" | "ORPHANED_POLICY"
+  description    String
+  context        Json?
+  status         String @default("OPEN") // "OPEN" | "REVIEWING" | "RESOLVED"
 
-  created_at              DateTime @default(now())
-  resolved_at             DateTime?
-  resolution_notes        String?
-  resolved_by_user_id     String?
+  created_at          DateTime  @default(now())
+  resolved_at         DateTime?
+  resolution_notes    String?
+  resolved_by_user_id String?
 
   @@index([status])
   @@index([exception_type])
@@ -2555,7 +2558,7 @@ model InsuranceClaim {
   created_at          DateTime  @default(now())
   updated_at          DateTime  @updatedAt
 
-  policy InsurancePolicy @relation(fields: [policy_id], references: [id], onDelete: Restrict)
+  policy    InsurancePolicy          @relation(fields: [policy_id], references: [id], onDelete: Restrict)
   evidences InsuranceClaimEvidence[]
 
   @@unique([policy_id, external_claim_id])
@@ -2564,16 +2567,16 @@ model InsuranceClaim {
 }
 
 model InsuranceClaimEvidence {
-  id               String         @id @default(cuid())
+  id               String   @id @default(cuid())
   claim_id         String
   evidence_type    String
   file_reference   String
   mime_type        String?
   size_bytes       Int?
   uploaded_by      String
-  idempotency_key  String         @unique
-  partner_transfer String         @default("PENDING")
-  created_at       DateTime       @default(now())
+  idempotency_key  String   @unique
+  partner_transfer String   @default("PENDING")
+  created_at       DateTime @default(now())
 
   claim InsuranceClaim @relation(fields: [claim_id], references: [id], onDelete: Cascade)
 
@@ -2581,15 +2584,15 @@ model InsuranceClaimEvidence {
 }
 
 model InsuranceWebhookEvent {
-  id                String   @id @default(cuid())
+  id                String    @id @default(cuid())
   partner_id        String
   external_event_id String
   event_type        String
   body_hash         String
   signature_valid   Boolean
-  processing_status String   @default("PENDING")
+  processing_status String    @default("PENDING")
   occurred_at       DateTime?
-  received_at       DateTime @default(now())
+  received_at       DateTime  @default(now())
   processed_at      DateTime?
   failure_code      String?
 
@@ -2623,4 +2626,182 @@ model InsuranceConfig {
   version           Int      @default(1)
 
   @@map("insurance_configs")
+}
+
+// ---------------------------------------------------------
+// PHASE 6: UNIFIED AUTONOMOUS AI CUSTOMER SERVICE & DIGITAL HUMAN
+// ---------------------------------------------------------
+
+model AiServiceSession {
+  id                String    @id @default(cuid())
+  userId            String?
+  channel           String // "help" | "digital_human" | "contextual" | "pwa"
+  conversationId    String?
+  sourceRoute       String?
+  locale            String    @default("en")
+  voiceEnabled      Boolean   @default(false)
+  avatarEnabled     Boolean   @default(false)
+  providerSessionId String? // Short-lived provider ref
+  status            String // "active" | "ended" | "failed" | "blocked"
+  startedAt         DateTime  @default(now())
+  endedAt           DateTime?
+
+  user User? @relation(fields: [userId], references: [id])
+}
+
+model AiConversation {
+  id           String   @id @default(cuid())
+  userId       String?
+  activeCaseId String?
+  summary      String?  @db.Text
+  lastIntent   String?
+  lastChannel  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user     User?       @relation(fields: [userId], references: [id])
+  messages AiMessage[]
+}
+
+model AiMessage {
+  id             String   @id @default(cuid())
+  conversationId String
+  sessionId      String?
+  role           String // "user" | "assistant" | "system" | "tool"
+  channel        String
+  content        String   @db.Text
+  safePayload    Json? // Structured metadata without secrets
+  createdAt      DateTime @default(now())
+
+  conversation AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+}
+
+model AiSupportCase {
+  id             String    @id @default(cuid())
+  caseNumber     String    @unique
+  userId         String?
+  category       String
+  subcategory    String?
+  severity       String // "low" | "medium" | "high" | "critical"
+  riskLevel      String // "safe" | "consequential" | "external"
+  status         String // "OPEN" | "UNDERSTANDING" | "DIAGNOSING" | "AWAITING_EVIDENCE" | "AWAITING_USER_CONFIRMATION" | "POLICY_EVALUATION" | "EXECUTING" | "VERIFYING" | "SAFE_HOLD" | "RESOLVED" | "CLOSED" | "SYSTEM_BLOCKED"
+  summary        String?   @db.Text
+  policyVersion  String?
+  slaDueAt       DateTime?
+  openedAt       DateTime  @default(now())
+  resolvedAt     DateTime?
+  closedAt       DateTime?
+  lastActivityAt DateTime  @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId, status, lastActivityAt])
+}
+
+model AiCaseEntityLink {
+  id           String   @id @default(cuid())
+  caseId       String
+  entityType   String // "Booking" | "Listing" | "Payment" | etc.
+  entityId     String
+  relationship String // "primary" | "evidence" | "related"
+  createdAt    DateTime @default(now())
+
+  @@index([caseId])
+  @@index([entityType, entityId])
+}
+
+model AiCaseEvidence {
+  id                 String   @id @default(cuid())
+  caseId             String
+  submittedByUserId  String
+  evidenceType       String // "Transaction" | "Media" | "Documents" | "Statements" | "ProviderResult"
+  fileReference      String? // Secure file ref
+  description        String?  @db.Text
+  sourceChannel      String
+  verificationStatus String // "pending" | "verified" | "rejected"
+  createdAt          DateTime @default(now())
+}
+
+model AiToolExecution {
+  id                  String    @id @default(cuid())
+  caseId              String?
+  sessionId           String
+  toolName            String
+  requestFingerprint  String
+  riskClass           String // "READ_ONLY" | "DRAFT_ONLY" | "USER_CONFIRMATION_REQUIRED" | "POLICY_ENGINE_REQUIRED" | "EXTERNAL_AUTHORITY_REQUIRED"
+  authorizationStatus String // "pending" | "authorized" | "denied"
+  policyStatus        String?
+  confirmationStatus  String?
+  idempotencyKey      String?
+  externalReference   String?
+  executionStatus     String // "pending" | "executing" | "success" | "failed" | "blocked"
+  verificationStatus  String?
+  startedAt           DateTime  @default(now())
+  completedAt         DateTime?
+
+  @@unique([idempotencyKey])
+}
+
+model AiPolicyDecision {
+  id            String   @id @default(cuid())
+  caseId        String?
+  policyType    String
+  policyVersion String
+  inputHash     String
+  decision      String // "approved" | "denied" | "hold"
+  resultData    Json?
+  reasonCode    String
+  createdAt     DateTime @default(now())
+
+  @@index([policyType, policyVersion, inputHash])
+}
+
+model AiResolution {
+  id                    String    @id @default(cuid())
+  caseId                String
+  resolutionType        String // "interim" | "final"
+  resolutionStatus      String // "proposed" | "confirmed" | "executed" | "failed"
+  policyDecisionId      String?
+  toolExecutionId       String?
+  userFacingExplanation String    @db.Text
+  verifiedAt            DateTime?
+  closedAt              DateTime?
+}
+
+model AiFollowUp {
+  id            String    @id @default(cuid())
+  caseId        String
+  triggerAt     DateTime
+  triggerType   String // "reminder" | "recheck" | "re-evaluation"
+  status        String // "pending" | "triggered" | "completed" | "cancelled"
+  attemptCount  Int       @default(0)
+  lastAttemptAt DateTime?
+  nextAttemptAt DateTime?
+}
+
+model AiKnowledgeSource {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  title           String
+  category        String
+  applicableRoles String // e.g. "Renter,Provider"
+  status          String // "ACTIVE" | "SUPERSEDED" | "ARCHIVED"
+  version         String
+  effectiveFrom   DateTime
+  effectiveUntil  DateTime?
+  sourceType      String // "faq" | "policy" | "guide"
+  sourceReference String?
+  updatedAt       DateTime  @updatedAt
+}
+
+model AiProviderSession {
+  id                 String    @id @default(cuid())
+  userId             String?
+  sessionId          String
+  provider           String // "azure_voice" | "digital_human_x"
+  providerSessionRef String    @unique // Short-lived ref
+  status             String // "initializing" | "active" | "failed" | "closed"
+  expiresAt          DateTime
+  createdAt          DateTime  @default(now())
+  endedAt            DateTime?
 }

@@ -1,0 +1,178 @@
+
+// ---------------------------------------------------------
+// PHASE 6: UNIFIED AUTONOMOUS AI CUSTOMER SERVICE & DIGITAL HUMAN
+// ---------------------------------------------------------
+
+model AiServiceSession {
+  id               String    @id @default(cuid())
+  userId           String?
+  channel          String    // "help" | "digital_human" | "contextual" | "pwa"
+  conversationId   String?
+  sourceRoute      String?
+  locale           String    @default("en")
+  voiceEnabled     Boolean   @default(false)
+  avatarEnabled    Boolean   @default(false)
+  providerSessionId String?  // Short-lived provider ref
+  status           String    // "active" | "ended" | "failed" | "blocked"
+  startedAt        DateTime  @default(now())
+  endedAt          DateTime?
+  
+  user             User?     @relation(fields: [userId], references: [id])
+}
+
+model AiConversation {
+  id               String    @id @default(cuid())
+  userId           String?
+  activeCaseId     String?
+  summary          String?   @db.Text
+  lastIntent       String?
+  lastChannel      String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  user             User?     @relation(fields: [userId], references: [id])
+  messages         AiMessage[]
+}
+
+model AiMessage {
+  id               String    @id @default(cuid())
+  conversationId   String
+  sessionId        String?
+  role             String    // "user" | "assistant" | "system" | "tool"
+  channel          String
+  content          String    @db.Text
+  safePayload      Json?     // Structured metadata without secrets
+  createdAt        DateTime  @default(now())
+
+  conversation     AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+}
+
+model AiSupportCase {
+  id               String    @id @default(cuid())
+  caseNumber       String    @unique
+  userId           String?
+  category         String
+  subcategory      String?
+  severity         String    // "low" | "medium" | "high" | "critical"
+  riskLevel        String    // "safe" | "consequential" | "external"
+  status           String    // "OPEN" | "UNDERSTANDING" | "DIAGNOSING" | "AWAITING_EVIDENCE" | "AWAITING_USER_CONFIRMATION" | "POLICY_EVALUATION" | "EXECUTING" | "VERIFYING" | "SAFE_HOLD" | "RESOLVED" | "CLOSED" | "SYSTEM_BLOCKED"
+  summary          String?   @db.Text
+  policyVersion    String?
+  slaDueAt         DateTime?
+  openedAt         DateTime  @default(now())
+  resolvedAt       DateTime?
+  closedAt         DateTime?
+  lastActivityAt   DateTime  @default(now())
+
+  user             User?     @relation(fields: [userId], references: [id])
+
+  @@index([userId, status, lastActivityAt])
+}
+
+model AiCaseEntityLink {
+  id               String    @id @default(cuid())
+  caseId           String
+  entityType       String    // "Booking" | "Listing" | "Payment" | etc.
+  entityId         String
+  relationship     String    // "primary" | "evidence" | "related"
+  createdAt        DateTime  @default(now())
+
+  @@index([caseId])
+  @@index([entityType, entityId])
+}
+
+model AiCaseEvidence {
+  id               String    @id @default(cuid())
+  caseId           String
+  submittedByUserId String
+  evidenceType     String    // "Transaction" | "Media" | "Documents" | "Statements" | "ProviderResult"
+  fileReference    String?   // Secure file ref
+  description      String?   @db.Text
+  sourceChannel    String
+  verificationStatus String  // "pending" | "verified" | "rejected"
+  createdAt        DateTime  @default(now())
+}
+
+model AiToolExecution {
+  id               String    @id @default(cuid())
+  caseId           String?
+  sessionId        String
+  toolName         String
+  requestFingerprint String
+  riskClass        String    // "READ_ONLY" | "DRAFT_ONLY" | "USER_CONFIRMATION_REQUIRED" | "POLICY_ENGINE_REQUIRED" | "EXTERNAL_AUTHORITY_REQUIRED"
+  authorizationStatus String // "pending" | "authorized" | "denied"
+  policyStatus     String?
+  confirmationStatus String?
+  idempotencyKey   String?
+  externalReference String?
+  executionStatus  String    // "pending" | "executing" | "success" | "failed" | "blocked"
+  verificationStatus String?
+  startedAt        DateTime  @default(now())
+  completedAt      DateTime?
+
+  @@unique([idempotencyKey])
+}
+
+model AiPolicyDecision {
+  id               String    @id @default(cuid())
+  caseId           String?
+  policyType       String
+  policyVersion    String
+  inputHash        String
+  decision         String    // "approved" | "denied" | "hold"
+  resultData       Json?
+  reasonCode       String
+  createdAt        DateTime  @default(now())
+
+  @@index([policyType, policyVersion, inputHash])
+}
+
+model AiResolution {
+  id               String    @id @default(cuid())
+  caseId           String
+  resolutionType   String    // "interim" | "final"
+  resolutionStatus String    // "proposed" | "confirmed" | "executed" | "failed"
+  policyDecisionId String?
+  toolExecutionId  String?
+  userFacingExplanation String @db.Text
+  verifiedAt       DateTime?
+  closedAt         DateTime?
+}
+
+model AiFollowUp {
+  id               String    @id @default(cuid())
+  caseId           String
+  triggerAt        DateTime
+  triggerType      String    // "reminder" | "recheck" | "re-evaluation"
+  status           String    // "pending" | "triggered" | "completed" | "cancelled"
+  attemptCount     Int       @default(0)
+  lastAttemptAt    DateTime?
+  nextAttemptAt    DateTime?
+}
+
+model AiKnowledgeSource {
+  id               String    @id @default(cuid())
+  slug             String    @unique
+  title            String
+  category         String
+  applicableRoles  String    // e.g. "Renter,Provider"
+  status           String    // "ACTIVE" | "SUPERSEDED" | "ARCHIVED"
+  version          String
+  effectiveFrom    DateTime
+  effectiveUntil   DateTime?
+  sourceType       String    // "faq" | "policy" | "guide"
+  sourceReference  String?
+  updatedAt        DateTime  @updatedAt
+}
+
+model AiProviderSession {
+  id               String    @id @default(cuid())
+  userId           String?
+  sessionId        String
+  provider         String    // "azure_voice" | "digital_human_x"
+  providerSessionRef String  @unique // Short-lived ref
+  status           String    // "initializing" | "active" | "failed" | "closed"
+  expiresAt        DateTime
+  createdAt        DateTime  @default(now())
+  endedAt          DateTime?
+}

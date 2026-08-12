@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Bot, X, Send, Trash2, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { Bot, X, Send, Trash2, AlertTriangle, CheckCircle2, Mic, MicOff, VolumeX, Volume2, VideoOff, MessageSquare } from 'lucide-react';
 import { BotId, BOTS } from '@/lib/ai/ai-permissions';
 import RentipidLogo from '@/components/brand/RentipidLogo';
 
@@ -25,14 +25,20 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
   const [selectedBot, setSelectedBot] = useState<BotId>(allowedBots[0] || BOTS.CONCIERGE);
+
+  // Digital Human States
+  const [mode, setMode] = useState<'text' | 'digital_human'>('text');
+  const [micConsent, setMicConsent] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [dhStatus, setDhStatus] = useState<'initializing' | 'active' | 'failed' | 'ended'>('ended');
+  const [liveTranscript, setLiveTranscript] = useState('');
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, liveTranscript]);
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
@@ -43,6 +49,7 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
     setIsLoading(true);
 
     try {
+      // Shared Context Path Simulation
       const response = await fetch('/api/ai/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -51,6 +58,7 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
           prompt: userMessage.content,
           module,
           recordId,
+          channel: mode
         }),
       });
 
@@ -69,42 +77,58 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
       setMessages(prev => [...prev, {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: 'Failed to connect to AI Command Layer.',
+        content: 'Failed to connect to AI Command Layer. Fallback to text active.',
         isBlocked: true
       }]);
+      if (mode === 'digital_human') setDhStatus('failed');
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSend();
-    }
+    if (e.key === 'Enter') handleSend();
   };
 
-  const handleClear = () => {
-    setMessages([]);
+  const handleClear = () => setMessages([]);
+  const handleSuggestedPrompt = (prompt: string) => setInput(prompt);
+
+  const startDigitalHuman = () => {
+    setMode('digital_human');
+    setDhStatus('initializing');
+    setTimeout(() => {
+      setMicConsent(true);
+      setDhStatus('active');
+    }, 1000);
   };
 
-  const handleSuggestedPrompt = (prompt: string) => {
-    setInput(prompt);
+  const fallbackToText = () => {
+    setMode('text');
+    setDhStatus('ended');
   };
 
-  const suggestedPrompts = [
-    "What should I do next?",
-    "Explain this status.",
-    "Are there any missing documents?"
-  ];
+  const endSession = () => {
+    fallbackToText();
+    setIsOpen(false);
+  };
+
+  const simulateSpeech = () => {
+    if (dhStatus !== 'active' || isMuted) return;
+    setLiveTranscript('Listening...');
+    setTimeout(() => {
+      setInput('Hello, I need help.');
+      setLiveTranscript('');
+    }, 2000);
+  };
 
   return (
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors z-50 flex items-center justify-center"
+        className="fixed bottom-6 right-6 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors z-50 flex items-center justify-center group"
         aria-label="Ask RENTipid AI"
       >
-        <Bot size={24} />
+        <Bot size={24} className="group-hover:animate-pulse" />
       </button>
 
       {isOpen && (
@@ -112,60 +136,95 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
           <div className="bg-white sm:rounded-t-xl sm:rounded-b-none md:rounded-xl shadow-2xl w-full max-w-md h-[85vh] md:h-[600px] flex flex-col md:mb-6 md:mr-6 overflow-hidden">
             
             {/* Header */}
-            <div className="bg-blue-600 text-white p-4 flex justify-between items-center">
+            <div className={`text-white p-4 flex justify-between items-center transition-colors ${mode === 'digital_human' ? 'bg-indigo-700' : 'bg-blue-600'}`}>
               <div className="flex items-center space-x-2">
                 <Bot size={24} />
-                <h3 className="font-semibold text-lg">RENTipid AI</h3>
+                <h3 className="font-semibold text-lg">{mode === 'digital_human' ? 'RENTipid Digital Human' : 'RENTipid AI'}</h3>
               </div>
-              <button onClick={() => setIsOpen(false)} className="text-white hover:text-gray-200">
-                <X size={20} />
-              </button>
+              <div className="flex items-center space-x-3">
+                {mode === 'text' ? (
+                  <button onClick={startDigitalHuman} className="text-white hover:text-gray-200" title="Start Digital Human">
+                    <VideoOff size={18} />
+                  </button>
+                ) : (
+                  <button onClick={fallbackToText} className="text-white hover:text-gray-200" title="Switch to Text">
+                    <MessageSquare size={18} />
+                  </button>
+                )}
+                <button onClick={() => setIsOpen(false)} className="text-white hover:text-gray-200">
+                  <X size={20} />
+                </button>
+              </div>
             </div>
             
             {/* Context & Bot Selection */}
-            <div className="bg-slate-50 border-b p-3 flex flex-col gap-2">
-              <div className="flex justify-between items-center text-xs text-gray-500">
-                <span>Module: <strong className="text-gray-700">{module}</strong></span>
-                <span className="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-[10px] font-bold uppercase">
-                  Level 1-3 Only
-                </span>
+            {mode === 'text' && (
+              <div className="bg-slate-50 border-b p-3 flex flex-col gap-2">
+                <select 
+                  value={selectedBot}
+                  onChange={(e) => setSelectedBot(e.target.value as BotId)}
+                  className="w-full text-sm border-gray-300 rounded-md shadow-sm p-1.5 bg-white border"
+                >
+                  {allowedBots.map(bot => <option key={bot} value={bot}>{bot}</option>)}
+                </select>
               </div>
-              <select 
-                value={selectedBot}
-                onChange={(e) => setSelectedBot(e.target.value as BotId)}
-                className="w-full text-sm border-gray-300 rounded-md shadow-sm p-1.5 bg-white border"
-              >
-                {allowedBots.map(bot => (
-                  <option key={bot} value={bot}>{bot}</option>
-                ))}
-              </select>
-            </div>
+            )}
 
             {/* Disclaimer */}
-            <div className="bg-amber-50 px-3 py-2 border-b border-amber-100 text-[11px] text-amber-800 flex items-start gap-2">
-              <AlertTriangle size={14} className="shrink-0 mt-0.5" />
-              <p>{disclaimerText}</p>
-            </div>
+            {mode === 'text' && (
+              <div className="bg-amber-50 px-3 py-2 border-b border-amber-100 text-[11px] text-amber-800 flex items-start gap-2">
+                <AlertTriangle size={14} className="shrink-0 mt-0.5" />
+                <p>{disclaimerText}</p>
+              </div>
+            )}
+
+            {/* Digital Human Area */}
+            {mode === 'digital_human' && (
+              <div className="bg-slate-900 h-48 relative flex items-center justify-center border-b">
+                {dhStatus === 'initializing' && <div className="text-white animate-pulse">Connecting to Provider...</div>}
+                {dhStatus === 'failed' && (
+                  <div className="text-red-400 text-center">
+                    <AlertTriangle className="mx-auto mb-2" />
+                    Provider failed. Falling back to text.
+                    <button onClick={fallbackToText} className="block mx-auto mt-2 text-sm underline text-blue-400">Continue in Text</button>
+                  </div>
+                )}
+                {dhStatus === 'active' && (
+                  <div className="text-center">
+                    <div className="w-24 h-24 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full mx-auto mb-4 animate-pulse flex items-center justify-center">
+                       <Bot size={48} className="text-white" />
+                    </div>
+                    {/* Media Controls */}
+                    <div className="flex justify-center gap-4 text-white">
+                      <button onClick={() => setIsMuted(!isMuted)} className="p-2 bg-slate-800 rounded-full hover:bg-slate-700">
+                        {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                      </button>
+                      <button onClick={simulateSpeech} className={`p-2 rounded-full ${micConsent ? 'bg-blue-600 hover:bg-blue-500' : 'bg-red-600'}`}>
+                        {micConsent ? <Mic size={18} /> : <MicOff size={18} />}
+                      </button>
+                      <button onClick={endSession} className="p-2 bg-red-600 rounded-full hover:bg-red-500">
+                        <X size={18} />
+                      </button>
+                    </div>
+                  </div>
+                )}
+                {/* Live Transcript Overlay */}
+                {liveTranscript && (
+                  <div className="absolute bottom-4 left-4 right-4 bg-black/60 text-white p-2 rounded text-sm text-center">
+                    {liveTranscript}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Chat Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
-              {messages.length === 0 && (
+            <div className={`flex-1 overflow-y-auto p-4 space-y-4 ${mode === 'digital_human' ? 'bg-slate-50' : 'bg-gray-50'}`}>
+              {messages.length === 0 && mode === 'text' && (
                 <div className="text-center text-gray-400 mt-10">
                   <div className="flex justify-center mb-4 grayscale opacity-60">
                     <RentipidLogo variant="icon" size="xl" showText={false} />
                   </div>
                   <p className="text-sm">How can {selectedBot} help you today?</p>
-                  <div className="mt-6 space-y-2">
-                    {suggestedPrompts.map((p, i) => (
-                      <button 
-                        key={i} 
-                        onClick={() => handleSuggestedPrompt(p)}
-                        className="block w-full text-left bg-white border rounded-lg px-3 py-2 text-sm text-blue-600 hover:bg-blue-50 transition"
-                      >
-                        {p}
-                      </button>
-                    ))}
-                  </div>
                 </div>
               )}
 
@@ -200,14 +259,10 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Area */}
+            {/* Input Area (Shared between text and DH for typed input) */}
             <div className="bg-white border-t p-3">
               <div className="flex items-center gap-2">
-                <button 
-                  onClick={handleClear}
-                  className="text-gray-400 hover:text-red-500 p-2 rounded-full transition"
-                  title="Clear chat"
-                >
+                <button onClick={handleClear} className="text-gray-400 hover:text-red-500 p-2 rounded-full transition" title="Clear chat">
                   <Trash2 size={18} />
                 </button>
                 <div className="flex-1 relative">
