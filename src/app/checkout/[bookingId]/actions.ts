@@ -9,6 +9,7 @@ import { redirect } from 'next/navigation';
 import { resolvePaymentContractCurrency } from '../../../lib/payments/payment-currency-policy';
 
 import { validateCheckoutRequestId, deriveCheckoutIdempotencyKey } from './checkout-helpers';
+import { processOptionalInsuranceCheckout } from '../../../lib/insurance/transaction/optional-checkout';
 const prisma = new PrismaClient();
 
 
@@ -25,11 +26,18 @@ export async function processCheckout(formData: FormData) {
 
   const booking = await prisma.booking.findUnique({
     where: { id: bookingId },
-    include: { listing: true }
+    include: { listing: { include: { category: true } } }
   });
 
   if (!booking || booking.renter_id !== user.id) throw new Error("Invalid booking");
   if (booking.status !== 'Approved' || booking.payment_status !== 'Pending Payment') throw new Error("Booking not ready for payment");
+
+  await processOptionalInsuranceCheckout({
+    formData,
+    booking,
+    userId: user.id,
+    checkoutRequestId: idempotencyKey,
+  });
 
   let serverScopedIdempotencyKey: string;
 

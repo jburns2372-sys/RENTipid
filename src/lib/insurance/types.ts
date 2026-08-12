@@ -63,7 +63,7 @@ export interface InsurancePolicy {
   externalPolicyId: InsuranceIdentifier;
   bookingId: InsuranceIdentifier;
   productCode: string;
-  status: "PENDING" | "ACTIVE" | "CANCELLED" | "EXPIRED";
+  status: "PENDING" | "ACTIVE" | "CANCELLED" | "EXPIRED" | "FAILED";
   premium: InsuranceMoney;
   coverageStart: Date;
   coverageEnd: Date;
@@ -110,6 +110,8 @@ export interface InsuranceWebhookVerification {
   eventType?: string;
   occurredAt?: Date;
   bodyHash?: string;
+  externalPolicyId?: InsuranceIdentifier;
+  policyStatus?: InsurancePolicy["status"];
 }
 
 export interface InsuranceReconciliationWindow {

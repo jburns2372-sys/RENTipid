@@ -279,6 +279,13 @@ export class MockInsuranceAdapter implements PartnerAdapter {
     if (!valid || !isRecord(body)) {
       return { valid: false };
     }
+    const policyStatus =
+      typeof body.policyStatus === "string" &&
+      ["PENDING", "ACTIVE", "CANCELLED", "EXPIRED", "FAILED"].includes(
+        body.policyStatus,
+      )
+        ? (body.policyStatus as InsurancePolicy["status"])
+        : undefined;
     return {
       valid: true,
       externalEventId:
@@ -286,6 +293,11 @@ export class MockInsuranceAdapter implements PartnerAdapter {
       eventType: typeof body.eventType === "string" ? body.eventType : undefined,
       occurredAt: this.now(),
       bodyHash: `mock-hash-${stableToken(JSON.stringify(body))}`,
+      externalPolicyId:
+        typeof body.externalPolicyId === "string"
+          ? body.externalPolicyId
+          : undefined,
+      policyStatus,
     };
   }
 

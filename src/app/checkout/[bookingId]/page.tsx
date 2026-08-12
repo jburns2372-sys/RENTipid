@@ -6,6 +6,7 @@ import { PrismaClient } from '@prisma/client';
 import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import { processCheckout } from './actions';
+import { InsuranceCheckoutOption } from './InsuranceCheckoutOption';
 
 const prisma = new PrismaClient();
 
@@ -22,7 +23,7 @@ export default async function CheckoutPage({ params, searchParams }: { params: P
   const booking = await prisma.booking.findUnique({
     where: { id: bookingId },
     include: {
-      listing: true,
+      listing: { include: { category: true } },
       rentalAgreement: true
     }
   });
@@ -153,6 +154,13 @@ export default async function CheckoutPage({ params, searchParams }: { params: P
               <input type="hidden" name="booking_id" value={booking.id} />
               <input type="hidden" name="payment_mode" value={activeMode} />
               <input type="hidden" name="checkout_request_id" value={checkoutRequestId} />
+
+              <div className="mb-5">
+                <InsuranceCheckoutOption
+                  bookingId={booking.id}
+                  requestId={checkoutRequestId}
+                />
+              </div>
               
               {activeMode === 'paymongo_live_pilot' && (
                 <div className="mb-4">

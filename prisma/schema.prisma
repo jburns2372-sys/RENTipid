@@ -40,6 +40,8 @@ model User {
   // Finance
   payments      Payment[]
   ledgerEntries FinanceLedger[]
+  insuranceSelections InsuranceSelection[]
+  insuranceOrders     InsuranceOrder[]
 
   // Marketing & Social
   socialAccounts   SocialAccount[]
@@ -406,6 +408,8 @@ model Booking {
   ledgerEntries       FinanceLedger[]
   gatewayTransactions GatewayTransaction[]
   insuranceOffers     InsuranceOffer[]
+  insuranceSelection  InsuranceSelection?
+  insuranceOrder      InsuranceOrder?
   insurancePolicy     InsurancePolicy?
 
   inspectionReports InspectionReport[]
@@ -2386,11 +2390,67 @@ model InsuranceOffer {
   @@index([expires_at])
 }
 
+model InsuranceSelection {
+  id                     String   @id @default(cuid())
+  booking_id             String   @unique
+  user_id                String
+  offer_reference        String
+  partner_key            String
+  product_code           String
+  disclosure_version     String
+  premium_minor          Int
+  currency               String   @db.VarChar(3)
+  coverage_start         DateTime
+  coverage_end           DateTime
+  offer_expires_at       DateTime
+  consent_accepted       Boolean
+  consented_at           DateTime
+  idempotency_key        String   @unique
+  request_hash           String
+  status                 String   @default("SELECTED")
+  created_at             DateTime @default(now())
+  updated_at             DateTime @updatedAt
+
+  booking Booking         @relation(fields: [booking_id], references: [id], onDelete: Restrict)
+  user    User            @relation(fields: [user_id], references: [id], onDelete: Restrict)
+  order   InsuranceOrder?
+
+  @@index([user_id, created_at])
+  @@index([status, offer_expires_at])
+}
+
+model InsuranceOrder {
+  id                        String   @id @default(cuid())
+  selection_id              String   @unique
+  booking_id                String   @unique
+  user_id                   String
+  idempotency_key           String   @unique
+  request_hash              String
+  status                    String   @default("SELECTED")
+  payment_dependency_status String   @default("PENDING")
+  payment_reference         String?
+  issuance_idempotency_key  String?  @unique
+  issuance_request_hash     String?
+  external_order_id         String?
+  failure_code              String?
+  created_at                DateTime @default(now())
+  updated_at                DateTime @updatedAt
+
+  selection InsuranceSelection @relation(fields: [selection_id], references: [id], onDelete: Restrict)
+  booking   Booking            @relation(fields: [booking_id], references: [id], onDelete: Restrict)
+  user      User               @relation(fields: [user_id], references: [id], onDelete: Restrict)
+  policy    InsurancePolicy?
+
+  @@index([user_id, status])
+  @@index([status, updated_at])
+}
+
 model InsurancePolicy {
   id                       String    @id @default(cuid())
   partner_id               String
   product_id               String
   booking_id               String    @unique
+  insurance_order_id       String?   @unique
   external_policy_id       String
   order_reference          String
   idempotency_key          String    @unique
@@ -2410,6 +2470,7 @@ model InsurancePolicy {
   partner InsurancePartner @relation(fields: [partner_id], references: [id], onDelete: Restrict)
   product InsuranceProduct @relation(fields: [product_id], references: [id], onDelete: Restrict)
   booking Booking          @relation(fields: [booking_id], references: [id], onDelete: Restrict)
+  insurance_order InsuranceOrder? @relation(fields: [insurance_order_id], references: [id], onDelete: Restrict)
   claims  InsuranceClaim[]
 
   @@unique([partner_id, external_policy_id])
