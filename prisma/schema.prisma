@@ -2613,3 +2613,14 @@ model PrivacyPolicyVersion {
   created_by  User? @relation("PolicyAuthor", fields: [created_by_id], references: [id])
   approved_by User? @relation("PolicyApprover", fields: [approved_by_id], references: [id])
 }
+
+model InsuranceConfig {
+  id                String   @id @default(cuid())
+  killSwitchEnabled Boolean  @default(true)
+  reason            String?
+  updatedByUserId   String
+  updatedAt         DateTime @updatedAt
+  version           Int      @default(1)
+
+  @@map("insurance_configs")
+}
