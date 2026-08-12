@@ -9,3 +9,56 @@ Phase 0 was closed/frozen by owner authority before Slice 1. Slice 1 has passed
 CODE COMPLETE, LOCAL FUNCTIONAL, LOCAL DATABASE MIGRATED, LOCAL REQUIRED DATA
 SEEDED/SYNCED via NOT REQUIRED — VERIFIED and LOCAL ACCEPTANCE. Its next permitted
 gate is PREVIEW MIGRATED. It is not Preview migrated, completed, closed or frozen.
+
+## Superseding Technical Foundation Slice 1 Closure (2026-08-12)
+
+This final entry supersedes the earlier in-progress Slice 1 row without altering
+the independently frozen Phase 0 record.
+
+- CODE COMPLETE: PASS - EVD-INS-S1-GATE1.
+- LOCAL FUNCTIONAL: PASS - EVD-INS-S1-GATE2.
+- LOCAL DATABASE MIGRATED: PASS - EVD-INS-S1-GATE3.
+- LOCAL REQUIRED DATA SEEDED/SYNCED: PASS - EVD-INS-S1-GATE4.
+- LOCAL ACCEPTANCE: PASS - EVD-INS-S1-GATE5.
+- PREVIEW MIGRATED: PASS - EVD-INS-S1-GATE6.
+- PREVIEW ACCEPTANCE: PASS - EVD-INS-S1-GATE7.
+- PRODUCTION-READY: PASS - EVD-INS-S1-GATE8.
+- CLOSED / FROZEN: PASS - EVD-INS-S1-GATE9.
+- Frozen baseline: 2ff068991950de64e3bf0931ed76a5650217dbe2.
+- Freeze ID: FRZ-INS-S1-2026-001.
+
+Slice 1 closure does not close the full Insurance module or activate a live
+insurer. Later transaction, lifecycle, claims, finance and partner slices remain
+separate gated work.
+
+## Transaction Block In-Progress Promotion (2026-08-12)
+
+- CODE COMPLETE: PASS - EVD-INS-TX-GATE1.
+- LOCAL FUNCTIONAL: PASS - EVD-INS-TX-GATE2.
+- LOCAL DATABASE MIGRATED: PASS - EVD-INS-TX-GATE3.
+- LOCAL REQUIRED DATA SEEDED/SYNCED: PASS - EVD-INS-TX-GATE4.
+- LOCAL ACCEPTANCE: PASS - EVD-INS-TX-GATE5.
+- PREVIEW MIGRATED: PASS - EVD-INS-TX-GATE6.
+- PREVIEW ACCEPTANCE: PASS - EVD-INS-TX-GATE7.
+- PRODUCTION-READY: PASS - EVD-INS-TX-GATE8.
+- CLOSED / FROZEN: PASS - EVD-INS-TX-GATE9.
+- Frozen baseline: 6e22684907487d961146661547f29badbcd59dc9.
+- Freeze ID: FRZ-INS-TX-2026-001.
+
+Transaction Block is CLOSED and FROZEN.
+
+## Claims Slice A Promotion (2026-08-12)
+
+- CODE COMPLETE: PASS
+- LOCAL FUNCTIONAL: PASS
+- LOCAL DATABASE MIGRATED: PASS
+- LOCAL REQUIRED DATA SEEDED/SYNCED: PASS
+- LOCAL ACCEPTANCE: PASS
+- PREVIEW MIGRATED: PASS
+- PREVIEW ACCEPTANCE: PASS
+- PRODUCTION-READY: PASS
+- CLOSED / FROZEN: PASS
+- Frozen baseline: 6accf52
+- Freeze ID: FRZ-INS-CLAIMS-A-2026-001
+
+Claims Slice A is CLOSED and FROZEN.
