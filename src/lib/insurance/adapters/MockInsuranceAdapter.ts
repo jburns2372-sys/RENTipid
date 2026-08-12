@@ -250,6 +250,7 @@ export class MockInsuranceAdapter implements PartnerAdapter {
       status: "SUBMITTED",
       submittedAt,
       updatedAt: submittedAt,
+      claimedAmount: incident.claimedAmount,
     };
     this.claims.set(externalClaimId, claim);
     return claim;
@@ -268,6 +269,7 @@ export class MockInsuranceAdapter implements PartnerAdapter {
       status: "UNDER_REVIEW",
       submittedAt: timestamp,
       updatedAt: timestamp,
+      claimedAmount: { amountMinor: 10000, currency: "PHP" },
     };
   }
 

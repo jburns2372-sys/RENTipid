@@ -121,3 +121,112 @@ slices may introduce genuine required-data obligations.
 
 The module-level `EVD-INS-GATE5` remains PENDING because later Insurance
 slices and full authenticated workflows have not passed local acceptance.
+
+### EVD-INS-S1-GATE6 Results
+
+- PREVIEW MIGRATED: PASS.
+- Deployment: dpl_CAZtitCnmuRL2hdf9hEjfT5gxukS, READY, target Preview.
+- URL: https://ren-tipid-dr9tqs391-jburns2372-sys-projects.vercel.app.
+- Source branch: feature/soc-phase4-threat-response.
+- Source commit: 2ff068991950de64e3bf0931ed76a5650217dbe2.
+- Preview database: 38 migrations, schema up to date; latest migration
+  20260812000000_add_insurance_foundation.
+- Insurance schema access: PASS; all six foundation model counts are 0.
+- Build: PASS; Prisma Client 6.19.3 generated and Vercel build completed.
+- Insurance safe state: disabled, live issuance disabled, Mock disabled and kill
+  switch active.
+- Real insurer requests: 0.
+
+### EVD-INS-S1-GATE7 Results
+
+- PREVIEW ACCEPTANCE: PASS.
+- Public root: HTTP 200.
+- Authentication initialization: /api/auth/session HTTP 200.
+- Application routes: /browse and /register/business HTTP 200.
+- Exact deployment runtime logs reviewed: 23; relevant error/fatal findings: 0.
+- Insurance route/event mutation surface: none in Slice 1.
+- Insurance, Booking and Payment mutations: 0.
+- Unexpected Insurance records: 0.
+- Production actions: 0.
+
+### EVD-INS-S1-GATE8 Results
+
+- PRODUCTION-READY: PASS for Technical Foundation Slice 1.
+- Promotion baseline, migration history, Preview acceptance, fail-closed
+  configuration, adapter isolation, rollback controls and external activation
+  boundary verified.
+- This evidence means technically promotion-ready / partner-ready foundation.
+  It does not activate an insurer or authorize Production deployment.
+- Slice 1 P0/P1: 0/0.
+
+### EVD-INS-S1-GATE9 Results
+
+- CLOSED / FROZEN: PASS for Technical Foundation Slice 1.
+- Frozen baseline: 2ff068991950de64e3bf0931ed76a5650217dbe2.
+- Freeze ID: FRZ-INS-S1-2026-001.
+- Any later change requires targeted change control and affected-scope
+  regression without reopening unaffected evidence.
+
+## Slice 1 Final Gate Summary
+
+| Gate | Evidence | Status |
+|---|---|---|
+| PREVIEW MIGRATED | EVD-INS-S1-GATE6 | PASS |
+| PREVIEW ACCEPTANCE | EVD-INS-S1-GATE7 | PASS |
+| PRODUCTION-READY | EVD-INS-S1-GATE8 | PASS |
+| CLOSED / FROZEN | EVD-INS-S1-GATE9 | PASS |
+
+## Transaction Block Evidence
+
+| Gate | Evidence ID | Definition | Current Status |
+|---|---|---|---|
+| CODE COMPLETE | EVD-INS-TX-GATE1 | Transaction code/routes/schema/tests | PASS |
+| LOCAL FUNCTIONAL | EVD-INS-TX-GATE2 | Deterministic runtime orchestration and fail-closed cases | PASS |
+| LOCAL DATABASE MIGRATED | EVD-INS-TX-GATE3 | Additive migration applied; 39/39 current | PASS |
+| LOCAL REQUIRED DATA SEEDED/SYNCED | EVD-INS-TX-GATE4 | Local Mock catalog converged to one partner/product | PASS |
+| LOCAL ACCEPTANCE | EVD-INS-TX-GATE5 | Consolidated tests, Prisma, lint, type, neutrality and data safety | PASS |
+| PREVIEW MIGRATED | EVD-INS-TX-GATE6 | Scoped deployment and Preview schema migration | PASS |
+| PREVIEW ACCEPTANCE | EVD-INS-TX-GATE7 | Targeted deployed Transaction acceptance | PASS |
+| PRODUCTION-READY | EVD-INS-TX-GATE8 | Static readiness without Production action | PASS |
+| CLOSED / FROZEN | EVD-INS-TX-GATE9 | Transaction Block freeze | PASS |
+
+### EVD-INS-TX-GATE6 Results
+
+- PREVIEW MIGRATED: PASS.
+- Deployment: READY, target Preview.
+- URL: https://ren-tipid-qsts5ci6u-jburns2372-sys-projects.vercel.app
+- Source branch: feature/soc-phase4-threat-response.
+- Source commit: 6e22684907487d961146661547f29badbcd59dc9.
+- Preview database: 39 migrations, schema up to date; latest migration 20260812010000_add_insurance_transaction_block.
+- Insurance schema access: PASS; all 8 foundation and transaction model counts are 0.
+- Build: PASS; Prisma Client 6.19.3 generated and Vercel build completed.
+
+### EVD-INS-TX-GATE7 Results
+
+- PREVIEW ACCEPTANCE: PASS.
+- Application surface responds.
+- No relevant auth-secret startup failure or database connection failure.
+- Insurance remains optional, never preselected.
+- Affirmative consent enforced.
+- Idempotency and webhook abstraction safe.
+- Live issuance and real insurer requests remain 0.
+
+### EVD-INS-TX-GATE8 Results
+
+- PRODUCTION-READY: PASS for Transaction Block.
+- Provider-neutral core and fail-closed configurations verified.
+- Partner activation remains separate.
+- Transaction P0/P1: 0/0.
+
+### EVD-INS-TX-GATE9 Results
+
+- CLOSED / FROZEN: PASS for Transaction Block.
+- Frozen baseline: 6e22684907487d961146661547f29badbcd59dc9.
+- Freeze ID: FRZ-INS-TX-2026-001.
+
+### CLAIMS SLICE A EVIDENCE
+- CODE COMPLETE: PASS
+- LOCAL FUNCTIONAL: PASS (Verified with test-claims-slice.ts)
+- LOCAL DATABASE MIGRATED: PASS (20260812020000_add_insurance_claims_slice)
+- LOCAL REQUIRED DATA SEEDED/SYNCED: PASS
+- LOCAL ACCEPTANCE: PASS (Idempotency and webhooks work)

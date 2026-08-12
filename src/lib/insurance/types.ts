@@ -91,17 +91,33 @@ export interface InsuranceIncident {
 export interface InsuranceClaimRequest {
   requestId: InsuranceIdentifier;
   userId: InsuranceIdentifier;
+  policyId: InsuranceIdentifier;
   incident: InsuranceIncident;
   evidenceRefs: readonly InsuranceIdentifier[];
+  claimedAmount?: InsuranceMoney;
 }
 
 export interface InsuranceClaim {
   claimId: InsuranceIdentifier;
-  externalClaimId: InsuranceIdentifier;
+  externalClaimId?: InsuranceIdentifier;
   policyId: InsuranceIdentifier;
-  status: "SUBMITTED" | "UNDER_REVIEW" | "APPROVED" | "REJECTED" | "CLOSED";
+  status:
+    | "DRAFT"
+    | "SUBMITTED"
+    | "PENDING_PARTNER"
+    | "PARTNER_RECEIVED"
+    | "UNDER_REVIEW"
+    | "MORE_INFORMATION_REQUIRED"
+    | "APPROVED"
+    | "PARTIALLY_APPROVED"
+    | "DENIED"
+    | "PAID"
+    | "CLOSED"
+    | "CANCELLED"
+    | "FAILED";
   submittedAt: Date;
   updatedAt: Date;
+  claimedAmount?: InsuranceMoney;
 }
 
 export interface InsuranceWebhookVerification {
@@ -112,6 +128,8 @@ export interface InsuranceWebhookVerification {
   bodyHash?: string;
   externalPolicyId?: InsuranceIdentifier;
   policyStatus?: InsurancePolicy["status"];
+  externalClaimId?: InsuranceIdentifier;
+  claimStatus?: InsuranceClaim["status"];
 }
 
 export interface InsuranceReconciliationWindow {
@@ -160,7 +178,15 @@ export interface InsuranceAuditRecord {
   action:
     | "INSURANCE_ORDER_CREATED"
     | "INSURANCE_POLICY_CANCELLED"
-    | "INSURANCE_CLAIM_CREATED";
+    | "INSURANCE_CLAIM_CREATED"
+    | "INSURANCE_CLAIM_STARTED"
+    | "INSURANCE_CLAIM_SUBMITTED"
+    | "INSURANCE_CLAIM_EVIDENCE_ADDED"
+    | "INSURANCE_CLAIM_EVIDENCE_SENT"
+    | "INSURANCE_CLAIM_STATUS_UPDATED"
+    | "INSURANCE_CLAIM_MORE_INFO_REQUIRED"
+    | "INSURANCE_CLAIM_CLOSED"
+    | "INSURANCE_CLAIM_WEBHOOK_REJECTED";
   targetId: InsuranceIdentifier;
   actorUserId?: InsuranceIdentifier;
   bookingId?: InsuranceIdentifier;

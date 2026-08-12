@@ -2486,6 +2486,9 @@ model InsuranceClaim {
   incident_type       String
   incident_at         DateTime
   incident_summary    String?
+  claimant_user_id    String?
+  claimed_amount      Int?
+  currency            String?
   normalized_snapshot Json?
   submitted_at        DateTime  @default(now())
   resolved_at         DateTime?
@@ -2493,9 +2496,28 @@ model InsuranceClaim {
   updated_at          DateTime  @updatedAt
 
   policy InsurancePolicy @relation(fields: [policy_id], references: [id], onDelete: Restrict)
+  evidences InsuranceClaimEvidence[]
 
   @@unique([policy_id, external_claim_id])
   @@index([status, submitted_at])
+  @@index([claimant_user_id])
+}
+
+model InsuranceClaimEvidence {
+  id               String         @id @default(cuid())
+  claim_id         String
+  evidence_type    String
+  file_reference   String
+  mime_type        String?
+  size_bytes       Int?
+  uploaded_by      String
+  idempotency_key  String         @unique
+  partner_transfer String         @default("PENDING")
+  created_at       DateTime       @default(now())
+
+  claim InsuranceClaim @relation(fields: [claim_id], references: [id], onDelete: Cascade)
+
+  @@index([claim_id])
 }
 
 model InsuranceWebhookEvent {

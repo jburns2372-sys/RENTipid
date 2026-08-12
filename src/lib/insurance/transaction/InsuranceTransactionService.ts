@@ -33,6 +33,13 @@ export class InsuranceTransactionService {
     private readonly config: InsuranceRuntimeConfig,
     private readonly killSwitch: InsuranceKillSwitch,
     private readonly now: () => Date = () => new Date(),
+    private readonly claimService?: {
+      processWebhookStatusUpdate(
+        externalClaimId: string,
+        newStatus: string,
+        bookingId?: string,
+      ): Promise<void>;
+    }
   ) {}
 
   async prepareCheckout(
@@ -498,16 +505,30 @@ export class InsuranceTransactionService {
         externalEventId: verification.externalEventId,
       };
     }
-    const knownEvent = [
+    const knownPolicyEvent = [
       "policy.issued",
       "policy.status_changed",
       "policy.cancelled",
       "policy.expired",
       "policy.failed",
     ].includes(verification.eventType);
+
+    const knownClaimEvent = [
+      "claim.received",
+      "claim.under_review",
+      "claim.more_information_required",
+      "claim.approved",
+      "claim.partially_approved",
+      "claim.denied",
+      "claim.paid",
+      "claim.closed",
+    ].includes(verification.eventType);
+
+    const knownEvent = knownPolicyEvent || knownClaimEvent;
+
     let updated = false;
     if (
-      knownEvent &&
+      knownPolicyEvent &&
       verification.externalPolicyId &&
       verification.policyStatus
     ) {
@@ -517,7 +538,19 @@ export class InsuranceTransactionService {
         verification.policyStatus,
         verification.occurredAt,
       );
+    } else if (
+      knownClaimEvent &&
+      verification.externalClaimId &&
+      verification.claimStatus &&
+      this.claimService
+    ) {
+      await this.claimService.processWebhookStatusUpdate(
+        verification.externalClaimId,
+        verification.claimStatus
+      );
+      updated = true;
     }
+
     const status = knownEvent && updated ? "PROCESSED" : "IGNORED";
     await this.repository.completeWebhookEvent(event.id, status);
     await this.recordAudit({
