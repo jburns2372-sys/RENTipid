@@ -564,10 +564,19 @@ model FinanceLedger {
   booking_id String?
   booking    Booking? @relation(fields: [booking_id], references: [id])
 
-  transaction_type String // "Platform Fee" | "Provider Payout" | "Escrow Deposit" | "Refund"
+  transaction_type String // "Platform Fee" | "Provider Payout" | "Escrow Deposit" | "Refund" | "Insurance Premium" | "Insurance Refund"
   amount           Float
   balance_type     String // "Credit" | "Debit"
   description      String?
+
+  // Extended Financials (Insurance Module)
+  amount_minor      Int?
+  currency          String?
+  idempotency_key   String?  @unique
+  source_reference  String?
+  policy_id         String?
+  insurancePolicy   InsurancePolicy? @relation(fields: [policy_id], references: [id])
+  audit_reference   String?
 
   created_at DateTime @default(now())
 }
@@ -2340,6 +2349,7 @@ model InsurancePartner {
   offers         InsuranceOffer[]
   policies       InsurancePolicy[]
   webhook_events InsuranceWebhookEvent[]
+  reconciliationLogs InsuranceReconciliationLog[]
 
   @@index([status, is_enabled])
 }
@@ -2454,7 +2464,7 @@ model InsurancePolicy {
   external_policy_id       String
   order_reference          String
   idempotency_key          String    @unique
-  status                   String    @default("PENDING")
+  status           String   @default("PENDING") // "PENDING" | "ISSUED" | "ACTIVE" | "EXPIRED" | "CANCELLATION_REQUESTED" | "CANCELLATION_PENDING" | "CANCELLED" | "CANCELLATION_REJECTED" | "CANCELLATION_FAILED"
   premium_amount           Decimal   @db.Decimal(20, 4)
   tax_amount               Decimal   @default(0) @db.Decimal(20, 4)
   currency                 String    @db.VarChar(3)
@@ -2472,9 +2482,59 @@ model InsurancePolicy {
   booking Booking          @relation(fields: [booking_id], references: [id], onDelete: Restrict)
   insurance_order InsuranceOrder? @relation(fields: [insurance_order_id], references: [id], onDelete: Restrict)
   claims  InsuranceClaim[]
+  ledgerEntries FinanceLedger[]
+  reconciliationLogs InsuranceReconciliationLog[]
+  financeExceptions InsuranceFinanceException[]
 
   @@unique([partner_id, external_policy_id])
   @@index([status, coverage_end])
+}
+
+model InsuranceReconciliationLog {
+  id                      String   @id @default(cuid())
+  partner_id              String
+  partner                 InsurancePartner @relation(fields: [partner_id], references: [id])
+  policy_id               String?
+  policy                  InsurancePolicy? @relation(fields: [policy_id], references: [id])
+  order_reference         String?
+  
+  batch_reference         String?
+  internal_amount_minor   Int?
+  partner_amount_minor    Int?
+  currency                String   @default("PHP")
+  settlement_reference    String?
+  
+  classification          String   // "MATCHED" | "MISSING_INTERNAL" | "MISSING_PARTNER" | "AMOUNT_MISMATCH" | "CURRENCY_MISMATCH" | "STATUS_MISMATCH" | "DUPLICATE" | "PENDING_REVIEW" | "RESOLVED"
+  status                  String   @default("PENDING") // "PENDING" | "RESOLVED"
+  
+  created_at              DateTime @default(now())
+  resolved_at             DateTime?
+  resolution_reference    String?
+  audit_reference         String?
+
+  @@index([partner_id])
+  @@index([batch_reference])
+  @@index([classification])
+}
+
+model InsuranceFinanceException {
+  id                      String   @id @default(cuid())
+  policy_id               String?
+  policy                  InsurancePolicy? @relation(fields: [policy_id], references: [id])
+  order_reference         String?
+
+  exception_type          String   // "PREMIUM_COLLECTION_FAILED" | "REFUND_FAILED" | "ORPHANED_POLICY"
+  description             String
+  context                 Json?
+  status                  String   @default("OPEN") // "OPEN" | "REVIEWING" | "RESOLVED"
+
+  created_at              DateTime @default(now())
+  resolved_at             DateTime?
+  resolution_notes        String?
+  resolved_by_user_id     String?
+
+  @@index([status])
+  @@index([exception_type])
 }
 
 model InsuranceClaim {
