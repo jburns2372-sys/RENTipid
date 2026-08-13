@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 const MAX_CANDIDATES = 50;
 const MAX_RESULTS = 3;
-const MIN_TOPIC_MATCH_RATIO = 0.5;
+const MIN_TOPIC_MATCH_RATIO = 0.6;
 
 const QUERY_STOP_WORDS = new Set([
   'a', 'an', 'and', 'are', 'be', 'become', 'can', 'do', 'does', 'every',

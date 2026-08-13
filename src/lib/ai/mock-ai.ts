@@ -43,10 +43,5 @@ export async function processMockAIRequest(
     }
   }
 
-  // Safe uncertainty
-  if (/\b(policy|refund|deposit|payout|kyc|claim|insurance|booking|cancel(?:lation)?)\b/.test(lowerPrompt)) {
-     return "[Mock AI Mode] I don't have approved information to confirm that.";
-  }
-
-  return `[Mock AI Mode] I am the ${botId}. I received your message: "${prompt}". Because I am in Mock Mode, I can only provide predefined responses.`;
+  return "[Mock AI Mode] I don't have approved information to confirm that.";
 }

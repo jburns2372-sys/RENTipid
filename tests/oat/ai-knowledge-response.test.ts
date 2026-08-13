@@ -1,4 +1,5 @@
 import { processAICommand, AIRequest } from '../../src/lib/ai/ai-command-layer';
+import { retrieveApprovedKnowledge } from '../../src/lib/ai/context/knowledge-retrieval';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -33,6 +34,8 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
     };
 
     const response = await processAICommand(request);
+    const selectedKnowledge = await retrieveApprovedKnowledge(request.prompt, request.userRole);
+    expect(selectedKnowledge).toContain('RENTipid is a rental marketplace');
     expect(response.message).toContain('Based on approved RENTipid knowledge:');
     expect(response.message).toContain('RENTipid is a rental marketplace');
     expect(response.isBlocked).not.toBe(true);
@@ -48,6 +51,8 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
     };
 
     const response = await processAICommand(request);
+    const selectedKnowledge = await retrieveApprovedKnowledge(request.prompt, request.userRole);
+    expect(selectedKnowledge).toContain('RENTipid is a rental marketplace');
     expect(response.message).toContain('Based on approved RENTipid knowledge:');
     expect(response.message).toContain('RENTipid is a rental marketplace');
   });
@@ -91,6 +96,46 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
 
     const response = await processAICommand(request);
     expect(response.message).toContain("I don't have approved information to confirm that");
+  });
+
+  it('AI-OAT-KNOWLEDGE-009: materially different question does not select generic overview', async () => {
+    const overviewResponse = await processAICommand({
+      botId: 'Concierge' as any,
+      prompt: 'How does RENTipid work?',
+      module: 'Help',
+      userRole: 'RENTER',
+      userId: 'user-renter-123'
+    });
+    const prompt = 'what are the prohibited items?';
+    const selectedKnowledge = await retrieveApprovedKnowledge(prompt, 'RENTER');
+    const response = await processAICommand({
+      botId: 'Concierge' as any,
+      prompt,
+      module: 'Help',
+      userRole: 'RENTER',
+      userId: 'user-renter-123'
+    });
+
+    expect(selectedKnowledge).toBeNull();
+    expect(response.message).toContain("I don't have approved information to confirm that");
+    expect(response.message).not.toContain('RENTipid is a rental marketplace');
+    expect(response.message).not.toBe(overviewResponse.message);
+  });
+
+  it('AI-OAT-KNOWLEDGE-010: weak token overlap returns no approved knowledge', async () => {
+    const prompt = 'Which items predict earthquakes?';
+    const selectedKnowledge = await retrieveApprovedKnowledge(prompt, 'RENTER');
+    const response = await processAICommand({
+      botId: 'Concierge' as any,
+      prompt,
+      module: 'Help',
+      userRole: 'RENTER',
+      userId: 'user-renter-123'
+    });
+
+    expect(selectedKnowledge).toBeNull();
+    expect(response.message).toContain("I don't have approved information to confirm that");
+    expect(response.message).not.toContain('RENTipid is a rental marketplace');
   });
 
   it('AI-OAT-KNOWLEDGE-006: Renter asking for another users data is denied', async () => {
