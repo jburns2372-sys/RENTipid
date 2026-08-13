@@ -15,6 +15,7 @@
     "test:db:migrate": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- prisma migrate deploy",
     "test:db:reset": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- prisma migrate reset --force",
     "test:soc:integration": "npm run test:db:guard && cross-env NODE_ENV=test SECURITY_TELEMETRY_HMAC_KEY=0123456789abcdef0123456789abcdef SOC_CORRELATION_HMAC_KEY=0123456789abcdef0123456789abcdef dotenv -e .env.test.local -e .env.test -- jest --runInBand",
+    "test:oat": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- jest --runInBand tests/oat",
     "address:local:bootstrap": "tsx scripts/address-local-bootstrap.ts",
     "app:local:bootstrap": "tsx scripts/address-local-bootstrap.ts",
     "app:verify:local": "tsx scripts/app-verify.ts local",
@@ -22,7 +23,16 @@
     "app:verify:production-readiness": "tsx scripts/app-verify.ts production-readiness",
     "app:release:gate": "tsx scripts/app-release-gate.ts",
     "app:acceptance:local": "tsx scripts/run-local-address-acceptance.ts",
-    "psgc:production:bootstrap": "tsx scripts/psgc-production-bootstrap.ts"
+    "psgc:production:bootstrap": "tsx scripts/psgc-production-bootstrap.ts",
+    "oat:list": "tsx scripts/oat/oat-runner.ts list",
+    "oat:all:check": "tsx scripts/oat/oat-runner.ts all:check",
+    "oat:all:reset": "tsx scripts/oat/oat-runner.ts all:reset",
+    "oat:social:setup": "tsx scripts/oat/oat-runner.ts setup SOCIAL",
+    "oat:social:check": "tsx scripts/oat/oat-runner.ts check SOCIAL",
+    "oat:social:reset": "tsx scripts/oat/oat-runner.ts reset SOCIAL",
+    "oat:ai:setup": "tsx scripts/oat/oat-runner.ts setup AI",
+    "oat:ai:check": "tsx scripts/oat/oat-runner.ts check AI",
+    "oat:ai:reset": "tsx scripts/oat/oat-runner.ts reset AI"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
