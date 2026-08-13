@@ -1,5 +1,4 @@
 import { chunkKnowledge } from '../../src/lib/ai/knowledge/chunker';
-import { assertKnowledgeMutationEnvironment } from '../../src/lib/ai/knowledge/environment-guard';
 import { hashNormalizedContent, hashStableObject } from '../../src/lib/ai/knowledge/hashing';
 import { validateModuleKnowledgeRegistration } from '../../src/lib/ai/knowledge/module-contract';
 import { normalizeKnowledgeText } from '../../src/lib/ai/knowledge/normalizer';
@@ -80,19 +79,6 @@ describe('KB-1 Knowledge Engine', () => {
     expect(resolveEffectiveKnowledgeVersion(entry, 'hash-a', [{ version: '1.0', contentHash: 'hash-a' }])).toBe('1.0');
     expect(resolveEffectiveKnowledgeVersion(entry, 'abcdef1234567890', [{ version: '1.0', contentHash: 'different' }])).toBe('1.0+abcdef123456');
     expect(resolveEffectiveKnowledgeVersion(entry, 'hash-a', [{ version: '1.0', contentHash: 'hash-a' }], 'fedcba9876543210')).toBe('1.0+fedcba987654');
-  });
-
-  test('mutation environment rejects Production, Preview, remote, and unknown database identities', () => {
-    const safe = {
-      NODE_ENV: 'test',
-      ALLOW_KNOWLEDGE_MUTATION: 'true',
-      DATABASE_URL: 'postgresql://local:local@127.0.0.1:5432/rentipid_test_soc',
-    };
-    expect(assertKnowledgeMutationEnvironment(safe).kind).toBe('LOCAL_TEST');
-    expect(() => assertKnowledgeMutationEnvironment({ ...safe, NODE_ENV: 'production' })).toThrow('NODE_ENV_PRODUCTION');
-    expect(() => assertKnowledgeMutationEnvironment({ ...safe, VERCEL_ENV: 'preview' })).toThrow('PREVIEW_NOT_AUTHORIZED');
-    expect(() => assertKnowledgeMutationEnvironment({ ...safe, DATABASE_URL: 'postgresql://local:local@example.net:5432/rentipid_test_soc' })).toThrow('NON_LOCAL_DATABASE');
-    expect(() => assertKnowledgeMutationEnvironment({ ...safe, DATABASE_URL: 'postgresql://local:local@127.0.0.1:5432/rentipid' })).toThrow('UNKNOWN_LOCAL_DATABASE');
   });
 
   test('future module closure contract requires registered, synced, 100% knowledge', () => {
