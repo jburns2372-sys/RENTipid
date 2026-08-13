@@ -29,6 +29,7 @@ model User {
   aiServiceSessions     AiServiceSession[]
   aiConversations       AiConversation[]
   aiSupportCases        AiSupportCase[]
+  feedbacksAuthored     SocialFeedback[]
   verificationDocuments VerificationDocument[]
 
   // Bookings and Notifications
@@ -47,11 +48,13 @@ model User {
   insuranceOrders     InsuranceOrder[]
 
   // Marketing & Social
-  socialAccounts   SocialAccount[]
-  campaignsCreated MarketingCampaign[]
-  postsCreated     MarketingPost[]          @relation("PostCreator")
-  postsApproved    MarketingPost[]          @relation("PostApprover")
-  optIns           ProviderPromotionOptIn[]
+  socialAccounts       SocialAccount[]
+  campaignsCreated     MarketingCampaign[]
+  postsCreated         MarketingPost[]          @relation("PostCreator")
+  postsApproved        MarketingPost[]          @relation("PostApprover")
+  marketingPostReviews MarketingPostReview[]
+  socialPostQueues     SocialPostQueue[]
+  optIns               ProviderPromotionOptIn[]
 
   // Phase 10: Beta & UAT Tracking
   is_test_data Boolean @default(false)
@@ -88,6 +91,8 @@ model User {
   dsr_assignments   DataSubjectRequest[]   @relation("DSRAssignee")
   created_policies  PrivacyPolicyVersion[] @relation("PolicyAuthor")
   approved_policies PrivacyPolicyVersion[] @relation("PolicyApprover")
+
+  socialAttributions SocialAttribution[]
 }
 
 model UserMfa {
@@ -273,12 +278,14 @@ model CategoryRequirement {
 // Listings Foundation
 model Listing {
   id          String   @id @default(cuid())
+  marketingCampaigns CampaignListingLink[]
   provider_id String
   provider    User     @relation(fields: [provider_id], references: [id])
   category_id String
   category    Category @relation(fields: [category_id], references: [id])
   title       String
   description String?
+  socialFeedbacks SocialFeedback[]
 
   // Location
   location String?
@@ -334,6 +341,8 @@ model Listing {
   // Phase 10: Beta & UAT Tracking
   is_test_data Boolean @default(false)
   beta_label   String?
+
+  socialAttributions SocialAttribution[]
 }
 
 model ListingPhoto {
@@ -427,6 +436,8 @@ model Booking {
   // Phase 10: Beta & UAT Tracking
   is_test_data Boolean @default(false)
   beta_label   String?
+
+  socialAttributions SocialAttribution[]
 }
 
 model BookingStatusHistory {
@@ -458,6 +469,8 @@ model Payment {
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  socialAttributions SocialAttribution[]
 }
 
 // ----------------------------------------------------------------------
@@ -885,6 +898,7 @@ model SystemErrorLog {
 
 model SocialAccount {
   id                      String    @id @default(cuid())
+  marketingCampaigns      CampaignTargetAccount[]
   owner_user_id           String?
   owner                   User?     @relation(fields: [owner_user_id], references: [id])
   business_provider_id    String? // Optional string ref to BusinessProfile
@@ -893,14 +907,27 @@ model SocialAccount {
   account_handle          String
   account_type            String
   connection_status       String
+  health_status           String    @default("UNKNOWN")
+  capabilities            String? // Stored as JSON string to avoid jsonb for basic postgres compatibility
+  credential_reference    String?
+  last_validation_error   String?
+  last_sync_at            DateTime?
   access_token_encrypted  String?
   refresh_token_encrypted String?
   token_expires_at        DateTime?
   scopes                  String?
   last_connected_at       DateTime?
+  feedbacks               SocialFeedback[]
   disconnected_at         DateTime?
   created_at              DateTime  @default(now())
   updated_at              DateTime  @updatedAt
+
+  socialMetrics         SocialMetric[]
+  providerEvents        SocialProviderEvent[]
+  queues                SocialPostQueue[]
+  marketingPosts        MarketingPost[]
+  marketingPostVersions MarketingPostVersion[]
+  publicationAttempts   SocialPublicationAttempt[]
 }
 
 model MarketingCampaign {
@@ -924,6 +951,7 @@ model MarketingCampaign {
 
   posts     MarketingPost[]
   approvals CampaignApproval[]
+  socialFeedbacks SocialFeedback[]
   assets    PromotionAsset[]
   utmLinks  UTMLink[]
   analytics CampaignAnalytics[]
@@ -931,35 +959,67 @@ model MarketingCampaign {
   // Phase 10: Beta & UAT Tracking
   is_test_data Boolean @default(false)
   beta_label   String?
+
+  socialMetrics      SocialMetric[]
+  socialAttributions SocialAttribution[]
+  listings           CampaignListingLink[]
+  target_accounts    CampaignTargetAccount[]
+}
+
+model CampaignListingLink {
+  id          String            @id @default(cuid())
+  campaign_id String
+  campaign    MarketingCampaign @relation(fields: [campaign_id], references: [id])
+  listing_id  String
+  listing     Listing           @relation(fields: [listing_id], references: [id])
+  created_at  DateTime          @default(now())
+
+  @@unique([campaign_id, listing_id])
+}
+
+model CampaignTargetAccount {
+  id                String            @id @default(cuid())
+  campaign_id       String
+  campaign          MarketingCampaign @relation(fields: [campaign_id], references: [id])
+  target_account_id String
+  target_account    SocialAccount     @relation(fields: [target_account_id], references: [id])
+  created_at        DateTime          @default(now())
+
+  @@unique([campaign_id, target_account_id])
 }
 
 model MarketingPost {
-  id               String            @id @default(cuid())
-  campaign_id      String
-  campaign         MarketingCampaign @relation(fields: [campaign_id], references: [id])
-  listing_id       String?
-  listing          Listing?          @relation(fields: [listing_id], references: [id])
-  provider_id      String? // String ref to User
-  platform         String
-  post_type        String
-  post_title       String?
-  caption          String?
-  hashtags         String?
-  media_type       String?
-  media_file_path  String?
-  media_prompt     String?
-  destination_url  String?
-  tracking_url     String?
-  scheduled_at     DateTime?
-  published_at     DateTime?
-  post_status      String
-  approval_status  String
-  rejection_reason String?
+  id                String            @id @default(cuid())
+  campaign_id       String
+  campaign          MarketingCampaign @relation(fields: [campaign_id], references: [id])
+  listing_id        String?
+  listing           Listing?          @relation(fields: [listing_id], references: [id])
+  provider_id       String? // String ref to User
+  target_account_id String?
+  target_account    SocialAccount?    @relation(fields: [target_account_id], references: [id])
+  platform          String
+  post_type         String
+  post_title        String?
+  caption           String?
+  hashtags          String?
+  media_type        String?
+  media_file_path   String?
+  media_prompt      String?
+  destination_url   String?
+  tracking_url      String?
+  scheduled_at      DateTime?
+  published_at      DateTime?
+  socialFeedbacks   SocialFeedback[]
+  post_status       String
+  approval_status   String
+  rejection_reason  String?
 
   created_by_id  String?
   created_by     User?   @relation("PostCreator", fields: [created_by_id], references: [id])
   approved_by_id String?
   approved_by    User?   @relation("PostApprover", fields: [approved_by_id], references: [id])
+
+  version Int @default(1)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -969,6 +1029,11 @@ model MarketingPost {
   utmLinks     UTMLink[]
   analytics    CampaignAnalytics[]
   queueEntries SocialPostQueue[]
+  versions     MarketingPostVersion[]
+  reviews      MarketingPostReview[]
+
+  socialMetrics      SocialMetric[]
+  socialAttributions SocialAttribution[]
 }
 
 model CampaignApproval {
@@ -1054,15 +1119,54 @@ model ProviderPromotionOptIn {
 }
 
 model SocialPostQueue {
-  id            String        @id @default(cuid())
-  post_id       String
-  post          MarketingPost @relation(fields: [post_id], references: [id])
-  platform      String
-  status        String // "Pending" | "Posting" | "Success" | "Failed"
-  error_message String?
-  scheduled_at  DateTime?
-  processed_at  DateTime?
-  created_at    DateTime      @default(now())
+  id                  String                @id @default(cuid())
+  post_id             String
+  post                MarketingPost         @relation(fields: [post_id], references: [id])
+  approved_version_id String?
+  post_version        MarketingPostVersion? @relation(fields: [approved_version_id], references: [id])
+  target_account_id   String?
+  target_account      SocialAccount?        @relation(fields: [target_account_id], references: [id])
+  platform            String
+  status              String // "Pending" | "Posting" | "Success" | "Failed" | "Cancelled"
+  error_message       String?
+  scheduled_at        DateTime?
+  timezone            String?
+  idempotency_key     String?               @unique
+  processed_at        DateTime?
+  cancelled_at        DateTime?
+  cancellation_reason String?
+  created_by_id       String?
+  created_by          User?                 @relation(fields: [created_by_id], references: [id])
+  created_at          DateTime              @default(now())
+
+  publication_attempts SocialPublicationAttempt[]
+}
+
+model SocialPublicationAttempt {
+  id                   String               @id @default(cuid())
+  queue_id             String
+  queue                SocialPostQueue      @relation(fields: [queue_id], references: [id], onDelete: Cascade)
+  post_version_id      String
+  post_version         MarketingPostVersion @relation(fields: [post_version_id], references: [id])
+  social_account_id    String
+  social_account       SocialAccount        @relation(fields: [social_account_id], references: [id])
+  provider             String
+  provider_post_id     String?
+  attempt_number       Int                  @default(1)
+  publication_key      String               // Stable idempotency key across retries for the same publication intent
+  correlation_id       String?
+  status               String // "PENDING" | "PROCESSING" | "SUCCEEDED" | "FAILED_RETRYABLE" | "FAILED_FINAL" | "CANCELLED"
+  normalized_error     String?              @db.Text
+  is_retryable         Boolean              @default(false)
+  next_retry_at        DateTime?
+  started_at           DateTime?
+  completed_at         DateTime?
+  created_at           DateTime             @default(now())
+  updated_at           DateTime             @updatedAt
+
+  @@unique([queue_id, attempt_number])
+  @@index([queue_id])
+  @@index([status, next_retry_at])
 }
 
 // ----------------------------------------------------------------------
@@ -2804,4 +2908,199 @@ model AiProviderSession {
   expiresAt          DateTime
   createdAt          DateTime  @default(now())
   endedAt            DateTime?
+}
+
+// ----------------------------------------------------------------------
+// Phase 10: Social Media, Promotion & Feedback Intelligence Module
+// Phase 3: Database & Shared Foundation
+// ----------------------------------------------------------------------
+
+enum SocialMetricClassification {
+  ACTUAL
+  DERIVED
+  ESTIMATED
+}
+
+enum SocialProviderEventState {
+  PENDING
+  PROCESSED
+  FAILED
+  RETRYING
+  IGNORED
+}
+
+enum SocialAttributionStatus {
+  PENDING
+  CONFIRMED
+  REJECTED
+  UNCERTAIN
+}
+
+model SocialMetric {
+  id                String             @id @default(cuid())
+  provider          String
+  social_account_id String
+  socialAccount     SocialAccount      @relation(fields: [social_account_id], references: [id], onDelete: Cascade)
+  campaign_id       String?
+  campaign          MarketingCampaign? @relation(fields: [campaign_id], references: [id], onDelete: SetNull)
+  post_id           String?
+  post              MarketingPost?     @relation(fields: [post_id], references: [id], onDelete: SetNull)
+
+  metric_type           String // impressions, reach, engagement, clicks, etc.
+  metric_value          Float
+  measurement_timestamp DateTime
+  provider_timestamp    DateTime?
+  source_classification SocialMetricClassification @default(ACTUAL)
+  provider_reference    String?
+  deduplication_key     String?                    @unique
+  ingestion_timestamp   DateTime                   @default(now())
+
+  @@index([provider, social_account_id])
+  @@index([metric_type, measurement_timestamp])
+}
+
+model SocialAttribution {
+  id                     String             @id @default(cuid())
+  campaign_id            String?
+  campaign               MarketingCampaign? @relation(fields: [campaign_id], references: [id], onDelete: SetNull)
+  post_id                String?
+  post                   MarketingPost?     @relation(fields: [post_id], references: [id], onDelete: SetNull)
+  listing_id             String?
+  listing                Listing?           @relation(fields: [listing_id], references: [id], onDelete: SetNull)
+  user_id                String?
+  user                   User?              @relation(fields: [user_id], references: [id], onDelete: SetNull)
+  booking_id             String?
+  booking                Booking?           @relation(fields: [booking_id], references: [id], onDelete: SetNull)
+  payment_transaction_id String?
+  payment                Payment?           @relation(fields: [payment_transaction_id], references: [id], onDelete: SetNull)
+
+  attribution_token  String?                 @unique
+  source_channel     String
+  event_type         String // "CLICK", "REGISTRATION", "BOOKING", "PAYMENT"
+  occurred_at        DateTime
+  attribution_status SocialAttributionStatus @default(PENDING)
+  confidence_score   Int? // 0-100
+  attribution_method String?
+  sanitized_metadata String?
+
+  created_at DateTime @default(now())
+
+  @@index([source_channel, occurred_at])
+  @@index([attribution_token])
+}
+
+model SocialProviderEvent {
+  id                String                   @id @default(cuid())
+  provider          String
+  social_account_id String?
+  socialAccount     SocialAccount?           @relation(fields: [social_account_id], references: [id], onDelete: Cascade)
+  provider_event_id String?
+  event_type        String
+  payload_summary   String? // Sanitized/normalized payload
+  received_at       DateTime                 @default(now())
+  processing_state  SocialProviderEventState @default(PENDING)
+  processed_at      DateTime?
+  retry_count       Int                      @default(0)
+  error_state       String?
+  idempotency_key   String                   @unique
+
+  @@index([provider, processing_state, received_at])
+  @@index([idempotency_key])
+  socialFeedbacks   SocialFeedback[]
+}
+
+model MarketingPostVersion {
+  id                String         @id @default(cuid())
+  post_id           String
+  post              MarketingPost  @relation(fields: [post_id], references: [id])
+  version_number    Int
+  content_snapshot  String?
+  media_snapshot    String?
+  target_channels   String?
+  target_account_id String?
+  target_account    SocialAccount? @relation(fields: [target_account_id], references: [id])
+  change_reason     String?
+  editor_id         String
+  created_at        DateTime       @default(now())
+
+  reviews MarketingPostReview[]
+  queues  SocialPostQueue[]
+  publication_attempts SocialPublicationAttempt[]
+}
+
+model MarketingPostReview {
+  id                     String               @id @default(cuid())
+  post_id                String
+  post                   MarketingPost        @relation(fields: [post_id], references: [id])
+  post_version_id        String
+  post_version           MarketingPostVersion @relation(fields: [post_version_id], references: [id])
+  version_number         Int
+  reviewer_id            String
+  reviewer               User                 @relation(fields: [reviewer_id], references: [id])
+  decision               String // "APPROVED" | "REJECTED"
+  comment                String?
+  override_reason        String?
+  self_approval_override Boolean              @default(false)
+  created_at             DateTime             @default(now())
+}
+
+enum SocialFeedbackStatus {
+  NEW
+  CLASSIFIED
+  NEEDS_REVIEW
+  ESCALATED
+  RESPONDED
+  RESOLVED
+  ARCHIVED
+}
+
+enum SocialFeedbackSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum SocialFeedbackSentiment {
+  POSITIVE
+  NEUTRAL
+  NEGATIVE
+}
+
+model SocialFeedback {
+  id                    String                   @id @default(cuid())
+  provider              String
+  social_account_id     String?
+  socialAccount         SocialAccount?           @relation(fields: [social_account_id], references: [id], onDelete: SetNull)
+  provider_feedback_id  String
+  provider_event_id     String?
+  providerEvent         SocialProviderEvent?     @relation(fields: [provider_event_id], references: [id], onDelete: SetNull)
+  campaign_id           String?
+  campaign              MarketingCampaign?       @relation(fields: [campaign_id], references: [id], onDelete: SetNull)
+  marketing_post_id     String?
+  marketingPost         MarketingPost?           @relation(fields: [marketing_post_id], references: [id], onDelete: SetNull)
+  listing_id            String?
+  listing               Listing?                 @relation(fields: [listing_id], references: [id], onDelete: SetNull)
+  author_provider_id    String?
+  author                User?                    @relation(fields: [author_provider_id], references: [id], onDelete: SetNull)
+  
+  feedback_type         String // COMMENT, REVIEW, MESSAGE, COMPLAINT, QUESTION, PRAISE, SPAM
+  normalized_text       String                   @db.Text
+  sentiment             SocialFeedbackSentiment?
+  topic                 String?
+  severity              SocialFeedbackSeverity   @default(LOW)
+  status                SocialFeedbackStatus     @default(NEW)
+  
+  ai_classification_metadata String?             @db.Text
+  
+  linked_case_type      String? // SUPPORT, INCIDENT, DISPUTE
+  linked_case_id        String?
+  
+  received_at           DateTime                 @default(now())
+  reviewed_at           DateTime?
+  created_at            DateTime                 @default(now())
+  updated_at            DateTime                 @updatedAt
+
+  @@unique([provider, social_account_id, provider_feedback_id])
+  @@index([status, severity])
 }
