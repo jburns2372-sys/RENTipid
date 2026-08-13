@@ -44,7 +44,7 @@ export async function processMockAIRequest(
   }
 
   // Safe uncertainty
-  if (lowerPrompt.includes("policy") || lowerPrompt.includes("insurance") || lowerPrompt.includes("refund")) {
+  if (/\b(policy|refund|deposit|payout|kyc|claim|insurance|booking|cancel(?:lation)?)\b/.test(lowerPrompt)) {
      return "[Mock AI Mode] I don't have approved information to confirm that.";
   }
 

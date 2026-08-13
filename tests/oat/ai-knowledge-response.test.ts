@@ -1,5 +1,4 @@
 import { processAICommand, AIRequest } from '../../src/lib/ai/ai-command-layer';
-import { retrieveApprovedKnowledge } from '../../src/lib/ai/context/knowledge-retrieval';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -53,10 +52,10 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
     expect(response.message).toContain('RENTipid is a rental marketplace');
   });
 
-  it('AI-OAT-KNOWLEDGE-003: "How do I rent something on RENTipid?" returns grounded knowledge', async () => {
+  it('AI-OAT-KNOWLEDGE-003: rental phrasing variant returns grounded knowledge', async () => {
     const request: AIRequest = {
       botId: 'Concierge' as any,
-      prompt: 'How do I rent something on RENTipid?',
+      prompt: 'How can I rent something through RENTipid?',
       module: 'Help',
       userRole: 'RENTER',
       userId: 'user-renter-123'
@@ -67,10 +66,24 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
     expect(response.message).toContain('renters make bookings through the platform');
   });
 
+  it('AI-OAT-KNOWLEDGE-004: provider phrasing variant returns grounded knowledge', async () => {
+    const request: AIRequest = {
+      botId: 'Concierge' as any,
+      prompt: 'How do I become a provider?',
+      module: 'Help',
+      userRole: 'RENTER',
+      userId: 'user-renter-123'
+    };
+
+    const response = await processAICommand(request);
+    expect(response.message).toContain('Based on approved RENTipid knowledge:');
+    expect(response.message).toContain('providers list rentable items');
+  });
+
   it('AI-OAT-KNOWLEDGE-005: Unsupported question returns Safe Uncertainty', async () => {
     const request: AIRequest = {
       botId: 'Concierge' as any,
-      prompt: 'What is the refund policy for late returns?',
+      prompt: 'Does RENTipid guarantee a 90% refund for every rental cancellation?',
       module: 'Help',
       userRole: 'RENTER',
       userId: 'user-renter-123'

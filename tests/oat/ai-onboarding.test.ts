@@ -39,6 +39,16 @@ describe('AI OAT Onboarding', () => {
       where: { slug: 'oat-ai-test-policy' }
     });
     expect(knowledge.length).toBe(1);
+
+    const overviewKnowledge = await prisma.aiKnowledgeSource.findMany({
+      where: { slug: 'oat-ai-rentipid-overview' }
+    });
+    expect(overviewKnowledge).toHaveLength(1);
+    expect(overviewKnowledge[0]).toEqual(expect.objectContaining({
+      status: 'ACTIVE',
+      version: '1.0',
+      category: 'Overview'
+    }));
   }, 60000);
 
   it('AI-OAT-RESET-TRANSIENT-001: Should safely clear transient AI records but preserve fixtures and unrelated data', async () => {
@@ -135,5 +145,10 @@ describe('AI OAT Onboarding', () => {
 
     const keptKnowledge = await prisma.aiKnowledgeSource.findUnique({ where: { slug: 'oat-ai-test-policy' } });
     expect(keptKnowledge).toBeDefined();
+
+    const keptOverview = await prisma.aiKnowledgeSource.findUnique({
+      where: { slug: 'oat-ai-rentipid-overview' }
+    });
+    expect(keptOverview).toEqual(expect.objectContaining({ status: 'ACTIVE' }));
   });
 });
