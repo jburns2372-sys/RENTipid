@@ -2,6 +2,7 @@ import { BotId, canUserAccessBot, MAX_ALLOWED_PERMISSION } from './ai-permission
 import { checkGuardrails } from './ai-guardrails';
 import { buildSafeContext } from './ai-context-builder';
 import { getSystemPrompt } from './ai-prompts';
+import { retrieveApprovedKnowledge } from './context/knowledge-retrieval';
 import { processMockAIRequest } from './mock-ai';
 import { logAIInteraction } from './ai-logger';
 import { getAISettings, isModuleAIEnabled, isBotEnabled } from './ai-settings-service';
@@ -104,7 +105,14 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   }
 
   // 4. Build Context & System Prompt
-  const safeContext = buildSafeContext(userRole, module, recordId);
+  let safeContext = buildSafeContext(userRole, module, recordId);
+  
+  // 4.1 Knowledge Retrieval
+  const retrievedKnowledge = await retrieveApprovedKnowledge(prompt, userRole);
+  if (retrievedKnowledge) {
+    safeContext += `\n\nApproved Knowledge Context:\n${retrievedKnowledge}`;
+  }
+
   const systemPrompt = getSystemPrompt(botId, userRole || 'Guest', module);
 
   // 5. Execute AI

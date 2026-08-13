@@ -32,5 +32,21 @@ export async function processMockAIRequest(
     return `[Mock AI Mode] Here is a draft:\n\n"High-quality rental item perfect for your needs. Well maintained and ready for pickup."\n\n(Please review and edit before saving.)`;
   }
 
+  // Look for retrieved knowledge in the context string
+  const knowledgeMarker = "Approved Knowledge Context:\n";
+  const knowledgeIdx = contextStr.indexOf(knowledgeMarker);
+  
+  if (knowledgeIdx !== -1) {
+    const knowledgeText = contextStr.substring(knowledgeIdx + knowledgeMarker.length).trim();
+    if (knowledgeText) {
+      return `[Mock AI Mode] Based on approved RENTipid knowledge: ${knowledgeText}`;
+    }
+  }
+
+  // Safe uncertainty
+  if (lowerPrompt.includes("policy") || lowerPrompt.includes("insurance") || lowerPrompt.includes("refund")) {
+     return "[Mock AI Mode] I don't have approved information to confirm that.";
+  }
+
   return `[Mock AI Mode] I am the ${botId}. I received your message: "${prompt}". Because I am in Mock Mode, I can only provide predefined responses.`;
 }

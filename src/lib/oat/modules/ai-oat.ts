@@ -56,6 +56,23 @@ OATRegistry.register({
         sourceType: 'policy'
       }
     });
+
+    const overviewSlug = 'oat-ai-rentipid-overview';
+    await prisma.aiKnowledgeSource.upsert({
+      where: { slug: overviewSlug },
+      update: {},
+      create: {
+        slug: overviewSlug,
+        title: 'RENTipid is a rental marketplace where renters browse approved rental listings, providers list rentable items/services/assets permitted by RENTipid, renters make bookings through the platform, supported payment/deposit/insurance processes depend on the relevant implemented module, and users can receive AI-assisted support.',
+        category: 'Overview',
+        applicableRoles: 'All',
+        status: 'ACTIVE',
+        version: '1.0',
+        effectiveFrom: new Date(),
+        sourceType: 'faq',
+        sourceReference: 'RENTipid is a rental marketplace where renters browse approved rental listings, providers list rentable items/services/assets permitted by RENTipid, renters make bookings through the platform, supported payment/deposit/insurance processes depend on the relevant implemented module, and users can receive AI-assisted support.'
+      }
+    });
   },
 
   resetHandler: async () => {
