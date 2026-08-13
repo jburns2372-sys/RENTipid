@@ -2884,18 +2884,67 @@ model AiFollowUp {
 }
 
 model AiKnowledgeSource {
-  id              String    @id @default(cuid())
-  slug            String    @unique
-  title           String
-  category        String
-  applicableRoles String // e.g. "Renter,Provider"
-  status          String // "ACTIVE" | "SUPERSEDED" | "ARCHIVED"
-  version         String
-  effectiveFrom   DateTime
-  effectiveUntil  DateTime?
-  sourceType      String // "faq" | "policy" | "guide"
-  sourceReference String?
-  updatedAt       DateTime  @updatedAt
+  id               String    @id @default(cuid())
+  slug             String    @unique
+  sourceKey        String
+  title            String
+  module           String    @default("Legacy")
+  topic            String    @default("General")
+  category         String
+  applicableRoles  String // Transitional compatibility field.
+  roles             Json?
+  visibility       String    @default("AUTHENTICATED")
+  status           String // "ACTIVE" | "SUPERSEDED" | "ARCHIVED" | "RETIRED"
+  approvalStatus   String    @default("APPROVED")
+  authority        String    @default("LEGACY")
+  approvalEvidence String?
+  version          String
+  effectiveFrom    DateTime
+  effectiveUntil   DateTime?
+  sourceType       String // "faq" | "policy" | "guide" | canonical registry types
+  sourceLocator    String?
+  sourceReference  String?   @db.Text // Transitional legacy content/reference field.
+  contentHash      String?
+  lastSyncedAt     DateTime?
+  supersedesId     String?
+  metadata         Json?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  supersedes   AiKnowledgeSource?  @relation("AiKnowledgeSupersession", fields: [supersedesId], references: [id], onDelete: SetNull)
+  supersededBy AiKnowledgeSource[] @relation("AiKnowledgeSupersession")
+  chunks       AiKnowledgeChunk[]
+
+  @@unique([sourceKey, version])
+  @@index([status, approvalStatus, effectiveFrom, effectiveUntil])
+  @@index([module, topic])
+  @@index([visibility])
+  @@index([contentHash])
+}
+
+model AiKnowledgeChunk {
+  id                String   @id @default(cuid())
+  knowledgeSourceId String
+  chunkKey          String
+  headingPath       String
+  content           String   @db.Text
+  normalizedContent String   @db.Text
+  contentHash       String
+  keywords          Json?
+  ordinal           Int
+  visibility        String?
+  roles             Json?
+  effectiveFrom     DateTime?
+  effectiveUntil    DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  knowledgeSource AiKnowledgeSource @relation(fields: [knowledgeSourceId], references: [id], onDelete: Cascade)
+
+  @@unique([knowledgeSourceId, chunkKey])
+  @@index([knowledgeSourceId, ordinal])
+  @@index([contentHash])
+  @@index([visibility])
 }
 
 model AiProviderSession {

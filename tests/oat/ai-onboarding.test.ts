@@ -18,7 +18,14 @@ describe('AI OAT Onboarding', () => {
     await prisma.aiServiceSession.deleteMany();
     await prisma.aiSupportCase.deleteMany();
     await prisma.aiConversation.deleteMany();
-    await prisma.aiKnowledgeSource.deleteMany();
+    await prisma.aiKnowledgeSource.deleteMany({
+      where: {
+        OR: [
+          { sourceKey: { startsWith: 'oat-' } },
+          { slug: { in: ['oat-ai-test-policy', 'oat-ai-rentipid-overview'] } },
+        ],
+      },
+    });
   });
 
   afterAll(async () => {

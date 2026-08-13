@@ -32,7 +32,14 @@
     "oat:social:reset": "tsx scripts/oat/oat-runner.ts reset SOCIAL",
     "oat:ai:setup": "tsx scripts/oat/oat-runner.ts setup AI",
     "oat:ai:check": "tsx scripts/oat/oat-runner.ts check AI",
-    "oat:ai:reset": "tsx scripts/oat/oat-runner.ts reset AI"
+    "oat:ai:reset": "tsx scripts/oat/oat-runner.ts reset AI",
+    "knowledge:inventory": "tsx scripts/knowledge/knowledge-runner.ts inventory",
+    "knowledge:validate": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/knowledge/knowledge-runner.ts validate",
+    "knowledge:diff": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/knowledge/knowledge-runner.ts diff",
+    "knowledge:check": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/knowledge/knowledge-runner.ts check",
+    "knowledge:report": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/knowledge/knowledge-runner.ts report",
+    "knowledge:bootstrap": "npm run test:db:guard && cross-env NODE_ENV=test ALLOW_KNOWLEDGE_MUTATION=true dotenv -e .env.test.local -e .env.test -- tsx scripts/knowledge/knowledge-runner.ts bootstrap",
+    "knowledge:sync": "npm run test:db:guard && cross-env NODE_ENV=test ALLOW_KNOWLEDGE_MUTATION=true dotenv -e .env.test.local -e .env.test -- tsx scripts/knowledge/knowledge-runner.ts sync"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

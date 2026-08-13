@@ -1,8 +1,90 @@
 import { OATRegistry } from '../oat-module-registry';
 import { OAT_SHARED_USERS } from '../oat-shared-users';
 import { PrismaClient } from '@prisma/client';
+import { chunkKnowledge } from '../../ai/knowledge/chunker';
+import { hashNormalizedContent } from '../../ai/knowledge/hashing';
+import { normalizeKnowledgeText } from '../../ai/knowledge/normalizer';
 
 const prisma = new PrismaClient();
+
+async function upsertOatKnowledge(input: {
+  slug: string;
+  title: string;
+  category: string;
+  applicableRoles: string;
+  visibility: 'PUBLIC' | 'ROLE_SCOPED';
+  roles: string[];
+  sourceType: string;
+  content: string;
+}) {
+  const normalized = normalizeKnowledgeText(input.content);
+  const contentHash = hashNormalizedContent(normalized);
+  const source = await prisma.aiKnowledgeSource.upsert({
+    where: { slug: input.slug },
+    update: {
+      sourceKey: input.slug,
+      module: 'OAT',
+      topic: input.category,
+      category: input.category,
+      applicableRoles: input.applicableRoles,
+      roles: input.roles,
+      visibility: input.visibility,
+      status: 'ACTIVE',
+      approvalStatus: 'APPROVED',
+      authority: 'OAT_TEST_FIXTURE',
+      approvalEvidence: 'OAT-AI-MASTER-001',
+      sourceType: input.sourceType,
+      sourceLocator: `oat:${input.slug}`,
+      sourceReference: input.content,
+      contentHash,
+      lastSyncedAt: new Date(),
+    },
+    create: {
+      slug: input.slug,
+      sourceKey: input.slug,
+      title: input.title,
+      module: 'OAT',
+      topic: input.category,
+      category: input.category,
+      applicableRoles: input.applicableRoles,
+      roles: input.roles,
+      visibility: input.visibility,
+      status: 'ACTIVE',
+      approvalStatus: 'APPROVED',
+      authority: 'OAT_TEST_FIXTURE',
+      approvalEvidence: 'OAT-AI-MASTER-001',
+      version: '1.0',
+      effectiveFrom: new Date(),
+      sourceType: input.sourceType,
+      sourceLocator: `oat:${input.slug}`,
+      sourceReference: input.content,
+      contentHash,
+      lastSyncedAt: new Date(),
+    },
+  });
+  const chunks = chunkKnowledge(input.slug, normalized, [input.category]);
+  for (const chunk of chunks) {
+    await prisma.aiKnowledgeChunk.upsert({
+      where: {
+        knowledgeSourceId_chunkKey: {
+          knowledgeSourceId: source.id,
+          chunkKey: chunk.chunkKey,
+        },
+      },
+      update: {},
+      create: {
+        knowledgeSourceId: source.id,
+        chunkKey: chunk.chunkKey,
+        headingPath: chunk.headingPath,
+        content: chunk.content,
+        normalizedContent: chunk.normalizedContent,
+        contentHash: chunk.contentHash,
+        keywords: chunk.keywords,
+        ordinal: chunk.ordinal,
+      },
+    });
+  }
+}
 
 OATRegistry.register({
   moduleId: 'AI',
@@ -41,37 +123,27 @@ OATRegistry.register({
     });
 
     // Ensure required AI Knowledge baseline exists, do not duplicate
-    const knowledgeSlug = 'oat-ai-test-policy';
-    await prisma.aiKnowledgeSource.upsert({
-      where: { slug: knowledgeSlug },
-      update: {},
-      create: {
-        slug: knowledgeSlug,
-        title: 'OAT AI Test Policy',
-        category: 'Testing',
-        applicableRoles: 'Renter',
-        status: 'ACTIVE',
-        version: '1.0',
-        effectiveFrom: new Date(),
-        sourceType: 'policy'
-      }
+    await upsertOatKnowledge({
+      slug: 'oat-ai-test-policy',
+      title: 'OAT AI Test Policy',
+      category: 'Testing',
+      applicableRoles: 'Renter',
+      visibility: 'ROLE_SCOPED',
+      roles: ['Renter'],
+      sourceType: 'policy',
+      content: 'OAT AI Test Policy',
     });
 
-    const overviewSlug = 'oat-ai-rentipid-overview';
-    await prisma.aiKnowledgeSource.upsert({
-      where: { slug: overviewSlug },
-      update: {},
-      create: {
-        slug: overviewSlug,
-        title: 'RENTipid is a rental marketplace where renters browse approved rental listings, providers list rentable items/services/assets permitted by RENTipid, renters make bookings through the platform, supported payment/deposit/insurance processes depend on the relevant implemented module, and users can receive AI-assisted support.',
-        category: 'Overview',
-        applicableRoles: 'All',
-        status: 'ACTIVE',
-        version: '1.0',
-        effectiveFrom: new Date(),
-        sourceType: 'faq',
-        sourceReference: 'RENTipid is a rental marketplace where renters browse approved rental listings, providers list rentable items/services/assets permitted by RENTipid, renters make bookings through the platform, supported payment/deposit/insurance processes depend on the relevant implemented module, and users can receive AI-assisted support.'
-      }
+    const overview = 'RENTipid is a rental marketplace where renters browse approved rental listings, providers list rentable items/services/assets permitted by RENTipid, renters make bookings through the platform, supported payment/deposit/insurance processes depend on the relevant implemented module, and users can receive AI-assisted support.';
+    await upsertOatKnowledge({
+      slug: 'oat-ai-rentipid-overview',
+      title: overview,
+      category: 'Overview',
+      applicableRoles: 'All',
+      visibility: 'PUBLIC',
+      roles: [],
+      sourceType: 'faq',
+      content: overview,
     });
   },
 
