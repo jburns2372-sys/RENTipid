@@ -47,3 +47,27 @@ Migration `20260811000002_add_password_recovery` was not altered.
 
 LOCAL REQUIRED DATA SEED/SYNC: NOT REQUIRED — VERIFIED.
 Database business-data writes: 0.
+
+## Slice 1 Preview and Frozen Baseline (2026-08-12)
+
+- Preview database migration status: PASS; 38 repository migrations, schema up to date.
+- Latest migration: 20260812000000_add_insurance_foundation.
+- Preview schema access: PASS for InsurancePartner, InsuranceProduct,
+  InsuranceOffer, InsurancePolicy, InsuranceClaim and InsuranceWebhookEvent.
+- Preview record counts: 0 for all six Slice 1 models.
+- Insurance seed/sync: NOT REQUIRED - VERIFIED.
+- Frozen schema baseline: 2ff068991950de64e3bf0931ed76a5650217dbe2.
+
+## Transaction Block Schema and Data (2026-08-12)
+
+- Migration: 20260812010000_add_insurance_transaction_block.
+- Local state: APPLIED; 39 migrations; schema up to date.
+- InsuranceSelection stores immutable consent and presented-offer evidence with
+  one selection per Booking and deterministic idempotency.
+- InsuranceOrder stores payment-dependency and issuance lifecycle with one
+  order per selection/Booking and separate issuance idempotency.
+- InsurancePolicy has an additive optional unique insurance_order_id relation.
+- Required local data: one guarded mock partner and one MOCK-FOUNDATION product,
+  explicitly LOCAL, MOCK_LOCAL_ONLY, non-production and not real insurance.
+- Runtime records after acceptance: selections 0, orders 0, offers 0, policies
+  0, claims 0 and webhook events 0.

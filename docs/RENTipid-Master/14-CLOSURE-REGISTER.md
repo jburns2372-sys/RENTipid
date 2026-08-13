@@ -41,3 +41,14 @@ FROZEN SHA: `6f55296cdf1ff2bda3c550448fc307f264f1f397`
 - A passed gate remains accepted unless a later change can reasonably invalidate it.
 - Historical unaffected frozen behavior remains frozen while missing promotion evidence is filled.
 - New closure records must identify scope, changed files, DB/migration/seed effects, exact test and acceptance evidence, security, Preview, production readiness, limitations, branch, SHA and date.
+
+## Superseding Insurance Slice 1 closure (2026-08-12)
+
+- TRU-01 Insurance Technical Foundation Slice 1: PRODUCTION-READY / CLOSED / FROZEN.
+- Frozen baseline: 2ff068991950de64e3bf0931ed76a5650217dbe2.
+- Freeze ID: FRZ-INS-S1-2026-001.
+- Evidence: EVD-INS-S1-GATE1 through EVD-INS-S1-GATE9 in
+  docs/insurance/implementation/R11-evidence.md.
+- This entry supersedes the earlier Slice 1 LOCAL ACCEPTANCE-only statement.
+- The full Insurance module remains IN IMPLEMENTATION; later transaction,
+  lifecycle, claims, finance and live-partner scopes are not closed.

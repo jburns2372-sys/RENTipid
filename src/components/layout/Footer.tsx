@@ -37,7 +37,7 @@ export default function Footer() {
           <ul className="space-y-2 text-sm text-gray-600">
             <li><Link href="/help" className="hover:text-blue-600">Help Center</Link></li>
             <li><Link href="/contact" className="hover:text-blue-600">Contact Us</Link></li>
-            <li><span className="text-gray-500">Social Media (Phase 10)</span></li>
+            <li><Link href="/dashboard/provider/social-accounts" className="hover:text-blue-600">Social Media</Link></li>
           </ul>
         </div>
       </div>

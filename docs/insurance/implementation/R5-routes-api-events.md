@@ -30,3 +30,16 @@ adapter registry and audit-hook interfaces are CODE COMPLETE, but authenticated
 routes require the recorded Identity and Booking boundaries. All routes and
 events above remain NOT STARTED. No 501 route skeleton was created because an
 unreachable placeholder would not satisfy a functional gate.
+
+## Transaction Block Implemented Routes (2026-08-12)
+
+| Route | Method | Transaction Block status |
+|---|---|---|
+| /api/insurance/offers | POST | LOCAL ACCEPTANCE PASS; authenticated booking owner only |
+| /api/insurance/select | POST | LOCAL ACCEPTANCE PASS; affirmative consent and authoritative-offer revalidation |
+| /api/insurance/orders | POST | LOCAL ACCEPTANCE PASS; owner-scoped idempotent creation |
+| /api/insurance/orders/[id]/issuance | POST | LOCAL ACCEPTANCE PASS; payment dependency and issuance idempotency enforced |
+| /api/insurance/policies/[id] | GET | LOCAL ACCEPTANCE PASS; renter/provider/admin ownership boundary |
+| /api/webhooks/insurance/[partner] | POST | LOCAL ACCEPTANCE PASS; verification, replay and duplicate protection |
+
+Cancellation and claim routes remain outside this block.

@@ -1,5 +1,5 @@
 import rateLimit from 'express-rate-limit';
-import { logApiSecurityEvent } from 'rentipid/src/lib/security/events/writers/api-security-writer';
+import { logApiSecurityEvent } from '../../../../src/lib/security/events/writers/api-security-writer';
 
 /**
  * Phase 15: General API Rate Limiting to prevent basic DoS attacks.

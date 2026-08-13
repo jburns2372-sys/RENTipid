@@ -106,3 +106,21 @@ Insurance source strict typecheck: PASS.
 Insurance/changed-scope lint: PASS.
 Root typecheck: NOT RUN; known unrelated src/lib/auth.ts baseline retained.
 Build: NOT REQUIRED by the Slice 1 acceptance registry.
+
+## Transaction Block Local Acceptance (2026-08-12)
+
+Command: npx jest tests/insurance/transaction-block.spec.tsx --runInBand.
+Result: 1 suite passed; 14 tests passed; 0 failed.
+
+Coverage: eligibility/offers, optional checkout, consent binding, exact money,
+invalid input, selection/order/issuance idempotency, conflicting replay,
+deferred/mismatched payment, ownership, kill switch, webhook adapter identity,
+signature, duplicate, conflict, replay and unknown handling, audit and
+non-preselected UI.
+
+- Prisma validate/generate: PASS (6.19.3).
+- Changed-scope lint and provider-neutrality: PASS.
+- Transaction Block TypeScript diagnostics: 0.
+- Root TypeScript retains four unrelated src/lib/auth.ts diagnostics.
+- Test guard corrections occurred before test execution; the suite uses only
+  in-memory repositories and made no database connection or mutation.

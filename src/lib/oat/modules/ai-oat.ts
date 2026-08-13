@@ -28,10 +28,11 @@ OATRegistry.register({
         full_name: 'OAT Renter (AI Setup)',
         role: renter.role,
         status: 'Active',
+        password_hash: '$2b$10$L521NNe5fGH3xFnWKbTsTej2hLryMVISRdi/GWorZUSyyXigoWaPO', // password123
       },
       create: {
         email: renter.email,
-        password_hash: '$2a$10$XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', // Dummy
+        password_hash: '$2b$10$L521NNe5fGH3xFnWKbTsTej2hLryMVISRdi/GWorZUSyyXigoWaPO', // password123
         full_name: 'OAT Renter (AI Setup)',
         account_type: 'Individual',
         role: renter.role,

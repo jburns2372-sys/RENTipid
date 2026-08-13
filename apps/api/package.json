@@ -4,8 +4,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts",
+    "start": "node --conditions=react-server dist/index.js",
+    "dev": "node --conditions=react-server -r ts-node/register src/index.ts",
     "test": "jest"
   },
   "dependencies": {

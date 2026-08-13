@@ -29,6 +29,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Invalid credentials");
         }
 
+        console.log('TRYING TO LOG IN:', credentials.email, 'DB URL:', process.env.DATABASE_URL);
         const user = await prisma.user.findUnique({
           where: { email: credentials.email }
         });

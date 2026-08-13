@@ -71,3 +71,37 @@ No unrelated defect was repaired.
 - Initial Jest invocation was rejected before tests by the unchanged disposable-target guard; the corrected non-routable LOCAL target passed. This was a harness invocation correction, not an Insurance defect.
 - Database-backed Super Admin kill-switch, authenticated routes, Booking and Payment integrations remain deferred dependencies.
 - New Gate 5 P0/P1/P2/P3 findings: 0/0/0/0.
+
+## Preview Acceptance and Slice 1 Closure (2026-08-12)
+
+- EVD-INS-S1-GATE6 through EVD-INS-S1-GATE9: PASS.
+- Preview deployment/runtime P0: 0.
+- Preview deployment/runtime P1: 0.
+- Relevant runtime logs reviewed: 23; error/fatal findings: 0.
+- Existing P2 Identity/Booking and database-backed Super Admin kill-switch
+  dependencies remain deferred to later integration slices.
+- Real insurer adapters, credentials, approved products and partner activation
+  remain BLOCKED-EXTERNAL and were not required for Slice 1 closure.
+- No real insurer, Booking, Payment or Production mutation occurred.
+
+## Transaction Block Local Result (2026-08-12)
+
+- EVD-INS-TX-GATE1 through EVD-INS-TX-GATE5: PASS; P0/P1: 0/0.
+- Identity: IMPLEMENT NOW at authenticated owner-scoped routes.
+- Booking: BOUNDED INTERFACE; existing ownership/context only.
+- Payment/Escrow: BOUNDED INTERFACE / MOCKABLE; no real success or movement.
+- Database-backed Super Admin kill switch: DEFERRED; configuration fails closed.
+- Real partners/credentials/products: DEFERRED EXTERNAL DEPENDENCY.
+- The unrelated four-line Auth TypeScript baseline remains P2 and untouched.
+
+## Transaction Block Preview Blocker (2026-08-12)
+
+- P1: branch-specific Preview DATABASE_URL is present only as an 11-character
+  non-PostgreSQL placeholder; target identity cannot be established.
+- P1: branch-specific Preview NEXTAUTH_SECRET is likewise an 11-character
+  placeholder rather than an operational secret.
+- Insurance safety variables are exact and safe: false, false, false, true.
+- Preview Prisma status/migration, database access and acceptance were not run.
+- Required owner action: replace the two placeholders for branch
+  feature/soc-phase4-threat-response, then resume only at Preview migration
+  preflight.

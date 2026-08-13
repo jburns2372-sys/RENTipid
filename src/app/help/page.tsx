@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import { Send, Bot, AlertTriangle, FileText, CheckCircle, RefreshCcw } from 'lucide-react';
 
 interface Message {
@@ -186,7 +185,7 @@ export default function HelpPage() {
       {/* Retain the global assistant button as it may be useful globally, though we are IN the help workspace */}
       {/* We could hide it on this route if desired, but user requirements just say "replace the placeholder" */}
       <div className="hidden">
-        <AIAssistantButton context="Help" />
+        {/* AIAssistantButton removed because it is a Server Component and cannot be rendered directly inside this Client Component */}
       </div>
     </div>
   );

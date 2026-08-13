@@ -1,14 +1,19 @@
-import { OpenAIClient, AzureKeyCredential } from '@azure/openai';
+import {
+  OpenAIClient,
+  AzureKeyCredential,
+  type ChatRequestMessageUnion,
+} from '@azure/openai';
 import { DefaultAzureCredential } from '@azure/identity';
 
 const endpoint = process.env.AZURE_OPENAI_ENDPOINT || '';
 // In production, we'd use DefaultAzureCredential. Using KeyCredential as a fallback pattern.
 const azureApiKey = process.env.AZURE_OPENAI_API_KEY;
-const credential = azureApiKey ? new AzureKeyCredential(azureApiKey) : new DefaultAzureCredential();
 
 let openaiClient: OpenAIClient | null = null;
 if (endpoint) {
-  openaiClient = new OpenAIClient(endpoint, credential);
+  openaiClient = azureApiKey
+    ? new OpenAIClient(endpoint, new AzureKeyCredential(azureApiKey))
+    : new OpenAIClient(endpoint, new DefaultAzureCredential());
   console.log('Azure OpenAI Client initialized.');
 }
 
@@ -28,7 +33,7 @@ export const generateEmbeddings = async (text: string): Promise<number[]> => {
 /**
  * Handles RAG-based Chat Completions over the Azure OpenAI boundary.
  */
-export const generateChatCompletion = async (messages: any[]): Promise<string> => {
+export const generateChatCompletion = async (messages: ChatRequestMessageUnion[]): Promise<string> => {
   if (!openaiClient) throw new Error('Azure OpenAI Client not initialized');
   
   const deploymentId = process.env.AZURE_OPENAI_CHAT_DEPLOYMENT || 'gpt-4o';

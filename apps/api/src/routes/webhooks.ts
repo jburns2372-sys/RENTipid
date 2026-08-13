@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { verifyPaymongoSignature } from '../middleware/paymongoSignature';
-import { processWebhookEvent } from '../../../src/lib/payments/payment-webhook-service';
+import { processWebhookEvent } from '../../../../src/lib/payments/payment-webhook-service';
 
 const router = Router();
 

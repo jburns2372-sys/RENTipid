@@ -1,129 +1,76 @@
-INSURANCE MODULE:
-TRU-01
+RENTipid INSURANCE MODULE DOCUMENTATION RESULT
 
-SLICE:
-Technical Foundation — Slice 1
+MODULE:
+TRU-01 Insurance
 
-GATE:
-LOCAL ACCEPTANCE
+PROJECT DISPOSITION:
+CLOSED / FROZEN / SAFELY SHELVED
 
-RESULT:
+DOCUMENTATION RESULT:
 PASS
 
-ACCEPTANCE CASES:
+PDF:
+docs/insurance/RENTipid-Insurance-Module-Full-Documentation.pdf
 
-Configuration:
-PASS — disabled by default; Mock requires explicit enablement and adapter selection; live issuance remains disabled; absent/invalid configuration fails closed; no production fallback or real credentials.
+SOURCE:
+docs/insurance/RENTipid-Insurance-Module-Full-Documentation.md
 
-Domain Service:
-PASS — InsuranceDomainService initialized through PartnerAdapterRegistry and MockInsuranceAdapter, resolved the configured adapter, returned normalized output, and made no external request.
+PRINT STYLESHEET:
+docs/insurance/insurance-documentation.css
 
-Eligibility:
-PASS — deterministic eligible and ineligible results; no database business record created.
+PDF VALIDATION:
+PDF version signature: %PDF-1.4
+Page count: 20
+File size: 343068 bytes
+Cross-reference marker: PRESENT
+EOF marker: PRESENT
 
-Offers:
-PASS — deterministic mock-offer-f41b52f0, PHP currency, integer minor amount 1000, explicit Mock/non-insurance identity, no InsuranceOffer database prerequisite or write.
+DOCUMENTED AREAS:
+- scope and safe non-live disposition
+- architecture and component catalog
+- normalized PartnerAdapter contract
+- eligibility and offers
+- optional checkout and affirmative consent
+- order and policy lifecycle
+- idempotency and concurrency
+- webhook processing and replay safety
+- API routes
+- Prisma data model and migrations
+- configuration and local Mock catalog
+- RBAC and ownership
+- audit and security controls
+- privacy and data flow
+- finance boundary
+- product/coverage governance
+- test and promotion evidence
+- deployment and recovery
+- shelving/reactivation procedure
+- known limitations
+- change control
+- source inventory and glossary
 
-Negative Paths:
-PASS — disabled, missing adapter, unknown adapter, unavailable, deterministic failure, no-offer, invalid configuration and live-issuance-disabled paths remained typed, safe and fail-closed; process remained healthy.
-
-Kill Switch:
-PASS — protected operation blocked before adapter invocation; adapter side effects 0.
-
-Audit:
-PASS — exactly one normalized INSURANCE_ORDER_CREATED callback; safe metadata contained only adapterId and status; no secret or raw partner payload.
-
-Database/Prisma:
-PASS — synchronized Prisma Client loaded; all six Insurance delegates existed and completed read-only counts successfully.
-
-Data Safety:
-PASS — InsurancePartner, InsuranceProduct, InsuranceOffer, InsurancePolicy, InsuranceClaim and InsuranceWebhookEvent remained 0 before/after. PsgcSubdivision, PasswordResetToken and PasswordResetRequest also remained 0 before/after. Database writes 0.
-
-RBAC Boundary:
-NOT APPLICABLE TO SLICE 1 — VERIFIED BOUNDARY. No authenticated Insurance API route exists; normalized user/booking/listing identifiers remain interface-only and no RBAC weakening was introduced.
-
-Booking/Payment Boundary:
-PASS — Booking, Payment and escrow mutations 0; no real-booking policy issuance or fabricated payment success.
-
-Provider Neutrality:
-PASS — targeted src/lib/insurance scan found 0 production-provider-name hits and 0 core provider-specific branch hits.
-
-FINAL INSURANCE TESTS:
-PASS — 1 focused suite, 17/17 tests, 0 failed. Initial invocation was rejected by the unchanged disposable-target guard before any test executed; the corrected established non-routable LOCAL test target passed.
-
-INSURANCE TYPECHECK:
-PASS
-
-ROOT TYPECHECK:
-KNOWN UNRELATED BASELINE FAILURE — NOT RERUN
-
-LINT:
-PASS
-
-BUILD:
-NOT REQUIRED
-
-DATABASE WRITES:
-0
-
-EXTERNAL INSURER REQUESTS:
-0
-
-P0:
-NONE
-
-P1:
-NONE
-
-P2:
-No new Gate 5 P2. Existing unrelated/deferred Auth, Booking and database-backed Super Admin kill-switch dependencies remain recorded in R12.
-
-P3:
-NONE
+STATUS CLARIFICATION:
+The owner-authoritative module disposition is CLOSED / FROZEN / SAFELY
+SHELVED. The documentation explicitly preserves that this is a disabled,
+non-live state and does not represent insurer approval, Production deployment,
+Production database action or live policy issuance.
 
 FILES CREATED:
+- docs/insurance/RENTipid-Insurance-Module-Full-Documentation.pdf
+- docs/insurance/RENTipid-Insurance-Module-Full-Documentation.md
+- docs/insurance/insurance-documentation.css
+
+TESTS RERUN:
+NO
+
+MIGRATIONS:
 NONE
 
-FILES MODIFIED:
-- docs/insurance/implementation/R10-tests.md
-- docs/insurance/implementation/R11-evidence.md
-- docs/insurance/implementation/R12-issues-risks.md
-- docs/insurance/implementation/R14-closure-ledger.md
-- docs/RENTipid-Master/10-TEST-REGISTER.md
-- docs/RENTipid-Master/14-CLOSURE-REGISTER.md
-- docs/insurance/implementation/CODEX-LAST-FULL-REPORT.txt
+DATABASE ACTION:
+NONE
 
-EVIDENCE:
-EVD-INS-S1-GATE5 = PASS
+DEPLOYMENT:
+NONE
 
-CURRENT STATUS:
-
-CODE COMPLETE:
-PASS
-
-LOCAL FUNCTIONAL:
-PASS
-
-LOCAL DATABASE MIGRATED:
-PASS
-
-LOCAL REQUIRED DATA SEEDED/SYNCED:
-PASS
-
-LOCAL ACCEPTANCE:
-PASS
-
-NEXT PERMITTED GATE:
-PREVIEW MIGRATED
-
-CONFIRM:
-- no repository rediscovery
-- no duplicate gate execution
-- no migration rerun
-- no seed rerun
-- no Auth redesign
-- no Booking change
-- no Payment change
-- no real insurer activation
-- no Preview action
-- no Production action
+PRODUCTION ACTION:
+NONE

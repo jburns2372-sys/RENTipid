@@ -146,10 +146,42 @@ export const ROLE_BOT_ACCESS: RoleAccessMap = {
 
 export function getAllowedBotsForRole(role: string | undefined): BotId[] {
   if (!role) return ROLE_BOT_ACCESS["Guest"];
-  return ROLE_BOT_ACCESS[role] || ROLE_BOT_ACCESS["Guest"];
+  
+  const normalizedRole = role.toUpperCase();
+  
+  const roleMap: Record<string, BotId[]> = {
+    "GUEST": ROLE_BOT_ACCESS["Guest"],
+    "RENTER": ROLE_BOT_ACCESS["Renter"],
+    "PROVIDER": ROLE_BOT_ACCESS["Business Provider"], 
+    "INDIVIDUAL_PROVIDER": ROLE_BOT_ACCESS["Individual Provider"],
+    "INDIVIDUAL PROVIDER": ROLE_BOT_ACCESS["Individual Provider"],
+    "BUSINESS_PROVIDER": ROLE_BOT_ACCESS["Business Provider"],
+    "BUSINESS PROVIDER": ROLE_BOT_ACCESS["Business Provider"],
+    "FINANCE ADMIN": ROLE_BOT_ACCESS["Finance Admin"],
+    "FINANCE_ADMIN": ROLE_BOT_ACCESS["Finance Admin"],
+    "ADMIN": ROLE_BOT_ACCESS["Admin"],
+    "COMPLIANCE ADMIN": ROLE_BOT_ACCESS["Compliance Admin"],
+    "COMPLIANCE_ADMIN": ROLE_BOT_ACCESS["Compliance Admin"],
+    "SUPER ADMIN": ROLE_BOT_ACCESS["Super Admin"],
+    "SUPER_ADMIN": ROLE_BOT_ACCESS["Super Admin"],
+    "OWNER": Object.values(BOTS),
+    "REVIEWER": ROLE_BOT_ACCESS["Super Admin"]
+  };
+  
+  return roleMap[normalizedRole] || ROLE_BOT_ACCESS["Guest"];
 }
 
-export function canUserAccessBot(role: string | undefined, botId: BotId): boolean {
+export function canUserAccessBot(role: string | undefined, botId: BotId | string): boolean {
+  let resolvedBotId = botId as BotId;
+  const botValues = Object.values(BOTS) as string[];
+  
+  if (!botValues.includes(botId as string)) {
+    const key = (botId as string).toUpperCase();
+    if (key in BOTS) {
+      resolvedBotId = BOTS[key as keyof typeof BOTS];
+    }
+  }
+
   const allowedBots = getAllowedBotsForRole(role);
-  return allowedBots.includes(botId);
+  return allowedBots.includes(resolvedBotId);
 }

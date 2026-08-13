@@ -21,7 +21,7 @@ export default defineConfig({
   workers: 1, // Safe worker count for serial DB changes
   reporter: [['html', { outputFolder: 'playwright-report' }]],
   use: {
-    baseURL: 'http://localhost:3001',
+    baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:3001',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -32,7 +32,7 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: {
+  webServer: process.env.PLAYWRIGHT_TEST_BASE_URL ? undefined : {
     command: 'npx cross-env NODE_ENV=test dotenv -e .env.test -- npx next dev -p 3001',
     port: 3001,
     timeout: 120 * 1000,
