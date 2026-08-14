@@ -18,30 +18,23 @@ export interface SupportSuggestion {
   intent?: string;
 }
 
-// Minimal adapter for P2 SupportSuggestionEngine
 const useSuggestions = () => {
-  // Hardcoded for P1, P2 will replace this with an API call to SupportSuggestionRegistry
-  const recommendedQuestions: SupportSuggestion[] = [
-    { id: 'q1', text: 'Where is my booking?', type: 'question' },
-    { id: 'q2', text: 'Why is my security deposit still held?', type: 'question' },
-    { id: 'q3', text: 'Can I cancel my rental?', type: 'question' },
-    { id: 'q4', text: 'When will my refund arrive?', type: 'question' },
-  ];
+  const [recommendedQuestions, setRecommendedQuestions] = useState<SupportSuggestion[]>([]);
+  const [topicChips, setTopicChips] = useState<SupportSuggestion[]>([]);
+  const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(true);
 
-  const topicChips: SupportSuggestion[] = [
-    { id: 't1', text: 'Booking', type: 'topic' },
-    { id: 't2', text: 'Cancellation', type: 'topic' },
-    { id: 't3', text: 'Payment', type: 'topic' },
-    { id: 't4', text: 'Refund', type: 'topic' },
-    { id: 't5', text: 'Deposit', type: 'topic' },
-    { id: 't6', text: 'Delivery', type: 'topic' },
-    { id: 't7', text: 'Return', type: 'topic' },
-    { id: 't8', text: 'Damage', type: 'topic' },
-    { id: 't9', text: 'Insurance', type: 'topic' },
-    { id: 't10', text: 'Account', type: 'topic' },
-  ];
+  useEffect(() => {
+    fetch('/api/ai/suggestions')
+      .then(res => res.json())
+      .then(data => {
+        setRecommendedQuestions(data.questions || []);
+        setTopicChips(data.topics || []);
+      })
+      .catch(err => console.error('Failed to load suggestions:', err))
+      .finally(() => setIsLoadingSuggestions(false));
+  }, []);
 
-  return { recommendedQuestions, topicChips };
+  return { recommendedQuestions, topicChips, isLoadingSuggestions };
 };
 
 export default function HelpPage() {
