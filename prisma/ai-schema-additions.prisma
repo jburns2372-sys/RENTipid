@@ -149,14 +149,33 @@ model AiResolution {
 }
 
 model AiFollowUp {
-  id               String    @id @default(cuid())
-  caseId           String
-  triggerAt        DateTime
-  triggerType      String    // "reminder" | "recheck" | "re-evaluation"
-  status           String    // "pending" | "triggered" | "completed" | "cancelled"
-  attemptCount     Int       @default(0)
-  lastAttemptAt    DateTime?
-  nextAttemptAt    DateTime?
+  id                  String    @id @default(cuid())
+  caseId              String
+  triggerAt           DateTime
+  triggerType         String    // "reminder" | "recheck" | "re-evaluation"
+  status              String    // "pending" | "triggered" | "completed" | "cancelled"
+  attemptCount        Int       @default(0)
+  lastAttemptAt       DateTime?
+  nextAttemptAt       DateTime?
+  eventType           String?
+  sourceEventKey      String?   @unique
+  deduplicationKey    String?   @unique
+  userId              String?
+  relatedEntityType   String?
+  relatedEntityId     String?
+  eligibleAt          DateTime?
+  expiresAt           DateTime?
+  cooldownUntil       DateTime?
+  lastCheckedAt       DateTime?
+  allowedTool         String?
+  auditMetadata       Json?
+  notificationId      String?   @unique
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  @@index([caseId])
+  @@index([status, triggerAt])
+  @@index([userId, eventType, relatedEntityType, relatedEntityId, cooldownUntil], map: "AiFollowUp_proactive_cooldown_idx")
 }
 
 model AiKnowledgeSource {
