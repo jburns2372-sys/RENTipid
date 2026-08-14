@@ -186,21 +186,17 @@ describe('AI OAT Onboarding', () => {
   }, 30000);
 
   it('OAT-ACTOR-005: production rejects actor mutation even when credentials are supplied', async () => {
-    const originalNodeEnv = process.env.NODE_ENV;
-    const originalVercelEnv = process.env.VERCEL_ENV;
-    const originalDatabaseUrl = process.env.DATABASE_URL;
+    const originalEnv = process.env;
     try {
-      process.env.NODE_ENV = 'production';
-      process.env.VERCEL_ENV = 'preview';
-      process.env.DATABASE_URL = 'postgresql://test:test@localhost:5432/rentipid_test_soc';
+      process.env = {
+        ...originalEnv,
+        NODE_ENV: 'production',
+        VERCEL_ENV: 'preview',
+        DATABASE_URL: 'postgresql://test:test@localhost:5432/rentipid_test_soc',
+      };
       await expect(provisionAiOatActors()).rejects.toThrow('OAT_ENVIRONMENT_GUARD_REJECTED');
     } finally {
-      if (originalNodeEnv === undefined) delete process.env.NODE_ENV;
-      else process.env.NODE_ENV = originalNodeEnv;
-      if (originalVercelEnv === undefined) delete process.env.VERCEL_ENV;
-      else process.env.VERCEL_ENV = originalVercelEnv;
-      if (originalDatabaseUrl === undefined) delete process.env.DATABASE_URL;
-      else process.env.DATABASE_URL = originalDatabaseUrl;
+      process.env = originalEnv;
     }
   });
 });

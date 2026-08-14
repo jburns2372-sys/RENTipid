@@ -11,12 +11,16 @@ describe('OAT Framework Core', () => {
             process.env = { ...originalEnv };
         });
 
+        afterEach(() => {
+            process.env = { ...originalEnv };
+        });
+
         afterAll(() => {
             process.env = originalEnv;
         });
 
         it('should reject execution if NODE_ENV is production', () => {
-            process.env.NODE_ENV = 'production';
+            process.env = { ...process.env, NODE_ENV: 'production' };
             process.env.DATABASE_URL = 'postgresql://test:test@localhost:5432/rentipid_test_soc';
             expect(() => assertSafeOatEnvironment()).toThrow(/OAT_ENVIRONMENT_GUARD_REJECTED/);
         });
@@ -33,13 +37,13 @@ describe('OAT Framework Core', () => {
         });
 
         it('should reject execution if DATABASE_URL points to Production Azure DB', () => {
-            process.env.NODE_ENV = 'test';
+            process.env = { ...process.env, NODE_ENV: 'test' };
             process.env.DATABASE_URL = 'postgresql://prod:secret@rentipid-postgres-db.postgres.database.azure.com:5432/rentipid_db';
             expect(() => assertSafeOatEnvironment()).toThrow(/Database identity matches Production Azure DB/);
         });
 
         it('should allow execution on local test database', () => {
-            process.env.NODE_ENV = 'test';
+            process.env = { ...process.env, NODE_ENV: 'test' };
             process.env.DATABASE_URL = 'postgresql://test:test@localhost:5432/rentipid_test_soc';
             expect(assertSafeOatEnvironment()).toBe(true);
         });
