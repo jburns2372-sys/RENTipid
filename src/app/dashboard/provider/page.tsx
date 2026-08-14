@@ -1,5 +1,5 @@
 import React from 'react';
-import AIAssistantButton from '@/components/ai/AIAssistantButton';
+import { ContextualAssistantLauncher } from '@/components/ai/ContextualAssistantLauncher';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import Link from 'next/link';
@@ -57,7 +57,7 @@ export default async function ProviderDashboard() {
         </div>
       </div>
       
-      <AIAssistantButton context="Provider Dashboard" />
+      <ContextualAssistantLauncher route="provider_dashboard" className="fixed bottom-6 right-6 z-50" />
     </div>
   );
 }

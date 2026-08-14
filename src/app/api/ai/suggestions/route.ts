@@ -10,11 +10,12 @@ export async function GET(req: Request) {
     // Fallback to Guest if unauthenticated
     const userRole = (session?.user as any)?.role || 'Guest';
 
-    // Optional: Extract route from query params if passed
+    // Optional: Extract route and lifecycle from query params if passed
     const { searchParams } = new URL(req.url);
     const currentRoute = searchParams.get('route') || undefined;
+    const lifecycle = searchParams.get('lifecycle') || undefined;
 
-    const result = SupportSuggestionEngine.getSuggestions({ userRole, currentRoute });
+    const result = SupportSuggestionEngine.getSuggestions({ userRole, currentRoute, lifecycle });
 
     return NextResponse.json(result);
   } catch (error) {

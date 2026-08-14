@@ -7,7 +7,7 @@ import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import { processCheckout } from './actions';
 import { InsuranceCheckoutOption } from './InsuranceCheckoutOption';
-
+import { ContextualAssistantLauncher } from '@/components/ai/ContextualAssistantLauncher';
 const prisma = new PrismaClient();
 
 export default async function CheckoutPage({ params, searchParams }: { params: Promise<{ bookingId: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
@@ -216,6 +216,7 @@ export default async function CheckoutPage({ params, searchParams }: { params: P
           </div>
         </div>
       </div>
+      <ContextualAssistantLauncher route="checkout" entityId={booking.id} entityType="booking" lifecycle="pending" className="fixed bottom-6 right-6 z-50" />
     </div>
   );
 }

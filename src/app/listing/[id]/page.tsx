@@ -1,5 +1,5 @@
 import React from 'react';
-import AIAssistantButton from '@/components/ai/AIAssistantButton';
+import { ContextualAssistantLauncher } from '@/components/ai/ContextualAssistantLauncher';
 import { PrismaClient } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import BookingRequestForm from '@/components/bookings/BookingRequestForm';
@@ -91,7 +91,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
 
       </div>
       
-      <AIAssistantButton context="Public Listing Page" />
+      <ContextualAssistantLauncher route="listing" entityId={id} entityType="listing" className="fixed bottom-6 right-6 z-50" />
     </div>
   );
 }

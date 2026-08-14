@@ -3,7 +3,7 @@ import { suggestionRegistry, SupportSuggestion } from './registry';
 export interface SuggestionContext {
   userRole: string; // e.g. 'Renter', 'Provider', 'Guest', 'Admin'
   currentRoute?: string;
-  // future lifecycle contexts
+  lifecycle?: string;
 }
 
 export interface SuggestionDTO {
@@ -17,11 +17,12 @@ export class SupportSuggestionEngine {
   static getSuggestions(context: SuggestionContext): { questions: SuggestionDTO[], topics: SuggestionDTO[] } {
     const role = context.userRole || 'Guest';
     const route = context.currentRoute;
+    const lifecycle = context.lifecycle;
 
     // 1 & 2 done via context
     // 3. Apply role/visibility filter
     // 4. Apply route scope
-    // 5. Apply lifecycle (none for now)
+    // 5. Apply lifecycle scope
     // 6. Remove disabled
     const eligible = suggestionRegistry.filter(s => {
       if (s.status !== 'enabled') return false;
@@ -31,6 +32,10 @@ export class SupportSuggestionEngine {
 
       if (route && s.routeScope && s.routeScope.length > 0) {
         if (!s.routeScope.includes(route)) return false;
+      }
+
+      if (lifecycle && s.lifecycleScope && s.lifecycleScope.length > 0) {
+        if (!s.lifecycleScope.includes(lifecycle)) return false;
       }
 
       return true;

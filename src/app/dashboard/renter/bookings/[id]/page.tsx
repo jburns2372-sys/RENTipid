@@ -1,5 +1,5 @@
 import React from 'react';
-import AIAssistantButton from '@/components/ai/AIAssistantButton';
+import { ContextualAssistantLauncher } from '@/components/ai/ContextualAssistantLauncher';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { PrismaClient } from '@prisma/client';
@@ -227,7 +227,7 @@ export default async function RenterBookingDetailPage({ params }: { params: Prom
         </div>
 
       </div>
-      <AIAssistantButton context="Renter Booking Detail" />
+      <ContextualAssistantLauncher route="booking" entityId={booking.id} entityType="booking" lifecycle={booking.status === 'Approved' ? 'confirmed' : booking.status === 'Active' ? 'active' : 'pending'} className="fixed bottom-6 right-6 z-50" />
     </div>
   );
 }
