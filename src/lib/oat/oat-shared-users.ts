@@ -16,13 +16,18 @@ export const OAT_SHARED_USERS = {
   },
   PROVIDER: {
     email: 'oat.provider@rentipid.test',
-    role: 'PROVIDER',
+    role: 'Individual Provider',
     description: 'OWNER ACCEPTANCE TEST - PROVIDER'
   },
   RENTER: {
     email: 'oat.renter@rentipid.test',
-    role: 'RENTER',
+    role: 'Renter',
     description: 'OWNER ACCEPTANCE TEST - RENTER'
+  },
+  SUPER_ADMIN: {
+    email: 'oat.superadmin@rentipid.test',
+    role: 'Super Admin',
+    description: 'OWNER ACCEPTANCE TEST - SUPER ADMIN'
   },
   RESTRICTED: {
     email: 'oat.restricted@rentipid.test',

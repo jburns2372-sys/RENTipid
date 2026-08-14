@@ -4,8 +4,76 @@ import { PrismaClient } from '@prisma/client';
 import { chunkKnowledge } from '../../ai/knowledge/chunker';
 import { hashNormalizedContent } from '../../ai/knowledge/hashing';
 import { normalizeKnowledgeText } from '../../ai/knowledge/normalizer';
+import { assertSafeOatEnvironment } from '../oat-environment-guard';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
+
+const REQUIRED_AI_OAT_ACTORS = [
+  {
+    ...OAT_SHARED_USERS.RENTER,
+    fullName: 'OAT Renter (AI Setup)',
+    accountType: 'Individual',
+  },
+  {
+    ...OAT_SHARED_USERS.PROVIDER,
+    fullName: 'OAT Provider (AI Setup)',
+    accountType: 'Individual',
+  },
+  {
+    ...OAT_SHARED_USERS.SUPER_ADMIN,
+    fullName: 'OAT Super Admin (AI Setup)',
+    accountType: 'Individual',
+  },
+] as const;
+
+function assertSupportedOatActorEnvironment() {
+  assertSafeOatEnvironment();
+
+  const dbUrl = new URL(process.env.DATABASE_URL!);
+  const localDatabase = ['localhost', '127.0.0.1', '::1'].includes(dbUrl.hostname);
+  if (!localDatabase && process.env.VERCEL_ENV !== 'preview') {
+    throw new Error('OAT_ACTOR_ENVIRONMENT_REJECTED: expected Local/Test or verified Vercel Preview');
+  }
+}
+
+function getPreviewOatPassword(): string {
+  const password = process.env.PREVIEW_OAT_PASSWORD;
+  if (!password) {
+    throw new Error('OAT_CREDENTIALS_MISSING: PREVIEW_OAT_PASSWORD is required');
+  }
+  return password;
+}
+
+export async function provisionAiOatActors(): Promise<void> {
+  assertSupportedOatActorEnvironment();
+  const passwordHash = await bcrypt.hash(getPreviewOatPassword(), 10);
+
+  for (const actor of REQUIRED_AI_OAT_ACTORS) {
+    await prisma.user.upsert({
+      where: { email: actor.email },
+      update: {
+        full_name: actor.fullName,
+        account_type: actor.accountType,
+        role: actor.role,
+        status: 'Verified',
+        password_hash: passwordHash,
+        is_test_data: true,
+        beta_label: 'Preview OAT',
+      },
+      create: {
+        email: actor.email,
+        password_hash: passwordHash,
+        full_name: actor.fullName,
+        account_type: actor.accountType,
+        role: actor.role,
+        status: 'Verified',
+        is_test_data: true,
+        beta_label: 'Preview OAT',
+      },
+    });
+  }
+}
 
 async function upsertOatKnowledge(input: {
   slug: string;
@@ -93,8 +161,8 @@ OATRegistry.register({
   enabled: true,
   criticality: 'TIER 1 - BUSINESS-CRITICAL',
   manualChecklistPath: 'final-documentation/oat/ai/OWNER-ACCEPTANCE-TEST.md',
-  requiredRoles: ['OWNER', 'ADMIN', 'RENTER'],
-  requiredFixtureTypes: ['AiKnowledgeSource', 'OatRenter'],
+  requiredRoles: ['RENTER', 'PROVIDER', 'SUPER_ADMIN'],
+  requiredFixtureTypes: ['AiKnowledgeSource', 'OatRenter', 'OatProvider', 'OatSuperAdmin'],
   estimatedMinutes: 15,
   dependencies: ['AUTH', 'RBAC', 'BOOKING', 'LISTING'],
   cleanupPolicy: 'RESET_TO_BASELINE',
@@ -102,25 +170,7 @@ OATRegistry.register({
   fixtureProvider: async () => {
     console.log('Ensuring AI OAT master fixtures exist (Idempotent UPSERT)...');
     
-    // Ensure shared OAT renter exists
-    const renter = OAT_SHARED_USERS.RENTER;
-    await prisma.user.upsert({
-      where: { email: renter.email },
-      update: {
-        full_name: 'OAT Renter (AI Setup)',
-        role: renter.role,
-        status: 'Active',
-        password_hash: '$2b$10$L521NNe5fGH3xFnWKbTsTej2hLryMVISRdi/GWorZUSyyXigoWaPO', // password123
-      },
-      create: {
-        email: renter.email,
-        password_hash: '$2b$10$L521NNe5fGH3xFnWKbTsTej2hLryMVISRdi/GWorZUSyyXigoWaPO', // password123
-        full_name: 'OAT Renter (AI Setup)',
-        account_type: 'Individual',
-        role: renter.role,
-        status: 'Active',
-      }
-    });
+    await provisionAiOatActors();
 
     // Ensure required AI Knowledge baseline exists, do not duplicate
     await upsertOatKnowledge({
@@ -207,18 +257,31 @@ OATRegistry.register({
   },
 
   readinessHandler: async () => {
+    const actors = await prisma.user.findMany({
+      where: { email: { in: REQUIRED_AI_OAT_ACTORS.map(actor => actor.email) } },
+      select: { email: true, role: true, status: true, password_hash: true },
+    });
+    const blockers = REQUIRED_AI_OAT_ACTORS.flatMap(expected => {
+      const actual = actors.find(actor => actor.email === expected.email);
+      if (!actual) return [`Missing ${expected.description}`];
+      if (actual.role !== expected.role) return [`Invalid role for ${expected.description}`];
+      if (actual.status !== 'Verified') return [`Invalid status for ${expected.description}`];
+      if (!actual.password_hash) return [`Missing credentials for ${expected.description}`];
+      return [];
+    });
+
     return {
       moduleId: 'AI',
       oatId: 'OAT-AI-MASTER-001',
       environment: 'PREVIEW',
       database: 'SAFE',
-      fixtures: 'READY',
+      fixtures: blockers.length === 0 ? 'READY' : 'MISSING',
       dependencies: 'READY',
       rbac: 'READY',
       mockProvider: 'READY', // Degraded digital human configured
       featureFlags: 'READY',
-      blockers: [],
-      overall: 'READY'
+      blockers,
+      overall: blockers.length === 0 ? 'READY' : 'NOT READY'
     };
   }
 });

@@ -1,11 +1,24 @@
 import { PrismaClient } from '@prisma/client';
 import { execSync } from 'child_process';
 import { OAT_SHARED_USERS } from '../../src/lib/oat/oat-shared-users';
+import bcrypt from 'bcryptjs';
+import { randomBytes } from 'crypto';
+import { provisionAiOatActors } from '../../src/lib/oat/modules/ai-oat';
 
 const prisma = new PrismaClient();
+const oatPassword = randomBytes(24).toString('base64url');
+const originalPreviewOatPassword = process.env.PREVIEW_OAT_PASSWORD;
+
+function runAiOat(command: 'setup' | 'reset') {
+  execSync(`npm run oat:ai:${command}`, {
+    stdio: 'ignore',
+    env: { ...process.env, PREVIEW_OAT_PASSWORD: oatPassword },
+  });
+}
 
 describe('AI OAT Onboarding', () => {
   beforeAll(async () => {
+    process.env.PREVIEW_OAT_PASSWORD = oatPassword;
     // Ensure test db is clean for these tables
     await prisma.aiCaseEvidence.deleteMany();
     await prisma.aiCaseEntityLink.deleteMany();
@@ -29,18 +42,31 @@ describe('AI OAT Onboarding', () => {
   });
 
   afterAll(async () => {
+    if (originalPreviewOatPassword === undefined) delete process.env.PREVIEW_OAT_PASSWORD;
+    else process.env.PREVIEW_OAT_PASSWORD = originalPreviewOatPassword;
     await prisma.$disconnect();
   });
 
   it('AI-OAT-SETUP-IDEMPOTENT-001: Should allow setup to run 10 times without duplicating fixtures', async () => {
     for (let i = 0; i < 10; i++) {
-      execSync('npm run oat:ai:setup', { stdio: 'ignore' });
+      runAiOat('setup');
     }
 
-    const renters = await prisma.user.findMany({
-      where: { email: OAT_SHARED_USERS.RENTER.email }
-    });
-    expect(renters.length).toBe(1);
+    const expectedActors = [
+      OAT_SHARED_USERS.RENTER,
+      OAT_SHARED_USERS.PROVIDER,
+      OAT_SHARED_USERS.SUPER_ADMIN,
+    ];
+    for (const expected of expectedActors) {
+      const actors = await prisma.user.findMany({ where: { email: expected.email } });
+      expect(actors).toHaveLength(1);
+      expect(actors[0]).toEqual(expect.objectContaining({
+        role: expected.role,
+        status: 'Verified',
+        is_test_data: true,
+      }));
+      expect(await bcrypt.compare(oatPassword, actors[0].password_hash!)).toBe(true);
+    }
 
     const knowledge = await prisma.aiKnowledgeSource.findMany({
       where: { slug: 'oat-ai-test-policy' }
@@ -60,7 +86,7 @@ describe('AI OAT Onboarding', () => {
 
   it('AI-OAT-RESET-TRANSIENT-001: Should safely clear transient AI records but preserve fixtures and unrelated data', async () => {
     // 1. Ensure setup is done
-    execSync('npm run oat:ai:setup', { stdio: 'ignore' });
+    runAiOat('setup');
 
     const renter = await prisma.user.findUnique({
       where: { email: OAT_SHARED_USERS.RENTER.email }
@@ -127,7 +153,7 @@ describe('AI OAT Onboarding', () => {
     });
 
     // 5. Run Reset
-    execSync('npm run oat:ai:reset', { stdio: 'ignore' });
+    runAiOat('reset');
 
     // 6. Verify OAT Transient Data is GONE
     const deletedConversation = await prisma.aiConversation.findUnique({ where: { id: oatConversation.id } });
@@ -157,5 +183,24 @@ describe('AI OAT Onboarding', () => {
       where: { slug: 'oat-ai-rentipid-overview' }
     });
     expect(keptOverview).toEqual(expect.objectContaining({ status: 'ACTIVE' }));
+  }, 30000);
+
+  it('OAT-ACTOR-005: production rejects actor mutation even when credentials are supplied', async () => {
+    const originalNodeEnv = process.env.NODE_ENV;
+    const originalVercelEnv = process.env.VERCEL_ENV;
+    const originalDatabaseUrl = process.env.DATABASE_URL;
+    try {
+      process.env.NODE_ENV = 'production';
+      process.env.VERCEL_ENV = 'preview';
+      process.env.DATABASE_URL = 'postgresql://test:test@localhost:5432/rentipid_test_soc';
+      await expect(provisionAiOatActors()).rejects.toThrow('OAT_ENVIRONMENT_GUARD_REJECTED');
+    } finally {
+      if (originalNodeEnv === undefined) delete process.env.NODE_ENV;
+      else process.env.NODE_ENV = originalNodeEnv;
+      if (originalVercelEnv === undefined) delete process.env.VERCEL_ENV;
+      else process.env.VERCEL_ENV = originalVercelEnv;
+      if (originalDatabaseUrl === undefined) delete process.env.DATABASE_URL;
+      else process.env.DATABASE_URL = originalDatabaseUrl;
+    }
   });
 });

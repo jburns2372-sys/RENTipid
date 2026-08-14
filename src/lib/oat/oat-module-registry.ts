@@ -1,4 +1,4 @@
-export type OATRole = 'OWNER' | 'ADMIN' | 'REVIEWER' | 'PROVIDER' | 'RENTER' | 'RESTRICTED';
+export type OATRole = 'OWNER' | 'ADMIN' | 'REVIEWER' | 'PROVIDER' | 'RENTER' | 'SUPER_ADMIN' | 'RESTRICTED';
 
 export interface OATReadinessResult {
   moduleId: string;

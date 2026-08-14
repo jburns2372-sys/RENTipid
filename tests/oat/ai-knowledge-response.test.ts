@@ -54,6 +54,8 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
     expect(selectedKnowledge).toMatch(/RENTipid is a role-based rental marketplace/);
     expect(response.message).toContain('Based on approved RENTipid knowledge:');
     expect(response.message).toContain('RENTipid is a role-based rental marketplace');
+    expect(response.message).not.toContain('I received your message');
+    expect(response.message).not.toContain('I can only provide predefined responses');
     expect(response.isBlocked).not.toBe(true);
   });
 

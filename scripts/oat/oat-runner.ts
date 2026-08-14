@@ -108,6 +108,7 @@ async function setupModule(target: string | undefined) {
         console.log(`Setup complete for ${m.moduleId}.`);
     } catch (err: any) {
         console.error(`Error during setup for ${m.moduleId}:`, err.message);
+        process.exitCode = 1;
     }
 }
 
