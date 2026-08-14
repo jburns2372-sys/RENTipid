@@ -6,7 +6,9 @@ import { retrieveApprovedKnowledge } from './context/knowledge-retrieval';
 import { processMockAIRequest } from './mock-ai';
 import { logAIInteraction } from './ai-logger';
 import { getAISettings, isModuleAIEnabled, isBotEnabled } from './ai-settings-service';
-
+import { resolveIntent } from './specialists/intent-resolver';
+import { routeToSpecialist } from './specialists/router';
+import { validateWithSupervisor } from './supervisor/stage';
 export interface AIRequest {
   botId: BotId;
   prompt: string;
@@ -69,11 +71,40 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
       return { success: false, message: 'Request blocked due to security policy violations.', isBlocked: true };
   }
 
+  // P4: Resolve Intent
+  const resolvedIntent = resolveIntent(prompt);
+
+  // P4: Specialist Routing
+  const specialist = routeToSpecialist(resolvedIntent);
+
   // Simulate Tool Dispatch Guard (Since actual tool dispatch is not implemented yet)
   // We check if the prompt explicitly tries to run a tool
   const toolMatch = prompt.match(/execute tool:\s*([a-zA-Z0-9_]+)/i);
-  if (toolMatch) {
-     const toolName = toolMatch[1];
+  const requestedTool = toolMatch ? toolMatch[1] : undefined;
+
+  // P4: AI Supervisor Validation Stage
+  const supervisorResult = validateWithSupervisor({
+    specialist,
+    resolvedIntent,
+    requestedTool,
+    isConsequentialAction: !!requestedTool
+  });
+
+  if (supervisorResult.outcome !== 'PASS') {
+    await logAIInteraction({
+      userId,
+      botName: botId,
+      module,
+      prompt,
+      responseSummary: `SUPERVISOR_BLOCKED: ${supervisorResult.outcome} - ${supervisorResult.reason}`,
+      actionStatus: supervisorResult.outcome,
+      permissionLevel: settings.maxPermissionLevel
+    });
+    return { success: false, message: `Request blocked by AI Supervisor: ${supervisorResult.reason}`, isBlocked: true };
+  }
+
+  if (requestedTool) {
+     const toolName = requestedTool;
      const session = {
          sessionId: 'session-' + Date.now(),
          authenticatedUserId: userId || 'anonymous',
