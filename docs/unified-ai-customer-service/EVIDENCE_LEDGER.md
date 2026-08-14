@@ -1,4 +1,4 @@
-# EVIDENCE LEDGER
+﻿# EVIDENCE LEDGER
 
 | Evidence ID | Phase | Requirement ID | Command / Action | Timestamp | Expected Result | Actual Result | Status | Rerun Reason |
 | ----------- | ----- | -------------- | ---------------- | --------- | --------------- | ------------- | ------ | ------------ |
@@ -45,3 +45,17 @@
 | UAICS-DH-EV-012 | P11 | UAICS-DH-REQ-007 | P11 Privacy / Security / Resilience Hardening | 2026-08-13T00:23:04Z | P11 passes all targeted security tests | Passes all targeted rules | PASS | N/A |
 
 | UAICS-DH-EV-013 | P12 | UAICS-DH-REQ-008 | P12 Final Release Suite + Deployment Readiness | 2026-08-13T00:30:21Z | P12 tests pass, builds pass, hashes match | Passes all targeted rules | PASS | N/A |
+
+| UAICS-DH-EV-014 | P0 v1.1 | UAICS-DH-REQ-053/054/055 | Controlled baseline reconciliation at aa180160d25cb12764099d487382d3f98e534a97 | 2026-08-14 | Reconcile ancestry, architecture, schema, knowledge, and OAT without mutation | Git ancestry PASS; schema valid; knowledge 100%; AI OAT READY; 25 targeted tests PASS | PASS | Antigravity P1 required a current authoritative P0 handoff |
+
+## P0 v1.1 reconciliation evidence
+
+- Entry worktree: CLEAN; staged 0; unstaged 0; untracked 0.
+- Historical 067ad72db92d73de58b6cf4463473c44650a173c is an ancestor of current source aa180160d25cb12764099d487382d3f98e534a97.
+- npm run knowledge:inventory, knowledge:validate, knowledge:diff, knowledge:check, and knowledge:report all exited 0 against guarded local test database rentipid_test_soc.
+- Knowledge result: 146 candidates accounted, 107 active/synchronizable sources, 705 chunks, 100% coverage, zero missing/invalid/duplicate/stale entries.
+- Prisma schema validation exited 0.
+- OAT registry contains enabled OAT-AI-MASTER-001; guarded local-test readiness returned READY with no blockers.
+- Targeted Jest result: 3 suites passed, 25 tests passed.
+- knowledge:bootstrap, knowledge:sync, OAT setup/reset, migrations, deployment, and database writes were not run.
+- Post-documentation knowledge diff: exit 0; 102 NO_OP and 5 expected CREATE_NEW_VERSION actions for ai.architecture-lock, ai.baseline, ai.decision-ledger, ai.implementation-registry, and ai.requirements-traceability. No missing/invalid action; no sync performed.

@@ -1,37 +1,37 @@
-# ARCHITECTURE LOCK - UNIFIED AI CUSTOMER SERVICE & DIGITAL HUMAN
+﻿# ARCHITECTURE LOCK - UNIFIED AI CUSTOMER SERVICE & DIGITAL HUMAN v1.1
 
-## 1. SHARED CORE
-- **AI Service Orchestrator:** ONE shared orchestrator (`src/lib/ai/ai-command-layer.ts` EXTENDED).
-- **AI Support Case Platform:** ONE canonical platform (to be built in `src/lib/ai/cases/`). Uses `AiSupportCase` model. No parallel `IssueTicket`/`SupportTicket` workflows for AI operations.
-- **AI Tool Gateway:** ONE typed gateway (to be built in `src/lib/ai/gateway/`). All channels use the same tools.
-- **Knowledge Service:** ONE versioned retrieval service (to be built in `src/lib/ai/knowledge/`).
-- **Policy/Transaction Path:** Existing RENTipid deterministic services are authoritative.
+## Canonical shared core
 
-## 2. CHANNELS (Presentation Only)
-- **/help:** Durable text/case presentation using the Shared Core.
-- **Digital Human:** Voice/avatar/media presentation. Media-only state managed by `DigitalHumanProviderAdapter`; business logic managed by Shared Core.
-- **Contextual AI:** Route-specific helper using Shared Core.
-- **PWA/Capacitor:** Mobile-optimized media presentation using Shared Core.
+- AI entry route: ONE route, src/app/api/ai/chat/route.ts.
+- AI command layer: ONE canonical entry, processAICommand in src/lib/ai/ai-command-layer.ts.
+- AI support cases: ONE canonical autonomous case family using AiSupportCase and related Ai models through src/lib/ai/cases/AiCasePlatform.ts.
+- AI Tool Gateway: ONE typed gateway at src/lib/ai/tools/AiToolGateway.ts; transactional execution must use its server-resolved actor, RBAC, confirmation, policy, idempotency, and audit controls.
+- Knowledge Center: ONE approved retrieval service under src/lib/ai/knowledge/ and src/lib/ai/context/knowledge-retrieval.ts, backed by AiKnowledgeSource and AiKnowledgeChunk.
+- Policy and transactions: existing RENTipid domain/policy services remain authoritative. AI output is never transactional authority.
+- RBAC and ownership: existing authenticated session, database roles, permissions, and server-side ownership checks remain authoritative. Client context is a hint only.
 
-## 3. ADDITIVE DATABASE DESIGN (LOCKED)
-Existing PostgreSQL/Prisma database to be EXTENDED (No separate DBs, No shadow business logic).
-Models to CREATE in P3:
-1. `AiServiceSession`
-2. `AiConversation`
-3. `AiSupportCase` (with `caseNumber` unique constraint)
-4. `AiCaseEntityLink`
-5. `AiCaseEvidence`
-6. `AiToolExecution` (with idempotency controls)
-7. `AiPolicyDecision`
-8. `AiResolution`
-9. `AiFollowUp`
-10. `AiKnowledgeSource`
-11. `AiProviderSession`
+## Presentation channels
 
-## 4. SECURITY & BOUNDARIES
-- **No Human Routine Support:** No human queue, manual assignment, or takeover. Cases stay in AI platform.
-- **External Authorities:** Insurer, Payment Gateway, KYC Provider, Legal/Arbitration are authoritative. AI cannot invent their results.
-- **Privacy:** Data minimization, strict RBAC, no credential leaking.
+- /help: durable text/case presentation using /api/ai/chat and the shared command layer.
+- Digital Human: media adapter only. DigitalHumanProviderAdapter is selected by AiSessionBroker and cannot own business logic.
+- Text fallback: MockProviderAdapter and normal text support remain available when Digital Human is disabled, unhealthy, or uncredentialed.
+- Contextual AI and PWA/Capacitor: presentation adapters only; they must converge on the same AI/case/context flow.
 
-## 5. FILE OWNERSHIP
-- Architecture files frozen. See `FILE_OWNERSHIP.md` for exact assignments.
+## Prohibited duplicates
+
+Do not create a second AI framework, chat API, Knowledge Center, role system, vector database, transactional authority, human customer-support queue, manual support-agent takeover, or routine customer-support mailbox.
+
+The legacy IssueTicket and SupportTicket Prisma models are excluded from the Unified AI v1.1 flow. Targeted usage search found no runtime consumer outside schema/migration history. They must not be adopted as an alternate AI case platform or human queue.
+
+## Data and safety boundaries
+
+- Existing PostgreSQL/Prisma remains the single database.
+- Existing AiConversation, AiMessage, AiSupportCase, AiCaseEntityLink, AiFollowUp, AiKnowledgeSource, AiKnowledgeChunk, tool/policy/resolution, audit, and security records are reused.
+- Previous AI messages and client-provided entity IDs are not authoritative live-state evidence.
+- Protected record existence must not be leaked through suggestions, context cards, or errors.
+- SAFE_HOLD and SYSTEM_BLOCKED stop automated action; they do not imply a human support takeover.
+- Digital Human provider failure must degrade to text without disabling /help.
+
+## P0 disposition
+
+Verified at source HEAD aa180160d25cb12764099d487382d3f98e534a97 under change record UAICS-DH-CR-001. No architecture-lock violation blocks P1.

@@ -1,4 +1,4 @@
-# REQUIREMENTS TRACEABILITY LEDGER
+﻿# REQUIREMENTS TRACEABILITY LEDGER
 
 | Requirement ID | Family | Description | Implementation Status | Test ID | Evidence ID |
 | -------------- | ------ | ----------- | --------------------- | ------- | ----------- |
@@ -54,3 +54,6 @@
 | UAICS-DH-REQ-050 | closure | Closed with closure certificate | NEW | T-INT-03 | UAICS-DH-EV-001 |
 | UAICS-DH-REQ-051 | freeze | Frozen scope + manifest | NEW | T-INT-02 | UAICS-DH-EV-001 |
 | UAICS-DH-REQ-052 | no-human-service architecture| No human queue / assignment | REUSE | T-OPS-01 | UAICS-DH-EV-001 |
+| UAICS-DH-REQ-053 | P0 source reconciliation | Historical and current source identities are distinguished and ancestry verified | VERIFIED | T-P0-HEAD-01 | UAICS-DH-EV-014 |
+| UAICS-DH-REQ-054 | P0 architecture reconciliation | Canonical AI, knowledge, tool, RBAC, case, and Digital Human paths remain singular | VERIFIED | T-P0-ARCH-01 | UAICS-DH-EV-014 |
+| UAICS-DH-REQ-055 | P0 non-mutation | No database, migration, knowledge, Preview, or Production mutation during reconciliation | VERIFIED | T-P0-MUT-01 | UAICS-DH-EV-014 |
