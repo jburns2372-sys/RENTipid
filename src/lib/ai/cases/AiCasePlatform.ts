@@ -1,119 +1,164 @@
-import { PrismaClient } from '@prisma/client';
+import { createHash, randomUUID } from 'crypto';
+import { Prisma, PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
+import { AiEntityType, assertAiEntityAccess } from '../authorization/domain-state';
 
-const prisma = new PrismaClient();
+export type CaseState =
+  | 'OPEN'
+  | 'UNDERSTANDING'
+  | 'DIAGNOSING'
+  | 'AWAITING_EVIDENCE'
+  | 'AWAITING_USER_CONFIRMATION'
+  | 'POLICY_EVALUATION'
+  | 'EXECUTING'
+  | 'VERIFYING'
+  | 'SAFE_HOLD'
+  | 'RESOLVED'
+  | 'CLOSED'
+  | 'SYSTEM_BLOCKED';
 
-// The states defined in prisma/schema.prisma for AiSupportCase.status
-export type CaseState = 
-  | "OPEN" 
-  | "UNDERSTANDING" 
-  | "DIAGNOSING" 
-  | "AWAITING_EVIDENCE" 
-  | "AWAITING_USER_CONFIRMATION" 
-  | "POLICY_EVALUATION" 
-  | "EXECUTING" 
-  | "VERIFYING" 
-  | "SAFE_HOLD" 
-  | "RESOLVED" 
-  | "CLOSED" 
-  | "SYSTEM_BLOCKED";
+const TERMINAL_CASE_STATES: CaseState[] = ['RESOLVED', 'CLOSED', 'SYSTEM_BLOCKED'];
+
+function normalizeIssuePart(value: string | undefined) {
+  return value?.trim().toLowerCase() || '-';
+}
+
+export function buildActiveIssueKey(
+  userId: string,
+  category: string,
+  subcategory?: string,
+  entityType?: string,
+  entityId?: string,
+) {
+  const material = [userId, category, subcategory, entityType, entityId].map(normalizeIssuePart).join('|');
+  return `ai-issue-v1:${createHash('sha256').update(material).digest('hex')}`;
+}
+
+function isUniqueConflict(error: unknown) {
+  return error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002';
+}
 
 export class AiCasePlatform {
   private static instance = new AiCasePlatform();
+
+  constructor(private readonly db: PrismaClient = prisma) {}
 
   static getInstance() {
     return this.instance;
   }
 
-  // Idempotent resume/create for cross-channel
-  async resumeCase(userId: string, category: string, entityType?: string, entityId?: string) {
-    // 1. Duplicate-case suppression: find existing open case for same issue/entity
-    let existingCaseQuery: any = {
-      userId,
-      category,
-      status: { notIn: ['CLOSED', 'RESOLVED', 'SYSTEM_BLOCKED'] }
-    };
-
-    const cases = await prisma.aiSupportCase.findMany({ where: existingCaseQuery });
-
-    if (entityType && entityId && cases.length > 0) {
-      // Find the one with the matching entity link
-      for (const c of cases) {
-        const link = await prisma.aiCaseEntityLink.findFirst({
-          where: { caseId: c.id, entityType, entityId }
-        });
-        if (link) return c;
-      }
-    } else if (cases.length > 0) {
-      return cases[0]; // Return most recent open if no entity constraint
+  async resumeCase(userId: string, category: string, entityType?: string, entityId?: string, subcategory?: string) {
+    if ((entityType && !entityId) || (!entityType && entityId)) {
+      throw new Error('Both entityType and entityId are required');
+    }
+    if (entityType && entityId) {
+      await assertAiEntityAccess(userId, entityType as AiEntityType, entityId);
     }
 
-    // 2. Not found, create new
-    return this.createCase(userId, category, entityType, entityId);
+    const activeIssueKey = buildActiveIssueKey(userId, category, subcategory, entityType, entityId);
+    const keyedCase = await this.db.aiSupportCase.findUnique({ where: { activeIssueKey } });
+    if (keyedCase) return this.assertOwnedActiveCase(keyedCase, userId);
+
+    const legacyCase = await this.findLegacyEquivalentCase(userId, category, subcategory, entityType, entityId);
+    if (legacyCase) {
+      try {
+        return await this.db.aiSupportCase.update({
+          where: { id: legacyCase.id },
+          data: { activeIssueKey, lastActivityAt: new Date() },
+        });
+      } catch (error) {
+        if (!isUniqueConflict(error)) throw error;
+        const winner = await this.db.aiSupportCase.findUnique({ where: { activeIssueKey } });
+        if (winner) return this.assertOwnedActiveCase(winner, userId);
+      }
+    }
+
+    return this.createCase(userId, category, entityType, entityId, subcategory, activeIssueKey);
   }
 
-  async createCase(userId: string, category: string, entityType?: string, entityId?: string) {
-    const caseNumber = `CAS-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-    
-    const newCase = await prisma.aiSupportCase.create({
-      data: {
-        userId,
-        caseNumber,
-        category,
-        severity: 'medium',
-        riskLevel: 'safe',
-        status: 'OPEN'
-      }
-    });
-
+  async createCase(
+    userId: string,
+    category: string,
+    entityType?: string,
+    entityId?: string,
+    subcategory?: string,
+    suppliedIssueKey?: string,
+  ) {
     if (entityType && entityId) {
-      await this.linkEntity(newCase.id, userId, entityType, entityId, 'primary');
+      await assertAiEntityAccess(userId, entityType as AiEntityType, entityId);
     }
+    const activeIssueKey = suppliedIssueKey ?? buildActiveIssueKey(userId, category, subcategory, entityType, entityId);
 
-    return newCase;
+    try {
+      return await this.db.$transaction(async tx => {
+        const created = await tx.aiSupportCase.create({
+          data: {
+            userId,
+            caseNumber: `CAS-${randomUUID()}`,
+            category,
+            subcategory,
+            activeIssueKey,
+            severity: 'medium',
+            riskLevel: 'safe',
+            status: 'OPEN',
+          },
+        });
+
+        if (entityType && entityId) {
+          await tx.aiCaseEntityLink.create({
+            data: { caseId: created.id, entityType, entityId, relationship: 'primary' },
+          });
+        }
+        return created;
+      });
+    } catch (error) {
+      if (!isUniqueConflict(error)) throw error;
+      const existing = await this.db.aiSupportCase.findUnique({ where: { activeIssueKey } });
+      if (!existing) throw error;
+      return this.assertOwnedActiveCase(existing, userId);
+    }
   }
 
   async getCase(caseId: string, userId: string) {
-    const c = await prisma.aiSupportCase.findUnique({ where: { id: caseId } });
-    if (!c) throw new Error('Case not found');
-    if (c.userId !== userId) throw new Error('Unauthorized');
-    return c;
+    const supportCase = await this.db.aiSupportCase.findUnique({ where: { id: caseId } });
+    if (!supportCase) throw new Error('Case not found');
+    if (supportCase.userId !== userId) throw new Error('Unauthorized');
+    return supportCase;
+  }
+
+  async validateCurrentCaseAccess(caseId: string, userId: string) {
+    const supportCase = await this.getCase(caseId, userId);
+    const primaryLinks = await this.db.aiCaseEntityLink.findMany({
+      where: { caseId, relationship: 'primary' },
+    });
+    for (const link of primaryLinks) {
+      await assertAiEntityAccess(userId, link.entityType as AiEntityType, link.entityId);
+    }
+    return supportCase;
   }
 
   async linkEntity(caseId: string, userId: string, entityType: string, entityId: string, relationship: string) {
-    await this.getCase(caseId, userId); // Ownership enforcement
-    
-    // In a real system, verify the user actually owns `entityId` in `entityType` table.
-    // e.g. if Booking, check Booking.userId == userId.
-    
-    return prisma.aiCaseEntityLink.create({
-      data: {
-        caseId,
-        entityType,
-        entityId,
-        relationship
-      }
+    await this.getCase(caseId, userId);
+    await assertAiEntityAccess(userId, entityType as AiEntityType, entityId);
+
+    const existing = await this.db.aiCaseEntityLink.findFirst({
+      where: { caseId, entityType, entityId, relationship },
     });
+    if (existing) return existing;
+    return this.db.aiCaseEntityLink.create({ data: { caseId, entityType, entityId, relationship } });
   }
 
   async addEvidenceReference(caseId: string, userId: string, evidenceType: string, fileReference: string) {
-    await this.getCase(caseId, userId);
-    return prisma.aiCaseEvidence.create({
-      data: {
-        caseId,
-        submittedByUserId: userId,
-        evidenceType,
-        fileReference,
-        sourceChannel: 'web',
-        verificationStatus: 'pending'
-      }
+    await this.validateCurrentCaseAccess(caseId, userId);
+    return this.db.aiCaseEvidence.create({
+      data: { caseId, submittedByUserId: userId, evidenceType, fileReference, sourceChannel: 'web', verificationStatus: 'pending' },
     });
   }
 
   async evaluateEvidenceCompleteness(caseId: string, userId: string) {
-    await this.getCase(caseId, userId);
-    const evidence = await prisma.aiCaseEvidence.findMany({ where: { caseId } });
-    // Mock logic: if we have any verified evidence, complete.
-    if (evidence.some(e => e.verificationStatus === 'verified')) {
+    await this.validateCurrentCaseAccess(caseId, userId);
+    const evidence = await this.db.aiCaseEvidence.findMany({ where: { caseId } });
+    if (evidence.some(item => item.verificationStatus === 'verified')) {
       await this.updateCaseState(caseId, userId, 'DIAGNOSING');
       return true;
     }
@@ -121,22 +166,21 @@ export class AiCasePlatform {
   }
 
   async updateCaseState(caseId: string, userId: string, newState: CaseState) {
-    await this.getCase(caseId, userId);
-    return prisma.aiSupportCase.update({
+    await this.validateCurrentCaseAccess(caseId, userId);
+    return this.db.aiSupportCase.update({
       where: { id: caseId },
-      data: { status: newState, lastActivityAt: new Date() }
+      data: {
+        status: newState,
+        lastActivityAt: new Date(),
+        ...(TERMINAL_CASE_STATES.includes(newState) ? { activeIssueKey: null } : {}),
+      },
     });
   }
 
   async createProposedResolution(caseId: string, userId: string, userFacingExplanation: string) {
-    await this.getCase(caseId, userId);
-    return prisma.aiResolution.create({
-      data: {
-        caseId,
-        resolutionType: 'interim',
-        resolutionStatus: 'proposed',
-        userFacingExplanation
-      }
+    await this.validateCurrentCaseAccess(caseId, userId);
+    return this.db.aiResolution.create({
+      data: { caseId, resolutionType: 'interim', resolutionStatus: 'proposed', userFacingExplanation },
     });
   }
 
@@ -145,42 +189,65 @@ export class AiCasePlatform {
   }
 
   async reconsiderCase(caseId: string, userId: string) {
-    return this.updateCaseState(caseId, userId, 'UNDERSTANDING'); // Back to understanding
+    return this.updateCaseState(caseId, userId, 'UNDERSTANDING');
   }
 
   async scheduleFollowUp(caseId: string, userId: string, triggerAt: Date) {
-    await this.getCase(caseId, userId);
-    return prisma.aiFollowUp.create({
-      data: {
-        caseId,
-        triggerAt,
-        triggerType: 'recheck',
-        status: 'pending'
-      }
-    });
+    await this.validateCurrentCaseAccess(caseId, userId);
+    return this.db.aiFollowUp.create({ data: { caseId, triggerAt, triggerType: 'recheck', status: 'pending' } });
   }
 
   async finalizeResolution(caseId: string, userId: string) {
     await this.updateCaseState(caseId, userId, 'RESOLVED');
-    return prisma.aiSupportCase.update({
-      where: { id: caseId },
-      data: { resolvedAt: new Date() }
-    });
+    return this.db.aiSupportCase.update({ where: { id: caseId }, data: { resolvedAt: new Date() } });
   }
 
   async closeCase(caseId: string, userId: string) {
     await this.updateCaseState(caseId, userId, 'CLOSED');
-    return prisma.aiSupportCase.update({
-      where: { id: caseId },
-      data: { closedAt: new Date() }
-    });
+    return this.db.aiSupportCase.update({ where: { id: caseId }, data: { closedAt: new Date() } });
   }
 
   async exportCase(caseId: string, userId: string) {
-    const c = await this.getCase(caseId, userId);
-    const evidence = await prisma.aiCaseEvidence.findMany({ where: { caseId } });
-    const links = await prisma.aiCaseEntityLink.findMany({ where: { caseId } });
-    const resolutions = await prisma.aiResolution.findMany({ where: { caseId } });
-    return { ...c, evidence, links, resolutions };
+    const supportCase = await this.validateCurrentCaseAccess(caseId, userId);
+    const [evidence, links, resolutions] = await Promise.all([
+      this.db.aiCaseEvidence.findMany({ where: { caseId } }),
+      this.db.aiCaseEntityLink.findMany({ where: { caseId } }),
+      this.db.aiResolution.findMany({ where: { caseId } }),
+    ]);
+    return { ...supportCase, evidence, links, resolutions };
+  }
+
+  private assertOwnedActiveCase<T extends { userId: string | null; status: string }>(supportCase: T, userId: string) {
+    if (supportCase.userId !== userId) throw new Error('Unauthorized');
+    if (TERMINAL_CASE_STATES.includes(supportCase.status as CaseState)) throw new Error('Case is not active');
+    return supportCase;
+  }
+
+  private async findLegacyEquivalentCase(
+    userId: string,
+    category: string,
+    subcategory?: string,
+    entityType?: string,
+    entityId?: string,
+  ) {
+    const candidates = await this.db.aiSupportCase.findMany({
+      where: {
+        userId,
+        category,
+        subcategory: subcategory ?? null,
+        activeIssueKey: null,
+        status: { notIn: TERMINAL_CASE_STATES },
+      },
+      orderBy: { lastActivityAt: 'desc' },
+    });
+
+    for (const candidate of candidates) {
+      const primaryLinks = await this.db.aiCaseEntityLink.findMany({
+        where: { caseId: candidate.id, relationship: 'primary' },
+      });
+      if (!entityType && !entityId && primaryLinks.length === 0) return candidate;
+      if (primaryLinks.some(link => link.entityType === entityType && link.entityId === entityId)) return candidate;
+    }
+    return null;
   }
 }

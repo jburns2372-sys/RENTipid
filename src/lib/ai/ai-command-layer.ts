@@ -9,6 +9,7 @@ import { getAISettings, isModuleAIEnabled, isBotEnabled } from './ai-settings-se
 import { resolveIntent } from './specialists/intent-resolver';
 import { routeToSpecialist } from './specialists/router';
 import { validateWithSupervisor } from './supervisor/stage';
+import { resolveCurrentAiActor } from './authorization/actor';
 export interface AIRequest {
   botId: BotId;
   prompt: string;
@@ -25,7 +26,19 @@ export interface AIResponse {
 }
 
 export async function processAICommand(req: AIRequest): Promise<AIResponse> {
-  const { botId, prompt, module, recordId, userRole, userId } = req;
+  const { botId, prompt, module, recordId, userId } = req;
+  let userRole = req.userRole;
+
+  // P5: JWT/browser role is never authoritative. Re-read the actor and role
+  // for every personalized command, including resumed conversations.
+  if (userId) {
+    try {
+      const actor = await resolveCurrentAiActor(userId);
+      userRole = actor.role;
+    } catch {
+      return { success: false, message: 'Authenticated account is not authorized for AI access.', isBlocked: true };
+    }
+  }
   
   // 0. Fetch Current System Settings
   const settings = await getAISettings();
@@ -136,7 +149,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   }
 
   // 4. Build Context & System Prompt
-  let safeContext = buildSafeContext(userRole, module, recordId);
+  let safeContext = await buildSafeContext(userRole, module, recordId, userId);
   
   // 4.1 Knowledge Retrieval
   const retrievedKnowledge = await retrieveApprovedKnowledge(prompt, userRole);

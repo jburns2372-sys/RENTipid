@@ -39,6 +39,8 @@ const useSuggestions = () => {
 
 export default function HelpPage() {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [requestContext, setRequestContext] = useState<{ module: string; recordId?: string }>({ module: 'Help' });
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionState, setSessionState] = useState<'initializing' | 'active' | 'failed' | 'ended'>('active');
@@ -49,6 +51,35 @@ export default function HelpPage() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const params = new URLSearchParams(window.location.search);
+    const module = params.get('entityType') || params.get('route') || 'Help';
+    const recordId = params.get('entityId') || undefined;
+    setRequestContext({ module, recordId });
+
+    const loadHistory = async () => {
+      const historyParams = new URLSearchParams({ module });
+      if (recordId) historyParams.set('recordId', recordId);
+      try {
+        const response = await fetch(`/api/ai/chat?${historyParams.toString()}`);
+        if (!response.ok || cancelled) return;
+        const data = await response.json();
+        if (cancelled) return;
+        setConversationId(typeof data.conversationId === 'string' ? data.conversationId : null);
+        setMessages(Array.isArray(data.messages)
+          ? data.messages
+              .filter((message: Message) => message.role === 'user' || message.role === 'assistant')
+              .map((message: Message) => ({ id: message.id, role: message.role, content: message.content }))
+          : []);
+      } catch {
+        // Anonymous users retain the public, non-persistent help experience.
+      }
+    };
+    void loadHistory();
+    return () => { cancelled = true; };
+  }, []);
 
   const sendCommand = async (text: string) => {
     if (!text.trim() || isLoading) return;
@@ -66,12 +97,15 @@ export default function HelpPage() {
         body: JSON.stringify({
           botId: 'Concierge',
           prompt: text,
-          module: 'Help',
-          channel: 'help'
+          module: requestContext.module,
+          recordId: requestContext.recordId,
+          channel: 'help',
+          conversationId,
         }),
       });
 
       const data = await response.json();
+      if (typeof data.conversationId === 'string') setConversationId(data.conversationId);
       
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),

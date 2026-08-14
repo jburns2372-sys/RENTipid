@@ -6,6 +6,7 @@
 model AiServiceSession {
   id               String    @id @default(cuid())
   userId           String?
+  nonce            String?   @unique
   channel          String    // "help" | "digital_human" | "contextual" | "pwa"
   conversationId   String?
   sourceRoute      String?
@@ -15,15 +16,20 @@ model AiServiceSession {
   providerSessionId String?  // Short-lived provider ref
   status           String    // "active" | "ended" | "failed" | "blocked"
   startedAt        DateTime  @default(now())
+  lastActiveAt     DateTime  @default(now())
   endedAt          DateTime?
   
   user             User?     @relation(fields: [userId], references: [id])
+
+  @@index([userId, status, lastActiveAt])
+  @@index([userId, startedAt])
 }
 
 model AiConversation {
   id               String    @id @default(cuid())
   userId           String?
   activeCaseId     String?
+  continuityKey    String?   @unique
   summary          String?   @db.Text
   lastIntent       String?
   lastChannel      String?
@@ -32,6 +38,8 @@ model AiConversation {
 
   user             User?     @relation(fields: [userId], references: [id])
   messages         AiMessage[]
+
+  @@index([userId, updatedAt])
 }
 
 model AiMessage {
@@ -51,6 +59,7 @@ model AiSupportCase {
   id               String    @id @default(cuid())
   caseNumber       String    @unique
   userId           String?
+  activeIssueKey   String?   @unique
   category         String
   subcategory      String?
   severity         String    // "low" | "medium" | "high" | "critical"

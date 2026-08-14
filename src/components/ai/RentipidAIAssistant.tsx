@@ -23,6 +23,7 @@ interface RentipidAIAssistantProps {
 export default function RentipidAIAssistant({ module, recordId, userRole, allowedBots, disclaimerText }: RentipidAIAssistantProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [conversationId, setConversationId] = useState<string | null>(null);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedBot, setSelectedBot] = useState<BotId>(allowedBots[0] || BOTS.CONCIERGE);
@@ -39,6 +40,34 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, liveTranscript]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadHistory = async () => {
+      const params = new URLSearchParams({ module });
+      if (recordId) params.set('recordId', recordId);
+      try {
+        const response = await fetch(`/api/ai/chat?${params.toString()}`, { method: 'GET' });
+        if (!response.ok || cancelled) return;
+        const data = await response.json();
+        if (cancelled) return;
+        setConversationId(typeof data.conversationId === 'string' ? data.conversationId : null);
+        setMessages(Array.isArray(data.messages)
+          ? data.messages
+              .filter((message: Message) => message.role === 'user' || message.role === 'assistant')
+              .map((message: Message) => ({
+                id: message.id,
+                role: message.role,
+                content: message.content,
+              }))
+          : []);
+      } catch {
+        // Public/anonymous help remains available without persistent history.
+      }
+    };
+    void loadHistory();
+    return () => { cancelled = true; };
+  }, [module, recordId]);
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
@@ -58,11 +87,13 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
           prompt: userMessage.content,
           module,
           recordId,
-          channel: mode
+          channel: mode,
+          conversationId,
         }),
       });
 
       const data = await response.json();
+      if (typeof data.conversationId === 'string') setConversationId(data.conversationId);
       
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
