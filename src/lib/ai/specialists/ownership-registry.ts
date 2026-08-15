@@ -124,6 +124,13 @@ export const intentOwnershipDefinitions: readonly IntentOwnershipDefinition[] = 
       consultedSpecialists: [] as readonly Revision2SpecialistId[],
       version: '1.0',
       status: 'ENABLED' as const,
+    })),
+    ...['ux_review', 'flow_friction', 'journey_analysis', 'checkout_friction', 'booking_ux_review', 'provider_onboarding_ux', 'support_ux_review', 'digital_human_ux_review', 'product_experiment_recommendation', 'usability_analysis'].map(intent => ({
+      intent,
+      primarySpecialistId: 'ProductUXSpecialist' as const,
+      consultedSpecialists: [] as readonly Revision2SpecialistId[],
+      version: '1.0',
+      status: 'ENABLED' as const,
     }))
   ])
 );
