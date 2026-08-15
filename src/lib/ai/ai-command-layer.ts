@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import { BotId, canUserAccessBot, MAX_ALLOWED_PERMISSION } from './ai-permissions';
 import { checkGuardrails } from './ai-guardrails';
 import { buildSafeContext } from './ai-context-builder';
@@ -7,7 +8,8 @@ import { processMockAIRequest } from './mock-ai';
 import { logAIInteraction } from './ai-logger';
 import { getAISettings, isModuleAIEnabled, isBotEnabled } from './ai-settings-service';
 import { resolveIntent } from './specialists/intent-resolver';
-import { routeToSpecialist } from './specialists/router';
+import { SpecialistAnswerClass, SpecialistRiskClass } from './specialists/contracts';
+import { SpecialistSelectionError, unifiedAiSpecialistOrchestrator } from './specialists/orchestrator';
 import { validateWithSupervisor } from './supervisor/stage';
 import { resolveCurrentAiActor } from './authorization/actor';
 export interface AIRequest {
@@ -17,6 +19,10 @@ export interface AIRequest {
   recordId?: string;
   userRole?: string;
   userId?: string;
+  sessionId?: string;
+  caseId?: string;
+  locale?: string;
+  traceId?: string;
 }
 
 export interface AIResponse {
@@ -84,23 +90,57 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
       return { success: false, message: 'Request blocked due to security policy violations.', isBlocked: true };
   }
 
-  // P4: Resolve Intent
+  // P4 + Revision 2: resolve intent, exactly-one owner, and compatibility support subdomain.
   const resolvedIntent = resolveIntent(prompt);
+  let specialistSelection;
+  try {
+    specialistSelection = unifiedAiSpecialistOrchestrator.select(resolvedIntent, settings.specialistStates ?? {});
+  } catch (error) {
+    if (!(error instanceof SpecialistSelectionError)) throw error;
+    return {
+      success: false,
+      message: 'This specialist capability is currently unavailable. Your request was safely held.',
+      isBlocked: true,
+    };
+  }
+  const specialist = specialistSelection.supportSubdomain;
+  if (!specialist) {
+    return { success: false, message: 'No approved support specialist is available.', isBlocked: true };
+  }
 
-  // P4: Specialist Routing
-  const specialist = routeToSpecialist(resolvedIntent);
-
-  // Simulate Tool Dispatch Guard (Since actual tool dispatch is not implemented yet)
-  // We check if the prompt explicitly tries to run a tool
+  // Existing explicit test-tool syntax remains a request only; it grants no authority.
   const toolMatch = prompt.match(/execute tool:\s*([a-zA-Z0-9_]+)/i);
   const requestedTool = toolMatch ? toolMatch[1] : undefined;
+  // Authentication alone does not make an informational answer personalized.
+  // Only an authorized record-scoped request raises the answer/risk class.
+  const isRecordScoped = Boolean(userId && recordId);
+  const answerClass: SpecialistAnswerClass = requestedTool ? 'ACTION' : isRecordScoped ? 'PERSONALIZED' : 'INFORMATION';
+  const requestedRiskClass: SpecialistRiskClass = requestedTool
+    ? 'T2_OPERATIONAL'
+    : isRecordScoped
+      ? 'T1_PERSONALIZED'
+      : 'T0_INFORMATION';
+  const permissionDecision = unifiedAiSpecialistOrchestrator.permissionFor(specialistSelection, {
+    persistedRole: userRole ?? 'Guest',
+    requestedKnowledgeDomains: specialist.knowledgeDomains,
+    requestedTools: requestedTool ? [requestedTool] : [],
+    requestedRiskClass,
+    answerClass,
+    rbacAuthorized: true,
+  });
 
   // P4: AI Supervisor Validation Stage
   const supervisorResult = validateWithSupervisor({
     specialist,
     resolvedIntent,
     requestedTool,
-    isConsequentialAction: !!requestedTool
+    isConsequentialAction: !!requestedTool,
+    ownershipValid: specialistSelection.ownership.primarySpecialistId === 'SupportSpecialist',
+    specialistEnabled: true,
+    permissionDecision,
+    maturityLevel: specialistSelection.definition.maturityLevel,
+    requestedRiskClass,
+    answerClass,
   });
 
   if (supervisorResult.outcome !== 'PASS') {
@@ -159,14 +199,47 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
 
   const systemPrompt = getSystemPrompt(botId, userRole || 'Guest', module);
 
-  // 5. Execute AI
-  let responseMessage = '';
-  if (settings.providerMode === 'mock' || settings.mockModeEnabled) {
-    responseMessage = await processMockAIRequest(botId, prompt, safeContext, systemPrompt);
-  } else {
-    // For Phase 7, default to mock even if configured otherwise, to prevent uncontrolled execution
-    responseMessage = await processMockAIRequest(botId, prompt, safeContext, systemPrompt);
-  }
+  // 5. Logical specialist execution returns structured advice/draft only.
+  const invocation = unifiedAiSpecialistOrchestrator.createInvocation(specialistSelection, {
+    actorId: userId ?? 'anonymous',
+    persistedRole: userRole ?? 'Guest',
+    sessionId: req.sessionId ?? 'stateless-session',
+    caseId: req.caseId,
+    entityRefs: [],
+    intent: specialistSelection.ownership.intent,
+    answerClass,
+    riskClass: requestedRiskClass,
+    safeContext: {
+      content: safeContext || 'No personalized context was required.',
+      sourceRefs: [],
+    },
+    requestedTask: {
+      code: 'RESPOND_TO_CONTROLLED_SUPPORT_INTENT',
+      instruction: prompt,
+    },
+    allowedToolScopes: permissionDecision.effectiveAllowedTools,
+    locale: req.locale,
+    traceId: req.traceId ?? randomUUID(),
+  });
+  const execution = await unifiedAiSpecialistOrchestrator.invoke(specialistSelection, invocation, {
+    execute: async specialistInvocation => ({
+      status: 'COMPLETED',
+      findings: [],
+      evidenceRefs: specialistInvocation.safeContext.sourceRefs,
+      toolRequests: [],
+      draftResponse: await processMockAIRequest(
+        botId,
+        specialistInvocation.requestedTask.instruction,
+        specialistInvocation.safeContext.content,
+        systemPrompt,
+      ),
+      unresolvedFacts: [],
+    }),
+  });
+  // SpecialistResultContract is not customer-facing. The Unified AI command layer
+  // applies output protection and remains the sole final-response authority.
+  let responseMessage = execution.result.draftResponse ?? "[Mock AI Mode] I don't have approved information to confirm that.";
+  void execution.trace;
 
   // Phase 5K Integration: Output Filter
   const outputCheck = aiGuard.checkOutputProtection(responseMessage, userId || 'anonymous', '127.0.0.1');
