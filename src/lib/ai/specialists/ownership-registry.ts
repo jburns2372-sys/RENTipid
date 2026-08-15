@@ -110,6 +110,13 @@ export const intentOwnershipDefinitions: readonly IntentOwnershipDefinition[] = 
       consultedSpecialists: [] as readonly Revision2SpecialistId[],
       version: '1.0',
       status: 'ENABLED' as const,
+    })),
+    ...['system_incident', 'incident_analysis', 'root_cause', 'service_failure_analysis', 'payment_failure_cluster', 'api_failure_cluster', 'job_failure_analysis', 'incident_timeline', 'operational_degradation'].map(intent => ({
+      intent,
+      primarySpecialistId: 'IncidentRCASpecialist' as const,
+      consultedSpecialists: [] as readonly Revision2SpecialistId[],
+      version: '1.0',
+      status: 'ENABLED' as const,
     }))
   ])
 );
