@@ -101,6 +101,8 @@ export async function POST(req: Request) {
       recordId,
       userRole: actor?.role ?? 'Guest',
       userId: actor?.id,
+      sessionId: persisted?.conversation.id,
+      caseId: persisted?.supportCase.id,
     };
     const result = await processAICommand(aiRequest);
 

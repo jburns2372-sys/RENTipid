@@ -1,10 +1,45 @@
 import { POST } from '../../src/app/api/ai/chat/route';
+import { PrismaClient } from '@prisma/client';
+import { getServerSession } from 'next-auth/next';
+import { OAT_SHARED_USERS } from '../../src/lib/oat/oat-shared-users';
 
 jest.mock('next-auth/next', () => ({
-  getServerSession: jest.fn().mockResolvedValue({ user: { id: 'user1', role: 'RENTER' } })
+  getServerSession: jest.fn()
 }));
 
+const prisma = new PrismaClient();
+const mockedGetServerSession = getServerSession as jest.MockedFunction<typeof getServerSession>;
+
 describe('AI-OAT-HELP-ENDPOINT-001', () => {
+  beforeAll(async () => {
+    const renter = await prisma.user.upsert({
+      where: { email: OAT_SHARED_USERS.RENTER.email },
+      update: {
+        role: OAT_SHARED_USERS.RENTER.role,
+        status: 'Active'
+      },
+      create: {
+        email: OAT_SHARED_USERS.RENTER.email,
+        password_hash: 'oat-test-only',
+        full_name: 'OAT Renter',
+        account_type: 'Individual',
+        role: OAT_SHARED_USERS.RENTER.role,
+        status: 'Active'
+      }
+    });
+
+    mockedGetServerSession.mockResolvedValue({
+      user: {
+        id: renter.id,
+        role: OAT_SHARED_USERS.RESTRICTED.role
+      }
+    } as any);
+  });
+
+  afterAll(async () => {
+    await prisma.$disconnect();
+  });
+
   it('should reach the real Unified AI handler and not return the Azure migration stub', async () => {
     const mockRequest = new Request('http://localhost/api/ai/chat', {
       method: 'POST',

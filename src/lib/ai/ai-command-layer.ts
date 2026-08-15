@@ -12,6 +12,8 @@ import { SpecialistAnswerClass, SpecialistRiskClass } from './specialists/contra
 import { SpecialistSelectionError, unifiedAiSpecialistOrchestrator } from './specialists/orchestrator';
 import { validateWithSupervisor } from './supervisor/stage';
 import { resolveCurrentAiActor } from './authorization/actor';
+import { resolveAiEntityHint } from './authorization/domain-state';
+import { SupportSpecialistExecutor } from './specialists/support-specialist';
 export interface AIRequest {
   botId: BotId;
   prompt: string;
@@ -190,11 +192,16 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
 
   // 4. Build Context & System Prompt
   let safeContext = await buildSafeContext(userRole, module, recordId, userId);
+  const entityHint = userId ? resolveAiEntityHint(module, recordId, userId) : undefined;
+  const sourceRefs: string[] = entityHint
+    ? [`live:${entityHint.entityType}:${entityHint.entityId}`]
+    : [];
   
   // 4.1 Knowledge Retrieval
   const retrievedKnowledge = await retrieveApprovedKnowledge(prompt, userRole);
   if (retrievedKnowledge) {
     safeContext += `\n\nApproved Knowledge Context:\n${retrievedKnowledge}`;
+    sourceRefs.push(`knowledge:center:${specialistSelection.ownership.intent}`);
   }
 
   const systemPrompt = getSystemPrompt(botId, userRole || 'Guest', module);
@@ -205,37 +212,43 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     persistedRole: userRole ?? 'Guest',
     sessionId: req.sessionId ?? 'stateless-session',
     caseId: req.caseId,
-    entityRefs: [],
+    entityRefs: entityHint ? [entityHint] : [],
     intent: specialistSelection.ownership.intent,
     answerClass,
     riskClass: requestedRiskClass,
     safeContext: {
       content: safeContext || 'No personalized context was required.',
-      sourceRefs: [],
+      sourceRefs,
     },
     requestedTask: {
-      code: 'RESPOND_TO_CONTROLLED_SUPPORT_INTENT',
+      code: requestedTool
+        ? 'REQUEST_REGISTERED_SUPPORT_TOOL'
+        : /\bmediat(?:e|ion|ed|ing)\b/i.test(prompt)
+          ? 'PREPARE_MEDIATION_REQUEST'
+          : 'RESPOND_TO_CONTROLLED_SUPPORT_INTENT',
       instruction: prompt,
     },
     allowedToolScopes: permissionDecision.effectiveAllowedTools,
     locale: req.locale,
     traceId: req.traceId ?? randomUUID(),
   });
-  const execution = await unifiedAiSpecialistOrchestrator.invoke(specialistSelection, invocation, {
-    execute: async specialistInvocation => ({
-      status: 'COMPLETED',
-      findings: [],
-      evidenceRefs: specialistInvocation.safeContext.sourceRefs,
-      toolRequests: [],
-      draftResponse: await processMockAIRequest(
+  const execution = await unifiedAiSpecialistOrchestrator.invoke(
+    specialistSelection,
+    invocation,
+    new SupportSpecialistExecutor(async specialistInvocation =>
+      processMockAIRequest(
         botId,
         specialistInvocation.requestedTask.instruction,
         specialistInvocation.safeContext.content,
         systemPrompt,
-      ),
-      unresolvedFacts: [],
-    }),
-  });
+      )),
+  );
+  if (execution.result.status !== 'COMPLETED') {
+    const message = execution.result.status === 'SYSTEM_BLOCKED'
+      ? 'This support request was blocked by system safety controls.'
+      : 'I cannot safely complete this support request without additional authoritative information.';
+    return { success: false, message, isBlocked: true };
+  }
   // SpecialistResultContract is not customer-facing. The Unified AI command layer
   // applies output protection and remains the sole final-response authority.
   let responseMessage = execution.result.draftResponse ?? "[Mock AI Mode] I don't have approved information to confirm that.";
