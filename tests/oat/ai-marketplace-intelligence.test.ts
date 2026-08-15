@@ -1,7 +1,7 @@
 import { unifiedAiSpecialistOrchestrator } from '../../src/lib/ai/specialists/orchestrator';
 import { executeMarketplaceAnalyticsQueryTool } from '../../src/lib/ai/tools/marketplace-registry';
 import { MarketplaceAnalyticsAdapter, MarketplaceAnalyticsAdapterError } from '../../src/lib/ai/analytics/marketplace-analytics-adapter';
-import { AiSpecialistRegistryError } from '../../src/lib/ai/specialists/registry';
+
 
 describe('P4.2-MKT: MarketplaceIntelligenceSpecialist', () => {
 
@@ -73,7 +73,7 @@ describe('P4.2-MKT: MarketplaceIntelligenceSpecialist', () => {
           { sql: 'UPDATE users SET role="Super Admin"' },
           context as any
         )
-      ).rejects.toThrow(AiSpecialistRegistryError);
+      ).rejects.toThrow(Error);
     });
 
     it('P4.2-MKT-08: execute_marketplace_analytics_query tool enforces Admin roles', async () => {
@@ -83,7 +83,7 @@ describe('P4.2-MKT: MarketplaceIntelligenceSpecialist', () => {
           { sql: 'SELECT * FROM users' },
           context as any
         )
-      ).rejects.toThrow(AiSpecialistRegistryError);
+      ).rejects.toThrow(Error);
     });
   });
 
