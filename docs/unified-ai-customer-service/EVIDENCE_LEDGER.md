@@ -1,4 +1,4 @@
-﻿# EVIDENCE LEDGER
+# EVIDENCE LEDGER
 
 | Evidence ID | Phase | Requirement ID | Command / Action | Timestamp | Expected Result | Actual Result | Status | Rerun Reason |
 | ----------- | ----- | -------------- | ---------------- | --------- | --------------- | ------------- | ------ | ------------ |
@@ -59,3 +59,26 @@
 - Targeted Jest result: 3 suites passed, 25 tests passed.
 - knowledge:bootstrap, knowledge:sync, OAT setup/reset, migrations, deployment, and database writes were not run.
 - Post-documentation knowledge diff: exit 0; 102 NO_OP and 5 expected CREATE_NEW_VERSION actions for ai.architecture-lock, ai.baseline, ai.decision-ledger, ai.implementation-registry, and ai.requirements-traceability. No missing/invalid action; no sync performed.
+
+| UAICS-DH-EV-015 | P4.1 | UAICS-DH-V1.1-MIP-002 | P4.1 SupportSpecialist Validation | 2026-08-15 | Independent validation PASS | Independent validation PASS | PASS | N/A |
+
+## P4.1 Independent Validation Evidence
+- REVISION: UAICS-DH-V1.1-MIP-002
+- PACKAGE: P4.1 SupportSpecialist
+- IMPLEMENTATION SHA: 56ad339c8b512a3af96b2442b50aafa078bdee36
+- CODEX TECHNICAL: PASS
+- GEMINI INDEPENDENT LOCAL VALIDATION: PASS
+- browser scenarios: recorded via Playwright/Browser Subagent (homepage, assistant loading, mock fallback)
+- case continuity: PASS (recorded)
+- conversation continuity: PASS (recorded)
+- payment authoritative-state validation: PASS (recorded)
+- cross-user security: PASS (recorded)
+- safe hold: PASS (recorded)
+- feature fallback: PASS (recorded)
+- human-support absence: PASS (recorded)
+- Unified AI final-response authority: PASS (recorded)
+- screenshots/evidence references: Local artifact screenshots captured by browser validation.
+- automated regression: PASS (54 targeted tests, 3 OAT onboarding tests passed after isolated caseNumber collision fix)
+- database/migration status: NONE
+- knowledge status: NONE
+- Preview: DEFERRED TO P10/G8-G11
