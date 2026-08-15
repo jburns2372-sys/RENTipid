@@ -103,6 +103,13 @@ export const intentOwnershipDefinitions: readonly IntentOwnershipDefinition[] = 
       consultedSpecialists: ['MarketplaceIntelligenceSpecialist'] as readonly Revision2SpecialistId[],
       version: '1.0',
       status: 'ENABLED' as const,
+    })),
+    ...['payout_reconciliation', 'ledger_discrepancy', 'payment_reconciliation', 'refund_reconciliation', 'commission_discrepancy', 'fee_discrepancy', 'settlement_discrepancy', 'provider_payout_discrepancy'].map(intent => ({
+      intent,
+      primarySpecialistId: 'FinanceReconciliationSpecialist' as const,
+      consultedSpecialists: [] as readonly Revision2SpecialistId[],
+      version: '1.0',
+      status: 'ENABLED' as const,
     }))
   ])
 );
