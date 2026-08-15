@@ -228,8 +228,6 @@ export default async function RenterBookingDetailPage({ params }: { params: Prom
           </div>
         </div>
 
-        </div>
-
       </div>
 
       {/* Mediation Requests Section */}
