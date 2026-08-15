@@ -117,6 +117,13 @@ export const intentOwnershipDefinitions: readonly IntentOwnershipDefinition[] = 
       consultedSpecialists: [] as readonly Revision2SpecialistId[],
       version: '1.0',
       status: 'ENABLED' as const,
+    })),
+    ...['contract_clause_review', 'policy_gap', 'contract_deviation', 'provider_agreement_review', 'vendor_agreement_review', 'partnership_terms_review', 'renewal_clause_review', 'termination_clause_review', 'privacy_clause_review', 'indemnity_clause_review'].map(intent => ({
+      intent,
+      primarySpecialistId: 'ContractPolicySpecialist' as const,
+      consultedSpecialists: [] as readonly Revision2SpecialistId[],
+      version: '1.0',
+      status: 'ENABLED' as const,
     }))
   ])
 );
