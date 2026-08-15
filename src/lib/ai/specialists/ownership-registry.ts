@@ -89,7 +89,14 @@ export const intentOwnershipDefinitions: readonly IntentOwnershipDefinition[] = 
       consultedSpecialists: [] as readonly Revision2SpecialistId[],
       version: '1.0',
       status: 'ENABLED' as const,
-    }
+    },
+    ...['campaign_content', 'content_variants', 'campaign_copy', 'caption_generation', 'hashtag_generation', 'campaign_script', 'cta_variant', 'content_localization', 'creative_brief'].map(intent => ({
+      intent,
+      primarySpecialistId: 'GrowthContentSpecialist' as const,
+      consultedSpecialists: ['MarketplaceIntelligenceSpecialist'] as readonly Revision2SpecialistId[],
+      version: '1.0',
+      status: 'ENABLED' as const,
+    }))
   ])
 );
 
