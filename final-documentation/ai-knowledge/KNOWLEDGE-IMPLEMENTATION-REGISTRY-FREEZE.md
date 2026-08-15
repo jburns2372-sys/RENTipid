@@ -1,19 +1,19 @@
 # RENTipid Knowledge Implementation Registry Freeze
 
-REGISTRY_ID: `KB1-INITIAL-146`  
+REGISTRY_ID: `KB1-INITIAL-147`  
 STATUS: `FROZEN_IMPLEMENTATION_INPUT`  
 BASELINE_HEAD: `7427fa8f98aa3996cb07168e2960d28a1cd92ac7`  
-CANDIDATES: `146`  
-ACCOUNTED: `146`  
+CANDIDATES: `147`  
+ACCOUNTED: `147`  
 UNCLASSIFIED: `0`  
 UNACCOUNTED: `0`  
-REGISTRY_SHA256: `97A3E7ADC75FBB35DC5D4947A51D517C8E8BF11FB49566E97FBB75B65E8A293D`
+REGISTRY_SHA256: `2B6968380F4BC08B5C55148EF1F5863C25D98E22A912DF40FEF21EA9E23B1511`
 
 Validated invariants:
 
-- 146 numbered rows;
-- 146 unique `sourceKey` values;
-- 146 unique sequence numbers;
+- 147 numbered rows;
+- 147 unique `sourceKey` values;
+- 147 unique sequence numbers;
 - zero invalid dispositions;
 - zero missing registered document or route locators.
 

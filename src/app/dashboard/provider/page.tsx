@@ -56,6 +56,20 @@ export default async function ProviderDashboard() {
           </div>
         </div>
       </div>
+
+      <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8">
+        <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">Get Help</h2>
+        <div className="grid md:grid-cols-3 gap-4">
+          <Link href="/help/trust-safety-legal/global-legal-compliance" className="block p-4 border border-gray-200 rounded hover:border-blue-500 hover:bg-blue-50 transition">
+            <h3 className="font-semibold text-gray-900 mb-1">Legal & Compliance</h3>
+            <p className="text-sm text-gray-600">Market requirements, provider obligations, and compliance standards.</p>
+          </Link>
+          <Link href="/help" className="block p-4 border border-gray-200 rounded hover:border-blue-500 hover:bg-blue-50 transition">
+            <h3 className="font-semibold text-gray-900 mb-1">Provider Support</h3>
+            <p className="text-sm text-gray-600">Chat with our AI assistant for onboarding and operation help.</p>
+          </Link>
+        </div>
+      </div>
       
       <ContextualAssistantLauncher route="provider_dashboard" className="fixed bottom-6 right-6 z-50" />
     </div>
