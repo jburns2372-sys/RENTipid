@@ -115,3 +115,31 @@
 - database/migration status: NONE
 - knowledge status: NONE
 - Preview: DEFERRED TO P10/G8-G11
+
+| UAICS-DH-EV-018 | P4.4 | UAICS-DH-V1.1-MIP-003 | P4.4 ProviderAcquisitionSpecialist | 2026-08-15 | Local acceptance PASS | Local acceptance PASS | PASS | N/A |
+
+## P4.4 ProviderAcquisitionSpecialist Evidence
+- CONTROLLING PLAN: UAICS-DH-V1.1-MIP-003
+- CONSOLIDATED REVISION: 3
+- PACKAGE: P4.4 ProviderAcquisitionSpecialist
+- SOURCE HEAD: 3944959efc129f680a92e512607e2484e509cf00
+- EXECUTION AGENT: ANTIGRAVITY GEMINI 3.1 PRO HIGH (temporary substitution while Codex quota unavailable)
+- IMPLEMENTATION COMMIT: d8ab00d813c00d384802ec9e8fb7743c8081e982
+- FINAL VALIDATED HEAD: a4998e9c0d1cb3c6c408dbb8dbebd211f42d4b2b
+- A-PROV-01: PASS
+- provider data scope: PASS
+- auditable qualification: PASS
+- sensitive inference: DENIED
+- outreach drafting: PASS
+- communication permission: PASS
+- consent: PASS
+- anti-spam: PASS
+- Marketplace consultation: ORCHESTRATOR-ONLY
+- new CRM: NONE
+- new identity store: NONE
+- P4.1 regression: PASS
+- P4.2 regression: PASS
+- P4.3 regression: PASS
+- P5/P6: PASS
+- browser/integration: NOT APPLICABLE — CANONICAL SERVICE/OAT PATH VALIDATED
+- Preview: DEFERRED TO P10/G8-G11
