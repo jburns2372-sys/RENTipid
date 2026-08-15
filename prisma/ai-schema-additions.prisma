@@ -38,6 +38,8 @@ model AiConversation {
 
   user             User?     @relation(fields: [userId], references: [id])
   messages         AiMessage[]
+  feedback         AiInteractionFeedback[]
+  events           AiInteractionEvent[]
 
   @@index([userId, updatedAt])
 }
@@ -53,6 +55,8 @@ model AiMessage {
   createdAt        DateTime  @default(now())
 
   conversation     AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  feedback         AiInteractionFeedback[]
+  events           AiInteractionEvent[]
 }
 
 model AiSupportCase {
@@ -176,6 +180,60 @@ model AiFollowUp {
   @@index([caseId])
   @@index([status, triggerAt])
   @@index([userId, eventType, relatedEntityType, relatedEntityId, cooldownUntil], map: "AiFollowUp_proactive_cooldown_idx")
+}
+
+model AiInteractionFeedback {
+  id             String   @id @default(cuid())
+  userId         String
+  conversationId String
+  messageId      String
+  caseId         String?
+  rating         String   // "THUMBS_UP" | "THUMBS_DOWN"
+  reason         String?
+  comment        String?  @db.VarChar(500)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversation AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  message      AiMessage      @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, messageId])
+  @@index([createdAt, rating])
+  @@index([conversationId, createdAt])
+  @@index([caseId])
+}
+
+model AiInteractionEvent {
+  id                 String    @id @default(cuid())
+  userId             String?
+  conversationId     String?
+  messageId          String?
+  caseId             String?
+  eventType          String
+  interactionSource  String?
+  suggestionId       String?
+  route              String?
+  intent             String?
+  specialistId       String?
+  knowledgeSourceKey String?
+  knowledgeChunkKey  String?
+  toolExecutionId    String?
+  responseLatencyMs  Int?
+  knowledgeMatched   Boolean?
+  outcome             String?
+  idempotencyKey      String?   @unique
+  createdAt           DateTime  @default(now())
+
+  user         User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversation AiConversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  message      AiMessage?      @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@index([eventType, createdAt])
+  @@index([interactionSource, createdAt])
+  @@index([suggestionId, createdAt])
+  @@index([caseId, createdAt])
+  @@index([messageId])
 }
 
 model AiKnowledgeSource {

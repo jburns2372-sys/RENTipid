@@ -6,8 +6,11 @@ import { BotId } from '@/lib/ai/ai-permissions';
 import { resolveCurrentAiActor, AiAuthorizationError } from '@/lib/ai/authorization/actor';
 import { AiEntityAccessError } from '@/lib/ai/authorization/domain-state';
 import { AiConversationContinuity } from '@/lib/ai/conversations/AiConversationContinuity';
+import { SupportInteractionTelemetry } from '@/lib/ai/analytics/SupportInteractionTelemetry';
+import { suggestionRegistry } from '@/lib/ai/suggestions/registry';
 
 const continuity = AiConversationContinuity.getInstance();
+const telemetry = new SupportInteractionTelemetry();
 
 function sessionUserId(session: unknown) {
   if (!session || typeof session !== 'object' || !('user' in session)) return undefined;
@@ -64,6 +67,7 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
+  const requestStartedAt = Date.now();
   try {
     const session = await getServerSession(authOptions);
     const body = await req.json();
@@ -73,14 +77,27 @@ export async function POST(req: Request) {
     const recordId = stringField(body.recordId, 200);
     const requestedConversationId = stringField(body.conversationId, 200);
     const channel = stringField(body.channel, 50) ?? 'text';
+    const interactionSource = telemetry.normalizeSource(body.interactionSource);
+    const suggestionId = stringField(body.suggestionId, 200);
+    const sourceRoute = stringField(body.route, 200) ?? module;
 
     if (!botId || !prompt || !module) {
       return NextResponse.json({ error: 'Missing or invalid botId, prompt, or module.' }, { status: 400 });
+    }
+    if (interactionSource === 'SUGGESTION' || interactionSource === 'TOPIC_CHIP') {
+      const suggestion = suggestionId
+        ? suggestionRegistry.find(item => item.id === suggestionId && item.status === 'enabled')
+        : undefined;
+      const expectedType = interactionSource === 'TOPIC_CHIP' ? 'topic' : 'question';
+      if (!suggestion || suggestion.type !== expectedType) {
+        return NextResponse.json({ error: 'Invalid suggestion context.' }, { status: 400 });
+      }
     }
 
     const userId = sessionUserId(session);
     const actor = userId ? await resolveCurrentAiActor(userId) : null;
     let persisted: Awaited<ReturnType<typeof continuity.continueForMessage>> | null = null;
+    let persistedUserMessage: Awaited<ReturnType<typeof continuity.appendMessage>> | null = null;
 
     if (actor) {
       persisted = await continuity.continueForMessage({
@@ -91,7 +108,13 @@ export async function POST(req: Request) {
         channel,
         conversationId: requestedConversationId,
       });
-      await continuity.appendMessage(persisted.conversation.id, actor.id, 'user', prompt, channel);
+      persistedUserMessage = await continuity.appendMessage(
+        persisted.conversation.id,
+        actor.id,
+        'user',
+        prompt,
+        channel,
+      );
     }
 
     const aiRequest: AIRequest = {
@@ -103,9 +126,10 @@ export async function POST(req: Request) {
       userId: actor?.id,
     };
     const result = await processAICommand(aiRequest);
+    let persistedAssistantMessage: Awaited<ReturnType<typeof continuity.appendMessage>> | null = null;
 
     if (persisted && actor) {
-      await continuity.appendMessage(
+      persistedAssistantMessage = await continuity.appendMessage(
         persisted.conversation.id,
         actor.id,
         'assistant',
@@ -114,6 +138,36 @@ export async function POST(req: Request) {
         undefined,
         { isBlocked: !!result.isBlocked },
       );
+      try {
+        await Promise.all([
+          telemetry.recordInput({
+            userId: actor.id,
+            conversationId: persisted.conversation.id,
+            messageId: persistedUserMessage?.id,
+            caseId: persisted.supportCase.id,
+            source: interactionSource,
+            suggestionId,
+            route: sourceRoute,
+            intent: persisted.resolvedIntent ?? undefined,
+            specialistId: persisted.supportCase.category,
+          }),
+          telemetry.recordResponse({
+            userId: actor.id,
+            conversationId: persisted.conversation.id,
+            messageId: persistedAssistantMessage.id,
+            caseId: persisted.supportCase.id,
+            source: interactionSource,
+            suggestionId,
+            route: sourceRoute,
+            intent: persisted.resolvedIntent ?? undefined,
+            specialistId: persisted.supportCase.category,
+            latencyMs: Date.now() - requestStartedAt,
+            outcome: result.isBlocked ? 'BLOCKED' : result.success ? 'SUCCESS' : 'FAILED',
+          }),
+        ]);
+      } catch (telemetryError) {
+        console.error('AI interaction telemetry failed:', telemetryError);
+      }
     }
 
     return NextResponse.json({
@@ -121,6 +175,7 @@ export async function POST(req: Request) {
       isBlocked: !!result.isBlocked,
       conversationId: persisted?.conversation.id ?? null,
       caseId: persisted?.supportCase.id ?? null,
+      messageId: persistedAssistantMessage?.id ?? null,
     });
   } catch (error) {
     return errorResponse(error);
