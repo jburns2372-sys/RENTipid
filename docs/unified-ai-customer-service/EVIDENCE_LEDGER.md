@@ -364,3 +364,56 @@ DEFERRED TO P10/G8-G11
 - P4.1-P8: UNCHANGED / PASS
 - PREVIEW: NOT STARTED
 - P10: NEXT
+
+ 
+ |   U A I C S - D H - E V - 0 2 5   |   P 1 0   |   U A I C S - D H - V 1 . 1 - M I P - 0 0 3   |   P 1 0   P r e v i e w   M i g r a t i o n ,   S y n c   a n d   O A T   |     |   P r e v i e w   M i g r a t e d   P A S S   |   P r e v i e w   O A T   P A S S   |   P A S S   |   N / A   | 
+ 
+ 
+ 
+ # #   P 1 0   P r e v i e w   M i g r a t i o n ,   S y n c   a n d   O A T   E v i d e n c e 
+ 
+ -   C O N T R O L L I N G   P L A N :   U A I C S - D H - V 1 . 1 - M I P - 0 0 3 
+ 
+ -   C O N S O L I D A T E D   R E V I S I O N :   3 
+ 
+ -   P 1 0   A U T H   D E C I S I O N :   D e d i c a t e d   P r e v i e w - o n l y   P o s t g r e S Q L   p a s s w o r d   r o l e   p r o v i s i o n e d   t h r o u g h   M i c r o s o f t   E n t r a   a d m i n i s t r a t o r . 
+ 
+ -   M A N A G E D   I D E N T I T Y   A P P L I C A T I O N   C O D E :   N O T   R E Q U I R E D 
+ 
+ -   C O N T R O L L E D   F R O Z E N - S C O P E   R E O P E N :   N O T   R E Q U I R E D 
+ 
+ -   P R O D U C T   C O D E   C H A N G E :   N O N E 
+ 
+ -   P R E V I E W   P L A T F O R M :   A z u r e   A p p   S e r v i c e   F 1 
+ 
+ -   P R E V I E W   D A T A B A S E   S E R V E R :   r e n t i p i d - p 1 7 - r e h e a r s a l - 0 7 2 9 0 9 2 1 
+ 
+ -   P R E V I E W   D A T A B A S E :   r e n t i p i d _ p r e v i e w 
+ 
+ -   P R E V I E W   D B   R O L E :   r e n t i p i d _ p r e v i e w _ a p p 
+ 
+ -   P R E V I E W   R O L E   S E R V E R   A D M I N :   N O 
+ 
+ -   P R O D U C T I O N   D A T A B A S E   U S E D :   N O 
+ 
+ -   P R O D U C T I O N   D A T A   C O P I E D :   N O 
+ 
+ -   D A T A B A S E   S E C R E T   E X P O S E D :   N O 
+ 
+ -   L O C A L   R E L E A S E   C A N D I D A T E :   3 f 7 5 8 d d 8 3 d 0 c 4 8 4 5 f 1 e c 3 2 a 6 5 2 d c 2 1 e e c b c 9 6 9 f 0 
+ 
+ -   P R E V I E W   D E P L O Y E D   S H A :   3 f 7 5 8 d d 8 3 d 0 c 4 8 4 5 f 1 e c 3 2 a 6 5 2 d c 2 1 e e c b c 9 6 9 f 0 
+ 
+ -   E X A C T   P R E V I E W   U R L :   h t t p s : / / r e n t i p i d - p r e v i e w - p 1 0 . a z u r e w e b s i t e s . n e t 
+ 
+ -   G 8 :   P A S S 
+ 
+ -   G 9 :   P A S S 
+ 
+ -   G 1 0 :   P A S S 
+ 
+ -   G 1 1 :   P A S S 
+ 
+ -   A - O A T - 0 1 :   P E N D I N G   O W N E R 
+ 
+ 
