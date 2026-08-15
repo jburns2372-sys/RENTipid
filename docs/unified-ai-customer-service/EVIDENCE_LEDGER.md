@@ -28,20 +28,6 @@
 
 | UAICS-DH-EV-007 | P6 | UAICS-DH-REQ-002 | P6 Case Platform Testing | 2026-08-12T23:57:00Z | Case Platform passes all targeted lifecycle rules | Passes all targeted rules | PASS | N/A |
 
-| UAICS-DH-EV-008 | P7 | UAICS-DH-REQ-003 | P7 Tool Gateway Testing | 2026-08-13T00:03:46Z | Tool Gateway passes all targeted security rules | Passes all targeted rules | PASS | N/A |
-
-- P7_TEST_RERUN_REASON: Fixed Prisma unique constraint conflicts on idempotencyKey by appending timestamps for isolated local test runs.
-
-| UAICS-DH-EV-009 | P8 | UAICS-DH-REQ-004 | P8 Deterministic Policy Testing | 2026-08-13T00:10:16Z | Policy engine passes all targeted rules | Passes all targeted rules | PASS | N/A |
-
-| UAICS-DH-EV-010 | P9 | UAICS-DH-REQ-005 | P9 Claims/Disputes/KYC/Insurance Testing | 2026-08-13T00:13:54Z | P9 passes all targeted integration/automation rules | Passes all targeted rules | PASS | N/A |
-
-- LOCAL_TEST_POLICY_VALUES:  claims /  disputes deterministic thresholds from P9 are local test thresholds only, keeping production thresholds configurable.
-
-| UAICS-DH-EV-011 | P10 | UAICS-DH-REQ-006 | P10 Contextual AI / Self-Repair Testing | 2026-08-13T00:18:06Z | P10 passes all targeted continuity and diagnostic rules | Passes all targeted rules | PASS | N/A |
-
-- P10_PWA_CAPACITOR_RUNTIME_PROOF = NOT_YET_PROVEN
-
 | UAICS-DH-EV-012 | P11 | UAICS-DH-REQ-007 | P11 Privacy / Security / Resilience Hardening | 2026-08-13T00:23:04Z | P11 passes all targeted security tests | Passes all targeted rules | PASS | N/A |
 
 | UAICS-DH-EV-013 | P12 | UAICS-DH-REQ-008 | P12 Final Release Suite + Deployment Readiness | 2026-08-13T00:30:21Z | P12 tests pass, builds pass, hashes match | Passes all targeted rules | PASS | N/A |
@@ -252,8 +238,8 @@
 - P7A: 223f975dbc0dcb7873a1148e2ceed7b31ca990d7
 - P7A REUSE: SELECTIVE REUSE / R3 ADAPTATION / NO MERGE / NO CHERRY-PICK
 - IMPLEMENTATION COMMIT: 63d0e9fe334521f87f5a12b185df8b32a0c0dd42
-- EVIDENCE COMMIT: b2d4df87fe72b0bfa388c492b4008adbbeac2864
-- FINAL VALIDATED HEAD: b2d4df87fe72b0bfa388c492b4008adbbeac2864
+- EVIDENCE COMMIT: dcbd0932d469bb5b4fa23442159980d71e401b12
+- FINAL VALIDATED HEAD: dcbd0932d469bb5b4fa23442159980d71e401b12
 - MIGRATION: 20260815144000_p7_feedback_metrics_control_center
 - P7 ACCEPTANCE MATRIX: 29/29 IDs evidenced
 - FULL OAT: 214 executed / 214 pass
