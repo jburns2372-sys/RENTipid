@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Bot, X, Send, Trash2, AlertTriangle, CheckCircle2, Mic, MicOff, VolumeX, Volume2, VideoOff, MessageSquare } from 'lucide-react';
+import { Bot, X, Send, Trash2, AlertTriangle, CheckCircle2, Mic, MicOff, VolumeX, Volume2, VideoOff, MessageSquare, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { BotId, BOTS } from '@/lib/ai/ai-permissions';
 import RentipidLogo from '@/components/brand/RentipidLogo';
 
@@ -18,6 +18,71 @@ interface RentipidAIAssistantProps {
   userRole?: string;
   allowedBots: BotId[];
   disclaimerText: string;
+}
+
+function AssistantMessageBubble({ msg, conversationId }: { msg: Message, conversationId: string | null }) {
+  const [feedback, setFeedback] = useState<'THUMBS_UP' | 'THUMBS_DOWN' | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleFeedback = async (rating: 'THUMBS_UP' | 'THUMBS_DOWN') => {
+    if (!conversationId || loading || msg.isBlocked) return;
+    setLoading(true);
+    const previous = feedback;
+    setFeedback(rating);
+    try {
+      const res = await fetch('/api/ai/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messageId: msg.id,
+          rating,
+          reason: rating === 'THUMBS_DOWN' ? 'OTHER' : 'HELPFUL',
+        })
+      });
+      if (!res.ok) throw new Error('Feedback failed');
+    } catch (e) {
+      console.error(e);
+      setFeedback(previous);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm ${
+      msg.isBlocked 
+        ? 'bg-red-50 text-red-900 border border-red-200 rounded-bl-none'
+        : 'bg-white text-gray-800 border rounded-bl-none shadow-sm'
+    }`}>
+      {msg.isBlocked && (
+        <div className="flex items-center gap-1 text-red-600 mb-1 font-semibold text-xs">
+          <AlertTriangle size={12} /> Blocked Request
+        </div>
+      )}
+      <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+      
+      {!msg.isBlocked && conversationId && (
+        <div className="flex items-center gap-2 mt-2 pt-2 border-t border-gray-100 justify-end">
+          <button 
+            disabled={loading}
+            onClick={() => handleFeedback('THUMBS_UP')}
+            className={`p-1 rounded hover:bg-gray-100 transition-colors ${feedback === 'THUMBS_UP' ? 'text-green-600 bg-green-50' : 'text-gray-400'}`}
+            aria-label="Helpful"
+          >
+            <ThumbsUp size={14} className={feedback === 'THUMBS_UP' ? 'fill-current' : ''} />
+          </button>
+          <button 
+            disabled={loading}
+            onClick={() => handleFeedback('THUMBS_DOWN')}
+            className={`p-1 rounded hover:bg-gray-100 transition-colors ${feedback === 'THUMBS_DOWN' ? 'text-red-600 bg-red-50' : 'text-gray-400'}`}
+            aria-label="Not helpful"
+          >
+            <ThumbsDown size={14} className={feedback === 'THUMBS_DOWN' ? 'fill-current' : ''} />
+          </button>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function RentipidAIAssistant({ module, recordId, userRole, allowedBots, disclaimerText }: RentipidAIAssistantProps) {
@@ -261,20 +326,13 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
 
               {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm ${
-                    msg.role === 'user' 
-                      ? 'bg-blue-600 text-white rounded-br-none' 
-                      : msg.isBlocked 
-                        ? 'bg-red-50 text-red-900 border border-red-200 rounded-bl-none'
-                        : 'bg-white text-gray-800 border rounded-bl-none shadow-sm'
-                  }`}>
-                    {msg.role === 'assistant' && msg.isBlocked && (
-                      <div className="flex items-center gap-1 text-red-600 mb-1 font-semibold text-xs">
-                        <AlertTriangle size={12} /> Blocked Request
-                      </div>
-                    )}
-                    <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
-                  </div>
+                  {msg.role === 'user' ? (
+                    <div className="max-w-[85%] rounded-2xl px-4 py-2 text-sm bg-blue-600 text-white rounded-br-none">
+                      <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+                    </div>
+                  ) : (
+                    <AssistantMessageBubble msg={msg} conversationId={conversationId} />
+                  )}
                 </div>
               ))}
               

@@ -6,8 +6,10 @@ import { BotId } from '@/lib/ai/ai-permissions';
 import { resolveCurrentAiActor, AiAuthorizationError } from '@/lib/ai/authorization/actor';
 import { AiEntityAccessError } from '@/lib/ai/authorization/domain-state';
 import { AiConversationContinuity } from '@/lib/ai/conversations/AiConversationContinuity';
+import { SupportInteractionTelemetry } from '@/lib/ai/analytics/SupportInteractionTelemetry';
 
 const continuity = AiConversationContinuity.getInstance();
+const telemetry = new SupportInteractionTelemetry();
 
 function sessionUserId(session: unknown) {
   if (!session || typeof session !== 'object' || !('user' in session)) return undefined;
@@ -104,7 +106,10 @@ export async function POST(req: Request) {
       sessionId: persisted?.conversation.id,
       caseId: persisted?.supportCase.id,
     };
+    
+    const startedAt = Date.now();
     const result = await processAICommand(aiRequest);
+    const latencyMs = Date.now() - startedAt;
 
     if (persisted && actor) {
       await continuity.appendMessage(
@@ -116,6 +121,25 @@ export async function POST(req: Request) {
         undefined,
         { isBlocked: !!result.isBlocked },
       );
+
+      // Record non-behavioral telemetry
+      await telemetry.recordInput({
+        userId: actor.id,
+        conversationId: persisted.conversation.id,
+        caseId: persisted.supportCase.id,
+        source: 'FREE_TEXT',
+        route: module,
+      }).catch(err => console.error('Telemetry input recording failed', err));
+
+      await telemetry.recordResponse({
+        userId: actor.id,
+        conversationId: persisted.conversation.id,
+        caseId: persisted.supportCase.id,
+        source: 'FREE_TEXT',
+        route: module,
+        latencyMs,
+        outcome: result.isBlocked ? 'BLOCKED' : result.success ? 'SUCCESS' : 'FAILED',
+      }).catch(err => console.error('Telemetry response recording failed', err));
     }
 
     return NextResponse.json({

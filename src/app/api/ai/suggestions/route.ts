@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { SupportSuggestionEngine } from '@/lib/ai/suggestions/engine';
+import { SupportInteractionTelemetry } from '@/lib/ai/analytics/SupportInteractionTelemetry';
+
+const telemetry = new SupportInteractionTelemetry();
 
 export async function GET(req: Request) {
   try {
@@ -16,6 +19,12 @@ export async function GET(req: Request) {
     const lifecycle = searchParams.get('lifecycle') || undefined;
 
     const result = SupportSuggestionEngine.getSuggestions({ userRole, currentRoute, lifecycle });
+
+    const userId = (session?.user as any)?.id;
+    const allSuggestions = [...result.topics, ...result.questions];
+    await telemetry.recordSuggestionImpressions(userId, currentRoute, allSuggestions).catch(
+      err => console.error('Failed to record suggestion impressions', err)
+    );
 
     return NextResponse.json(result);
   } catch (error) {
