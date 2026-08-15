@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/auth";
 import { PrismaClient } from '@prisma/client';
 import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
+import { MediationCard } from '@/components/ai/MediationCard';
 
 const prisma = new PrismaClient();
 
@@ -25,7 +26,8 @@ export default async function RenterBookingDetailPage({ params }: { params: Prom
       statusHistory: { orderBy: { created_at: 'desc' } },
       rentalAgreement: true,
       inspectionReports: true,
-      damageClaims: true
+      damageClaims: true,
+      aiMediationRequests: true
     }
   });
 
@@ -226,7 +228,19 @@ export default async function RenterBookingDetailPage({ params }: { params: Prom
           </div>
         </div>
 
+        </div>
+
       </div>
+
+      {/* Mediation Requests Section */}
+      <div className="mt-8 mb-4">
+        {booking.aiMediationRequests && booking.aiMediationRequests.map((req: any) => (
+          <div key={req.id} className="mt-4">
+            <MediationCard request={req} role="Renter" />
+          </div>
+        ))}
+      </div>
+      
       <ContextualAssistantLauncher route="booking" entityId={booking.id} entityType="booking" lifecycle={booking.status === 'Approved' ? 'confirmed' : booking.status === 'Active' ? 'active' : 'pending'} className="fixed bottom-6 right-6 z-50" />
     </div>
   );

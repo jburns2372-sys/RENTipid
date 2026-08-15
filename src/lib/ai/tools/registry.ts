@@ -179,6 +179,26 @@ export const getInsuranceTool: ToolDefinition = {
   }
 };
 
+export const mediateBookingChange: ToolDefinition = {
+  name: 'mediateBookingChange',
+  riskClass: 'CONFIRMED_ACTION',
+  description: 'Initiate a structured mediation request for a booking change',
+  allowedRoles: ['Renter', 'Provider'],
+  handler: async (args: { caseId: string, bookingId: string, requestType: string, requestedChange: any }, context) => {
+    // Dynamic import to avoid circular dependencies if any
+    const { MediationService } = await import('../mediation/MediationService');
+    const service = MediationService.getInstance();
+    const result = await service.prepareRequest({
+      caseId: args.caseId,
+      bookingId: args.bookingId,
+      requestingUserId: context.userId,
+      requestType: args.requestType,
+      requestedChange: args.requestedChange
+    });
+    return { success: true, requestId: result.id, status: result.status };
+  }
+};
+
 export function registerAllTools(gateway: AiToolGateway) {
   gateway.registerTool(getBookingTool);
   gateway.registerTool(cancelBookingTool);
@@ -195,4 +215,6 @@ export function registerAllTools(gateway: AiToolGateway) {
 
   // Register Marketplace Analytics
   gateway.registerTool(executeMarketplaceAnalyticsQueryTool);
+
+  gateway.registerTool(mediateBookingChange);
 }

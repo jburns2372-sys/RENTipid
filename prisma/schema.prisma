@@ -279,15 +279,15 @@ model CategoryRequirement {
 
 // Listings Foundation
 model Listing {
-  id          String   @id @default(cuid())
+  id                 String                @id @default(cuid())
   marketingCampaigns CampaignListingLink[]
-  provider_id String
-  provider    User     @relation(fields: [provider_id], references: [id])
-  category_id String
-  category    Category @relation(fields: [category_id], references: [id])
-  title       String
-  description String?
-  socialFeedbacks SocialFeedback[]
+  provider_id        String
+  provider           User                  @relation(fields: [provider_id], references: [id])
+  category_id        String
+  category           Category              @relation(fields: [category_id], references: [id])
+  title              String
+  description        String?
+  socialFeedbacks    SocialFeedback[]
 
   // Location
   location String?
@@ -425,6 +425,7 @@ model Booking {
   insuranceSelection  InsuranceSelection?
   insuranceOrder      InsuranceOrder?
   insurancePolicy     InsurancePolicy?
+  aiMediationRequests AiMediationRequest[]
 
   inspectionReports InspectionReport[]
   turnoverRecords   TurnoverRecord[]
@@ -899,17 +900,17 @@ model SystemErrorLog {
 // ----------------------------------------------------------------------
 
 model SocialAccount {
-  id                      String    @id @default(cuid())
+  id                      String                  @id @default(cuid())
   marketingCampaigns      CampaignTargetAccount[]
   owner_user_id           String?
-  owner                   User?     @relation(fields: [owner_user_id], references: [id])
+  owner                   User?                   @relation(fields: [owner_user_id], references: [id])
   business_provider_id    String? // Optional string ref to BusinessProfile
   platform                String
   account_name            String
   account_handle          String
   account_type            String
   connection_status       String
-  health_status           String    @default("UNKNOWN")
+  health_status           String                  @default("UNKNOWN")
   capabilities            String? // Stored as JSON string to avoid jsonb for basic postgres compatibility
   credential_reference    String?
   last_validation_error   String?
@@ -921,8 +922,8 @@ model SocialAccount {
   last_connected_at       DateTime?
   feedbacks               SocialFeedback[]
   disconnected_at         DateTime?
-  created_at              DateTime  @default(now())
-  updated_at              DateTime  @updatedAt
+  created_at              DateTime                @default(now())
+  updated_at              DateTime                @updatedAt
 
   socialMetrics         SocialMetric[]
   providerEvents        SocialProviderEvent[]
@@ -951,12 +952,12 @@ model MarketingCampaign {
   created_at         DateTime  @default(now())
   updated_at         DateTime  @updatedAt
 
-  posts     MarketingPost[]
-  approvals CampaignApproval[]
+  posts           MarketingPost[]
+  approvals       CampaignApproval[]
   socialFeedbacks SocialFeedback[]
-  assets    PromotionAsset[]
-  utmLinks  UTMLink[]
-  analytics CampaignAnalytics[]
+  assets          PromotionAsset[]
+  utmLinks        UTMLink[]
+  analytics       CampaignAnalytics[]
 
   // Phase 10: Beta & UAT Tracking
   is_test_data Boolean @default(false)
@@ -1145,26 +1146,26 @@ model SocialPostQueue {
 }
 
 model SocialPublicationAttempt {
-  id                   String               @id @default(cuid())
-  queue_id             String
-  queue                SocialPostQueue      @relation(fields: [queue_id], references: [id], onDelete: Cascade)
-  post_version_id      String
-  post_version         MarketingPostVersion @relation(fields: [post_version_id], references: [id])
-  social_account_id    String
-  social_account       SocialAccount        @relation(fields: [social_account_id], references: [id])
-  provider             String
-  provider_post_id     String?
-  attempt_number       Int                  @default(1)
-  publication_key      String               // Stable idempotency key across retries for the same publication intent
-  correlation_id       String?
-  status               String // "PENDING" | "PROCESSING" | "SUCCEEDED" | "FAILED_RETRYABLE" | "FAILED_FINAL" | "CANCELLED"
-  normalized_error     String?              @db.Text
-  is_retryable         Boolean              @default(false)
-  next_retry_at        DateTime?
-  started_at           DateTime?
-  completed_at         DateTime?
-  created_at           DateTime             @default(now())
-  updated_at           DateTime             @updatedAt
+  id                String               @id @default(cuid())
+  queue_id          String
+  queue             SocialPostQueue      @relation(fields: [queue_id], references: [id], onDelete: Cascade)
+  post_version_id   String
+  post_version      MarketingPostVersion @relation(fields: [post_version_id], references: [id])
+  social_account_id String
+  social_account    SocialAccount        @relation(fields: [social_account_id], references: [id])
+  provider          String
+  provider_post_id  String?
+  attempt_number    Int                  @default(1)
+  publication_key   String // Stable idempotency key across retries for the same publication intent
+  correlation_id    String?
+  status            String // "PENDING" | "PROCESSING" | "SUCCEEDED" | "FAILED_RETRYABLE" | "FAILED_FINAL" | "CANCELLED"
+  normalized_error  String?              @db.Text
+  is_retryable      Boolean              @default(false)
+  next_retry_at     DateTime?
+  started_at        DateTime?
+  completed_at      DateTime?
+  created_at        DateTime             @default(now())
+  updated_at        DateTime             @updatedAt
 
   @@unique([queue_id, attempt_number])
   @@index([queue_id])
@@ -2761,17 +2762,17 @@ model AiServiceSession {
 }
 
 model AiConversation {
-  id           String   @id @default(cuid())
-  userId       String?
-  activeCaseId String?
-  continuityKey String? @unique
-  summary      String?  @db.Text
-  lastIntent   String?
-  lastChannel  String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id            String   @id @default(cuid())
+  userId        String?
+  activeCaseId  String?
+  continuityKey String?  @unique
+  summary       String?  @db.Text
+  lastIntent    String?
+  lastChannel   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  user     User?       @relation(fields: [userId], references: [id])
+  user     User?                   @relation(fields: [userId], references: [id])
   messages AiMessage[]
   feedback AiInteractionFeedback[]
   events   AiInteractionEvent[]
@@ -2789,7 +2790,7 @@ model AiMessage {
   safePayload    Json? // Structured metadata without secrets
   createdAt      DateTime @default(now())
 
-  conversation AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversation AiConversation          @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   feedback     AiInteractionFeedback[]
   events       AiInteractionEvent[]
 }
@@ -2812,7 +2813,8 @@ model AiSupportCase {
   closedAt       DateTime?
   lastActivityAt DateTime  @default(now())
 
-  user User? @relation(fields: [userId], references: [id])
+  user                User?                @relation(fields: [userId], references: [id])
+  aiMediationRequests AiMediationRequest[]
 
   @@index([userId, status, lastActivityAt])
 }
@@ -2861,6 +2863,50 @@ model AiToolExecution {
   @@unique([idempotencyKey])
 }
 
+model AiMediationRequest {
+  id               String  @id @default(cuid())
+  caseId           String
+  conversationId   String?
+  bookingId        String
+  requestingUserId String
+  providerId       String
+
+  requestType     String
+  requestedChange Json
+
+  providerConsentRequired Boolean
+  providerDecision        String? // "PENDING" | "APPROVED" | "DECLINED"
+  providerDecisionAt      DateTime?
+  providerDecisionBy      String?
+
+  authoritativeConsequence Json?
+  consequenceVersion       String?
+
+  renterConfirmationRequired Boolean
+  renterConfirmedAt          DateTime?
+  renterConfirmedBy          String?
+
+  status String // "PREPARED" | "WAITING_PROVIDER" | "PROVIDER_APPROVED" | "PROVIDER_DECLINED" | "WAITING_RENTER_CONFIRMATION" | "READY_FOR_EXECUTION" | "EXECUTING" | "VERIFIED" | "FAILED_SAFE" | "EXPIRED"
+
+  expiresAt       DateTime
+  idempotencyKey  String    @unique
+  toolExecutionId String?
+  verifiedAt      DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  case    AiSupportCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  booking Booking       @relation(fields: [bookingId], references: [id], onDelete: Restrict)
+
+  @@index([caseId])
+  @@index([bookingId])
+  @@index([providerId, status])
+  @@index([requestingUserId, status])
+  @@index([expiresAt])
+  @@index([status])
+}
+
 model AiPolicyDecision {
   id            String   @id @default(cuid())
   caseId        String?
@@ -2888,29 +2934,29 @@ model AiResolution {
 }
 
 model AiFollowUp {
-  id                  String    @id @default(cuid())
-  caseId              String
-  triggerAt           DateTime
-  triggerType         String // "reminder" | "recheck" | "re-evaluation"
-  status              String // "pending" | "triggered" | "completed" | "cancelled"
-  attemptCount        Int       @default(0)
-  lastAttemptAt       DateTime?
-  nextAttemptAt       DateTime?
-  eventType           String?
-  sourceEventKey      String?   @unique
-  deduplicationKey    String?   @unique
-  userId              String?
-  relatedEntityType   String?
-  relatedEntityId     String?
-  eligibleAt          DateTime?
-  expiresAt           DateTime?
-  cooldownUntil       DateTime?
-  lastCheckedAt       DateTime?
-  allowedTool         String?
-  auditMetadata       Json?
-  notificationId      String?   @unique
-  createdAt           DateTime  @default(now())
-  updatedAt           DateTime  @updatedAt
+  id                String    @id @default(cuid())
+  caseId            String
+  triggerAt         DateTime
+  triggerType       String // "reminder" | "recheck" | "re-evaluation"
+  status            String // "pending" | "triggered" | "completed" | "cancelled"
+  attemptCount      Int       @default(0)
+  lastAttemptAt     DateTime?
+  nextAttemptAt     DateTime?
+  eventType         String?
+  sourceEventKey    String?   @unique
+  deduplicationKey  String?   @unique
+  userId            String?
+  relatedEntityType String?
+  relatedEntityId   String?
+  eligibleAt        DateTime?
+  expiresAt         DateTime?
+  cooldownUntil     DateTime?
+  lastCheckedAt     DateTime?
+  allowedTool       String?
+  auditMetadata     Json?
+  notificationId    String?   @unique
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 
   @@index([caseId])
   @@index([status, triggerAt])
@@ -2940,25 +2986,25 @@ model AiInteractionFeedback {
 }
 
 model AiInteractionEvent {
-  id                String    @id @default(cuid())
-  userId            String?
-  conversationId    String?
-  messageId         String?
-  caseId            String?
-  eventType         String
-  interactionSource String?
-  suggestionId      String?
-  route             String?
-  intent            String?
-  specialistId      String?
+  id                 String   @id @default(cuid())
+  userId             String?
+  conversationId     String?
+  messageId          String?
+  caseId             String?
+  eventType          String
+  interactionSource  String?
+  suggestionId       String?
+  route              String?
+  intent             String?
+  specialistId       String?
   knowledgeSourceKey String?
   knowledgeChunkKey  String?
   toolExecutionId    String?
   responseLatencyMs  Int?
   knowledgeMatched   Boolean?
   outcome            String?
-  idempotencyKey     String?   @unique
-  createdAt          DateTime  @default(now())
+  idempotencyKey     String?  @unique
+  createdAt          DateTime @default(now())
 
   user         User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
   conversation AiConversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
@@ -2980,7 +3026,7 @@ model AiKnowledgeSource {
   topic            String    @default("General")
   category         String
   applicableRoles  String // Transitional compatibility field.
-  roles             Json?
+  roles            Json?
   visibility       String    @default("AUTHENTICATED")
   status           String // "ACTIVE" | "SUPERSEDED" | "ARCHIVED" | "RETIRED"
   approvalStatus   String    @default("APPROVED")
@@ -3011,12 +3057,12 @@ model AiKnowledgeSource {
 }
 
 model AiKnowledgeChunk {
-  id                String   @id @default(cuid())
+  id                String    @id @default(cuid())
   knowledgeSourceId String
   chunkKey          String
   headingPath       String
-  content           String   @db.Text
-  normalizedContent String   @db.Text
+  content           String    @db.Text
+  normalizedContent String    @db.Text
   contentHash       String
   keywords          Json?
   ordinal           Int
@@ -3024,8 +3070,8 @@ model AiKnowledgeChunk {
   roles             Json?
   effectiveFrom     DateTime?
   effectiveUntil    DateTime?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 
   knowledgeSource AiKnowledgeSource @relation(fields: [knowledgeSourceId], references: [id], onDelete: Cascade)
 
@@ -3140,10 +3186,10 @@ model SocialProviderEvent {
   retry_count       Int                      @default(0)
   error_state       String?
   idempotency_key   String                   @unique
+  socialFeedbacks   SocialFeedback[]
 
   @@index([provider, processing_state, received_at])
   @@index([idempotency_key])
-  socialFeedbacks   SocialFeedback[]
 }
 
 model MarketingPostVersion {
@@ -3160,8 +3206,8 @@ model MarketingPostVersion {
   editor_id         String
   created_at        DateTime       @default(now())
 
-  reviews MarketingPostReview[]
-  queues  SocialPostQueue[]
+  reviews              MarketingPostReview[]
+  queues               SocialPostQueue[]
   publication_attempts SocialPublicationAttempt[]
 }
 
@@ -3205,38 +3251,38 @@ enum SocialFeedbackSentiment {
 }
 
 model SocialFeedback {
-  id                    String                   @id @default(cuid())
-  provider              String
-  social_account_id     String?
-  socialAccount         SocialAccount?           @relation(fields: [social_account_id], references: [id], onDelete: SetNull)
-  provider_feedback_id  String
-  provider_event_id     String?
-  providerEvent         SocialProviderEvent?     @relation(fields: [provider_event_id], references: [id], onDelete: SetNull)
-  campaign_id           String?
-  campaign              MarketingCampaign?       @relation(fields: [campaign_id], references: [id], onDelete: SetNull)
-  marketing_post_id     String?
-  marketingPost         MarketingPost?           @relation(fields: [marketing_post_id], references: [id], onDelete: SetNull)
-  listing_id            String?
-  listing               Listing?                 @relation(fields: [listing_id], references: [id], onDelete: SetNull)
-  author_provider_id    String?
-  author                User?                    @relation(fields: [author_provider_id], references: [id], onDelete: SetNull)
-  
-  feedback_type         String // COMMENT, REVIEW, MESSAGE, COMPLAINT, QUESTION, PRAISE, SPAM
-  normalized_text       String                   @db.Text
-  sentiment             SocialFeedbackSentiment?
-  topic                 String?
-  severity              SocialFeedbackSeverity   @default(LOW)
-  status                SocialFeedbackStatus     @default(NEW)
-  
-  ai_classification_metadata String?             @db.Text
-  
-  linked_case_type      String? // SUPPORT, INCIDENT, DISPUTE
-  linked_case_id        String?
-  
-  received_at           DateTime                 @default(now())
-  reviewed_at           DateTime?
-  created_at            DateTime                 @default(now())
-  updated_at            DateTime                 @updatedAt
+  id                   String               @id @default(cuid())
+  provider             String
+  social_account_id    String?
+  socialAccount        SocialAccount?       @relation(fields: [social_account_id], references: [id], onDelete: SetNull)
+  provider_feedback_id String
+  provider_event_id    String?
+  providerEvent        SocialProviderEvent? @relation(fields: [provider_event_id], references: [id], onDelete: SetNull)
+  campaign_id          String?
+  campaign             MarketingCampaign?   @relation(fields: [campaign_id], references: [id], onDelete: SetNull)
+  marketing_post_id    String?
+  marketingPost        MarketingPost?       @relation(fields: [marketing_post_id], references: [id], onDelete: SetNull)
+  listing_id           String?
+  listing              Listing?             @relation(fields: [listing_id], references: [id], onDelete: SetNull)
+  author_provider_id   String?
+  author               User?                @relation(fields: [author_provider_id], references: [id], onDelete: SetNull)
+
+  feedback_type   String // COMMENT, REVIEW, MESSAGE, COMPLAINT, QUESTION, PRAISE, SPAM
+  normalized_text String                   @db.Text
+  sentiment       SocialFeedbackSentiment?
+  topic           String?
+  severity        SocialFeedbackSeverity   @default(LOW)
+  status          SocialFeedbackStatus     @default(NEW)
+
+  ai_classification_metadata String? @db.Text
+
+  linked_case_type String? // SUPPORT, INCIDENT, DISPUTE
+  linked_case_id   String?
+
+  received_at DateTime  @default(now())
+  reviewed_at DateTime?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
 
   @@unique([provider, social_account_id, provider_feedback_id])
   @@index([status, severity])

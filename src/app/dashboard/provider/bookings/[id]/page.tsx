@@ -6,6 +6,7 @@ import { PrismaClient } from '@prisma/client';
 import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import ProviderBookingActions from '@/components/bookings/ProviderBookingActions';
+import { MediationCard } from '@/components/ai/MediationCard';
 
 const prisma = new PrismaClient();
 
@@ -26,7 +27,8 @@ export default async function ProviderBookingDetailPage({ params }: { params: Pr
       statusHistory: { orderBy: { created_at: 'desc' } },
       rentalAgreement: true,
       inspectionReports: true,
-      turnoverRecords: true
+      turnoverRecords: true,
+      aiMediationRequests: true
     }
   });
 
@@ -178,6 +180,16 @@ export default async function ProviderBookingDetailPage({ params }: { params: Pr
         </div>
 
       </div>
+
+      {/* Mediation Requests Section */}
+      <div className="mt-8 mb-4">
+        {booking.aiMediationRequests && booking.aiMediationRequests.map((req: any) => (
+          <div key={req.id} className="mt-4">
+            <MediationCard request={req} role="Provider" />
+          </div>
+        ))}
+      </div>
+
       <AIAssistantButton context="Provider Booking Detail" />
     </div>
   );
