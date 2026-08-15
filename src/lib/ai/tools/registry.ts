@@ -1,6 +1,7 @@
 import { AiToolGateway, ToolDefinition } from './AiToolGateway';
 import { AiPolicyEngine } from '../policy/AiPolicyEngine';
 import { socialDomainTools } from './social-registry';
+import { executeMarketplaceAnalyticsQueryTool } from './marketplace-registry';
 
 const policyEngine = AiPolicyEngine.getInstance();
 
@@ -191,4 +192,7 @@ export function registerAllTools(gateway: AiToolGateway) {
   
   // Register Social Tools
   socialDomainTools.forEach(tool => gateway.registerTool(tool));
+
+  // Register Marketplace Analytics
+  gateway.registerTool(executeMarketplaceAnalyticsQueryTool);
 }

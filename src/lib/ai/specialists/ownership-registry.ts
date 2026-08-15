@@ -10,6 +10,7 @@ export const controlledSupportIntents = [
   'insurance_support', 'insurance_info',
   'kyc_account_support', 'kyc_status',
   'provider_operational_support', 'listing_status', 'payout_status',
+  'marketplace_analytics', 'operational_metrics'
 ] as const;
 
 export type ControlledSupportIntent = (typeof controlledSupportIntents)[number];
@@ -68,14 +69,29 @@ const supportSubdomainByIntent: Readonly<Record<ControlledSupportIntent, Support
 };
 
 export const intentOwnershipDefinitions: readonly IntentOwnershipDefinition[] = Object.freeze(
-  controlledSupportIntents.map(intent => Object.freeze({
+  controlledSupportIntents.filter(i => i !== 'marketplace_analytics' && i !== 'operational_metrics').map(intent => Object.freeze({
     intent,
     primarySpecialistId: 'SupportSpecialist' as const,
-    supportSubdomainId: supportSubdomainByIntent[intent],
+    supportSubdomainId: supportSubdomainByIntent[intent as keyof typeof supportSubdomainByIntent],
     consultedSpecialists: Object.freeze([]) as readonly Revision2SpecialistId[],
     version: '2.0',
     status: 'ENABLED' as const,
-  })),
+  })).concat([
+    {
+      intent: 'marketplace_analytics',
+      primarySpecialistId: 'MarketplaceIntelligenceSpecialist' as const,
+      consultedSpecialists: [] as readonly Revision2SpecialistId[],
+      version: '1.0',
+      status: 'ENABLED' as const,
+    },
+    {
+      intent: 'operational_metrics',
+      primarySpecialistId: 'MarketplaceIntelligenceSpecialist' as const,
+      consultedSpecialists: [] as readonly Revision2SpecialistId[],
+      version: '1.0',
+      status: 'ENABLED' as const,
+    }
+  ]),
 );
 
 function assertKnownSpecialist(
