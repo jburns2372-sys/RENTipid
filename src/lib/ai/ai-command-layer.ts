@@ -107,6 +107,9 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
 
   // P4 + Revision 2: resolve intent, exactly-one owner, and compatibility support subdomain.
   const resolvedIntent = resolveIntent(prompt);
+  // Existing explicit test-tool syntax remains a request only; it grants no authority.
+  const toolMatch = prompt.match(/execute tool:\s*([a-zA-Z0-9_]+)/i);
+  const requestedTool = toolMatch ? toolMatch[1] : undefined;
   let specialistSelection;
   try {
     specialistSelection = unifiedAiSpecialistOrchestrator.select(resolvedIntent, settings.specialistStates ?? {});
@@ -118,9 +121,6 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
       isBlocked: true,
     };
   }
-  // Existing explicit test-tool syntax remains a request only; it grants no authority.
-  const toolMatch = prompt.match(/execute tool:\s*([a-zA-Z0-9_]+)/i);
-  const requestedTool = toolMatch ? toolMatch[1] : undefined;
   // Authentication alone does not make an informational answer personalized.
   // Only an authorized record-scoped request raises the answer/risk class.
   const isRecordScoped = Boolean(userId && recordId);
@@ -150,8 +150,13 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     answerClass,
     selectedSpecialist: specialistSelection.definition.id,
     specialistVersion: specialistSelection.definition.version,
+    selectedSpecialistStatus: specialistSelection.fallbackTarget === 'UNIFIED_AI_BASELINE' ? 'DISABLED' : 'ENABLED',
     consultedSpecialists: Object.freeze([...specialistSelection.ownership.consultedSpecialists]),
     fallbackStatus: specialistSelection.usedFallback ? 'FALLBACK' : 'PRIMARY',
+    fallbackTarget: specialistSelection.fallbackTarget ?? 'NONE',
+    routingReasonCode: specialistSelection.fallbackTarget === 'UNIFIED_AI_BASELINE'
+      ? 'PRIMARY_SPECIALIST_DISABLED'
+      : null,
     requestedTools: Object.freeze([...(input.requestedTools ?? (requestedTool ? [requestedTool] : []))]),
     executedTools: Object.freeze([...(input.executedTools ?? [])]),
     policyOutcome: input.policyOutcome,
@@ -161,6 +166,76 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     finalResponseOwner: 'UNIFIED_AI_COMMAND_LAYER',
     finalResponseRef: null,
   });
+
+  if (specialistSelection.fallbackTarget === 'UNIFIED_AI_BASELINE') {
+    if (requestedTool) {
+      return {
+        success: false,
+        message: 'The baseline-safe fallback cannot execute tools.',
+        isBlocked: true,
+        trace: boundedTrace({
+          policyOutcome: 'DENY_BASELINE_TOOL_EXECUTION',
+          supervisorStatus: 'NOT_RUN',
+          resultStatus: 'SYSTEM_BLOCKED',
+          safeHoldReasonCode: 'BASELINE_TOOL_EXECUTION_DENIED',
+        }),
+      };
+    }
+    const guardrailCheck = checkGuardrails(prompt);
+    if (!guardrailCheck.isSafe) {
+      return {
+        success: false,
+        message: guardrailCheck.reason || 'Request blocked by safety guardrails.',
+        isBlocked: true,
+        trace: boundedTrace({
+          policyOutcome: 'DENY_GUARDRAIL',
+          supervisorStatus: 'NOT_RUN',
+          resultStatus: 'SYSTEM_BLOCKED',
+          safeHoldReasonCode: 'GUARDRAIL_DENIED',
+        }),
+      };
+    }
+    let fallbackContext = await buildSafeContext(userRole, module, recordId, userId);
+    const fallbackKnowledge = await retrieveApprovedKnowledge(prompt, userRole);
+    if (fallbackKnowledge) fallbackContext += `\n\nApproved Knowledge Context:\n${fallbackKnowledge}`;
+    const fallbackSystemPrompt = getSystemPrompt(botId, userRole || 'Guest', module);
+    const draft = await processMockAIRequest(botId, prompt, fallbackContext, fallbackSystemPrompt);
+    const outputCheck = aiGuard.checkOutputProtection(draft, userId || 'anonymous', '127.0.0.1');
+    if (outputCheck.blocked) {
+      return {
+        success: false,
+        message: 'Response blocked due to sensitive content policy.',
+        isBlocked: true,
+        trace: boundedTrace({
+          policyOutcome: 'DENY_OUTPUT_PROTECTION',
+          supervisorStatus: 'NOT_RUN',
+          resultStatus: 'SYSTEM_BLOCKED',
+          safeHoldReasonCode: 'OUTPUT_PROTECTION_DENIED',
+        }),
+      };
+    }
+    const message = outputCheck.redactedOutput || draft;
+    if (settings.loggingEnabled) {
+      await logAIInteraction({
+        userId,
+        botName: botId,
+        module,
+        prompt,
+        responseSummary: message.substring(0, 200) + (message.length > 200 ? '...' : ''),
+        actionStatus: 'BaselineFallback',
+        permissionLevel: settings.maxPermissionLevel,
+      });
+    }
+    return {
+      success: true,
+      message,
+      trace: boundedTrace({
+        policyOutcome: 'ALLOW_BASELINE_FALLBACK',
+        supervisorStatus: 'NOT_RUN',
+        resultStatus: 'COMPLETED',
+      }),
+    };
+  }
 
   const specialist = specialistSelection.supportSubdomain;
   if (!specialist) {

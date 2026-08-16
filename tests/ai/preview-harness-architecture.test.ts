@@ -28,10 +28,20 @@ describe('Preview-safe G11 harness architecture', () => {
     expect(harness).not.toContain('expect(true).toBe(true)');
   });
 
-  test('trace-backed mappings stop at the next genuine Preview gap', () => {
+  test('trace-backed mappings include restored feature fallback and stop at the next genuine Preview gap', () => {
     expect(IMPLEMENTED_PREVIEW_TRACE_IDS).toEqual([
-      'A-SPEC-01', 'A-SPEC-02', 'A-SPEC-03', 'A-SPEC-04',
+      'A-SPEC-01', 'A-SPEC-02', 'A-SPEC-03', 'A-SPEC-04', 'A-SPEC-05', 'A-SUP-01',
     ]);
-    expect(NEXT_UNPROVABLE_PREVIEW_ID).toBe('A-SPEC-05');
+    expect(NEXT_UNPROVABLE_PREVIEW_ID).toBe('A-KNOW-01');
+  });
+
+  test('A-SPEC-05 performs a real admin toggle and guaranteed restoration without database access', () => {
+    const harness = readFileSync(join(process.cwd(), 'tests/preview/g11-specialist-trace.spec.ts'), 'utf8');
+    const fixture = readFileSync(join(process.cwd(), 'tests/preview/specialist-feature-control.ts'), 'utf8');
+    expect(harness).toContain("test('A-SPEC-05:");
+    expect(harness).toContain('withTemporaryPreviewSpecialistFlag');
+    expect(harness).toContain("fallbackTarget).toBe('UNIFIED_AI_BASELINE')");
+    expect(fixture).toContain('finally');
+    expect(fixture).not.toMatch(/DATABASE_URL|PREVIEW_DATABASE_URL|Prisma/);
   });
 });

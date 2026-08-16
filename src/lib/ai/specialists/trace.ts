@@ -47,6 +47,8 @@ export interface SpecialistTraceInput {
 }
 
 export type SpecialistFallbackStatus = 'PRIMARY' | 'FALLBACK';
+export type SpecialistRuntimeStatus = 'ENABLED' | 'DISABLED';
+export type SpecialistFallbackTarget = 'NONE' | 'SPECIALIST' | 'UNIFIED_AI_BASELINE';
 export type SpecialistSupervisorStatus = 'PASS' | 'SAFE_HOLD' | 'SYSTEM_BLOCKED' | 'REQUEST_MISSING_INFORMATION' | 'NOT_RUN';
 
 /**
@@ -65,8 +67,11 @@ export interface BoundedSpecialistTraceRecord {
   answerClass: string;
   selectedSpecialist: Revision2SpecialistId;
   specialistVersion: string;
+  selectedSpecialistStatus?: SpecialistRuntimeStatus;
   consultedSpecialists: readonly Revision2SpecialistId[];
   fallbackStatus: SpecialistFallbackStatus;
+  fallbackTarget?: SpecialistFallbackTarget;
+  routingReasonCode?: string | null;
   requestedTools: readonly string[];
   executedTools: readonly string[];
   policyOutcome: string;
@@ -114,6 +119,14 @@ export function readBoundedSpecialistTraceRecord(value: unknown): BoundedSpecial
   ) return null;
   if (!['development', 'test', 'production', 'unknown'].includes(String(value.environment))) return null;
   if (!['PRIMARY', 'FALLBACK'].includes(String(value.fallbackStatus))) return null;
+  const selectedSpecialistStatus = value.selectedSpecialistStatus === undefined
+    ? 'ENABLED'
+    : value.selectedSpecialistStatus;
+  const fallbackTarget = value.fallbackTarget === undefined
+    ? (value.fallbackStatus === 'FALLBACK' ? 'SPECIALIST' : 'NONE')
+    : value.fallbackTarget;
+  if (!['ENABLED', 'DISABLED'].includes(String(selectedSpecialistStatus))) return null;
+  if (!['NONE', 'SPECIALIST', 'UNIFIED_AI_BASELINE'].includes(String(fallbackTarget))) return null;
   if (!['PASS', 'SAFE_HOLD', 'SYSTEM_BLOCKED', 'REQUEST_MISSING_INFORMATION', 'NOT_RUN'].includes(supervisorStatus)) return null;
   if (value.finalResponseOwner !== 'UNIFIED_AI_COMMAND_LAYER') return null;
 
@@ -124,6 +137,7 @@ export function readBoundedSpecialistTraceRecord(value: unknown): BoundedSpecial
   const caseId = nullable(value.caseId, 200);
   const safeHoldReasonCode = nullable(value.safeHoldReasonCode, 100);
   const finalResponseRef = nullable(value.finalResponseRef, 200);
+  const routingReasonCode = value.routingReasonCode === undefined ? null : nullable(value.routingReasonCode, 100);
   if (
     (value.commitIdentity !== null && !commitIdentity)
     || (value.sessionId !== null && !sessionId)
@@ -131,6 +145,7 @@ export function readBoundedSpecialistTraceRecord(value: unknown): BoundedSpecial
     || (value.caseId !== null && !caseId)
     || (value.safeHoldReasonCode !== null && !safeHoldReasonCode)
     || (value.finalResponseRef !== null && !finalResponseRef)
+    || (value.routingReasonCode !== undefined && value.routingReasonCode !== null && !routingReasonCode)
   ) return null;
 
   return Object.freeze({
@@ -145,8 +160,11 @@ export function readBoundedSpecialistTraceRecord(value: unknown): BoundedSpecial
     answerClass,
     selectedSpecialist,
     specialistVersion,
+    selectedSpecialistStatus: selectedSpecialistStatus as SpecialistRuntimeStatus,
     consultedSpecialists: Object.freeze(consultedSpecialists),
     fallbackStatus: value.fallbackStatus as SpecialistFallbackStatus,
+    fallbackTarget: fallbackTarget as SpecialistFallbackTarget,
+    routingReasonCode,
     requestedTools: Object.freeze(requestedTools),
     executedTools: Object.freeze(executedTools),
     policyOutcome,

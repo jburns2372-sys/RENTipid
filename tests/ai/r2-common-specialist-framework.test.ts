@@ -190,8 +190,12 @@ describe('Revision 2 common specialist framework', () => {
   });
 
   test('R2-COMMON-09/A-SPEC-05: disabled specialists cannot be invoked and approved fallback is orchestrator-only', () => {
-    expect(() => orchestrator.select('booking_status', { ai_specialist_support_enabled: false }))
-      .toThrow(expect.objectContaining({ code: 'SPECIALIST_DISABLED' }));
+    const baselineFallback = orchestrator.select('booking_status', { ai_specialist_support_enabled: false });
+    expect(baselineFallback).toMatchObject({
+      usedFallback: true,
+      fallbackTarget: 'UNIFIED_AI_BASELINE',
+      definition: { id: 'SupportSpecialist' },
+    });
 
     const fallbackEntry: IntentOwnershipDefinition = {
       intent: 'future_marketplace_query',
@@ -207,6 +211,7 @@ describe('Revision 2 common specialist framework', () => {
       ai_specialist_marketplace_intelligence_enabled: false,
     });
     expect(selected).toMatchObject({ usedFallback: true, definition: { id: 'SupportSpecialist' } });
+    expect(selected.fallbackTarget).toBe('SPECIALIST');
     expect(selected.supportSubdomain?.id).toBe('GENERAL_SUPPORT');
 
     expect(validateWithSupervisor({ specialist: aiSpecialistRegistry.BOOKING, specialistEnabled: false }).outcome)

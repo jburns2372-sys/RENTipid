@@ -34,6 +34,8 @@ export const IMPLEMENTED_PREVIEW_TRACE_IDS = [
   'A-SPEC-02',
   'A-SPEC-03',
   'A-SPEC-04',
+  'A-SPEC-05',
+  'A-SUP-01',
 ] as const satisfies readonly PreviewAcceptanceId[];
 
-export const NEXT_UNPROVABLE_PREVIEW_ID: PreviewAcceptanceId = 'A-SPEC-05';
+export const NEXT_UNPROVABLE_PREVIEW_ID: PreviewAcceptanceId = 'A-KNOW-01';

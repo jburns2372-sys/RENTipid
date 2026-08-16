@@ -2,8 +2,13 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { SupportAnalyticsService, SupportAnalyticsError } from '@/lib/ai/analytics/SupportAnalyticsService';
+import {
+  SpecialistFeatureControlError,
+  SpecialistFeatureControlService,
+} from '@/lib/ai/specialists/feature-control';
 
 const analyticsService = new SupportAnalyticsService();
+const featureControlService = new SpecialistFeatureControlService();
 
 function sessionUserId(session: unknown) {
   if (!session || typeof session !== 'object' || !('user' in session)) return undefined;
@@ -23,9 +28,12 @@ export async function GET(req: Request) {
 
     const { searchParams } = new URL(req.url);
     const traceId = searchParams.get('traceId');
+    const control = searchParams.get('control');
     const range = searchParams.get('range') || '24h';
 
-    const result = traceId
+    const result = control === 'specialists'
+      ? await featureControlService.list(userId)
+      : traceId
       ? await analyticsService.getTraceDetail(userId, traceId)
       : await analyticsService.getControlCenter(userId, range);
 
@@ -40,8 +48,35 @@ export async function GET(req: Request) {
         : 500;
       return NextResponse.json({ error: error.message }, { status });
     }
+    if (error instanceof SpecialistFeatureControlError) {
+      const status = error.code === 'UNAUTHENTICATED' ? 401
+        : error.code === 'UNAUTHORIZED' ? 403
+        : 400;
+      return NextResponse.json({ error: error.message }, { status });
+    }
 
     console.error('AI Analytics Error:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+
+export async function PATCH(req: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+    const userId = sessionUserId(session);
+    if (!userId) return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
+    return NextResponse.json(await featureControlService.update(userId, await req.json()));
+  } catch (error) {
+    if (error instanceof SpecialistFeatureControlError) {
+      const status = error.code === 'UNAUTHENTICATED' ? 401
+        : error.code === 'UNAUTHORIZED' ? 403
+        : 400;
+      return NextResponse.json({ error: error.message }, { status });
+    }
+    if (error instanceof SyntaxError) {
+      return NextResponse.json({ error: 'Valid JSON is required' }, { status: 400 });
+    }
+    console.error('AI Specialist Feature Control Error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

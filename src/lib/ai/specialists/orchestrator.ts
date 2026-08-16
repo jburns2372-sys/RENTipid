@@ -22,6 +22,7 @@ export interface SpecialistSelection {
   definition: Revision2SpecialistDefinition;
   supportSubdomain?: AiSpecialist;
   usedFallback: boolean;
+  fallbackTarget?: 'SPECIALIST' | 'UNIFIED_AI_BASELINE';
 }
 
 export class SpecialistSelectionError extends Error {
@@ -74,7 +75,13 @@ export class UnifiedAiSpecialistOrchestrator {
     }
 
     if (!ownership.fallback) {
-      throw new SpecialistSelectionError('SPECIALIST_DISABLED', `Specialist '${ownership.primarySpecialistId}' is disabled.`);
+      return Object.freeze({
+        ownership,
+        definition: primary,
+        supportSubdomain: ownership.supportSubdomainId ? aiSpecialistRegistry[ownership.supportSubdomainId] : undefined,
+        usedFallback: true,
+        fallbackTarget: 'UNIFIED_AI_BASELINE',
+      });
     }
     const fallback = this.definitions[ownership.fallback.primarySpecialistId];
     if (!fallback || !featureEnabled(fallback, featureStates) || fallback.id === ownership.primarySpecialistId) {
@@ -87,6 +94,7 @@ export class UnifiedAiSpecialistOrchestrator {
         ? aiSpecialistRegistry[ownership.fallback.supportSubdomainId]
         : undefined,
       usedFallback: true,
+      fallbackTarget: 'SPECIALIST',
     });
   }
 

@@ -3,6 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { AlertTriangle, BarChart2, ShieldAlert, Zap, BookOpen, Activity, ThumbsUp, ThumbsDown, MessageSquare } from 'lucide-react';
 
+interface SpecialistControl {
+  specialistId: string;
+  enabled: boolean;
+  maturityLevel: string;
+  fallback: string;
+}
+
 export default function AIControlCenter() {
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState('');
@@ -11,6 +18,9 @@ export default function AIControlCenter() {
   const [traceData, setTraceData] = useState<any>(null);
   const [traceError, setTraceError] = useState('');
   const [traceLoading, setTraceLoading] = useState(false);
+  const [specialistControls, setSpecialistControls] = useState<SpecialistControl[] | null>(null);
+  const [controlError, setControlError] = useState('');
+  const [updatingSpecialist, setUpdatingSpecialist] = useState('');
 
   useEffect(() => {
     fetch(`/api/admin/ai-customer-service/analytics?range=${range}`)
@@ -21,6 +31,20 @@ export default function AIControlCenter() {
       .then(setData)
       .catch(e => setError(e.message));
   }, [range]);
+
+  useEffect(() => {
+    fetch('/api/admin/ai-customer-service/analytics?control=specialists')
+      .then(async response => {
+        if (response.status === 403) return null;
+        const body = await response.json();
+        if (!response.ok) throw new Error(body.error || 'Failed to load specialist controls');
+        return body.specialists as SpecialistControl[];
+      })
+      .then(setSpecialistControls)
+      .catch(controlLoadError => setControlError(
+        controlLoadError instanceof Error ? controlLoadError.message : 'Failed to load specialist controls',
+      ));
+  }, []);
 
   const loadTrace = async () => {
     const requestedTraceId = traceId.trim();
@@ -37,6 +61,28 @@ export default function AIControlCenter() {
       setTraceError(traceLookupError instanceof Error ? traceLookupError.message : 'Failed to load specialist trace');
     } finally {
       setTraceLoading(false);
+    }
+  };
+
+  const updateSpecialist = async (specialist: SpecialistControl) => {
+    if (updatingSpecialist) return;
+    setUpdatingSpecialist(specialist.specialistId);
+    setControlError('');
+    try {
+      const response = await fetch('/api/admin/ai-customer-service/analytics', {
+        method: 'PATCH',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ specialistId: specialist.specialistId, enabled: !specialist.enabled }),
+      });
+      const body = await response.json();
+      if (!response.ok) throw new Error(body.error || 'Failed to update specialist control');
+      setSpecialistControls(current => current?.map(item =>
+        item.specialistId === body.specialist.specialistId ? body.specialist : item,
+      ) ?? null);
+    } catch (controlUpdateError) {
+      setControlError(controlUpdateError instanceof Error ? controlUpdateError.message : 'Failed to update specialist control');
+    } finally {
+      setUpdatingSpecialist('');
     }
   };
 
@@ -99,13 +145,42 @@ export default function AIControlCenter() {
             <div><span className="text-slate-400">Trace</span><div className="font-mono break-all">{traceData.traceId}</div></div>
             <div><span className="text-slate-400">Intent</span><div>{traceData.intent}</div></div>
             <div><span className="text-slate-400">Selected specialist</span><div>{traceData.selectedSpecialist}</div></div>
+            <div><span className="text-slate-400">Runtime status</span><div>{traceData.selectedSpecialistStatus || 'ENABLED'}</div></div>
             <div><span className="text-slate-400">Specialist version</span><div>{traceData.specialistVersion}</div></div>
             <div><span className="text-slate-400">Routing status</span><div>{traceData.fallbackStatus}</div></div>
+            <div><span className="text-slate-400">Fallback target</span><div>{traceData.fallbackTarget || 'NONE'}</div></div>
             <div><span className="text-slate-400">Supervisor</span><div>{traceData.supervisorStatus}</div></div>
             <div><span className="text-slate-400">Result</span><div>{traceData.resultStatus}</div></div>
             <div><span className="text-slate-400">Consultations</span><div>{traceData.consultedSpecialists.length ? traceData.consultedSpecialists.join(', ') : 'None'}</div></div>
             <div><span className="text-slate-400">Release</span><div className="font-mono break-all">{traceData.commitIdentity || 'Unavailable'}</div></div>
           </div>
+        </section>
+      )}
+
+      {specialistControls && (
+        <section className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8" aria-labelledby="specialist-controls-heading">
+          <h2 id="specialist-controls-heading" className="text-lg font-semibold mb-1">Specialist Activation</h2>
+          <p className="text-sm text-gray-500 mb-4">Reversible specialist controls. Disabled specialists use the Unified AI baseline-safe fallback.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {specialistControls.map(specialist => (
+              <div key={specialist.specialistId} className="flex items-center justify-between gap-4 rounded border border-gray-200 p-3">
+                <div>
+                  <div className="font-medium text-sm">{specialist.specialistId}</div>
+                  <div className="text-xs text-gray-500">{specialist.maturityLevel} · fallback: {specialist.fallback}</div>
+                </div>
+                <button
+                  type="button"
+                  aria-pressed={specialist.enabled}
+                  disabled={Boolean(updatingSpecialist)}
+                  onClick={() => updateSpecialist(specialist)}
+                  className={`rounded px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-50 ${specialist.enabled ? 'bg-green-600' : 'bg-slate-600'}`}
+                >
+                  {updatingSpecialist === specialist.specialistId ? 'Saving…' : specialist.enabled ? 'Enabled' : 'Disabled'}
+                </button>
+              </div>
+            ))}
+          </div>
+          {controlError && <p role="alert" className="mt-3 text-sm text-red-600">{controlError}</p>}
         </section>
       )}
 
