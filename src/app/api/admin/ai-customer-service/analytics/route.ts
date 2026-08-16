@@ -22,15 +22,20 @@ export async function GET(req: Request) {
     }
 
     const { searchParams } = new URL(req.url);
+    const traceId = searchParams.get('traceId');
     const range = searchParams.get('range') || '24h';
 
-    const result = await analyticsService.getControlCenter(userId, range);
+    const result = traceId
+      ? await analyticsService.getTraceDetail(userId, traceId)
+      : await analyticsService.getControlCenter(userId, range);
 
     return NextResponse.json(result);
   } catch (error) {
     if (error instanceof SupportAnalyticsError) {
       const status = error.code === 'UNAUTHORIZED' ? 403
         : error.code === 'INVALID_RANGE' ? 400
+        : error.code === 'INVALID_TRACE_ID' ? 400
+        : error.code === 'TRACE_NOT_FOUND' ? 404
         : error.code === 'FEATURE_DISABLED' ? 403
         : 500;
       return NextResponse.json({ error: error.message }, { status });

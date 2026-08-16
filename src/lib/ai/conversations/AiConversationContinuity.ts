@@ -103,12 +103,13 @@ export class AiConversationContinuity {
     content: string,
     channel: string,
     sessionId?: string,
-    safePayload?: Record<string, string | boolean | null>,
+    safePayload?: Prisma.InputJsonObject,
+    messageId?: string,
   ) {
     await this.getOwnedConversation(conversationId, userId);
     return this.db.$transaction(async tx => {
       const message = await tx.aiMessage.create({
-        data: { conversationId, sessionId, role, channel, content, safePayload },
+        data: { id: messageId, conversationId, sessionId, role, channel, content, safePayload },
       });
       await tx.aiConversation.update({
         where: { id: conversationId },

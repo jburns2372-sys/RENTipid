@@ -203,7 +203,9 @@ describe('Revision 2 common specialist framework', () => {
     };
     const fallbackRegistry = new IntentOwnershipRegistry([fallbackEntry], revision2SpecialistRegistry, ['future_marketplace_query']);
     const fallbackOrchestrator = new UnifiedAiSpecialistOrchestrator(fallbackRegistry, revision2SpecialistRegistry);
-    const selected = fallbackOrchestrator.select('future_marketplace_query');
+    const selected = fallbackOrchestrator.select('future_marketplace_query', {
+      ai_specialist_marketplace_intelligence_enabled: false,
+    });
     expect(selected).toMatchObject({ usedFallback: true, definition: { id: 'SupportSpecialist' } });
     expect(selected.supportSubdomain?.id).toBe('GENERAL_SUPPORT');
 

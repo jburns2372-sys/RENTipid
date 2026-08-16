@@ -14,6 +14,7 @@ import { validateWithSupervisor } from './supervisor/stage';
 import { resolveCurrentAiActor } from './authorization/actor';
 import { resolveAiEntityHint } from './authorization/domain-state';
 import { SupportSpecialistExecutor } from './specialists/support-specialist';
+import { BoundedSpecialistTraceRecord, SpecialistSupervisorStatus } from './specialists/trace';
 export interface AIRequest {
   botId: BotId;
   prompt: string;
@@ -31,10 +32,22 @@ export interface AIResponse {
   success: boolean;
   message: string;
   isBlocked?: boolean;
+  trace?: BoundedSpecialistTraceRecord;
+}
+
+function traceEnvironment(): BoundedSpecialistTraceRecord['environment'] {
+  return process.env.NODE_ENV === 'production'
+    ? 'production'
+    : process.env.NODE_ENV === 'test'
+      ? 'test'
+      : process.env.NODE_ENV === 'development'
+        ? 'development'
+        : 'unknown';
 }
 
 export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   const { botId, prompt, module, recordId, userId } = req;
+  const traceId = req.traceId ?? randomUUID();
   let userRole = req.userRole;
 
   // P5: JWT/browser role is never authoritative. Re-read the actor and role
@@ -105,11 +118,6 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
       isBlocked: true,
     };
   }
-  const specialist = specialistSelection.supportSubdomain;
-  if (!specialist) {
-    return { success: false, message: 'No approved support specialist is available.', isBlocked: true };
-  }
-
   // Existing explicit test-tool syntax remains a request only; it grants no authority.
   const toolMatch = prompt.match(/execute tool:\s*([a-zA-Z0-9_]+)/i);
   const requestedTool = toolMatch ? toolMatch[1] : undefined;
@@ -122,6 +130,53 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     : isRecordScoped
       ? 'T1_PERSONALIZED'
       : 'T0_INFORMATION';
+
+  const boundedTrace = (input: {
+    policyOutcome: string;
+    supervisorStatus: SpecialistSupervisorStatus;
+    resultStatus: string;
+    safeHoldReasonCode?: string;
+    requestedTools?: readonly string[];
+    executedTools?: readonly string[];
+  }): BoundedSpecialistTraceRecord => Object.freeze({
+    contractVersion: 'uaics-specialist-trace.v1',
+    traceId,
+    environment: traceEnvironment(),
+    commitIdentity: process.env.VERCEL_GIT_COMMIT_SHA?.trim() || null,
+    sessionId: req.sessionId?.trim() || null,
+    conversationId: null,
+    caseId: req.caseId?.trim() || null,
+    intent: specialistSelection.ownership.intent,
+    answerClass,
+    selectedSpecialist: specialistSelection.definition.id,
+    specialistVersion: specialistSelection.definition.version,
+    consultedSpecialists: Object.freeze([...specialistSelection.ownership.consultedSpecialists]),
+    fallbackStatus: specialistSelection.usedFallback ? 'FALLBACK' : 'PRIMARY',
+    requestedTools: Object.freeze([...(input.requestedTools ?? (requestedTool ? [requestedTool] : []))]),
+    executedTools: Object.freeze([...(input.executedTools ?? [])]),
+    policyOutcome: input.policyOutcome,
+    supervisorStatus: input.supervisorStatus,
+    resultStatus: input.resultStatus,
+    safeHoldReasonCode: input.safeHoldReasonCode ?? null,
+    finalResponseOwner: 'UNIFIED_AI_COMMAND_LAYER',
+    finalResponseRef: null,
+  });
+
+  const specialist = specialistSelection.supportSubdomain;
+  if (!specialist) {
+    return {
+      success: false,
+      message: 'No approved support specialist is available.',
+      isBlocked: true,
+      trace: boundedTrace({
+        policyOutcome: 'NOT_EVALUATED',
+        supervisorStatus: 'NOT_RUN',
+        resultStatus: 'SYSTEM_BLOCKED',
+        safeHoldReasonCode: 'NO_APPROVED_SUPPORT_SUBDOMAIN',
+      }),
+    };
+  }
+
   const permissionDecision = unifiedAiSpecialistOrchestrator.permissionFor(specialistSelection, {
     persistedRole: userRole ?? 'Guest',
     requestedKnowledgeDomains: specialist.knowledgeDomains,
@@ -155,7 +210,17 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
       actionStatus: supervisorResult.outcome,
       permissionLevel: settings.maxPermissionLevel
     });
-    return { success: false, message: `Request blocked by AI Supervisor: ${supervisorResult.reason}`, isBlocked: true };
+    return {
+      success: false,
+      message: `Request blocked by AI Supervisor: ${supervisorResult.reason}`,
+      isBlocked: true,
+      trace: boundedTrace({
+        policyOutcome: permissionDecision.allowed ? 'ALLOW' : `DENY_${permissionDecision.reason}`,
+        supervisorStatus: supervisorResult.outcome,
+        resultStatus: supervisorResult.outcome,
+        safeHoldReasonCode: permissionDecision.allowed ? `SUPERVISOR_${supervisorResult.outcome}` : permissionDecision.reason,
+      }),
+    };
   }
 
   if (requestedTool) {
@@ -171,7 +236,17 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
      };
      const toolAuth = aiGuard.authorizeToolExecution(session, toolName, userId || 'anonymous', '127.0.0.1');
      if (!toolAuth.authorized) {
-         return { success: false, message: `Tool execution blocked: ${toolAuth.reason}`, isBlocked: true };
+         return {
+           success: false,
+           message: `Tool execution blocked: ${toolAuth.reason}`,
+           isBlocked: true,
+           trace: boundedTrace({
+             policyOutcome: 'DENY_TOOL_GATEWAY',
+             supervisorStatus: 'PASS',
+             resultStatus: 'SYSTEM_BLOCKED',
+             safeHoldReasonCode: 'TOOL_GATEWAY_DENIED',
+           }),
+         };
      }
   }
 
@@ -187,7 +262,17 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
       actionStatus: "Blocked",
       permissionLevel: settings.maxPermissionLevel
     });
-    return { success: false, message: guardrailCheck.reason || "Request blocked by safety guardrails.", isBlocked: true };
+    return {
+      success: false,
+      message: guardrailCheck.reason || "Request blocked by safety guardrails.",
+      isBlocked: true,
+      trace: boundedTrace({
+        policyOutcome: 'DENY_GUARDRAIL',
+        supervisorStatus: 'PASS',
+        resultStatus: 'SYSTEM_BLOCKED',
+        safeHoldReasonCode: 'GUARDRAIL_DENIED',
+      }),
+    };
   }
 
   // 4. Build Context & System Prompt
@@ -230,7 +315,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     },
     allowedToolScopes: permissionDecision.effectiveAllowedTools,
     locale: req.locale,
-    traceId: req.traceId ?? randomUUID(),
+    traceId,
   });
   const execution = await unifiedAiSpecialistOrchestrator.invoke(
     specialistSelection,
@@ -247,7 +332,21 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     const message = execution.result.status === 'SYSTEM_BLOCKED'
       ? 'This support request was blocked by system safety controls.'
       : 'I cannot safely complete this support request without additional authoritative information.';
-    return { success: false, message, isBlocked: true };
+    return {
+      success: false,
+      message,
+      isBlocked: true,
+      trace: boundedTrace({
+        policyOutcome: 'ALLOW',
+        supervisorStatus: 'PASS',
+        resultStatus: execution.result.status,
+        safeHoldReasonCode: execution.result.status === 'SYSTEM_BLOCKED'
+          ? 'SPECIALIST_SYSTEM_BLOCKED'
+          : 'SPECIALIST_SAFE_HOLD',
+        requestedTools: execution.trace.requestedTools,
+        executedTools: execution.trace.executedTools,
+      }),
+    };
   }
   // SpecialistResultContract is not customer-facing. The Unified AI command layer
   // applies output protection and remains the sole final-response authority.
@@ -257,7 +356,19 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   // Phase 5K Integration: Output Filter
   const outputCheck = aiGuard.checkOutputProtection(responseMessage, userId || 'anonymous', '127.0.0.1');
   if (outputCheck.blocked) {
-      return { success: false, message: 'Response blocked due to sensitive content policy.', isBlocked: true };
+      return {
+        success: false,
+        message: 'Response blocked due to sensitive content policy.',
+        isBlocked: true,
+        trace: boundedTrace({
+          policyOutcome: 'DENY_OUTPUT_PROTECTION',
+          supervisorStatus: 'PASS',
+          resultStatus: 'SYSTEM_BLOCKED',
+          safeHoldReasonCode: 'OUTPUT_PROTECTION_DENIED',
+          requestedTools: execution.trace.requestedTools,
+          executedTools: execution.trace.executedTools,
+        }),
+      };
   }
   responseMessage = outputCheck.redactedOutput || responseMessage;
 
@@ -276,6 +387,13 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
 
   return {
     success: true,
-    message: responseMessage
+    message: responseMessage,
+    trace: boundedTrace({
+      policyOutcome: 'ALLOW',
+      supervisorStatus: 'PASS',
+      resultStatus: execution.result.status,
+      requestedTools: execution.trace.requestedTools,
+      executedTools: execution.trace.executedTools,
+    }),
   };
 }

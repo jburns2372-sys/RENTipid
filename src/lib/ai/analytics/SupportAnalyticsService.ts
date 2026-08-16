@@ -1,6 +1,7 @@
 ﻿import { PrismaClient } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { hasPermission, UserRole } from '@/lib/permissions';
+import { readBoundedSpecialistTraceRecord } from '@/lib/ai/specialists/trace';
 
 const ANALYTICS_FEATURE_KEY = 'ai_module_analytics_enabled';
 const TERMINAL_CASE_STATES = ['RESOLVED', 'CLOSED', 'SYSTEM_BLOCKED'];
@@ -10,7 +11,10 @@ export type SupportAnalyticsRange = (typeof SUPPORT_ANALYTICS_RANGES)[number];
 export type MetricStatus = 'IMPLEMENTED' | 'DERIVABLE_NOW' | 'NOT_CURRENTLY_MEASURABLE' | 'DEFERRED';
 
 export class SupportAnalyticsError extends Error {
-  constructor(message: string, readonly code: 'UNAUTHORIZED' | 'FEATURE_DISABLED' | 'INVALID_RANGE') {
+  constructor(
+    message: string,
+    readonly code: 'UNAUTHORIZED' | 'FEATURE_DISABLED' | 'INVALID_RANGE' | 'INVALID_TRACE_ID' | 'TRACE_NOT_FOUND',
+  ) {
     super(message);
     this.name = 'SupportAnalyticsError';
   }
@@ -71,10 +75,8 @@ export class SupportAnalyticsService {
     private readonly clock: () => Date = () => new Date(),
   ) {}
 
-  async getControlCenter(actorUserId: string | undefined, requestedRange: unknown) {
+  private async assertControlCenterAccess(actorUserId: string | undefined) {
     if (!actorUserId?.trim()) throw new SupportAnalyticsError('Authentication required', 'UNAUTHORIZED');
-    if (!isRange(requestedRange)) throw new SupportAnalyticsError('Range must be 24h, 7d, or 30d', 'INVALID_RANGE');
-
     const actor = await this.db.user.findUnique({
       where: { id: actorUserId },
       select: { role: true, status: true },
@@ -93,6 +95,39 @@ export class SupportAnalyticsService {
     if (feature?.setting_value.trim().toLowerCase() !== 'true') {
       throw new SupportAnalyticsError('AI support analytics is disabled', 'FEATURE_DISABLED');
     }
+  }
+
+  async getTraceDetail(actorUserId: string | undefined, requestedTraceId: unknown) {
+    await this.assertControlCenterAccess(actorUserId);
+    const traceId = typeof requestedTraceId === 'string' ? requestedTraceId.trim() : '';
+    if (!traceId || traceId.length > 200) {
+      throw new SupportAnalyticsError('A valid trace identifier is required', 'INVALID_TRACE_ID');
+    }
+
+    const message = await this.db.aiMessage.findUnique({
+      where: { id: traceId },
+      select: { id: true, role: true, conversationId: true, safePayload: true },
+    });
+    const payload = message?.safePayload;
+    const rawTrace = payload && typeof payload === 'object' && !Array.isArray(payload)
+      ? (payload as Record<string, unknown>).specialistTrace
+      : undefined;
+    const trace = readBoundedSpecialistTraceRecord(rawTrace);
+    if (
+      !message || message.role !== 'assistant' || !trace
+      || trace.traceId !== message.id
+      || trace.finalResponseRef !== message.id
+      || trace.conversationId !== message.conversationId
+    ) {
+      throw new SupportAnalyticsError('Specialist trace was not found', 'TRACE_NOT_FOUND');
+    }
+
+    return { contractVersion: trace.contractVersion, trace };
+  }
+
+  async getControlCenter(actorUserId: string | undefined, requestedRange: unknown) {
+    await this.assertControlCenterAccess(actorUserId);
+    if (!isRange(requestedRange)) throw new SupportAnalyticsError('Range must be 24h, 7d, or 30d', 'INVALID_RANGE');
 
     const now = this.clock();
     const from = rangeStart(requestedRange, now);

@@ -12,6 +12,9 @@ node_modules/
 
 # testing
 /coverage
+/playwright-report-preview/
+/test-results/preview-acceptance.json
+/test-results/preview-artifacts/
 
 # next.js
 /.next/

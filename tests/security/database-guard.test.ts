@@ -48,7 +48,7 @@ describe('Database Safety Guard Synthetic Validation', () => {
       NODE_ENV: 'test',
       ALLOW_TEST_DATABASE_MUTATION: 'true',
       DATABASE_URL: 'postgresql://user:pass@localhost:5432/'
-    }, 'Database name is not exactly rentipid_test_soc');
+    }, 'Database name does not match strict test pattern');
   });
 
   it('rejects database name without test', () => {
@@ -56,7 +56,7 @@ describe('Database Safety Guard Synthetic Validation', () => {
       NODE_ENV: 'test',
       ALLOW_TEST_DATABASE_MUTATION: 'true',
       DATABASE_URL: 'postgresql://user:pass@localhost:5432/rentipid_dev'
-    }, 'Database name is not exactly rentipid_test_soc');
+    }, 'Database name does not match strict test pattern');
   });
 
   it('rejects NODE_ENV=development', () => {

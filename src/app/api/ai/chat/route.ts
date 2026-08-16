@@ -7,6 +7,7 @@ import { resolveCurrentAiActor, AiAuthorizationError } from '@/lib/ai/authorizat
 import { AiEntityAccessError } from '@/lib/ai/authorization/domain-state';
 import { AiConversationContinuity } from '@/lib/ai/conversations/AiConversationContinuity';
 import { SupportInteractionTelemetry } from '@/lib/ai/analytics/SupportInteractionTelemetry';
+import { Prisma } from '@prisma/client';
 
 const continuity = AiConversationContinuity.getInstance();
 const telemetry = new SupportInteractionTelemetry();
@@ -83,6 +84,7 @@ export async function POST(req: Request) {
     const userId = sessionUserId(session);
     const actor = userId ? await resolveCurrentAiActor(userId) : null;
     let persisted: Awaited<ReturnType<typeof continuity.continueForMessage>> | null = null;
+    let userMessageId: string | undefined;
 
     if (actor) {
       persisted = await continuity.continueForMessage({
@@ -93,7 +95,8 @@ export async function POST(req: Request) {
         channel,
         conversationId: requestedConversationId,
       });
-      await continuity.appendMessage(persisted.conversation.id, actor.id, 'user', prompt, channel);
+      const userMessage = await continuity.appendMessage(persisted.conversation.id, actor.id, 'user', prompt, channel);
+      userMessageId = userMessage.id;
     }
 
     const aiRequest: AIRequest = {
@@ -112,14 +115,27 @@ export async function POST(req: Request) {
     const latencyMs = Date.now() - startedAt;
 
     if (persisted && actor) {
-      await continuity.appendMessage(
+      const persistedTrace = result.trace ? {
+        ...result.trace,
+        conversationId: persisted.conversation.id,
+        caseId: persisted.supportCase.id,
+        finalResponseRef: result.trace.traceId,
+      } : null;
+      const safePayload: Prisma.InputJsonObject = persistedTrace
+        ? {
+            isBlocked: !!result.isBlocked,
+            specialistTrace: JSON.parse(JSON.stringify(persistedTrace)) as Prisma.InputJsonObject,
+          }
+        : { isBlocked: !!result.isBlocked };
+      const assistantMessage = await continuity.appendMessage(
         persisted.conversation.id,
         actor.id,
         'assistant',
         result.message,
         channel,
         undefined,
-        { isBlocked: !!result.isBlocked },
+        safePayload,
+        result.trace?.traceId,
       );
 
       // Record non-behavioral telemetry
@@ -127,27 +143,37 @@ export async function POST(req: Request) {
         userId: actor.id,
         conversationId: persisted.conversation.id,
         caseId: persisted.supportCase.id,
+        messageId: userMessageId,
         source: 'FREE_TEXT',
         route: module,
+        intent: result.trace?.intent,
+        specialistId: result.trace?.selectedSpecialist,
       }).catch(err => console.error('Telemetry input recording failed', err));
 
       await telemetry.recordResponse({
         userId: actor.id,
         conversationId: persisted.conversation.id,
         caseId: persisted.supportCase.id,
+        messageId: assistantMessage.id,
         source: 'FREE_TEXT',
         route: module,
+        intent: result.trace?.intent,
+        specialistId: result.trace?.selectedSpecialist,
         latencyMs,
         outcome: result.isBlocked ? 'BLOCKED' : result.success ? 'SUCCESS' : 'FAILED',
       }).catch(err => console.error('Telemetry response recording failed', err));
     }
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       message: result.message,
       isBlocked: !!result.isBlocked,
       conversationId: persisted?.conversation.id ?? null,
       caseId: persisted?.supportCase.id ?? null,
     });
+    if (persisted && result.trace) {
+      response.headers.set('x-rentipid-ai-trace-id', result.trace.traceId);
+    }
+    return response;
   } catch (error) {
     return errorResponse(error);
   }
