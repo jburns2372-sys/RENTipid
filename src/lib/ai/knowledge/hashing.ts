@@ -5,6 +5,14 @@ export function sha256(value: string): string {
   return createHash('sha256').update(value, 'utf8').digest('hex');
 }
 
+export function canonicalizeKnowledgeRegistryText(value: string): string {
+  return value.replace(/\r\n?/g, '\n');
+}
+
+export function hashKnowledgeRegistryText(value: string): string {
+  return sha256(canonicalizeKnowledgeRegistryText(value)).toUpperCase();
+}
+
 export function hashNormalizedContent(value: string): string {
   return sha256(normalizeKnowledgeText(value));
 }

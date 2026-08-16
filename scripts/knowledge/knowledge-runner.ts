@@ -4,8 +4,10 @@ import { buildKnowledgeCoverageReport } from '../../src/lib/ai/knowledge/coverag
 import { assertKnowledgeMutationEnvironment } from '../../src/lib/ai/knowledge/environment-guard';
 import { renderCoverageReport } from '../../src/lib/ai/knowledge/report';
 import {
+  calculateKnowledgeRegistryFreezeHash,
   getKnowledgeRegistry,
   getSynchronizableKnowledgeRegistry,
+  KNOWLEDGE_REGISTRY_ID,
   validateKnowledgeRegistry,
 } from '../../src/lib/ai/knowledge/source-registry';
 import { diffKnowledge, prepareCanonicalKnowledge, synchronizeKnowledge } from '../../src/lib/ai/knowledge/synchronizer';
@@ -20,6 +22,14 @@ function repeatArgument(args: string[]): number {
 
 async function main(): Promise<void> {
   const [command, ...args] = process.argv.slice(2);
+  if (command === 'freeze-hash') {
+    console.log(JSON.stringify({
+      registryId: KNOWLEDGE_REGISTRY_ID,
+      registrySha256: calculateKnowledgeRegistryFreezeHash(),
+      canonicalization: 'UTF-8 text; CRLF and CR normalized to LF; trailing-newline presence and all other characters preserved',
+    }, null, 2));
+    return;
+  }
   const registry = getKnowledgeRegistry();
   switch (command) {
     case 'inventory': {
@@ -103,7 +113,7 @@ async function main(): Promise<void> {
       return;
     }
     default:
-      throw new Error('Usage: knowledge-runner.ts <inventory|validate|diff|check|report|bootstrap|sync> [--repeat 1..10] [--json]');
+      throw new Error('Usage: knowledge-runner.ts <freeze-hash|inventory|validate|diff|check|report|bootstrap|sync> [--repeat 1..10] [--json]');
   }
 }
 

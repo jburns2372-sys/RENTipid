@@ -374,8 +374,8 @@ DEFERRED TO P10/G8-G11
 - CONSOLIDATED REVISION: 3
 - P10 AUTH DECISION: Dedicated Preview-only PostgreSQL password role provisioned through Microsoft Entra administrator.
 - MANAGED IDENTITY APPLICATION CODE: NOT REQUIRED
-- CONTROLLED FROZEN-SCOPE REOPEN: NOT REQUIRED
-- PRODUCT CODE CHANGE: NONE
+- CONTROLLED FROZEN-SCOPE REOPEN: KNOWLEDGE FREEZE HASHING/VALIDATION ONLY
+- PRODUCT CODE CHANGE: CROSS-PLATFORM KNOWLEDGE FREEZE HASH CANONICALIZATION ONLY
 - PREVIEW PLATFORM: Azure App Service F1
 - PREVIEW DATABASE SERVER: rentipid-p17-rehearsal-07290921
 - PREVIEW DATABASE: rentipid_preview
@@ -394,3 +394,18 @@ DEFERRED TO P10/G8-G11
 - A-OAT-01: PENDING OWNER
 - G12: PENDING OWNER OAT
 - STATUS: IN PROGRESS
+
+### P10 controlled knowledge freeze integrity correction
+
+- DEFECT: Cross-platform knowledge freeze integrity mismatch
+- DISCOVERED AT: P10 / G10 Preview Knowledge Sync
+- AFFECTED RELEASE: 3f758dd83d0c4845f1ec32a652dc21eecbc969f0
+- SCOPE REOPENED: Knowledge freeze hashing/validation only
+- ROOT CAUSE: The affected source ZIP carried CRLF registry bytes while the freeze recorded the equivalent LF Git-object hash; runtime hashed decoded text without line-ending canonicalization.
+- RESOLUTION: Freeze generation and validation use one UTF-8 canonical representation that normalizes CRLF and CR to LF while preserving trailing-newline presence and every other character.
+- FUNCTIONAL PRODUCT SCOPE: UNCHANGED
+- DATABASE: UNCHANGED
+- MIGRATIONS: NONE
+- PREVIEW: DRIFTED / REQUIRES CLEAN REDEPLOY AFTER NEW RC
+- G10: NOT RERUN / REMAINS BLOCKED
+- G11: NOT RERUN / REMAINS BLOCKED

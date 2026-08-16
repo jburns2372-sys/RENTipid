@@ -1,6 +1,6 @@
-import { createHash } from 'crypto';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
+import { hashKnowledgeRegistryText } from './hashing';
 import {
   KNOWLEDGE_DISPOSITIONS,
   KNOWLEDGE_VISIBILITIES,
@@ -74,11 +74,15 @@ export function validateKnowledgeRegistry(entries: KnowledgeRegistryEntry[]): st
   return issues;
 }
 
-export function verifyKnowledgeRegistryFreeze(root = process.cwd()): void {
+export function calculateKnowledgeRegistryFreezeHash(root = process.cwd()): string {
   const registry = readFileSync(resolve(root, KNOWLEDGE_REGISTRY_PATH), 'utf8');
+  return hashKnowledgeRegistryText(registry);
+}
+
+export function verifyKnowledgeRegistryFreeze(root = process.cwd()): void {
   const freeze = readFileSync(resolve(root, KNOWLEDGE_REGISTRY_FREEZE_PATH), 'utf8');
   const expected = freeze.match(/REGISTRY_SHA256: `([A-F0-9]{64})`/)?.[1];
-  const actual = createHash('sha256').update(registry).digest('hex').toUpperCase();
+  const actual = calculateKnowledgeRegistryFreezeHash(root);
   if (!expected || actual !== expected) {
     throw new Error('KNOWLEDGE_REGISTRY_FREEZE_MISMATCH');
   }

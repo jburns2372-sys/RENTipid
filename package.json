@@ -33,6 +33,7 @@
     "oat:ai:setup": "tsx scripts/oat/oat-runner.ts setup AI",
     "oat:ai:check": "tsx scripts/oat/oat-runner.ts check AI",
     "oat:ai:reset": "tsx scripts/oat/oat-runner.ts reset AI",
+    "knowledge:freeze-hash": "tsx scripts/knowledge/knowledge-runner.ts freeze-hash",
     "knowledge:inventory": "tsx scripts/knowledge/knowledge-runner.ts inventory",
     "knowledge:validate": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/knowledge/knowledge-runner.ts validate",
     "knowledge:diff": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/knowledge/knowledge-runner.ts diff",
