@@ -16,3 +16,29 @@ export function resolveIntent(prompt: string): string | undefined {
   
   return undefined; // Default/unknown
 }
+
+export function resolveDomainIntent(prompt: string): string[] {
+  const lowerPrompt = prompt.toLowerCase();
+  const domains: string[] = [];
+  
+  if (/\b(legal|law|compliance|regulation|jurisdiction|policy)\b/.test(lowerPrompt)) {
+    domains.push('Legal', 'Compliance');
+  }
+  if (/\b(register|account|onboard|sign up|login)\b/.test(lowerPrompt)) {
+    domains.push('Core', 'Profile');
+  }
+  if (/\b(book|rent|checkout)\b/.test(lowerPrompt)) {
+    domains.push('Marketplace');
+  }
+  if (/\b(pay|refund|deposit|payout)\b/.test(lowerPrompt)) {
+    domains.push('Payments', 'Finance');
+  }
+  if (/\b(claim|dispute|damage|insurance)\b/.test(lowerPrompt)) {
+    domains.push('Insurance', 'Trust & Safety');
+  }
+  if (/\b(security|privacy|data)\b/.test(lowerPrompt)) {
+    domains.push('Security', 'Privacy');
+  }
+  
+  return domains;
+}

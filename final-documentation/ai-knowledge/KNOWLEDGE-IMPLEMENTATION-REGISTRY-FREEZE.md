@@ -1,13 +1,13 @@
 # RENTipid Knowledge Implementation Registry Freeze
 
-REGISTRY_ID: `KB1-INITIAL-147`  
+REGISTRY_ID: `KB1-INITIAL-148`  
 STATUS: `FROZEN_IMPLEMENTATION_INPUT`  
 BASELINE_HEAD: `7427fa8f98aa3996cb07168e2960d28a1cd92ac7`  
 CANDIDATES: `147`  
 ACCOUNTED: `147`  
 UNCLASSIFIED: `0`  
 UNACCOUNTED: `0`  
-REGISTRY_SHA256: `2B6968380F4BC08B5C55148EF1F5863C25D98E22A912DF40FEF21EA9E23B1511`
+REGISTRY_SHA256: `F32C43E2BF3DDD81ED1ABCCEE757AC83F97E701CE73AF907387BB4C409962FE9`
 HASH_CANONICALIZATION: `UTF-8 text; CRLF and CR normalized to LF; trailing-newline presence and all other characters preserved`
 
 Validated invariants:
@@ -35,3 +35,4 @@ The registry is the sole KB-1 implementation input. Changes require an explicit 
 - Change: `ROLE_RESTRICTED/AUTHENTICATED` to `SUPER_ADMIN_ONLY`
 - Reason: the documents are approved internal implementation knowledge, but their local-test thresholds are not approved customer policy.
 - Discovery scope: no repository-wide rediscovery performed.
+

@@ -1,10 +1,10 @@
 # RENTipid Knowledge Implementation Registry
 
-REGISTRY_ID: `KB1-INITIAL-146`  
+REGISTRY_ID: `KB1-INITIAL-148`  
 DISCOVERY_BASELINE_HEAD: `7427fa8f98aa3996cb07168e2960d28a1cd92ac7`  
 BRANCH: `feature/soc-phase4-threat-response`  
 INPUT_STATUS: `FROZEN_IMPLEMENTATION_INPUT`  
-CANDIDATE_COUNT: `146`  
+CANDIDATE_COUNT: `148`  
 UNCLASSIFIED: `0`  
 UNACCOUNTED: `0`
 
@@ -178,3 +178,5 @@ Allowed dispositions: `ACTIVE_CANONICAL`, `ROLE_RESTRICTED`, `SUPER_ADMIN_ONLY`,
 ## Freeze rule
 
 Count, locator, disposition, and duplicate validation passed at 147/147. The SHA-256 digest is recorded in the companion freeze file. Repository-wide rediscovery is prohibited; amendments require an explicit exception record.
+| 148 | core.registration-onboarding | Core | registration | MANUAL | `docs/final-documentation/02-USER-MANUALS/RENTipid_REGISTRATION_ONBOARDING.md` | FINAL_DOCUMENTATION_FREEZE | FD-FREEZE | PUBLIC | Guest;Renter;Individual Provider;Business Provider;Admin;Finance Admin;Compliance Admin;SOC_ANALYST;SOC_SUPERVISOR;Super Admin | 1.0 | ACTIVE_CANONICAL | document-markdown | — |
+

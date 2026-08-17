@@ -70,6 +70,16 @@ export async function retrieveApprovedKnowledgeMatches(
   const queryTokens = tokenize(prompt);
   if (queryTokens.length === 0) return [];
   const now = new Date();
+  
+  // Resolve intent domains dynamically without importing dynamically
+  let intentDomains: string[] = [];
+  try {
+    const { resolveDomainIntent } = require('@/lib/ai/specialists/intent-resolver');
+    intentDomains = resolveDomainIntent(prompt);
+  } catch (e) {
+    // ignore
+  }
+
   const sources = await prisma.aiKnowledgeSource.findMany({
     where: {
       status: 'ACTIVE',
@@ -139,12 +149,27 @@ export async function retrieveApprovedKnowledgeMatches(
           score += tokenScore;
         }
       }
+      
       const coverage = matched / queryTokens.length;
       if (coverage < MIN_QUERY_COVERAGE) continue;
       const materialClaims = queryTokens.filter(token => MATERIAL_CLAIM_TOKENS.has(token));
       if (materialClaims.some(token => !matchedTokens.has(token))) continue;
       if (source.topic.toLowerCase() === 'overview' && queryTokens.includes('rentipid')) score += 3;
       if (source.authority !== 'LEGACY') score += 0.25;
+      
+      // Domain intent boosting
+      if (intentDomains.includes(source.module)) {
+        score += 5; // Boost matches in the identified domain
+      }
+      
+      // Broad legal/compliance protection
+      const isLegalOrCompliance = source.module === 'Legal' || source.module === 'Compliance' || source.topic === 'compliance' || source.topic === 'legal';
+      if (isLegalOrCompliance && !intentDomains.includes('Legal') && !intentDomains.includes('Compliance')) {
+        score -= 20; // Heavily penalize legal documents for non-legal queries to prevent keyword domination
+      }
+
+      if (score <= 0) continue;
+
       matches.push({
         sourceKey: source.sourceKey,
         version: source.version,

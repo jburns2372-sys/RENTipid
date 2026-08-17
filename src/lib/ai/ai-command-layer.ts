@@ -425,7 +425,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   }
   // SpecialistResultContract is not customer-facing. The Unified AI command layer
   // applies output protection and remains the sole final-response authority.
-  let responseMessage = execution.result.draftResponse ?? "[Mock AI Mode] I don't have approved information to confirm that.";
+  let responseMessage = execution.result.draftResponse ?? "I don't have approved information to confirm that.";
   void execution.trace;
 
   // Phase 5K Integration: Output Filter
