@@ -4,7 +4,7 @@ import { checkGuardrails } from './ai-guardrails';
 import { buildSafeContext } from './ai-context-builder';
 import { getSystemPrompt } from './ai-prompts';
 import { retrieveApprovedKnowledgeEvidence } from './context/knowledge-retrieval';
-import { processMockAIRequest } from './mock-ai';
+import { composeCanonicalInformationAnswer } from './context/canonical-information-answer';
 import { logAIInteraction } from './ai-logger';
 import { getAISettings, isModuleAIEnabled, isBotEnabled } from './ai-settings-service';
 import { resolveIntent } from './specialists/intent-resolver';
@@ -25,7 +25,21 @@ import { AIGuard } from '../security/detection/ai-guard';
 import { DetectionEvaluator } from '../security/detection/evaluator';
 
 export interface AIGroundingTrace {
+  answerClass: SpecialistAnswerClass;
   classification: RentipidQuestionClass;
+  intent: string;
+  domains: readonly string[];
+  requestedEntities: readonly string[];
+  retrievedSourceKeys: readonly string[];
+  retrievedSectionKeys: readonly string[];
+  chunkCount: number;
+  customerVisibleChunkCount: number;
+  evidenceBundleSize: number;
+  composerMode: string;
+  composerProvider: string;
+  verifierPassed: boolean;
+  retryUsed: boolean;
+  finalFallbackReason: string | null;
   evidenceRefs: readonly string[];
   materialClaimCount: number;
   retrievalAttempts: 0 | 1 | 2;
@@ -211,9 +225,24 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     authorizedLiveContext: safeContext,
     liveEvidenceRef: entityHint ? `live:${entityHint.entityType}:${entityHint.entityId}` : undefined,
     questionAnalysis: retrieval.classification,
+    evidenceBundle: retrieval.bundle,
   } as const;
   const groundingTrace = (answer: GroundedAnswerResult): AIGroundingTrace => Object.freeze({
+    answerClass,
     classification: retrieval.classification.kind,
+    intent: retrieval.classification.intent,
+    domains: Object.freeze([...retrieval.classification.domains]),
+    requestedEntities: Object.freeze([...retrieval.bundle.requestedEntities]),
+    retrievedSourceKeys: Object.freeze([...new Set(retrieval.bundle.sections.map(section => section.sourceKey))]),
+    retrievedSectionKeys: Object.freeze(retrieval.bundle.sections.map(section => section.sectionKey)),
+    chunkCount: retrieval.bundle.chunkCount,
+    customerVisibleChunkCount: retrieval.bundle.customerVisibleChunkCount,
+    evidenceBundleSize: retrieval.bundle.characterSize,
+    composerMode: answer.composerMode ?? 'DETERMINISTIC_FALLBACK',
+    composerProvider: answer.composerProvider ?? 'deterministic-evidence-fallback',
+    verifierPassed: answer.adequacyPassed === true,
+    retryUsed: answer.retryUsed === true,
+    finalFallbackReason: answer.fallbackReason ?? null,
     evidenceRefs: Object.freeze([...answer.evidenceRefs]),
     materialClaimCount: answer.materialClaims.length,
     retrievalAttempts: retrieval.attempts,
@@ -252,7 +281,14 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
         }),
       };
     }
-    const draft = await processMockAIRequest(botId, prompt, safeContext, systemPrompt, groundingInput);
+    const draft = await composeCanonicalInformationAnswer(
+      groundingInput,
+      {
+        providerMode: settings.providerMode,
+        systemPrompt,
+        conversationContext: safeContext,
+      }
+    );
     const outputCheck = aiGuard.checkOutputProtection(draft.message, userId || 'anonymous', '127.0.0.1');
     if (outputCheck.blocked) {
       return {
@@ -436,12 +472,13 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     specialistSelection,
     invocation,
     new SupportSpecialistExecutor(async specialistInvocation => {
-      groundedDraft = await processMockAIRequest(
-        botId,
-        specialistInvocation.requestedTask.instruction,
-        specialistInvocation.safeContext.content,
-        systemPrompt,
+      groundedDraft = await composeCanonicalInformationAnswer(
         groundingInput,
+        {
+          providerMode: settings.providerMode,
+          systemPrompt,
+          conversationContext: specialistInvocation.safeContext.content,
+        }
       );
       return groundedDraft.message;
     }),

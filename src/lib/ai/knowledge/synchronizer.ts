@@ -1,6 +1,6 @@
 import type { Prisma, PrismaClient } from '@prisma/client';
 import { adaptKnowledgeSource } from './adapters';
-import { chunkKnowledge } from './chunker';
+import { chunkKnowledge, KNOWLEDGE_CHUNK_SCHEMA_VERSION } from './chunker';
 import { classifyKnowledge } from './classifier';
 import { hashNormalizedContent } from './hashing';
 import { hashStableObject } from './hashing';
@@ -76,6 +76,7 @@ function metadataFingerprint(entry: KnowledgeRegistryEntry, title: string): stri
     approvalEvidence: entry.approvalEvidence,
     visibility: entry.visibility,
     roles: [...entry.roles].sort(),
+    chunkSchemaVersion: KNOWLEDGE_CHUNK_SCHEMA_VERSION,
   });
 }
 
@@ -91,10 +92,14 @@ function sourceMetadataMatches(
     roles: Prisma.JsonValue;
     title: string;
     approvalStatus: string;
+    metadata: Prisma.JsonValue;
   },
   entry: KnowledgeRegistryEntry,
   title: string,
 ): boolean {
+  const metadata = source.metadata && typeof source.metadata === 'object' && !Array.isArray(source.metadata)
+    ? source.metadata as Record<string, unknown>
+    : {};
   return source.title === title
     && source.approvalStatus === 'APPROVED'
     && source.module === entry.module
@@ -104,6 +109,7 @@ function sourceMetadataMatches(
     && source.authority === entry.authority
     && source.approvalEvidence === entry.approvalEvidence
     && source.visibility === entry.visibility
+    && metadata.chunkSchemaVersion === KNOWLEDGE_CHUNK_SCHEMA_VERSION
     && JSON.stringify(rolesFromJson(source.roles)) === JSON.stringify([...entry.roles].sort());
 }
 
@@ -155,6 +161,7 @@ export async function diffKnowledge(
       roles: true,
       title: true,
       approvalStatus: true,
+      metadata: true,
     },
     orderBy: { createdAt: 'desc' },
   });
@@ -257,6 +264,7 @@ export async function synchronizeKnowledge(
             registryId: KNOWLEDGE_REGISTRY_ID,
             registrySequence: source.entry.sequence,
             disposition: source.entry.disposition,
+            chunkSchemaVersion: KNOWLEDGE_CHUNK_SCHEMA_VERSION,
             ...source.adapted.metadata,
           }),
           chunks: {

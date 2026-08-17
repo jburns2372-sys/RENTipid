@@ -34,11 +34,9 @@ export interface RentipidQuestionClassification {
 }
 
 const LIVE_STATE_PATTERNS = [
-  /\bmy\b.{0,50}\b(?:account|booking|payment|kyc|verification|claim|dispute|listing|payout|refund|deposit|transaction)\b.{0,35}\b(?:status|state|failed|pending|approved|verified|paid|processed|completed|cancelled|canceled|refunded)\b/i,
+  /\bmy\b.{0,50}\b(?:account|booking|payment|kyc|verification|claim|dispute|listing|payout|refund|deposit|transaction)\b.{0,35}\b(?:result|status|state|failed|pending|approved|verified|paid|processed|completed|cancelled|canceled|refunded)\b/i,
   /\b(?:is|was|has|have|did|where)\b.{0,25}\bmy\b.{0,35}\b(?:approved|verified|paid|processed|completed|cancelled|canceled|refunded|payout|refund|status)\b/i,
   /\b(?:booking|payment|kyc|claim|dispute|listing|payout|refund|deposit|transaction)\s*(?:id|number|#)?\s*[-a-z]*\d[-a-z0-9]*/i,
-  /\b(?:current|latest|pending|open|processed|completed|approved|verified)\b.{0,40}\b(?:state|status|booking|payment|kyc|claim|dispute|payout|refund|deposit|transaction)\b/i,
-  /\b(?:booking|payment|kyc|claim|dispute|listing|payout|refund|deposit|transaction)(?:s| requests?)?\b.{0,40}\b(?:current|latest|pending|open|processed|completed|approved|verified|status|state|right now)\b/i,
 ];
 
 const AMBIGUOUS_FOLLOW_UP =
@@ -91,6 +89,7 @@ function customerIntent(prompt: string): CustomerQuestionIntent {
   if (PROVIDER_PAYMENT.test(prompt)) return 'PROVIDER_PAYMENT_PROCESS';
   if (CREATE_LISTING.test(prompt)) return 'CREATE_LISTING';
   if (BOOKING_PROCESS.test(prompt)) return 'BOOKING_PROCESS';
+  if (PROVIDER_ONBOARDING.test(prompt)) return 'REGISTRATION';
   if (REGISTRATION.test(prompt)) return 'REGISTRATION';
   return 'GENERAL_RENTIPID';
 }

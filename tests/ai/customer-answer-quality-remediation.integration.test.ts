@@ -41,7 +41,17 @@ function expectGroundedCustomerAnswer(
   expect(result.retrieval.matches.length).toBeGreaterThan(0);
   expect(result.retrieval.matches.every(match => match.customerProjected)).toBe(true);
   expect(result.retrieval.matches.map(match => match.content).join('\n')).not.toMatch(INTERNAL_OUTPUT);
-  expect(result.answer.safelyUncertain).toBe(false);
+  if (result.answer.safelyUncertain) {
+    throw new Error(`UNEXPECTED_SAFE_UNCERTAINTY ${JSON.stringify({
+      intent: result.retrieval.classification.intent,
+      evidence: result.retrieval.matches.map(match => ({
+        sourceKey: match.sourceKey,
+        sectionTitle: match.sectionTitle,
+        content: match.content,
+      })),
+      answer: result.answer,
+    })}`);
+  }
   expect(result.answer.adequacyPassed).toBe(true);
   expect(result.answer.materialClaims.length).toBeGreaterThan(0);
   expect(result.answer.materialClaims.every(claim => claim.evidenceRefs.length > 0)).toBe(true);

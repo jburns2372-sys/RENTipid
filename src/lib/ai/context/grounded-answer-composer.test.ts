@@ -11,10 +11,18 @@ function evidence(content: string, overrides: Partial<RetrievedKnowledgeMatch> =
     topic: 'customer-guidance',
     chunkKey: 'customer-steps',
     headingPath: 'Customer Guide > Steps',
+    sectionKey: 'core-customer-guide:customer-guide-steps',
+    sectionTitle: 'Steps',
+    ordinal: 0,
+    visibility: 'PUBLIC',
+    audience: 'CUSTOMER',
+    answerClass: 'INFORMATION',
+    entities: ['customer', 'guide', 'steps'],
     content,
     score: 12,
     coverage: 1,
     attempt: 1,
+    evidenceRole: 'SEED',
     ...overrides,
   };
 }
@@ -27,7 +35,12 @@ describe('grounded answer composer', () => {
       '2. Create a listing with photos and category details.',
       '3. Submit the listing for review.',
       '4. Check the listing status in your dashboard.',
-    ].join('\n'));
+    ].join('\n'), {
+      module: 'Marketplace',
+      topic: 'listing-creation',
+      sectionTitle: 'Provider listing procedure',
+      entities: ['provider', 'listing', 'item'],
+    });
     const result = composeGroundedAnswer({
       question: 'How do I list an item?',
       effectiveQuestion: 'How do I list an item?',

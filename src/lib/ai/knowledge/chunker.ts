@@ -1,12 +1,18 @@
 import { hashNormalizedContent } from './hashing';
 import { normalizeKnowledgeText, normalizeKeywords } from './normalizer';
 import type { KnowledgeChunkInput } from './types';
+import {
+  classifyKnowledgeSourceAudience,
+  splitKnowledgeAudienceBlocks,
+} from '@/lib/ai/context/customer-knowledge-projection';
 
 export const DEFAULT_MAX_CHUNK_CHARS = 1800;
+export const KNOWLEDGE_CHUNK_SCHEMA_VERSION = 'customer-audience-sections-v2';
 
 interface Section {
   headingPath: string;
   content: string;
+  visibility?: 'SYSTEM_ONLY';
 }
 
 function slug(value: string): string {
@@ -48,14 +54,22 @@ function boundSection(section: Section, maxChars: number): Section[] {
   const parts: Section[] = [];
   let current = '';
   const push = () => {
-    if (current.trim()) parts.push({ headingPath: section.headingPath, content: normalizeKnowledgeText(current) });
+    if (current.trim()) parts.push({
+      headingPath: section.headingPath,
+      content: normalizeKnowledgeText(current),
+      visibility: section.visibility,
+    });
     current = '';
   };
   for (const paragraph of paragraphs) {
     if (paragraph.length > maxChars) {
       push();
       for (let offset = 0; offset < paragraph.length; offset += maxChars) {
-        parts.push({ headingPath: section.headingPath, content: paragraph.slice(offset, offset + maxChars).trim() });
+        parts.push({
+          headingPath: section.headingPath,
+          content: paragraph.slice(offset, offset + maxChars).trim(),
+          visibility: section.visibility,
+        });
       }
       continue;
     }
@@ -73,7 +87,19 @@ export function chunkKnowledge(
   sourceKeywords: string[] = [],
   maxChars = DEFAULT_MAX_CHUNK_CHARS,
 ): KnowledgeChunkInput[] {
-  const bounded = splitSections(content).flatMap(section => boundSection(section, maxChars));
+  const sourceAudience = classifyKnowledgeSourceAudience(sourceKey);
+  const audienceSections = splitSections(content).flatMap(section =>
+    splitKnowledgeAudienceBlocks(section.content, section.headingPath).map((block, blockIndex) => ({
+      headingPath: block.audience === 'CUSTOMER'
+        && sourceAudience === 'CUSTOMER' ? section.headingPath
+        : `${section.headingPath} > ${block.audience === 'SYSTEM' ? 'System' : 'Internal'}`,
+      content: block.content,
+      visibility: block.audience === 'CUSTOMER' && sourceAudience === 'CUSTOMER'
+        ? undefined
+        : 'SYSTEM_ONLY' as const,
+      blockIndex,
+    })));
+  const bounded = audienceSections.flatMap(section => boundSection(section, maxChars));
   return bounded.map((section, ordinal) => {
     const normalizedContent = normalizeKnowledgeText(section.content);
     const contentHash = hashNormalizedContent(normalizedContent);
@@ -86,6 +112,7 @@ export function chunkKnowledge(
       contentHash,
       keywords: normalizeKeywords([sourceKey, section.headingPath, ...sourceKeywords]),
       ordinal,
+      visibility: section.visibility,
     };
   });
 }

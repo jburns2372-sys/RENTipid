@@ -7,6 +7,8 @@ import {
   validateAnswerAdequacy,
   type AnswerAdequacyResult,
 } from './answer-adequacy';
+import type { CustomerEvidenceBundle } from './customer-evidence-bundle';
+import type { GroundedComposerMode } from '../providers/grounded-information-provider';
 
 export interface GroundedAnswerDiagnostic {
   classification: RentipidQuestionClass;
@@ -27,6 +29,7 @@ export interface GroundedAnswerDiagnostic {
 export interface GroundedMaterialClaim {
   text: string;
   evidenceRefs: readonly string[];
+  supportingText?: string;
 }
 
 export interface GroundedAnswerInput {
@@ -37,6 +40,7 @@ export interface GroundedAnswerInput {
   authorizedLiveContext?: string;
   liveEvidenceRef?: string;
   questionAnalysis?: RentipidQuestionClassification;
+  evidenceBundle?: CustomerEvidenceBundle;
   onDiagnostic?: (diagnostic: GroundedAnswerDiagnostic) => void;
 }
 
@@ -48,6 +52,13 @@ export interface GroundedAnswerResult {
   adequacyPassed?: boolean;
   evidenceSufficient?: boolean;
   compositionAttempts?: 1 | 2;
+  answeredIntent?: string;
+  coveredEntities?: readonly string[];
+  composerMode?: GroundedComposerMode;
+  composerProvider?: string;
+  verifierReasons?: readonly string[];
+  retryUsed?: boolean;
+  fallbackReason?: string;
 }
 
 const INTERNAL_CONTENT =
@@ -82,6 +93,7 @@ function safeLine(value: string): string | null {
 
 interface CandidateClaim {
   text: string;
+  supportingText: string;
   ref: string;
   score: number;
   ordinal: number;
@@ -122,8 +134,9 @@ function extractSteps(match: RetrievedKnowledgeMatch, questionTokens: readonly s
     .map((line, ordinal) => ({ line, ordinal }))
     .filter(({ line }) => /^\s*\d+[.)]\s+/.test(line))
     .map(({ line, ordinal }) => {
-      const text = safeLine(line.replace(/^\s*\d+[.)]\s+/, ''));
-      return text ? { text, ref, score: relevanceScore(text, questionTokens), ordinal } : null;
+      const supportingText = line.replace(/^\s*\d+[.)]\s+/, '').trim();
+      const text = safeLine(supportingText);
+      return text ? { text, supportingText, ref, score: relevanceScore(text, questionTokens), ordinal } : null;
     })
     .filter((claim): claim is CandidateClaim => claim !== null);
 }
@@ -134,7 +147,13 @@ function extractSentences(match: RetrievedKnowledgeMatch, questionTokens: readon
     .split(/(?:(?<=[.!?])\s+|\r?\n+)/)
     .map((sentence, ordinal) => {
       const text = safeLine(sentence);
-      return text ? { text, ref, score: relevanceScore(text, questionTokens), ordinal } : null;
+      return text ? {
+        text,
+        supportingText: sentence.trim(),
+        ref,
+        score: relevanceScore(text, questionTokens),
+        ordinal,
+      } : null;
     })
     .filter((claim): claim is CandidateClaim => claim !== null);
 }
@@ -182,19 +201,31 @@ function staticAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
   });
 
   if (procedural) {
-    for (const match of rankedEvidence) {
-      const steps = extractSteps(match, questionTokens);
-      if (steps.length >= 2) {
-        const selected = steps.slice(0, 4);
-        const intentMessage = procedureIntro(analysis) + '\n'
-          + selected.map((step, index) => (index + 1) + '. ' + step.text).join('\n');
-        return {
-          message: intentMessage,
-          evidenceRefs: [...new Set(selected.map(step => step.ref))],
-          materialClaims: selected.map(step => ({ text: step.text, evidenceRefs: [step.ref] })),
-          safelyUncertain: false,
-        };
-      }
+    const options = rankedEvidence.map(match => ({
+      match,
+      steps: extractSteps(match, questionTokens),
+    })).filter(option => option.steps.length >= 2)
+      .sort((left, right) => {
+        const utility = (option: typeof left) => option.steps.reduce(
+          (total, step) => total + recompositionUtility(step),
+          answerIntentScore(option.match, analysis) + option.match.score,
+        );
+        return utility(right) - utility(left);
+      });
+    if (options.length > 0) {
+      const selected = options[0].steps.slice(0, 4);
+      const intentMessage = procedureIntro(analysis) + '\n'
+        + selected.map((step, index) => (index + 1) + '. ' + step.text).join('\n');
+      return {
+        message: intentMessage,
+        evidenceRefs: [...new Set(selected.map(step => step.ref))],
+        materialClaims: selected.map(step => ({
+          text: step.text,
+          evidenceRefs: [step.ref],
+          supportingText: step.supportingText,
+        })),
+        safelyUncertain: false,
+      };
     }
   }
 
@@ -224,7 +255,11 @@ function staticAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
   return {
     message: selected.map(claim => claim.text).join(' '),
     evidenceRefs: [...new Set(selected.map(claim => claim.ref))],
-    materialClaims: selected.map(claim => ({ text: claim.text, evidenceRefs: [claim.ref] })),
+    materialClaims: selected.map(claim => ({
+      text: claim.text,
+      evidenceRefs: [claim.ref],
+      supportingText: claim.supportingText,
+    })),
     safelyUncertain: false,
   };
 }
@@ -234,6 +269,7 @@ interface RentalCategory {
   slug: string;
   subcategories: readonly string[];
   ref: string;
+  supportingText: string;
 }
 
 function normalizedCategory(value: string): string {
@@ -251,6 +287,7 @@ function rentalCategories(evidence: readonly RetrievedKnowledgeMatch[]): RentalC
         slug: parsed[2].trim(),
         subcategories: parsed[3].split(',').map(value => value.trim()),
         ref: evidenceRef(match),
+        supportingText: line.trim(),
       });
     }
   }
@@ -280,7 +317,7 @@ function matchedCategoryAnswer(
     }
     const text = match.name + ' is a supported RENTipid rental category.';
     lines.push('- ' + match.name + ': Supported.');
-    claims.push({ text, evidenceRefs: [match.ref] });
+    claims.push({ text, evidenceRefs: [match.ref], supportingText: match.supportingText });
   }
   return {
     message: lines.join('\n'),
@@ -312,7 +349,11 @@ function requestedCategoryAnswer(
     return {
       message: claim,
       evidenceRefs: refs,
-      materialClaims: [{ text: claim, evidenceRefs: refs }],
+      materialClaims: categories.map(category => ({
+        text: `${category.name} is a supported rental category.`,
+        evidenceRefs: [category.ref],
+        supportingText: category.supportingText,
+      })),
       safelyUncertain: false,
     };
   }
@@ -366,7 +407,11 @@ function liveAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
   return {
     message: claim,
     evidenceRefs: [input.liveEvidenceRef],
-    materialClaims: [{ text: claim, evidenceRefs: [input.liveEvidenceRef] }],
+    materialClaims: [{
+      text: claim,
+      evidenceRefs: [input.liveEvidenceRef],
+      supportingText: input.authorizedLiveContext,
+    }],
     safelyUncertain: false,
   };
 }
@@ -421,7 +466,11 @@ function recomposeStaticAnswer(input: GroundedAnswerInput): GroundedAnswerResult
   return {
     message,
     evidenceRefs: [...new Set(selected.map(claim => claim.ref))],
-    materialClaims: selected.map(claim => ({ text: claim.text, evidenceRefs: [claim.ref] })),
+    materialClaims: selected.map(claim => ({
+      text: claim.text,
+      evidenceRefs: [claim.ref],
+      supportingText: claim.supportingText,
+    })),
     safelyUncertain: false,
   };
 }
@@ -502,31 +551,35 @@ function adequacyProtected(
   };
 }
 
-export function composeGroundedAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
-  if (input.classification === 'LIVE_RENTIPID_STATE') return adequacyProtected(input, liveAnswer(input));
+export function composeGroundedDraft(input: GroundedAnswerInput): GroundedAnswerResult {
+  if (input.classification === 'LIVE_RENTIPID_STATE') return liveAnswer(input);
   if (input.classification === 'CONSEQUENTIAL_ACTION') {
-    return adequacyProtected(input, {
+    return {
       message: 'This chat cannot carry out that action. Open the relevant RENTipid record to use an available action, or ask how the process works.',
       evidenceRefs: [],
       materialClaims: [],
       safelyUncertain: true,
-    });
+    };
   }
   if (input.classification === 'OUT_OF_SCOPE_OR_UNSUPPORTED') {
-    return adequacyProtected(input, {
+    return {
       message: 'I’m here to help with RENTipid accounts, listings, bookings, payments, safety, and support. Please ask me a RENTipid question.',
       evidenceRefs: [],
       materialClaims: [],
       safelyUncertain: true,
-    });
+    };
   }
   if (input.classification === 'AMBIGUOUS') {
-    return adequacyProtected(input, {
+    return {
       message: 'Could you tell me which RENTipid feature or process you mean?',
       evidenceRefs: [],
       materialClaims: [],
       safelyUncertain: true,
-    });
+    };
   }
-  return adequacyProtected(input, staticAnswer(input));
+  return staticAnswer(input);
+}
+
+export function composeGroundedAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
+  return adequacyProtected(input, composeGroundedDraft(input));
 }

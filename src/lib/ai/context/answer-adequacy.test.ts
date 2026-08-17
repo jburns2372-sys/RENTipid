@@ -22,11 +22,19 @@ function evidence(
     topic: 'customer-guidance',
     chunkKey: 'approved-process',
     headingPath: 'Customer Guidance > Process',
+    sectionKey: 'customer-approved-guidance:customer-guidance-process',
+    sectionTitle: 'Process',
+    ordinal: 0,
+    visibility: 'PUBLIC',
+    audience: 'CUSTOMER',
+    answerClass: 'INFORMATION',
+    entities: ['customer', 'guidance', 'process'],
     content,
     score: 20,
     coverage: 1,
     attempt: 1,
     customerProjected: true,
+    evidenceRole: 'SEED',
     ...overrides,
   };
 }
@@ -169,7 +177,7 @@ describe('answer adequacy evidence-relative validation', () => {
       ['Check payout status in My Payouts.'],
     );
     expect(assessed.sufficiency.sufficient).toBe(false);
-    expect(assessed.sufficiency.reasons).toContain('EVIDENCE_INTENT_MISMATCH');
+    expect(assessed.sufficiency.reasons).toContain('EVIDENCE_DOMAIN_OR_RETRIEVAL_MISMATCH');
     expect(assessed.result.pass).toBe(false);
   });
 

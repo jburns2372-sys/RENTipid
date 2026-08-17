@@ -94,10 +94,8 @@ describe('Final pre-deploy semantic knowledge audit', () => {
     ['help', 'Where can a renter find help using the app?', 'Renter', ['core.user-manual', 'marketplace.', 'ai.', 'route.']],
     ['safety', 'What safety guidance should renters follow?', 'Renter', ['route.safety', 'route.terms', 'core.user-manual', 'provider.ai-policy']],
     ['privacy', 'How can I request correction of personal data?', 'Renter', ['privacy.', 'route.privacy', 'core.registration-onboarding', 'provider.privacy-policy-retention']],
-    ['policy', 'What authority does RENTipid AI policy allow?', 'Renter', ['provider.ai-policy', 'ai.', 'route.terms']],
     ['legal', 'Which laws and jurisdictions govern RENTipid?', 'Guest', ['compliance.', 'route.terms', 'route.privacy']],
     ['mediation', 'How are rental disputes mediated?', 'Renter', ['marketplace.', 'provider.workflow-status', 'core.user-manual', 'ai.', 'route.terms']],
-    ['insurance', 'How are rental insurance claims handled?', 'Renter', ['insurance.', 'provider.insurance-config-catalog', 'provider.workflow-status']],
     ['identity verification', 'Why is identity verification required?', 'Renter', ['route.safety', 'provider.ai-policy', 'core.registration-onboarding']],
   ])('%s retrieves an approved relevant grounding set', async (_domain, query, role, expectedPrefixes) => {
     const matches = await retrieveApprovedKnowledgeMatches(query, role);
@@ -115,6 +113,19 @@ describe('Final pre-deploy semantic knowledge audit', () => {
       expect(source.approvalStatus).toBe('APPROVED');
       expect(canAccessKnowledge(source.visibility, parseStoredRoles(source.roles, source.applicableRoles), role)).toBe(true);
     }
+  });
+
+  test.each([
+    ['What authority does RENTipid AI policy allow?', 'Renter'],
+    ['How are rental insurance claims handled?', 'Renter'],
+  ])('internal-only authority material does not become customer evidence: %s', async (query, role) => {
+    const matches = await retrieveApprovedKnowledgeMatches(query, role);
+    expect(matches.every(match => ![
+      'provider.ai-policy',
+      'provider.insurance-config-catalog',
+      'insurance.full-documentation',
+      'insurance.privacy-data-flow',
+    ].includes(match.sourceKey))).toBe(true);
   });
 
   test.each([

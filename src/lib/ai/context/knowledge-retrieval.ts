@@ -8,8 +8,14 @@ import {
 } from './question-classifier';
 import {
   isOrdinaryCustomerRole,
+  classifyKnowledgeSourceAudience,
   projectCustomerAnswerableText,
 } from './customer-knowledge-projection';
+import { deriveCustomerKnowledgeBlock } from './customer-knowledge-contract';
+import {
+  buildCustomerEvidenceBundle,
+  type CustomerEvidenceBundle,
+} from './customer-evidence-bundle';
 
 const MAX_SOURCES = 250;
 const MAX_RESULTS = 4;
@@ -19,11 +25,11 @@ const MAX_SCORE_MARGIN = 10;
 const MATERIAL_CLAIM_TOKENS = new Set(['guarantee', 'guaranteed', 'promise', 'promised', 'always', 'never']);
 
 const QUERY_STOP_WORDS = new Set([
-  'a', 'an', 'and', 'are', 'available', 'be', 'can', 'could', 'do', 'does',
+  'a', 'about', 'an', 'and', 'are', 'as', 'available', 'be', 'can', 'could', 'do', 'does',
   'every', 'for', 'from', 'how', 'i', 'in', 'is', 'it', 'me', 'of', 'on',
   'exists', 'functionality', 'guidance', 'please', 'provide', 'provided',
   'something', 'tell', 'the', 'through', 'to', 'use', 'uses', 'what', 'when',
-  'find', 'where', 'which', 'who', 'why', 'work', 'would', 'you',
+  'find', 'follow', 'up', 'where', 'which', 'who', 'why', 'work', 'would', 'you',
 ]);
 
 const SECRET_QUERY = /\b(?:database[_ ]?url|api[_ -]?key|secret key|client[_ -]?secret|jwt[_ -]?secret|signing[_ -]?secret|private key|session token|password hash|password)\b/i;
@@ -61,6 +67,8 @@ function normalizeToken(token: string): string {
   if (token === 'newcomer' || token === 'join' || token.startsWith('registr') || token === 'signup') return 'register';
   if (token === 'become' || token.startsWith('onboard')) return 'onboard';
   if (token.startsWith('book') || token.startsWith('reserv')) return 'book';
+  if (token.startsWith('receiv')) return 'receive';
+  if (token === 'paid' || token.startsWith('payment') || token.startsWith('payout')) return 'payment';
   if (token === 'help' || token.startsWith('support') || token.startsWith('guidance')) return 'support';
   if (token === 'law' || token === 'laws' || token.startsWith('legal') || token.startsWith('compliance') || token.startsWith('regulation') || token.startsWith('jurisdiction')) return 'legal';
   if (token.startsWith('mediat')) return 'dispute';
@@ -90,6 +98,10 @@ function jsonStrings(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [];
 }
 
+function normalizePhrase(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
 function matchingConcepts(prompt: string): readonly RetrievalConcept[] {
   return RETRIEVAL_CONCEPTS.filter(concept => concept.pattern.test(prompt));
 }
@@ -98,15 +110,15 @@ function matchesResolvedIntent(
   match: RetrievedKnowledgeMatch,
   classification: RentipidQuestionClassification,
 ): boolean {
-  const text = [match.sourceKey, match.topic, match.headingPath, match.content].join(' ');
-  if (classification.intent === 'CREATE_LISTING') {
-    return /\b(?:listing creation|create (?:a |new )?listing|listing details|submit for review)\b/i.test(text);
-  }
-  if (classification.intent === 'BOOKING_PROCESS') return /\bbooking (?:process|request)|send a booking request\b/i.test(text);
-  if (classification.intent === 'PROVIDER_PAYMENT_PROCESS') return /\b(?:provider payout|provider payment|rental earnings)\b/i.test(text);
-  if (classification.intent === 'CATEGORY_ELIGIBILITY') return match.sourceKey === 'provider.marketplace-taxonomy';
-  if (classification.intent === 'REGISTRATION') return /\baccount creation|registration and onboarding\b/i.test(text);
-  return true;
+  if (classification.intent === 'GENERAL_RENTIPID') return true;
+  const intentTokens = tokenizeKnowledgeText(classification.intent.replace(/_/g, ' '));
+  const evidenceTokens = new Set(tokenizeKnowledgeText([
+    match.topic,
+    match.sectionTitle,
+    ...match.entities,
+    match.content,
+  ].join(' ')));
+  return intentTokens.some(token => evidenceTokens.has(token));
 }
 
 function scoreToken(
@@ -116,11 +128,12 @@ function scoreToken(
   headingTokens: ReadonlySet<string>,
   contentTokens: ReadonlySet<string>,
 ): number {
-  if (sourceFieldTokens.has(token)) return 4;
-  if (keywordTokens.has(token)) return 3;
-  if (headingTokens.has(token)) return 2;
-  if (contentTokens.has(token)) return 1;
-  return 0;
+  let score = 0;
+  if (sourceFieldTokens.has(token)) score += 1;
+  if (keywordTokens.has(token)) score += 1;
+  if (headingTokens.has(token)) score += 4;
+  if (contentTokens.has(token)) score += 2;
+  return score;
 }
 
 export interface RetrievedKnowledgeMatch {
@@ -132,17 +145,26 @@ export interface RetrievedKnowledgeMatch {
   topic: string;
   chunkKey: string;
   headingPath: string;
+  sectionKey: string;
+  sectionTitle: string;
+  ordinal: number;
+  visibility: string;
+  audience: 'CUSTOMER' | 'INTERNAL' | 'SYSTEM';
+  answerClass: 'INFORMATION';
+  entities: readonly string[];
   content: string;
   score: number;
   coverage: number;
   attempt: 1 | 2;
   customerProjected?: boolean;
+  evidenceRole: 'SEED' | 'NEIGHBOR';
 }
 
 export interface KnowledgeRetrievalResult {
   classification: RentipidQuestionClassification;
   matches: readonly RetrievedKnowledgeMatch[];
   attempts: 0 | 1 | 2;
+  bundle: CustomerEvidenceBundle;
 }
 
 export async function retrieveApprovedKnowledgeEvidence(
@@ -152,11 +174,21 @@ export async function retrieveApprovedKnowledgeEvidence(
 ): Promise<KnowledgeRetrievalResult> {
   const classification = classifyRentipidQuestion(prompt, conversationContext);
   if (classification.kind !== 'STATIC_RENTIPID_KNOWLEDGE' || SECRET_QUERY.test(prompt)) {
-    return { classification, matches: [], attempts: 0 };
+    return {
+      classification,
+      matches: [],
+      attempts: 0,
+      bundle: buildCustomerEvidenceBundle(prompt, classification, []),
+    };
   }
 
   const queryTokens = tokenizeKnowledgeText(classification.effectiveQuestion);
-  if (queryTokens.length === 0) return { classification, matches: [], attempts: 0 };
+  if (queryTokens.length === 0) return {
+    classification,
+    matches: [],
+    attempts: 0,
+    bundle: buildCustomerEvidenceBundle(prompt, classification, []),
+  };
 
   const concepts = matchingConcepts(classification.effectiveQuestion);
   const conceptTokens = [...new Set(concepts.flatMap(concept => concept.expansion).flatMap(tokenizeKnowledgeText))];
@@ -183,10 +215,12 @@ export async function retrieveApprovedKnowledgeEvidence(
 
   const firstAttempt: RetrievedKnowledgeMatch[] = [];
   const recoveryAttempt: RetrievedKnowledgeMatch[] = [];
+  const accessibleCustomerChunks: RetrievedKnowledgeMatch[] = [];
   const customerProjectionRequired = isOrdinaryCustomerRole(userRole);
 
   for (const source of sources) {
     if (canonicalSourcesPresent && (source.authority === 'OAT_TEST_FIXTURE' || source.sourceKey.startsWith('oat-'))) continue;
+    if (customerProjectionRequired && classifyKnowledgeSourceAudience(source.sourceKey) !== 'CUSTOMER') continue;
     const sourceRoles = parseStoredRoles(source.roles, source.applicableRoles);
     if (!canAccessKnowledge(source.visibility, sourceRoles, userRole)) continue;
     const sourceKeywords = jsonStrings(source.metadata && typeof source.metadata === 'object'
@@ -205,6 +239,7 @@ export async function retrieveApprovedKnowledgeEvidence(
         ? [{
             chunkKey: 'legacy',
             headingPath: source.category,
+            ordinal: 0,
             content: source.sourceReference || source.title,
             normalizedContent: source.sourceReference || source.title,
             keywords: [] as unknown,
@@ -217,13 +252,28 @@ export async function retrieveApprovedKnowledgeEvidence(
       const chunkVisibility = chunk.visibility || source.visibility;
       const chunkRoles = chunk.roles ? parseStoredRoles(chunk.roles) : sourceRoles;
       if (!canAccessKnowledge(chunkVisibility, chunkRoles, userRole)) continue;
+      const audienceContext = chunk.headingPath;
       const projectedContent = customerProjectionRequired
-        ? projectCustomerAnswerableText(chunk.content, chunk.headingPath)
+        ? projectCustomerAnswerableText(chunk.content, audienceContext)
         : chunk.content;
       if (!projectedContent) continue;
+      const chunkKeywords = jsonStrings(chunk.keywords);
+      const block = deriveCustomerKnowledgeBlock({
+        sourceKey: source.sourceKey,
+        chunkKey: chunk.chunkKey,
+        headingPath: chunk.headingPath,
+        content: projectedContent,
+        ordinal: chunk.ordinal,
+        domain: source.module,
+        topic: source.topic,
+        title: source.title,
+        visibility: chunkVisibility,
+        keywords: chunkKeywords,
+      });
+      if (customerProjectionRequired && !block) continue;
       const headingTokens = new Set(tokenizeKnowledgeText(chunk.headingPath));
       const contentTokens = new Set(tokenizeKnowledgeText(projectedContent));
-      const keywordTokens = new Set(tokenizeKnowledgeText(jsonStrings(chunk.keywords).join(' ')));
+      const keywordTokens = new Set(tokenizeKnowledgeText(chunkKeywords.join(' ')));
       const matchedTokens = new Set<string>();
       let lexicalScore = 0;
       for (const token of queryTokens) {
@@ -245,31 +295,26 @@ export async function retrieveApprovedKnowledgeEvidence(
       if (['MANUAL', 'PUBLISHED_GUIDANCE'].includes(source.sourceType)) sharedScore += 1;
       if (source.authority !== 'LEGACY') sharedScore += 0.25;
       if (isLegal && !intentDomains.includes('Legal')) sharedScore -= 20;
+      const normalizedQuestion = normalizePhrase(classification.effectiveQuestion);
+      const sourceTitlePhrase = normalizePhrase(source.title);
+      const sectionTitlePhrase = normalizePhrase(chunk.headingPath.split('>').at(-1) ?? '');
+      if (sourceTitlePhrase.length > 5 && normalizedQuestion.includes(sourceTitlePhrase)) sharedScore += 16;
+      if (sectionTitlePhrase.length > 5 && normalizedQuestion.includes(sectionTitlePhrase)) sharedScore += 20;
       const intentText = [source.sourceKey, source.topic, chunk.headingPath, projectedContent].join(' ');
-      if (classification.intent === 'BOOKING_PROCESS') {
-        if (/\bbooking\b/i.test(intentText)) sharedScore += 12;
-        if (source.sourceKey === 'provider.workflow-status') sharedScore += 8;
-        if (source.sourceKey === 'route.terms') sharedScore -= 18;
+      const intentTokens = tokenizeKnowledgeText(classification.intent.replace(/_/g, ' '));
+      const intentEvidenceTokens = new Set(tokenizeKnowledgeText(intentText));
+      const intentMatches = intentTokens.filter(token => intentEvidenceTokens.has(token)).length;
+      sharedScore += Math.min(12, intentMatches * 4);
+      if (classification.intent !== 'GENERAL_RENTIPID' && intentMatches === 0) sharedScore -= 8;
+      if (classification.providerContext === 'EXISTING_PROVIDER'
+        && /\b(?:onboarding|registration|become a provider)\b/i.test(intentText)) {
+        sharedScore -= 18;
       }
-      if (classification.intent === 'PROVIDER_PAYMENT_PROCESS') {
-        if (/\b(?:provider payout|provider payment|rental earnings)\b/i.test(intentText)) sharedScore += 18;
-        if (source.module === 'Payments') sharedScore += 8;
-        if (source.sourceKey === 'route.terms') sharedScore -= 18;
-      }
-      if (classification.intent === 'CREATE_LISTING') {
-        if (/\blisting (?:creation|details|management)|create (?:a )?listing\b/i.test(intentText)) sharedScore += 18;
-        if (classification.providerContext === 'EXISTING_PROVIDER' && /\bonboarding|registration\b/i.test(intentText)) {
-          sharedScore -= 24;
-        }
-      }
-      if (classification.intent === 'CATEGORY_ELIGIBILITY') {
-        if (source.sourceKey === 'provider.marketplace-taxonomy') sharedScore += 30;
-        else sharedScore -= 10;
-      }
-      if (classification.intent === 'REGISTRATION') {
-        if (source.sourceKey === 'core.registration-onboarding') sharedScore += 24;
-        if (/\baccount creation\b/i.test(intentText)) sharedScore += 8;
-      }
+      const requestedEntityMatches = classification.requestedCategoryTerms.filter(entity => {
+        const entityTokens = tokenizeKnowledgeText(entity);
+        return entityTokens.length > 0 && entityTokens.every(token => intentEvidenceTokens.has(token));
+      }).length;
+      sharedScore += Math.min(16, requestedEntityMatches * 8);
 
       const base = {
         sourceKey: source.sourceKey,
@@ -280,9 +325,21 @@ export async function retrieveApprovedKnowledgeEvidence(
         topic: source.topic,
         chunkKey: chunk.chunkKey,
         headingPath: chunk.headingPath,
+        sectionKey: block?.sectionKey ?? `${source.sourceKey}:${chunk.headingPath}`,
+        sectionTitle: block?.sectionTitle ?? chunk.headingPath,
+        ordinal: chunk.ordinal,
+        visibility: chunkVisibility,
+        audience: block?.audience ?? 'INTERNAL' as const,
+        answerClass: 'INFORMATION' as const,
+        entities: block?.entities ?? [],
         content: projectedContent,
         customerProjected: customerProjectionRequired,
+        evidenceRole: 'SEED' as const,
       };
+
+      if (base.audience === 'CUSTOMER') {
+        accessibleCustomerChunks.push({ ...base, score: 0, coverage: 0, attempt: 1 });
+      }
 
       if (coverage >= MIN_QUERY_COVERAGE && sharedScore > 0) {
         firstAttempt.push({ ...base, score: sharedScore, coverage, attempt: 1 });
@@ -317,7 +374,14 @@ export async function retrieveApprovedKnowledgeEvidence(
     || !firstAttemptHasIntendedDomain
     || !firstAttemptHasResolvedIntent
     || Math.max(...firstAttempt.map(match => match.coverage)) < 0.75;
-  const candidates = shouldRecover ? [...firstAttempt, ...recoveryAttempt] : firstAttempt;
+  const candidatePool = shouldRecover ? [...firstAttempt, ...recoveryAttempt] : firstAttempt;
+  const resolvedIntentCandidates = candidatePool.filter(match => matchesResolvedIntent(match, classification));
+  const domainAlignedCandidates = candidatePool.filter(match => intentDomains.includes(match.module));
+  const candidates = classification.intent === 'GENERAL_RENTIPID' && intentDomains.length > 0
+    ? domainAlignedCandidates
+    : classification.intent !== 'GENERAL_RENTIPID' && resolvedIntentCandidates.length > 0
+    ? resolvedIntentCandidates
+    : candidatePool;
   const deduplicated = new Map<string, RetrievedKnowledgeMatch>();
   for (const candidate of candidates) {
     const key = `${candidate.sourceKey}:${candidate.chunkKey}`;
@@ -335,10 +399,51 @@ export async function retrieveApprovedKnowledgeEvidence(
     .filter(match => match.score >= topScore - MAX_SCORE_MARGIN)
     .slice(0, MAX_RESULTS);
 
+  const seedByChunk = new Map(matches.map(match => [
+    `${match.sourceKey}:${match.chunkKey}`,
+    match,
+  ]));
+  const selectedSections = new Set(matches.map(match => `${match.sourceKey}:${match.sectionKey}`));
+  const sectionScores = new Map<string, number>();
+  const normalizedEffectiveQuestion = normalizePhrase(classification.effectiveQuestion);
+  for (const match of matches) {
+    const key = `${match.sourceKey}:${match.sectionKey}`;
+    sectionScores.set(key, Math.max(sectionScores.get(key) ?? 0, match.score));
+    for (const candidate of accessibleCustomerChunks) {
+      if (candidate.sourceKey !== match.sourceKey
+        || !match.headingPath.startsWith(`${candidate.headingPath} >`)) continue;
+      const parentKey = `${candidate.sourceKey}:${candidate.sectionKey}`;
+      selectedSections.add(parentKey);
+      sectionScores.set(parentKey, Math.max(sectionScores.get(parentKey) ?? 0, match.score));
+    }
+  }
+  for (const candidate of accessibleCustomerChunks) {
+    const sourceNamed = normalizedEffectiveQuestion.includes(normalizePhrase(candidate.title));
+    const sectionNamed = normalizedEffectiveQuestion.includes(normalizePhrase(candidate.sectionTitle));
+    if (!sourceNamed || !sectionNamed) continue;
+    const namedKey = `${candidate.sourceKey}:${candidate.sectionKey}`;
+    selectedSections.add(namedKey);
+    sectionScores.set(namedKey, Math.max(sectionScores.get(namedKey) ?? 0, topScore));
+  }
+  const reconstructedMatches = accessibleCustomerChunks
+    .filter(match => selectedSections.has(`${match.sourceKey}:${match.sectionKey}`))
+    .map(match => seedByChunk.get(`${match.sourceKey}:${match.chunkKey}`) ?? {
+      ...match,
+      evidenceRole: 'NEIGHBOR' as const,
+    })
+    .sort((left, right) =>
+      (sectionScores.get(`${right.sourceKey}:${right.sectionKey}`) ?? 0)
+        - (sectionScores.get(`${left.sourceKey}:${left.sectionKey}`) ?? 0)
+      || left.sourceKey.localeCompare(right.sourceKey)
+      || left.sectionKey.localeCompare(right.sectionKey)
+      || left.ordinal - right.ordinal);
+  const bundle = buildCustomerEvidenceBundle(prompt, classification, reconstructedMatches);
+
   return {
     classification,
-    matches,
+    matches: reconstructedMatches,
     attempts: shouldRecover && recoveryAttempt.length > 0 ? 2 : 1,
+    bundle,
   };
 }
 

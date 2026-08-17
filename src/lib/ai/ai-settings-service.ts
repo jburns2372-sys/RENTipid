@@ -33,7 +33,7 @@ export async function getAISettings(): Promise<AISettings> {
   const globalEnabled = getVal('ai_global_enabled', 'true') === 'true';
   const loggingEnabled = getVal('ai_logging_enabled', 'true') === 'true';
   const mockModeEnabled = getVal('ai_mock_mode_enabled', 'true') === 'true';
-  const providerMode = getVal('ai_provider_mode', 'mock'); // 'mock', 'openai', 'gemini', 'disabled'
+  const providerMode = getVal('ai_provider_mode', 'openai'); // 'mock', 'openai', 'gemini', 'disabled'
   const maxPermissionLevel = parseInt(getVal('ai_max_permission', '3'), 10);
   const responseStyle = getVal('ai_response_style', 'Simple');
   const disclaimerText = getVal('ai_disclaimer_text', 'AI can assist and summarize but cannot make final decisions. Please verify information before acting.');
