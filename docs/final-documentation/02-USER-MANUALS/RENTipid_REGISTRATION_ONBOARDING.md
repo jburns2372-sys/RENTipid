@@ -23,4 +23,4 @@ If you want to offer items for rent, you must complete the provider onboarding p
 
 ## Profile and KYC
 
-All users are required to maintain accurate profile information. You can view your current KYC status and submitted documents on your profile page. Privacy settings allow you to request data correction, export, or deletion through authorized workflows.
+All users are required to maintain accurate profile information. You can view your current KYC status and submitted documents on your profile page. The profile page lets you edit the supported fields shown for your account and turn email notifications on or off. Privacy settings allow you to request data correction, export, or deletion through authorized workflows.

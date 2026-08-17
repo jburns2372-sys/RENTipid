@@ -56,8 +56,9 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
     const response = await processAICommand(request);
     const selectedKnowledge = await retrieveApprovedKnowledge(request.prompt, request.userRole);
     expect(selectedKnowledge).toMatch(/RENTipid is a role-based rental marketplace/);
-    expect(response.message).toContain('Based on approved RENTipid knowledge:');
     expect(response.message).toContain('RENTipid is a role-based rental marketplace');
+    expect(response.grounding?.evidenceRefs.length).toBeGreaterThan(0);
+    expect(response.message).not.toMatch(/source key|chunk id|registry/i);
     expect(response.message).not.toContain('I received your message');
     expect(response.message).not.toContain('I can only provide predefined responses');
     expect(response.isBlocked).not.toBe(true);
@@ -75,8 +76,8 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
     const response = await processAICommand(request);
     const selectedKnowledge = await retrieveApprovedKnowledge(request.prompt, request.userRole);
     expect(selectedKnowledge).toMatch(/RENTipid is a role-based rental marketplace/);
-    expect(response.message).toContain('Based on approved RENTipid knowledge:');
     expect(response.message).toContain('RENTipid is a role-based rental marketplace');
+    expect(response.grounding?.evidenceRefs.length).toBeGreaterThan(0);
   });
 
   it('AI-OAT-KNOWLEDGE-003: rental phrasing variant returns grounded knowledge', async () => {
@@ -89,8 +90,8 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
     };
 
     const response = await processAICommand(request);
-    expect(response.message).toContain('Based on approved RENTipid knowledge:');
     expect(response.message).toMatch(/booking\/checkout flow|request booking\/checkout/);
+    expect(response.grounding?.evidenceRefs.length).toBeGreaterThan(0);
   });
 
   it('AI-OAT-KNOWLEDGE-004: provider phrasing variant returns grounded knowledge', async () => {
@@ -103,8 +104,8 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
     };
 
     const response = await processAICommand(request);
-    expect(response.message).toContain('Based on approved RENTipid knowledge:');
-    expect(response.message).toMatch(/Provider (?:Quick Procedure|Card)/);
+    expect(response.message).toMatch(/provider|identity verification/i);
+    expect(response.grounding?.evidenceRefs.length).toBeGreaterThan(0);
   });
 
   it('AI-OAT-KNOWLEDGE-005: Unsupported question returns Safe Uncertainty', async () => {
@@ -117,7 +118,7 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
     };
 
     const response = await processAICommand(request);
-    expect(response.message).toContain("I don't have approved information to confirm that");
+    expect(response.grounding?.safelyUncertain).toBe(true);
   });
 
   it('AI-OAT-KNOWLEDGE-009: materially different question selects specific canonical knowledge, not the overview', async () => {
@@ -139,7 +140,7 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
     });
 
     expect(selectedKnowledge).toMatch(/Prohibited|Restricted/);
-    expect(response.message).toContain('Based on approved RENTipid knowledge:');
+    expect(response.grounding?.evidenceRefs.length).toBeGreaterThan(0);
     expect(response.message).not.toContain('RENTipid is a rental marketplace');
     expect(response.message).not.toBe(overviewResponse.message);
   });
@@ -156,7 +157,7 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
     });
 
     expect(selectedKnowledge).toBeNull();
-    expect(response.message).toContain("I don't have approved information to confirm that");
+    expect(response.grounding?.safelyUncertain).toBe(true);
     expect(response.message).not.toContain('RENTipid is a rental marketplace');
   });
 
@@ -187,7 +188,7 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
 
     const response = await processAICommand(request);
     expect(response.message).not.toContain('[Mock AI Mode]');
-    expect(response.success === false || response.message.includes("I don't have approved information to confirm that"))
-      .toBe(true);
+    expect(response.success === false || response.grounding?.safelyUncertain === true).toBe(true);
+    expect(response.message).not.toMatch(/user payment information|database|credential/i);
   });
 });

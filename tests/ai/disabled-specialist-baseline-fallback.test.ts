@@ -4,8 +4,26 @@ jest.mock('@/lib/ai/ai-permissions', () => ({ canUserAccessBot: () => true, MAX_
 jest.mock('@/lib/ai/ai-guardrails', () => ({ checkGuardrails: () => ({ isSafe: true }) }));
 jest.mock('@/lib/ai/ai-context-builder', () => ({ buildSafeContext: async () => 'bounded context' }));
 jest.mock('@/lib/ai/ai-prompts', () => ({ getSystemPrompt: () => 'bounded system prompt' }));
-jest.mock('@/lib/ai/context/knowledge-retrieval', () => ({ retrieveApprovedKnowledge: async () => undefined }));
-jest.mock('@/lib/ai/mock-ai', () => ({ processMockAIRequest: async () => 'Baseline-safe response' }));
+jest.mock('@/lib/ai/context/knowledge-retrieval', () => ({
+  retrieveApprovedKnowledgeEvidence: async () => ({
+    classification: {
+      kind: 'LIVE_RENTIPID_STATE',
+      effectiveQuestion: 'Please show my booking status.',
+      usedConversationContext: false,
+      domains: ['Marketplace'],
+    },
+    matches: [],
+    attempts: 0,
+  }),
+}));
+jest.mock('@/lib/ai/mock-ai', () => ({
+  processMockAIRequest: async () => ({
+    message: 'Baseline-safe response',
+    evidenceRefs: [],
+    materialClaims: [],
+    safelyUncertain: true,
+  }),
+}));
 jest.mock('@/lib/ai/ai-logger', () => ({ logAIInteraction: jest.fn() }));
 jest.mock('@/lib/ai/ai-settings-service', () => ({
   getAISettings: async () => ({

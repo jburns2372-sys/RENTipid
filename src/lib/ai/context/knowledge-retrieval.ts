@@ -1,10 +1,17 @@
 import { prisma } from '@/lib/prisma';
 import { canAccessKnowledge, parseStoredRoles } from '@/lib/ai/knowledge/visibility';
 import { resolveDomainIntent } from '@/lib/ai/specialists/intent-resolver';
+import {
+  classifyRentipidQuestion,
+  type ConversationContextMessage,
+  type RentipidQuestionClassification,
+} from './question-classifier';
 
 const MAX_SOURCES = 250;
 const MAX_RESULTS = 4;
 const MIN_QUERY_COVERAGE = 0.6;
+const MIN_RECOVERY_COVERAGE = 0.34;
+const MAX_SCORE_MARGIN = 10;
 const MATERIAL_CLAIM_TOKENS = new Set(['guarantee', 'guaranteed', 'promise', 'promised', 'always', 'never']);
 
 const QUERY_STOP_WORDS = new Set([
@@ -16,11 +23,32 @@ const QUERY_STOP_WORDS = new Set([
 ]);
 
 const SECRET_QUERY = /\b(?:database[_ ]?url|api[_ -]?key|secret key|client[_ -]?secret|jwt[_ -]?secret|signing[_ -]?secret|private key|session token|password hash|password)\b/i;
-const LIVE_DATA_QUERY = [
-  /\bmy\b.{0,40}\b(?:booking|payment|kyc|claim|dispute|listing|account|payout|refund|transaction)\b/i,
-  /\b(?:booking|payment|kyc|claim|dispute|listing|payout|refund|transaction)\s*(?:id|number|#)?\s*[-a-z]*\d[-a-z0-9]*/i,
-  /\b(?:how many|which)\b.{0,50}\b(?:pending|open|active|current)\b/i,
-  /\b(?:current|latest|pending|open|processed|completed)\b.{0,35}\b(?:state|status|bookings|payments|kyc|claims|disputes|payouts|refunds|transactions)\b/i,
+
+interface RetrievalConcept {
+  id: string;
+  pattern: RegExp;
+  domains: readonly string[];
+  expansion: readonly string[];
+}
+
+const RETRIEVAL_CONCEPTS: readonly RetrievalConcept[] = [
+  { id: 'registration', pattern: /\b(?:register|registration|sign\s*up|signup|join|newcomer|new\s+renter|new\s+provider|start\b.{0,20}\b(?:renter|provider)|create\s+(?:an?\s+)?account)\b/i, domains: ['Core', 'Profile'], expansion: ['register', 'account', 'onboard', 'renter', 'provider'] },
+  { id: 'listing', pattern: /\b(?:list|listed|listing|listings|offer|equipment|put\b.{0,20}\bup\b.{0,20}\brent|add\b.{0,20}\brental|publish|published)\b/i, domains: ['Marketplace', 'Core'], expansion: ['listing', 'provider', 'create', 'publish', 'rental', 'item'] },
+  { id: 'booking', pattern: /\b(?:book|booking|reserve|reservation|checkout|rental lifecycle|turnover|inspection|return)\b/i, domains: ['Marketplace', 'Core'], expansion: ['book', 'booking', 'rental', 'listing', 'checkout', 'return'] },
+  { id: 'payment', pattern: /\b(?:pay|paid|payment|deposit|refund|payout|receipt|cancel|cancellation)\b/i, domains: ['Payments', 'Marketplace', 'Core'], expansion: ['payment', 'deposit', 'refund', 'payout', 'booking', 'cancel'] },
+  { id: 'profile', pattern: /\b(?:profile|account details|personal information|notification|notifications|alert|alerts)\b/i, domains: ['Profile', 'Core'], expansion: ['profile', 'account', 'notification', 'preference', 'edit'] },
+  { id: 'verification', pattern: /\b(?:kyc|identity|verify|verification|document|documents)\b/i, domains: ['Core', 'Trust & Safety'], expansion: ['kyc', 'identity', 'verify', 'document', 'onboard'] },
+  { id: 'insurance', pattern: /\b(?:insurance|coverage|claim|claims|damage)\b/i, domains: ['Insurance', 'Trust & Safety'], expansion: ['insurance', 'claim', 'damage', 'coverage', 'support'] },
+  { id: 'dispute', pattern: /\b(?:dispute|mediation|mediate|resolution|complaint)\b/i, domains: ['Trust & Safety', 'Marketplace', 'Core', 'Unified AI'], expansion: ['dispute', 'mediation', 'claim', 'support', 'booking', 'policy'] },
+  { id: 'reviews', pattern: /\b(?:review|reviews|rating|ratings|feedback)\b/i, domains: ['Marketplace', 'Core'], expansion: ['review', 'feedback', 'booking', 'listing', 'support'] },
+  { id: 'discovery', pattern: /\b(?:browse|search|discover|filter|category|categories)\b/i, domains: ['Marketplace'], expansion: ['browse', 'search', 'listing', 'category', 'rental'] },
+  { id: 'safety', pattern: /\b(?:safe|safety|security|prohibited|restricted(?:\s+item)?|firearms?|weapons?|unsafe)\b/i, domains: ['Trust & Safety', 'Security'], expansion: ['safety', 'security', 'prohibited', 'restricted', 'item', 'support'] },
+  { id: 'privacy', pattern: /\b(?:privacy|personal data|data correction|data export|delete.*account)\b/i, domains: ['Privacy'], expansion: ['privacy', 'data', 'account', 'correction', 'deletion'] },
+  { id: 'legal', pattern: /\b(?:legal|law|laws|compliance|regulation|regulations|jurisdiction|jurisdictions|terms)\b/i, domains: ['Legal'], expansion: ['legal', 'compliance', 'terms', 'privacy', 'jurisdiction'] },
+  { id: 'support', pattern: /\b(?:help|support|contact|issue|problem)\b/i, domains: ['Core'], expansion: ['support', 'help', 'issue', 'account', 'rentipid'] },
+  { id: 'social', pattern: /\b(?:social|campaign|marketing|promotion|promote|caption|hashtag)\b/i, domains: ['Social'], expansion: ['social', 'campaign', 'marketing', 'provider', 'listing'] },
+  { id: 'address', pattern: /\b(?:address|addresses|pass4)\b/i, domains: ['Address'], expansion: ['address', 'implementation', 'status', 'pass4'] },
+  { id: 'rbac', pattern: /\b(?:rbac|roles?|permissions?|finance admin|compliance admin|super admin)\b/i, domains: ['Security'], expansion: ['role', 'permission', 'access', 'admin'] },
 ];
 
 function normalizeToken(token: string): string {
@@ -29,10 +57,15 @@ function normalizeToken(token: string): string {
   if (token === 'newcomer' || token === 'join' || token.startsWith('registr') || token === 'signup') return 'register';
   if (token === 'become' || token.startsWith('onboard')) return 'onboard';
   if (token.startsWith('book') || token.startsWith('reserv')) return 'book';
-  if (token === 'help' || token.startsWith('support') || token.startsWith('guidance')) return 'guidance';
+  if (token === 'help' || token.startsWith('support') || token.startsWith('guidance')) return 'support';
   if (token === 'law' || token === 'laws' || token.startsWith('legal') || token.startsWith('compliance') || token.startsWith('regulation') || token.startsWith('jurisdiction')) return 'legal';
   if (token.startsWith('mediat')) return 'dispute';
-  if (token.startsWith('review')) return 'review';
+  if (token === 'list' || token.startsWith('listing') || token === 'listed' || token.startsWith('offer')) return 'listing';
+  if (token.startsWith('equip')) return 'item';
+  if (token.startsWith('notif') || token.startsWith('alert')) return 'notification';
+  if (token.startsWith('verif')) return 'verify';
+  if (token.startsWith('review') || token.startsWith('rating')) return 'review';
+  if (token.startsWith('search') || token.startsWith('discover')) return 'browse';
   if (token.startsWith('rent')) return 'rent';
   if (token.startsWith('cancel')) return 'cancel';
   if (token.endsWith('ies') && token.length > 4) return `${token.slice(0, -3)}y`;
@@ -40,7 +73,7 @@ function normalizeToken(token: string): string {
   return token;
 }
 
-function tokenize(value: string): string[] {
+export function tokenizeKnowledgeText(value: string): string[] {
   const tokens = value.toLowerCase().match(/[a-z0-9]+/g) || [];
   return [...new Set(tokens
     .filter(token => !/^\d+$/.test(token))
@@ -53,31 +86,65 @@ function jsonStrings(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [];
 }
 
-function isStaticKnowledgeQuery(prompt: string): boolean {
-  return !SECRET_QUERY.test(prompt) && !LIVE_DATA_QUERY.some(pattern => pattern.test(prompt));
+function matchingConcepts(prompt: string): readonly RetrievalConcept[] {
+  return RETRIEVAL_CONCEPTS.filter(concept => concept.pattern.test(prompt));
+}
+
+function scoreToken(
+  token: string,
+  sourceFieldTokens: ReadonlySet<string>,
+  keywordTokens: ReadonlySet<string>,
+  headingTokens: ReadonlySet<string>,
+  contentTokens: ReadonlySet<string>,
+): number {
+  if (sourceFieldTokens.has(token)) return 4;
+  if (keywordTokens.has(token)) return 3;
+  if (headingTokens.has(token)) return 2;
+  if (contentTokens.has(token)) return 1;
+  return 0;
 }
 
 export interface RetrievedKnowledgeMatch {
   sourceKey: string;
   version: string;
+  sourceType: string;
+  title: string;
+  module: string;
+  topic: string;
   chunkKey: string;
   headingPath: string;
   content: string;
   score: number;
   coverage: number;
+  attempt: 1 | 2;
 }
 
-export async function retrieveApprovedKnowledgeMatches(
+export interface KnowledgeRetrievalResult {
+  classification: RentipidQuestionClassification;
+  matches: readonly RetrievedKnowledgeMatch[];
+  attempts: 0 | 1 | 2;
+}
+
+export async function retrieveApprovedKnowledgeEvidence(
   prompt: string,
   userRole: string | undefined,
-): Promise<RetrievedKnowledgeMatch[]> {
-  if (!isStaticKnowledgeQuery(prompt)) return [];
-  const queryTokens = tokenize(prompt);
-  if (queryTokens.length === 0) return [];
-  const now = new Date();
-  
-  const intentDomains = resolveDomainIntent(prompt);
+  conversationContext: readonly ConversationContextMessage[] = [],
+): Promise<KnowledgeRetrievalResult> {
+  const classification = classifyRentipidQuestion(prompt, conversationContext);
+  if (classification.kind !== 'STATIC_RENTIPID_KNOWLEDGE' || SECRET_QUERY.test(prompt)) {
+    return { classification, matches: [], attempts: 0 };
+  }
 
+  const queryTokens = tokenizeKnowledgeText(classification.effectiveQuestion);
+  if (queryTokens.length === 0) return { classification, matches: [], attempts: 0 };
+
+  const concepts = matchingConcepts(classification.effectiveQuestion);
+  const conceptTokens = [...new Set(concepts.flatMap(concept => concept.expansion).flatMap(tokenizeKnowledgeText))];
+  const intentDomains = [...new Set([
+    ...resolveDomainIntent(classification.effectiveQuestion),
+    ...concepts.flatMap(concept => concept.domains),
+  ])];
+  const now = new Date();
   const sources = await prisma.aiKnowledgeSource.findMany({
     where: {
       status: 'ACTIVE',
@@ -94,7 +161,9 @@ export async function retrieveApprovedKnowledgeMatches(
   const canonicalSourcesPresent = sources.some(source =>
     source.authority !== 'OAT_TEST_FIXTURE' && !source.sourceKey.startsWith('oat-'));
 
-  const matches: RetrievedKnowledgeMatch[] = [];
+  const firstAttempt: RetrievedKnowledgeMatch[] = [];
+  const recoveryAttempt: RetrievedKnowledgeMatch[] = [];
+
   for (const source of sources) {
     if (canonicalSourcesPresent && (source.authority === 'OAT_TEST_FIXTURE' || source.sourceKey.startsWith('oat-'))) continue;
     const sourceRoles = parseStoredRoles(source.roles, source.applicableRoles);
@@ -102,7 +171,7 @@ export async function retrieveApprovedKnowledgeMatches(
     const sourceKeywords = jsonStrings(source.metadata && typeof source.metadata === 'object'
       ? (source.metadata as Record<string, unknown>).keywords
       : undefined);
-    const sourceFieldTokens = new Set(tokenize([
+    const sourceFieldTokens = new Set(tokenizeKnowledgeText([
       source.title,
       source.module,
       source.topic,
@@ -127,70 +196,118 @@ export async function retrieveApprovedKnowledgeMatches(
       const chunkVisibility = chunk.visibility || source.visibility;
       const chunkRoles = chunk.roles ? parseStoredRoles(chunk.roles) : sourceRoles;
       if (!canAccessKnowledge(chunkVisibility, chunkRoles, userRole)) continue;
-      const headingTokens = new Set(tokenize(chunk.headingPath));
-      const contentTokens = new Set(tokenize(chunk.normalizedContent));
-      const keywordTokens = new Set(tokenize(jsonStrings(chunk.keywords).join(' ')));
-      let score = 0;
-      let matched = 0;
+      const headingTokens = new Set(tokenizeKnowledgeText(chunk.headingPath));
+      const contentTokens = new Set(tokenizeKnowledgeText(chunk.normalizedContent));
+      const keywordTokens = new Set(tokenizeKnowledgeText(jsonStrings(chunk.keywords).join(' ')));
       const matchedTokens = new Set<string>();
+      let lexicalScore = 0;
       for (const token of queryTokens) {
-        let tokenScore = 0;
-        if (sourceFieldTokens.has(token)) tokenScore = Math.max(tokenScore, 4);
-        if (keywordTokens.has(token)) tokenScore = Math.max(tokenScore, 3);
-        if (headingTokens.has(token)) tokenScore = Math.max(tokenScore, 2);
-        if (contentTokens.has(token)) tokenScore = Math.max(tokenScore, 1);
+        const tokenScore = scoreToken(token, sourceFieldTokens, keywordTokens, headingTokens, contentTokens);
         if (tokenScore > 0) {
-          matched += 1;
           matchedTokens.add(token);
-          score += tokenScore;
+          lexicalScore += tokenScore;
         }
       }
-      
-      const coverage = matched / queryTokens.length;
-      if (coverage < MIN_QUERY_COVERAGE) continue;
+
+      const coverage = matchedTokens.size / queryTokens.length;
       const materialClaims = queryTokens.filter(token => MATERIAL_CLAIM_TOKENS.has(token));
       if (materialClaims.some(token => !matchedTokens.has(token))) continue;
-      if (source.topic.toLowerCase() === 'overview' && queryTokens.includes('rentipid')) score += 3;
-      if (source.authority !== 'LEGACY') score += 0.25;
-      
-      if (intentDomains.includes(source.module)) {
-        score += 5;
-      }
-      
-      // Broad legal/compliance protection
-      const isLegalOrCompliance = source.module === 'Legal' || source.module === 'Compliance' || source.topic === 'compliance' || source.topic === 'legal';
-      if (isLegalOrCompliance && !intentDomains.includes('Legal') && !intentDomains.includes('Compliance')) {
-        score -= 20;
-      }
+      const domainMatched = intentDomains.includes(source.module);
+      const isLegal = source.module === 'Legal' || source.topic === 'compliance' || source.topic === 'legal';
+      let sharedScore = lexicalScore;
+      if (domainMatched) sharedScore += 5;
+      if (source.topic.toLowerCase() === 'overview' && queryTokens.includes('rentipid')) sharedScore += 3;
+      if (['MANUAL', 'PUBLISHED_GUIDANCE'].includes(source.sourceType)) sharedScore += 1;
+      if (source.authority !== 'LEGACY') sharedScore += 0.25;
+      if (isLegal && !intentDomains.includes('Legal')) sharedScore -= 20;
 
-      if (score <= 0) continue;
-
-      matches.push({
+      const base = {
         sourceKey: source.sourceKey,
         version: source.version,
+        sourceType: source.sourceType,
+        title: source.title,
+        module: source.module,
+        topic: source.topic,
         chunkKey: chunk.chunkKey,
         headingPath: chunk.headingPath,
         content: chunk.content,
-        score,
-        coverage,
-      });
+      };
+
+      if (coverage >= MIN_QUERY_COVERAGE && sharedScore > 0) {
+        firstAttempt.push({ ...base, score: sharedScore, coverage, attempt: 1 });
+      }
+
+      if (conceptTokens.length > 0 && domainMatched) {
+        let conceptScore = 0;
+        let conceptMatches = 0;
+        for (const token of conceptTokens) {
+          const tokenScore = scoreToken(token, sourceFieldTokens, keywordTokens, headingTokens, contentTokens);
+          if (tokenScore > 0) {
+            conceptMatches += 1;
+            conceptScore += tokenScore;
+          }
+        }
+        const conceptCoverage = conceptMatches / conceptTokens.length;
+        if (conceptMatches >= 2 && conceptCoverage >= MIN_RECOVERY_COVERAGE) {
+          recoveryAttempt.push({
+            ...base,
+            score: sharedScore + conceptScore + 2,
+            coverage: Math.max(coverage, conceptCoverage),
+            attempt: 2,
+          });
+        }
+      }
     }
   }
 
-  return matches
-    .sort((left, right) =>
-      right.score - left.score ||
-      right.coverage - left.coverage ||
-      left.sourceKey.localeCompare(right.sourceKey) ||
-      left.chunkKey.localeCompare(right.chunkKey))
+  const firstAttemptHasIntendedDomain = firstAttempt.some(match => intentDomains.includes(match.module));
+  const shouldRecover = firstAttempt.length === 0
+    || !firstAttemptHasIntendedDomain
+    || Math.max(...firstAttempt.map(match => match.coverage)) < 0.75;
+  const candidates = shouldRecover ? [...firstAttempt, ...recoveryAttempt] : firstAttempt;
+  const deduplicated = new Map<string, RetrievedKnowledgeMatch>();
+  for (const candidate of candidates) {
+    const key = `${candidate.sourceKey}:${candidate.chunkKey}`;
+    const current = deduplicated.get(key);
+    if (!current || candidate.score > current.score) deduplicated.set(key, candidate);
+  }
+  const ranked = [...deduplicated.values()].sort((left, right) =>
+    right.score - left.score
+    || right.coverage - left.coverage
+    || left.attempt - right.attempt
+    || left.sourceKey.localeCompare(right.sourceKey)
+    || left.chunkKey.localeCompare(right.chunkKey));
+  const topScore = ranked[0]?.score ?? 0;
+  const matches = ranked
+    .filter(match => match.score >= topScore - MAX_SCORE_MARGIN)
     .slice(0, MAX_RESULTS);
+
+  return {
+    classification,
+    matches,
+    attempts: shouldRecover && recoveryAttempt.length > 0 ? 2 : 1,
+  };
 }
 
+export async function retrieveApprovedKnowledgeMatches(
+  prompt: string,
+  userRole: string | undefined,
+  conversationContext: readonly ConversationContextMessage[] = [],
+): Promise<RetrievedKnowledgeMatch[]> {
+  const result = await retrieveApprovedKnowledgeEvidence(prompt, userRole, conversationContext);
+  return [...result.matches];
+}
+
+/**
+ * Compatibility helper for internal/admin diagnostics. Customer response paths
+ * use structured evidence and the grounded composer instead of this rendering.
+ */
 export async function retrieveApprovedKnowledge(
   prompt: string,
   userRole: string | undefined,
+  conversationContext: readonly ConversationContextMessage[] = [],
 ): Promise<string | null> {
-  const matches = await retrieveApprovedKnowledgeMatches(prompt, userRole);
+  const matches = await retrieveApprovedKnowledgeMatches(prompt, userRole, conversationContext);
   if (matches.length === 0) return null;
   return matches
     .map(match => `[${match.sourceKey} > ${match.headingPath}]\n${match.content}`)

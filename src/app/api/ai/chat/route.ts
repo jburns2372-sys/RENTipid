@@ -85,6 +85,7 @@ export async function POST(req: Request) {
     const actor = userId ? await resolveCurrentAiActor(userId) : null;
     let persisted: Awaited<ReturnType<typeof continuity.continueForMessage>> | null = null;
     let userMessageId: string | undefined;
+    let conversationContext: Array<{ role: 'user' | 'assistant'; content: string }> = [];
 
     if (actor) {
       persisted = await continuity.continueForMessage({
@@ -95,6 +96,12 @@ export async function POST(req: Request) {
         channel,
         conversationId: requestedConversationId,
       });
+      const priorHistory = await continuity.getResumableHistory(actor.id, persisted.conversation.id);
+      conversationContext = (priorHistory?.messages ?? [])
+        .filter((message): message is typeof message & { role: 'user' | 'assistant' } =>
+          message.role === 'user' || message.role === 'assistant')
+        .slice(-6)
+        .map(message => ({ role: message.role, content: message.content.slice(0, 2_000) }));
       const userMessage = await continuity.appendMessage(persisted.conversation.id, actor.id, 'user', prompt, channel);
       userMessageId = userMessage.id;
     }
@@ -108,6 +115,7 @@ export async function POST(req: Request) {
       userId: actor?.id,
       sessionId: persisted?.conversation.id,
       caseId: persisted?.supportCase.id,
+      conversationContext,
     };
     
     const startedAt = Date.now();
@@ -121,12 +129,15 @@ export async function POST(req: Request) {
         caseId: persisted.supportCase.id,
         finalResponseRef: result.trace.traceId,
       } : null;
-      const safePayload: Prisma.InputJsonObject = persistedTrace
-        ? {
-            isBlocked: !!result.isBlocked,
-            specialistTrace: JSON.parse(JSON.stringify(persistedTrace)) as Prisma.InputJsonObject,
-          }
-        : { isBlocked: !!result.isBlocked };
+      const safePayload: Prisma.InputJsonObject = {
+        isBlocked: !!result.isBlocked,
+        ...(persistedTrace
+          ? { specialistTrace: JSON.parse(JSON.stringify(persistedTrace)) as Prisma.InputJsonObject }
+          : {}),
+        ...(result.grounding
+          ? { grounding: JSON.parse(JSON.stringify(result.grounding)) as Prisma.InputJsonObject }
+          : {}),
+      };
       const assistantMessage = await continuity.appendMessage(
         persisted.conversation.id,
         actor.id,

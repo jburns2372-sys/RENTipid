@@ -3,7 +3,7 @@ import { BotId, canUserAccessBot, MAX_ALLOWED_PERMISSION } from './ai-permission
 import { checkGuardrails } from './ai-guardrails';
 import { buildSafeContext } from './ai-context-builder';
 import { getSystemPrompt } from './ai-prompts';
-import { retrieveApprovedKnowledge } from './context/knowledge-retrieval';
+import { retrieveApprovedKnowledgeEvidence } from './context/knowledge-retrieval';
 import { processMockAIRequest } from './mock-ai';
 import { logAIInteraction } from './ai-logger';
 import { getAISettings, isModuleAIEnabled, isBotEnabled } from './ai-settings-service';
@@ -15,6 +15,17 @@ import { resolveCurrentAiActor } from './authorization/actor';
 import { resolveAiEntityHint } from './authorization/domain-state';
 import { SupportSpecialistExecutor } from './specialists/support-specialist';
 import { BoundedSpecialistTraceRecord, SpecialistSupervisorStatus } from './specialists/trace';
+import type { ConversationContextMessage } from './context/question-classifier';
+import type { GroundedAnswerResult } from './context/grounded-answer-composer';
+
+export interface AIGroundingTrace {
+  classification: 'STATIC_RENTIPID_KNOWLEDGE' | 'LIVE_RENTIPID_STATE' | 'OUT_OF_SCOPE_OR_UNSUPPORTED' | 'AMBIGUOUS';
+  evidenceRefs: readonly string[];
+  materialClaimCount: number;
+  retrievalAttempts: 0 | 1 | 2;
+  usedConversationContext: boolean;
+  safelyUncertain: boolean;
+}
 export interface AIRequest {
   botId: BotId;
   prompt: string;
@@ -26,6 +37,7 @@ export interface AIRequest {
   caseId?: string;
   locale?: string;
   traceId?: string;
+  conversationContext?: readonly ConversationContextMessage[];
 }
 
 export interface AIResponse {
@@ -33,6 +45,7 @@ export interface AIResponse {
   message: string;
   isBlocked?: boolean;
   trace?: BoundedSpecialistTraceRecord;
+  grounding?: AIGroundingTrace;
 }
 
 function traceEnvironment(): BoundedSpecialistTraceRecord['environment'] {
@@ -123,7 +136,8 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   }
   // Authentication alone does not make an informational answer personalized.
   // Only an authorized record-scoped request raises the answer/risk class.
-  const isRecordScoped = Boolean(userId && recordId);
+  const entityHint = userId ? resolveAiEntityHint(module, recordId, userId) : undefined;
+  const isRecordScoped = Boolean(userId && entityHint);
   const answerClass: SpecialistAnswerClass = requestedTool ? 'ACTION' : isRecordScoped ? 'PERSONALIZED' : 'INFORMATION';
   const requestedRiskClass: SpecialistRiskClass = requestedTool
     ? 'T2_OPERATIONAL'
@@ -167,6 +181,37 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     finalResponseRef: null,
   });
 
+  let safeContext = await buildSafeContext(userRole, module, recordId, userId);
+  const retrieval = await retrieveApprovedKnowledgeEvidence(
+    prompt,
+    userRole,
+    req.conversationContext ?? [],
+  );
+  const sourceRefs: string[] = entityHint
+    ? [`live:${entityHint.entityType}:${entityHint.entityId}`]
+    : [];
+  sourceRefs.push(...retrieval.matches.map(match => `knowledge:${match.sourceKey}:${match.chunkKey}`));
+  if (retrieval.matches.length > 0) {
+    safeContext += `\n\nApproved Knowledge Evidence:\n${retrieval.matches.map(match => match.content).join('\n\n')}`;
+  }
+  const systemPrompt = getSystemPrompt(botId, userRole || 'Guest', module);
+  const groundingInput = {
+    question: prompt,
+    effectiveQuestion: retrieval.classification.effectiveQuestion,
+    classification: retrieval.classification.kind,
+    evidence: retrieval.matches,
+    authorizedLiveContext: safeContext,
+    liveEvidenceRef: entityHint ? `live:${entityHint.entityType}:${entityHint.entityId}` : undefined,
+  } as const;
+  const groundingTrace = (answer: GroundedAnswerResult): AIGroundingTrace => Object.freeze({
+    classification: retrieval.classification.kind,
+    evidenceRefs: Object.freeze([...answer.evidenceRefs]),
+    materialClaimCount: answer.materialClaims.length,
+    retrievalAttempts: retrieval.attempts,
+    usedConversationContext: retrieval.classification.usedConversationContext,
+    safelyUncertain: answer.safelyUncertain,
+  });
+
   if (specialistSelection.fallbackTarget === 'UNIFIED_AI_BASELINE') {
     if (requestedTool) {
       return {
@@ -195,12 +240,8 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
         }),
       };
     }
-    let fallbackContext = await buildSafeContext(userRole, module, recordId, userId);
-    const fallbackKnowledge = await retrieveApprovedKnowledge(prompt, userRole);
-    if (fallbackKnowledge) fallbackContext += `\n\nApproved Knowledge Context:\n${fallbackKnowledge}`;
-    const fallbackSystemPrompt = getSystemPrompt(botId, userRole || 'Guest', module);
-    const draft = await processMockAIRequest(botId, prompt, fallbackContext, fallbackSystemPrompt);
-    const outputCheck = aiGuard.checkOutputProtection(draft, userId || 'anonymous', '127.0.0.1');
+    const draft = await processMockAIRequest(botId, prompt, safeContext, systemPrompt, groundingInput);
+    const outputCheck = aiGuard.checkOutputProtection(draft.message, userId || 'anonymous', '127.0.0.1');
     if (outputCheck.blocked) {
       return {
         success: false,
@@ -214,7 +255,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
         }),
       };
     }
-    const message = outputCheck.redactedOutput || draft;
+    const message = outputCheck.redactedOutput || draft.message;
     if (settings.loggingEnabled) {
       await logAIInteraction({
         userId,
@@ -229,6 +270,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     return {
       success: true,
       message,
+      grounding: groundingTrace(draft),
       trace: boundedTrace({
         policyOutcome: 'ALLOW_BASELINE_FALLBACK',
         supervisorStatus: 'NOT_RUN',
@@ -351,21 +393,6 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   }
 
   // 4. Build Context & System Prompt
-  let safeContext = await buildSafeContext(userRole, module, recordId, userId);
-  const entityHint = userId ? resolveAiEntityHint(module, recordId, userId) : undefined;
-  const sourceRefs: string[] = entityHint
-    ? [`live:${entityHint.entityType}:${entityHint.entityId}`]
-    : [];
-  
-  // 4.1 Knowledge Retrieval
-  const retrievedKnowledge = await retrieveApprovedKnowledge(prompt, userRole);
-  if (retrievedKnowledge) {
-    safeContext += `\n\nApproved Knowledge Context:\n${retrievedKnowledge}`;
-    sourceRefs.push(`knowledge:center:${specialistSelection.ownership.intent}`);
-  }
-
-  const systemPrompt = getSystemPrompt(botId, userRole || 'Guest', module);
-
   // 5. Logical specialist execution returns structured advice/draft only.
   const invocation = unifiedAiSpecialistOrchestrator.createInvocation(specialistSelection, {
     actorId: userId ?? 'anonymous',
@@ -392,16 +419,20 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     locale: req.locale,
     traceId,
   });
+  let groundedDraft: GroundedAnswerResult | undefined;
   const execution = await unifiedAiSpecialistOrchestrator.invoke(
     specialistSelection,
     invocation,
-    new SupportSpecialistExecutor(async specialistInvocation =>
-      processMockAIRequest(
+    new SupportSpecialistExecutor(async specialistInvocation => {
+      groundedDraft = await processMockAIRequest(
         botId,
         specialistInvocation.requestedTask.instruction,
         specialistInvocation.safeContext.content,
         systemPrompt,
-      )),
+        groundingInput,
+      );
+      return groundedDraft.message;
+    }),
   );
   if (execution.result.status !== 'COMPLETED') {
     const message = execution.result.status === 'SYSTEM_BLOCKED'
@@ -463,6 +494,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   return {
     success: true,
     message: responseMessage,
+    grounding: groundedDraft ? groundingTrace(groundedDraft) : undefined,
     trace: boundedTrace({
       policyOutcome: 'ALLOW',
       supervisorStatus: 'PASS',

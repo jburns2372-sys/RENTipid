@@ -39,7 +39,7 @@ async function main(): Promise<void> {
           .map(disposition => [disposition, registry.filter(entry => entry.disposition === disposition).length]),
       );
       console.log(JSON.stringify({
-        registryId: 'KB1-INITIAL-146',
+        registryId: KNOWLEDGE_REGISTRY_ID,
         candidates: registry.length,
         synchronizable: getSynchronizableKnowledgeRegistry().length,
         unclassified: 0,

@@ -5,7 +5,7 @@ import { classifyKnowledge } from './classifier';
 import { hashNormalizedContent } from './hashing';
 import { hashStableObject } from './hashing';
 import { normalizeKnowledgeText } from './normalizer';
-import { getSynchronizableKnowledgeRegistry } from './source-registry';
+import { getSynchronizableKnowledgeRegistry, KNOWLEDGE_REGISTRY_ID } from './source-registry';
 import type {
   AdaptedKnowledge,
   KnowledgeChunkInput,
@@ -254,7 +254,7 @@ export async function synchronizeKnowledge(
           lastSyncedAt: now,
           supersedesId: priorActive?.id,
           metadata: json({
-            registryId: 'KB1-INITIAL-146',
+            registryId: KNOWLEDGE_REGISTRY_ID,
             registrySequence: source.entry.sequence,
             disposition: source.entry.disposition,
             ...source.adapted.metadata,

@@ -13,9 +13,10 @@ payment credentials, or unnecessary personal/KYC data into support notes.
 Guests use `/`, `/browse`, `/listing/[id]`, help, safety, legal, contact, and
 registration pages. Registration supports non-privileged account types;
 finance, compliance, SOC, admin, and super-admin authority cannot be
-self-selected. Authenticated users can view profile and KYC surfaces. Profile
-editing is currently limited, while privacy correction/export/deletion are
-controlled request workflows.
+self-selected. Signed-in users can view their profile and KYC surfaces. The
+profile page allows supported personal, contact, address, provider-business,
+and notification-preference fields to be edited. Privacy
+correction/export/deletion remain controlled request workflows.
 
 ## Renter Quick Procedure
 
@@ -42,7 +43,19 @@ override that status.
 3. Submit for required publication/compliance review.
 4. Manage booking, agreement, turnover, inspection, return, and claim tasks.
 5. Review ledger, payout, marketing, and social-operation surfaces within the
-    provider scope.
+provider scope.
+
+## Listing Creation and Management
+
+1. A verified provider opens **Provider Listings** and selects **Create New
+   Listing**.
+2. Enter the listing details and choose an active category. A new listing
+   starts as a draft.
+3. On a draft or rejected listing, use the management page for the supported
+   photo and document actions. Editing the main listing details is currently
+   disabled on that customer page.
+4. Select **Submit for Review** when the listing is ready. Publication remains
+   subject to the required admin or compliance review.
 
 Providers also follow the
 [Trust and Safety guidance](../01-MASTER-MANUAL/RENTipid_COMPLETE_MASTER_MANUAL.md)
@@ -75,9 +88,19 @@ identity, scope, audit, and retention constraints. Uploaded verification
 documents remain restricted. Do not copy raw document contents into general
 support or marketplace notes.
 
+## Profile and Notification Preferences
+
+1. Open **My Profile** and select **Edit Profile**.
+2. Update only the supported personal, contact, address, or provider-business
+   fields shown for your account.
+3. Turn **Receive email notifications** on or off as needed.
+4. Select **Save Changes**.
+
+Identity, account role, and verification decisions are not changed by editing
+ordinary profile or notification-preference fields.
+
 ## Known User-Facing Limitations
 
-- profile editing is marked coming soon;
 - provider campaign analytics is incomplete;
 - live payments are not authorized;
 - mobile/PWA packaging does not prove app-store publication;

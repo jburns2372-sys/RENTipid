@@ -17,7 +17,7 @@ describe('KB-1 local canonical acceptance', () => {
     expect(report.accountedCandidates).toBe(148);
     expect(report.approvedCanonicalSources).toBe(109);
     expect(report.activeSources).toBe(109);
-    expect(report.totalChunks).toBe(720);
+    expect(report.totalChunks).toBe(722);
     expect(report.coveragePercent).toBe(100);
     expect(report.missing).toBe(0);
     expect(report.invalid).toBe(0);

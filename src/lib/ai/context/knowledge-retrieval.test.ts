@@ -1,4 +1,4 @@
-import { retrieveApprovedKnowledgeMatches } from './knowledge-retrieval';
+import { retrieveApprovedKnowledgeEvidence, retrieveApprovedKnowledgeMatches } from './knowledge-retrieval';
 import { prisma } from '@/lib/prisma';
 import { retrieveApprovedKnowledge } from './knowledge-retrieval';
 import { processMockAIRequest } from '@/lib/ai/mock-ai';
@@ -181,16 +181,25 @@ describe('Final pre-deploy semantic knowledge audit', () => {
 
   test('answer text is a bounded rendering of approved retrieval with no mock label or invented fact', async () => {
     const query = 'Where can a newcomer open a RENTipid account?';
-    const knowledge = await retrieveApprovedKnowledge(query, 'Guest');
-    expect(knowledge).toBeTruthy();
+    const retrieval = await retrieveApprovedKnowledgeEvidence(query, 'Guest');
+    expect(retrieval.matches.length).toBeGreaterThan(0);
     const answer = await processMockAIRequest(
       'RENTipid Concierge Bot',
       query,
-      `Approved Knowledge Context:\n${knowledge}`,
+      'Approved Knowledge Context',
       'Use only approved knowledge.',
+      {
+        question: query,
+        effectiveQuestion: retrieval.classification.effectiveQuestion,
+        classification: retrieval.classification.kind,
+        evidence: retrieval.matches,
+      },
     );
-    expect(answer).toBe(`Based on approved RENTipid knowledge: ${knowledge}`);
-    expect(answer).not.toContain('[Mock AI Mode]');
+    expect(answer.message).toMatch(/register|account/i);
+    expect(answer.evidenceRefs.length).toBeGreaterThan(0);
+    expect(answer.materialClaims.every(claim => claim.evidenceRefs.length > 0)).toBe(true);
+    expect(answer.message).not.toContain('[Mock AI Mode]');
+    expect(answer.message).not.toMatch(/source key|chunk id|registry/i);
   });
 
   test.each([
@@ -204,8 +213,15 @@ describe('Final pre-deploy semantic knowledge audit', () => {
       query,
       '',
       'Use only approved knowledge.',
+      {
+        question: query,
+        effectiveQuestion: query,
+        classification: 'LIVE_RENTIPID_STATE',
+        evidence: [],
+      },
     );
-    expect(answer).toBe("I don't have approved information to confirm that.");
-    expect(answer).not.toMatch(/mock|pending items|proof of address/i);
+    expect(answer.safelyUncertain).toBe(true);
+    expect(answer.evidenceRefs).toEqual([]);
+    expect(answer.message).not.toMatch(/mock|pending items|proof of address/i);
   });
 });
