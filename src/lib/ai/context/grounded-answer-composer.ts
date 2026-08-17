@@ -24,7 +24,7 @@ export interface GroundedAnswerResult {
 }
 
 const INTERNAL_CONTENT =
-  /\b(?:source key|chunk id|registry id|database|migration|commit|oat|test suite|implementation detail|internal telemetry|phase\s*\d+|pass\s*\d*)\b/i;
+  /\b(?:source key|chunk id|registry id|database|migration|commit|oat|test suite|implementation detail|internal telemetry|phase\s*\d+|pass\s*\d*|taxonomy|fixture|ingested|canonical|sample users|provider reads|negative test)\b/i;
 const DURATION_QUESTION = /\b(?:how long|duration|timeline|how many (?:days|hours|weeks)|when will)\b/i;
 const DURATION_EVIDENCE = /\b(?:minute|minutes|hour|hours|day|days|week|weeks|month|months|duration|timeline|within|by the next)\b/i;
 
@@ -81,8 +81,7 @@ function extractSteps(match: RetrievedKnowledgeMatch, questionTokens: readonly s
 function extractSentences(match: RetrievedKnowledgeMatch, questionTokens: readonly string[]): CandidateClaim[] {
   const ref = evidenceRef(match);
   return match.content
-    .replace(/\r?\n+/g, ' ')
-    .split(/(?<=[.!?])\s+/)
+    .split(/(?:(?<=[.!?])\s+|\r?\n+)/)
     .map((sentence, ordinal) => {
       const text = safeLine(sentence);
       return text ? { text, ref, score: relevanceScore(text, questionTokens), ordinal } : null;
