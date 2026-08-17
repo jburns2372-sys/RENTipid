@@ -2,7 +2,27 @@ import type { RentipidQuestionClass } from './question-classifier';
 import type { RetrievedKnowledgeMatch } from './knowledge-retrieval';
 import { tokenizeKnowledgeText } from './knowledge-retrieval';
 import { classifyRentipidQuestion, type RentipidQuestionClassification } from './question-classifier';
-import { validateAnswerAdequacy } from './answer-adequacy';
+import {
+  assessEvidenceSufficiency,
+  validateAnswerAdequacy,
+  type AnswerAdequacyResult,
+} from './answer-adequacy';
+
+export interface GroundedAnswerDiagnostic {
+  classification: RentipidQuestionClass;
+  intent: RentipidQuestionClassification['intent'];
+  evidenceRefs: readonly string[];
+  projectedEvidence: readonly string[];
+  evidenceSufficient: boolean;
+  evidenceSufficiencyReasons: readonly string[];
+  preAdequacyAnswer: string;
+  procedureCount: number;
+  conceptCount: number;
+  requestedConcepts: readonly string[];
+  adequacyReasons: readonly string[];
+  recompositionAttempted: boolean;
+  finalAnswer: string;
+}
 
 export interface GroundedMaterialClaim {
   text: string;
@@ -17,6 +37,7 @@ export interface GroundedAnswerInput {
   authorizedLiveContext?: string;
   liveEvidenceRef?: string;
   questionAnalysis?: RentipidQuestionClassification;
+  onDiagnostic?: (diagnostic: GroundedAnswerDiagnostic) => void;
 }
 
 export interface GroundedAnswerResult {
@@ -25,6 +46,8 @@ export interface GroundedAnswerResult {
   materialClaims: readonly GroundedMaterialClaim[];
   safelyUncertain: boolean;
   adequacyPassed?: boolean;
+  evidenceSufficient?: boolean;
+  compositionAttempts?: 1 | 2;
 }
 
 const INTERNAL_CONTENT =
@@ -348,24 +371,134 @@ function liveAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
   };
 }
 
+function recompositionUtility(claim: CandidateClaim): number {
+  const usefulAction = /\b(?:browse|choose|select|send|enter|set|save|submit|check|return|complete|open|receive|review|approve|accept|publish|create)\b/i
+    .test(claim.text) ? 5 : 0;
+  const genericPenalty = /\b(?:handled by rentipid|uses? controls|relevant module|general guidance)\b/i
+    .test(claim.text) ? 8 : 0;
+  return claim.score + usefulAction - genericPenalty;
+}
+
+function isDocumentHeading(claim: CandidateClaim): boolean {
+  const words = claim.text.match(/[a-z0-9]+/gi) ?? [];
+  return words.length <= 5 && /\b(?:process|procedure|guidance|steps)\.?$/i.test(claim.text);
+}
+
+function recomposeStaticAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
+  const analysis = input.questionAnalysis ?? classifyRentipidQuestion(input.effectiveQuestion);
+  if (analysis.intent === 'CATEGORY_ELIGIBILITY') return categoryAnswer(input, analysis);
+
+  const questionTokens = tokenizeKnowledgeText(input.effectiveQuestion);
+  const intentEvidence = input.evidence.filter(match => answerIntentScore(match, analysis) > 0);
+  const evidence = intentEvidence.length > 0 ? intentEvidence : input.evidence;
+  const candidates = evidence.flatMap(match => {
+    const steps = extractSteps(match, questionTokens);
+    return steps.length > 0 ? steps : extractSentences(match, questionTokens);
+  });
+  const usefulCandidates = candidates.filter(claim =>
+    !isDocumentHeading(claim) && recompositionUtility(claim) > 0);
+  const candidatePool = usefulCandidates.length > 0
+    ? usefulCandidates
+    : candidates.filter(claim => !isDocumentHeading(claim));
+  const selected: CandidateClaim[] = [];
+  const seen = new Set<string>();
+  for (const claim of [...candidatePool].sort((left, right) =>
+    recompositionUtility(right) - recompositionUtility(left) || left.ordinal - right.ordinal)) {
+    const key = claim.text.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    selected.push(claim);
+    if (selected.length === 4) break;
+  }
+
+  if (selected.length === 0) return staticAnswer(input);
+  const procedural = ['BOOKING_PROCESS', 'PROVIDER_PAYMENT_PROCESS', 'CREATE_LISTING', 'REGISTRATION']
+    .includes(analysis.intent);
+  const message = procedural
+    ? procedureIntro(analysis) + '\n'
+      + selected.map((claim, index) => `${index + 1}. ${claim.text}`).join('\n')
+    : selected.map(claim => claim.text).join(' ');
+  return {
+    message,
+    evidenceRefs: [...new Set(selected.map(claim => claim.ref))],
+    materialClaims: selected.map(claim => ({ text: claim.text, evidenceRefs: [claim.ref] })),
+    safelyUncertain: false,
+  };
+}
+
+function validateResult(
+  input: GroundedAnswerInput,
+  result: GroundedAnswerResult,
+  evidenceSufficiency: ReturnType<typeof assessEvidenceSufficiency>,
+): AnswerAdequacyResult {
+  const classification = input.questionAnalysis ?? classifyRentipidQuestion(input.effectiveQuestion);
+  return validateAnswerAdequacy({
+    classification,
+    message: result.message,
+    materialClaims: result.materialClaims,
+    safelyUncertain: result.safelyUncertain,
+    evidence: input.evidence,
+    evidenceSufficiency,
+    authorizedLiveContext: input.authorizedLiveContext,
+    liveEvidenceRef: input.liveEvidenceRef,
+  });
+}
+
 function adequacyProtected(
   input: GroundedAnswerInput,
   result: GroundedAnswerResult,
 ): GroundedAnswerResult {
   const classification = input.questionAnalysis ?? classifyRentipidQuestion(input.effectiveQuestion);
-  const adequacy = validateAnswerAdequacy({
+  const evidenceSufficiency = assessEvidenceSufficiency({
     classification,
-    message: result.message,
-    materialClaims: result.materialClaims,
-    safelyUncertain: result.safelyUncertain,
+    question: input.question,
+    evidence: input.evidence,
+    authorizedLiveContext: input.authorizedLiveContext,
+    liveEvidenceRef: input.liveEvidenceRef,
   });
-  if (adequacy.pass) return { ...result, adequacyPassed: true };
+  const initialAdequacy = validateResult(input, result, evidenceSufficiency);
+  let finalResult = result;
+  let finalAdequacy = initialAdequacy;
+  let compositionAttempts: 1 | 2 = 1;
+
+  if (!initialAdequacy.pass
+    && evidenceSufficiency.sufficient
+    && input.classification === 'STATIC_RENTIPID_KNOWLEDGE') {
+    compositionAttempts = 2;
+    finalResult = recomposeStaticAnswer(input);
+    finalAdequacy = validateResult(input, finalResult, evidenceSufficiency);
+  }
+
+  if (!finalAdequacy.pass) {
+    finalResult = {
+      message: 'Approved RENTipid information is not sufficient to answer that clearly. Please be more specific.',
+      evidenceRefs: [],
+      materialClaims: [],
+      safelyUncertain: true,
+    };
+  }
+
+  input.onDiagnostic?.({
+    classification: input.classification,
+    intent: classification.intent,
+    evidenceRefs: evidenceSufficiency.evidenceRefs,
+    projectedEvidence: input.evidence.map(match => match.content),
+    evidenceSufficient: evidenceSufficiency.sufficient,
+    evidenceSufficiencyReasons: evidenceSufficiency.reasons,
+    preAdequacyAnswer: result.message,
+    procedureCount: initialAdequacy.procedureCount,
+    conceptCount: initialAdequacy.conceptCount,
+    requestedConcepts: initialAdequacy.requestedConcepts,
+    adequacyReasons: initialAdequacy.reasons,
+    recompositionAttempted: compositionAttempts === 2,
+    finalAnswer: finalResult.message,
+  });
+
   return {
-    message: 'Approved RENTipid information is not sufficient to answer that clearly. Please be more specific.',
-    evidenceRefs: [],
-    materialClaims: [],
-    safelyUncertain: true,
-    adequacyPassed: true,
+    ...finalResult,
+    adequacyPassed: finalAdequacy.pass,
+    evidenceSufficient: evidenceSufficiency.sufficient,
+    compositionAttempts,
   };
 }
 

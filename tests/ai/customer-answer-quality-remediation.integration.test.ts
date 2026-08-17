@@ -1,7 +1,10 @@
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { CUSTOMER_FACING_BOT_IDS, getAllowedBotsForRole } from '@/lib/ai/ai-permissions';
-import { composeGroundedAnswer } from '@/lib/ai/context/grounded-answer-composer';
+import {
+  composeGroundedAnswer,
+  type GroundedAnswerDiagnostic,
+} from '@/lib/ai/context/grounded-answer-composer';
 import { processMockAIRequest } from '@/lib/ai/mock-ai';
 import { retrieveApprovedKnowledgeEvidence } from '@/lib/ai/context/knowledge-retrieval';
 import { classifyRentipidQuestion } from '@/lib/ai/context/question-classifier';
@@ -10,7 +13,11 @@ import { projectCustomerAnswerableText } from '@/lib/ai/context/customer-knowled
 const INTERNAL_OUTPUT =
   /taxonomy fields|reads only|ingested|negative test fixtures|sample users|sample bookings|source\s*key|chunk\s*(?:id|key)|registry|freeze hash|booking mutation|domain authority|deterministic policy|internal specialist|mock provider|recalled car seat|damaged helmet/i;
 
-async function finalAnswer(question: string, role: string) {
+async function finalAnswer(
+  question: string,
+  role: string,
+  onDiagnostic?: (diagnostic: GroundedAnswerDiagnostic) => void,
+) {
   const retrieval = await retrieveApprovedKnowledgeEvidence(question, role);
   const answer = composeGroundedAnswer({
     question,
@@ -18,6 +25,7 @@ async function finalAnswer(question: string, role: string) {
     classification: retrieval.classification.kind,
     evidence: retrieval.matches,
     questionAnalysis: retrieval.classification,
+    onDiagnostic,
   });
   return { retrieval, answer };
 }
@@ -45,7 +53,7 @@ const BOOKING_QUESTIONS = [
   'How does booking work?',
   'Can you explain the booking process?',
   'What happens when I book an item?',
-  'How do I reserve something on RENTipid?',
+  'How do I reserve something?',
 ];
 
 const PAYMENT_QUESTIONS = [
@@ -58,8 +66,8 @@ const PAYMENT_QUESTIONS = [
 const LISTING_QUESTIONS = [
   'I am already a provider. How do I list an item?',
   'I already have a provider account. How do I add another rental?',
-  'My provider account is active. How can I create a listing?',
-  'How can an existing provider list another item?',
+  'My provider account is active. How can I create another listing?',
+  'How can an existing provider add a rental?',
 ];
 
 const CATEGORY_QUESTIONS = [
@@ -76,6 +84,29 @@ const REGISTRATION_QUESTIONS = [
 ];
 
 describe('customer answer quality remediation', () => {
+  test.each([
+    ['How does booking work?', 'Renter', 'BOOKING_PROCESS'],
+    ['How do providers get paid?', 'Business Provider', 'PROVIDER_PAYMENT_PROCESS'],
+    ['I already have a provider account. How do I add another rental?', 'Business Provider', 'CREATE_LISTING'],
+  ])('records the proven pre-adequacy path internally: %s', async (question, role, intent) => {
+    const diagnostics: GroundedAnswerDiagnostic[] = [];
+    const result = await finalAnswer(question, role, diagnostic => diagnostics.push(diagnostic));
+    expect(result.retrieval.classification.intent).toBe(intent);
+    expect(result.retrieval.matches.length).toBeGreaterThan(0);
+    expect(result.retrieval.matches.every(match => match.customerProjected)).toBe(true);
+    expect(diagnostics).toHaveLength(1);
+    expect(diagnostics[0]).toMatchObject({
+      intent,
+      evidenceSufficient: true,
+    });
+    expect(diagnostics[0].evidenceRefs.length).toBeGreaterThan(0);
+    expect(diagnostics[0].projectedEvidence.join('\n')).not.toMatch(INTERNAL_OUTPUT);
+    expect(diagnostics[0].preAdequacyAnswer).not.toMatch(/not sufficient to answer/i);
+    expect(diagnostics[0].requestedConcepts.length).toBeGreaterThan(0);
+    expect(diagnostics[0].finalAnswer).toBe(result.answer.message);
+    expect(result.answer.safelyUncertain).toBe(false);
+  });
+
   test.each(BOOKING_QUESTIONS)('booking answer is procedural and direct: %s', async question => {
     const result = await finalAnswer(question, 'Renter');
     expectGroundedCustomerAnswer(result, 'BOOKING_PROCESS', 'Marketplace');
