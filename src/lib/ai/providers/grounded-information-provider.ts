@@ -137,10 +137,45 @@ class OpenAIGroundedProvider implements GroundedInformationProvider {
         { role: 'system', content: input.systemPrompt },
         { role: 'user', content: synthesisPrompt(input) }
       ],
-      response_format: { type: 'json_object' },
+      response_format: {
+        type: 'json_schema',
+        json_schema: {
+          name: 'grounded_synthesis_output',
+          strict: true,
+          schema: {
+            type: 'object',
+            properties: {
+              answer: { type: 'string' },
+              answeredIntent: { type: 'string' },
+              coveredEntities: {
+                type: 'array',
+                items: { type: 'string' }
+              },
+              claims: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    text: { type: 'string' },
+                    evidenceRefs: {
+                      type: 'array',
+                      items: { type: 'string' }
+                    },
+                    supportingText: { type: 'string' }
+                  },
+                  required: ['text', 'evidenceRefs', 'supportingText'],
+                  additionalProperties: false
+                }
+              }
+            },
+            required: ['answer', 'answeredIntent', 'coveredEntities', 'claims'],
+            additionalProperties: false
+          }
+        }
+      },
       max_tokens: this.config.maxOutputTokens,
       store: this.config.storeResponses,
-      temperature: 0.2,
+      temperature: this.config.temperature,
     });
 
     const outputText = response.choices[0]?.message?.content ?? '';

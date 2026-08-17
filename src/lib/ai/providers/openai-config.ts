@@ -6,6 +6,7 @@ export interface OpenAIConfig {
   maxOutputTokens: number;
   maxEvidenceTokens: number;
   storeResponses: boolean;
+  temperature: number;
 }
 
 export function getOpenAIConfig(): OpenAIConfig {
@@ -17,5 +18,6 @@ export function getOpenAIConfig(): OpenAIConfig {
     maxOutputTokens: parseInt(process.env.OPENAI_MAX_OUTPUT_TOKENS || '500', 10),
     maxEvidenceTokens: parseInt(process.env.OPENAI_MAX_EVIDENCE_TOKENS || '6000', 10),
     storeResponses: process.env.OPENAI_STORE_RESPONSES === 'true',
+    temperature: parseFloat(process.env.OPENAI_TEMPERATURE || '0.2'),
   };
 }
