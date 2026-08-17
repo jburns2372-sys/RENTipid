@@ -104,6 +104,7 @@ export async function composeCanonicalInformationAnswer(
           systemPrompt: options.systemPrompt,
           bundle,
           structuredCategoryFacts: categoryFacts,
+          semanticContext: input.semanticContext,
           attempt,
         });
         const candidate = generatedResult(output, groundedInput);

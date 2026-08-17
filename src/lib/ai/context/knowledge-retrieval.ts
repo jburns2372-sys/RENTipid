@@ -16,6 +16,7 @@ import {
   buildCustomerEvidenceBundle,
   type CustomerEvidenceBundle,
 } from './customer-evidence-bundle';
+import type { SemanticContextBundle } from '../semantic/contracts';
 
 const MAX_SOURCES = 250;
 const MAX_RESULTS = 4;
@@ -171,6 +172,7 @@ export async function retrieveApprovedKnowledgeEvidence(
   prompt: string,
   userRole: string | undefined,
   conversationContext: readonly ConversationContextMessage[] = [],
+  semanticContext?: SemanticContextBundle,
 ): Promise<KnowledgeRetrievalResult> {
   const classification = classifyRentipidQuestion(prompt, conversationContext);
   if (classification.kind !== 'STATIC_RENTIPID_KNOWLEDGE' || SECRET_QUERY.test(prompt)) {
@@ -191,7 +193,11 @@ export async function retrieveApprovedKnowledgeEvidence(
   };
 
   const concepts = matchingConcepts(classification.effectiveQuestion);
-  const conceptTokens = [...new Set(concepts.flatMap(concept => concept.expansion).flatMap(tokenizeKnowledgeText))];
+  let baseExpansions = concepts.flatMap(concept => concept.expansion);
+  if (semanticContext && semanticContext.retrievalExpansions.length > 0) {
+    baseExpansions = baseExpansions.concat(semanticContext.retrievalExpansions);
+  }
+  const conceptTokens = [...new Set(baseExpansions.flatMap(tokenizeKnowledgeText))];
   const intentDomains = [...new Set([
     ...resolveDomainIntent(classification.effectiveQuestion),
     ...concepts.flatMap(concept => concept.domains),
@@ -451,8 +457,9 @@ export async function retrieveApprovedKnowledgeMatches(
   prompt: string,
   userRole: string | undefined,
   conversationContext: readonly ConversationContextMessage[] = [],
+  semanticContext?: SemanticContextBundle,
 ): Promise<RetrievedKnowledgeMatch[]> {
-  const result = await retrieveApprovedKnowledgeEvidence(prompt, userRole, conversationContext);
+  const result = await retrieveApprovedKnowledgeEvidence(prompt, userRole, conversationContext, semanticContext);
   return [...result.matches];
 }
 
@@ -464,8 +471,9 @@ export async function retrieveApprovedKnowledge(
   prompt: string,
   userRole: string | undefined,
   conversationContext: readonly ConversationContextMessage[] = [],
+  semanticContext?: SemanticContextBundle,
 ): Promise<string | null> {
-  const matches = await retrieveApprovedKnowledgeMatches(prompt, userRole, conversationContext);
+  const matches = await retrieveApprovedKnowledgeMatches(prompt, userRole, conversationContext, semanticContext);
   if (matches.length === 0) return null;
   return matches
     .map(match => `[${match.sourceKey} > ${match.headingPath}]\n${match.content}`)

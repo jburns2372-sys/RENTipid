@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 import type { CustomerEvidenceBundle } from '../context/customer-evidence-bundle';
 import type { StructuredCategoryFact } from '../context/structured-category-resolver';
+import type { SemanticContextBundle } from '../semantic/contracts';
 import { getOpenAIConfig } from './openai-config';
 
 export type GroundedComposerMode = 'GROUNDED_GENERATIVE' | 'DETERMINISTIC_FALLBACK';
@@ -24,6 +25,7 @@ export interface GroundedSynthesisInput {
   systemPrompt: string;
   bundle: CustomerEvidenceBundle;
   structuredCategoryFacts: readonly StructuredCategoryFact[];
+  semanticContext?: SemanticContextBundle;
   attempt: 1 | 2;
 }
 
@@ -64,6 +66,7 @@ function synthesisPrompt(input: GroundedSynthesisInput): string {
     `REQUESTED_ENTITIES: ${JSON.stringify(input.bundle.requestedEntities)}`,
     `QUESTION: ${input.question}`,
     `SAFE_CONVERSATION_CONTEXT: ${input.conversationContext}`,
+    input.semanticContext ? `SEMANTIC_HINTS: Intents=${JSON.stringify(input.semanticContext.intentHints.map(i => i.canonicalTerm))}, Entities=${JSON.stringify(input.semanticContext.entities.map(e => e.canonicalTerm))}` : '',
     `STRUCTURED_CATEGORY_FACTS: ${JSON.stringify(input.structuredCategoryFacts)}`,
     `APPROVED_CUSTOMER_EVIDENCE: ${JSON.stringify(evidencePayload(input.bundle))}`,
   ].filter(Boolean).join('\n');

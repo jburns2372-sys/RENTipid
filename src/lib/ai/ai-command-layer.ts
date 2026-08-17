@@ -23,6 +23,8 @@ import {
 import type { GroundedAnswerResult } from './context/grounded-answer-composer';
 import { AIGuard } from '../security/detection/ai-guard';
 import { DetectionEvaluator } from '../security/detection/evaluator';
+import { parseSemanticContext } from './semantic/normalizer';
+import type { SemanticContextBundle } from './semantic/contracts';
 
 export interface AIGroundingTrace {
   answerClass: SpecialistAnswerClass;
@@ -46,6 +48,13 @@ export interface AIGroundingTrace {
   usedConversationContext: boolean;
   safelyUncertain: boolean;
   adequacyPassed: boolean;
+  semanticLexiconVersion: string;
+  semanticMatchedCanonicalIds: readonly string[];
+  semanticMatchTypes: readonly string[];
+  semanticAmbiguityCount: number;
+  semanticExpansionCount: number;
+  semanticResolutionOutcome: string;
+  semanticFeatureEnabled: boolean;
 }
 export interface AIRequest {
   botId: BotId;
@@ -137,6 +146,12 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
       return { success: false, message: 'Request blocked due to security policy violations.', isBlocked: true };
   }
 
+  const semanticContextBundle = parseSemanticContext(prompt, {
+    enabled: settings.semanticContextLayerEnabled,
+    maxExpansions: settings.semanticMaxExpansions,
+    fuzzyMatchEnabled: settings.semanticFuzzyMatchEnabled,
+  });
+
   // P4 + Revision 2: resolve intent, exactly-one owner, and compatibility support subdomain.
   const resolvedIntent = resolveIntent(prompt);
   const questionClassification = classifyRentipidQuestion(prompt, req.conversationContext ?? []);
@@ -208,6 +223,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     prompt,
     userRole,
     req.conversationContext ?? [],
+    semanticContextBundle,
   );
   const sourceRefs: string[] = entityHint
     ? [`live:${entityHint.entityType}:${entityHint.entityId}`]
@@ -226,6 +242,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     liveEvidenceRef: entityHint ? `live:${entityHint.entityType}:${entityHint.entityId}` : undefined,
     questionAnalysis: retrieval.classification,
     evidenceBundle: retrieval.bundle,
+    semanticContext: semanticContextBundle,
   } as const;
   const groundingTrace = (answer: GroundedAnswerResult): AIGroundingTrace => Object.freeze({
     answerClass,
@@ -249,6 +266,25 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     usedConversationContext: retrieval.classification.usedConversationContext,
     safelyUncertain: answer.safelyUncertain,
     adequacyPassed: answer.adequacyPassed === true,
+    semanticLexiconVersion: semanticContextBundle.lexiconVersion,
+    semanticMatchedCanonicalIds: Object.freeze([...new Set([
+      ...semanticContextBundle.intentHints,
+      ...semanticContextBundle.entities,
+      ...semanticContextBundle.roleHints,
+      ...semanticContextBundle.lifecycleHints
+    ].map(m => m.canonicalId))]),
+    semanticMatchTypes: Object.freeze([...new Set([
+      ...semanticContextBundle.intentHints,
+      ...semanticContextBundle.entities,
+      ...semanticContextBundle.roleHints,
+      ...semanticContextBundle.lifecycleHints
+    ].map(m => m.matchType))]),
+    semanticAmbiguityCount: semanticContextBundle.ambiguousTerms.length,
+    semanticExpansionCount: semanticContextBundle.retrievalExpansions.length,
+    semanticResolutionOutcome: semanticContextBundle.ambiguousTerms.length > 0 ? 'AMBIGUOUS' 
+      : semanticContextBundle.unresolvedTerms.length > 0 ? 'UNRESOLVED' 
+      : 'RESOLVED',
+    semanticFeatureEnabled: settings.semanticContextLayerEnabled,
   });
 
   if (specialistSelection.fallbackTarget === 'UNIFIED_AI_BASELINE') {

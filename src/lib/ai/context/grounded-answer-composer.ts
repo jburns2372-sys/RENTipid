@@ -9,6 +9,7 @@ import {
 } from './answer-adequacy';
 import type { CustomerEvidenceBundle } from './customer-evidence-bundle';
 import type { GroundedComposerMode } from '../providers/grounded-information-provider';
+import type { SemanticContextBundle } from '../semantic/contracts';
 
 export interface GroundedAnswerDiagnostic {
   classification: RentipidQuestionClass;
@@ -41,6 +42,7 @@ export interface GroundedAnswerInput {
   liveEvidenceRef?: string;
   questionAnalysis?: RentipidQuestionClassification;
   evidenceBundle?: CustomerEvidenceBundle;
+  semanticContext?: SemanticContextBundle;
   onDiagnostic?: (diagnostic: GroundedAnswerDiagnostic) => void;
 }
 
