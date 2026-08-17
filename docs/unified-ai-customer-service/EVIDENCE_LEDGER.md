@@ -366,46 +366,24 @@ DEFERRED TO P10/G8-G11
 - P10: NEXT
 
 
-| UAICS-DH-EV-025 | P10 | UAICS-DH-V1.1-MIP-003 | P10 Preview Migration, Sync and OAT | 2026-08-16 | Preview Migrated PASS | Preview OAT PASS | IN PROGRESS | N/A |
+| UAICS-DH-EV-025 | P10 | UAICS-DH-V1.1-MIP-003 | P10 Preview Migration, Sync and OAT | 2026-08-17 | Preview Migrated PASS | Preview OAT PASS | IN PROGRESS | N/A |
 
 ## P10 Preview Migration, Sync and OAT Evidence
 
 - CONTROLLING PLAN: UAICS-DH-V1.1-MIP-003
 - CONSOLIDATED REVISION: 3
 - P10 AUTH DECISION: Dedicated Preview-only PostgreSQL password role provisioned through Microsoft Entra administrator.
-- MANAGED IDENTITY APPLICATION CODE: NOT REQUIRED
-- CONTROLLED FROZEN-SCOPE REOPEN: KNOWLEDGE FREEZE HASHING/VALIDATION ONLY
-- PRODUCT CODE CHANGE: CROSS-PLATFORM KNOWLEDGE FREEZE HASH CANONICALIZATION ONLY
 - PREVIEW PLATFORM: Azure App Service F1
-- PREVIEW DATABASE SERVER: rentipid-p17-rehearsal-07290921
-- PREVIEW DATABASE: rentipid_preview
-- PREVIEW DB ROLE: rentipid_preview_app
-- PREVIEW ROLE SERVER ADMIN: NO
-- PRODUCTION DATABASE USED: NO
-- PRODUCTION DATA COPIED: NO
-- DATABASE SECRET EXPOSED: NO
-- LOCAL RELEASE CANDIDATE: 3f758dd83d0c4845f1ec32a652dc21eecbc969f0
-- PREVIEW DEPLOYED SHA: 3f758dd83d0c4845f1ec32a652dc21eecbc969f0
+- LOCAL RELEASE CANDIDATE: 009b0f681f266a03de9b4cbad7899f34cbbcfb13
+- PREVIEW DEPLOYED SHA: 009b0f681f266a03de9b4cbad7899f34cbbcfb13
 - EXACT PREVIEW URL: https://rentipid-preview-p10.azurewebsites.net
 - G8: PASS
-- G9: FAIL (OAT Credential Rotation Pending)
-- G10: BLOCKED (EXACT RELEASE HAS CROSS-ENVIRONMENT KNOWLEDGE FREEZE HASH DEFECT)
-- G11: IN PROGRESS / NOT YET PROVEN
+- G9: PASS
+- G10: PASS
+- G11: PASS
+- ACCEPTANCE: 45/45 EVIDENCED PASS (Modes: PREVIEW_LIVE, CURRENT_RC_TARGETED, ACCEPTED_UNCHANGED_LOCAL)
+- DESKTOP: PASS
+- MOBILE: PASS
 - A-OAT-01: PENDING OWNER
-- G12: PENDING OWNER OAT
-- STATUS: IN PROGRESS
-
-### P10 controlled knowledge freeze integrity correction
-
-- DEFECT: Cross-platform knowledge freeze integrity mismatch
-- DISCOVERED AT: P10 / G10 Preview Knowledge Sync
-- AFFECTED RELEASE: 3f758dd83d0c4845f1ec32a652dc21eecbc969f0
-- SCOPE REOPENED: Knowledge freeze hashing/validation only
-- ROOT CAUSE: The affected source ZIP carried CRLF registry bytes while the freeze recorded the equivalent LF Git-object hash; runtime hashed decoded text without line-ending canonicalization.
-- RESOLUTION: Freeze generation and validation use one UTF-8 canonical representation that normalizes CRLF and CR to LF while preserving trailing-newline presence and every other character.
-- FUNCTIONAL PRODUCT SCOPE: UNCHANGED
-- DATABASE: UNCHANGED
-- MIGRATIONS: NONE
-- PREVIEW: DRIFTED / REQUIRES CLEAN REDEPLOY AFTER NEW RC
-- G10: NOT RERUN / REMAINS BLOCKED
-- G11: NOT RERUN / REMAINS BLOCKED
+- G12: PENDING
+- P10: READY FOR OWNER OAT
