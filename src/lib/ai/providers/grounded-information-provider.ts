@@ -190,37 +190,59 @@ class OpenAIGroundedProvider implements GroundedInformationProvider {
   }
 }
 
-class DeterministicEvidenceFallbackProvider implements GroundedInformationProvider {
-  readonly name = 'deterministic-evidence-fallback';
+class LocalGroundedComposerProvider implements GroundedInformationProvider {
+  readonly name = 'local-grounded-composer';
   readonly mode = 'DETERMINISTIC_FALLBACK' as const;
 
   available(): boolean {
-    return true; // Fallback is always available
+    return true; // Local composer is always available
   }
 
   async synthesize(input: GroundedSynthesisInput): Promise<GroundedSynthesisOutput> {
-    // In a real deterministic fallback, we would reconstruct steps or concatenate safely.
-    const answer = input.bundle.sections
-      .map(s => s.chunks.map(c => c.content).join(' '))
-      .join('\n\n');
-      
-    if (!answer.trim()) {
-       throw new Error('INSUFFICIENT_CUSTOMER_EVIDENCE');
+    if (input.bundle.sections.length === 0) {
+      throw new Error('INSUFFICIENT_CUSTOMER_EVIDENCE');
     }
 
+    const claims: GroundedSynthesisClaim[] = [];
+    let composedAnswer = '';
+
+    for (const section of input.bundle.sections) {
+      const sectionText = section.chunks.map(c => c.content).join(' ');
+      
+      claims.push({
+        text: section.sectionTitle,
+        evidenceRefs: section.chunks.map(c => c.evidenceRef),
+        supportingText: sectionText,
+      });
+
+      if (composedAnswer.length > 0) composedAnswer += '\n\n';
+      composedAnswer += `**${section.sectionTitle}**\n${sectionText}`;
+    }
+
+    if (input.structuredCategoryFacts && input.structuredCategoryFacts.length > 0) {
+      const factsText = input.structuredCategoryFacts.map(f => `${f.categoryName}: ${f.factLabel} - ${f.value}`).join('\n');
+      composedAnswer += `\n\n**Category Facts**\n${factsText}`;
+    }
+
+    // Wrap in a direct answer context
+    const finalAnswer = `Here is the RENTipid information regarding your query:\n\n${composedAnswer}`;
+
     return {
-      answer: "I am experiencing temporary limitations but can confirm your query relates to RENTipid policies or processes. " + answer.substring(0, 500) + (answer.length > 500 ? "..." : ""),
+      answer: finalAnswer,
       answeredIntent: input.bundle.classification.intent,
       coveredEntities: [...input.bundle.requestedEntities],
-      claims: [],
+      claims,
     };
   }
 }
+
+// Alias for backward compatibility
+const DeterministicEvidenceFallbackProvider = LocalGroundedComposerProvider;
 
 export function resolveGroundedInformationProvider(
   providerMode: string,
 ): GroundedInformationProvider | null {
   if (providerMode === 'openai') return new OpenAIGroundedProvider();
-  if (providerMode === 'deterministic-evidence-fallback') return new DeterministicEvidenceFallbackProvider();
+  if (providerMode === 'deterministic-evidence-fallback' || providerMode === 'local-grounded-composer') return new LocalGroundedComposerProvider();
   return null;
 }

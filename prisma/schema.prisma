@@ -95,6 +95,9 @@ model User {
   approved_policies PrivacyPolicyVersion[] @relation("PolicyApprover")
 
   socialAttributions SocialAttribution[]
+
+  // R4-PIR-01: Semantic Adaptive Learning
+  semantic_learning_candidates SemanticLearningCandidate[]
 }
 
 model UserMfa {
@@ -3286,4 +3289,36 @@ model SocialFeedback {
 
   @@unique([provider, social_account_id, provider_feedback_id])
   @@index([status, severity])
+}
+
+model SemanticLearningCandidate {
+  id                          String    @id @default(cuid())
+  normalizedPhrase            String
+  canonicalCandidateId        String
+  semanticType                String
+  domain                      String
+  matchSource                 String
+  confidence                  Float     @default(0.0)
+  observationCount            Int       @default(0)
+  successfulGroundedCount     Int       @default(0)
+  failedGroundedCount         Int       @default(0)
+  explicitUserCorrectionCount Int       @default(0)
+  ambiguityCount              Int       @default(0)
+  status                      String // OBSERVED | CANDIDATE | LEARNED_HINT | APPROVED | REJECTED | DEPRECATED
+  lexiconVersionObserved      String
+  firstSeenAt                 DateTime  @default(now())
+  lastSeenAt                  DateTime  @updatedAt
+  lastVerifiedAt              DateTime?
+  traceReference              String?
+  createdBy                   String    @default("SYSTEM_LEARNING")
+  lastFailureReason           String?
+  lastPromotionReason         String?
+  deactivatedAt               DateTime?
+
+  user_id String?
+  user    User?   @relation(fields: [user_id], references: [id], onDelete: SetNull)
+
+  @@unique([normalizedPhrase, canonicalCandidateId, domain, semanticType])
+  @@index([status])
+  @@index([canonicalCandidateId])
 }

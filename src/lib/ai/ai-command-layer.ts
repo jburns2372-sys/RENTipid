@@ -25,6 +25,7 @@ import { AIGuard } from '../security/detection/ai-guard';
 import { DetectionEvaluator } from '../security/detection/evaluator';
 import { parseSemanticContext } from './semantic/normalizer';
 import type { SemanticContextBundle } from './semantic/contracts';
+import { processAdaptiveLearningEvent } from './semantic/adaptive-learning';
 
 export interface AIGroundingTrace {
   answerClass: SpecialistAnswerClass;
@@ -543,6 +544,16 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   // applies output protection and remains the sole final-response authority.
   let responseMessage = execution.result.draftResponse ?? "I don't have approved information to confirm that.";
   void execution.trace;
+  
+  if (groundedDraft) {
+    void processAdaptiveLearningEvent({
+      bundle: semanticContextBundle,
+      success: groundedDraft.adequacyPassed === true,
+      ambiguityDetected: semanticContextBundle.ambiguousTerms.length > 0,
+      source: 'VERIFIER',
+      reason: groundedDraft.verifierReasons?.join(', '),
+    });
+  }
 
   // Phase 5K Integration: Output Filter
   const outputCheck = aiGuard.checkOutputProtection(responseMessage, userId || 'anonymous', '127.0.0.1');

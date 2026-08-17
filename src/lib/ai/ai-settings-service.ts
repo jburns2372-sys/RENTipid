@@ -15,6 +15,7 @@ export interface AISettings {
   semanticLexiconVersion: string;
   semanticMaxExpansions: number;
   semanticFuzzyMatchEnabled: boolean;
+  semanticAdaptiveLearningEnabled: boolean;
 }
 
 // In Next.js 14/15, we can use React cache or unstable_cache.
@@ -83,6 +84,7 @@ export async function getAISettings(): Promise<AISettings> {
     semanticLexiconVersion,
     semanticMaxExpansions,
     semanticFuzzyMatchEnabled,
+    semanticAdaptiveLearningEnabled: getVal('ai_semantic_adaptive_learning_enabled', 'true') === 'true',
   };
 }
 

@@ -11,6 +11,7 @@ import {
   type GroundedInformationProvider,
   type GroundedSynthesisOutput,
 } from '../providers/grounded-information-provider';
+import { AiCircuitBreaker } from '../resilience/AiCircuitBreaker';
 
 export interface CanonicalInformationAnswerOptions {
   providerMode: string;
@@ -91,11 +92,18 @@ export async function composeCanonicalInformationAnswer(
   const provider = options.provider === undefined
     ? resolveGroundedInformationProvider(options.providerMode)
     : options.provider;
+    
+  const breaker = AiCircuitBreaker.getInstance();
+  const providerName = provider?.name ?? 'unknown';
+  const circuitOpen = breaker.isCircuitOpen(providerName);
+
   let fallbackReason = bundle.sections.length === 0
     ? 'INSUFFICIENT_CUSTOMER_EVIDENCE'
-    : provider?.available() ? 'GENERATOR_VERIFICATION_FAILED' : 'GENERATOR_UNAVAILABLE';
+    : provider?.available()
+      ? (circuitOpen ? 'GENERATOR_CIRCUIT_OPEN' : 'GENERATOR_VERIFICATION_FAILED')
+      : 'GENERATOR_UNAVAILABLE';
 
-  if (bundle.sections.length > 0 && provider?.available()) {
+  if (bundle.sections.length > 0 && provider?.available() && !circuitOpen && provider.mode === 'GROUNDED_GENERATIVE') {
     for (const attempt of [1, 2] as const) {
       try {
         const output = await provider.synthesize({
@@ -123,8 +131,43 @@ export async function composeCanonicalInformationAnswer(
         }
         fallbackReason = `VERIFIER_${verification.reasons.join('_')}`;
       } catch (error) {
+        breaker.recordError(providerName);
         fallbackReason = error instanceof Error ? error.message : 'GENERATOR_ERROR';
+        break; // Stop retrying on provider-level network/auth errors, failover immediately
       }
+    }
+  }
+
+  // Use Local Grounded Composer for failover or if OpenAI is disabled/unhealthy
+  const localProvider = resolveGroundedInformationProvider('local-grounded-composer');
+  if (localProvider && bundle.sections.length > 0) {
+    try {
+      const output = await localProvider.synthesize({
+        question: input.question,
+        conversationContext: options.conversationContext,
+        systemPrompt: options.systemPrompt,
+        bundle,
+        structuredCategoryFacts: categoryFacts,
+        semanticContext: input.semanticContext,
+        attempt: 1,
+      });
+      const candidate = generatedResult(output, groundedInput);
+      const verification = verifyGroundedAnswer({ bundle, answer: candidate, structuredCategoryFacts: categoryFacts });
+      if (verification.pass) {
+        return {
+          ...candidate,
+          adequacyPassed: true,
+          evidenceSufficient: true,
+          compositionAttempts: 1,
+          composerMode: 'DETERMINISTIC_FALLBACK',
+          composerProvider: localProvider.name,
+          verifierReasons: [],
+          retryUsed: false,
+          fallbackReason, // preserve the reason why we fell back
+        };
+      }
+    } catch (error) {
+       // fallback below
     }
   }
 
