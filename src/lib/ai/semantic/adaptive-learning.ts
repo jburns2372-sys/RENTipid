@@ -32,14 +32,14 @@ export async function processAdaptiveLearningEvent(event: SemanticLearningEvent)
             normalizedPhrase: match.inputTerm,
             canonicalCandidateId: match.canonicalId,
             domain: 'DEFAULT',
-            semanticType: match.entityType || 'UNKNOWN'
+            semanticType: (match as any).entityType || 'UNKNOWN'
           }
         },
         create: {
           normalizedPhrase: match.inputTerm,
           canonicalCandidateId: match.canonicalId,
           domain: 'DEFAULT',
-          semanticType: match.entityType || 'UNKNOWN',
+          semanticType: (match as any).entityType || 'UNKNOWN',
           matchSource: match.matchType,
           status: 'OBSERVED',
           lexiconVersionObserved: event.bundle.lexiconVersion,

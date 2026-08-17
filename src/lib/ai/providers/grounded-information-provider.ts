@@ -220,7 +220,7 @@ class LocalGroundedComposerProvider implements GroundedInformationProvider {
     }
 
     if (input.structuredCategoryFacts && input.structuredCategoryFacts.length > 0) {
-      const factsText = input.structuredCategoryFacts.map(f => `${f.categoryName}: ${f.factLabel} - ${f.value}`).join('\n');
+      const factsText = input.structuredCategoryFacts.map(f => `${f.entity}: ${f.canonicalCategory || 'Unknown'} - ${f.status}`).join('\n');
       composedAnswer += `\n\n**Category Facts**\n${factsText}`;
     }
 
