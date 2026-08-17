@@ -6,6 +6,10 @@ import {
   type ConversationContextMessage,
   type RentipidQuestionClassification,
 } from './question-classifier';
+import {
+  isOrdinaryCustomerRole,
+  projectCustomerAnswerableText,
+} from './customer-knowledge-projection';
 
 const MAX_SOURCES = 250;
 const MAX_RESULTS = 4;
@@ -41,7 +45,7 @@ const RETRIEVAL_CONCEPTS: readonly RetrievalConcept[] = [
   { id: 'insurance', pattern: /\b(?:insurance|coverage|claim|claims|damage)\b/i, domains: ['Insurance', 'Trust & Safety'], expansion: ['insurance', 'claim', 'damage', 'coverage', 'support'] },
   { id: 'dispute', pattern: /\b(?:dispute|mediation|mediate|resolution|complaint)\b/i, domains: ['Trust & Safety', 'Marketplace', 'Core', 'Unified AI'], expansion: ['dispute', 'mediation', 'claim', 'support', 'booking', 'policy'] },
   { id: 'reviews', pattern: /\b(?:review|reviews|rating|ratings|feedback)\b/i, domains: ['Marketplace', 'Core'], expansion: ['review', 'feedback', 'booking', 'listing', 'support'] },
-  { id: 'discovery', pattern: /\b(?:browse|search|discover|filter|category|categories)\b/i, domains: ['Marketplace'], expansion: ['browse', 'search', 'listing', 'category', 'rental'] },
+  { id: 'discovery', pattern: /\b(?:browse|search|discover|filter|category|categories|supported\s+(?:item|rental)\s+types?|types?\s+of\s+rentals?|rentals?\s+(?:allowed|supported))\b/i, domains: ['Marketplace'], expansion: ['browse', 'search', 'listing', 'category', 'rental'] },
   { id: 'safety', pattern: /\b(?:safe|safety|security|prohibited|restricted(?:\s+item)?|firearms?|weapons?|unsafe)\b/i, domains: ['Trust & Safety', 'Security'], expansion: ['safety', 'security', 'prohibited', 'restricted', 'item', 'support'] },
   { id: 'privacy', pattern: /\b(?:privacy|personal data|data correction|data export|delete.*account)\b/i, domains: ['Privacy'], expansion: ['privacy', 'data', 'account', 'correction', 'deletion'] },
   { id: 'legal', pattern: /\b(?:legal|law|laws|compliance|regulation|regulations|jurisdiction|jurisdictions|terms)\b/i, domains: ['Legal'], expansion: ['legal', 'compliance', 'terms', 'privacy', 'jurisdiction'] },
@@ -90,6 +94,21 @@ function matchingConcepts(prompt: string): readonly RetrievalConcept[] {
   return RETRIEVAL_CONCEPTS.filter(concept => concept.pattern.test(prompt));
 }
 
+function matchesResolvedIntent(
+  match: RetrievedKnowledgeMatch,
+  classification: RentipidQuestionClassification,
+): boolean {
+  const text = [match.sourceKey, match.topic, match.headingPath, match.content].join(' ');
+  if (classification.intent === 'CREATE_LISTING') {
+    return /\b(?:listing creation|create (?:a |new )?listing|listing details|submit for review)\b/i.test(text);
+  }
+  if (classification.intent === 'BOOKING_PROCESS') return /\bbooking (?:process|request)|send a booking request\b/i.test(text);
+  if (classification.intent === 'PROVIDER_PAYMENT_PROCESS') return /\b(?:provider payout|provider payment|rental earnings)\b/i.test(text);
+  if (classification.intent === 'CATEGORY_ELIGIBILITY') return match.sourceKey === 'provider.marketplace-taxonomy';
+  if (classification.intent === 'REGISTRATION') return /\baccount creation|registration and onboarding\b/i.test(text);
+  return true;
+}
+
 function scoreToken(
   token: string,
   sourceFieldTokens: ReadonlySet<string>,
@@ -117,6 +136,7 @@ export interface RetrievedKnowledgeMatch {
   score: number;
   coverage: number;
   attempt: 1 | 2;
+  customerProjected?: boolean;
 }
 
 export interface KnowledgeRetrievalResult {
@@ -163,6 +183,7 @@ export async function retrieveApprovedKnowledgeEvidence(
 
   const firstAttempt: RetrievedKnowledgeMatch[] = [];
   const recoveryAttempt: RetrievedKnowledgeMatch[] = [];
+  const customerProjectionRequired = isOrdinaryCustomerRole(userRole);
 
   for (const source of sources) {
     if (canonicalSourcesPresent && (source.authority === 'OAT_TEST_FIXTURE' || source.sourceKey.startsWith('oat-'))) continue;
@@ -196,8 +217,12 @@ export async function retrieveApprovedKnowledgeEvidence(
       const chunkVisibility = chunk.visibility || source.visibility;
       const chunkRoles = chunk.roles ? parseStoredRoles(chunk.roles) : sourceRoles;
       if (!canAccessKnowledge(chunkVisibility, chunkRoles, userRole)) continue;
+      const projectedContent = customerProjectionRequired
+        ? projectCustomerAnswerableText(chunk.content, chunk.headingPath)
+        : chunk.content;
+      if (!projectedContent) continue;
       const headingTokens = new Set(tokenizeKnowledgeText(chunk.headingPath));
-      const contentTokens = new Set(tokenizeKnowledgeText(chunk.normalizedContent));
+      const contentTokens = new Set(tokenizeKnowledgeText(projectedContent));
       const keywordTokens = new Set(tokenizeKnowledgeText(jsonStrings(chunk.keywords).join(' ')));
       const matchedTokens = new Set<string>();
       let lexicalScore = 0;
@@ -220,6 +245,31 @@ export async function retrieveApprovedKnowledgeEvidence(
       if (['MANUAL', 'PUBLISHED_GUIDANCE'].includes(source.sourceType)) sharedScore += 1;
       if (source.authority !== 'LEGACY') sharedScore += 0.25;
       if (isLegal && !intentDomains.includes('Legal')) sharedScore -= 20;
+      const intentText = [source.sourceKey, source.topic, chunk.headingPath, projectedContent].join(' ');
+      if (classification.intent === 'BOOKING_PROCESS') {
+        if (/\bbooking\b/i.test(intentText)) sharedScore += 12;
+        if (source.sourceKey === 'provider.workflow-status') sharedScore += 8;
+        if (source.sourceKey === 'route.terms') sharedScore -= 18;
+      }
+      if (classification.intent === 'PROVIDER_PAYMENT_PROCESS') {
+        if (/\b(?:provider payout|provider payment|rental earnings)\b/i.test(intentText)) sharedScore += 18;
+        if (source.module === 'Payments') sharedScore += 8;
+        if (source.sourceKey === 'route.terms') sharedScore -= 18;
+      }
+      if (classification.intent === 'CREATE_LISTING') {
+        if (/\blisting (?:creation|details|management)|create (?:a )?listing\b/i.test(intentText)) sharedScore += 18;
+        if (classification.providerContext === 'EXISTING_PROVIDER' && /\bonboarding|registration\b/i.test(intentText)) {
+          sharedScore -= 24;
+        }
+      }
+      if (classification.intent === 'CATEGORY_ELIGIBILITY') {
+        if (source.sourceKey === 'provider.marketplace-taxonomy') sharedScore += 30;
+        else sharedScore -= 10;
+      }
+      if (classification.intent === 'REGISTRATION') {
+        if (source.sourceKey === 'core.registration-onboarding') sharedScore += 24;
+        if (/\baccount creation\b/i.test(intentText)) sharedScore += 8;
+      }
 
       const base = {
         sourceKey: source.sourceKey,
@@ -230,7 +280,8 @@ export async function retrieveApprovedKnowledgeEvidence(
         topic: source.topic,
         chunkKey: chunk.chunkKey,
         headingPath: chunk.headingPath,
-        content: chunk.content,
+        content: projectedContent,
+        customerProjected: customerProjectionRequired,
       };
 
       if (coverage >= MIN_QUERY_COVERAGE && sharedScore > 0) {
@@ -261,8 +312,10 @@ export async function retrieveApprovedKnowledgeEvidence(
   }
 
   const firstAttemptHasIntendedDomain = firstAttempt.some(match => intentDomains.includes(match.module));
+  const firstAttemptHasResolvedIntent = firstAttempt.some(match => matchesResolvedIntent(match, classification));
   const shouldRecover = firstAttempt.length === 0
     || !firstAttemptHasIntendedDomain
+    || !firstAttemptHasResolvedIntent
     || Math.max(...firstAttempt.map(match => match.coverage)) < 0.75;
   const candidates = shouldRecover ? [...firstAttempt, ...recoveryAttempt] : firstAttempt;
   const deduplicated = new Map<string, RetrievedKnowledgeMatch>();

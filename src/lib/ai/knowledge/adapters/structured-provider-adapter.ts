@@ -69,8 +69,17 @@ The supported authority progression is answer, suggest, prepare a draft, and exe
     title: 'Payment and Currency Status',
     content: `# Payment and Currency Status
 
-The RENTipid payment contract currency is ${PAYMENT_CONTRACT_CURRENCY}. Live payment activation remains separately governed and general knowledge never authorizes a charge, refund, payout, transfer, escrow release, or deposit release. Current transaction status must be obtained through an authorized payment/domain tool.`,
-    keywords: ['payment', 'currency', 'php', 'refund', 'payout', 'deposit', 'escrow'],
+The RENTipid payment currency is ${PAYMENT_CONTRACT_CURRENCY}.
+
+## Provider Payout Process
+
+1. Complete the rental and any required return or inspection steps shown for the booking.
+2. When the booking becomes eligible for payout, RENTipid creates a payout record for finance review.
+3. Open **Provider Dashboard**, then **My Payouts**, to see the booking, net amount, payout status, and statement.
+4. RENTipid currently processes provider payouts manually. A payout is received only after its status shows that processing is complete.
+
+For the status of a specific payout, open that payout record. General guidance cannot send a payout, refund a payment, or release a deposit.`,
+    keywords: ['payment', 'provider payment', 'rental earnings', 'currency', 'php', 'refund', 'payout', 'deposit'],
   }),
   'structured:insurance': async () => ({
     title: 'Insurance Module Approved Safe State',
@@ -96,7 +105,7 @@ The Social module supports controlled content workflows and provider capability 
       title: 'Marketplace Category Taxonomy',
       content: `# Marketplace Category Taxonomy
 
-The approved canonical rental marketplace taxonomy contains the following rental category and subcategory names. This provider reads only taxonomy fields; sample users, listings, bookings, and negative test fixtures are never ingested.
+## Supported Rental Categories
 
 ${categories}`,
       keywords: ['marketplace', 'categories', 'listings', ...parsed.categories.map(category => category.name)],
@@ -108,11 +117,19 @@ ${categories}`,
 
 ## Listings
 
-Listings move through controlled draft, submission, publication, availability, review, and removal states. Visibility depends on the authoritative listing service and policy checks.
+1. A verified provider opens **Provider Listings** and selects **Create New Listing**.
+2. Enter the listing details, choose an active rental category, and save the new listing as a draft.
+3. Add the supported photos and category documents from the listing management page.
+4. Select **Submit for Review** when the listing is ready. It is published only after the required review.
 
-## Bookings
+## Booking Process
 
-Bookings use controlled request, confirmation, turnover, active rental, return/inspection, completion, cancellation, dispute, and claim-related transitions. The current state must come from the Booking domain service.
+1. Browse available rentals and open the listing you want.
+2. Choose the rental dates or duration, select pickup or delivery when offered, review the estimated cost, and send a booking request.
+3. The provider reviews the request. If it is accepted, follow the booking screen for any required agreement and payment step.
+4. Use the booking screen for pickup or delivery, inspection, return, and completion steps.
+
+For the status of a specific booking, open that booking record.
 
 ## Claims and disputes
 

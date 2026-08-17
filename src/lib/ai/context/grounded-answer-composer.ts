@@ -1,6 +1,8 @@
 import type { RentipidQuestionClass } from './question-classifier';
 import type { RetrievedKnowledgeMatch } from './knowledge-retrieval';
 import { tokenizeKnowledgeText } from './knowledge-retrieval';
+import { classifyRentipidQuestion, type RentipidQuestionClassification } from './question-classifier';
+import { validateAnswerAdequacy } from './answer-adequacy';
 
 export interface GroundedMaterialClaim {
   text: string;
@@ -14,6 +16,7 @@ export interface GroundedAnswerInput {
   evidence: readonly RetrievedKnowledgeMatch[];
   authorizedLiveContext?: string;
   liveEvidenceRef?: string;
+  questionAnalysis?: RentipidQuestionClassification;
 }
 
 export interface GroundedAnswerResult {
@@ -21,6 +24,7 @@ export interface GroundedAnswerResult {
   evidenceRefs: readonly string[];
   materialClaims: readonly GroundedMaterialClaim[];
   safelyUncertain: boolean;
+  adequacyPassed?: boolean;
 }
 
 const INTERNAL_CONTENT =
@@ -58,6 +62,29 @@ interface CandidateClaim {
   ref: string;
   score: number;
   ordinal: number;
+}
+
+function procedureIntro(analysis: RentipidQuestionClassification): string {
+  if (analysis.intent === 'BOOKING_PROCESS') return 'Booking on RENTipid works like this:';
+  if (analysis.intent === 'PROVIDER_PAYMENT_PROCESS') return 'Providers receive rental payment through this payout process:';
+  if (analysis.intent === 'CREATE_LISTING' && analysis.providerContext === 'EXISTING_PROVIDER') {
+    return 'Since you already have a provider account, create the listing like this:';
+  }
+  if (analysis.intent === 'CREATE_LISTING') return 'Create a rental listing like this:';
+  if (analysis.intent === 'REGISTRATION') return 'Create a RENTipid account like this:';
+  return 'Here is what to do:';
+}
+
+function answerIntentScore(
+  match: RetrievedKnowledgeMatch,
+  analysis: RentipidQuestionClassification,
+): number {
+  const text = [match.sourceKey, match.topic, match.headingPath, match.content].join(' ');
+  if (analysis.intent === 'BOOKING_PROCESS' && /\bbooking process|send a booking request\b/i.test(text)) return 30;
+  if (analysis.intent === 'PROVIDER_PAYMENT_PROCESS' && /\bprovider payout process\b/i.test(text)) return 30;
+  if (analysis.intent === 'CREATE_LISTING' && /\blisting creation|create new listing\b/i.test(text)) return 30;
+  if (analysis.intent === 'REGISTRATION' && /\baccount creation\b/i.test(text)) return 30;
+  return 0;
 }
 
 function relevanceScore(text: string, questionTokens: readonly string[]): number {
@@ -103,6 +130,7 @@ function staticAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
   }
 
   const questionTokens = tokenizeKnowledgeText(input.effectiveQuestion);
+  const analysis = input.questionAnalysis ?? classifyRentipidQuestion(input.effectiveQuestion);
   const eligibleEvidence = requiresDuration
     ? input.evidence.filter(match => DURATION_EVIDENCE.test(match.content))
     : input.evidence;
@@ -115,8 +143,16 @@ function staticAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
     };
   }
 
-  const procedural = /\b(?:how|steps?|start|create|register|list|publish|edit|change|update|submit|need)\b/i.test(input.question);
+  if (analysis.intent === 'CATEGORY_ELIGIBILITY') {
+    return categoryAnswer(input, analysis);
+  }
+
+  const procedural = ['BOOKING_PROCESS', 'PROVIDER_PAYMENT_PROCESS', 'CREATE_LISTING', 'REGISTRATION']
+    .includes(analysis.intent)
+    || /\b(?:how|steps?|start|create|register|list|publish|edit|change|update|submit|need)\b/i.test(input.question);
   const rankedEvidence = [...eligibleEvidence].sort((left, right) => {
+    const intentDifference = answerIntentScore(right, analysis) - answerIntentScore(left, analysis);
+    if (intentDifference !== 0) return intentDifference;
     const leftCustomerSource = ['MANUAL', 'PUBLISHED_GUIDANCE'].includes(left.sourceType) ? 1 : 0;
     const rightCustomerSource = ['MANUAL', 'PUBLISHED_GUIDANCE'].includes(right.sourceType) ? 1 : 0;
     return rightCustomerSource - leftCustomerSource || right.score - left.score;
@@ -127,9 +163,10 @@ function staticAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
       const steps = extractSteps(match, questionTokens);
       if (steps.length >= 2) {
         const selected = steps.slice(0, 4);
-        const message = `Here’s what to do:\n${selected.map((step, index) => `${index + 1}. ${step.text}`).join('\n')}`;
+        const intentMessage = procedureIntro(analysis) + '\n'
+          + selected.map((step, index) => (index + 1) + '. ' + step.text).join('\n');
         return {
-          message,
+          message: intentMessage,
           evidenceRefs: [...new Set(selected.map(step => step.ref))],
           materialClaims: selected.map(step => ({ text: step.text, evidenceRefs: [step.ref] })),
           safelyUncertain: false,
@@ -169,6 +206,112 @@ function staticAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
   };
 }
 
+interface RentalCategory {
+  name: string;
+  slug: string;
+  subcategories: readonly string[];
+  ref: string;
+}
+
+function normalizedCategory(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().replace(/s$/, '');
+}
+
+function rentalCategories(evidence: readonly RetrievedKnowledgeMatch[]): RentalCategory[] {
+  const categories: RentalCategory[] = [];
+  for (const match of evidence) {
+    for (const line of match.content.split(/\r?\n/)) {
+      const parsed = line.match(/^[-*]\s+(.+?)\s+\(([^)]+)\):\s*(.+)$/);
+      if (!parsed) continue;
+      categories.push({
+        name: parsed[1].trim(),
+        slug: parsed[2].trim(),
+        subcategories: parsed[3].split(',').map(value => value.trim()),
+        ref: evidenceRef(match),
+      });
+    }
+  }
+  return categories;
+}
+
+function matchedCategoryAnswer(
+  requested: readonly string[],
+  categories: readonly RentalCategory[],
+): GroundedAnswerResult {
+  const claims: GroundedMaterialClaim[] = [];
+  const lines: string[] = [];
+  let uncertain = false;
+  for (const term of requested) {
+    const normalizedTerm = normalizedCategory(term);
+    const match = categories.find(category => {
+      const searchable = [category.name, category.slug, ...category.subcategories]
+        .map(normalizedCategory);
+      return searchable.some(value => value === normalizedTerm
+        || value.includes(normalizedTerm)
+        || normalizedTerm.includes(value));
+    });
+    if (!match) {
+      uncertain = true;
+      lines.push('- ' + term + ': RENTipid cannot confirm this from the approved rental categories.');
+      continue;
+    }
+    const text = match.name + ' is a supported RENTipid rental category.';
+    lines.push('- ' + match.name + ': Supported.');
+    claims.push({ text, evidenceRefs: [match.ref] });
+  }
+  return {
+    message: lines.join('\n'),
+    evidenceRefs: [...new Set(claims.flatMap(claim => claim.evidenceRefs))],
+    materialClaims: claims,
+    safelyUncertain: uncertain,
+  };
+}
+
+function requestedCategoryAnswer(
+  requested: readonly string[],
+  categories: readonly RentalCategory[],
+  question: string,
+): GroundedAnswerResult {
+  if (requested.length === 0) {
+    const asksForList = /\b(?:types?|categor(?:y|ies))\b/i.test(question);
+    if (!asksForList) {
+      return {
+        message: 'Which item or property type would you like to list?',
+        evidenceRefs: [],
+        materialClaims: [],
+        safelyUncertain: true,
+      };
+    }
+    const refs = [...new Set(categories.map(category => category.ref))];
+    const claim = 'Supported rental categories include: '
+      + categories.map(category => category.name).join(', ')
+      + '.';
+    return {
+      message: claim,
+      evidenceRefs: refs,
+      materialClaims: [{ text: claim, evidenceRefs: refs }],
+      safelyUncertain: false,
+    };
+  }
+  return matchedCategoryAnswer(requested, categories);
+}
+
+function categoryAnswer(
+  input: GroundedAnswerInput,
+  analysis: RentipidQuestionClassification,
+): GroundedAnswerResult {
+  const categories = rentalCategories(input.evidence);
+  if (categories.length === 0) {
+    return {
+      message: 'Approved RENTipid category information is unavailable for that item.',
+      evidenceRefs: [],
+      materialClaims: [],
+      safelyUncertain: true,
+    };
+  }
+  return requestedCategoryAnswer(analysis.requestedCategoryTerms, categories, input.question);
+}
+
 function liveAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
   const state = input.authorizedLiveContext?.match(/Authoritative ([^:\n]+) state:\s*([^\n]+)/i);
   if (!state || !input.liveEvidenceRef) {
@@ -205,23 +348,52 @@ function liveAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
   };
 }
 
+function adequacyProtected(
+  input: GroundedAnswerInput,
+  result: GroundedAnswerResult,
+): GroundedAnswerResult {
+  const classification = input.questionAnalysis ?? classifyRentipidQuestion(input.effectiveQuestion);
+  const adequacy = validateAnswerAdequacy({
+    classification,
+    message: result.message,
+    materialClaims: result.materialClaims,
+    safelyUncertain: result.safelyUncertain,
+  });
+  if (adequacy.pass) return { ...result, adequacyPassed: true };
+  return {
+    message: 'Approved RENTipid information is not sufficient to answer that clearly. Please be more specific.',
+    evidenceRefs: [],
+    materialClaims: [],
+    safelyUncertain: true,
+    adequacyPassed: true,
+  };
+}
+
 export function composeGroundedAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
-  if (input.classification === 'LIVE_RENTIPID_STATE') return liveAnswer(input);
+  if (input.classification === 'LIVE_RENTIPID_STATE') return adequacyProtected(input, liveAnswer(input));
+  if (input.classification === 'CONSEQUENTIAL_ACTION') {
+    return adequacyProtected(input, {
+      message: 'This chat cannot carry out that action. Open the relevant RENTipid record to use an available action, or ask how the process works.',
+      evidenceRefs: [],
+      materialClaims: [],
+      safelyUncertain: true,
+    });
+  }
   if (input.classification === 'OUT_OF_SCOPE_OR_UNSUPPORTED') {
-    return {
+    return adequacyProtected(input, {
       message: 'I’m here to help with RENTipid accounts, listings, bookings, payments, safety, and support. Please ask me a RENTipid question.',
       evidenceRefs: [],
       materialClaims: [],
       safelyUncertain: true,
-    };
+    });
   }
   if (input.classification === 'AMBIGUOUS') {
-    return {
+    return adequacyProtected(input, {
       message: 'Could you tell me which RENTipid feature or process you mean?',
       evidenceRefs: [],
       materialClaims: [],
       safelyUncertain: true,
-    };
+    });
   }
-  return staticAnswer(input);
+  return adequacyProtected(input, staticAnswer(input));
 }

@@ -12,7 +12,6 @@ import {
 import { revision2SpecialistRegistry } from '@/lib/ai/specialists/framework-registry';
 import { intentOwnershipRegistry } from '@/lib/ai/specialists/ownership-registry';
 import {
-  SpecialistSelectionError,
   UnifiedAiSpecialistOrchestrator,
 } from '@/lib/ai/specialists/orchestrator';
 import { evaluateSpecialistPermission } from '@/lib/ai/specialists/permission-matrix';
@@ -414,10 +413,11 @@ describe('P4.1 Revision 2 SupportSpecialist', () => {
 
   test('P4.1-SUPPORT-13: feature-disabled SupportSpecialist falls back safely without a second AI', () => {
     const featureFlag = revision2SpecialistRegistry.SupportSpecialist.featureFlag;
-    expect(() => orchestrator.select('booking_status', { [featureFlag]: false }))
-      .toThrow(SpecialistSelectionError);
+    const selection = orchestrator.select('booking_status', { [featureFlag]: false });
+    expect(selection.usedFallback).toBe(true);
+    expect(selection.fallbackTarget).toBe('UNIFIED_AI_BASELINE');
     const commandSource = readFileSync(join(process.cwd(), 'src/lib/ai/ai-command-layer.ts'), 'utf8');
-    expect(commandSource).toContain('This specialist capability is currently unavailable. Your request was safely held.');
+    expect(commandSource).toContain('ALLOW_BASELINE_FALLBACK');
   });
 
   test('P4.1-SUPPORT-14: prompt or context cannot grant ownership, role, tool, or maturity', async () => {

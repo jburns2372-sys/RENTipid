@@ -13,7 +13,7 @@ Weapons, illegal substances, and hazardous materials are prohibited. The active 
 
 ## Booking and payments
 
-Bookings and supported payment or deposit handling use the controls implemented by the relevant RENTipid module. Users should never treat general guidance as authorization for a refund, payout, deposit release, or booking mutation.`,
+General information can explain booking and payment steps, but it cannot change a booking or carry out a refund, payout, or deposit release.`,
     keywords: ['terms', 'marketplace', 'listing', 'booking', 'payment', 'deposit'],
   },
   'route.safety': {

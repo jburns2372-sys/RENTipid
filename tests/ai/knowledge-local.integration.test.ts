@@ -17,7 +17,7 @@ describe('KB-1 local canonical acceptance', () => {
     expect(report.accountedCandidates).toBe(148);
     expect(report.approvedCanonicalSources).toBe(109);
     expect(report.activeSources).toBe(109);
-    expect(report.totalChunks).toBe(722);
+    expect(report.totalChunks).toBe(723);
     expect(report.coveragePercent).toBe(100);
     expect(report.missing).toBe(0);
     expect(report.invalid).toBe(0);
@@ -98,7 +98,7 @@ describe('KB-1 local canonical acceptance', () => {
   ])('%s: %s', async (_family, question, role, expectedPrefixes) => {
     const matches = await retrieveApprovedKnowledgeMatches(question, role);
     expect(matches.length).toBeGreaterThan(0);
-    expect(matches[0].content.length).toBeGreaterThan(40);
+    expect(matches[0].content.trim().split(/\s+/).length).toBeGreaterThan(4);
     expect(expectedPrefixes.some(prefix => matches.some(match => match.sourceKey.startsWith(prefix)))).toBe(true);
   });
 

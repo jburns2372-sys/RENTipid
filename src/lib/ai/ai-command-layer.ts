@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { BotId, canUserAccessBot, MAX_ALLOWED_PERMISSION } from './ai-permissions';
+import { BotId, canUserAccessBot } from './ai-permissions';
 import { checkGuardrails } from './ai-guardrails';
 import { buildSafeContext } from './ai-context-builder';
 import { getSystemPrompt } from './ai-prompts';
@@ -15,16 +15,23 @@ import { resolveCurrentAiActor } from './authorization/actor';
 import { resolveAiEntityHint } from './authorization/domain-state';
 import { SupportSpecialistExecutor } from './specialists/support-specialist';
 import { BoundedSpecialistTraceRecord, SpecialistSupervisorStatus } from './specialists/trace';
-import type { ConversationContextMessage } from './context/question-classifier';
+import {
+  classifyRentipidQuestion,
+  type ConversationContextMessage,
+  type RentipidQuestionClass,
+} from './context/question-classifier';
 import type { GroundedAnswerResult } from './context/grounded-answer-composer';
+import { AIGuard } from '../security/detection/ai-guard';
+import { DetectionEvaluator } from '../security/detection/evaluator';
 
 export interface AIGroundingTrace {
-  classification: 'STATIC_RENTIPID_KNOWLEDGE' | 'LIVE_RENTIPID_STATE' | 'OUT_OF_SCOPE_OR_UNSUPPORTED' | 'AMBIGUOUS';
+  classification: RentipidQuestionClass;
   evidenceRefs: readonly string[];
   materialClaimCount: number;
   retrievalAttempts: 0 | 1 | 2;
   usedConversationContext: boolean;
   safelyUncertain: boolean;
+  adequacyPassed: boolean;
 }
 export interface AIRequest {
   botId: BotId;
@@ -108,8 +115,6 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   }
 
   // Phase 5K Integration: AIGuard
-  const { AIGuard } = require('../security/detection/ai-guard');
-  const { DetectionEvaluator } = require('../security/detection/evaluator');
   const aiGuard = new AIGuard(new DetectionEvaluator());
 
   // Check Prompt Injection
@@ -120,6 +125,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
 
   // P4 + Revision 2: resolve intent, exactly-one owner, and compatibility support subdomain.
   const resolvedIntent = resolveIntent(prompt);
+  const questionClassification = classifyRentipidQuestion(prompt, req.conversationContext ?? []);
   // Existing explicit test-tool syntax remains a request only; it grants no authority.
   const toolMatch = prompt.match(/execute tool:\s*([a-zA-Z0-9_]+)/i);
   const requestedTool = toolMatch ? toolMatch[1] : undefined;
@@ -138,8 +144,10 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   // Only an authorized record-scoped request raises the answer/risk class.
   const entityHint = userId ? resolveAiEntityHint(module, recordId, userId) : undefined;
   const isRecordScoped = Boolean(userId && entityHint);
-  const answerClass: SpecialistAnswerClass = requestedTool ? 'ACTION' : isRecordScoped ? 'PERSONALIZED' : 'INFORMATION';
-  const requestedRiskClass: SpecialistRiskClass = requestedTool
+  const isConsequentialAction = Boolean(requestedTool)
+    || questionClassification.kind === 'CONSEQUENTIAL_ACTION';
+  const answerClass: SpecialistAnswerClass = isConsequentialAction ? 'ACTION' : isRecordScoped ? 'PERSONALIZED' : 'INFORMATION';
+  const requestedRiskClass: SpecialistRiskClass = isConsequentialAction
     ? 'T2_OPERATIONAL'
     : isRecordScoped
       ? 'T1_PERSONALIZED'
@@ -202,6 +210,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     evidence: retrieval.matches,
     authorizedLiveContext: safeContext,
     liveEvidenceRef: entityHint ? `live:${entityHint.entityType}:${entityHint.entityId}` : undefined,
+    questionAnalysis: retrieval.classification,
   } as const;
   const groundingTrace = (answer: GroundedAnswerResult): AIGroundingTrace => Object.freeze({
     classification: retrieval.classification.kind,
@@ -210,13 +219,16 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     retrievalAttempts: retrieval.attempts,
     usedConversationContext: retrieval.classification.usedConversationContext,
     safelyUncertain: answer.safelyUncertain,
+    adequacyPassed: answer.adequacyPassed === true,
   });
 
   if (specialistSelection.fallbackTarget === 'UNIFIED_AI_BASELINE') {
-    if (requestedTool) {
+    if (isConsequentialAction) {
       return {
         success: false,
-        message: 'The baseline-safe fallback cannot execute tools.',
+        message: requestedTool
+          ? 'The requested action is not available through the safe fallback.'
+          : 'This chat cannot carry out that action. Open the relevant RENTipid record and use an available action there.',
         isBlocked: true,
         trace: boundedTrace({
           policyOutcome: 'DENY_BASELINE_TOOL_EXECUTION',
@@ -308,7 +320,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     specialist,
     resolvedIntent,
     requestedTool,
-    isConsequentialAction: !!requestedTool,
+    isConsequentialAction,
     ownershipValid: specialistSelection.ownership.primarySpecialistId === 'SupportSpecialist',
     specialistEnabled: true,
     permissionDecision,

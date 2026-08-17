@@ -63,6 +63,27 @@ export const BOTS = {
 
 export type BotId = typeof BOTS[keyof typeof BOTS];
 
+export const CUSTOMER_FACING_BOT_IDS: readonly BotId[] = Object.freeze([
+  BOTS.CONCIERGE,
+  BOTS.SUPPORT,
+  BOTS.ONBOARDING,
+  BOTS.BOOKING,
+  BOTS.PAYMENT,
+  BOTS.AGREEMENT,
+  BOTS.INSPECTION,
+  BOTS.DAMAGE_CLAIM,
+  BOTS.LISTING,
+  BOTS.PRICING,
+  BOTS.CATEGORY_COMPLIANCE,
+  BOTS.FINANCE,
+  BOTS.LISTING_PROMOTION,
+  BOTS.CAPTION,
+  BOTS.HASHTAG,
+  BOTS.PROMO_IMAGE,
+  BOTS.VIDEO_SCRIPT,
+  BOTS.MKT_ANALYTICS,
+]);
+
 type RoleAccessMap = Record<string, BotId[]>;
 
 export const ROLE_BOT_ACCESS: RoleAccessMap = {

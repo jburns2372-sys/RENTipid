@@ -36,7 +36,10 @@ jest.mock('@/lib/ai/ai-settings-service', () => ({
   isModuleAIEnabled: async () => true,
   isBotEnabled: async () => true,
 }));
-jest.mock('@/lib/ai/specialists/intent-resolver', () => ({ resolveIntent: () => 'booking_status' }));
+jest.mock('@/lib/ai/specialists/intent-resolver', () => ({
+  resolveIntent: () => 'booking_status',
+  resolveDomainIntent: () => ['Marketplace'],
+}));
 jest.mock('@/lib/ai/authorization/actor', () => ({
   resolveCurrentAiActor: async () => ({ id: 'renter-001', role: 'Renter' }),
 }));

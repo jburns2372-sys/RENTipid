@@ -5,14 +5,18 @@
 export function resolveIntent(prompt: string): string | undefined {
   const lowerPrompt = prompt.toLowerCase();
   
-  if (lowerPrompt.includes('cancel booking') || lowerPrompt.includes('booking status')) return 'booking_cancel';
-  if (lowerPrompt.includes('refund')) return 'refund_request';
-  if (lowerPrompt.includes('payment')) return 'payment_inquiry';
+  if (/\b(?:cancel|change|modify)\b.{0,20}\bbooking\b/.test(lowerPrompt)) return 'booking_cancel';
+  if (/\b(?:booking status|status of my booking)\b/.test(lowerPrompt)) return 'booking_status';
+  if (/^(?:please\s+)?(?:refund|issue\s+(?:a\s+)?refund)\b/.test(lowerPrompt)) return 'refund_request';
+  if (/\b(?:refund|payment|paid|payout|earnings|deposit)\b/.test(lowerPrompt)) return 'payment_inquiry';
+  if (/\b(?:book|booking|reserve|reservation)\b/.test(lowerPrompt)) return 'booking_help';
   if (lowerPrompt.includes('damage') || lowerPrompt.includes('dispute')) return 'damage_report';
   if (lowerPrompt.includes('extend rental')) return 'rental_extend';
   if (lowerPrompt.includes('insurance')) return 'insurance_info';
-  if (lowerPrompt.includes('kyc') || lowerPrompt.includes('verify identity')) return 'kyc_status';
-  if (lowerPrompt.includes('payout')) return 'payout_status';
+  if (/\b(?:is|was|check|status)\b.{0,25}\b(?:kyc|identity verification)\b/.test(lowerPrompt)) return 'kyc_status';
+  if (lowerPrompt.includes('kyc') || lowerPrompt.includes('verify identity')) return 'kyc_account_support';
+  if (/\b(?:listing|list an item|add another rental|provider account)\b/.test(lowerPrompt)) return 'provider_operational_support';
+  if (/\b(?:register|registration|sign up|create an account|create a rentipid account)\b/.test(lowerPrompt)) return 'kyc_account_support';
   
   return undefined; // Default/unknown
 }
