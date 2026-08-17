@@ -5,7 +5,7 @@
 To join RENTipid as a renter or provider, you must create an account. 
 
 1. Go to the RENTipid home page and select "Register" or "Sign up".
-2. You will be prompted to enter your Full Name, Email Address, Mobile Number, and create a strong Password.
+2. You will be prompted to enter your Full Name, Email Address, Mobile Number, and create secure sign-in credentials.
 3. You must select your location details, including your Address, City, Province, and Country.
 4. Agree to the Terms and Conditions and Privacy Policy.
 5. Click "Register" to create your account.

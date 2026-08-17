@@ -9,12 +9,12 @@ import { validateKnowledgeContent } from '../../src/lib/ai/knowledge/validator';
 import { canAccessKnowledge, canChunkNarrowParent } from '../../src/lib/ai/knowledge/visibility';
 
 describe('KB-1 Knowledge Engine', () => {
-  test('frozen registry accounts for the original 146 candidates exactly once', () => {
+  test('frozen registry accounts for all 148 candidates exactly once', () => {
     const registry = getKnowledgeRegistry();
-    expect(registry).toHaveLength(146);
-    expect(new Set(registry.map(entry => entry.sourceKey)).size).toBe(146);
+    expect(registry).toHaveLength(148);
+    expect(new Set(registry.map(entry => entry.sourceKey)).size).toBe(148);
     expect(registry.filter(entry => !entry.disposition)).toHaveLength(0);
-    expect(getSynchronizableKnowledgeRegistry()).toHaveLength(107);
+    expect(getSynchronizableKnowledgeRegistry()).toHaveLength(109);
   });
 
   test('normalization and SHA-256 hashing are formatting-stable', () => {

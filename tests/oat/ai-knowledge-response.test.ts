@@ -186,7 +186,8 @@ describe('AI-OAT-KNOWLEDGE-RESPONSE', () => {
     };
 
     const response = await processAICommand(request);
-    // Should just fall back to mock echo or be blocked
-    expect(response.success === false || response.message.includes('[Mock AI Mode]')).toBe(true);
+    expect(response.message).not.toContain('[Mock AI Mode]');
+    expect(response.success === false || response.message.includes("I don't have approved information to confirm that"))
+      .toBe(true);
   });
 });

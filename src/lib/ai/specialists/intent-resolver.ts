@@ -21,24 +21,33 @@ export function resolveDomainIntent(prompt: string): string[] {
   const lowerPrompt = prompt.toLowerCase();
   const domains: string[] = [];
   
-  if (/\b(legal|law|compliance|regulation|jurisdiction|policy)\b/.test(lowerPrompt)) {
+  if (/\b(legal|laws?|compliance|regulations?|jurisdictions?)\b/.test(lowerPrompt)) {
     domains.push('Legal', 'Compliance');
   }
-  if (/\b(register|account|onboard|sign up|login)\b/.test(lowerPrompt)) {
+  if (/\b(register|registration|newcomer|join|account|onboard|onboarding|sign up|signup|login)\b/.test(lowerPrompt)) {
     domains.push('Core', 'Profile');
   }
-  if (/\b(book|rent|checkout)\b/.test(lowerPrompt)) {
+  if (/\b(book|booking|booked|reserve|reservation|rent|rental|checkout|listing|marketplace|item|provider)\b/.test(lowerPrompt)) {
     domains.push('Marketplace');
   }
-  if (/\b(pay|refund|deposit|payout)\b/.test(lowerPrompt)) {
+  if (/\b(pay|paid|payment|payments|refund|refunds|deposit|deposits|payout|payouts)\b/.test(lowerPrompt)) {
     domains.push('Payments', 'Finance');
   }
-  if (/\b(claim|dispute|damage|insurance)\b/.test(lowerPrompt)) {
+  if (/\b(claim|claims|dispute|disputes|mediation|mediated|damage|insurance)\b/.test(lowerPrompt)) {
     domains.push('Insurance', 'Trust & Safety');
   }
   if (/\b(security|privacy|data)\b/.test(lowerPrompt)) {
     domains.push('Security', 'Privacy');
   }
+  if (/\b(help|support|guidance)\b/.test(lowerPrompt)) {
+    domains.push('Core');
+  }
+  if (/\b(ai|artificial intelligence|policy)\b/.test(lowerPrompt)) {
+    domains.push('Unified AI');
+  }
+  if (/\b(identity|kyc|verification)\b/.test(lowerPrompt)) {
+    domains.push('Core', 'Trust & Safety');
+  }
   
-  return domains;
+  return [...new Set(domains)];
 }

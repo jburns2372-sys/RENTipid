@@ -13,11 +13,11 @@ afterAll(async () => {
 describe('KB-1 local canonical acceptance', () => {
   test('bootstrap state has 100% coverage and no source/version/chunk duplicates', async () => {
     const report = await buildKnowledgeCoverageReport(prisma);
-    expect(report.totalCandidates).toBe(146);
-    expect(report.accountedCandidates).toBe(146);
-    expect(report.approvedCanonicalSources).toBe(107);
-    expect(report.activeSources).toBe(107);
-    expect(report.totalChunks).toBe(705);
+    expect(report.totalCandidates).toBe(148);
+    expect(report.accountedCandidates).toBe(148);
+    expect(report.approvedCanonicalSources).toBe(109);
+    expect(report.activeSources).toBe(109);
+    expect(report.totalChunks).toBe(720);
     expect(report.coveragePercent).toBe(100);
     expect(report.missing).toBe(0);
     expect(report.invalid).toBe(0);
@@ -43,7 +43,7 @@ describe('KB-1 local canonical acceptance', () => {
     const sources = await prisma.aiKnowledgeSource.findMany({
       where: { sourceKey: { in: getSynchronizableKnowledgeRegistry().map(entry => entry.sourceKey) }, status: 'ACTIVE' },
     });
-    expect(sources).toHaveLength(107);
+    expect(sources).toHaveLength(109);
     for (const source of sources) {
       const roles = Array.isArray(source.roles) ? source.roles.filter((role): role is string => typeof role === 'string') : [];
       expect(canAccessKnowledge(source.visibility, roles, 'SUPER_ADMIN')).toBe(true);
@@ -64,7 +64,7 @@ describe('KB-1 local canonical acceptance', () => {
     ['RENTER', 'What guidance is available for renters?', 'Renter', ['core.user-manual', 'core.role-training-guides', 'marketplace.']],
     ['RENTER', 'How does a renter use RENTipid?', 'Renter', ['core.user-manual', 'marketplace.']],
     ['PROVIDER', 'How do I become a provider?', 'Business Provider', ['core.user-manual', 'marketplace.', 'core.role-training-guides']],
-    ['PROVIDER', 'What guidance exists for business providers?', 'Business Provider', ['core.role-training-guides', 'marketplace.', 'provider.rbac']],
+    ['PROVIDER', 'What guidance exists for business providers?', 'Business Provider', ['core.registration-onboarding', 'core.role-training-guides', 'marketplace.', 'provider.rbac']],
     ['LISTINGS', 'How do listing workflows work?', 'Business Provider', ['provider.workflow-status', 'marketplace.', 'core.']],
     ['LISTINGS', 'How are listings reviewed?', 'Business Provider', ['provider.workflow-status', 'marketplace.', 'registry.']],
     ['BOOKING', 'How does booking work?', 'Renter', ['provider.workflow-status', 'core.', 'marketplace.']],

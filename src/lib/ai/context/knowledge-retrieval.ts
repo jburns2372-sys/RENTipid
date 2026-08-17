@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { canAccessKnowledge, parseStoredRoles } from '@/lib/ai/knowledge/visibility';
-import { KNOWLEDGE_REGISTRY_ID } from '@/lib/ai/knowledge/source-registry';
+import { resolveDomainIntent } from '@/lib/ai/specialists/intent-resolver';
 
 const MAX_SOURCES = 250;
 const MAX_RESULTS = 4;
@@ -12,21 +12,26 @@ const QUERY_STOP_WORDS = new Set([
   'every', 'for', 'from', 'how', 'i', 'in', 'is', 'it', 'me', 'of', 'on',
   'exists', 'functionality', 'guidance', 'please', 'provide', 'provided',
   'something', 'tell', 'the', 'through', 'to', 'use', 'uses', 'what', 'when',
-  'where', 'which', 'who', 'why', 'work', 'would', 'you',
+  'find', 'where', 'which', 'who', 'why', 'work', 'would', 'you',
 ]);
 
 const SECRET_QUERY = /\b(?:database[_ ]?url|api[_ -]?key|secret key|client[_ -]?secret|jwt[_ -]?secret|signing[_ -]?secret|private key|session token|password hash|password)\b/i;
 const LIVE_DATA_QUERY = [
-  /\bmy\b.{0,40}\b(?:booking|payment|kyc|claim|dispute|listing|account)\b/i,
-  /\b(?:booking|payment|kyc|claim|dispute|listing)\s*(?:id|number|#)\s*[-a-z0-9]+/i,
+  /\bmy\b.{0,40}\b(?:booking|payment|kyc|claim|dispute|listing|account|payout|refund|transaction)\b/i,
+  /\b(?:booking|payment|kyc|claim|dispute|listing|payout|refund|transaction)\s*(?:id|number|#)?\s*[-a-z]*\d[-a-z0-9]*/i,
   /\b(?:how many|which)\b.{0,50}\b(?:pending|open|active|current)\b/i,
-  /\b(?:current|latest|pending|open)\b.{0,35}\b(?:status|bookings|payments|kyc|claims|disputes)\b/i,
+  /\b(?:current|latest|pending|open|processed|completed)\b.{0,35}\b(?:state|status|bookings|payments|kyc|claims|disputes|payouts|refunds|transactions)\b/i,
 ];
 
 function normalizeToken(token: string): string {
   if (token === 'rentipid') return token;
   if (token.startsWith('administrat')) return 'admin';
+  if (token === 'newcomer' || token === 'join' || token.startsWith('registr') || token === 'signup') return 'register';
   if (token === 'become' || token.startsWith('onboard')) return 'onboard';
+  if (token.startsWith('book') || token.startsWith('reserv')) return 'book';
+  if (token === 'help' || token.startsWith('support') || token.startsWith('guidance')) return 'guidance';
+  if (token === 'law' || token === 'laws' || token.startsWith('legal') || token.startsWith('compliance') || token.startsWith('regulation') || token.startsWith('jurisdiction')) return 'legal';
+  if (token.startsWith('mediat')) return 'dispute';
   if (token.startsWith('review')) return 'review';
   if (token.startsWith('rent')) return 'rent';
   if (token.startsWith('cancel')) return 'cancel';
@@ -71,14 +76,7 @@ export async function retrieveApprovedKnowledgeMatches(
   if (queryTokens.length === 0) return [];
   const now = new Date();
   
-  // Resolve intent domains dynamically without importing dynamically
-  let intentDomains: string[] = [];
-  try {
-    const { resolveDomainIntent } = require('@/lib/ai/specialists/intent-resolver');
-    intentDomains = resolveDomainIntent(prompt);
-  } catch (e) {
-    // ignore
-  }
+  const intentDomains = resolveDomainIntent(prompt);
 
   const sources = await prisma.aiKnowledgeSource.findMany({
     where: {
@@ -93,10 +91,8 @@ export async function retrieveApprovedKnowledgeMatches(
     orderBy: [{ sourceKey: 'asc' }, { version: 'desc' }],
     take: MAX_SOURCES,
   });
-  const canonicalSourcesPresent = sources.some(source => {
-    const metadata = source.metadata;
-    return Boolean(metadata && typeof metadata === 'object' && !Array.isArray(metadata) && (metadata as Record<string, unknown>).registryId === KNOWLEDGE_REGISTRY_ID);
-  });
+  const canonicalSourcesPresent = sources.some(source =>
+    source.authority !== 'OAT_TEST_FIXTURE' && !source.sourceKey.startsWith('oat-'));
 
   const matches: RetrievedKnowledgeMatch[] = [];
   for (const source of sources) {
@@ -157,15 +153,14 @@ export async function retrieveApprovedKnowledgeMatches(
       if (source.topic.toLowerCase() === 'overview' && queryTokens.includes('rentipid')) score += 3;
       if (source.authority !== 'LEGACY') score += 0.25;
       
-      // Domain intent boosting
       if (intentDomains.includes(source.module)) {
-        score += 5; // Boost matches in the identified domain
+        score += 5;
       }
       
       // Broad legal/compliance protection
       const isLegalOrCompliance = source.module === 'Legal' || source.module === 'Compliance' || source.topic === 'compliance' || source.topic === 'legal';
       if (isLegalOrCompliance && !intentDomains.includes('Legal') && !intentDomains.includes('Compliance')) {
-        score -= 20; // Heavily penalize legal documents for non-legal queries to prevent keyword domination
+        score -= 20;
       }
 
       if (score <= 0) continue;
@@ -184,8 +179,8 @@ export async function retrieveApprovedKnowledgeMatches(
 
   return matches
     .sort((left, right) =>
-      right.coverage - left.coverage ||
       right.score - left.score ||
+      right.coverage - left.coverage ||
       left.sourceKey.localeCompare(right.sourceKey) ||
       left.chunkKey.localeCompare(right.chunkKey))
     .slice(0, MAX_RESULTS);
