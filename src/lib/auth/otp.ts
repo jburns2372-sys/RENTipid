@@ -29,12 +29,16 @@ export function getOtpProvider(): OtpProvider {
   return new AwsSnsOtpProvider(); // Fallback to real provider
 }
 
+import bcrypt from 'bcryptjs';
+
 export async function generateAndSendOtp(phone: string) {
+  const canonicalPhone = phone.trim().replace(/\s+/g, '');
+
   // 1. Check rate limits
   const recentChallenges = await prisma.verificationChallenge.count({
     where: {
       purpose: "MOBILE_OTP",
-      target_identity: phone,
+      target_identity: canonicalPhone,
       created_at: { gt: new Date(Date.now() - 60000) } // 1 minute rate limit
     }
   });
@@ -45,13 +49,16 @@ export async function generateAndSendOtp(phone: string) {
 
   // 2. Generate 6 digit code
   const code = randomInt(100000, 999999).toString();
+  
+  // Hash the code
+  const hashedCode = await bcrypt.hash(code, 10);
 
   // 3. Save challenge
   await prisma.verificationChallenge.create({
     data: {
       purpose: "MOBILE_OTP",
-      target_identity: phone,
-      challenge_hashed: code, // In a real app, hash this. For simplicity here, storing plaintext temporarily for sandbox verification, but wait: requirement says "Never persist plaintext OTP unnecessarily."
+      target_identity: canonicalPhone,
+      challenge_hashed: hashedCode,
       expires_at: new Date(Date.now() + 5 * 60000), // 5 mins
       is_consumed: false
     }
@@ -59,5 +66,5 @@ export async function generateAndSendOtp(phone: string) {
 
   // 4. Send via provider
   const provider = getOtpProvider();
-  await provider.sendOtp(phone, code);
+  await provider.sendOtp(canonicalPhone, code);
 }

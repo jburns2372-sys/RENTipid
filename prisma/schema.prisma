@@ -1420,9 +1420,9 @@ model AuthIdentity {
   id               String   @id @default(cuid())
   user_id          String
   user             User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  provider         String   // e.g., "google", "facebook", "apple"
-  provider_subject String   // the durable subject ID from the provider
-  provider_email   String?  // for metadata/UX, not durable identity
+  provider         String // e.g., "google", "facebook", "apple"
+  provider_subject String // the durable subject ID from the provider
+  provider_email   String? // for metadata/UX, not durable identity
   created_at       DateTime @default(now())
   updated_at       DateTime @updatedAt
 
@@ -1444,27 +1444,27 @@ model EmailCredential {
 }
 
 model PhoneIdentity {
-  id                  String    @id @default(cuid())
-  user_id             String    @unique
-  user                User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  canonical_phone     String    @unique // e.g., +1234567890
-  is_verified         Boolean   @default(false)
-  verified_at         DateTime?
-  channel             String?   // e.g., "SMS", "WhatsApp"
-  created_at          DateTime  @default(now())
-  updated_at          DateTime  @updatedAt
+  id              String    @id @default(cuid())
+  user_id         String    @unique
+  user            User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  canonical_phone String    @unique // e.g., +1234567890
+  is_verified     Boolean   @default(false)
+  verified_at     DateTime?
+  channel         String? // e.g., "SMS", "WhatsApp"
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
 }
 
 model VerificationChallenge {
-  id               String    @id @default(cuid())
-  purpose          String    // "EMAIL_VERIFICATION", "PASSWORD_RESET", "MOBILE_OTP", "ACCOUNT_LINK"
-  target_identity  String    // e.g., email address or phone number
-  challenge_hashed String    // Hashed OTP or token
+  id               String   @id @default(cuid())
+  purpose          String // "EMAIL_VERIFICATION", "PASSWORD_RESET", "MOBILE_OTP", "ACCOUNT_LINK"
+  target_identity  String // e.g., email address or phone number
+  challenge_hashed String // Hashed OTP or token
   expires_at       DateTime
-  attempt_count    Int       @default(0)
-  is_consumed      Boolean   @default(false)
-  request_context  String?   // IP, UserAgent
-  created_at       DateTime  @default(now())
+  attempt_count    Int      @default(0)
+  is_consumed      Boolean  @default(false)
+  request_context  String? // IP, UserAgent
+  created_at       DateTime @default(now())
 }
 
 model AuthSession {
@@ -1475,10 +1475,10 @@ model AuthSession {
   issued_at            DateTime  @default(now())
   expires_at           DateTime
   revoked_at           DateTime?
-  authentication_level String    // "MFA", "PASSWORD", "OAUTH", "OTP"
+  authentication_level String // "MFA", "PASSWORD", "OAUTH", "OTP"
   device_metadata      String?
   ip_address           String?
-  
+
   @@index([user_id])
 }
 
@@ -1488,10 +1488,10 @@ model AccountLinkEvent {
   user             User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   provider         String
   provider_subject String
-  status           String   // "SUCCESS", "BLOCKED", "UNLINKED"
+  status           String // "SUCCESS", "BLOCKED", "UNLINKED"
   reason           String?
   ip_address       String?
   created_at       DateTime @default(now())
-  
+
   @@index([user_id])
 }

@@ -73,12 +73,14 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Invalid credentials");
         }
 
+        const canonicalPhone = credentials.phone.trim().replace(/\s+/g, '');
+
         // FR-07: Mobile OTP logic
         // Verify challenge
         const activeChallenge = await prisma.verificationChallenge.findFirst({
           where: {
             purpose: "MOBILE_OTP",
-            target_identity: credentials.phone,
+            target_identity: canonicalPhone,
             is_consumed: false,
             expires_at: { gt: new Date() }
           },
@@ -86,6 +88,39 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (!activeChallenge) {
+          throw new Error("Invalid or expired code");
+        }
+
+        if (activeChallenge.attempt_count >= 3) {
+          throw new Error("Maximum attempts exceeded. Request a new code.");
+        }
+
+        const isValid = await bcrypt.compare(credentials.code, activeChallenge.challenge_hashed);
+
+        if (!isValid) {
+          await prisma.verificationChallenge.update({
+            where: { id: activeChallenge.id },
+            data: { attempt_count: { increment: 1 } }
+          });
+          
+          await prisma.securityEvent.create({
+            data: {
+              event_code: "AUTH_OTP_FAILURE",
+              source_type: "SYSTEM_ERROR_LOG",
+              source_record_id: "nextauth-otp",
+              security_domain: "IDENTITY_AND_ACCESS",
+              event_category: "Authentication",
+              event_classification: "POLICY_VIOLATION",
+              severity: "LOW",
+              environment: "DEVELOPMENT",
+              lifecycle_type: "LIVE",
+              source_summary: { canonicalPhone } as any,
+              idempotency_key: `otp_fail_${canonicalPhone}_${Date.now()}`,
+              occurred_at: new Date(),
+              source_received_at: new Date()
+            }
+          });
+
           throw new Error("Invalid or expired code");
         }
 
@@ -97,7 +132,7 @@ export const authOptions: NextAuthOptions = {
 
         // Find user by phone identity
         const phoneIdentity = await prisma.phoneIdentity.findUnique({
-          where: { canonical_phone: credentials.phone },
+          where: { canonical_phone: canonicalPhone },
           include: { user: true }
         });
 
@@ -105,15 +140,15 @@ export const authOptions: NextAuthOptions = {
           // FR-02: New account
           const newUser = await prisma.user.create({
             data: {
-              email: `phone_${credentials.phone.replace('+','')}@rentipid.local`,
+              email: `phone_${canonicalPhone.replace('+','')}@rentipid.local`,
               full_name: "New User",
               account_type: "Individual",
               role: "Guest",
               status: "Verified",
-              mobile_number: credentials.phone,
+              mobile_number: canonicalPhone,
               phoneIdentity: {
                 create: {
-                  canonical_phone: credentials.phone,
+                  canonical_phone: canonicalPhone,
                   is_verified: true,
                   verified_at: new Date()
                 }
@@ -210,19 +245,22 @@ export const authOptions: NextAuthOptions = {
         }
       }
 
+      const syntheticEmail = `${providerAccountId}@${provider}.synthetic.rentipid.local`;
+      const finalEmail = userEmail || syntheticEmail;
+
       // New user
       const newUser = await prisma.user.create({
         data: {
-          email: userEmail || `${providerAccountId}@${provider}.mock`,
+          email: finalEmail,
           full_name: user.name || "New User",
           account_type: "Individual",
           role: "Guest",
-          status: "Verified",
+          status: "Pending", // Require onboarding
           authIdentities: {
             create: {
               provider,
               provider_subject: providerAccountId,
-              provider_email: userEmail,
+              provider_email: userEmail || null,
             }
           }
         }
@@ -266,9 +304,20 @@ export const authOptions: NextAuthOptions = {
            if (!dbSession || dbSession.revoked_at || dbSession.expires_at < new Date()) {
               return {} as any; // Revoked or expired
            }
+           (session as any).sessionId = token.sessionId;
         }
       }
       return session;
+    }
+  },
+  events: {
+    async signOut({ token }) {
+      if (token?.sessionId) {
+        await prisma.authSession.updateMany({
+          where: { session_token: token.sessionId as string },
+          data: { revoked_at: new Date() }
+        });
+      }
     }
   },
   pages: {
