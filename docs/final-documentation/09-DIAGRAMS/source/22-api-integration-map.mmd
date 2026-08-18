@@ -1,0 +1,13 @@
+flowchart LR
+  Pages[Next.js pages] --> RootAPI[Root API groups]
+  RootAPI --> Auth[NextAuth]
+  RootAPI --> Prisma[Prisma / PostgreSQL contract]
+  RootAPI --> PayMongo[PayMongo guarded modes]
+  RootAPI --> Geo[MaxMind/provider modes]
+  RootAPI --> Social[Social provider-dependent workflows]
+  RootAPI --> AI[AI provider modes]
+  RootAPI -. transition .-> Extracted[apps/api]
+  Extracted --> Blob[Blob target]
+  Extracted --> KeyVault[Key Vault target]
+  Extracted --> Monitor[Monitoring target]
+  Worker[apps/worker] --> Prisma

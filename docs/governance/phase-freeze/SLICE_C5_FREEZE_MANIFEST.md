@@ -1,0 +1,13 @@
+# SLICE C5 Strict Freeze Manifest
+- **Closure report**: docs/governance/phase-closure/SLICE_C5_CLOSURE_REPORT.md
+- **Accepted implementation baseline**: d3822394a61df3ffe5237efad5776725dc029f05
+- **Governance freeze commit**: 2dc8247287aedbc0f28381c7ed014a855ba966af
+- **Freeze tag**: rentipid/general/slice-c5/closed-frozen-v1
+- **Owned files**: tests/security/cases/gate4f-slice-c5-case-ui.test.tsx
+- **Shared files**: schema.prisma
+- **Database models**: Target verified
+- **Regression tests**: PASS
+- **Extension points**: Extensions allowed
+- **Reopening triggers**: File modifications
+- **Revalidation requirements**: Database migrations
+- **Freeze status**: CLOSED_AND_FROZEN

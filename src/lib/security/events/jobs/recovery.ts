@@ -2,7 +2,9 @@ import { PrismaClient, SecurityEventSource } from "@prisma/client";
 import { processSecurityEvent } from "../event-ingestion";
 import { SecurityLifecycle, SecurityEnvironment } from "../taxonomy";
 import { v4 as uuidv4 } from "uuid";
+import { assertSafeLocalTestDatabaseTarget } from "../../../test-database-guard";
 
+assertSafeLocalTestDatabaseTarget();
 const prisma = new PrismaClient();
 
 export interface RecoveryOptions {
@@ -96,6 +98,7 @@ export async function runRecovery(options: RecoveryOptions): Promise<RecoveryRes
       "AUDIT_LOG": { delegate: prisma.auditLog, dateColumn: "created_at" },
       "SYSTEM_SETTING": { delegate: prisma.systemSetting, dateColumn: "updated_at" },
       "AI_BOT_LOG": { delegate: prisma.aIBotLog, dateColumn: "created_at" },
+      "PAYMENT_ACTION_LOG": { delegate: prisma.paymentActionLog, dateColumn: "occurred_at" },
       "PAYMENT_WEBHOOK_LOG": { delegate: prisma.paymentWebhookLog, dateColumn: "created_at" },
       "PAYMENT_RECONCILIATION_LOG": { delegate: prisma.paymentReconciliationLog, dateColumn: "created_at" },
       "VERIFICATION_DOCUMENT": { delegate: prisma.verificationDocument, dateColumn: "created_at" },

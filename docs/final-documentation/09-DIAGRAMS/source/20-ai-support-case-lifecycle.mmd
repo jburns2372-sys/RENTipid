@@ -1,0 +1,12 @@
+stateDiagram-v2
+  [*] --> UserQuestion
+  UserQuestion --> SafeGuidance: policy permits
+  UserQuestion --> Refused: prohibited or unsafe
+  UserQuestion --> HumanHandoff: state change or specialist decision required
+  SafeGuidance --> Resolved
+  SafeGuidance --> HumanHandoff: unresolved
+  HumanHandoff --> SupportTicket
+  SupportTicket --> Specialist: admin / finance / compliance / privacy / SOC
+  Specialist --> Resolved
+  Refused --> HumanHandoff: safe support option
+  Resolved --> [*]

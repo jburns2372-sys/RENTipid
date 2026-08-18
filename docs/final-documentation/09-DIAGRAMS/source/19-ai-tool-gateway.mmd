@@ -1,0 +1,9 @@
+flowchart TB
+  AI[AI advisory request] --> Gateway[Explicit tool gateway contract]
+  Gateway --> Allowlist[Allowlisted capability?]
+  Allowlist -->|No| Deny[Fail closed + sanitized audit]
+  Allowlist -->|Yes| Actor[Authenticated actor and permission]
+  Actor --> Validate[Validated bounded input]
+  Validate --> ReadTool[Permitted read/advisory tool]
+  ReadTool --> Result[Sanitized result]
+  blocked[Finance / compliance / SOC execution / database / cloud / deployment autonomous tools: prohibited] --- Gateway

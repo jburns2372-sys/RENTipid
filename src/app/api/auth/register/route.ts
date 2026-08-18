@@ -2,33 +2,53 @@ import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import { createAuditLog } from '@/lib/audit';
+import { RegisterInputSchema } from '@/lib/security/identity-input-security';
+import { ProfileFieldProtection, ProfileFieldContext } from '@/lib/security/crypto/profile-field-protection';
 
 const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { 
-      email, 
-      password, 
-      full_name, 
-      mobile_number, 
-      account_type, 
-      role,
-      address,
-      city,
-      province,
-      country,
-      business_name,
-      business_registration_number,
-      authorized_representative
-    } = body;
-
-    if (!email || !password || !full_name) {
-      return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
+    const body = await req.json().catch(() => null);
+    if (!body) {
+      return NextResponse.json({ message: 'Malformed JSON' }, { status: 400 });
     }
 
-    // Check if user already exists
+    const validationResult = RegisterInputSchema.safeParse(body);
+    if (!validationResult.success) {
+      return NextResponse.json({ message: 'Invalid registration input' }, { status: 400 });
+    }
+
+    const validatedData = validationResult.data;
+
+    const email = validatedData.email;
+    const password = validatedData.password;
+    const full_name = validatedData.full_name;
+    const mobile_number = validatedData.mobile_number || null;
+    const account_type = validatedData.account_type;
+    const role = validatedData.role;
+    
+    const address = validatedData.address || null;
+    const city = validatedData.city || null;
+    const province = validatedData.province || null;
+    const country = validatedData.country || null;
+    const business_name = validatedData.business_name || null;
+    const business_registration_number = validatedData.business_registration_number || null;
+    const authorized_representative = validatedData.authorized_representative || null;
+
+    let userAddressEncrypted: string | null = null;
+    let businessAddressEncrypted: string | null = null;
+    let businessRegistrationNumberEncrypted: string | null = null;
+
+    if (address) {
+      userAddressEncrypted = ProfileFieldProtection.protect(address, ProfileFieldContext.USER_ADDRESS);
+      businessAddressEncrypted = ProfileFieldProtection.protect(address, ProfileFieldContext.BUSINESS_ADDRESS);
+    }
+    
+    if (business_registration_number) {
+      businessRegistrationNumberEncrypted = ProfileFieldProtection.protect(business_registration_number, ProfileFieldContext.BUSINESS_REGISTRATION_NUMBER);
+    }
+
     const existingUser = await prisma.user.findUnique({
       where: { email }
     });
@@ -45,8 +65,8 @@ export async function POST(req: Request) {
         full_name,
         mobile_number,
         password_hash,
-        account_type: account_type || 'Individual',
-        role: role || 'Renter',
+        account_type,
+        role,
         status: 'Pending',
       }
     });
@@ -56,8 +76,10 @@ export async function POST(req: Request) {
         data: {
           user_id: user.id,
           business_name: business_name || full_name,
-          business_registration_number,
-          business_address: address,
+          business_registration_number: null,
+          business_registration_number_encrypted: businessRegistrationNumberEncrypted,
+          business_address: null,
+          business_address_encrypted: businessAddressEncrypted,
           authorized_representative: authorized_representative || full_name,
           verification_status: 'Pending'
         }
@@ -66,10 +88,11 @@ export async function POST(req: Request) {
       await prisma.userProfile.create({
         data: {
           user_id: user.id,
-          address,
-          city,
-          province,
-          country,
+          address: null,
+          address_encrypted: userAddressEncrypted,
+          city: city || '',
+          province: province || '',
+          country: country || 'Philippines',
           verification_status: 'Pending'
         }
       });
@@ -80,13 +103,13 @@ export async function POST(req: Request) {
       action: 'USER_REGISTERED',
       module: 'Authentication',
       target_id: user.id,
-      details: `Registered as ${role}`
+      details: 'Registered as ' + role
     });
 
     return NextResponse.json({ message: 'User registered successfully', userId: user.id }, { status: 201 });
 
   } catch (error) {
     console.error('Registration error:', error);
-    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ message: 'Internal server error during registration', error: (error as Error).message }, { status: 500 });
   }
 }

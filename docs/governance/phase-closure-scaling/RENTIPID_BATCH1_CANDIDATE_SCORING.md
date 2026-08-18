@@ -1,0 +1,7 @@
+# Candidate Scoring
+
+SLICE C2: 95
+SLICE C3: 95
+SLICE C4: 95
+
+Selected: SLICE C2, SLICE C3, SLICE C4

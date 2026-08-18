@@ -11,6 +11,7 @@ import {
 } from "../taxonomy";
 import { PaymentWebhookLog } from "@prisma/client";
 import { sanitizeWebhookSummary } from "../../serializers";
+import { pseudonymizeTelemetryContext } from "../../telemetry-hmac";
 import * as crypto from 'crypto';
 
 export class PaymentWebhookLogAdapter implements SecurityEventSourceAdapter<PaymentWebhookLog> {
@@ -24,7 +25,8 @@ export class PaymentWebhookLogAdapter implements SecurityEventSourceAdapter<Paym
       "id" in record && 
       "provider" in record && 
       "event_type" in record &&
-      "verification_status" in record
+      "verification_status" in record &&
+      record.verification_status === "Failed"
     );
   }
 
@@ -33,6 +35,7 @@ export class PaymentWebhookLogAdapter implements SecurityEventSourceAdapter<Paym
     let classification: SecurityEventClassification = SecurityEventClassification.OBSERVATION;
     let severity: SecuritySeverity = SecuritySeverity.INFO;
     let classification_reason = "Payment webhook observation.";
+    let event_code = `WEBHOOK_${record.provider.toUpperCase()}_${record.event_type.replace(/[^A-Z0-9]/gi, "_").toUpperCase()}`;
 
     if (record.processing_status === "IGNORED") {
       classification = SecurityEventClassification.OBSERVATION;
@@ -44,6 +47,7 @@ export class PaymentWebhookLogAdapter implements SecurityEventSourceAdapter<Paym
       classification = SecurityEventClassification.POLICY_VIOLATION;
       severity = SecuritySeverity.HIGH;
       classification_reason = "Webhook signature verification failed. Potential tampering or replay.";
+      event_code = "WEBHOOK_FAIL";
     }
 
     const { headers_summary, payload_summary } = sanitizeWebhookSummary(
@@ -51,11 +55,22 @@ export class PaymentWebhookLogAdapter implements SecurityEventSourceAdapter<Paym
       record.payload_summary || ""
     );
 
-    const idempotencyPayload = `${this.sourceType}:${record.id}:${record.received_at.toISOString()}:${this.version}:${lifecycle}`;
+    const source_summary: Record<string, unknown> = {
+      headers_summary,
+      gateway_reference: record.gateway_reference,
+      verification_status: record.verification_status
+    };
+
+    // Ensure privacy: do not log payload of failed/tampered webhooks
+    if (event_code !== "WEBHOOK_FAIL") {
+      source_summary.payload_summary = payload_summary;
+    }
+
+    const idempotencyPayload = `${this.sourceType}:${record.id}:${event_code}:${this.version}`;
     const idempotencyKey = crypto.createHash("sha256").update(idempotencyPayload).digest("hex");
 
     return {
-      event_code: `WEBHOOK_${record.provider.toUpperCase()}_${record.event_type.replace(/[^A-Z0-9]/gi, "_").toUpperCase()}`,
+      event_code,
       source_type: this.sourceType,
       source_record_id: record.id,
       adapter_version: this.version,
@@ -73,9 +88,9 @@ export class PaymentWebhookLogAdapter implements SecurityEventSourceAdapter<Paym
       action_attempted: record.event_type,
       action_result: record.processing_status,
       
-      source_summary: { headers_summary, payload_summary, gateway_reference: record.gateway_reference, verification_status: record.verification_status },
+      source_summary,
       classification_reason,
-      correlation_key: record.booking_id ? `booking:${record.booking_id}` : null,
+      correlation_key: record.booking_id ? pseudonymizeTelemetryContext("booking", record.booking_id) : null,
       idempotency_key: idempotencyKey,
       processing_status: SecurityProcessingStatus.NORMALIZED,
       

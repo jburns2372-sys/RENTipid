@@ -1,0 +1,2473 @@
+{
+  "_meta": {
+    "schemaVersion": "1.0",
+    "auditDate": "2026-07-28T10:31:32.653Z",
+    "repositoryPath": "C:\\Users\\user\\Documents\\JD SOFTWARE PROJECTS\\RENTipid",
+    "warning": "This registry reflects the audited Git HEAD and must not be treated as current after material repository changes without a delta audit.",
+    "authoritativeRemainingPhases": [
+      "PHASE 17",
+      "PHASE 19",
+      "PHASE 19B"
+    ],
+    "phase5ProcessingExcluded": true,
+    "productionArchitectureClassification": "HYBRID_OR_UNRESOLVED"
+  },
+  "phases": [
+    {
+      "normalizedId": "GATEWAY",
+      "originalName": "gateway",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "ADR 06: API Gateway Strategy; Phase 14 Roadmap: Payment Gateway Readiness",
+      "discoveredScope": "Found in 2 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\azure-migration\\adr\\06-api-gateway-strategy.md",
+        "docs\\payment-gateway-readiness.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "PHASE 11",
+      "originalName": "phase-11",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 11 Data Integrity Check; Phase 11 UAT Execution Results",
+      "discoveredScope": "Found in 2 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\phase-11-data-integrity-check.md",
+        "docs\\phase-11-uat-results.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "PHASE 17",
+      "originalName": "phase-17",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 17 Pre-Live Database Integrity Check",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\phase-17-pre-live-check.md",
+        "docs\\governance\\remaining-work\\PHASE17_AZURE_POSTGRESQL_ACCESS_PLAN.md",
+        "docs\\governance\\remaining-work\\PHASE17_READINESS_AND_AUTHORIZATION.md",
+        "docs\\governance\\remaining-work\\RENTIPID_PRODUCTION_ARCHITECTURE_VERIFICATION.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "BLOCKED_EXTERNAL_ACCESS",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "External Azure PostgreSQL read-only access, logical database/schema identity, network path, and backup evidence unavailable",
+      "requiredAction": "DBA provisions approved expiring read-only access to the confirmed logical database on rentipid-postgres-db using kv-rentipid-prod or approved local secure injection",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "PHASE 18",
+      "originalName": "phase-18",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 18 Pre-Check Report",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\phase-18-precheck.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "PHASE 19",
+      "originalName": "phase-19",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 19 Completion Report: Controlled Real-Money Live Payment Pilot; Phase 18 Pre-Check Report",
+      "discoveredScope": "Found in 2 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\phase-19-pilot-report.md",
+        "docs\\phase-19-pre-live-money-check.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "MATERIAL_IMPLEMENTATION_REQUIRED",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Explicit live-pilot authorization and production readiness evidence unavailable",
+      "requiredAction": "Keep live payment flags disabled until PHASE 17 and PHASE 19B are accepted and the owner authorizes the controlled pilot",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "PHASE 19B",
+      "originalName": "phase-19b",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 19B-B: Actual Live Payment Pilot Report; Phase 19B-D: Holding Operations, Pilot Preparation, and Non-Payment Production Hardening; Phase 19B-E: AWS Deployment Readiness Report; Phase 19B-E Pre-Deployment Validation; Phase 19B-F: AWS Production System Test Report; Phase 19B-G: Admin UI and Emergency Freeze Validation Report; Phase 18 Pre-Check Report",
+      "discoveredScope": "Found in 7 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\phase-19b-actual-live-payment-report.md",
+        "docs\\phase-19b-d-holding-operations-report.md",
+        "docs\\phase-19b-e-aws-deployment-readiness-report.md",
+        "docs\\phase-19b-e-predeployment-check.md",
+        "docs\\phase-19b-f-aws-production-system-test-report.md",
+        "docs\\phase-19b-g-admin-ui-freeze-validation-report.md",
+        "docs\\phase-19b-real-live-transaction-precheck.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "MATERIAL_IMPLEMENTATION_REQUIRED",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Production backend host, route ownership, secret bindings, monitoring, and restore metadata unresolved",
+      "requiredAction": "Confirm the deployed Vercel/Azure connection path through sanitized runtime metadata without assuming Neon",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "PHASE COMPLETION",
+      "originalName": "Phase-Completion",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "13 Phase Completion Registry",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\RENTipid-Master-Manual\\13-Phase-Completion-Registry.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "GATE4B4",
+      "originalName": "GATE4B4",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "GATE 4B-4 / GATE 4E-A IMPLEMENTATION PLAN; GATE 4B-4 / GATE 4E-A MARKETPLACE AND FINANCIAL TELEMETRY; GATE 4B-4 / GATE 4E LOCAL SCOPE CLOSEOUT",
+      "discoveredScope": "Found in 3 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\GATE4B4_GATE4E_IMPLEMENTATION_PLAN.md",
+        "docs\\security\\GATE4B4_GATE4E_MARKETPLACE_FINANCIAL_TELEMETRY.md",
+        "docs\\security\\phase4\\GATE4B4_GATE4E_LOCAL_SCOPE_CLOSEOUT.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "d509ca7a3a9955d385994dd4ade4ff9a85ede7c9",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "GATE4E",
+      "originalName": "GATE4E",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "GATE 4B-4 / GATE 4E-A IMPLEMENTATION PLAN; GATE 4B-4 / GATE 4E-A MARKETPLACE AND FINANCIAL TELEMETRY; GATE 4B-4 / GATE 4E LOCAL SCOPE CLOSEOUT",
+      "discoveredScope": "Found in 3 docs",
+      "implementationEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-gate4e.test.ts"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\GATE4B4_GATE4E_IMPLEMENTATION_PLAN.md",
+        "docs\\security\\GATE4B4_GATE4E_MARKETPLACE_FINANCIAL_TELEMETRY.md",
+        "docs\\security\\phase4\\GATE4B4_GATE4E_LOCAL_SCOPE_CLOSEOUT.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "d899e1b678fc79c66728ea12a7269120613b9dbf",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "PHASE5C",
+      "originalName": "PHASE5C",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 5C: MFA Implementation Evidence; Phase 5C: Session Step-Up Evidence; RENTIPID SOC PHASE 5C DELTA ACCEPTANCE",
+      "discoveredScope": "Found in 3 docs",
+      "implementationEvidence": [
+        "src/lib/security/auth/mfa-service.ts"
+      ],
+      "testEvidence": [
+        "tests/security/soc-phase5c.test.ts"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\level5\\bundles\\bundle1\\PHASE5C_MFA_IMPLEMENTATION.md",
+        "docs\\security\\level5\\bundles\\bundle1\\PHASE5C_SESSION_STEP_UP.md",
+        "docs\\security\\level5\\delta\\PHASE5C_MFA_SESSION_DELTA_ACCEPTANCE.md"
+      ],
+      "gitEvidence": [
+        "- **Inherited Baseline:** SOC Phases 0–4 inherited and not rebuilt"
+      ],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
+    },
+    {
+      "normalizedId": "PHASE5D",
+      "originalName": "PHASE5D",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 5D: SOC Authorization Evidence",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [
+        "src/lib/security/authorization.ts"
+      ],
+      "testEvidence": [
+        "tests/security/soc-phase5d.test.ts"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\level5\\bundles\\bundle1\\PHASE5D_SOC_AUTHORIZATION.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
+    },
+    {
+      "normalizedId": "PHASE5I",
+      "originalName": "PHASE5I",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 5I: Software Supply Chain Security Evidence; Phase 5I - Dependency and Supply Chain Policy; Phase 5I - Software Supply-Chain, Dependency, CI/CD and Release Integrity Evidence",
+      "discoveredScope": "Found in 3 docs",
+      "implementationEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-phase5i.test.ts"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\level5\\bundles\\bundle1\\PHASE5I_SUPPLY_CHAIN_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5i\\PHASE5I_DEPENDENCY_POLICY.md",
+        "docs\\security\\level5\\bundles\\phase5i\\PHASE5I_SUPPLY_CHAIN_SECURITY_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "d78bdbebf335fea6d4ef271b957d6c26e3c662c8",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
+    },
+    {
+      "normalizedId": "PHASE5E",
+      "originalName": "PHASE5E",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 5E-A Upload Security Foundation Evidence; PHASE 5E-B1 IDENTITY AND ACCOUNT MUTATION VALIDATION EVIDENCE; PHASE 5E-B2A PRIVILEGED USER AND ROLE ADMINISTRATION VALIDATION EVIDENCE; PHASE 5E-C CONSOLIDATED MARKETPLACE MUTATION SECURITY EVIDENCE",
+      "discoveredScope": "Found in 4 docs",
+      "implementationEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-phase5e.test.ts"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\level5\\bundles\\phase5e\\PHASE5E_A_UPLOAD_SECURITY_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5e\\PHASE5E_B1_IDENTITY_ACCOUNT_VALIDATION_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5e\\PHASE5E_B2A_PRIVILEGED_USER_ADMIN_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5e\\PHASE5E_C_MARKETPLACE_MUTATION_SECURITY_EVIDENCE.md"
+      ],
+      "gitEvidence": [
+        "- R2 restored all four routes exactly to baseline commit: 9765fcc92a82d72aaf51344efbd471718f9542dd"
+      ],
+      "acceptedBaseline": "c99befec129c58c8ac3b04487f22d651be4da44d",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
+    },
+    {
+      "normalizedId": "PHASE5F",
+      "originalName": "PHASE5F",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "PHASE 5F-A: CRYPTOGRAPHIC MIGRATION PLAN; PHASE 5F-B: CRYPTOGRAPHIC FOUNDATION EVIDENCE; PHASE 5F-B R2 VALIDATION REMEDIATION EVIDENCE; PHASE 5F-C-A: NEW-WRITE AND DUAL-READ INTEGRATION PLAN; PHASE 5F-C-B1: PROFILE PROTECTION FOUNDATION EVIDENCE; PHASE 5F-C-B1-R1: TEST AND ADAPTER CONTROLS REMEDIATION EVIDENCE; PHASE 5F-C-B1-R2: AUTHENTICATED TAMPER EVIDENCE; PHASE 5F-C-B2: ACTIVE PROFILE INTEGRATION EVIDENCE; PHASE 5F-C-B2-R1 INTEGRATION RECONCILIATION EVIDENCE; PHASE 5F-C-B2-R2: SCOPE RESTORATION AND INTEGRITY EVIDENCE; PHASE 5F-C-B2-R3: TEST ISOLATION EVIDENCE; PHASE 5F-D-A: CONTROLLED ENCRYPTION BACKFILL PLAN; PHASE 5F-D-A-R1: INTEGRITY BASELINE RECONCILIATION EVIDENCE; PHASE 5F-D-B1 DRY RUN FOUNDATION EVIDENCE; PHASE 5F-D-B2-A CONTROLLED WRITE PLAN; RENTIPID — LEVEL 5 EXPEDITED SECURITY PROGRAM; RENTIPID — LEVEL 5 EXPEDITED SECURITY PROGRAM; PHASE 5F-D-C-B: STAGING REHEARSAL CONTROL IMPLEMENTATION EVIDENCE; PHASE 5F-D-C STAGING REHEARSAL OPERATOR CHECKLIST; PHASE 5F-D-C STAGING AUTHORIZATION PACKAGE; RENTIPID PHASE 5F-D-C FINAL ISOLATED REHEARSAL EVIDENCE; Phase 5F-E: Encrypted-Only Rotation Evidence",
+      "discoveredScope": "Found in 22 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_A_CRYPTOGRAPHIC_MIGRATION_PLAN.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_B_CRYPTOGRAPHIC_FOUNDATION_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_B_R2_VALIDATION_REMEDIATION_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_C_A_NEW_WRITE_DUAL_READ_INTEGRATION_PLAN.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_C_B1_PROFILE_PROTECTION_FOUNDATION_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_C_B1_R1_TEST_REMEDIATION_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_C_B1_R2_AUTHENTICATED_TAMPER_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_C_B2_PROFILE_INTEGRATION_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_C_B2_R1_INTEGRATION_RECONCILIATION_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_C_B2_R2_SCOPE_AND_INTEGRITY_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_C_B2_R3_TEST_ISOLATION_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_D_A_CONTROLLED_BACKFILL_PLAN.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_D_A_R1_INTEGRITY_BASELINE_RECONCILIATION_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_D_B1_DRY_RUN_FOUNDATION_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_D_B2_A_CONTROLLED_WRITE_PLAN.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_D_B2_CONTROLLED_WRITE_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_D_C_A_STAGING_REHEARSAL_PLAN.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_D_C_B_STAGING_CONTROL_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_D_C_C_OPERATOR_CHECKLIST.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_D_C_C_STAGING_AUTHORIZATION_PACKAGE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_D_C_FINAL_LOCAL_REHEARSAL_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_E_ENCRYPTED_ONLY_ROTATION_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 85,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
+    },
+    {
+      "normalizedId": "REMEDIATION EVIDENCE",
+      "originalName": "REMEDIATION_EVIDENCE",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "PHASE 5F-B R2 VALIDATION REMEDIATION EVIDENCE; PHASE 5F-C-B1-R1: TEST AND ADAPTER CONTROLS REMEDIATION EVIDENCE",
+      "discoveredScope": "Found in 2 docs",
+      "implementationEvidence": [
+        "tests\\security\\rules\\gate4b4-slice-b1d-payment-anomaly.test.ts"
+      ],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_B_R2_VALIDATION_REMEDIATION_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5f\\PHASE5F_C_B1_R1_TEST_REMEDIATION_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ]
+    },
+    {
+      "normalizedId": "PHASE5G",
+      "originalName": "PHASE5G",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "PHASE 5G PAYMENT SECURITY EVIDENCE",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [
+        "apps/api/src/routes/webhooks.ts",
+        "src/lib/payments/payment-webhook-service.ts"
+      ],
+      "testEvidence": [
+        "tests/security/events/gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\level5\\bundles\\phase5g\\PHASE5G_PAYMENT_SECURITY_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
+    },
+    {
+      "normalizedId": "PHASE5H",
+      "originalName": "PHASE5H",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 5H Cloud Zero Trust Evidence",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [
+        "infrastructure/terraform"
+      ],
+      "testEvidence": [
+        "infrastructure/terraform/plan"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\level5\\bundles\\phase5h\\PHASE5H_CLOUD_ZERO_TRUST_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
+    },
+    {
+      "normalizedId": "PHASE5J",
+      "originalName": "PHASE5J",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 5J Detection Engineering Evidence; RENTIPID — PHASE 5J (DETECTION ENGINEERING & FRAUD DEFENSE) EVIDENCE",
+      "discoveredScope": "Found in 2 docs",
+      "implementationEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-phase5j.test.ts"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\level5\\bundles\\phase5j\\PHASE5J_DETECTION_ENGINEERING_EVIDENCE.md",
+        "docs\\security\\level5\\soc-phase5\\PHASE5J_DETECTION_ENGINEERING.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "c99befec129c58c8ac3b04487f22d651be4da44d",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
+    },
+    {
+      "normalizedId": "PHASE5K",
+      "originalName": "PHASE5K",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 5K AI Governance Evidence; RENTIPID — PHASE 5K (AI GOVERNANCE & LLM SECURITY) EVIDENCE",
+      "discoveredScope": "Found in 2 docs",
+      "implementationEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-phase5k.test.ts"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\level5\\bundles\\phase5k\\PHASE5K_AI_GOVERNANCE_EVIDENCE.md",
+        "docs\\security\\level5\\soc-phase5\\PHASE5K_AI_GOVERNANCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "c99befec129c58c8ac3b04487f22d651be4da44d",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
+    },
+    {
+      "normalizedId": "PHASE5L",
+      "originalName": "PHASE5L",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 5L: Backup Recovery Runbook; Phase 5L: Business Continuity Runbook; Phase 5L: Disaster Recovery Runbook; Phase 5L: Resilience, Backup, Recovery, and Continuity Evidence",
+      "discoveredScope": "Found in 4 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\level5\\bundles\\phase5l\\PHASE5L_BACKUP_RECOVERY_RUNBOOK.md",
+        "docs\\security\\level5\\bundles\\phase5l\\PHASE5L_BUSINESS_CONTINUITY_RUNBOOK.md",
+        "docs\\security\\level5\\bundles\\phase5l\\PHASE5L_DISASTER_RECOVERY_RUNBOOK.md",
+        "docs\\security\\level5\\bundles\\phase5l\\PHASE5L_RESILIENCE_RECOVERY_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
+    },
+    {
+      "normalizedId": "PHASE5M",
+      "originalName": "PHASE5M",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "ISMS Operations Runbook; ISMS Risk and Control Register; Phase 5M - Privacy Operations & ISMS Evidence Bundle; Processor and Service Register; Security Exception Register",
+      "discoveredScope": "Found in 5 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\level5\\bundles\\phase5m\\PHASE5M_ISMS_OPERATIONS_RUNBOOK.md",
+        "docs\\security\\level5\\bundles\\phase5m\\PHASE5M_ISMS_RISK_AND_CONTROL_REGISTER.md",
+        "docs\\security\\level5\\bundles\\phase5m\\PHASE5M_PRIVACY_ISMS_EVIDENCE.md",
+        "docs\\security\\level5\\bundles\\phase5m\\PHASE5M_PROCESSOR_AND_SERVICE_REGISTER.md",
+        "docs\\security\\level5\\bundles\\phase5m\\PHASE5M_SECURITY_EXCEPTION_REGISTER.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
+    },
+    {
+      "normalizedId": "PHASE5N",
+      "originalName": "PHASE5N",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 5N - Final Assurance Report",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\level5\\bundles\\phase5n\\PHASE5N_FINAL_ASSURANCE_REPORT.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
+    },
+    {
+      "normalizedId": "PHASE ACCEPTANCE",
+      "originalName": "PHASE_ACCEPTANCE",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Level 5 Phase Acceptance Registry",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\level5\\LEVEL5_PHASE_ACCEPTANCE_REGISTRY.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "PHASE5B",
+      "originalName": "PHASE5B",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "RENTIPID EXCEPTION, CHANGE CONTROL, AND PHASE 5B ACCEPTANCE",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\level5\\phase5b\\07_RENTIPID_EXCEPTION_CHANGE_CONTROL_AND_PHASE5B_ACCEPTANCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ],
+      "closureClassification": "FORMALLY_COMPLETED_CLOSED_AND_FROZEN",
+      "evidenceLinkageGap": "EVIDENCE_LINKAGE_GAP_ONLY"
+    },
+    {
+      "normalizedId": "SLICE1",
+      "originalName": "SLICE1",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "SOC Phase 5 Slice 1: Explainable Behavioral Intelligence Foundation",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-slice1.test.ts"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\level5\\soc-phase5\\SLICE1_BEHAVIORAL_RISK_FOUNDATION.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "d899e1b678fc79c66728ea12a7269120613b9dbf",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "SLICE2",
+      "originalName": "SLICE2",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "RENTIPID SOC PHASE 5: BEHAVIORAL RISK ENGINE",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\level5\\soc-phase5\\SLICE2_BEHAVIORAL_RISK_PERSISTENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "72561d6c863f27d6fdfb37edc1011d72a2037001",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "SLICE3",
+      "originalName": "SLICE3",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "RENTIPID SOC PHASE 5: BEHAVIORAL RISK ENGINE",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\level5\\soc-phase5\\SLICE3_BEHAVIORAL_RISK_API.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "72561d6c863f27d6fdfb37edc1011d72a2037001",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "SLICE4",
+      "originalName": "SLICE4",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "SOC Phase 5 Slice 4: Behavioral-Risk Investigation Dashboard",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\level5\\soc-phase5\\SLICE4_BEHAVIORAL_RISK_DASHBOARD.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "72561d6c863f27d6fdfb37edc1011d72a2037001",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "SLICE5A",
+      "originalName": "SLICE5A",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "SOC Phase 5: Slice 5A - Behavioral Risk Navigation Integration",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\level5\\soc-phase5\\SLICE5A_BEHAVIORAL_RISK_NAVIGATION.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "b29bf5f313582f66230fb7f2df685c6eaf806fb8",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "SLICE5B",
+      "originalName": "SLICE5B",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "SOC Phase 5 - Slice 5B: Deep-Linkable Investigation Context",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-slice5b.test.ts"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\level5\\soc-phase5\\SLICE5B_DEEP_LINKED_INVESTIGATION.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "bd8bd6023ed7f2b1eb5265585b8f7e6d09418c21",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "SLICE5C",
+      "originalName": "SLICE5C",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "SOC PHASE 5: THREAT RESPONSE & REMEDIATION",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\level5\\soc-phase5\\SLICE5C_ANALYST_HANDOFF.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "fa6650fab3c98ec3d3d58cf2171cd50e64122b58",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "PHASE3",
+      "originalName": "PHASE3",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 3 Acceptance Report; Phase 3 Authorization Matrix; Phase 3 Deployment-Readiness Checklist; Phase 3 Evidence Matrix; Phase 3 Known Limitations and Phase 4 Deferred Items; Phase 3 Rollback and Recovery Runbook; Phase 3 Rule, Alert, and Audit Inventory; Phase 3 UAT Checklist; FINAL GATE 3B SCHEMA PREFLIGHT REPORT; PHASE 3 GATE 3C FINAL RECONCILIATION REPORT; PHASE 3 GATE 3C FINAL CLOSEOUT REPORT; PHASE 3 GATE 3C THREE-ITEM RECONCILIATION REPORT; PHASE 3 IMPLEMENTATION PLAN V5 APPROVED ADDENDUM",
+      "discoveredScope": "Found in 13 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase3\\PHASE3_ACCEPTANCE_REPORT.md",
+        "docs\\security\\phase3\\PHASE3_AUTHORIZATION_MATRIX.md",
+        "docs\\security\\phase3\\PHASE3_DEPLOYMENT_READINESS_CHECKLIST.md",
+        "docs\\security\\phase3\\PHASE3_EVIDENCE_MATRIX.md",
+        "docs\\security\\phase3\\PHASE3_KNOWN_LIMITATIONS_AND_PHASE4_DEFERRED.md",
+        "docs\\security\\phase3\\PHASE3_ROLLBACK_AND_RECOVERY_RUNBOOK.md",
+        "docs\\security\\phase3\\PHASE3_RULE_ALERT_AUDIT_INVENTORY.md",
+        "docs\\security\\phase3\\PHASE3_UAT_CHECKLIST.md",
+        "docs\\soc\\phase3-gate3b-schema-preflight.md",
+        "docs\\soc\\phase3-gate3c-additive-migration.md",
+        "docs\\soc\\phase3-gate3c-closeout.md",
+        "docs\\soc\\phase3-gate3c-three-item-reconciliation.md",
+        "docs\\soc\\phase3-plan-v5-approved-addendum.md"
+      ],
+      "gitEvidence": [
+        "- Commit: 6eb46699b2e6a343dd3dcfa1ac9ea39f934483ff"
+      ],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 75,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ]
+    },
+    {
+      "normalizedId": "PHASE4",
+      "originalName": "PHASE4",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Phase 3 Known Limitations and Phase 4 Deferred Items; GATE 4J MAINTENANCE UAT AND PHASE 4 FINAL ACCEPTANCE EVIDENCE; PHASE 4 AUTHORIZATION DECISION; PHASE 4 CHANGE IMPACT LEDGER; PHASE 4 DECISION REGISTER; PHASE 4 EVIDENCE REGISTER; PHASE 4 EXTERNAL PROVIDER REGISTER; PHASE 4 GATE MANIFEST; RENTIPID SOC PHASE 4 MASTER PLAN; PHASE 4 RESPONSE BOUNDARY; PHASE 4 RULE CATALOG; Purpose and Scope; PHASE 4 THREAT COVERAGE MATRIX",
+      "discoveredScope": "Found in 13 docs",
+      "implementationEvidence": [
+        "tests\\security\\rules\\gate4b4-slice-b1d-payment-anomaly.test.ts"
+      ],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase3\\PHASE3_KNOWN_LIMITATIONS_AND_PHASE4_DEFERRED.md",
+        "docs\\security\\phase4\\GATE4J_MAINTENANCE_UAT_AND_PHASE4_FINAL_ACCEPTANCE_EVIDENCE.md",
+        "docs\\security\\phase4\\PHASE4_AUTHORIZATION_DECISION.md",
+        "docs\\security\\phase4\\PHASE4_CHANGE_IMPACT_LEDGER.md",
+        "docs\\security\\phase4\\PHASE4_DECISION_REGISTER.md",
+        "docs\\security\\phase4\\PHASE4_EVIDENCE_REGISTER.md",
+        "docs\\security\\phase4\\PHASE4_EXTERNAL_PROVIDER_REGISTER.md",
+        "docs\\security\\phase4\\PHASE4_GATE_MANIFEST.md",
+        "docs\\security\\phase4\\PHASE4_MASTER_PLAN.md",
+        "docs\\security\\phase4\\PHASE4_RESPONSE_BOUNDARY.md",
+        "docs\\security\\phase4\\PHASE4_RULE_CATALOG.md",
+        "docs\\security\\phase4\\PHASE4_SOC_OPERATIONS_AND_RECOVERY_RUNBOOK.md",
+        "docs\\security\\phase4\\PHASE4_THREAT_COVERAGE_MATRIX.md"
+      ],
+      "gitEvidence": [
+        "- Starting baseline: `d69d7c95df728ac8d1f6ca6ff772c3a39462d4dc`",
+        "- Phase 3 protected commit: 8aebe460698babf7e441dd0b13717281b5c1eb0c",
+        "- Starting commit: 8aebe460698babf7e441dd0b13717281b5c1eb0c",
+        "Protected Phase 3 commit: `8aebe460698babf7e441dd0b13717281b5c1eb0c`"
+      ],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 75,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ]
+    },
+    {
+      "normalizedId": "GATE4B2",
+      "originalName": "GATE4B2",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "RENTIPID PHASE 4 GATE 4B-2 COMPLETION REPORT; RENTIPID PHASE 4 GATE 4B-2R1 ACCEPTANCE CLOSURE REPORT",
+      "discoveredScope": "Found in 2 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4B2_COMPLETION_REPORT.md",
+        "docs\\security\\phase4\\GATE4B2_R1_CLOSURE_REPORT.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "GATE4B5",
+      "originalName": "GATE4B5",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Gate 4B-5 / 4D Local Scope Closeout",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4B5_GATE4D_LOCAL_SCOPE_CLOSEOUT.md"
+      ],
+      "gitEvidence": [
+        "- **Published Commit:** `c050f4326f0a92902dabf13eaff8939cf1f0a91f`"
+      ],
+      "acceptedBaseline": "3394a3c12abe3b36876f00edd7fa4cb8a81018c5",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "GATE4D",
+      "originalName": "GATE4D",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Gate 4B-5 / 4D Local Scope Closeout",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-gate4d.test.ts"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4B5_GATE4D_LOCAL_SCOPE_CLOSEOUT.md"
+      ],
+      "gitEvidence": [
+        "- **Published Commit:** `c050f4326f0a92902dabf13eaff8939cf1f0a91f`"
+      ],
+      "acceptedBaseline": "d899e1b678fc79c66728ea12a7269120613b9dbf",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "GATE4F",
+      "originalName": "GATE4F",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "GATE 4F INCIDENT-CASE CLOSEOUT EVIDENCE; GATE 4F INCIDENT CASE CONTROLLED VOCABULARY; GATE 4F SLICE C1 CASE FOUNDATION EVIDENCE; GATE 4F SLICE C2-S2 SCHEMA AMENDMENT EVIDENCE; GATE 4F SLICE C2-S4-R2 LIFECYCLE RECONCILIATION EVIDENCE; GATE 4F SLICE C2-S6 INCIDENT-CASE SERVICE WRITERS EVIDENCE; GATE 4F SLICE C3 SOC INCIDENT-CASE RBAC EVIDENCE; GATE 4F SLICE C4 INCIDENT-CASE API EVIDENCE; GATE 4F SLICE C5 INCIDENT-CASE UI EVIDENCE",
+      "discoveredScope": "Found in 9 docs",
+      "implementationEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-gate4f.test.ts"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4F_INCIDENT_CASE_CLOSEOUT_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4F_INCIDENT_CASE_CONTROLLED_VOCABULARY.md",
+        "docs\\security\\phase4\\GATE4F_SLICE_C1_CASE_FOUNDATION_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4F_SLICE_C2_S2_SCHEMA_AMENDMENT_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4F_SLICE_C2_S4_R2_LIFECYCLE_RECONCILIATION_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4F_SLICE_C2_S6_INCIDENT_CASE_SERVICE_WRITERS_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4F_SLICE_C3_SOC_INCIDENT_CASE_RBAC_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4F_SLICE_C4_INCIDENT_CASE_API_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4F_SLICE_C5_INCIDENT_CASE_UI_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "d78bdbebf335fea6d4ef271b957d6c26e3c662c8",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "SLICE C1",
+      "originalName": "SLICE_C1",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "GATE 4F SLICE C1 CASE FOUNDATION EVIDENCE",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [
+        "src\\app\\dashboard\\admin\\bookings\\page.tsx",
+        "src\\app\\dashboard\\admin\\disputes\\page.tsx",
+        "src\\app\\dashboard\\finance\\gateway-transactions\\page.tsx",
+        "src\\app\\dashboard\\finance\\page.tsx",
+        "src\\app\\dashboard\\provider\\bookings\\[id]\\page.tsx",
+        "src\\app\\dashboard\\provider\\ledger\\page.tsx",
+        "src\\app\\dashboard\\renter\\bookings\\[id]\\page.tsx",
+        "src\\components\\bookings\\BookingRequestForm.tsx",
+        "src\\components\\security\\approvals\\approval-ui.ts",
+        "src\\components\\security\\approvals\\ApprovalListClient.tsx",
+        "src\\components\\security\\cases\\incident-case-ui.ts",
+        "src\\components\\security\\cases\\IncidentCaseListClient.tsx",
+        "src\\components\\security\\playbooks\\playbook-ui.ts",
+        "src\\components\\security\\playbooks\\PlaybookListClient.tsx",
+        "src\\lib\\payments\\payment-action-log-writer.ts",
+        "src\\lib\\payments\\payment-reconciliation.ts",
+        "src\\lib\\security\\cases\\incident-case-writers.service.ts",
+        "src\\lib\\security\\events\\event-ingestion.ts",
+        "src\\lib\\security\\geolocation\\backfill.ts",
+        "src\\lib\\security\\rules\\alert-generator.service.ts",
+        "src\\lib\\security\\serializers.ts",
+        "tests\\security\\cases\\gate4f-slice-c1-case-foundation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s2-schema-amendment.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s4-r2-lifecycle-reconciliation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s6-case-writers.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c3-case-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c4-case-api.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c5-case-ui.test.tsx",
+        "tests\\security\\cases\\gate4f-slice-c6-incident-case-closeout.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a2-playbook-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-playbook-lifecycle.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r1-playbook-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r2-concurrency-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-approval-vertical.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-r2-grant-consumption-boundary.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a6-playbook-activation-api.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-a-existing-adapters.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1c-checkout-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1e-payment-freeze-blocked.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-a1-post-commit-handoff.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-payment-action-log-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-evidence-storage.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-payment-action-log-vocabulary.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-r2-r3-runtime-context.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1h-currency-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c1-booking-creation-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c2-booking-created-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.api.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.dashboard.test.tsx",
+        "tests\\security\\intelligence\\behavioral-risk.navigation.test.ts",
+        "tests\\security\\rules\\gate4b4-slice-b1d-payment-anomaly.test.ts",
+        "tests\\security\\ui\\gate4g-slice-a7-playbook-approval-ui.test.tsx",
+        "prisma\\schema.prisma"
+      ],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4F_SLICE_C1_CASE_FOUNDATION_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "db17191e55631631a53c66c68d278e77c3468f11",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing.",
+        "Technically accepted and validated in SOC pilot. Pending final freeze tag."
+      ]
+    },
+    {
+      "normalizedId": "SLICE C2",
+      "originalName": "SLICE_C2",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "GATE 4F SLICE C2-S2 SCHEMA AMENDMENT EVIDENCE; GATE 4F SLICE C2-S4-R2 LIFECYCLE RECONCILIATION EVIDENCE; GATE 4F SLICE C2-S6 INCIDENT-CASE SERVICE WRITERS EVIDENCE",
+      "discoveredScope": "Found in 3 docs",
+      "implementationEvidence": [
+        "src\\app\\dashboard\\admin\\bookings\\page.tsx",
+        "src\\app\\dashboard\\admin\\disputes\\page.tsx",
+        "src\\app\\dashboard\\finance\\gateway-transactions\\page.tsx",
+        "src\\app\\dashboard\\finance\\page.tsx",
+        "src\\app\\dashboard\\provider\\bookings\\[id]\\page.tsx",
+        "src\\app\\dashboard\\provider\\ledger\\page.tsx",
+        "src\\app\\dashboard\\renter\\bookings\\[id]\\page.tsx",
+        "src\\components\\bookings\\BookingRequestForm.tsx",
+        "src\\components\\security\\approvals\\approval-ui.ts",
+        "src\\components\\security\\approvals\\ApprovalListClient.tsx",
+        "src\\components\\security\\cases\\incident-case-ui.ts",
+        "src\\components\\security\\cases\\IncidentCaseListClient.tsx",
+        "src\\components\\security\\playbooks\\playbook-ui.ts",
+        "src\\components\\security\\playbooks\\PlaybookListClient.tsx",
+        "src\\lib\\payments\\payment-action-log-writer.ts",
+        "src\\lib\\payments\\payment-reconciliation.ts",
+        "src\\lib\\security\\cases\\incident-case-writers.service.ts",
+        "src\\lib\\security\\events\\event-ingestion.ts",
+        "src\\lib\\security\\geolocation\\backfill.ts",
+        "src\\lib\\security\\rules\\alert-generator.service.ts",
+        "src\\lib\\security\\serializers.ts",
+        "tests\\security\\cases\\gate4f-slice-c1-case-foundation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s2-schema-amendment.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s4-r2-lifecycle-reconciliation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s6-case-writers.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c3-case-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c4-case-api.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c5-case-ui.test.tsx",
+        "tests\\security\\cases\\gate4f-slice-c6-incident-case-closeout.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a2-playbook-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-playbook-lifecycle.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r1-playbook-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r2-concurrency-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-approval-vertical.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-r2-grant-consumption-boundary.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a6-playbook-activation-api.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-a-existing-adapters.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1c-checkout-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1e-payment-freeze-blocked.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-a1-post-commit-handoff.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-payment-action-log-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-evidence-storage.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-payment-action-log-vocabulary.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-r2-r3-runtime-context.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1h-currency-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c1-booking-creation-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c2-booking-created-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.api.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.dashboard.test.tsx",
+        "tests\\security\\intelligence\\behavioral-risk.navigation.test.ts",
+        "tests\\security\\rules\\gate4b4-slice-b1d-payment-anomaly.test.ts",
+        "tests\\security\\ui\\gate4g-slice-a7-playbook-approval-ui.test.tsx",
+        "prisma\\schema.prisma"
+      ],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4F_SLICE_C2_S2_SCHEMA_AMENDMENT_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4F_SLICE_C2_S4_R2_LIFECYCLE_RECONCILIATION_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4F_SLICE_C2_S6_INCIDENT_CASE_SERVICE_WRITERS_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "3b521854587756ed311e63da0d25dcf2e8f40c8d",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing.",
+        "Technically accepted and validated in scaled batch."
+      ]
+    },
+    {
+      "normalizedId": "SLICE C3",
+      "originalName": "SLICE_C3",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "GATE 4F SLICE C3 SOC INCIDENT-CASE RBAC EVIDENCE",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [
+        "src\\app\\dashboard\\admin\\bookings\\page.tsx",
+        "src\\app\\dashboard\\admin\\disputes\\page.tsx",
+        "src\\app\\dashboard\\finance\\gateway-transactions\\page.tsx",
+        "src\\app\\dashboard\\finance\\page.tsx",
+        "src\\app\\dashboard\\provider\\bookings\\[id]\\page.tsx",
+        "src\\app\\dashboard\\provider\\ledger\\page.tsx",
+        "src\\app\\dashboard\\renter\\bookings\\[id]\\page.tsx",
+        "src\\components\\bookings\\BookingRequestForm.tsx",
+        "src\\components\\security\\approvals\\approval-ui.ts",
+        "src\\components\\security\\approvals\\ApprovalListClient.tsx",
+        "src\\components\\security\\cases\\incident-case-ui.ts",
+        "src\\components\\security\\cases\\IncidentCaseListClient.tsx",
+        "src\\components\\security\\playbooks\\playbook-ui.ts",
+        "src\\components\\security\\playbooks\\PlaybookListClient.tsx",
+        "src\\lib\\payments\\payment-action-log-writer.ts",
+        "src\\lib\\payments\\payment-reconciliation.ts",
+        "src\\lib\\security\\cases\\incident-case-writers.service.ts",
+        "src\\lib\\security\\events\\event-ingestion.ts",
+        "src\\lib\\security\\geolocation\\backfill.ts",
+        "src\\lib\\security\\rules\\alert-generator.service.ts",
+        "src\\lib\\security\\serializers.ts",
+        "tests\\security\\cases\\gate4f-slice-c1-case-foundation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s2-schema-amendment.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s4-r2-lifecycle-reconciliation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s6-case-writers.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c3-case-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c4-case-api.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c5-case-ui.test.tsx",
+        "tests\\security\\cases\\gate4f-slice-c6-incident-case-closeout.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a2-playbook-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-playbook-lifecycle.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r1-playbook-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r2-concurrency-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-approval-vertical.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-r2-grant-consumption-boundary.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a6-playbook-activation-api.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-a-existing-adapters.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1c-checkout-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1e-payment-freeze-blocked.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-a1-post-commit-handoff.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-payment-action-log-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-evidence-storage.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-payment-action-log-vocabulary.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-r2-r3-runtime-context.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1h-currency-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c1-booking-creation-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c2-booking-created-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.api.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.dashboard.test.tsx",
+        "tests\\security\\intelligence\\behavioral-risk.navigation.test.ts",
+        "tests\\security\\rules\\gate4b4-slice-b1d-payment-anomaly.test.ts",
+        "tests\\security\\ui\\gate4g-slice-a7-playbook-approval-ui.test.tsx",
+        "prisma\\schema.prisma"
+      ],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4F_SLICE_C3_SOC_INCIDENT_CASE_RBAC_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "3b521854587756ed311e63da0d25dcf2e8f40c8d",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing.",
+        "Technically accepted and validated in scaled batch."
+      ]
+    },
+    {
+      "normalizedId": "SLICE C4",
+      "originalName": "SLICE_C4",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "GATE 4F SLICE C4 INCIDENT-CASE API EVIDENCE",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [
+        "src\\app\\dashboard\\admin\\bookings\\page.tsx",
+        "src\\app\\dashboard\\admin\\disputes\\page.tsx",
+        "src\\app\\dashboard\\finance\\gateway-transactions\\page.tsx",
+        "src\\app\\dashboard\\finance\\page.tsx",
+        "src\\app\\dashboard\\provider\\bookings\\[id]\\page.tsx",
+        "src\\app\\dashboard\\provider\\ledger\\page.tsx",
+        "src\\app\\dashboard\\renter\\bookings\\[id]\\page.tsx",
+        "src\\components\\bookings\\BookingRequestForm.tsx",
+        "src\\components\\security\\approvals\\approval-ui.ts",
+        "src\\components\\security\\approvals\\ApprovalListClient.tsx",
+        "src\\components\\security\\cases\\incident-case-ui.ts",
+        "src\\components\\security\\cases\\IncidentCaseListClient.tsx",
+        "src\\components\\security\\playbooks\\playbook-ui.ts",
+        "src\\components\\security\\playbooks\\PlaybookListClient.tsx",
+        "src\\lib\\payments\\payment-action-log-writer.ts",
+        "src\\lib\\payments\\payment-reconciliation.ts",
+        "src\\lib\\security\\cases\\incident-case-writers.service.ts",
+        "src\\lib\\security\\events\\event-ingestion.ts",
+        "src\\lib\\security\\geolocation\\backfill.ts",
+        "src\\lib\\security\\rules\\alert-generator.service.ts",
+        "src\\lib\\security\\serializers.ts",
+        "tests\\security\\cases\\gate4f-slice-c1-case-foundation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s2-schema-amendment.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s4-r2-lifecycle-reconciliation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s6-case-writers.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c3-case-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c4-case-api.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c5-case-ui.test.tsx",
+        "tests\\security\\cases\\gate4f-slice-c6-incident-case-closeout.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a2-playbook-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-playbook-lifecycle.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r1-playbook-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r2-concurrency-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-approval-vertical.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-r2-grant-consumption-boundary.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a6-playbook-activation-api.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-a-existing-adapters.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1c-checkout-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1e-payment-freeze-blocked.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-a1-post-commit-handoff.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-payment-action-log-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-evidence-storage.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-payment-action-log-vocabulary.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-r2-r3-runtime-context.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1h-currency-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c1-booking-creation-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c2-booking-created-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.api.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.dashboard.test.tsx",
+        "tests\\security\\intelligence\\behavioral-risk.navigation.test.ts",
+        "tests\\security\\rules\\gate4b4-slice-b1d-payment-anomaly.test.ts",
+        "tests\\security\\ui\\gate4g-slice-a7-playbook-approval-ui.test.tsx",
+        "prisma\\schema.prisma"
+      ],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4F_SLICE_C4_INCIDENT_CASE_API_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "3b521854587756ed311e63da0d25dcf2e8f40c8d",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing.",
+        "Technically accepted and validated in scaled batch."
+      ]
+    },
+    {
+      "normalizedId": "SLICE C5",
+      "originalName": "SLICE_C5",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "GATE 4F SLICE C5 INCIDENT-CASE UI EVIDENCE",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [
+        "src\\app\\dashboard\\admin\\bookings\\page.tsx",
+        "src\\app\\dashboard\\admin\\disputes\\page.tsx",
+        "src\\app\\dashboard\\finance\\gateway-transactions\\page.tsx",
+        "src\\app\\dashboard\\finance\\page.tsx",
+        "src\\app\\dashboard\\provider\\bookings\\[id]\\page.tsx",
+        "src\\app\\dashboard\\provider\\ledger\\page.tsx",
+        "src\\app\\dashboard\\renter\\bookings\\[id]\\page.tsx",
+        "src\\components\\bookings\\BookingRequestForm.tsx",
+        "src\\components\\security\\approvals\\approval-ui.ts",
+        "src\\components\\security\\approvals\\ApprovalListClient.tsx",
+        "src\\components\\security\\cases\\incident-case-ui.ts",
+        "src\\components\\security\\cases\\IncidentCaseListClient.tsx",
+        "src\\components\\security\\playbooks\\playbook-ui.ts",
+        "src\\components\\security\\playbooks\\PlaybookListClient.tsx",
+        "src\\lib\\payments\\payment-action-log-writer.ts",
+        "src\\lib\\payments\\payment-reconciliation.ts",
+        "src\\lib\\security\\cases\\incident-case-writers.service.ts",
+        "src\\lib\\security\\events\\event-ingestion.ts",
+        "src\\lib\\security\\geolocation\\backfill.ts",
+        "src\\lib\\security\\rules\\alert-generator.service.ts",
+        "src\\lib\\security\\serializers.ts",
+        "tests\\security\\cases\\gate4f-slice-c1-case-foundation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s2-schema-amendment.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s4-r2-lifecycle-reconciliation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s6-case-writers.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c3-case-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c4-case-api.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c5-case-ui.test.tsx",
+        "tests\\security\\cases\\gate4f-slice-c6-incident-case-closeout.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a2-playbook-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-playbook-lifecycle.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r1-playbook-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r2-concurrency-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-approval-vertical.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-r2-grant-consumption-boundary.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a6-playbook-activation-api.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-a-existing-adapters.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1c-checkout-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1e-payment-freeze-blocked.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-a1-post-commit-handoff.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-payment-action-log-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-evidence-storage.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-payment-action-log-vocabulary.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-r2-r3-runtime-context.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1h-currency-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c1-booking-creation-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c2-booking-created-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.api.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.dashboard.test.tsx",
+        "tests\\security\\intelligence\\behavioral-risk.navigation.test.ts",
+        "tests\\security\\rules\\gate4b4-slice-b1d-payment-anomaly.test.ts",
+        "tests\\security\\ui\\gate4g-slice-a7-playbook-approval-ui.test.tsx",
+        "prisma\\schema.prisma"
+      ],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4F_SLICE_C5_INCIDENT_CASE_UI_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing.",
+        "Premature Batch 2 closure invalidated because mandatory explicit validation and full SOC-standard closure gates were not completed. Phase restored to its last evidence-supported status."
+      ],
+      "acceptedBaseline": "d3822394a61df3ffe5237efad5776725dc029f05"
+    },
+    {
+      "normalizedId": "GATE4G",
+      "originalName": "GATE4G",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Gate 4G Playbooks and Approvals Final Closeout; Gate 4G Playbook & Approval Controlled Vocabulary; Gate 4G Slice A2 Playbook & Approval Schema Evidence; Gate 4G Slice A3 Playbook Lifecycle Services; Gate 4G Slice A3-R1: Playbook Lifecycle RBAC Evidence; Gate 4G Slice A3-R2: Playbook Optimistic-Concurrency Schema Evidence; Gate 4G Slice A3-R3 Legacy Test Assertion Reconciliation Evidence; GATE 4G SLICE A4/A5-R1: APPROVAL VERTICAL PUBLICATION RECONCILIATION; Gate 4G Slice A4/A5-R2 Grant Consumption Boundary Remediation Evidence; Gate 4G Slice A6: Playbook Activation and API Vertical Evidence; GATE 4G SLICE A7 PLAYBOOK AND APPROVAL OPERATIONS UI EVIDENCE",
+      "discoveredScope": "Found in 11 docs",
+      "implementationEvidence": [],
+      "testEvidence": [
+        "tests/security/soc-gate4g.test.ts"
+      ],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4G_PLAYBOOK_APPROVAL_CLOSEOUT_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A2_PLAYBOOK_VOCABULARY.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A2_SCHEMA_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A3_PLAYBOOK_LIFECYCLE_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A3_R1_RBAC_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A3_R2_CONCURRENCY_SCHEMA_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A3_R3_LEGACY_TEST_RECONCILIATION_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A4_A5_R1_APPROVAL_VERTICAL_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A4_A5_R2_GRANT_CONSUMPTION_BOUNDARY_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A6_PLAYBOOK_ACTIVATION_API_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A7_PLAYBOOK_APPROVAL_UI_EVIDENCE.md"
+      ],
+      "gitEvidence": [
+        "- Starting baseline:",
+        "- **Starting Baseline:** 4d25cd16312cf96c663bcfba6f438c319a67705c",
+        "Starting Baseline: `43bf7b423221703fd673fcc906a8bc08ea956665`",
+        "- Parent commit: cdb829cfd0cd866b3946a6ce9b42613e3993d908"
+      ],
+      "acceptedBaseline": "d78bdbebf335fea6d4ef271b957d6c26e3c662c8",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "SLICE A2",
+      "originalName": "SLICE_A2",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Gate 4G Playbook & Approval Controlled Vocabulary; Gate 4G Slice A2 Playbook & Approval Schema Evidence",
+      "discoveredScope": "Found in 2 docs",
+      "implementationEvidence": [
+        "src\\app\\dashboard\\admin\\bookings\\page.tsx",
+        "src\\app\\dashboard\\admin\\disputes\\page.tsx",
+        "src\\app\\dashboard\\finance\\gateway-transactions\\page.tsx",
+        "src\\app\\dashboard\\finance\\page.tsx",
+        "src\\app\\dashboard\\provider\\bookings\\[id]\\page.tsx",
+        "src\\app\\dashboard\\provider\\ledger\\page.tsx",
+        "src\\app\\dashboard\\renter\\bookings\\[id]\\page.tsx",
+        "src\\components\\bookings\\BookingRequestForm.tsx",
+        "src\\components\\security\\approvals\\approval-ui.ts",
+        "src\\components\\security\\approvals\\ApprovalListClient.tsx",
+        "src\\components\\security\\cases\\incident-case-ui.ts",
+        "src\\components\\security\\cases\\IncidentCaseListClient.tsx",
+        "src\\components\\security\\playbooks\\playbook-ui.ts",
+        "src\\components\\security\\playbooks\\PlaybookListClient.tsx",
+        "src\\lib\\payments\\payment-action-log-writer.ts",
+        "src\\lib\\payments\\payment-reconciliation.ts",
+        "src\\lib\\security\\cases\\incident-case-writers.service.ts",
+        "src\\lib\\security\\events\\event-ingestion.ts",
+        "src\\lib\\security\\geolocation\\backfill.ts",
+        "src\\lib\\security\\rules\\alert-generator.service.ts",
+        "src\\lib\\security\\serializers.ts",
+        "tests\\security\\cases\\gate4f-slice-c1-case-foundation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s2-schema-amendment.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s4-r2-lifecycle-reconciliation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s6-case-writers.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c3-case-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c4-case-api.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c5-case-ui.test.tsx",
+        "tests\\security\\cases\\gate4f-slice-c6-incident-case-closeout.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a2-playbook-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-playbook-lifecycle.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r1-playbook-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r2-concurrency-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-approval-vertical.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-r2-grant-consumption-boundary.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a6-playbook-activation-api.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-a-existing-adapters.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1c-checkout-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1e-payment-freeze-blocked.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-a1-post-commit-handoff.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-payment-action-log-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-evidence-storage.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-payment-action-log-vocabulary.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-r2-r3-runtime-context.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1h-currency-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c1-booking-creation-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c2-booking-created-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.api.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.dashboard.test.tsx",
+        "tests\\security\\intelligence\\behavioral-risk.navigation.test.ts",
+        "tests\\security\\rules\\gate4b4-slice-b1d-payment-anomaly.test.ts",
+        "tests\\security\\ui\\gate4g-slice-a7-playbook-approval-ui.test.tsx",
+        "prisma\\schema.prisma"
+      ],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4G_SLICE_A2_PLAYBOOK_VOCABULARY.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A2_SCHEMA_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing.",
+        "Premature Batch 2 closure invalidated because mandatory explicit validation and full SOC-standard closure gates were not completed. Phase restored to its last evidence-supported status."
+      ],
+      "acceptedBaseline": "d3822394a61df3ffe5237efad5776725dc029f05"
+    },
+    {
+      "normalizedId": "SLICE A3",
+      "originalName": "SLICE_A3",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Gate 4G Slice A3 Playbook Lifecycle Services; Gate 4G Slice A3-R1: Playbook Lifecycle RBAC Evidence; Gate 4G Slice A3-R2: Playbook Optimistic-Concurrency Schema Evidence; Gate 4G Slice A3-R3 Legacy Test Assertion Reconciliation Evidence",
+      "discoveredScope": "Found in 4 docs",
+      "implementationEvidence": [
+        "src\\app\\dashboard\\admin\\bookings\\page.tsx",
+        "src\\app\\dashboard\\admin\\disputes\\page.tsx",
+        "src\\app\\dashboard\\finance\\gateway-transactions\\page.tsx",
+        "src\\app\\dashboard\\finance\\page.tsx",
+        "src\\app\\dashboard\\provider\\bookings\\[id]\\page.tsx",
+        "src\\app\\dashboard\\provider\\ledger\\page.tsx",
+        "src\\app\\dashboard\\renter\\bookings\\[id]\\page.tsx",
+        "src\\components\\bookings\\BookingRequestForm.tsx",
+        "src\\components\\security\\approvals\\approval-ui.ts",
+        "src\\components\\security\\approvals\\ApprovalListClient.tsx",
+        "src\\components\\security\\cases\\incident-case-ui.ts",
+        "src\\components\\security\\cases\\IncidentCaseListClient.tsx",
+        "src\\components\\security\\playbooks\\playbook-ui.ts",
+        "src\\components\\security\\playbooks\\PlaybookListClient.tsx",
+        "src\\lib\\payments\\payment-action-log-writer.ts",
+        "src\\lib\\payments\\payment-reconciliation.ts",
+        "src\\lib\\security\\cases\\incident-case-writers.service.ts",
+        "src\\lib\\security\\events\\event-ingestion.ts",
+        "src\\lib\\security\\geolocation\\backfill.ts",
+        "src\\lib\\security\\rules\\alert-generator.service.ts",
+        "src\\lib\\security\\serializers.ts",
+        "tests\\security\\cases\\gate4f-slice-c1-case-foundation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s2-schema-amendment.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s4-r2-lifecycle-reconciliation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s6-case-writers.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c3-case-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c4-case-api.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c5-case-ui.test.tsx",
+        "tests\\security\\cases\\gate4f-slice-c6-incident-case-closeout.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a2-playbook-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-playbook-lifecycle.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r1-playbook-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r2-concurrency-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-approval-vertical.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-r2-grant-consumption-boundary.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a6-playbook-activation-api.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-a-existing-adapters.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1c-checkout-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1e-payment-freeze-blocked.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-a1-post-commit-handoff.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-payment-action-log-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-evidence-storage.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-payment-action-log-vocabulary.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-r2-r3-runtime-context.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1h-currency-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c1-booking-creation-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c2-booking-created-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.api.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.dashboard.test.tsx",
+        "tests\\security\\intelligence\\behavioral-risk.navigation.test.ts",
+        "tests\\security\\rules\\gate4b4-slice-b1d-payment-anomaly.test.ts",
+        "tests\\security\\ui\\gate4g-slice-a7-playbook-approval-ui.test.tsx",
+        "prisma\\schema.prisma"
+      ],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4G_SLICE_A3_PLAYBOOK_LIFECYCLE_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A3_R1_RBAC_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A3_R2_CONCURRENCY_SCHEMA_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A3_R3_LEGACY_TEST_RECONCILIATION_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "5158d55124d1fba1060c1b80e38f808f7802baca",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ]
+    },
+    {
+      "normalizedId": "SLICE A4",
+      "originalName": "SLICE_A4",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "GATE 4G SLICE A4/A5-R1: APPROVAL VERTICAL PUBLICATION RECONCILIATION; Gate 4G Slice A4/A5-R2 Grant Consumption Boundary Remediation Evidence",
+      "discoveredScope": "Found in 2 docs",
+      "implementationEvidence": [
+        "src\\app\\dashboard\\admin\\bookings\\page.tsx",
+        "src\\app\\dashboard\\admin\\disputes\\page.tsx",
+        "src\\app\\dashboard\\finance\\gateway-transactions\\page.tsx",
+        "src\\app\\dashboard\\finance\\page.tsx",
+        "src\\app\\dashboard\\provider\\bookings\\[id]\\page.tsx",
+        "src\\app\\dashboard\\provider\\ledger\\page.tsx",
+        "src\\app\\dashboard\\renter\\bookings\\[id]\\page.tsx",
+        "src\\components\\bookings\\BookingRequestForm.tsx",
+        "src\\components\\security\\approvals\\approval-ui.ts",
+        "src\\components\\security\\approvals\\ApprovalListClient.tsx",
+        "src\\components\\security\\cases\\incident-case-ui.ts",
+        "src\\components\\security\\cases\\IncidentCaseListClient.tsx",
+        "src\\components\\security\\playbooks\\playbook-ui.ts",
+        "src\\components\\security\\playbooks\\PlaybookListClient.tsx",
+        "src\\lib\\payments\\payment-action-log-writer.ts",
+        "src\\lib\\payments\\payment-reconciliation.ts",
+        "src\\lib\\security\\cases\\incident-case-writers.service.ts",
+        "src\\lib\\security\\events\\event-ingestion.ts",
+        "src\\lib\\security\\geolocation\\backfill.ts",
+        "src\\lib\\security\\rules\\alert-generator.service.ts",
+        "src\\lib\\security\\serializers.ts",
+        "tests\\security\\cases\\gate4f-slice-c1-case-foundation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s2-schema-amendment.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s4-r2-lifecycle-reconciliation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s6-case-writers.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c3-case-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c4-case-api.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c5-case-ui.test.tsx",
+        "tests\\security\\cases\\gate4f-slice-c6-incident-case-closeout.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a2-playbook-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-playbook-lifecycle.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r1-playbook-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r2-concurrency-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-approval-vertical.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-r2-grant-consumption-boundary.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a6-playbook-activation-api.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-a-existing-adapters.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1c-checkout-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1e-payment-freeze-blocked.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-a1-post-commit-handoff.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-payment-action-log-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-evidence-storage.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-payment-action-log-vocabulary.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-r2-r3-runtime-context.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1h-currency-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c1-booking-creation-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c2-booking-created-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.api.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.dashboard.test.tsx",
+        "tests\\security\\intelligence\\behavioral-risk.navigation.test.ts",
+        "tests\\security\\rules\\gate4b4-slice-b1d-payment-anomaly.test.ts",
+        "tests\\security\\ui\\gate4g-slice-a7-playbook-approval-ui.test.tsx",
+        "prisma\\schema.prisma"
+      ],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4G_SLICE_A4_A5_R1_APPROVAL_VERTICAL_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4G_SLICE_A4_A5_R2_GRANT_CONSUMPTION_BOUNDARY_EVIDENCE.md"
+      ],
+      "gitEvidence": [
+        "- **Starting Baseline:** 4d25cd16312cf96c663bcfba6f438c319a67705c"
+      ],
+      "acceptedBaseline": "5158d55124d1fba1060c1b80e38f808f7802baca",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ]
+    },
+    {
+      "normalizedId": "SLICE A6",
+      "originalName": "SLICE_A6",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Gate 4G Slice A6: Playbook Activation and API Vertical Evidence",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [
+        "src\\app\\dashboard\\admin\\bookings\\page.tsx",
+        "src\\app\\dashboard\\admin\\disputes\\page.tsx",
+        "src\\app\\dashboard\\finance\\gateway-transactions\\page.tsx",
+        "src\\app\\dashboard\\finance\\page.tsx",
+        "src\\app\\dashboard\\provider\\bookings\\[id]\\page.tsx",
+        "src\\app\\dashboard\\provider\\ledger\\page.tsx",
+        "src\\app\\dashboard\\renter\\bookings\\[id]\\page.tsx",
+        "src\\components\\bookings\\BookingRequestForm.tsx",
+        "src\\components\\security\\approvals\\approval-ui.ts",
+        "src\\components\\security\\approvals\\ApprovalListClient.tsx",
+        "src\\components\\security\\cases\\incident-case-ui.ts",
+        "src\\components\\security\\cases\\IncidentCaseListClient.tsx",
+        "src\\components\\security\\playbooks\\playbook-ui.ts",
+        "src\\components\\security\\playbooks\\PlaybookListClient.tsx",
+        "src\\lib\\payments\\payment-action-log-writer.ts",
+        "src\\lib\\payments\\payment-reconciliation.ts",
+        "src\\lib\\security\\cases\\incident-case-writers.service.ts",
+        "src\\lib\\security\\events\\event-ingestion.ts",
+        "src\\lib\\security\\geolocation\\backfill.ts",
+        "src\\lib\\security\\rules\\alert-generator.service.ts",
+        "src\\lib\\security\\serializers.ts",
+        "tests\\security\\cases\\gate4f-slice-c1-case-foundation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s2-schema-amendment.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s4-r2-lifecycle-reconciliation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s6-case-writers.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c3-case-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c4-case-api.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c5-case-ui.test.tsx",
+        "tests\\security\\cases\\gate4f-slice-c6-incident-case-closeout.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a2-playbook-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-playbook-lifecycle.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r1-playbook-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r2-concurrency-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-approval-vertical.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-r2-grant-consumption-boundary.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a6-playbook-activation-api.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-a-existing-adapters.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1c-checkout-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1e-payment-freeze-blocked.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-a1-post-commit-handoff.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-payment-action-log-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-evidence-storage.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-payment-action-log-vocabulary.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-r2-r3-runtime-context.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1h-currency-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c1-booking-creation-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c2-booking-created-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.api.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.dashboard.test.tsx",
+        "tests\\security\\intelligence\\behavioral-risk.navigation.test.ts",
+        "tests\\security\\rules\\gate4b4-slice-b1d-payment-anomaly.test.ts",
+        "tests\\security\\ui\\gate4g-slice-a7-playbook-approval-ui.test.tsx",
+        "prisma\\schema.prisma"
+      ],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4G_SLICE_A6_PLAYBOOK_ACTIVATION_API_EVIDENCE.md"
+      ],
+      "gitEvidence": [
+        "Starting Baseline: `43bf7b423221703fd673fcc906a8bc08ea956665`"
+      ],
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing.",
+        "Premature Batch 2 closure invalidated because mandatory explicit validation and full SOC-standard closure gates were not completed. Phase restored to its last evidence-supported status."
+      ],
+      "acceptedBaseline": "d3822394a61df3ffe5237efad5776725dc029f05"
+    },
+    {
+      "normalizedId": "SLICE A7",
+      "originalName": "SLICE_A7",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "GATE 4G SLICE A7 PLAYBOOK AND APPROVAL OPERATIONS UI EVIDENCE",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [
+        "src\\app\\dashboard\\admin\\bookings\\page.tsx",
+        "src\\app\\dashboard\\admin\\disputes\\page.tsx",
+        "src\\app\\dashboard\\finance\\gateway-transactions\\page.tsx",
+        "src\\app\\dashboard\\finance\\page.tsx",
+        "src\\app\\dashboard\\provider\\bookings\\[id]\\page.tsx",
+        "src\\app\\dashboard\\provider\\ledger\\page.tsx",
+        "src\\app\\dashboard\\renter\\bookings\\[id]\\page.tsx",
+        "src\\components\\bookings\\BookingRequestForm.tsx",
+        "src\\components\\security\\approvals\\approval-ui.ts",
+        "src\\components\\security\\approvals\\ApprovalListClient.tsx",
+        "src\\components\\security\\cases\\incident-case-ui.ts",
+        "src\\components\\security\\cases\\IncidentCaseListClient.tsx",
+        "src\\components\\security\\playbooks\\playbook-ui.ts",
+        "src\\components\\security\\playbooks\\PlaybookListClient.tsx",
+        "src\\lib\\payments\\payment-action-log-writer.ts",
+        "src\\lib\\payments\\payment-reconciliation.ts",
+        "src\\lib\\security\\cases\\incident-case-writers.service.ts",
+        "src\\lib\\security\\events\\event-ingestion.ts",
+        "src\\lib\\security\\geolocation\\backfill.ts",
+        "src\\lib\\security\\rules\\alert-generator.service.ts",
+        "src\\lib\\security\\serializers.ts",
+        "tests\\security\\cases\\gate4f-slice-c1-case-foundation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s2-schema-amendment.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s4-r2-lifecycle-reconciliation.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c2-s6-case-writers.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c3-case-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c4-case-api.integration.test.ts",
+        "tests\\security\\cases\\gate4f-slice-c5-case-ui.test.tsx",
+        "tests\\security\\cases\\gate4f-slice-c6-incident-case-closeout.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a2-playbook-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-playbook-lifecycle.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r1-playbook-rbac.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a3-r2-concurrency-schema.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-approval-vertical.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a4-a5-r2-grant-consumption-boundary.integration.test.ts",
+        "tests\\security\\cases\\gate4g-slice-a6-playbook-activation-api.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-a-existing-adapters.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1c-checkout-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1e-payment-freeze-blocked.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-a1-post-commit-handoff.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1f-payment-action-log-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-evidence-storage.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-amount-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-payment-action-log-vocabulary.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1g-r2-r3-runtime-context.test.ts",
+        "tests\\security\\events\\gate4b4-slice-b1h-currency-mismatch-reconciliation.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c1-booking-creation-writer.integration.test.ts",
+        "tests\\security\\events\\gate4b4-slice-c2-booking-created-adapter.integration.test.ts",
+        "tests\\security\\events\\gate4b5-slice-p1-payment-webhook-ingestion.integration.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.api.test.ts",
+        "tests\\security\\intelligence\\behavioral-risk.dashboard.test.tsx",
+        "tests\\security\\intelligence\\behavioral-risk.navigation.test.ts",
+        "tests\\security\\rules\\gate4b4-slice-b1d-payment-anomaly.test.ts",
+        "tests\\security\\ui\\gate4g-slice-a7-playbook-approval-ui.test.tsx",
+        "prisma\\schema.prisma"
+      ],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4G_SLICE_A7_PLAYBOOK_APPROVAL_UI_EVIDENCE.md"
+      ],
+      "gitEvidence": [
+        "- Parent commit: cdb829cfd0cd866b3946a6ce9b42613e3993d908"
+      ],
+      "acceptedBaseline": "5158d55124d1fba1060c1b80e38f808f7802baca",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ]
+    },
+    {
+      "normalizedId": "GATE4H",
+      "originalName": "GATE4H",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Gate 4H-R2: Approved-Scope Binding and Final Acceptance Evidence; GATE 4H-R3 FINAL REGRESSION RECONCILIATION AND ACCEPTANCE EVIDENCE; Gate 4H: Reversible Response Execution",
+      "discoveredScope": "Found in 3 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4H_R2_APPROVED_SCOPE_BINDING_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4H_R3_FINAL_REGRESSION_AND_ACCEPTANCE_EVIDENCE.md",
+        "docs\\security\\phase4\\GATE4H_REVERSIBLE_RESPONSE_EXECUTION_EVIDENCE.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "b29bf5f313582f66230fb7f2df685c6eaf806fb8",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "GATE4I",
+      "originalName": "GATE4I",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "GATE 4I CONTROLLED SIMULATION AND RESPONSE VALIDATION EVIDENCE",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4I_CONTROLLED_SIMULATION_AND_RESPONSE_VALIDATION_EVIDENCE.md"
+      ],
+      "gitEvidence": [
+        "- Starting baseline: `4b56feb9ce8476b44dd3b0d2b16696db24abf6fb`"
+      ],
+      "acceptedBaseline": "b29bf5f313582f66230fb7f2df685c6eaf806fb8",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "GATE4J",
+      "originalName": "GATE4J",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "GATE 4J MAINTENANCE UAT AND PHASE 4 FINAL ACCEPTANCE EVIDENCE",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\GATE4J_MAINTENANCE_UAT_AND_PHASE4_FINAL_ACCEPTANCE_EVIDENCE.md"
+      ],
+      "gitEvidence": [
+        "- Starting baseline: `d69d7c95df728ac8d1f6ca6ff772c3a39462d4dc`"
+      ],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "GATE MANIFEST",
+      "originalName": "GATE_MANIFEST",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "PHASE 4 GATE MANIFEST",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\phase4\\PHASE4_GATE_MANIFEST.md"
+      ],
+      "gitEvidence": [
+        "- Starting commit: 8aebe460698babf7e441dd0b13717281b5c1eb0c"
+      ],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "PHASE6A",
+      "originalName": "PHASE6A",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "SOC PHASE 6A: LIVE GEOSPATIAL THREAT MAP — EVIDENCE AND CLOSEOUT; PHASE 6A MAP DATA ATTRIBUTION",
+      "discoveredScope": "Found in 2 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\security\\soc-phase6a\\PHASE6A_LIVE_THREAT_MAP_EVIDENCE.md",
+        "docs\\security\\soc-phase6a\\PHASE6A_MAP_DATA_ATTRIBUTION.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": "43612cff7517828032798ec824a61793c9888c3e",
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "CLOSED_AND_FROZEN",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "GATE1A",
+      "originalName": "gate1a",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "Pre-Existing Functional Gap Register - Gate 1A; Phase 1 Entry Gate 1A Review Report",
+      "discoveredScope": "Found in 2 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\soc\\gate1a-pre-existing-gap-register.md",
+        "docs\\soc\\gate1a-report.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    },
+    {
+      "normalizedId": "PHASE2",
+      "originalName": "phase2",
+      "module": "General",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "RENTipid SOC Phase 2 V6 Final Evidence",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\soc\\phase2-v6-final-evidence.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 75,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ]
+    },
+    {
+      "normalizedId": "GATE3B",
+      "originalName": "gate3b",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "FINAL GATE 3B SCHEMA PREFLIGHT REPORT",
+      "discoveredScope": "Found in 1 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\soc\\phase3-gate3b-schema-preflight.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 75,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ],
+      "history": [
+        "Automated closure declaration generated without mandatory validation. Declaration invalidated pending SOC-standard closure processing."
+      ]
+    },
+    {
+      "normalizedId": "GATE3C",
+      "originalName": "gate3c",
+      "module": "SOC/Security",
+      "parentPhase": "RENTIPID_MASTER",
+      "objective": "PHASE 3 GATE 3C FINAL RECONCILIATION REPORT; PHASE 3 GATE 3C FINAL CLOSEOUT REPORT; PHASE 3 GATE 3C THREE-ITEM RECONCILIATION REPORT",
+      "discoveredScope": "Found in 3 docs",
+      "implementationEvidence": [],
+      "testEvidence": [],
+      "documentationEvidence": [
+        "docs\\soc\\phase3-gate3c-additive-migration.md",
+        "docs\\soc\\phase3-gate3c-closeout.md",
+        "docs\\soc\\phase3-gate3c-three-item-reconciliation.md"
+      ],
+      "gitEvidence": [],
+      "acceptedBaseline": null,
+      "postAcceptanceChanges": "UNKNOWN_CHANGE_IMPACT",
+      "primaryStatus": "GOVERNANCE_ARTIFACT_NOT_A_PHASE",
+      "secondaryFlags": [
+        "TEST_EVIDENCE_GAP"
+      ],
+      "confidence": 65,
+      "blocker": "Validation Pending",
+      "requiredAction": "Review Evidence",
+      "freezeEligibility": "NOT_ELIGIBLE",
+      "reopeningTriggers": [
+        "Code change",
+        "Schema modification"
+      ]
+    }
+  ]
+}

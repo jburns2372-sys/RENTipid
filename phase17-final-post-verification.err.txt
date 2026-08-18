@@ -1,0 +1,2 @@
+psql:C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid/phase17-rehearsal-run/scripts/phase17_post_remediation_verification.sql:200: ERROR:  PHASE17_POST_VERIFY_STOP: migration checksums differ from the authorized chain
+CONTEXT:  PL/pgSQL function inline_code_block line 122 at RAISE

@@ -1,0 +1,916 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>RENTipid Complete Master Manual</title>
+<style>@page { size: A4; margin: 20mm 16mm 20mm 16mm; }
+body { font-family: "Segoe UI", Arial, sans-serif; color: #172033; font-size: 10pt; line-height: 1.45; margin: 0; }
+header { position: fixed; top: -14mm; left: 0; right: 0; border-bottom: 1px solid #2f5f8f; color: #2f5f8f; font-size: 8pt; padding-bottom: 3px; }
+footer { position: fixed; bottom: -14mm; left: 0; right: 0; border-top: 1px solid #999; font-size: 8pt; color: #555; padding-top: 3px; text-align: center; }
+footer .page:after { content: counter(page); }
+.cover { height: 245mm; display: flex; flex-direction: column; justify-content: center; text-align: center; page-break-after: always; }
+.cover h1 { font-size: 30pt; color: #173f6b; }
+.confidential { color: #8b1e1e; font-weight: 700; letter-spacing: .08em; }
+.toc { page-break-after: always; }
+.toc-l2 { font-weight: 600; margin-top: 5px; }
+.toc-l3 { font-size: 8.5pt; }
+h1 { color: #173f6b; }
+h2 { color: #1f527d; border-bottom: 1px solid #9bb4c9; padding-bottom: 3px; margin-top: 22px; }
+h2.part { page-break-before: always; }
+h3 { color: #2f5f8f; margin-top: 16px; page-break-after: avoid; }
+p, li { orphans: 3; widows: 3; }
+table { border-collapse: collapse; width: 100%; font-size: 8.5pt; margin: 10px 0; page-break-inside: avoid; }
+td { border: 1px solid #9aa7b4; padding: 4px; vertical-align: top; }
+tr:first-child td { font-weight: 700; background: #e8f0f7; }
+code { font-family: Consolas, monospace; background: #eef2f5; padding: 1px 3px; word-break: break-word; }
+pre { white-space: pre-wrap; background: #eef2f5; border: 1px solid #ccd5dd; padding: 8px; }
+blockquote { border-left: 4px solid #2f5f8f; background: #eef5fb; margin: 10px 0; padding: 7px 10px; }
+figure { margin: 8px 0; }
+figcaption { font-style: italic; color: #445; }
+a { color: #174f82; text-decoration: none; }</style>
+</head>
+<body>
+<header>RENTipid Complete Application Documentation &mdash; Internal</header>
+<footer>RENTipid Internal &middot; Page <span class="page"></span></footer>
+<section class="cover">
+<div class="confidential">RENTIPID INTERNAL</div>
+<h1>RENTipid Complete Master Manual</h1>
+<p>Version 1.1 &middot; Editorial rendering closure</p>
+<p>Branch: feature/soc-phase4-threat-response</p>
+<p>HEAD: 5804d4cceafc74e5e51b554be6f84a1b9c80e8be</p>
+<p>Generated 2026-07-31 &middot; Asia/Shanghai</p>
+</section>
+<section class="toc"><h1>Table of Contents</h1><div class="toc-l2"><a href="#how-to-use-this-manual">How to Use This Manual</a></div>
+<div class="toc-l2"><a href="#part-i-document-foundation-and-product-context">Part I — Document Foundation and Product Context</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-1-manual-purpose-and-scope">Chapter 1 — Manual Purpose and Scope</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-2-product-identity-and-business-mission">Chapter 2 — Product Identity and Business Mission</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-3-documentation-audiences">Chapter 3 — Documentation Audiences</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-4-source-authority-hierarchy">Chapter 4 — Source-Authority Hierarchy</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-5-completion-premise">Chapter 5 — Completion Premise</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-6-status-vocabulary">Chapter 6 — Status Vocabulary</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-7-authoritative-architecture-direction">Chapter 7 — Authoritative Architecture Direction</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-8-current-runtime-transition-state">Chapter 8 — Current Runtime Transition State</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-9-external-state-boundary">Chapter 9 — External-State Boundary</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-10-separately-governed-decisions">Chapter 10 — Separately Governed Decisions</a></div>
+<div class="toc-l2"><a href="#part-ii-roles-access-and-responsibility">Part II — Roles, Access, and Responsibility</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-11-role-model-overview">Chapter 11 — Role Model Overview</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-12-guest-responsibilities">Chapter 12 — Guest Responsibilities</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-13-renter-responsibilities">Chapter 13 — Renter Responsibilities</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-14-individual-provider-responsibilities">Chapter 14 — Individual Provider Responsibilities</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-15-business-provider-responsibilities">Chapter 15 — Business Provider Responsibilities</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-16-admin-responsibilities">Chapter 16 — Admin Responsibilities</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-17-finance-admin-responsibilities">Chapter 17 — Finance Admin Responsibilities</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-18-compliance-admin-responsibilities">Chapter 18 — Compliance Admin Responsibilities</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-19-soc-analyst-responsibilities">Chapter 19 — SOC Analyst Responsibilities</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-20-soc-supervisor-and-super-admin-responsibilities">Chapter 20 — SOC Supervisor and Super Admin Responsibilities</a></div>
+<div class="toc-l2"><a href="#part-iii-identity-profiles-kyc-and-account-lifecycle">Part III — Identity, Profiles, KYC, and Account Lifecycle</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-21-registration-workflow">Chapter 21 — Registration Workflow</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-22-authentication-workflow">Chapter 22 — Authentication Workflow</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-23-session-and-route-protection">Chapter 23 — Session and Route Protection</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-24-privileged-role-assignment">Chapter 24 — Privileged Role Assignment</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-25-user-profile-read-surface">Chapter 25 — User Profile Read Surface</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-26-business-profile">Chapter 26 — Business Profile</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-27-kyc-submission">Chapter 27 — KYC Submission</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-28-verification-document-review">Chapter 28 — Verification Document Review</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-29-privacy-requests">Chapter 29 — Privacy Requests</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-30-account-deletion">Chapter 30 — Account Deletion</a></div>
+<div class="toc-l2"><a href="#part-iv-public-marketplace-and-discovery">Part IV — Public Marketplace and Discovery</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-31-public-landing-experience">Chapter 31 — Public Landing Experience</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-32-browse-experience">Chapter 32 — Browse Experience</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-33-search-and-filter-behavior">Chapter 33 — Search and Filter Behavior</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-34-listing-detail">Chapter 34 — Listing Detail</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-35-categories-and-requirements">Chapter 35 — Categories and Requirements</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-36-availability-and-pricing-presentation">Chapter 36 — Availability and Pricing Presentation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-37-safety-guidance">Chapter 37 — Safety Guidance</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-38-prohibited-items">Chapter 38 — Prohibited Items</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-39-help-contact-and-support-entry">Chapter 39 — Help, Contact, and Support Entry</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-40-legal-and-privacy-notices">Chapter 40 — Legal and Privacy Notices</a></div>
+<div class="toc-l2"><a href="#part-v-provider-catalog-and-listing-lifecycle">Part V — Provider Catalog and Listing Lifecycle</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-41-provider-onboarding">Chapter 41 — Provider Onboarding</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-42-listing-creation">Chapter 42 — Listing Creation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-43-listing-photos">Chapter 43 — Listing Photos</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-44-listing-documents">Chapter 44 — Listing Documents</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-45-category-requirement-fulfillment">Chapter 45 — Category Requirement Fulfillment</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-46-listing-edit-and-ownership">Chapter 46 — Listing Edit and Ownership</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-47-listing-submission">Chapter 47 — Listing Submission</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-48-listing-verification-and-publication">Chapter 48 — Listing Verification and Publication</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-49-listing-promotion">Chapter 49 — Listing Promotion</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-50-provider-marketing-limitation">Chapter 50 — Provider Marketing Limitation</a></div>
+<div class="toc-l2"><a href="#part-vi-booking-and-rental-initiation">Part VI — Booking and Rental Initiation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-51-booking-request">Chapter 51 — Booking Request</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-52-booking-input-validation">Chapter 52 — Booking Input Validation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-53-booking-state-authority">Chapter 53 — Booking State Authority</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-54-provider-booking-review">Chapter 54 — Provider Booking Review</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-55-renter-booking-dashboard">Chapter 55 — Renter Booking Dashboard</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-56-provider-booking-dashboard">Chapter 56 — Provider Booking Dashboard</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-57-booking-price-and-amount-integrity">Chapter 57 — Booking Price and Amount Integrity</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-58-availability-conflict-handling">Chapter 58 — Availability Conflict Handling</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-59-booking-cancellation">Chapter 59 — Booking Cancellation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-60-booking-notifications">Chapter 60 — Booking Notifications</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-61-booking-history-and-audit">Chapter 61 — Booking History and Audit</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-62-booking-failure-and-recovery">Chapter 62 — Booking Failure and Recovery</a></div>
+<div class="toc-l2"><a href="#part-vii-agreements-turnover-and-inspections">Part VII — Agreements, Turnover, and Inspections</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-63-rental-agreement-purpose">Chapter 63 — Rental Agreement Purpose</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-64-provider-agreement-action">Chapter 64 — Provider Agreement Action</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-65-renter-agreement-review">Chapter 65 — Renter Agreement Review</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-66-agreement-state-integrity">Chapter 66 — Agreement State Integrity</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-67-turnover-preparation">Chapter 67 — Turnover Preparation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-68-turnover-record">Chapter 68 — Turnover Record</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-69-initial-inspection">Chapter 69 — Initial Inspection</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-70-renter-inspection-confirmation">Chapter 70 — Renter Inspection Confirmation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-71-return-inspection">Chapter 71 — Return Inspection</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-72-inspection-failure-and-evidence-safety">Chapter 72 — Inspection Failure and Evidence Safety</a></div>
+<div class="toc-l2"><a href="#part-viii-claims-deposits-disputes-and-trust">Part VIII — Claims, Deposits, Disputes, and Trust</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-73-damage-claim-initiation">Chapter 73 — Damage Claim Initiation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-74-claim-evidence">Chapter 74 — Claim Evidence</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-75-claim-response">Chapter 75 — Claim Response</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-76-dispute-case-creation">Chapter 76 — Dispute Case Creation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-77-dispute-review">Chapter 77 — Dispute Review</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-78-dispute-resolution">Chapter 78 — Dispute Resolution</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-79-deposit-actions">Chapter 79 — Deposit Actions</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-80-reviews-and-trust-signals">Chapter 80 — Reviews and Trust Signals</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-81-notifications-in-trust-workflows">Chapter 81 — Notifications in Trust Workflows</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-82-claims-and-dispute-recovery">Chapter 82 — Claims and Dispute Recovery</a></div>
+<div class="toc-l2"><a href="#part-ix-checkout-payments-and-provider-events">Part IX — Checkout, Payments, and Provider Events</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-83-checkout-entry">Chapter 83 — Checkout Entry</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-84-payment-model">Chapter 84 — Payment Model</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-85-payment-provider-modes">Chapter 85 — Payment Provider Modes</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-86-paymongo-request-safety">Chapter 86 — PayMongo Request Safety</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-87-webhook-reception">Chapter 87 — Webhook Reception</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-88-webhook-signature-verification">Chapter 88 — Webhook Signature Verification</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-89-webhook-idempotency">Chapter 89 — Webhook Idempotency</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-90-amount-and-currency-integrity">Chapter 90 — Amount and Currency Integrity</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-91-payment-reconciliation">Chapter 91 — Payment Reconciliation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-92-payment-audit-trail">Chapter 92 — Payment Audit Trail</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-93-payment-failure-handling">Chapter 93 — Payment Failure Handling</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-94-phase-19-no-go-boundary">Chapter 94 — Phase 19 NO-GO Boundary</a></div>
+<div class="toc-l2"><a href="#part-x-finance-refunds-payouts-and-settlement">Part X — Finance, Refunds, Payouts, and Settlement</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-95-finance-dashboard">Chapter 95 — Finance Dashboard</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-96-finance-ledger">Chapter 96 — Finance Ledger</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-97-refund-request">Chapter 97 — Refund Request</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-98-refund-review">Chapter 98 — Refund Review</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-99-provider-payout">Chapter 99 — Provider Payout</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-100-payout-batch">Chapter 100 — Payout Batch</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-101-payout-statements">Chapter 101 — Payout Statements</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-102-settlement-review">Chapter 102 — Settlement Review</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-103-finance-separation-of-duties">Chapter 103 — Finance Separation of Duties</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-104-finance-failure-and-escalation">Chapter 104 — Finance Failure and Escalation</a></div>
+<div class="toc-l2"><a href="#part-xi-administration-compliance-support-and-release">Part XI — Administration, Compliance, Support, and Release</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-105-admin-dashboard-scope">Chapter 105 — Admin Dashboard Scope</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-106-category-administration">Chapter 106 — Category Administration</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-107-booking-administration">Chapter 107 — Booking Administration</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-108-compliance-listing-review">Chapter 108 — Compliance Listing Review</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-109-kyc-administration">Chapter 109 — KYC Administration</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-110-support-ticket-operations">Chapter 110 — Support Ticket Operations</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-111-feedback-and-issue-management">Chapter 111 — Feedback and Issue Management</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-112-uat-operations">Chapter 112 — UAT Operations</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-113-beta-and-release-readiness">Chapter 113 — Beta and Release Readiness</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-114-admin-reports-limitation">Chapter 114 — Admin Reports Limitation</a></div>
+<div class="toc-l2"><a href="#part-xii-privacy-audit-support-and-data-rights">Part XII — Privacy, Audit, Support, and Data Rights</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-115-privacy-principles">Chapter 115 — Privacy Principles</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-116-consent-workflow">Chapter 116 — Consent Workflow</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-117-correction-workflow">Chapter 117 — Correction Workflow</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-118-data-export-workflow">Chapter 118 — Data Export Workflow</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-119-deletion-workflow">Chapter 119 — Deletion Workflow</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-120-auditlog">Chapter 120 — AuditLog</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-121-authentication-and-api-security-logs">Chapter 121 — Authentication and API Security Logs</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-122-ai-and-system-error-logs">Chapter 122 — AI and System Error Logs</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-123-support-privacy-handling">Chapter 123 — Support Privacy Handling</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-124-privacy-failure-and-recovery">Chapter 124 — Privacy Failure and Recovery</a></div>
+<div class="toc-l2"><a href="#part-xiii-marketing-social-mobile-and-public-communication">Part XIII — Marketing, Social, Mobile, and Public Communication</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-125-marketing-domain">Chapter 125 — Marketing Domain</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-126-campaign-creation">Chapter 126 — Campaign Creation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-127-campaign-approval">Chapter 127 — Campaign Approval</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-128-social-accounts">Chapter 128 — Social Accounts</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-129-social-post-queue">Chapter 129 — Social Post Queue</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-130-promotion-assets-and-utm-links">Chapter 130 — Promotion Assets and UTM Links</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-131-campaign-analytics-limitation">Chapter 131 — Campaign Analytics Limitation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-132-launch-announcements">Chapter 132 — Launch Announcements</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-133-pwa-architecture">Chapter 133 — PWA Architecture</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-134-capacitor-and-mobile-readiness">Chapter 134 — Capacitor and Mobile Readiness</a></div>
+<div class="toc-l2"><a href="#part-xiv-ai-assistant-and-digital-human-boundaries">Part XIV — AI Assistant and Digital-Human Boundaries</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-135-ai-capability-scope">Chapter 135 — AI Capability Scope</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-136-ai-chat-route">Chapter 136 — AI Chat Route</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-137-ai-provider-modes">Chapter 137 — AI Provider Modes</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-138-ai-settings">Chapter 138 — AI Settings</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-139-ai-logs">Chapter 139 — AI Logs</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-140-ai-decision-boundaries">Chapter 140 — AI Decision Boundaries</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-141-digital-human-presentation-boundary">Chapter 141 — Digital-Human Presentation Boundary</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-142-ai-tool-gateway">Chapter 142 — AI Tool Gateway</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-143-ai-support-case-handoff">Chapter 143 — AI Support-Case Handoff</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-144-ai-failure-and-recovery">Chapter 144 — AI Failure and Recovery</a></div>
+<div class="toc-l2"><a href="#part-xv-data-model-and-ownership">Part XV — Data Model and Ownership</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-145-schema-authority">Chapter 145 — Schema Authority</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-146-identity-data-domain">Chapter 146 — Identity Data Domain</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-147-catalog-data-domain">Chapter 147 — Catalog Data Domain</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-148-rental-and-trust-data-domain">Chapter 148 — Rental and Trust Data Domain</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-149-verification-data-domain">Chapter 149 — Verification Data Domain</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-150-finance-data-domain">Chapter 150 — Finance Data Domain</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-151-platform-and-audit-data-domain">Chapter 151 — Platform and Audit Data Domain</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-152-marketing-and-release-data-domain">Chapter 152 — Marketing and Release Data Domain</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-153-soc-telemetry-data-domain">Chapter 153 — SOC Telemetry Data Domain</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-154-soc-case-and-response-data-domain">Chapter 154 — SOC Case and Response Data Domain</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-155-intelligence-and-geolocation-data-domain">Chapter 155 — Intelligence and Geolocation Data Domain</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-156-data-migration-boundary">Chapter 156 — Data Migration Boundary</a></div>
+<div class="toc-l2"><a href="#part-xvi-api-services-integrations-and-errors">Part XVI — API, Services, Integrations, and Errors</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-157-root-api-inventory">Chapter 157 — Root API Inventory</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-158-authentication-apis">Chapter 158 — Authentication APIs</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-159-marketplace-apis">Chapter 159 — Marketplace APIs</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-160-privacy-apis">Chapter 160 — Privacy APIs</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-161-soc-case-apis">Chapter 161 — SOC Case APIs</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-162-soc-playbook-apis">Chapter 162 — SOC Playbook APIs</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-163-soc-approval-apis">Chapter 163 — SOC Approval APIs</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-164-soc-response-apis">Chapter 164 — SOC Response APIs</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-165-dashboard-and-intelligence-apis">Chapter 165 — Dashboard and Intelligence APIs</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-166-extracted-api-and-worker">Chapter 166 — Extracted API and Worker</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-167-external-integrations">Chapter 167 — External Integrations</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-168-api-error-and-recovery-contract">Chapter 168 — API Error and Recovery Contract</a></div>
+<div class="toc-l2"><a href="#part-xvii-security-cryptography-and-control-framework">Part XVII — Security, Cryptography, and Control Framework</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-169-authentication-and-authorization-controls">Chapter 169 — Authentication and Authorization Controls</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-170-least-privilege">Chapter 170 — Least Privilege</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-171-input-validation">Chapter 171 — Input Validation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-172-upload-security">Chapter 172 — Upload Security</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-173-cryptographic-protection">Chapter 173 — Cryptographic Protection</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-174-mfa-and-step-up">Chapter 174 — MFA and Step-Up</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-175-audit-sanitization">Chapter 175 — Audit Sanitization</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-176-payment-security">Chapter 176 — Payment Security</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-177-database-safety">Chapter 177 — Database Safety</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-178-cloud-identity-and-supply-chain">Chapter 178 — Cloud Identity and Supply Chain</a></div>
+<div class="toc-l2"><a href="#part-xviii-soc-telemetry-detection-alerts-and-intelligence">Part XVIII — SOC Telemetry, Detection, Alerts, and Intelligence</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-179-security-event-sources">Chapter 179 — Security Event Sources</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-180-event-normalization">Chapter 180 — Event Normalization</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-181-lifecycle-and-environment-separation">Chapter 181 — Lifecycle and Environment Separation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-182-event-idempotency-and-deduplication">Chapter 182 — Event Idempotency and Deduplication</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-183-ingestion-failure-recording">Chapter 183 — Ingestion Failure Recording</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-184-detection-rule-lifecycle">Chapter 184 — Detection Rule Lifecycle</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-185-detection-evaluation">Chapter 185 — Detection Evaluation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-186-alert-creation-and-deduplication">Chapter 186 — Alert Creation and Deduplication</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-187-alert-review">Chapter 187 — Alert Review</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-188-behavioral-risk-intelligence">Chapter 188 — Behavioral Risk Intelligence</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-189-threat-map-and-geolocation">Chapter 189 — Threat Map and Geolocation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-190-soc-dashboard">Chapter 190 — SOC Dashboard</a></div>
+<div class="toc-l2"><a href="#part-xix-soc-incident-cases-evidence-playbooks-and-approvals">Part XIX — SOC Incident Cases, Evidence, Playbooks, and Approvals</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-191-incident-case-creation">Chapter 191 — Incident Case Creation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-192-case-triage">Chapter 192 — Case Triage</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-193-case-assignment">Chapter 193 — Case Assignment</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-194-case-notes">Chapter 194 — Case Notes</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-195-case-evidence">Chapter 195 — Case Evidence</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-196-case-status-lifecycle">Chapter 196 — Case Status Lifecycle</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-197-playbook-drafting">Chapter 197 — Playbook Drafting</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-198-playbook-versioning">Chapter 198 — Playbook Versioning</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-199-playbook-review-and-activation">Chapter 199 — Playbook Review and Activation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-200-approval-request">Chapter 200 — Approval Request</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-201-approval-decision-and-grant">Chapter 201 — Approval Decision and Grant</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-202-approval-failure-and-concurrency">Chapter 202 — Approval Failure and Concurrency</a></div>
+<div class="toc-l2"><a href="#part-xx-soc-response-rollback-simulation-and-freeze">Part XX — SOC Response, Rollback, Simulation, and Freeze</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-203-reversible-response-baseline">Chapter 203 — Reversible Response Baseline</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-204-response-execution-preconditions">Chapter 204 — Response Execution Preconditions</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-205-grant-consumption">Chapter 205 — Grant Consumption</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-206-execution-state-lifecycle">Chapter 206 — Execution State Lifecycle</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-207-execution-idempotency">Chapter 207 — Execution Idempotency</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-208-execution-concurrency">Chapter 208 — Execution Concurrency</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-209-emergency-freeze">Chapter 209 — Emergency Freeze</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-210-rollback-preconditions">Chapter 210 — Rollback Preconditions</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-211-divergence-protection">Chapter 211 — Divergence Protection</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-212-controlled-simulation-capability">Chapter 212 — Controlled Simulation Capability</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-213-simulations-route-classification">Chapter 213 — Simulations Route Classification</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-214-reports-route-classification">Chapter 214 — Reports Route Classification</a></div>
+<div class="toc-l2"><a href="#part-xxi-maintenance-recovery-monitoring-and-resilience">Part XXI — Maintenance, Recovery, Monitoring, and Resilience</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-215-maintenance-capability">Chapter 215 — Maintenance Capability</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-216-maintenance-route-classification">Chapter 216 — Maintenance Route Classification</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-217-recovery-checkpoints">Chapter 217 — Recovery Checkpoints</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-218-worker-leases">Chapter 218 — Worker Leases</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-219-bounded-replay">Chapter 219 — Bounded Replay</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-220-backfill">Chapter 220 — Backfill</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-221-response-recovery">Chapter 221 — Response Recovery</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-222-monitoring-direction">Chapter 222 — Monitoring Direction</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-223-backup-and-database-recovery-boundary">Chapter 223 — Backup and Database Recovery Boundary</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-224-technical-uat-and-historical-evidence">Chapter 224 — Technical UAT and Historical Evidence</a></div>
+<div class="toc-l2"><a href="#part-xxii-architecture-configuration-infrastructure-and-delivery">Part XXII — Architecture, Configuration, Infrastructure, and Delivery</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-225-vercel-frontend-direction">Chapter 225 — Vercel Frontend Direction</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-226-azure-backend-and-services-direction">Chapter 226 — Azure Backend and Services Direction</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-227-partially-split-implementation">Chapter 227 — Partially Split Implementation</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-228-network-design-boundary">Chapter 228 — Network Design Boundary</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-229-database-target">Chapter 229 — Database Target</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-230-object-storage-target">Chapter 230 — Object Storage Target</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-231-secrets-and-key-vault">Chapter 231 — Secrets and Key Vault</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-232-environment-contracts">Chapter 232 — Environment Contracts</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-233-terraform-and-deployment-control">Chapter 233 — Terraform and Deployment Control</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-234-superseded-aws-architecture">Chapter 234 — Superseded AWS Architecture</a></div>
+<div class="toc-l2"><a href="#part-xxiii-testing-governance-phase-status-and-release-control">Part XXIII — Testing, Governance, Phase Status, and Release Control</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-235-test-inventory">Chapter 235 — Test Inventory</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-236-test-environment-safety">Chapter 236 — Test Environment Safety</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-237-validation-selection">Chapter 237 — Validation Selection</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-238-phase-status-authority">Chapter 238 — Phase Status Authority</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-239-phase-4-and-level-5-freeze">Chapter 239 — Phase 4 and Level 5 Freeze</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-240-phase-19-status">Chapter 240 — Phase 19 Status</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-241-phase-19b-status">Chapter 241 — Phase 19B Status</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-242-release-and-change-governance">Chapter 242 — Release and Change Governance</a></div>
+<div class="toc-l2"><a href="#part-xxiv-training-handover-limitations-and-future-change">Part XXIV — Training, Handover, Limitations, and Future Change</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-243-user-training">Chapter 243 — User Training</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-244-operator-training">Chapter 244 — Operator Training</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-245-developer-onboarding">Chapter 245 — Developer Onboarding</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-246-known-limitations">Chapter 246 — Known Limitations</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-247-future-change-intake">Chapter 247 — Future Change Intake</a></div>
+<div class="toc-l3">&nbsp;&nbsp;&nbsp;<a href="#chapter-248-formal-handover-and-reopen-criteria">Chapter 248 — Formal Handover and Reopen Criteria</a></div>
+<div class="toc-l2"><a href="#appendix-a-route-and-screen-index">Appendix A — Route and Screen Index</a></div>
+<div class="toc-l2"><a href="#appendix-b-role-and-permission-matrix">Appendix B — Role and Permission Matrix</a></div>
+<div class="toc-l2"><a href="#appendix-c-database-model-and-enum-index">Appendix C — Database Model and Enum Index</a></div>
+<div class="toc-l2"><a href="#appendix-d-api-and-service-index">Appendix D — API and Service Index</a></div>
+<div class="toc-l2"><a href="#appendix-e-configuration-name-index">Appendix E — Configuration Name Index</a></div>
+<div class="toc-l2"><a href="#appendix-f-workflow-and-state-index">Appendix F — Workflow and State Index</a></div>
+<div class="toc-l2"><a href="#appendix-g-audit-and-security-event-index">Appendix G — Audit and Security Event Index</a></div>
+<div class="toc-l2"><a href="#appendix-h-security-control-index">Appendix H — Security Control Index</a></div>
+<div class="toc-l2"><a href="#appendix-i-test-and-validation-index">Appendix I — Test and Validation Index</a></div>
+<div class="toc-l2"><a href="#appendix-j-phase-and-freeze-index">Appendix J — Phase and Freeze Index</a></div>
+<div class="toc-l2"><a href="#appendix-k-status-vocabulary">Appendix K — Status Vocabulary</a></div>
+<div class="toc-l2"><a href="#appendix-l-known-gaps-and-limitations">Appendix L — Known Gaps and Limitations</a></div>
+<div class="toc-l2"><a href="#appendix-m-architecture-decision-summary">Appendix M — Architecture Decision Summary</a></div>
+<div class="toc-l2"><a href="#appendix-n-evidence-and-traceability-map">Appendix N — Evidence and Traceability Map</a></div>
+<div class="toc-l2"><a href="#appendix-o-handover-reopen-and-decision-checklist">Appendix O — Handover, Reopen, and Decision Checklist</a></div>
+</section>
+<h1 id="rentipid-complete-master-manual">RENTipid Complete Master Manual</h1>
+<p>Version: <code>1.1</code> Confidentiality: <code>RENTipid Internal</code> Repository: <code>C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid</code> Branch: <code>feature/soc-phase4-threat-response</code> Inspected HEAD: <code>5804d4cceafc74e5e51b554be6f84a1b9c80e8be</code> Generation date: <code>2026-07-31</code></p>
+<h2 id="how-to-use-this-manual">How to Use This Manual</h2>
+<p>This manual consolidates the 18 frozen registries and ten preliminary manuals. Each chapter states the supported behavior or governance boundary and points to the applicable evidence family. Current code establishes implementation; accepted closure/freeze records establish phase status; external state is never inferred from local definitions.</p>
+<h2 id="part-i-document-foundation-and-product-context" class="part">Part I — Document Foundation and Product Context</h2>
+<h3 id="chapter-1-manual-purpose-and-scope">Chapter 1 — Manual Purpose and Scope</h3>
+<p>This manual supports Owner review, training, operations, engineering, governance, and handover for every approved RENTipid module and phase. It documents implemented, frozen, planned, limited, NO-GO, transitional, and separately governed states without converting one status into another. Evidence: document-control, module, phase, terminology, and gap registries.</p>
+<h3 id="chapter-2-product-identity-and-business-mission">Chapter 2 — Product Identity and Business Mission</h3>
+<p>RENTipid is a role-based rental marketplace connecting renters with individual and business providers while supporting trust, finance, compliance, support, privacy, and security operations. Its business goal is a reviewable rental lifecycle rather than an uncontrolled listing or payment channel. Evidence: module and route registries.</p>
+<h3 id="chapter-3-documentation-audiences">Chapter 3 — Documentation Audiences</h3>
+<p>Audiences are guests, renters, providers, business providers, Admin, Finance Admin, Compliance Admin, SOC Analyst, SOC Supervisor, Super Admin, support, developers, reviewers, and the Owner. Each audience follows its role-specific manual; server authorization remains authoritative. Evidence: role and documentation-traceability registries.</p>
+<h3 id="chapter-4-source-authority-hierarchy">Chapter 4 — Source-Authority Hierarchy</h3>
+<p>Current implementation and data contracts outrank manuals and plans; final accepted/frozen governance controls phase status. Historical sources remain traceable when superseded. Conflicts are recorded rather than silently erased. Evidence: source-authority/conflict register.</p>
+<h3 id="chapter-5-completion-premise">Chapter 5 — Completion Premise</h3>
+<p><code>VERIFIED_WITH_STATUS_CLASSIFICATION</code> means every approved module and phase can be documented honestly. Optional, placeholder, deferred, disabled, NO-GO, and not-provisioned work may remain. Only an absent exact accepted requirement is a premise blocker. Evidence: SOC placeholder reconciliation.</p>
+<h3 id="chapter-6-status-vocabulary">Chapter 6 — Status Vocabulary</h3>
+<p>Route, capability, operational, and evidence statuses are separate dimensions. Examples include <code>NAVIGATION_SHELL_ONLY</code>, <code>COMPLETE_AND_FROZEN</code>, <code>PARTIALLY_SPLIT_IMPLEMENTATION</code>, and <code>EXTERNAL_STATE_NOT_VERIFIED</code>. Never infer completion from a route, permission, model, test file, or Terraform resource.</p>
+<h3 id="chapter-7-authoritative-architecture-direction">Chapter 7 — Authoritative Architecture Direction</h3>
+<p>The accepted direction is <code>VERCEL_FRONTEND_WITH_AZURE_BACKEND_AND_SERVICES</code>: Vercel hosts the frontend and authentication direction while Azure is the backend/services direction. This is architecture authority, not evidence of provisioning or cutover. Evidence: deployment/integration registries and Phase 19B status.</p>
+<h3 id="chapter-8-current-runtime-transition-state">Chapter 8 — Current Runtime Transition State</h3>
+<p>The repository state is <code>PARTIALLY_SPLIT_IMPLEMENTATION</code>. Root Next.js APIs coexist with <code>apps/api</code> and <code>apps/worker</code> targets; individual handlers must be classified as authoritative, compatibility/proxy, or target implementations before change. Evidence: API, module, and deployment registries.</p>
+<h3 id="chapter-9-external-state-boundary">Chapter 9 — External-State Boundary</h3>
+<p>Local code, domains, configuration names, Terraform, and readiness screens do not prove current cloud resources, production health, database contents, provider accounts, monitoring, traffic, or DNS. External verification requires a separate authorized operation. No external system was accessed here.</p>
+<h3 id="chapter-10-separately-governed-decisions">Chapter 10 — Separately Governed Decisions</h3>
+<p>Database migration is <code>PENDING_SEPARATE_OWNER_DECISION</code>; payment activation is <code>NOT_AUTHORIZED</code>. Azure provisioning/deployment, traffic migration, DNS cutover, and production data actions are not authorized by documentation. Evidence: document control and phase/freeze register.</p>
+<h2 id="part-ii-roles-access-and-responsibility" class="part">Part II — Roles, Access, and Responsibility</h2>
+<h3 id="chapter-11-role-model-overview">Chapter 11 — Role Model Overview</h3>
+<p>RENTipid separates public, marketplace, operational, finance, compliance, SOC, and super-admin responsibilities. Server-side session, role, permission, ownership, and state checks are the access boundary; navigation visibility is only presentation. Evidence: role/permission and security-control registries.</p>
+<h3 id="chapter-12-guest-responsibilities">Chapter 12 — Guest Responsibilities</h3>
+<p>Guests may use public discovery, guidance, safety, legal, support, login, and registration surfaces. They have no privileged dashboard, private marketplace, finance, compliance, or SOC authority. Public inputs remain validated and rate/security controls apply.</p>
+<h3 id="chapter-13-renter-responsibilities">Chapter 13 — Renter Responsibilities</h3>
+<p>Renters operate within their own booking, agreement, inspection, claim, refund-request, receipt, and review scope. They cannot mutate provider, finance, compliance, or SOC records. Ownership and booking state govern each action. Evidence: renter routes and booking services.</p>
+<h3 id="chapter-14-individual-provider-responsibilities">Chapter 14 — Individual Provider Responsibilities</h3>
+<p>Individual providers manage their listings, booking fulfillment, turnover, return inspection, claims, ledger views, promotion opt-in, and payout views. Publication, compliance decisions, and money movement remain separately controlled. Evidence: provider route and workflow registries.</p>
+<h3 id="chapter-15-business-provider-responsibilities">Chapter 15 — Business Provider Responsibilities</h3>
+<p>Business providers use business-scoped listing and marketing surfaces while remaining subject to organization verification and record ownership. Business status does not grant Admin, Finance, Compliance, or SOC rights. Evidence: role, route, and data registries.</p>
+<h3 id="chapter-16-admin-responsibilities">Chapter 16 — Admin Responsibilities</h3>
+<p>Admin manages allowed categories, bookings, disputes, support, feedback, issues, beta/UAT, marketing, AI settings/logs, and operational dashboards. General Admin does not implicitly inherit finance, compliance, or SOC supervisor authority. Every mutation requires audit context.</p>
+<h3 id="chapter-17-finance-admin-responsibilities">Chapter 17 — Finance Admin Responsibilities</h3>
+<p>Finance Admin reviews payment, webhook, gateway, reconciliation, ledger, deposit, refund, payout, batch, and settlement evidence. The role does not override Phase 19 NO-GO or permit unapproved live transfers. Evidence: finance routes, payment services, and workflow registry.</p>
+<h3 id="chapter-18-compliance-admin-responsibilities">Chapter 18 — Compliance Admin Responsibilities</h3>
+<p>Compliance Admin reviews KYC, verification documents, listing requirements, and applicable policy evidence using minimum-necessary access. The role does not automatically approve financial or security-response actions. Evidence: verification routes, models, and role registry.</p>
+<h3 id="chapter-19-soc-analyst-responsibilities">Chapter 19 — SOC Analyst Responsibilities</h3>
+<p>SOC Analysts investigate authorized events/alerts, manage cases and evidence, draft playbooks, and request bounded responses. They cannot approve their own request, execute/rollback outside assigned permissions, administer roles, or make finance/compliance decisions. Evidence: Phase 4 RBAC tests.</p>
+<h3 id="chapter-20-soc-supervisor-and-super-admin-responsibilities">Chapter 20 — SOC Supervisor and Super Admin Responsibilities</h3>
+<p>SOC Supervisors review cases, playbooks, grants, execution, and rollback while preserving separation of duties. Super Admin has broad platform visibility but cannot bypass accepted dual-control constraints, live-payment NO-GO, or separately governed infrastructure/database decisions.</p>
+<h2 id="part-iii-identity-profiles-kyc-and-account-lifecycle" class="part">Part III — Identity, Profiles, KYC, and Account Lifecycle</h2>
+<h3 id="chapter-21-registration-workflow">Chapter 21 — Registration Workflow</h3>
+<p>Registration validates supported user input and creates only permitted non-privileged account types. Public users cannot self-select operational or administrative roles. Failures return sanitized feedback without credential or internal-detail leakage. Evidence: auth registration route and service.</p>
+<h3 id="chapter-22-authentication-workflow">Chapter 22 — Authentication Workflow</h3>
+<p>NextAuth and root authentication services establish the session used by pages and APIs. Authentication success does not itself authorize a business action; role, ownership, permission, and state checks follow. Authentication telemetry must remain privacy-safe.</p>
+<h3 id="chapter-23-session-and-route-protection">Chapter 23 — Session and Route Protection</h3>
+<p>Protected pages and APIs validate the server session and redirect or reject unauthorized users. Proxy, page, route, and service checks must agree. Hidden links and client-side conditions are not security controls. Evidence: auth, proxy, and authorization tests.</p>
+<h3 id="chapter-24-privileged-role-assignment">Chapter 24 — Privileged Role Assignment</h3>
+<p>Admin, Finance Admin, Compliance Admin, SOC roles, and Super Admin require a controlled administrative process outside public registration. Assignment must preserve least privilege, review, and audit evidence; documentation never grants runtime authority.</p>
+<h3 id="chapter-25-user-profile-read-surface">Chapter 25 — User Profile Read Surface</h3>
+<p>Authenticated users can view profile information within their account scope. The current profile-edit control is marked coming soon, so the route is <code>IMPLEMENTED_READ_ONLY_WITH_EDIT_LIMITATION</code>. Privacy correction is a separate controlled workflow. Evidence: route and gap registries.</p>
+<h3 id="chapter-26-business-profile">Chapter 26 — Business Profile</h3>
+<p>Business-provider identity is represented separately from the individual user record and supports business-scoped operations. Verification and ownership must be established before business actions; model presence alone does not prove a verified organization.</p>
+<h3 id="chapter-27-kyc-submission">Chapter 27 — KYC Submission</h3>
+<p>KYC routes allow an authenticated subject to provide required verification evidence under upload, access, and privacy controls. Users should submit only required data. Storage/provider availability is environment-dependent and is not inferred from the route.</p>
+<h3 id="chapter-28-verification-document-review">Chapter 28 — Verification Document Review</h3>
+<p>Authorized compliance/admin services review verification documents and record decisions without exposing raw content broadly. File type, MIME/content, ownership, size, and permission controls apply. Audit evidence should use sanitized identifiers rather than document contents.</p>
+<h3 id="chapter-29-privacy-requests">Chapter 29 — Privacy Requests</h3>
+<p>Consent, correction, export, and deletion endpoints form authorized privacy workflows. Identity, subject scope, retention, and audit requirements apply; requests must not expose unrelated records. Evidence: <code>/api/privacy/*</code> and privacy services.</p>
+<h3 id="chapter-30-account-deletion">Chapter 30 — Account Deletion</h3>
+<p>Account deletion is a controlled request lifecycle, not an immediate unreviewed database delete. It must account for identity, retention, legal or transaction obligations, auditability, and safe completion/error reporting. Evidence: account-deletion page/model and privacy services.</p>
+<h2 id="part-iv-public-marketplace-and-discovery" class="part">Part IV — Public Marketplace and Discovery</h2>
+<h3 id="chapter-31-public-landing-experience">Chapter 31 — Public Landing Experience</h3>
+<p>The root route introduces RENTipid and directs visitors toward discovery, guidance, authentication, and support. It is a public presentation surface and does not establish availability, verification, payment activation, or external provider state.</p>
+<h3 id="chapter-32-browse-experience">Chapter 32 — Browse Experience</h3>
+<p><code>/browse</code> exposes marketplace discovery subject to current listing state and server queries. Users should treat displayed results as discovery data, not a guarantee of future availability or transaction authorization.</p>
+<h3 id="chapter-33-search-and-filter-behavior">Chapter 33 — Search and Filter Behavior</h3>
+<p>Search/filter inputs narrow visible listings and must be validated and safely encoded. Filters do not bypass publication, verification, ownership, or availability rules. Exact query behavior is governed by current listing services.</p>
+<h3 id="chapter-34-listing-detail">Chapter 34 — Listing Detail</h3>
+<p><code>/listing/[id]</code> presents an individual listing and its permitted public data. The dynamic identifier must resolve to an accessible listing; restricted, unpublished, or absent records must fail safely without leaking private provider information.</p>
+<h3 id="chapter-35-categories-and-requirements">Chapter 35 — Categories and Requirements</h3>
+<p>Categories and category requirements organize marketplace inventory and may drive listing evidence expectations. Authorized administrators control them; providers consume the current requirements during listing preparation. Evidence: Category and CategoryRequirement models and admin routes.</p>
+<h3 id="chapter-36-availability-and-pricing-presentation">Chapter 36 — Availability and Pricing Presentation</h3>
+<p>Displayed availability and pricing are inputs to the guarded booking/checkout workflow, not an irrevocable promise. The server revalidates record state, dates, amounts, and conflicts before accepting a permitted transaction.</p>
+<h3 id="chapter-37-safety-guidance">Chapter 37 — Safety Guidance</h3>
+<p>Public safety guidance supports careful item, identity, handover, inspection, and dispute behavior. It complements but does not replace server controls, verification, evidence capture, or support escalation.</p>
+<h3 id="chapter-38-prohibited-items">Chapter 38 — Prohibited Items</h3>
+<p>The prohibited-items surface states marketplace policy boundaries. Providers remain responsible for compliant listings, and authorized review may prevent publication or require action. A listing route does not override policy.</p>
+<h3 id="chapter-39-help-contact-and-support-entry">Chapter 39 — Help, Contact, and Support Entry</h3>
+<p>Help, contact, feedback, and support routes direct users to controlled assistance. Reports should include safe identifiers and reproducible facts, not passwords, tokens, raw KYC records, or payment credentials.</p>
+<h3 id="chapter-40-legal-and-privacy-notices">Chapter 40 — Legal and Privacy Notices</h3>
+<p>Terms, privacy, and related public pages communicate the applicable user-facing policy. Technical documentation does not replace legal review. Policy changes must follow document ownership, acceptance, and implementation alignment.</p>
+<h2 id="part-v-provider-catalog-and-listing-lifecycle" class="part">Part V — Provider Catalog and Listing Lifecycle</h2>
+<h3 id="chapter-41-provider-onboarding">Chapter 41 — Provider Onboarding</h3>
+<p>Provider onboarding and checklist routes guide account, profile, verification, and readiness tasks. Completion labels summarize evidence; server state and required review remain authoritative. Business and individual scope must not be mixed.</p>
+<h3 id="chapter-42-listing-creation">Chapter 42 — Listing Creation</h3>
+<p>Providers create listings within their own scope using validated catalog, description, pricing, and policy fields. Creation does not equal publication; the listing enters the service-defined lifecycle and may require evidence or review.</p>
+<h3 id="chapter-43-listing-photos">Chapter 43 — Listing Photos</h3>
+<p>Photo upload routes associate authorized media with a provider-owned listing. Upload controls cover size, extension/MIME/content, ownership, and safe storage behavior. Public access depends on listing and media state.</p>
+<h3 id="chapter-44-listing-documents">Chapter 44 — Listing Documents</h3>
+<p>Listing documents support category, compliance, or verification requirements and are more restricted than public listing content. Authorization, upload validation, storage safety, and review evidence apply.</p>
+<h3 id="chapter-45-category-requirement-fulfillment">Chapter 45 — Category Requirement Fulfillment</h3>
+<p>Providers match current category requirements before submission. Missing or invalid evidence prevents a compliant transition. Administrators must change requirements through authorized configuration rather than editing provider records directly.</p>
+<h3 id="chapter-46-listing-edit-and-ownership">Chapter 46 — Listing Edit and Ownership</h3>
+<p>Only the owning provider or explicitly authorized operator may alter a listing, and only in service-allowed states. Edits must preserve validation, publication/review invariants, related media, and audit behavior.</p>
+<h3 id="chapter-47-listing-submission">Chapter 47 — Listing Submission</h3>
+<p>Submission moves a prepared listing toward review/publication under exact service guards. The API must revalidate completeness and ownership. A submit button cannot create a state transition the server rejects.</p>
+<h3 id="chapter-48-listing-verification-and-publication">Chapter 48 — Listing Verification and Publication</h3>
+<p>Authorized admin/compliance operations verify or publish according to current requirements. Decisions should be reasoned and auditable. Verification does not grant provider, finance, or unrelated administrative authority.</p>
+<h3 id="chapter-49-listing-promotion">Chapter 49 — Listing Promotion</h3>
+<p>Provider/business promotion surfaces and opt-in records support controlled marketing participation. Promotion assets or routes do not prove external publication, provider connection, or campaign performance.</p>
+<h3 id="chapter-50-provider-marketing-limitation">Chapter 50 — Provider Marketing Limitation</h3>
+<p>The provider marketing surface includes entry/navigation behavior, while campaign analytics is explicitly coming soon. It is <code>IMPLEMENTED_WITH_PARTIAL_LIMITATION</code>; documentation must not claim completed provider analytics. Evidence: route and GAP-005.</p>
+<h2 id="part-vi-booking-and-rental-initiation" class="part">Part VI — Booking and Rental Initiation</h2>
+<h3 id="chapter-51-booking-request">Chapter 51 — Booking Request</h3>
+<p>An authenticated renter requests a booking for an eligible listing and date range. The server validates identity, listing state, ownership conflict, availability, and required transaction inputs before creating a record.</p>
+<h3 id="chapter-52-booking-input-validation">Chapter 52 — Booking Input Validation</h3>
+<p>Booking routes/services validate identifiers, dates, amounts, roles, and state. Invalid or unauthorized requests fail with sanitized outcomes and must not leak another user&#39;s booking or provider data.</p>
+<h3 id="chapter-53-booking-state-authority">Chapter 53 — Booking State Authority</h3>
+<p>The Booking model, status history, and current service transition guards are the state authority. UI labels summarize state but cannot introduce a transition. History preserves who changed state, when, and why where supported.</p>
+<h3 id="chapter-54-provider-booking-review">Chapter 54 — Provider Booking Review</h3>
+<p>Providers review only bookings for their listings and perform allowed acceptance/fulfillment actions. Review does not bypass agreement, inspection, payment, claim, or policy requirements.</p>
+<h3 id="chapter-55-renter-booking-dashboard">Chapter 55 — Renter Booking Dashboard</h3>
+<p>Renter booking list/detail routes show own-scope status, agreement, inspection, claim, refund, and receipt navigation. Dynamic identifiers remain ownership-checked on the server.</p>
+<h3 id="chapter-56-provider-booking-dashboard">Chapter 56 — Provider Booking Dashboard</h3>
+<p>Provider booking routes present fulfillment tasks for provider-owned listings. Actions such as turnover, return inspection, and claim response are available only in compatible service states.</p>
+<h3 id="chapter-57-booking-price-and-amount-integrity">Chapter 57 — Booking Price and Amount Integrity</h3>
+<p>Amounts and currency must be revalidated at the trusted service/payment boundary and recorded consistently across booking, payment, gateway, and ledger evidence. Client-displayed totals are not mutation authority.</p>
+<h3 id="chapter-58-availability-conflict-handling">Chapter 58 — Availability Conflict Handling</h3>
+<p>Concurrent or overlapping requests must be resolved by the authoritative booking/availability logic. A conflict returns a safe failure and should not create duplicate reservations or payment actions.</p>
+<h3 id="chapter-59-booking-cancellation">Chapter 59 — Booking Cancellation</h3>
+<p>Cancellation is allowed only for roles and states defined by current services and policy. It must preserve status history, related financial/claim effects, notifications, and audit reasoning.</p>
+<h3 id="chapter-60-booking-notifications">Chapter 60 — Booking Notifications</h3>
+<p>Notifications communicate state changes to relevant participants without granting action rights. Delivery/provider state may vary; stored state remains authoritative if a notification is delayed or unavailable.</p>
+<h3 id="chapter-61-booking-history-and-audit">Chapter 61 — Booking History and Audit</h3>
+<p>BookingStatusHistory and related audit evidence support investigation of the rental lifecycle. Logs should record safe identifiers, actor, transition, and result without credentials or unnecessary private content.</p>
+<h3 id="chapter-62-booking-failure-and-recovery">Chapter 62 — Booking Failure and Recovery</h3>
+<p>On a failed booking mutation, preserve the prior valid state, return a sanitized error, avoid duplicate retries through idempotent design where applicable, and direct the user to safe retry or support. Financial side effects require reconciliation before recovery.</p>
+<h2 id="part-vii-agreements-turnover-and-inspections" class="part">Part VII — Agreements, Turnover, and Inspections</h2>
+<h3 id="chapter-63-rental-agreement-purpose">Chapter 63 — Rental Agreement Purpose</h3>
+<p>The rental agreement records participant commitments tied to an authorized booking. It is not a free-standing public document: access follows booking ownership/role and the service-defined lifecycle. Evidence: RentalAgreement model and booking agreement routes.</p>
+<h3 id="chapter-64-provider-agreement-action">Chapter 64 — Provider Agreement Action</h3>
+<p>Provider agreement actions are limited to the provider&#39;s booking scope and compatible booking state. The service validates actor, record, and transition; the UI cannot manufacture agreement acceptance.</p>
+<h3 id="chapter-65-renter-agreement-review">Chapter 65 — Renter Agreement Review</h3>
+<p>Renters review the agreement associated with their booking and complete only their assigned confirmation. Failure or disagreement should preserve the record and move through support/dispute policy rather than an out-of-band edit.</p>
+<h3 id="chapter-66-agreement-state-integrity">Chapter 66 — Agreement State Integrity</h3>
+<p>Agreement and booking state must remain consistent across participant actions. Concurrent updates require safe conflict handling, and audit/history evidence must identify the effective transition without exposing private content.</p>
+<h3 id="chapter-67-turnover-preparation">Chapter 67 — Turnover Preparation</h3>
+<p>Providers use the turnover route to prepare handoff evidence for an eligible booking. Confirm identity, item, booking state, expected condition, and minimum necessary evidence before completion.</p>
+<h3 id="chapter-68-turnover-record">Chapter 68 — Turnover Record</h3>
+<p>TurnoverRecord preserves handoff facts linked to the booking. Access is participant/operator scoped, and uploaded evidence follows the inspection and upload controls. A record must not contain credentials or unrelated personal data.</p>
+<h3 id="chapter-69-initial-inspection">Chapter 69 — Initial Inspection</h3>
+<p>Renter/provider inspection routes capture permitted condition evidence at the appropriate lifecycle point. InspectionReport and InspectionPhoto records are authorization-bound and support later claim/dispute review.</p>
+<h3 id="chapter-70-renter-inspection-confirmation">Chapter 70 — Renter Inspection Confirmation</h3>
+<p>Renter confirmation is an explicit state action, not an assumption from page viewing. The service validates booking ownership, inspection existence, and current state before recording confirmation.</p>
+<h3 id="chapter-71-return-inspection">Chapter 71 — Return Inspection</h3>
+<p>The provider return-inspection route records post-rental condition evidence for an eligible booking. Differences must be described factually and may feed claim/dispute review; the route does not adjudicate liability by itself.</p>
+<h3 id="chapter-72-inspection-failure-and-evidence-safety">Chapter 72 — Inspection Failure and Evidence Safety</h3>
+<p>Upload or state failures must leave prior valid evidence intact and provide a sanitized recovery path. Preserve identifiers, timestamps, and safe metadata; avoid duplicate photos, unsupported file types, and unnecessary private data.</p>
+<h2 id="part-viii-claims-deposits-disputes-and-trust" class="part">Part VIII — Claims, Deposits, Disputes, and Trust</h2>
+<h3 id="chapter-73-damage-claim-initiation">Chapter 73 — Damage Claim Initiation</h3>
+<p>An eligible participant starts a damage claim against a booking using the authorized route and minimum necessary evidence. The server validates actor, booking relationship, claim window/state, and input. Evidence: DamageClaim and DamageClaimPhoto models.</p>
+<h3 id="chapter-74-claim-evidence">Chapter 74 — Claim Evidence</h3>
+<p>Claim photos and descriptions document alleged condition differences; they do not automatically prove liability. File safety, ownership, privacy, and audit rules apply, and reviewers should avoid copying raw media into general logs.</p>
+<h3 id="chapter-75-claim-response">Chapter 75 — Claim Response</h3>
+<p>The claim-response API permits the assigned participant/operator response in an allowed state. It records the response without bypassing dispute, deposit, refund, or finance authority.</p>
+<h3 id="chapter-76-dispute-case-creation">Chapter 76 — Dispute Case Creation</h3>
+<p>DisputeCase records organize contested rental facts for human review. A claim, payment mismatch, inspection difference, or support escalation may supply evidence, but the dispute lifecycle remains separately authorized.</p>
+<h3 id="chapter-77-dispute-review">Chapter 77 — Dispute Review</h3>
+<p>Authorized administrators review participant scope, booking history, agreement, inspections, claims, communications, and relevant financial evidence. Decisions must be reasoned, sanitized, and auditable.</p>
+<h3 id="chapter-78-dispute-resolution">Chapter 78 — Dispute Resolution</h3>
+<p><code>/api/admin/disputes/[id]/resolve</code> performs a controlled resolution transition. Resolution does not automatically authorize a gateway transaction, payout, or refund; finance effects follow their own controls.</p>
+<h3 id="chapter-79-deposit-actions">Chapter 79 — Deposit Actions</h3>
+<p>DepositAction records support controlled deposit decisions tied to the rental and dispute evidence. Exact policy, role, amount, currency, and state must be verified before any permitted action.</p>
+<h3 id="chapter-80-reviews-and-trust-signals">Chapter 80 — Reviews and Trust Signals</h3>
+<p>Reviews support marketplace trust after an eligible rental state. Ownership, participation, timing, and content controls should prevent unrelated or unsafe submissions. Reviews do not replace formal claims or disputes.</p>
+<h3 id="chapter-81-notifications-in-trust-workflows">Chapter 81 — Notifications in Trust Workflows</h3>
+<p>Notifications inform participants about claim, dispute, deposit, or review state. They are not the record of authority; stored service state and audit history control when delivery is delayed or fails.</p>
+<h3 id="chapter-82-claims-and-dispute-recovery">Chapter 82 — Claims and Dispute Recovery</h3>
+<p>On conflicts or partial failures, stop duplicate mutations, preserve all prior evidence, reconcile related booking/payment state, and escalate to authorized review. Recovery must not erase contested history or fabricate a financial correction.</p>
+<h2 id="part-ix-checkout-payments-and-provider-events" class="part">Part IX — Checkout, Payments, and Provider Events</h2>
+<h3 id="chapter-83-checkout-entry">Chapter 83 — Checkout Entry</h3>
+<p><code>/checkout/[bookingId]</code> is a guarded transaction surface linked to an authorized booking. The server revalidates session, ownership, booking state, amount, currency, provider mode, and payment policy before any allowed step.</p>
+<h3 id="chapter-84-payment-model">Chapter 84 — Payment Model</h3>
+<p>Payment records represent application payment state; GatewayTransaction and webhook/reconciliation records provide provider evidence. No single UI status or provider callback is sufficient to establish final financial truth.</p>
+<h3 id="chapter-85-payment-provider-modes">Chapter 85 — Payment Provider Modes</h3>
+<p>Repository configuration supports guarded mock/sandbox/readiness/live-mode concepts. Variable names document the contract only. Phase 19 NO-GO controls activation regardless of code presence or dashboard readiness.</p>
+<h3 id="chapter-86-paymongo-request-safety">Chapter 86 — PayMongo Request Safety</h3>
+<p>Permitted provider requests must use server-held credentials, trusted amount and currency, safe idempotency, and sanitized error handling. Documentation does not contain provider secret values or authorize live requests.</p>
+<h3 id="chapter-87-webhook-reception">Chapter 87 — Webhook Reception</h3>
+<p><code>/api/webhooks/paymongo</code> receives provider events under signature, payload, event identity, and replay controls. Receipt does not equal accepted mutation; the handler validates compatibility and records safe processing evidence.</p>
+<h3 id="chapter-88-webhook-signature-verification">Chapter 88 — Webhook Signature Verification</h3>
+<p>Signature verification uses configured secret material without logging or returning it. Invalid, malformed, duplicate, or unsupported events fail safely and remain available for authorized investigation.</p>
+<h3 id="chapter-89-webhook-idempotency">Chapter 89 — Webhook Idempotency</h3>
+<p>Provider event identity and current financial state prevent duplicate effects. Retries should converge on the recorded result rather than create repeated payments, refunds, ledger entries, or notifications.</p>
+<h3 id="chapter-90-amount-and-currency-integrity">Chapter 90 — Amount and Currency Integrity</h3>
+<p>Trusted server values must match gateway and booking evidence exactly. Amount or currency mismatches are recorded for reconciliation and must not be rounded, silently corrected, or accepted from the client.</p>
+<h3 id="chapter-91-payment-reconciliation">Chapter 91 — Payment Reconciliation</h3>
+<p>Reconciliation compares booking/payment, gateway transaction, webhook, action, and ledger evidence. Operators classify matches and mismatches, preserve a sanitized reason, and escalate unresolved differences.</p>
+<h3 id="chapter-92-payment-audit-trail">Chapter 92 — Payment Audit Trail</h3>
+<p>PaymentWebhookLog, PaymentActionLog, and PaymentReconciliationLog preserve safe financial evidence. Logs exclude signatures, keys, authorization headers, full credentials, and unnecessary personal data.</p>
+<h3 id="chapter-93-payment-failure-handling">Chapter 93 — Payment Failure Handling</h3>
+<p>On provider, validation, or persistence failure, avoid duplicate attempts, preserve the last reliable state, and reconcile before a permitted retry. User-facing errors remain sanitized; internal evidence remains access-controlled.</p>
+<h3 id="chapter-94-phase-19-no-go-boundary">Chapter 94 — Phase 19 NO-GO Boundary</h3>
+<p><code>PHASE19_COMPLETE_NO_GO_FROZEN</code> is an accepted operational prohibition. Checkout code, training pages, smoke-test/readiness routes, or provider configuration names cannot authorize live payment activation. <code>PAYMENT_ACTIVATION: NOT_AUTHORIZED</code>.</p>
+<h2 id="part-x-finance-refunds-payouts-and-settlement" class="part">Part X — Finance, Refunds, Payouts, and Settlement</h2>
+<h3 id="chapter-95-finance-dashboard">Chapter 95 — Finance Dashboard</h3>
+<p>Finance dashboards summarize permitted gateway, reconciliation, refund, payout, deposit, and settlement evidence for Finance Admin. Counts and status cards are read surfaces and do not themselves authorize financial mutation.</p>
+<h3 id="chapter-96-finance-ledger">Chapter 96 — Finance Ledger</h3>
+<p>FinanceLedger records support consistent accounting evidence tied to business transactions. Entries must preserve amount/currency precision, source references, and authorized creation; direct ad hoc correction is unsafe.</p>
+<h3 id="chapter-97-refund-request">Chapter 97 — Refund Request</h3>
+<p>Renter refund requests capture a request and reason within an eligible booking state. Submission is not approval or gateway execution. Finance review checks booking, payment, dispute, and policy evidence.</p>
+<h3 id="chapter-98-refund-review">Chapter 98 — Refund Review</h3>
+<p>Authorized finance operators classify the request, validate amount/currency and prior provider evidence, and record a reason. Readiness/SOP routes train or guide review but do not enable live processing.</p>
+<h3 id="chapter-99-provider-payout">Chapter 99 — Provider Payout</h3>
+<p>ProviderPayout records represent payout state for an eligible provider and settled business basis. Provider dashboard visibility is read-only with respect to authorization of money movement.</p>
+<h3 id="chapter-100-payout-batch">Chapter 100 — Payout Batch</h3>
+<p>PayoutBatch groups controlled payout work for finance review and evidence. Batch presence does not mean provider transmission occurred; exact state, approval, and external result must be verified.</p>
+<h3 id="chapter-101-payout-statements">Chapter 101 — Payout Statements</h3>
+<p>Payout statement routes present provider-scoped evidence for a payout record. Access checks prevent cross-provider disclosure. A statement reflects stored state and is not proof of external settlement.</p>
+<h3 id="chapter-102-settlement-review">Chapter 102 — Settlement Review</h3>
+<p>Settlement surfaces compare internal ledger/payment/payout evidence with the available gateway state. Unmatched items remain unresolved and require reconciliation rather than forced completion.</p>
+<h3 id="chapter-103-finance-separation-of-duties">Chapter 103 — Finance Separation of Duties</h3>
+<p>Finance authority remains separate from Admin, Compliance, SOC, provider, and renter roles. A dispute or SOC incident may provide evidence but cannot alone approve a refund, payout, deposit, or settlement action.</p>
+<h3 id="chapter-104-finance-failure-and-escalation">Chapter 104 — Finance Failure and Escalation</h3>
+<p>Stop on signature failure, amount/currency mismatch, duplicate event, unreconciled state, permission failure, or NO-GO conflict. Preserve sanitized evidence and escalate; never manufacture a live compensating transaction.</p>
+<h2 id="part-xi-administration-compliance-support-and-release" class="part">Part XI — Administration, Compliance, Support, and Release</h2>
+<h3 id="chapter-105-admin-dashboard-scope">Chapter 105 — Admin Dashboard Scope</h3>
+<p>The Admin dashboard aggregates authorized platform operations. Each child route retains its own permission and service rules; broad dashboard access is not universal mutation authority.</p>
+<h3 id="chapter-106-category-administration">Chapter 106 — Category Administration</h3>
+<p>Authorized category changes affect provider requirements and discovery. Operators validate naming, policy, dependencies, and impact on existing listings, and retain audit evidence for mutations.</p>
+<h3 id="chapter-107-booking-administration">Chapter 107 — Booking Administration</h3>
+<p>Admin booking views support oversight and exception handling within current permissions. Operators must preserve participant rights, state history, and finance/compliance boundaries rather than directly forcing incompatible state.</p>
+<h3 id="chapter-108-compliance-listing-review">Chapter 108 — Compliance Listing Review</h3>
+<p>Compliance listing routes review listing evidence against category and policy requirements. Approval/publishing uses exact authorized transitions and sanitized reasons; provider ownership remains intact.</p>
+<h3 id="chapter-109-kyc-administration">Chapter 109 — KYC Administration</h3>
+<p>Verification review restricts document access to authorized roles and minimum necessary evidence. Decisions are auditable and do not expose raw documents in general admin or support logs.</p>
+<h3 id="chapter-110-support-ticket-operations">Chapter 110 — Support Ticket Operations</h3>
+<p>SupportTicket routes organize user problems with safe identifiers, status, and assigned follow-up. Support does not grant direct database, finance, compliance, or SOC override authority.</p>
+<h3 id="chapter-111-feedback-and-issue-management">Chapter 111 — Feedback and Issue Management</h3>
+<p>BetaFeedback and IssueTicket records capture product evidence separate from production incident/security cases. Classify severity and ownership, avoid secret/personal content, and link a controlled change when required.</p>
+<h3 id="chapter-112-uat-operations">Chapter 112 — UAT Operations</h3>
+<p>UATFlow routes record controlled user-acceptance evidence. A UAT pass applies to its exact build, environment, and scope; it does not prove production deployment, external services, or later dirty edits.</p>
+<h3 id="chapter-113-beta-and-release-readiness">Chapter 113 — Beta and Release Readiness</h3>
+<p>Invitations, beta controls, readiness dashboards, and release versions support staged governance. <code>READY</code> is scoped prerequisite evidence, not deployment or general availability authority.</p>
+<h3 id="chapter-114-admin-reports-limitation">Chapter 114 — Admin Reports Limitation</h3>
+<p><code>/dashboard/admin/reports</code> contains implemented aggregates but placeholder CSV export and some AI prompt metrics. The super-admin report route delegates and inherits the limitation. Status: <code>IMPLEMENTED_METRICS_WITH_PLACEHOLDER_EXPORTS</code>.</p>
+<h2 id="part-xii-privacy-audit-support-and-data-rights" class="part">Part XII — Privacy, Audit, Support, and Data Rights</h2>
+<h3 id="chapter-115-privacy-principles">Chapter 115 — Privacy Principles</h3>
+<p>RENTipid documentation applies data minimization, purpose limitation, role/subject scope, retention awareness, safe evidence, and sanitization. Implementation evidence includes privacy services, audit stores, crypto/profile controls, and accepted Level 5 records.</p>
+<h3 id="chapter-116-consent-workflow">Chapter 116 — Consent Workflow</h3>
+<p><code>/api/privacy/consent</code> records an authenticated subject&#39;s permitted consent state. The service validates the subject and request; consent records do not grant access to unrelated data or override legal retention.</p>
+<h3 id="chapter-117-correction-workflow">Chapter 117 — Correction Workflow</h3>
+<p><code>/api/privacy/correction</code> provides a controlled correction request path where direct profile editing is limited or inappropriate. Identity, field scope, review, audit, and safe response rules apply.</p>
+<h3 id="chapter-118-data-export-workflow">Chapter 118 — Data Export Workflow</h3>
+<p><code>/api/privacy/export</code> prepares authorized subject data under identity, scope, minimization, and secure-delivery controls. Export content must exclude other subjects, secrets, internal credentials, and unauthorized security data.</p>
+<h3 id="chapter-119-deletion-workflow">Chapter 119 — Deletion Workflow</h3>
+<p>Deletion requests use controlled state, retention checks, and audit evidence. Required transaction, security, legal, or dispute records may have separate retention treatment; deletion must not corrupt referential/business integrity.</p>
+<h3 id="chapter-120-auditlog">Chapter 120 — AuditLog</h3>
+<p>AuditLog records authorized application/operator actions using safe actor, subject, operation, result, and reason metadata. It must not become a store for credentials, raw documents, or unbounded payloads.</p>
+<h3 id="chapter-121-authentication-and-api-security-logs">Chapter 121 — Authentication and API Security Logs</h3>
+<p>AuthenticationSecurityLog and ApiSecurityLog preserve bounded identity/API security evidence. Access is privileged and outputs remain sanitized so logs do not amplify an incident or privacy exposure.</p>
+<h3 id="chapter-122-ai-and-system-error-logs">Chapter 122 — AI and System Error Logs</h3>
+<p>AIBotLog records AI policy/action evidence, while SystemErrorLog records failures. Prompts, stack details, and provider errors require sanitization; secrets and prohibited personal data are excluded.</p>
+<h3 id="chapter-123-support-privacy-handling">Chapter 123 — Support Privacy Handling</h3>
+<p>Support staff request the minimum diagnostic facts and use stable record IDs rather than copying full KYC, payment, or security artifacts. Suspected security/privacy events are escalated to the correct controlled workflow.</p>
+<h3 id="chapter-124-privacy-failure-and-recovery">Chapter 124 — Privacy Failure and Recovery</h3>
+<p>On an unauthorized, incomplete, or failed privacy action, preserve prior valid state, record a safe outcome, prevent cross-subject disclosure, and escalate through privacy/security review. Do not bypass retention or authorization for speed.</p>
+<h2 id="part-xiii-marketing-social-mobile-and-public-communication" class="part">Part XIII — Marketing, Social, Mobile, and Public Communication</h2>
+<h3 id="chapter-125-marketing-domain">Chapter 125 — Marketing Domain</h3>
+<p>MarketingCampaign, MarketingPost, CampaignApproval, PromotionAsset, UTMLink, CampaignAnalytics, ProviderPromotionOptIn, and SocialPostQueue represent the current marketing/social domain. Model presence describes data capability, not external account activation or publication.</p>
+<h3 id="chapter-126-campaign-creation">Chapter 126 — Campaign Creation</h3>
+<p>Authorized admin/provider workflows create campaign intent, content, audience, timing, and related assets within their scope. Inputs require validation and must not include provider credentials or unapproved personal data.</p>
+<h3 id="chapter-127-campaign-approval">Chapter 127 — Campaign Approval</h3>
+<p>CampaignApproval separates drafting from review/publication authority where implemented. Review considers content, ownership, platform policy, and external provider readiness; approval in RENTipid is not proof of external publication.</p>
+<h3 id="chapter-128-social-accounts">Chapter 128 — Social Accounts</h3>
+<p>SocialAccount records represent connection/configuration state without documenting secret values. Users should never expose provider tokens in pages, logs, support records, or documentation. External validity remains unverified.</p>
+<h3 id="chapter-129-social-post-queue">Chapter 129 — Social Post Queue</h3>
+<p>SocialPostQueue supports controlled scheduling/state for intended publication. Retries must avoid duplicate posts and preserve provider error evidence in sanitized form. Queue state is not external-post proof.</p>
+<h3 id="chapter-130-promotion-assets-and-utm-links">Chapter 130 — Promotion Assets and UTM Links</h3>
+<p>PromotionAsset and UTMLink records support attributable campaign content. Links and public assets require safe construction, ownership, and policy review; analytics availability depends on implemented/provider data.</p>
+<h3 id="chapter-131-campaign-analytics-limitation">Chapter 131 — Campaign Analytics Limitation</h3>
+<p>Analytics models/surfaces may hold supported data, but provider-facing campaign analytics is marked coming soon. Documentation must not describe a complete provider analytics product without new implementation/evidence.</p>
+<h3 id="chapter-132-launch-announcements">Chapter 132 — Launch Announcements</h3>
+<p>Launch-announcement and readiness routes support controlled communication planning. A drafted announcement does not authorize production release, payment activation, provider publication, or DNS change.</p>
+<h3 id="chapter-133-pwa-architecture">Chapter 133 — PWA Architecture</h3>
+<p>Manifest and service-worker/PWA tooling support installable web behavior where the current runtime/browser permits. Packaging does not prove offline coverage, store distribution, or production deployment. Evidence: PWA configuration and install route.</p>
+<h3 id="chapter-134-capacitor-and-mobile-readiness">Chapter 134 — Capacitor and Mobile Readiness</h3>
+<p>Capacitor configuration and mobile-readiness/analytics routes support packaging and readiness evidence. App-store publication and current mobile-provider state are external and not proven. Evidence: mobile/PWA registry entries and GAP-012.</p>
+<h2 id="part-xiv-ai-assistant-and-digital-human-boundaries" class="part">Part XIV — AI Assistant and Digital-Human Boundaries</h2>
+<h3 id="chapter-135-ai-capability-scope">Chapter 135 — AI Capability Scope</h3>
+<p><code>src/lib/ai</code>, the AI API, components, settings, and extracted API service support guarded advisory/generation behavior in configured modes. AI cannot make prohibited financial, compliance, security-response, or privileged access decisions.</p>
+<h3 id="chapter-136-ai-chat-route">Chapter 136 — AI Chat Route</h3>
+<p><code>/api/ai/chat</code> validates the authenticated/request context and applies the current AI policy/provider mode. User-facing errors remain sanitized; prompts must not be used to transmit secrets, raw KYC records, or payment credentials.</p>
+<h3 id="chapter-137-ai-provider-modes">Chapter 137 — AI Provider Modes</h3>
+<p>AI behavior may be mock, disabled, or provider-backed according to current configuration. Environment-variable names and packages do not prove Azure OpenAI deployment, credentials, model availability, or production use.</p>
+<h3 id="chapter-138-ai-settings">Chapter 138 — AI Settings</h3>
+<p>Admin/super-admin settings surfaces expose only authorized application policy controls. A configuration screen cannot bypass server guardrails or establish an external provider resource. Changes require audit and safe defaults.</p>
+<h3 id="chapter-139-ai-logs">Chapter 139 — AI Logs</h3>
+<p>AIBotLog supports review of safe AI actions, policy decisions, and outcomes. Logs must avoid full secrets, authorization data, unnecessary personal content, and unsafe prompt/response retention.</p>
+<h3 id="chapter-140-ai-decision-boundaries">Chapter 140 — AI Decision Boundaries</h3>
+<p>AI output is advisory or generative within the accepted policy. Human and service authorization control listing, KYC, payment, dispute, SOC response, role, deletion, and deployment decisions.</p>
+<h3 id="chapter-141-digital-human-presentation-boundary">Chapter 141 — Digital-Human Presentation Boundary</h3>
+<p>The documentation contract uses “digital human” as a potential presentation layer over the guarded AI/support interface. The evidence layer does not prove a standalone avatar, voice, biometric, or autonomous-agent runtime; those capabilities remain unclaimed.</p>
+<h3 id="chapter-142-ai-tool-gateway">Chapter 142 — AI Tool Gateway</h3>
+<p>Any AI-invoked tool must pass an explicit allowlist, authenticated actor, validated input, least privilege, audit, and deterministic service guard. The current evidence does not authorize AI to call finance, compliance, SOC execution, database, cloud, or deployment tools autonomously.</p>
+<h3 id="chapter-143-ai-support-case-handoff">Chapter 143 — AI Support-Case Handoff</h3>
+<p>AI may assist with safe guidance or summarization where implemented, but a support issue requiring state change is handed to the authorized support, admin, finance, compliance, privacy, or SOC workflow. Human ownership and stored service state remain authoritative.</p>
+<h3 id="chapter-144-ai-failure-and-recovery">Chapter 144 — AI Failure and Recovery</h3>
+<p>On provider failure, unsafe output, or policy rejection, fail closed for prohibited actions, return a sanitized message, preserve safe audit evidence, and offer a non-AI support path. Never expose provider keys or raw internal errors.</p>
+<h2 id="part-xv-data-model-and-ownership" class="part">Part XV — Data Model and Ownership</h2>
+<h3 id="chapter-145-schema-authority">Chapter 145 — Schema Authority</h3>
+<p><code>prisma/schema.prisma</code> is the documented data-contract authority with 79 models and 29 enums. No database was queried. A model proves a repository contract, not production rows, migration completion, or deployment.</p>
+<h3 id="chapter-146-identity-data-domain">Chapter 146 — Identity Data Domain</h3>
+<p>User, UserMfa, UserProfile, BusinessProfile, and AccountDeletionRequest hold identity/account-lifecycle state. Access is subject/role scoped and protected fields follow crypto/privacy controls.</p>
+<h3 id="chapter-147-catalog-data-domain">Chapter 147 — Catalog Data Domain</h3>
+<p>Category, CategoryRequirement, Listing, ListingPhoto, and ListingDocument represent the catalog. Providers own listing preparation; admin/compliance controls publication and verification according to service state.</p>
+<h3 id="chapter-148-rental-and-trust-data-domain">Chapter 148 — Rental and Trust Data Domain</h3>
+<p>Booking, status history, agreements, inspections, turnover, claims, disputes, deposit actions, reviews, and notifications form the rental/trust graph. Participant scope and operator permissions govern access.</p>
+<h3 id="chapter-149-verification-data-domain">Chapter 149 — Verification Data Domain</h3>
+<p>VerificationDocument represents restricted user evidence reviewed by authorized compliance operations. Storage, encryption/protection, retention, and access policies apply; raw contents are not documentation evidence.</p>
+<h3 id="chapter-150-finance-data-domain">Chapter 150 — Finance Data Domain</h3>
+<p>Payment, gateway, webhook, reconciliation, action, ledger, refund, payout, and batch records form a controlled financial evidence chain. AI and SOC cannot autonomously mutate financial authority.</p>
+<h3 id="chapter-151-platform-and-audit-data-domain">Chapter 151 — Platform and Audit Data Domain</h3>
+<p>AuditLog, ApiSecurityLog, AIBotLog, SystemSetting/SystemSettings, AuthenticationSecurityLog, and SystemErrorLog support governed platform evidence. Payloads must remain bounded and sanitized.</p>
+<h3 id="chapter-152-marketing-and-release-data-domain">Chapter 152 — Marketing and Release Data Domain</h3>
+<p>Social/marketing models plus release, mobile, beta, feedback, issue, support, and UAT models support communication and rollout workflows. External provider and release state are not inferred from records alone.</p>
+<h3 id="chapter-153-soc-telemetry-data-domain">Chapter 153 — SOC Telemetry Data Domain</h3>
+<p>SecurityEvent, ingestion failure/checkpoint, DetectionRule, SecurityAlert, evidence, evaluation log, and detection checkpoint models support privacy-safe event-to-alert processing with lifecycle/environment separation.</p>
+<h3 id="chapter-154-soc-case-and-response-data-domain">Chapter 154 — SOC Case and Response Data Domain</h3>
+<p>Incident case/history/note/evidence/link and playbook/step/approval/grant/ execution/action models preserve the controlled investigation and reversible response lifecycle. Server RBAC and separation of duties govern mutations.</p>
+<h3 id="chapter-155-intelligence-and-geolocation-data-domain">Chapter 155 — Intelligence and Geolocation Data Domain</h3>
+<p>BehavioralRiskAssessment, signals, evidence links, and geo-enrichment records support read-oriented investigation. Privacy-safe correlation/IP handling and authorized handoff boundaries apply.</p>
+<h3 id="chapter-156-data-migration-boundary">Chapter 156 — Data Migration Boundary</h3>
+<p>Schema and migration artifacts do not prove production migration. No database was connected or modified during documentation. <code>DATABASE_MIGRATION: PENDING_SEPARATE_OWNER_DECISION</code>.</p>
+<h2 id="part-xvi-api-services-integrations-and-errors" class="part">Part XVI — API, Services, Integrations, and Errors</h2>
+<h3 id="chapter-157-root-api-inventory">Chapter 157 — Root API Inventory</h3>
+<p>The root Next.js application contains 65 API route files across admin, AI, auth, bookings, documents, finance, listings, payments, privacy, SOC, and webhooks. Route presence does not grant production or mutation authority.</p>
+<h3 id="chapter-158-authentication-apis">Chapter 158 — Authentication APIs</h3>
+<p><code>/api/auth/[...nextauth]</code> and <code>/api/auth/register</code> establish session and registration behavior. Inputs, privileged-role restrictions, error sanitization, and authentication telemetry are part of their contract.</p>
+<h3 id="chapter-159-marketplace-apis">Chapter 159 — Marketplace APIs</h3>
+<p>Booking, document, listing, finance-upload, and payment routes validate session, role, ownership, input, and state. Transitional wrappers require classification against the extracted API before maintenance.</p>
+<h3 id="chapter-160-privacy-apis">Chapter 160 — Privacy APIs</h3>
+<p>Consent, correction, deletion, and export routes operate only for an authorized subject and policy scope. Responses must not expose other users, internal storage details, or secret configuration.</p>
+<h3 id="chapter-161-soc-case-apis">Chapter 161 — SOC Case APIs</h3>
+<p>Admin SOC case list/detail and assignment/evidence/notes/status child routes implement Gate 4F case operations. Exact permissions, case state, safe evidence, and audit history govern each mutation.</p>
+<h3 id="chapter-162-soc-playbook-apis">Chapter 162 — SOC Playbook APIs</h3>
+<p>Playbook list/detail, draft, version, review, activation, and step operations implement the versioned Gate 4G lifecycle. Active versions require accepted review; concurrent/stale edits must fail safely.</p>
+<h3 id="chapter-163-soc-approval-apis">Chapter 163 — SOC Approval APIs</h3>
+<p>Approval request, submit, decision, cancel, revoke, and list/detail routes maintain requester/approver separation, time-bound scope, grant state, and auditable outcomes.</p>
+<h3 id="chapter-164-soc-response-apis">Chapter 164 — SOC Response APIs</h3>
+<p>Response list/detail, execute, and rollback routes expose accepted reversible Gate 4H behavior. Execution consumes valid approval, enforces freeze/scope/ idempotency/concurrency, and records sanitized results.</p>
+<h3 id="chapter-165-dashboard-and-intelligence-apis">Chapter 165 — Dashboard and Intelligence APIs</h3>
+<p>SOC dashboard, behavioral-risk latest/history/detail, and threat-map routes are authorized read surfaces. Test/simulation lifecycle, privacy-safe details, and technical-detail permissions constrain output.</p>
+<h3 id="chapter-166-extracted-api-and-worker">Chapter 166 — Extracted API and Worker</h3>
+<p><code>apps/api</code> and <code>apps/worker</code> are current target implementations for Azure backend/services. Their existence does not prove provisioning, release, job schedule, connectivity, or traffic. Root and extracted boundaries coexist.</p>
+<h3 id="chapter-167-external-integrations">Chapter 167 — External Integrations</h3>
+<p>Vercel, Azure Container Apps/PostgreSQL/Blob/Key Vault/monitoring/OpenAI/Search, PayMongo, NextAuth, MaxMind, social providers, Capacitor, SMTP, and CI have documented repository evidence with distinct active/target/dependent statuses.</p>
+<h3 id="chapter-168-api-error-and-recovery-contract">Chapter 168 — API Error and Recovery Contract</h3>
+<p>APIs validate early, return stable sanitized outcomes, preserve last valid state, and record authorized evidence. Retries must respect idempotency and cannot fabricate duplicate financial, booking, privacy, or SOC-response effects.</p>
+<h2 id="part-xvii-security-cryptography-and-control-framework" class="part">Part XVII — Security, Cryptography, and Control Framework</h2>
+<h3 id="chapter-169-authentication-and-authorization-controls">Chapter 169 — Authentication and Authorization Controls</h3>
+<p>NextAuth/session handling plus page/API/service guards implement identity and authorization. Server checks are authoritative; public registration cannot grant privileged roles, and proxy/route/session rules must agree.</p>
+<h3 id="chapter-170-least-privilege">Chapter 170 — Least Privilege</h3>
+<p>Marketplace ownership, finance/compliance separation, and SOC Analyst/ Supervisor permission matrices restrict access to the minimum required scope. Broad roles cannot bypass accepted dual-control constraints.</p>
+<h3 id="chapter-171-input-validation">Chapter 171 — Input Validation</h3>
+<p>Zod/domain validators and service guards reject malformed identifiers, unsupported transitions, unsafe values, and unauthorized scope before mutation. Safe validation outcomes avoid internal-detail leakage.</p>
+<h3 id="chapter-172-upload-security">Chapter 172 — Upload Security</h3>
+<p>Upload controls validate extension, MIME, magic/content, size, ownership, and purpose for listing, verification, inspection, and claim evidence. Storage errors fail safely; raw private documents remain restricted.</p>
+<h3 id="chapter-173-cryptographic-protection">Chapter 173 — Cryptographic Protection</h3>
+<p>Accepted Level 5 evidence covers encryption envelopes, key-provider concepts, blind indexes, profile protection/rotation, and MFA encryption. Variable/key names may be documented; values and retired key material may not.</p>
+<h3 id="chapter-174-mfa-and-step-up">Chapter 174 — MFA and Step-Up</h3>
+<p>MFA/session evidence and UserMfa support stronger identity controls where the accepted implementation applies. Step-up does not replace role, ownership, state, approval, or separation-of-duties checks.</p>
+<h3 id="chapter-175-audit-sanitization">Chapter 175 — Audit Sanitization</h3>
+<p>Audit, security, AI, system, payment, and SOC records use bounded safe metadata and stable failure codes. Passwords, tokens, private keys, authorization headers, connection strings, and raw protected evidence are excluded.</p>
+<h3 id="chapter-176-payment-security">Chapter 176 — Payment Security</h3>
+<p>Signature validation, exact amount/currency checks, idempotency, reconciliation, role separation, and live-mode controls protect payment flows. Phase 19 NO-GO remains the operative activation boundary.</p>
+<h3 id="chapter-177-database-safety">Chapter 177 — Database Safety</h3>
+<p>Test-database guards and explicit mutation/restore-target controls prevent accidental production operations. These safeguards are not deployment switches. Documentation does not connect to or change a database.</p>
+<h3 id="chapter-178-cloud-identity-and-supply-chain">Chapter 178 — Cloud Identity and Supply Chain</h3>
+<p>Managed-identity, Key Vault, storage RBAC, lockfiles, and CI/dependency evidence describe intended controls. Local definitions do not prove assigned roles, resource health, provider credentials, or deployed artifacts.</p>
+<h2 id="part-xviii-soc-telemetry-detection-alerts-and-intelligence" class="part">Part XVIII — SOC Telemetry, Detection, Alerts, and Intelligence</h2>
+<h3 id="chapter-179-security-event-sources">Chapter 179 — Security Event Sources</h3>
+<p>Supported adapters cover authentication, audit, API, AI, system errors, payments, verification, bookings, claims, disputes, inspections, and settings as registered. Source compatibility is validated before normalization.</p>
+<h3 id="chapter-180-event-normalization">Chapter 180 — Event Normalization</h3>
+<p>Writers/adapters create bounded SecurityEvent records with source, domain, classification, severity, lifecycle, environment, processing state, and privacy-safe summary/correlation fields.</p>
+<h3 id="chapter-181-lifecycle-and-environment-separation">Chapter 181 — Lifecycle and Environment Separation</h3>
+<p><code>LIVE</code>, <code>TEST</code>, and <code>SIMULATION</code> evidence is classified explicitly. Simulation and test data are excluded from operational views by default unless an authorized query intentionally includes them.</p>
+<h3 id="chapter-182-event-idempotency-and-deduplication">Chapter 182 — Event Idempotency and Deduplication</h3>
+<p>Source identities and configured deduplication prevent repeated ingestion and alert amplification. Retries converge on valid event/checkpoint state and record failures rather than silently duplicating evidence.</p>
+<h3 id="chapter-183-ingestion-failure-recording">Chapter 183 — Ingestion Failure Recording</h3>
+<p>SecurityEventIngestionFailure preserves safe processing context for recovery. It excludes secret/raw payload leakage and links to bounded retry/checkpoint logic so operators can distinguish recoverable from incompatible sources.</p>
+<h3 id="chapter-184-detection-rule-lifecycle">Chapter 184 — Detection Rule Lifecycle</h3>
+<p>Detection rules progress through controlled draft/initialize/update/activate/ archive states. Validation of rule definition, creator type, lifecycle, and authorization precedes evaluation.</p>
+<h3 id="chapter-185-detection-evaluation">Chapter 185 — Detection Evaluation</h3>
+<p>The evaluator applies the supported rule contract deterministically to compatible events and records RuleEvaluationLog outcomes. Unsupported or invalid rules fail safely rather than creating unreviewable alerts.</p>
+<h3 id="chapter-186-alert-creation-and-deduplication">Chapter 186 — Alert Creation and Deduplication</h3>
+<p>Eligible rule outcomes create/reuse SecurityAlert according to configured deduplication/correlation. Alert evidence links remain bounded and privacy-safe; severity and confidence support review rather than autonomous punishment.</p>
+<h3 id="chapter-187-alert-review">Chapter 187 — Alert Review</h3>
+<p>Authorized SOC users review alert status, evidence, source context, lifecycle, and related events. Review may lead to dismissal, monitoring, or incident-case creation under exact service rules.</p>
+<h3 id="chapter-188-behavioral-risk-intelligence">Chapter 188 — Behavioral Risk Intelligence</h3>
+<p>Behavioral risk assessments, signals, evidence links, and latest/history/detail APIs support investigation and handoff. The capability is read-oriented and does not autonomously block accounts, transfer money, or decide compliance.</p>
+<h3 id="chapter-189-threat-map-and-geolocation">Chapter 189 — Threat Map and Geolocation</h3>
+<p>Threat-map output uses privacy-safe geo-enrichment and provider modes such as disabled, fixture, or database-backed where configured. Raw/private IP handling and HMAC/correlation controls apply; provider availability is not inferred.</p>
+<h3 id="chapter-190-soc-dashboard">Chapter 190 — SOC Dashboard</h3>
+<p>The command center presents authorized KPIs, event/alert feeds, response summaries, lifecycle filters, simulation visibility, and intelligence links. It is a read/coordination surface; service APIs and permissions control mutations.</p>
+<h2 id="part-xix-soc-incident-cases-evidence-playbooks-and-approvals" class="part">Part XIX — SOC Incident Cases, Evidence, Playbooks, and Approvals</h2>
+<h3 id="chapter-191-incident-case-creation">Chapter 191 — Incident Case Creation</h3>
+<p>Authorized SOC users create IncidentCase records from alerts, investigations, or qualified manual context under Gate 4F rules. Origin, severity, actor, and initial reason are recorded without copying raw credentials or unbounded event payloads.</p>
+<h3 id="chapter-192-case-triage">Chapter 192 — Case Triage</h3>
+<p>Triage confirms environment/lifecycle, severity, scope, ownership, related alerts/events, and immediate safety needs. The triager may adjust only allowed fields and preserves history for every state change.</p>
+<h3 id="chapter-193-case-assignment">Chapter 193 — Case Assignment</h3>
+<p>Assignment/reassignment APIs enforce case permission, target eligibility, and current state. Assignment establishes work ownership but does not grant response execution, finance, compliance, or role-administration authority.</p>
+<h3 id="chapter-194-case-notes">Chapter 194 — Case Notes</h3>
+<p>Case notes record sanitized analysis, decisions, and follow-up using the supported note type. They must not contain tokens, credentials, raw KYC, unnecessary personal data, or uncontrolled copies of protected evidence.</p>
+<h3 id="chapter-195-case-evidence">Chapter 195 — Case Evidence</h3>
+<p>IncidentCaseEvidence stores bounded references and metadata under evidence type/source controls. Access is authorized independently from a public or marketplace route; linked evidence remains governed by its source domain.</p>
+<h3 id="chapter-196-case-status-lifecycle">Chapter 196 — Case Status Lifecycle</h3>
+<p>Cases move through open, triage/investigation, assignment, containment request, resolution, closure, reopening, or escalation only as service guards permit. IncidentCaseHistory preserves actor, reason, and transition evidence.</p>
+<h3 id="chapter-197-playbook-drafting">Chapter 197 — Playbook Drafting</h3>
+<p>Authorized users create a SecurityResponsePlaybook draft and ordered steps for a defined security scenario. Draft presence does not authorize execution; step types and scope must fit the reversible accepted baseline.</p>
+<h3 id="chapter-198-playbook-versioning">Chapter 198 — Playbook Versioning</h3>
+<p>Version creation preserves reviewed history while allowing a controlled new draft. Edits target the intended version, and stale/concurrent changes fail safely. Activated evidence is not overwritten in place.</p>
+<h3 id="chapter-199-playbook-review-and-activation">Chapter 199 — Playbook Review and Activation</h3>
+<p>Submission, approval/rejection, and activation follow Gate 4G permissions and review state. Activation makes an approved version eligible for later response requests; it does not create an approval grant or execute an action.</p>
+<h3 id="chapter-200-approval-request">Chapter 200 — Approval Request</h3>
+<p>A requester selects the minimum approved playbook/action scope, target, reason, and duration required. The service validates actor, playbook state, case context, and reversibility before entering review.</p>
+<h3 id="chapter-201-approval-decision-and-grant">Chapter 201 — Approval Decision and Grant</h3>
+<p>An independent authorized decision creates or rejects a time-bound, scoped grant. The requester cannot self-approve. Grant consumption, expiration, revocation, cancellation, and decision history remain auditable.</p>
+<h3 id="chapter-202-approval-failure-and-concurrency">Chapter 202 — Approval Failure and Concurrency</h3>
+<p>Invalid scope, expired/revoked grant, duplicate decision, requester/approver conflict, or stale concurrent update fails closed. Preserve the prior valid approval state and return a sanitized stable result.</p>
+<h2 id="part-xx-soc-response-rollback-simulation-and-freeze" class="part">Part XX — SOC Response, Rollback, Simulation, and Freeze</h2>
+<h3 id="chapter-203-reversible-response-baseline">Chapter 203 — Reversible Response Baseline</h3>
+<p>Gate 4H accepts only the approved reversible response scope, including NOOP simulation and reversible account restriction as evidenced. Response presence does not authorize destructive, financial, compliance, or infrastructure actions.</p>
+<h3 id="chapter-204-response-execution-preconditions">Chapter 204 — Response Execution Preconditions</h3>
+<p>Execution validates actor permission, requester/approver separation, active playbook, compatible action, target scope, usable grant, emergency-freeze state, idempotency key, and current resource state.</p>
+<h3 id="chapter-205-grant-consumption">Chapter 205 — Grant Consumption</h3>
+<p>A valid approval grant is consumed according to its exact time, scope, target, and action constraints. Reuse, expiry, revocation, or mismatch prevents execution and remains visible in sanitized approval/execution evidence.</p>
+<h3 id="chapter-206-execution-state-lifecycle">Chapter 206 — Execution State Lifecycle</h3>
+<p>SecurityResponseExecution and Action records progress through pending/running to success/failure and, where permitted, rollback states. Partial failure is recorded explicitly rather than promoted to success.</p>
+<h3 id="chapter-207-execution-idempotency">Chapter 207 — Execution Idempotency</h3>
+<p>Repeated requests with the same authorized identity/scope converge on the existing execution outcome. Idempotency prevents duplicate restrictions, audits, and side effects while allowing safe result retrieval.</p>
+<h3 id="chapter-208-execution-concurrency">Chapter 208 — Execution Concurrency</h3>
+<p>Concurrency controls prevent conflicting executions against the same protected scope. Losing requests return controlled outcomes, and operators investigate the authoritative execution rather than forcing parallel state.</p>
+<h3 id="chapter-209-emergency-freeze">Chapter 209 — Emergency Freeze</h3>
+<p>Emergency freeze blocks unsafe new execution while preserving visibility and separately authorized rollback. Activation and release require the accepted permission/process; a UI toggle alone is insufficient.</p>
+<h3 id="chapter-210-rollback-preconditions">Chapter 210 — Rollback Preconditions</h3>
+<p>Rollback requires its own permission, an eligible reversible execution, a valid current-state comparison, and no unacceptable divergence. It cannot be assumed from prior execution authority.</p>
+<h3 id="chapter-211-divergence-protection">Chapter 211 — Divergence Protection</h3>
+<p>Before rollback, the service compares protected before/after/current state. Unexpected independent change causes a safe rollback refusal so recovery does not overwrite legitimate current state.</p>
+<h3 id="chapter-212-controlled-simulation-capability">Chapter 212 — Controlled Simulation Capability</h3>
+<p>Gate 4I validates nine scenarios covering NOOP, reversible restriction, scope, freeze, concurrency/idempotency, partial failure/recovery, divergence, authorization/separation, and audit sanitization. Status: <code>COMPLETE_AND_FROZEN</code>.</p>
+<h3 id="chapter-213-simulations-route-classification">Chapter 213 — Simulations Route Classification</h3>
+<p><code>/dashboard/admin/security/simulations</code> is <code>NAVIGATION_SHELL_ONLY</code> with no service/API integration. Operators use the accepted response workflow and command-center simulation views; the tray intentionally does not create an unapproved shortcut.</p>
+<h3 id="chapter-214-reports-route-classification">Chapter 214 — Reports Route Classification</h3>
+<p><code>/dashboard/admin/security/reports</code> is <code>PLANNED_NOT_IMPLEMENTED</code>. Dashboard, event, case, response, and audit reads exist, but no dedicated SOC report generator/export API or exact approved requirement was found.</p>
+<h2 id="part-xxi-maintenance-recovery-monitoring-and-resilience" class="part">Part XXI — Maintenance, Recovery, Monitoring, and Resilience</h2>
+<h3 id="chapter-215-maintenance-capability">Chapter 215 — Maintenance Capability</h3>
+<p>Gate 4J accepts maintenance, technical UAT, and the SOC operations/recovery runbook as operational capability. The standalone maintenance page is not an accepted requirement and contains no maintenance service.</p>
+<h3 id="chapter-216-maintenance-route-classification">Chapter 216 — Maintenance Route Classification</h3>
+<p><code>/dashboard/admin/security/maintenance</code> is <code>PLANNED_NOT_IMPLEMENTED</code>. It is not a recovery console. Operators use the accepted runbook, response controls, recovery/backfill jobs, tests, and separately authorized operational process.</p>
+<h3 id="chapter-217-recovery-checkpoints">Chapter 217 — Recovery Checkpoints</h3>
+<p>SecurityEventIngestionCheckpoint and detection checkpoints record bounded progress so recovery can resume without replaying uncontrolled ranges. Advance occurs only after valid processing under the current lease.</p>
+<h3 id="chapter-218-worker-leases">Chapter 218 — Worker Leases</h3>
+<p>Recovery acquires an exclusive lease before processing a bounded range. Lease loss or conflict stops unsafe continuation; failure handling releases or expires control without falsely advancing the checkpoint.</p>
+<h3 id="chapter-219-bounded-replay">Chapter 219 — Bounded Replay</h3>
+<p>Recovery replays an explicitly bounded source range through normal validation, normalization, idempotency, and failure recording. It is not a raw bulk write or production database shortcut.</p>
+<h3 id="chapter-220-backfill">Chapter 220 — Backfill</h3>
+<p>The backfill job supports controlled historical event ingestion with the same privacy, lifecycle, deduplication, checkpoint, and safe-failure expectations. Operator scope and environment must be explicit.</p>
+<h3 id="chapter-221-response-recovery">Chapter 221 — Response Recovery</h3>
+<p>For failed/partial response execution, preserve approval/execution/action evidence, apply emergency freeze if authorized, inspect divergence, and use separately authorized rollback or corrective gates. Do not rewrite history.</p>
+<h3 id="chapter-222-monitoring-direction">Chapter 222 — Monitoring Direction</h3>
+<p>Application Insights and Log Analytics definitions plus middleware describe the monitoring target. Local code does not prove workspace provisioning, telemetry ingestion, alert configuration, retention, or production health.</p>
+<h3 id="chapter-223-backup-and-database-recovery-boundary">Chapter 223 — Backup and Database Recovery Boundary</h3>
+<p>Readiness/runbook artifacts may describe checkpoints and recovery intent, but production backup state and restore viability require external authorized verification. Database migration/restore remains separately governed.</p>
+<h3 id="chapter-224-technical-uat-and-historical-evidence">Chapter 224 — Technical UAT and Historical Evidence</h3>
+<p>Gate 4J technical UAT and other accepted test reports prove their recorded checkpoint. They do not validate unrelated current dirty edits or production state. New changes require selected current tests in an authorized environment.</p>
+<h2 id="part-xxii-architecture-configuration-infrastructure-and-delivery" class="part">Part XXII — Architecture, Configuration, Infrastructure, and Delivery</h2>
+<h3 id="chapter-225-vercel-frontend-direction">Chapter 225 — Vercel Frontend Direction</h3>
+<p>The Owner-verified Vercel project identity is <code>ren-tipid</code> under <code>jburns2372-sys-projects</code>, with public domains documented in the deployment registry. Identity evidence does not authorize deployment or prove a current live response.</p>
+<h3 id="chapter-226-azure-backend-and-services-direction">Chapter 226 — Azure Backend and Services Direction</h3>
+<p><code>apps/api</code>, <code>apps/worker</code>, and Azure-target infrastructure define the backend, worker, database, storage, identity, registry, network, and monitoring direction. <code>AZURE_PROVISIONING_OR_DEPLOYMENT_AUTHORIZED_BY_DOCUMENTATION: NO</code>.</p>
+<h3 id="chapter-227-partially-split-implementation">Chapter 227 — Partially Split Implementation</h3>
+<p>Root Next.js handlers and extracted Azure targets coexist. Runtime routing may depend on current configuration and compatibility wrappers. Change analysis must identify both sides and preserve authentication/data/error contracts.</p>
+<h3 id="chapter-228-network-design-boundary">Chapter 228 — Network Design Boundary</h3>
+<p>The owner-approved parallel network design recorded in the deployment registry uses VNet <code>10.219.0.0/20</code>, an ACA <code>/23</code>, and private-endpoint <code>/24</code>. These are non-secret design identifiers, not provisioning, peering, or traffic evidence.</p>
+<h3 id="chapter-229-database-target">Chapter 229 — Database Target</h3>
+<p>Prisma targets PostgreSQL and Phase 19B describes Azure PostgreSQL direction. No production database was inspected. Migration, connection, data validation, and cutover require a separate Owner decision and guarded plan.</p>
+<h3 id="chapter-230-object-storage-target">Chapter 230 — Object Storage Target</h3>
+<p>Azure Blob Storage, private access, managed identity/user-delegation, and RBAC are the target direction represented by current files. Local implementation does not prove account/container/endpoints/roles are deployed.</p>
+<h3 id="chapter-231-secrets-and-key-vault">Chapter 231 — Secrets and Key Vault</h3>
+<p>Key Vault is the target secret-provider boundary. Documentation lists only configuration names; it excludes tokens, keys, passwords, HMAC material, connection strings, SAS values, and secret-bearing URLs.</p>
+<h3 id="chapter-232-environment-contracts">Chapter 232 — Environment Contracts</h3>
+<p>Runtime routing, auth/data, Azure, payment, security/SOC, CI, and provider configuration names form the environment contract. The 52 code references and 19 template names require review; no missing value is invented.</p>
+<h3 id="chapter-233-terraform-and-deployment-control">Chapter 233 — Terraform and Deployment Control</h3>
+<p>Terraform is desired-state code. No plan or apply occurred. Provisioning, deployment, migration, traffic, DNS, and production operations require exact authorization, external verification, rollback, and evidence.</p>
+<h3 id="chapter-234-superseded-aws-architecture">Chapter 234 — Superseded AWS Architecture</h3>
+<p>AWS/PM2 documents and AWS-named readiness routes remain historical artifacts classified <code>SUPERSEDED_ARCHITECTURE_HISTORY</code>. They are not the current target and must not be restored as architecture authority without a new decision.</p>
+<h2 id="part-xxiii-testing-governance-phase-status-and-release-control" class="part">Part XXIII — Testing, Governance, Phase Status, and Release Control</h2>
+<h3 id="chapter-235-test-inventory">Chapter 235 — Test Inventory</h3>
+<p>The evidence layer inventories 142 test/spec files: 135 security, three checkout/payment-pilot, three end-to-end, and one privacy. File presence is not a current pass; accepted reports record exact historical results.</p>
+<h3 id="chapter-236-test-environment-safety">Chapter 236 — Test Environment Safety</h3>
+<p>Database-backed tests require the local test-database guard and explicit non-production target. Production databases are never test targets. Test, simulation, and live security events remain classified separately.</p>
+<h3 id="chapter-237-validation-selection">Chapter 237 — Validation Selection</h3>
+<p>Select tests from affected routes, services, models, roles, states, integrations, security/privacy controls, and recovery paths. Record the exact artifact, environment class, command, outcome, and limitation.</p>
+<h3 id="chapter-238-phase-status-authority">Chapter 238 — Phase Status Authority</h3>
+<p>Formal freeze/closure outranks final accepted evidence, historical reports, and plans for phase status. Current code remains the authority for current implementation. Conflicts stay disclosed in the source register.</p>
+<h3 id="chapter-239-phase-4-and-level-5-freeze">Chapter 239 — Phase 4 and Level 5 Freeze</h3>
+<p>Incident cases, playbooks/approvals, reversible response, controlled simulation, maintenance/UAT, Level 5, behavioral intelligence, and threat map retain their accepted/frozen classifications. Optional routes do not reopen them.</p>
+<h3 id="chapter-240-phase-19-status">Chapter 240 — Phase 19 Status</h3>
+<p>Phase 19 is <code>PHASE19_COMPLETE_NO_GO_FROZEN</code>. The phase is complete as a decision/evidence program while live payment activation is prohibited. Any future activation needs an explicit new gate.</p>
+<h3 id="chapter-241-phase-19b-status">Chapter 241 — Phase 19B Status</h3>
+<p><code>PHASE19B_COMPLETE_WITH_SEPARATE_OWNER_DECISIONS_RESERVED</code> preserves the Vercel/Azure direction and completed documentation/readiness decisions without claiming deployment. Database migration and operational cutovers remain reserved.</p>
+<h3 id="chapter-242-release-and-change-governance">Chapter 242 — Release and Change Governance</h3>
+<p>A release/change requires exact scope, artifact, approvals, tests, privacy and security review, configuration validation, migration/cutover authority, rollback, monitoring, evidence, and documentation updates. Readiness labels do not replace these controls.</p>
+<h2 id="part-xxiv-training-handover-limitations-and-future-change" class="part">Part XXIV — Training, Handover, Limitations, and Future Change</h2>
+<h3 id="chapter-243-user-training">Chapter 243 — User Training</h3>
+<p>Train users by role and journey: identity/KYC, listing discovery, booking, agreement, inspection, claim/dispute, privacy, and support. Emphasize server state, safe evidence, known limitations, and live-payment prohibition.</p>
+<h3 id="chapter-244-operator-training">Chapter 244 — Operator Training</h3>
+<p>Train Admin, Finance, Compliance, Support, SOC, and Super Admin separately. Exercises must preserve least privilege, separation of duties, sanitized audit, NO-GO boundaries, and non-production safety.</p>
+<h3 id="chapter-245-developer-onboarding">Chapter 245 — Developer Onboarding</h3>
+<p>Developers begin with baseline/dirty-work ownership, source authority, architecture layering, route/service/model maps, test guards, status vocabulary, and separately governed decisions. They must classify transitional handlers before editing.</p>
+<h3 id="chapter-246-known-limitations">Chapter 246 — Known Limitations</h3>
+<p>Material limitations include three SOC route shells, profile edit, provider analytics, admin report exports, payment NO-GO, deployment/database boundaries, transitional APIs, environment-name alignment, external provider/mobile state, historical status conflict, and dirty-tree test scope.</p>
+<h3 id="chapter-247-future-change-intake">Chapter 247 — Future Change Intake</h3>
+<p>Future work begins with an exact accepted requirement and classification of current capability, affected evidence, risk, permissions, data, states, external decisions, tests, rollback, and documentation. Speculative route names are not requirements.</p>
+<h3 id="chapter-248-formal-handover-and-reopen-criteria">Chapter 248 — Formal Handover and Reopen Criteria</h3>
+<p>The final package hands over evidence, procedures, diagrams, claim index, validation, hashes, renders/tooling status, archive, and reserved decisions. A freeze reopens only for an approved factual change, identified defect, security/privacy correction, or newly authorized operational decision.</p>
+<h2 id="appendix-a-route-and-screen-index">Appendix A — Route and Screen Index</h2>
+<p>The authoritative route registry inventories 163 pages by public, account, auth, marketplace, dashboard role, admin SOC, and super-admin groups: <code>../00-WORKING-REGISTRIES/RENTipid_ROUTE_AND_SCREEN_REGISTRY.md</code>. Presence does not prove completion; explicit route limitations control simulations, reports, maintenance, profile edit, provider analytics, and admin report exports.</p>
+<h2 id="appendix-b-role-and-permission-matrix">Appendix B — Role and Permission Matrix</h2>
+<p>Guest, Renter, Individual Provider, Business Provider, Admin, Finance Admin, Compliance Admin, SOC Analyst, SOC Supervisor, and Super Admin boundaries are defined in <code>../00-WORKING-REGISTRIES/RENTipid_ROLE_AND_PERMISSION_REGISTRY.md</code>. Server authorization and separation of duties are mandatory.</p>
+<h2 id="appendix-c-database-model-and-enum-index">Appendix C — Database Model and Enum Index</h2>
+<p>The data registry groups all 79 Prisma models and lists all 29 enums: <code>../00-WORKING-REGISTRIES/RENTipid_DATABASE_AND_DATA_OWNERSHIP_REGISTRY.md</code>. It records ownership and privacy boundaries without production rows.</p>
+<h2 id="appendix-d-api-and-service-index">Appendix D — API and Service Index</h2>
+<p>The API registry groups 65 root API route files and their primary service families: <code>../00-WORKING-REGISTRIES/RENTipid_API_AND_SERVICE_REGISTRY.md</code>. POST/API presence is not deployment or operational authority.</p>
+<h2 id="appendix-e-configuration-name-index">Appendix E — Configuration Name Index</h2>
+<p>The configuration registry lists permitted variable names by runtime, auth/ data, Azure, payment, security/SOC, CI, and provider category: <code>../00-WORKING-REGISTRIES/RENTipid_CONFIGURATION_AND_ENVIRONMENT_REGISTRY.md</code>. Values remain excluded.</p>
+<h2 id="appendix-f-workflow-and-state-index">Appendix F — Workflow and State Index</h2>
+<p>The workflow registry maps registration, marketplace, finance, privacy, SOC, release, Phase 19, and Phase 19B transitions: <code>../00-WORKING-REGISTRIES/RENTipid_WORKFLOW_AND_STATE_TRANSITION_REGISTRY.md</code>. Service guards outrank UI labels.</p>
+<h2 id="appendix-g-audit-and-security-event-index">Appendix G — Audit and Security Event Index</h2>
+<p>The audit/event registry defines audit stores, safe treatment, event sources, lifecycle/environment, idempotency, privacy, failures, checkpoints, and the report/export distinction: <code>../00-WORKING-REGISTRIES/RENTipid_AUDIT_AND_SECURITY_EVENT_REGISTRY.md</code>.</p>
+<h2 id="appendix-h-security-control-index">Appendix H — Security Control Index</h2>
+<p>The security registry maps authentication, authorization, least privilege, uploads, telemetry, response, crypto, MFA, payment, database, cloud-identity, supply-chain, AI, and privacy controls: <code>../00-WORKING-REGISTRIES/RENTipid_SECURITY_CONTROL_REGISTRY.md</code>.</p>
+<h2 id="appendix-i-test-and-validation-index">Appendix I — Test and Validation Index</h2>
+<p>The test registry records 142 test/spec files and canonical accepted suites: <code>../00-WORKING-REGISTRIES/RENTipid_TEST_AND_VALIDATION_EVIDENCE_REGISTRY.md</code>. Historical checkpoint and dirty-tree limitations remain explicit.</p>
+<h2 id="appendix-j-phase-and-freeze-index">Appendix J — Phase and Freeze Index</h2>
+<p>The canonical phase/freeze register is <code>../07-PHASE-HISTORY-AND-FREEZE/RENTipid_PHASE_COMPLETION_AND_FREEZE_REGISTER.md</code>. It preserves Phase 19 NO-GO, Phase 19B reserved decisions, and formal reopen criteria.</p>
+<h2 id="appendix-k-status-vocabulary">Appendix K — Status Vocabulary</h2>
+<p>Canonical meanings and forbidden promotions are in <code>../00-WORKING-REGISTRIES/RENTipid_STATUS_TERMINOLOGY_AND_CLASSIFICATION_REGISTRY.md</code>. Architecture direction and transition state remain separate.</p>
+<h2 id="appendix-l-known-gaps-and-limitations">Appendix L — Known Gaps and Limitations</h2>
+<p>GAP-001 through GAP-018 are maintained in <code>../00-WORKING-REGISTRIES/RENTipid_KNOWN_GAP_AND_LIMITATION_REGISTRY.md</code>. Limitations are disclosed without incorrectly reopening approved phases.</p>
+<h2 id="appendix-m-architecture-decision-summary">Appendix M — Architecture Decision Summary</h2>
+<p>Authoritative direction: <code>VERCEL_FRONTEND_WITH_AZURE_BACKEND_AND_SERVICES</code>. Current repository state: <code>PARTIALLY_SPLIT_IMPLEMENTATION</code>. Azure provisioning/deployment authorization: <code>NO</code>. AWS/PM2: <code>SUPERSEDED_ARCHITECTURE_HISTORY</code>.</p>
+<h2 id="appendix-n-evidence-and-traceability-map">Appendix N — Evidence and Traceability Map</h2>
+<p>Major claims map to repository paths, symbols, routes, models, tests, or accepted reports in <code>../11-EVIDENCE-AND-VALIDATION/RENTipid_DOCUMENTATION_EVIDENCE_INDEX.md</code>. Unsupported major claims are not permitted.</p>
+<h2 id="appendix-o-handover-reopen-and-decision-checklist">Appendix O — Handover, Reopen, and Decision Checklist</h2>
+<p>Before reopening documentation or a frozen capability, identify the exact approved requirement, affected evidence IDs/chapters, status change, roles, data, security/privacy, tests, rollback, operational authority, and approver. Database migration, payment activation, deployment, traffic, and DNS decisions remain separately governed until explicitly changed.</p>
+
+<section class="figures"><h2>Figure Catalog</h2>
+<figure><figcaption>Figure 1 &mdash; System context. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 2 &mdash; User and role ecosystem. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 3 &mdash; Vercel/Azure architecture direction. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 4 &mdash; Repository/runtime transition state. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 5 &mdash; Renter journey. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 6 &mdash; Provider journey. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 7 &mdash; Listing lifecycle. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 8 &mdash; Booking lifecycle. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 9 &mdash; Agreement lifecycle. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 10 &mdash; Payment, webhook and reconciliation. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 11 &mdash; Deposit, refund and payout. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 12 &mdash; Inspection, damage claim and dispute. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 13 &mdash; KYC and business verification. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 14 &mdash; SOC event-to-response architecture. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 15 &mdash; Detection and alert flow. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 16 &mdash; Incident, approval, execution and rollback. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 17 &mdash; Emergency freeze. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 18 &mdash; AI and digital-human architecture. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 19 &mdash; AI tool gateway. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 20 &mdash; AI support-case lifecycle. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 21 &mdash; Database domain map. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 22 &mdash; API and integration map. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 23 &mdash; PWA and Capacitor architecture. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 24 &mdash; Monitoring, backup and recovery. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+<figure><figcaption>Figure 25 &mdash; Phase completion and freeze timeline. Mermaid source retained; raster rendering unavailable.</figcaption></figure>
+</section>
+
+</body>
+</html>

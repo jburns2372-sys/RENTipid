@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { runMarketplaceSampleSeed } from '../src/lib/marketplace/seed-reconciler';
 const prisma = new PrismaClient();
 
 async function main() {
@@ -90,7 +91,9 @@ async function main() {
   console.log('Seeding complete.');
 }
 
-main()
+(process.env.ALLOW_MARKETPLACE_SAMPLE_SEED === 'true'
+  ? () => runMarketplaceSampleSeed(prisma)
+  : main)()
   .catch((e) => {
     console.error(e);
     process.exit(1);

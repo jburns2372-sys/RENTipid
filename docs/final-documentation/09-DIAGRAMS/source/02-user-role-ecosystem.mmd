@@ -1,0 +1,21 @@
+flowchart TB
+  Public[Guest] --> PublicRoutes[Public and registration routes]
+  Renter --> OwnRentals[Own bookings / inspections / claims / receipts]
+  IndividualProvider --> OwnSupply[Own listings / fulfillment / payout views]
+  BusinessProvider --> BusinessScope[Business listings / marketing scope]
+  Admin --> AdminOps[General platform operations]
+  FinanceAdmin --> FinanceOps[Finance review and reconciliation]
+  ComplianceAdmin --> ComplianceOps[KYC and listing compliance]
+  SOCAnalyst --> Investigation[Cases / evidence / request]
+  SOCSupervisor --> Supervision[Approval / response supervision]
+  SuperAdmin --> Oversight[Platform oversight]
+  Guard[Server session + role + permission + ownership + state] --> PublicRoutes
+  Guard --> OwnRentals
+  Guard --> OwnSupply
+  Guard --> BusinessScope
+  Guard --> AdminOps
+  Guard --> FinanceOps
+  Guard --> ComplianceOps
+  Guard --> Investigation
+  Guard --> Supervision
+  Guard --> Oversight

@@ -11,6 +11,7 @@ import {
 } from "../taxonomy";
 import { AuditLog } from "@prisma/client";
 import { redactSensitiveData } from "../../serializers";
+import { pseudonymizeTelemetryContext } from "../../telemetry-hmac";
 import * as crypto from 'crypto';
 
 export class AuditLogAdapter implements SecurityEventSourceAdapter<AuditLog> {
@@ -56,11 +57,23 @@ export class AuditLogAdapter implements SecurityEventSourceAdapter<AuditLog> {
       target_id: record.target_id
     });
 
-    const idempotencyPayload = `${this.sourceType}:${record.id}:${record.created_at.toISOString()}:${this.version}:${lifecycle}`;
+    let event_code = `AUDIT_${actionUpper.replace(/[^A-Z0-9]/g, "_")}`;
+    if (actionUpper === "BULK_ACCESS") {
+      event_code = "BULK_ACCESS";
+      severity = SecuritySeverity.HIGH;
+    } else if (actionUpper === "DATA_EXPORT") {
+      event_code = "DATA_EXPORT";
+      severity = SecuritySeverity.HIGH;
+    } else if (actionUpper === "CROSS_TENANT") {
+      event_code = "CROSS_TENANT";
+      severity = SecuritySeverity.CRITICAL;
+    }
+
+    const idempotencyPayload = `${this.sourceType}:${record.id}:${event_code}:${this.version}`;
     const idempotencyKey = crypto.createHash("sha256").update(idempotencyPayload).digest("hex");
 
     return {
-      event_code: `AUDIT_${actionUpper.replace(/[^A-Z0-9]/g, "_")}`,
+      event_code,
       source_type: this.sourceType,
       source_record_id: record.id,
       adapter_version: this.version,
@@ -80,7 +93,7 @@ export class AuditLogAdapter implements SecurityEventSourceAdapter<AuditLog> {
       
       source_summary: safeSummary,
       classification_reason,
-      correlation_key: record.actor_user_id ? `user:${record.actor_user_id}` : null,
+      correlation_key: record.actor_user_id ? pseudonymizeTelemetryContext("account", record.actor_user_id) : null,
       idempotency_key: idempotencyKey,
       processing_status: SecurityProcessingStatus.NORMALIZED,
       

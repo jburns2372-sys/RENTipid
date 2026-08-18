@@ -1,0 +1,13 @@
+stateDiagram-v2
+  [*] --> Requested: renter request
+  Requested --> Accepted: permitted provider action
+  Requested --> Cancelled: permitted cancellation
+  Accepted --> Agreement: participant agreement flow
+  Agreement --> Turnover: handoff
+  Turnover --> Active: inspection / confirmation
+  Active --> ReturnInspection
+  ReturnInspection --> Completed
+  ReturnInspection --> ClaimOrDispute
+  ClaimOrDispute --> Resolved
+  Resolved --> Completed
+  Completed --> [*]

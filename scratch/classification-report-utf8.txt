@@ -1,0 +1,218 @@
+﻿CURRENT_BRANCH = feature/soc-phase4-threat-response
+CURRENT_HEAD = e57ee87bd06f4b19bc5de5eec41773f4d383bca5
+
+MODIFIED_FILES:
+package-lock.json | D | Unrelated existing work
+package.json | D | Unrelated existing work
+playwright.config.ts | D | Unrelated existing work
+prisma/schema.prisma | D | Unrelated existing work
+src/app/api/auth/register/route.ts | D | Unrelated existing work
+src/app/api/privacy/consent/route.ts | D | Unrelated existing work
+src/app/api/privacy/correction/route.ts | D | Unrelated existing work
+src/app/api/privacy/deletion/route.ts | D | Unrelated existing work
+src/app/api/privacy/export/route.ts | D | Unrelated existing work
+src/app/dashboard/admin/security/layout.tsx | D | Unrelated existing work
+src/app/dashboard/admin/security/maintenance/page.tsx | D | Unrelated existing work
+src/app/dashboard/admin/security/reports/page.tsx | D | Unrelated existing work
+src/app/dashboard/admin/security/simulations/page.tsx | D | Unrelated existing work
+src/app/dashboard/profile/page.tsx | D | Unrelated existing work
+src/app/layout.tsx | D | Unrelated existing work
+src/app/privacy/page.tsx | D | Unrelated existing work
+src/components/layout/Footer.tsx | D | Unrelated existing work
+src/components/layout/Header.tsx | D | Unrelated existing work
+src/lib/audit.ts | D | Unrelated existing work
+src/lib/privacy/privacy-workflow.ts | D | Unrelated existing work
+src/lib/security/authorization.ts | D | Unrelated existing work
+src/lib/security/crypto/profile-field-protection.ts | D | Unrelated existing work
+src/lib/security/events/writers/administration-writer.ts | D | Unrelated existing work
+src/lib/security/permissions.ts | D | Unrelated existing work
+src/lib/test-database-guard.ts | D | Unrelated existing work
+tests/privacy/phase5m.test.ts | D | Unrelated existing work
+tests/security/cases/gate4f-slice-c4-case-api.integration.test.ts | D | Unrelated existing work
+tests/security/crypto/profile-field-protection.test.ts | D | Unrelated existing work
+tests/security/events-adapters.test.ts | D | Unrelated existing work
+tests/security/rules/phase3-lifecycle.integration.test.ts | D | Unrelated existing work
+tests/security/soc-authorization.test.ts | D | Unrelated existing work
+tests/security/soc-gate4g.test.ts | D | Unrelated existing work
+tsconfig.json | D | Unrelated existing work
+
+STAGED_FILES:
+ocs/security/phase4/PHASE4_RULE_CATALOG.md | D | Unrelated existing work
+
+UNTRACKED_FILES:
+EVIDENCE_INDEX.md | B | Closure/evidence documentation
+FINAL_CLOSEOUT_REPORT.md | B | Closure/evidence documentation
+FROZEN_SCOPE_REGISTRY.md | D | Unrelated existing work
+PHASE_LEDGER.md | D | Unrelated existing work
+PRE_VALIDATION_DIGEST.txt | C | Generated or temporary output
+PROMPT.txt | C | Generated or temporary output
+"RENTipid Documentation and Master Plan/" | D | Unrelated existing work
+VALIDATION_RESULTS.txt | C | Generated or temporary output
+add-missing.js | D | Unrelated existing work
+apps/api/src/middleware/__tests__/appInsights.test.ts | D | Unrelated existing work
+apps/api/src/routes/enforcement-cases.ts | D | Unrelated existing work
+apps/api/src/routes/listings.ts | D | Unrelated existing work
+apps/api/src/services/__tests__/blobService.test.ts | D | Unrelated existing work
+apps/api/src/services/listingService.ts | D | Unrelated existing work
+apps/api/src/utils/errors.ts | D | Unrelated existing work
+build-manifest.json | D | Unrelated existing work
+create-test-db.ts | D | Unrelated existing work
+debug.js | D | Unrelated existing work
+diff.txt | C | Generated or temporary output
+docs/address-system/ | D | Unrelated existing work
+docs/deployment/ | D | Unrelated existing work
+docs/final-documentation.zip | C | Generated or temporary output
+docs/final-documentation/ | D | Unrelated existing work
+docs/governance/phase-closure-integrity/RENTIPID_CLOSURE_COMMIT_INVENTORY.md | D | Unrelated existing work
+docs/governance/phase-closure-integrity/RENTIPID_CLOSURE_INTEGRITY_BASELINE.md | D | Unrelated existing work
+docs/governance/phase-closure-integrity/RENTIPID_CLOSURE_INTEGRITY_COMMAND_LOG.md | D | Unrelated existing work
+docs/governance/phase-closure-integrity/RENTIPID_CLOSURE_RECOVERY_RECOMMENDATION.md | D | Unrelated existing work
+docs/governance/phase-closure-integrity/RENTIPID_CLOSURE_TAG_INVENTORY.md | D | Unrelated existing work
+docs/governance/phase-closure-integrity/RENTIPID_CONTROLLED_RECOVERY_BASELINE.md | D | Unrelated existing work
+docs/governance/phase-closure-integrity/RENTIPID_CONTROLLED_RECOVERY_REPORT.md | D | Unrelated existing work
+docs/governance/phase-closure-integrity/RENTIPID_INVALID_CLOSURE_DECLARATIONS.md | D | Unrelated existing work
+docs/governance/phase-closure-integrity/RENTIPID_INVALID_TAG_REMOVAL_REGISTER.md | D | Unrelated existing work
+docs/governance/phase-closure-integrity/RENTIPID_OWNER_DECISION_RECONCILIATION.md | D | Unrelated existing work
+docs/governance/phase-closure-integrity/RENTIPID_PHASE_STATUS_RECONCILIATION.md | D | Unrelated existing work
+docs/governance/phase-closure-pilot/SLICE_C1_SOC_STANDARD_PILOT_REPORT.md | D | Unrelated existing work
+docs/governance/phase-closure-scaling/ | D | Unrelated existing work
+docs/implementation/ | D | Unrelated existing work
+docs/phase19/ | D | Unrelated existing work
+docs/phase19b/ | D | Unrelated existing work
+docs/security/soc-v1.1/ | D | Unrelated existing work
+fix-encoding.js | D | Unrelated existing work
+fix-missing.js | D | Unrelated existing work
+fix-workflow.js | D | Unrelated existing work
+fix-ws.js | D | Unrelated existing work
+fix.js | D | Unrelated existing work
+infrastructure/modules/compute-parallel/ | D | Unrelated existing work
+infrastructure/modules/monitoring/ | D | Unrelated existing work
+infrastructure/modules/network/ | D | Unrelated existing work
+infrastructure/modules/storage/outputs.tf | D | Unrelated existing work
+jest-output.txt | C | Generated or temporary output
+jest-results-rentipid_test_soc_9a3b2982.json | C | Generated or temporary output
+jest-results.json | C | Generated or temporary output
+original-privacy-workflow.ts | D | Unrelated existing work
+original-test.ts | D | Unrelated existing work
+phase17-execution-package.zip | C | Generated or temporary output
+phase17-final-closure-20260730-102118.zip | C | Generated or temporary output
+phase17-final-post-verification.err.txt | C | Generated or temporary output
+phase17-final-post-verification.out.txt | C | Generated or temporary output
+phase17-prisma-final-status.txt | C | Generated or temporary output
+phase17-prisma-rehearsal-deploy.txt | C | Generated or temporary output
+phase17-production-migrate-deploy.out.txt | C | Generated or temporary output
+phase17-production-migrate-status.out.txt | C | Generated or temporary output
+phase17-production-pre-migration-checkpoint.txt | C | Generated or temporary output
+phase17-production-preflight.out.txt | C | Generated or temporary output
+phase17-rehearsal-evidence.zip | C | Generated or temporary output
+phase17-rehearsal-post-verification.txt | C | Generated or temporary output
+phase17-rehearsal-remediation.txt | C | Generated or temporary output
+phase17-two-findings-diagnostic.txt | C | Generated or temporary output
+playwright-address-report/ | D | Unrelated existing work
+playwright-address.config.ts | D | Unrelated existing work
+playwright-report/ | C | Generated or temporary output
+prevalidation-hashes.json | D | Unrelated existing work
+prisma/migrations/20260805092944_privacy_v1_schema_recovery/ | D | Unrelated existing work
+prisma/migrations/20260807000000_privacy_v1_remediation/ | D | Unrelated existing work
+prisma/migrations/20260808000000_reconcile_schema_drift/ | D | Unrelated existing work
+prisma/migrations/20260809000000_add_global_address/ | D | Unrelated existing work
+prisma/migrations/20260809000001_add_address_rate_limit/ | D | Unrelated existing work
+prisma/migrations/20260809000002_add_address_rate_limit_cleanup_index/ | D | Unrelated existing work
+public/seed-assets/ | D | Unrelated existing work
+run-final-validation.ps1 | D | Unrelated existing work
+run-git.js | D | Unrelated existing work
+run-git2.js | D | Unrelated existing work
+run-validation.ps1 | D | Unrelated existing work
+scratch/classification-report.txt | C | Generated or temporary output
+scratch/classify.js | C | Generated or temporary output
+scratch/playwright_failures.txt | C | Generated or temporary output
+scratch/privacy_failures.txt | C | Generated or temporary output
+scripts/complete-phase17-rehearsal.ps1 | D | Unrelated existing work
+scripts/count-policies.js | D | Unrelated existing work
+scripts/invoke-phase19b-readonly-network-inventory.ps1 | D | Unrelated existing work
+scripts/legacy-migration-constants.ts | A | Required for frozen PASS 4 candidate
+scripts/migrate-legacy-addresses.ts | A | Required for frozen PASS 4 candidate
+scripts/run-address-e2e.ts | D | Unrelated existing work
+scripts/run-phase17-rehearsal.before-env-cleanup-fix.ps1 | D | Unrelated existing work
+scripts/seed-e2e-users.ts | D | Unrelated existing work
+scripts/seed-prohibited-items.ts | D | Unrelated existing work
+scripts/test-db-harness.ts | D | Unrelated existing work
+seed-data/ | D | Unrelated existing work
+src/app/api/address/ | A | Required for frozen PASS 4 candidate
+src/app/api/admin/users/ | D | Unrelated existing work
+src/app/api/privacy/cookies/ | D | Unrelated existing work
+src/app/api/privacy/escalate/ | D | Unrelated existing work
+src/app/api/privacy/requests/ | D | Unrelated existing work
+src/app/api/profile/ | D | Unrelated existing work
+src/app/api/soc/reports/ | D | Unrelated existing work
+src/app/dashboard/admin/privacy/ | D | Unrelated existing work
+src/app/dashboard/admin/security/maintenance/error.tsx | D | Unrelated existing work
+src/app/dashboard/admin/security/maintenance/loading.tsx | D | Unrelated existing work
+src/app/dashboard/admin/security/simulations/actions.ts | D | Unrelated existing work
+src/app/dashboard/admin/security/simulations/error.tsx | D | Unrelated existing work
+src/app/dashboard/admin/security/simulations/loading.tsx | D | Unrelated existing work
+src/app/dashboard/admin/security/simulations/simulation-runner.tsx | D | Unrelated existing work
+src/app/dashboard/admin/users/ | D | Unrelated existing work
+src/app/dashboard/privacy/ | D | Unrelated existing work
+src/app/privacy/admin/ | D | Unrelated existing work
+src/app/privacy/cookies/ | D | Unrelated existing work
+src/app/privacy/request/ | D | Unrelated existing work
+src/components/address/ | A | Required for frozen PASS 4 candidate
+src/components/admin/ | D | Unrelated existing work
+src/components/layout/UserNavMenu.tsx | D | Unrelated existing work
+src/components/profile/ | D | Unrelated existing work
+src/lib/address/ | A | Required for frozen PASS 4 candidate
+src/lib/prisma.ts | D | Unrelated existing work
+src/lib/privacy/encryption.ts | D | Unrelated existing work
+src/lib/privacy/privacy-audit.ts | D | Unrelated existing work
+src/lib/privacy/validation.ts | D | Unrelated existing work
+src/lib/security/maintenance/ | D | Unrelated existing work
+src/lib/security/reports/ | D | Unrelated existing work
+src/lib/security/simulations/ | D | Unrelated existing work
+status.txt | C | Generated or temporary output
+test-results.txt | C | Generated or temporary output
+test-results/ | C | Generated or temporary output
+tests/address-system/ | A | Required for frozen PASS 4 candidate
+tests/compliance/ | D | Unrelated existing work
+tests/e2e/address-system/ | A | Required for frozen PASS 4 candidate
+tests/e2e/privacy-v1.spec.ts | D | Unrelated existing work
+tests/marketplace/ | D | Unrelated existing work
+tests/privacy/admin-rbac.integration.test.ts | D | Unrelated existing work
+tests/privacy/admin.test.ts | D | Unrelated existing work
+tests/privacy/audit.test.ts | D | Unrelated existing work
+tests/privacy/cookie-consent.test.ts | D | Unrelated existing work
+tests/privacy/dsr.integration.test.ts | D | Unrelated existing work
+tests/privacy/phase6zd-c3-remediation.integration.test.ts | D | Unrelated existing work
+tests/privacy/privacy-center.spec.ts | D | Unrelated existing work
+tests/privacy/public-policy.test.ts | D | Unrelated existing work
+tests/privacy/security-negative.integration.test.ts | D | Unrelated existing work
+tests/security/maintenance/ | D | Unrelated existing work
+tests/security/reports/ | D | Unrelated existing work
+tests/security/rules/gate4e-listing-lifecycle.integration.test.ts | D | Unrelated existing work
+tests/security/rules/gate4e-prohibited-items-policy.integration.test.ts | D | Unrelated existing work
+tests/security/simulations/ | D | Unrelated existing work
+walkthrough.md | B | Closure/evidence documentation
+
+DELETED_FILES:
+scratch/check_users.js | C | Generated or temporary output
+scratch/consolidate-manual.js | C | Generated or temporary output
+scratch/extract-models.js | C | Generated or temporary output
+scratch/extract-routes.js | C | Generated or temporary output
+scratch/generate-remaining-registries.js | C | Generated or temporary output
+scratch/generate-route-md.js | C | Generated or temporary output
+scratch/models.json | C | Generated or temporary output
+scratch/routes.json | C | Generated or temporary output
+scratch/seed-threats.js | C | Generated or temporary output
+scratch/test-prisma.js | C | Generated or temporary output
+
+POSSIBLE_SECRET_FILES_PRESENT = NO
+UNRELATED_WORK_PRESENT = YES
+GENERATED_TEMP_FILES_PRESENT = YES
+REQUIRED_RELEASE_CHANGES_UNCOMMITTED = YES
+
+RECOMMENDED_RELEASE_ACTION =
+- COMMIT_REQUIRED_RELEASE_FILES
+- STASH_UNRELATED_WORK
+- REMOVE_ONLY_GENERATED_TEMP_FILES
+
+SAFE_TO_PREPARE_CLEAN_RELEASE_COMMIT = YES

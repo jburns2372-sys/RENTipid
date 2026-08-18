@@ -6,7 +6,8 @@ import { PrismaClient } from '@prisma/client';
 import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import { processCheckout } from './actions';
-
+import { InsuranceCheckoutOption } from './InsuranceCheckoutOption';
+import { ContextualAssistantLauncher } from '@/components/ai/ContextualAssistantLauncher';
 const prisma = new PrismaClient();
 
 export default async function CheckoutPage({ params, searchParams }: { params: Promise<{ bookingId: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
@@ -22,7 +23,7 @@ export default async function CheckoutPage({ params, searchParams }: { params: P
   const booking = await prisma.booking.findUnique({
     where: { id: bookingId },
     include: {
-      listing: true,
+      listing: { include: { category: true } },
       rentalAgreement: true
     }
   });
@@ -71,16 +72,29 @@ export default async function CheckoutPage({ params, searchParams }: { params: P
 
   // If live pilot is selected but conditions fail, fallback to sandbox
   if (activeMode === 'paymongo_live_pilot') {
+    if (user.id !== pilotRenterId?.setting_value) {
+      return (
+        <div className="container mx-auto py-20 text-center">
+          <h1 className="text-2xl font-bold mb-4 text-red-600">Access Denied</h1>
+          <p className="text-gray-600 mb-6">You are not on the permitted whitelist for the live payment pilot.</p>
+          <Link href={`/dashboard/renter/bookings/${booking.id}`} className="text-blue-600 font-bold hover:underline">
+            Return to Booking
+          </Link>
+        </div>
+      );
+    }
+    
     if (
       !isLivePilotEnabled || 
       isFrozen ||
-      user.id !== pilotRenterId?.setting_value ||
       booking.listing_id !== pilotListingId?.setting_value ||
       booking.estimated_total_amount > pilotMaxAmount
     ) {
       activeMode = 'paymongo'; // Fallback to sandbox
     }
   }
+
+  const checkoutRequestId = crypto.randomUUID();
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-4xl">
@@ -139,7 +153,27 @@ export default async function CheckoutPage({ params, searchParams }: { params: P
             <form action={processCheckout}>
               <input type="hidden" name="booking_id" value={booking.id} />
               <input type="hidden" name="payment_mode" value={activeMode} />
+              <input type="hidden" name="checkout_request_id" value={checkoutRequestId} />
+
+              <div className="mb-5">
+                <InsuranceCheckoutOption
+                  bookingId={booking.id}
+                  requestId={checkoutRequestId}
+                />
+              </div>
               
+              {activeMode === 'paymongo_live_pilot' && (
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Select Permitted Pilot Payment Method</label>
+                  <select name="pilot_payment_method" required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+                    <option value="">-- Choose Method --</option>
+                    <option value="gcash">GCash</option>
+                    <option value="card">Credit Card</option>
+                  </select>
+                  <p className="text-xs text-gray-500 mt-1">Only standard GCash or standard credit cards permitted for pilot to minimize chargeback risks.</p>
+                </div>
+              )}
+
               <button type="submit" className="w-full bg-emerald-600 text-white font-bold py-4 rounded-xl hover:bg-emerald-700 transition shadow-lg flex items-center justify-center space-x-2">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 <span>Pay ₱{booking.estimated_total_amount.toLocaleString()}</span>
@@ -182,6 +216,7 @@ export default async function CheckoutPage({ params, searchParams }: { params: P
           </div>
         </div>
       </div>
+      <ContextualAssistantLauncher route="checkout" entityId={booking.id} entityType="booking" lifecycle="pending" className="fixed bottom-6 right-6 z-50" />
     </div>
   );
 }

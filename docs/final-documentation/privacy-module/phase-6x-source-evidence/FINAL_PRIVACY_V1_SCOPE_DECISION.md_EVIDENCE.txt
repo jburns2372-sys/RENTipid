@@ -1,0 +1,99 @@
+﻿0001: # FINAL PRIVACY V1 SCOPE DECISION
+0002: 
+0003: MODULE: RENTipid Privacy Module
+0004: VERSION: 1.0.0
+0005: CONTROLLER: ONESYSTEMS INTEGRATION PHILIPPINES INC.
+0006: POLICY OWNER: FEDERICO P. DIAGONO JR.
+0007: DPO: MAVERIC SIDNEY DE MESA
+0008: DPO EMAIL: dpo@onesystemsphilippines.com
+0009: LEGAL REVIEWER: ATTY. JOSELYN BONNIE V. VALEROS
+0010: PUBLICATION APPROVER: ATTY. JOSELYN BONNIE V. VALEROS
+0011: EFFECTIVE DATE: 2026-08-05
+0012: PUBLICATION DATE: 2026-08-05
+0013: DPO REGISTRATION STATUS: REGISTRATION_PENDING
+0014: 
+0015: ## V1 MANDATORY SCOPE
+0016: 1. Public Privacy Policy
+0017: 2. Privacy rights information
+0018: 3. Privacy contact and DPO contact
+0019: 4. Data-subject request submission
+0020: 5. Secure request tracking
+0021: 6. Request ownership enforcement
+0022: 7. Privacy administration RBAC
+0023: 8. Account-deletion request workflow
+0024: 9. Legal-hold protection
+0025: 10. Cookie disclosure
+0026: 11. Cookie preferences and withdrawal
+0027: 12. Active processor disclosure
+0028: 13. Cross-border disclosure
+0029: 14. AI-use disclosure and restrictions
+0030: 15. Manual governed retention procedure
+0031: 16. Privacy audit logging
+0032: 17. Focused Privacy technical validation
+0033: 18. Focused Privacy browser validation
+0034: 19. Production build
+0035: 20. Closure certificate
+0036: 21. Version-freeze manifest
+0037: 22. SHA-256 evidence verification
+0038: 
+0039: ## APPROVED DEFERRED CONTROLS
+0040: RETENTION_CONTROL_MODE: MANUAL_GOVERNED_PROCESS
+0041: AUTOMATED_RETENTION_ENGINE: DEFERRED_TO_FUTURE_CONTROLLED_PHASE
+0042: PRODUCTION_AUTOMATED_DELETION: DISABLED
+0043: DEFERRED_CONTROL_REOPENING_REQUIRED: YES
+0044: 
+0045: Deferred Controls outside V1 scope:
+0046: - automated disposal engine for all 15 categories;
+0047: - live external KYC;
+0048: - live external AI;
+0049: - live analytics;
+0050: - live marketing tracking;
+0051: - application-wide accessibility testing unrelated to Privacy;
+0052: - application-wide browser testing unrelated to Privacy;
+0053: - DPA review for inactive providers;
+0054: - processor-region verification for inactive providers;
+0055: - unrelated application requirements.
+0056: 
+0057: ## REQUIREMENT CLASSIFICATION RULE
+0058: The 66 requirements must later be classified as:
+0059: - V1_MANDATORY
+0060: - V1_DEFERRED_APPROVED
+0061: - OUTSIDE_CURRENT_MODULE_SCOPE
+0062: 
+0063: V1_MANDATORY_REQUIREMENTS_FAILED: 0
+0064: V1_MANDATORY_REQUIREMENTS_BLOCKED: 0
+0065: 
+0066: Every deferred requirement must have:
+0067: - DEFERRED_REASON
+0068: - OWNER_APPROVAL
+0069: - LEGAL_REVIEW
+0070: - REOPENING_TRIGGER
+0071: - FUTURE_PHASE
+0072: 
+0073: ## CONTROLLED CHANGE RULE
+0074: CONTROLLED_CHANGE_REQUIRED: YES
+0075: REOPENING_AUTHORITY: FEDERICO P. DIAGONO JR. OR FORMALLY AUTHORIZED SUCCESSOR
+0076: 
+0077: Reopening triggers must include:
+0078: - Privacy Policy change;
+0079: - controller change;
+0080: - DPO change;
+0081: - active processor change;
+0082: - processing-region change;
+0083: - DPA or contract change;
+0084: - retention-policy change;
+0085: - automated retention activation;
+0086: - new cookie or tracker;
+0087: - analytics activation;
+0088: - marketing activation;
+0089: - KYC activation;
+0090: - AI activation;
+0091: - payment live-mode activation;
+0092: - escrow live-mode activation;
+0093: - material DSR workflow change;
+0094: - security-control change;
+0095: - legal or regulatory change;
+0096: - privacy incident;
+0097: - mandatory-test failure;
+0098: - frozen-file hash failure.
+

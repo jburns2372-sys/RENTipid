@@ -1,37 +1,23 @@
 import { Router } from 'express';
 import { verifyPaymongoSignature } from '../middleware/paymongoSignature';
-import { postPaymentSuccess } from '../services/ledgerService';
+import { processWebhookEvent } from '../../../../src/lib/payments/payment-webhook-service';
 
 const router = Router();
 
 router.post('/paymongo', verifyPaymongoSignature, async (req, res) => {
   try {
-    const event = req.body;
-
-    // Idempotent webhook processing
-    if (event.data.attributes.type === 'payment.paid') {
-      const paymentIntent = event.data.attributes.data.attributes;
-      const metadata = paymentIntent.metadata;
-      
-      // Platform fee logic (e.g., 10%)
-      const totalPaid = paymentIntent.amount / 100;
-      const depositAmount = metadata?.depositAmount ? parseFloat(metadata.depositAmount) : 0;
-      const baseRental = totalPaid - depositAmount;
-      const platformFee = baseRental * 0.10;
-      const providerShare = baseRental - platformFee;
-
-      await postPaymentSuccess(
-        metadata.bookingId,
-        event.data.id, // paymongoIntentId as Idempotency Key
-        totalPaid,
-        platformFee,
-        providerShare,
-        depositAmount
-      );
-    }
+    const payload = req.body;
+    const signature = req.headers['paymongo-signature'] as string;
+    
+    // Pass everything strictly to the service to enforce database idempotency,
+    // amount matching, and escrow logging without redundant DB queries here.
+    const eventType = payload?.data?.attributes?.type || 'unknown';
+    
+    // Do NOT parse PANs or CVVs. The payload goes in directly as received.
+    await processWebhookEvent('PayMongo', eventType, payload, signature);
 
     res.status(200).send('Webhook processed');
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Webhook processing failed:', error);
     // Always return 200 to prevent webhook retries on our business logic errors, 
     // unless it is a transient DB connection issue.

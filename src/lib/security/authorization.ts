@@ -1,10 +1,10 @@
 import "server-only";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import { getPhase1PermissionsForRole, SecurityPermission } from "./permissions";
 import { createPrivacySafeAuthorizationContext, serializePrivacySafeIp } from "./serializers";
-import { createAuditLog } from "@/lib/audit";
+import { logAdministrationEvent } from "./events/writers/administration-writer";
 import { redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
@@ -45,6 +45,37 @@ export type DenialCategory =
   | "SOC_ACCESS_DENIED_PERMISSION"
   | "SOC_ACCESS_DENIED_AUTHORIZATION_SERVICE_FAILURE";
 
+export function getValidSessionIdentity(session: unknown): string {
+  if (
+    session &&
+    typeof session === "object" &&
+    "user" in session &&
+    session.user &&
+    typeof session.user === "object" &&
+    "id" in session.user &&
+    typeof (session.user as { id: unknown }).id === "string"
+  ) {
+    const id = (session.user as { id: string }).id.trim();
+    if (id !== "") {
+      return id;
+    }
+  }
+  throw new Error("UNAUTHORIZED_SESSION_IDENTITY");
+}
+
+export function getValidSessionTimestamp(sessionUser: unknown): number {
+  if (
+    sessionUser &&
+    typeof sessionUser === "object" &&
+    "iat" in sessionUser &&
+    typeof (sessionUser as { iat: unknown }).iat === "number" &&
+    Number.isFinite((sessionUser as { iat: number }).iat)
+  ) {
+    return (sessionUser as { iat: number }).iat * 1000;
+  }
+  throw new Error("UNAUTHORIZED_SESSION_TIMESTAMP");
+}
+
 export async function requireAuthenticatedUser() {
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
@@ -68,6 +99,7 @@ export async function getCurrentDatabaseUser(userId: string) {
         full_name: true,
         role: true,
         status: true,
+        updated_at: true,
       }
     });
     return user;
@@ -110,12 +142,16 @@ export async function recordSecurityAccessDenied(
       return; // Skip logging, but access remains denied
     }
 
-    await createAuditLog({
-      actor_user_id: userId || undefined,
-      action: reason,
-      module: "SecurityOperationsCenter",
-      details: JSON.stringify({ required_permission: requiredPermission, ip: safeIp }),
-      ip_address: safeIp
+    await logAdministrationEvent({
+      action: "ADMIN_AUTHORIZATION_DENIED",
+      outcome: "DENIED",
+      actorUserId: userId || null,
+      targetType: "SecurityOperationsCenter",
+      metadata: {
+        denial_reason: reason,
+        required_permission: requiredPermission,
+        ip: safeIp
+      }
     });
   } catch {
     console.error("Failed to record security access denied");
@@ -133,9 +169,10 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
     }
 
     // 1. Force PostgreSQL authoritative check (override JWT)
-    const dbUser = await getCurrentDatabaseUser((sessionUser as { id: string }).id);
+    const validUserId = getValidSessionIdentity({ user: sessionUser });
+    const dbUser = await getCurrentDatabaseUser(validUserId);
     if (!dbUser) {
-      await recordSecurityAccessDenied((sessionUser as { id: string }).id, "SOC_ACCESS_DENIED_USER_NOT_FOUND", permission);
+      await recordSecurityAccessDenied(null, "SOC_ACCESS_DENIED_USER_NOT_FOUND", permission);
       redirect("/login");
     }
 
@@ -153,7 +190,42 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
       redirect("/dashboard");
     }
 
-    // 4. Return explicit privacy-safe context
+    // 4. Step-up Authentication Enforcement
+    // Privileged SOC operations require recent MFA verification in the authoritative DB.
+    const mfa = await prisma.userMfa.findUnique({ where: { user_id: dbUser.id } });
+    const sessionIat = getValidSessionTimestamp(sessionUser);
+    
+    // Password reset invalidates existing session security state
+    // We use dbUser.updated_at > iat (with a 2 second buffer) to detect password changes or critical user updates
+    if (sessionIat > 0 && dbUser.updated_at.getTime() > sessionIat + 2000) {
+      redirect("/login");
+    }
+
+    // MFA reset invalidates existing session security state
+    if (mfa && mfa.reset_at && sessionIat > 0 && mfa.reset_at.getTime() > sessionIat + 2000) {
+      redirect("/login");
+    }
+
+    const STEP_UP_EXPIRY_MS = 4 * 60 * 60 * 1000; // 4 hours bounded expiry
+    const now = Date.now();
+    let isMfaVerified = false;
+
+    if (mfa && mfa.status === 'ENABLED' && mfa.last_verified_at) {
+      if (now - mfa.last_verified_at.getTime() < STEP_UP_EXPIRY_MS) {
+        isMfaVerified = true;
+      }
+    }
+
+    // MFA enforcement (skipped in development)
+    if (process.env.NODE_ENV !== 'development') {
+      if (mfa && mfa.status === 'ENABLED' && !isMfaVerified) {
+        redirect("/mfa-challenge");
+      } else if (!mfa || mfa.status !== 'ENABLED') {
+        redirect("/mfa-enroll");
+      }
+    }
+
+    // 5. Return explicit privacy-safe context
     return createPrivacySafeAuthorizationContext(dbUser, activePermissions);
 
   } catch (e: unknown) {
@@ -163,5 +235,49 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
     // Any unexpected authorization service failure fails closed
     console.error("Authorization Service Failure", e);
     redirect("/dashboard");
+  }
+}
+
+/**
+ * Service-level authorization guard for SOC operations.
+ * Returns true if allowed, false if denied. Denies by default.
+ * Requires an explicit authenticated actorUserId from the caller.
+ * Creates NO database or audit mutation.
+ */
+export async function assertSecurityPermissionForService(
+  actorUserId: string,
+  permission: SecurityPermission,
+  db: Prisma.TransactionClient | PrismaClient = prisma
+): Promise<boolean> {
+  try {
+    const dbUser = await db.user.findUnique({
+      where: { id: actorUserId },
+      select: {
+        id: true,
+        email: true,
+        full_name: true,
+        role: true,
+        status: true,
+        updated_at: true,
+      }
+    });
+    if (!dbUser) {
+      return false;
+    }
+
+    const policyResult = await assertAccountAllowedForSocAccess(dbUser);
+    if (!policyResult.allowed) {
+      return false;
+    }
+
+    const activePermissions = policyResult.permissions!;
+    if (!canAccessSecurityPermission(activePermissions, permission)) {
+      return false;
+    }
+
+    return true;
+  } catch (e: unknown) {
+    console.error("Service Authorization Failure", e);
+    return false;
   }
 }

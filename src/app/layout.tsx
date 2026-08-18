@@ -13,13 +13,11 @@ export const viewport: Viewport = {
   themeColor: "#2563eb",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false, // Prevents zooming on inputs in mobile
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.APP_BASE_URL || "https://www.rentipid.com.ph"),
-  title: "RENTipid | Why buy it? RENTipid.",
+  metadataBase: new URL((process.env.APP_BASE_URL && process.env.APP_BASE_URL !== "[SENSITIVE]") ? process.env.APP_BASE_URL : "https://www.rentipid.com.ph"),
+  title: "RENTipid | Why Buy? RENTipid!",
   description: "A verified rental marketplace for tools, equipment, spaces, properties, and legally rentable assets.",
   manifest: "/manifest.json",
   appleWebApp: {
@@ -28,7 +26,7 @@ export const metadata: Metadata = {
     title: "RENTipid",
   },
   openGraph: {
-    title: "RENTipid | Why buy it? RENTipid.",
+    title: "RENTipid | Why Buy? RENTipid!",
     description: "A verified rental marketplace for tools, equipment, spaces, properties, and legally rentable assets.",
     url: "https://rentipid.com",
     siteName: "RENTipid",
@@ -55,9 +53,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} min-h-screen flex flex-col bg-slate-50 text-slate-900`}>
-        <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold text-center py-1.5 px-4 shadow-sm z-50 relative">
+    <html lang="en" className="overflow-x-hidden max-w-[100vw]">
+      <body className={`${inter.className} min-h-screen flex flex-col bg-slate-50 text-slate-900 overflow-x-hidden w-full max-w-[100vw]`}>
+        <div role="alert" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold text-center py-1.5 px-4 shadow-sm z-50 relative">
           RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.
         </div>
         <AuthProvider>

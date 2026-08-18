@@ -10,6 +10,7 @@ import {
   SecurityProcessingStatus
 } from "../taxonomy";
 import { VerificationDocument } from "@prisma/client";
+import { pseudonymizeTelemetryContext } from "../../telemetry-hmac";
 import * as crypto from 'crypto';
 
 export class VerificationDocumentAdapter implements SecurityEventSourceAdapter<VerificationDocument> {
@@ -39,7 +40,9 @@ export class VerificationDocumentAdapter implements SecurityEventSourceAdapter<V
       classification_reason = "KYC document rejected.";
     }
 
-    const idempotencyPayload = `${this.sourceType}:${record.id}:${(record.reviewed_at || record.uploaded_at).toISOString()}:${this.version}:${lifecycle}`;
+    // Relying on mutable state (status) because VerificationDocument lacks an immutable history log.
+    // This is MUTABLE_AND_UNSAFE for canonical idempotency, but preserves existing narrow behavior.
+    const idempotencyPayload = `${this.sourceType}:${record.id}:${statusUpper}:${this.version}`;
     const idempotencyKey = crypto.createHash("sha256").update(idempotencyPayload).digest("hex");
 
     return {
@@ -69,7 +72,7 @@ export class VerificationDocumentAdapter implements SecurityEventSourceAdapter<V
         reviewed_by: record.reviewed_by
       },
       classification_reason,
-      correlation_key: `user:${record.user_id}`,
+      correlation_key: record.user_id ? pseudonymizeTelemetryContext("account", record.user_id) : null,
       idempotency_key: idempotencyKey,
       processing_status: SecurityProcessingStatus.NORMALIZED,
       

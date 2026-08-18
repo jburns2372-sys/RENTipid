@@ -1,0 +1,784 @@
+<USER_REQUEST>
+RENTIPID PRIVACY MODULE V1
+PHASE 6ZD-C3W — PRIVACY TEST FAILURE REMEDIATION,
+AUTHORITATIVE SCOPE RECONCILIATION, AND FINAL VALIDATION
+
+MODE:
+CONTROLLED FAILURE DIAGNOSIS AND REMEDIATION
+
+THIS IS NOT A NEW MAJOR PHASE.
+DO NOT REOPEN PHASE 5.
+DO NOT RETURN TO PHASE 6ZD-C2.
+DO NOT PROCEED TO PHASE 7.
+
+AUTHORITATIVE BRANCH:
+feature/soc-phase4-threat-response
+
+EXPECTED HEAD:
+e57ee87bd06f4b19bc5de5eec41773f4d383bca5
+
+======================================================================
+1. RECORD THE FAILED C3V RESULT
+======================================================================
+
+Append to:
+
+docs/final-documentation/privacy-module/
+FINAL_CLOSURE_EXECUTION_LEDGER.md
+
+PREVIOUS_PHASE_6ZD_C3V_RESULT:
+FAILED_PRIVACY_TEST_VALIDATION
+
+PREVIOUS_PHASE_6ZD_C3V_MARKER_VALID:
+NO
+
+REASONS:
+
+- one Privacy test suite failed;
+- five Privacy tests failed;
+- Security validation was not executed;
+- Privacy Playwright validation was not executed;
+- build validation was not executed;
+- post-validation digests were not generated;
+- the 18-file scope omitted required C3 artifacts;
+- a temporary fix-ws.js script remained unaccounted for;
+- the authoritative Privacy permission source was not conclusively reconciled.
+
+CURRENT_VALID_MARKER:
+
+# RENTIPID_PRIVACY_V1_PHASE_6ZD_C3_PRIVACY_TEST_REMEDIATION_REQUIRED
+
+======================================================================
+2. ENTRY SAFETY CHECK
+======================================================================
+
+Run separately:
+
+git branch --show-current
+git rev-parse HEAD
+git status --porcelain=v1
+git status --short
+git diff --name-status HEAD
+git diff --stat HEAD
+git diff --check
+git ls-files --others --exclude-standard
+
+Record literal results.
+
+Do not use:
+
+- git restore;
+- git checkout;
+- git reset;
+- git clean;
+- git stash;
+- git show redirected into a working file;
+- merge;
+- rebase;
+- commit;
+- tag;
+- push;
+- deploy.
+
+Do not access Production personal data.
+
+Do not apply a Production migration.
+
+======================================================================
+3. CAPTURE ALL FIVE PRIVACY TEST FAILURES
+======================================================================
+
+Generate a process-scoped 32-byte test encryption key without printing it.
+
+Run the complete Privacy test command with detailed output:
+
+npm run test:soc:integration -- tests/privacy/ --runInBand 2>&1 |
+    Tee-Object `
+    docs/final-documentation/privacy-module/
+    PHASE_6ZD_C3W_PRIVACY_FAILURES_RAW.txt
+
+Do not edit any file before the complete failure output has been captured.
+
+For each failed test record:
+
+FAILURE_ID:
+TEST_SUITE:
+TEST_FILE:
+TEST_NAME:
+ERROR_TYPE:
+ERROR_MESSAGE:
+FAILED_ASSERTION:
+ACTUAL_VALUE:
+EXPECTED_VALUE:
+STACK_FILE:
+STACK_LINE:
+RELATED_SOURCE_FILE:
+C3_CAUSED:
+BASELINE_FAILURE:
+CLASSIFICATION:
+REMEDIATION_REQUIRED:
+
+Allowed classifications:
+
+C3_IMPLEMENTATION_DEFECT
+C3_TEST_DEFECT
+C3_TEST_DATABASE_STATE_DEFECT
+C3_ENVIRONMENT_DEFECT
+PREEXISTING_UNCHANGED_BASELINE
+UNRESOLVED
+
+Required:
+
+PRIVACY_FAILURES_REPORTED:
+5
+
+PRIVACY_FAILURES_CLASSIFIED:
+5
+
+UNCLASSIFIED_PRIVACY_FAILURES:
+0
+
+Do not infer failure reasons from test names alone.
+
+======================================================================
+4. VERIFY THAT TESTS REMAIN MEANINGFUL
+======================================================================
+
+Inspect every failed test completely.
+
+Prohibited remediation:
+
+- deleting a failed test;
+- skipping or disabling it;
+- changing it to expect(true);
+- replacing a persistence assertion with a mock-only assertion;
+- catching all exceptions without checking the expected error;
+- reducing authorization assertions;
+- changing expected secure behavior merely to match defective source behavior;
+- replacing database-backed integration behavior with a static return object.
+
+For every remediated test record:
+
+TEST_FILE:
+TEST_NAME:
+ORIGINAL_PURPOSE:
+SOURCE_BEHAVIOR_REQUIRED:
+ASSERTIONS_BEFORE:
+ASSERTIONS_AFTER:
+ASSERTION_STRENGTH_REDUCED:
+SKIP_ADDED:
+MOCK_SCOPE_EXPANDED:
+REAL_DATABASE_STATE_ASSERTED:
+
+Required:
+
+ASSERTION_STRENGTH_REDUCED:
+NO
+
+SKIP_ADDED:
+NO
+
+======================================================================
+5. RECONCILE THE AUTHORITATIVE C3 SCOPE
+======================================================================
+
+Replace the incomplete scope document:
+
+docs/final-documentation/privacy-module/
+PHASE_6ZD_C3_AUTHORITATIVE_SCOPE.md
+
+Inspect the current repository state and include every actual C3-created or
+C3-modified source, test, migration, configuration, and direct dependency.
+
+Mandatory scope candidates requiring explicit INCLUDE or EXCLUDE decisions:
+
+- prisma/schema.prisma
+- prisma/migrations/20260807000000_privacy_v1_remediation/migration.sql
+- .env.example
+- src/lib/prisma.ts
+- src/lib/permissions.ts
+- src/lib/security/permissions.ts
+- src/lib/privacy/encryption.ts
+- src/lib/privacy/validation.ts
+- src/lib/privacy/privacy-audit.ts
+- src/lib/privacy/privacy-workflow.ts
+- src/app/api/privacy/requests/route.ts
+- src/app/api/privacy/consent/route.ts
+- src/app/api/privacy/cookies/route.ts
+- src/app/api/privacy/correction/route.ts
+- src/app/api/privacy/deletion/route.ts
+- src/app/api/privacy/export/route.ts
+- src/app/api/privacy/escalate/route.ts
+- every Privacy page modified by C3
+- tests/privacy/admin.test.ts
+- tests/privacy/admin-rbac.integration.test.ts
+- tests/privacy/audit.test.ts
+- tests/privacy/cookie-consent.test.ts
+- tests/privacy/dsr.integration.test.ts
+- tests/privacy/phase5m.test.ts
+- tests/privacy/phase6zd-c3-remediation.integration.test.ts
+- tests/privacy/privacy-center.spec.ts
+- tests/privacy/public-policy.test.ts
+- tests/privacy/security-negative.integration.test.ts
+- tests/e2e/privacy-v1.spec.ts
+- tests/security/soc-gate4g.test.ts
+- tests/security/rules/phase3-lifecycle.integration.test.ts
+
+For every candidate record:
+
+FILE:
+EXISTS:
+CHANGED_RELATIVE_TO_HEAD:
+CREATED_DURING_C3:
+DIRECTLY_USED_BY_C3:
+EVIDENCE_MATRIX_REFERENCE_COUNT:
+INCLUDE_DECISION:
+EXCLUSION_REASON:
+
+A file referenced by the 17-control evidence matrix must be included in the
+validated scope unless it is demonstrably unchanged and the evidence uses an
+independently recorded baseline hash.
+
+Required:
+
+EVIDENCE_REFERENCED_FILES_MISSING_FROM_SCOPE:
+0
+
+C3_CREATED_FILES_MISSING_FROM_SCOPE:
+0
+
+C3_MODIFIED_FILES_MISSING_FROM_SCOPE:
+0
+
+UNRELATED_FILES_IN_C3_SCOPE:
+0
+
+======================================================================
+6. RECONCILE THE PERMISSION AUTHORITY
+======================================================================
+
+Inspect imports and runtime call paths involving:
+
+src/lib/permissions.ts
+src/lib/security/permissions.ts
+
+Determine:
+
+AUTHORITATIVE_PERMISSION_CATALOG:
+AUTHORITATIVE_DATABASE_PERMISSION_CHECK:
+PRIVACY_ROUTE_PERMISSION_IMPORT:
+PRIVACY_ADMIN_PAGE_PERMISSION_IMPORT:
+DUPLICATE_PRIVACY_PERMISSION_DEFINITIONS:
+CONFLICTING_ROLE_MAPPINGS:
+
+Required:
+
+- Privacy API authorization must use the DB-authoritative permission path.
+- Hard-coded role strings must not substitute for permissions.
+- A duplicate static Privacy permission source must not override or bypass
+  RolePermissions.
+- Do not delete either file unless its use and dependencies are fully inspected.
+
+Record:
+
+AUTHORITATIVE_PRIVACY_PERMISSION_PROVEN:
+YES / NO
+
+COMPETING_PRIVACY_PERMISSION_PATHS:
+0
+
+When competing paths remain:
+
+PHASE_RESULT:
+BLOCKED_DUPLICATE_PERMISSION_AUTHORITY
+
+======================================================================
+7. REMOVE TEMPORARY REMEDIATION FILES
+======================================================================
+
+Inspect:
+
+fix-ws.js
+fix*.js
+scratch/
+scripts created only for C3 remediation
+
+Remove only confirmed temporary files.
+
+Do not delete established repository utilities.
+
+Required:
+
+TEMPORARY_FIX_WS_SCRIPT_REMAINING:
+0
+
+TEMPORARY_REMEDIATION_SCRIPTS_REMAINING:
+0
+
+======================================================================
+8. APPLY TARGETED PRIVACY FAILURE CORRECTIONS
+======================================================================
+
+Correct only the five classified Privacy failures and direct causes.
+
+For each correction record:
+
+FAILURE_ID:
+ROOT_CAUSE:
+SOURCE_FILES_CHANGED:
+TEST_FILES_CHANGED:
+SCHEMA_CHANGE_REQUIRED:
+MIGRATION_CHANGE_REQUIRED:
+SECURITY_IMPACT:
+CORRECTION_SUMMARY:
+
+Do not edit the recorded C3 migration unless it has not been applied anywhere
+and repository migration policy expressly permits it.
+
+Prefer a new additive correction migration if schema correction is required.
+
+Do not access or modify Production data.
+
+======================================================================
+9. RUN TARGETED FAILURE TESTS
+======================================================================
+
+Run each previously failed test individually or by its exact file and test name.
+
+Required for every failure:
+
+TARGETED_TEST_EXIT_CODE:
+0
+
+TARGETED_TESTS_FAILED:
+0
+
+TARGETED_TESTS_SKIPPED:
+0
+
+Then rerun:
+
+npm run test:soc:integration -- tests/privacy/ --runInBand
+
+Required:
+
+PRIVACY_TEST_SUITES_FAILED:
+0
+
+PRIVACY_TESTS_FAILED:
+0
+
+PRIVACY_TESTS_SKIPPED:
+0
+
+Do not proceed while any Privacy test fails.
+
+======================================================================
+10. COMPLETE ALL EDITS BEFORE HASHING
+======================================================================
+
+Run:
+
+npx prisma format
+git diff --check
+npx tsc --noEmit
+
+Create the TypeScript and TSX lint array from the reconciled C3 scope.
+
+Run:
+
+npx eslint --max-warnings=0 -- $c3LintFiles
+
+Do not use --fix.
+
+Required:
+
+DIFF_CHECK_EXIT_CODE:
+0
+
+TYPESCRIPT_EXIT_CODE:
+0
+
+C3_LINT_EXIT_CODE:
+0
+
+C3_LINT_ERRORS:
+0
+
+C3_LINT_WARNINGS:
+0
+
+Complete all corrections before the next section.
+
+======================================================================
+11. REBUILD THE VALIDATED FILE SET
+======================================================================
+
+Build the validated set from the reconciled authoritative C3 scope.
+
+Do not derive it from an old digest file.
+
+Do not manually omit a file referenced by implementation or test evidence.
+
+Save:
+
+docs/final-documentation/privacy-module/
+PHASE_6ZD_C3_VALIDATED_FILE_SET.txt
+
+Normalize paths, sort uniquely, and verify every path exists.
+
+Required:
+
+VALIDATED_FILES_TOTAL:
+[actual]
+
+VALIDATED_FILES_MISSING:
+0
+
+VALIDATED_FILE_DUPLICATES:
+0
+
+EVIDENCE_REFERENCED_FILES_MISSING_FROM_VALIDATED_SET:
+0
+
+UNRELATED_FILES_IN_VALIDATED_SET:
+0
+
+======================================================================
+12. CREATE PRE-VALIDATION DIGESTS
+======================================================================
+
+Hash the exact validated set using SHA-256.
+
+Save only:
+
+docs/final-documentation/privacy-module/
+PHASE_6ZD_C3_PREVALIDATION_DIGESTS.txt
+
+Required:
+
+PREVALIDATION_HASHED_FILES:
+equal to VALIDATED_FILES_TOTAL
+
+PREVALIDATION_HASHED_FILES_EQUALS_VALIDATED_FILES:
+YES
+
+Do not create the post-validation digest yet.
+
+From this point, validated files are immutable.
+
+======================================================================
+13. TRUE IMMUTABLE VALIDATION
+======================================================================
+
+Set a fresh process-scoped encryption key without printing it.
+
+Run separately:
+
+npm run test:db:guard
+
+npx prisma validate
+
+npx prisma generate
+
+npx tsc --noEmit
+
+npx eslint --max-warnings=0 -- $c3LintFiles
+
+npm run test:soc:integration -- tests/privacy/ --runInBand
+
+npm run test:soc:integration -- `
+tests/security/soc-gate4g.test.ts `
+tests/security/rules/phase3-lifecycle.integration.test.ts
+
+npx playwright test tests/e2e/privacy-v1.spec.ts
+
+npm run build
+
+If any command fails:
+
+- do not edit files;
+- do not create post-validation hashes;
+- remove the process key;
+- return the exact failure and stop.
+
+Required:
+
+TEST_DATABASE_GUARD_EXIT_CODE:
+0
+
+PRISMA_VALIDATE_EXIT_CODE:
+0
+
+PRISMA_GENERATE_EXIT_CODE:
+0
+
+TYPESCRIPT_EXIT_CODE:
+0
+
+PRIVACY_LINT_EXIT_CODE:
+0
+
+PRIVACY_TEST_EXIT_CODE:
+0
+
+SECURITY_TEST_EXIT_CODE:
+0
+
+PLAYWRIGHT_EXIT_CODE:
+0
+
+BUILD_EXIT_CODE:
+0
+
+======================================================================
+14. POST-VALIDATION HASHES
+======================================================================
+
+Only after all commands pass:
+
+Create:
+
+docs/final-documentation/privacy-module/
+PHASE_6ZD_C3_POSTVALIDATION_DIGESTS.txt
+
+Hash the identical file set.
+
+Compare normalized path-to-hash maps.
+
+Required:
+
+POSTVALIDATION_HASHED_FILES:
+equal to VALIDATED_FILES_TOTAL
+
+HASH_PATHS_COMPARED:
+equal to VALIDATED_FILES_TOTAL
+
+HASH_MISMATCHES:
+0
+
+HASH_PATHS_ONLY_IN_PRE:
+0
+
+HASH_PATHS_ONLY_IN_POST:
+0
+
+FILES_CHANGED_DURING_FINAL_VALIDATION:
+0
+
+Never copy or synchronize the two digest files.
+
+======================================================================
+15. VERIFY THE 17-CONTROL MATRIX
+======================================================================
+
+Control 17 must remain:
+
+Automated test coverage
+
+Required:
+
+CONTROLS_TOTAL:
+17
+
+CLASSIFICATION_TOTAL:
+17
+
+UNCLASSIFIED_CONTROLS:
+0
+
+CONTROL_17:
+Automated test coverage
+
+CONTROLS_WITH_REAL_IMPLEMENTATION_EVIDENCE:
+17
+
+CONTROLS_WITH_REAL_TEST_EVIDENCE:
+17
+
+PLACEHOLDER_CONTROLS:
+0
+
+N_A_HASH_FIELDS:
+0
+
+INVALID_IMPLEMENTATION_RANGES:
+0
+
+INVALID_TEST_RANGES:
+0
+
+TESTS_WITHOUT_REAL_ASSERTIONS:
+0
+
+V1_MANDATORY_PROVEN_NONCOMPLIANT:
+0
+
+V1_MANDATORY_PARTIALLY_PROVEN:
+0
+
+V1_MANDATORY_NO_EVIDENCE:
+0
+
+======================================================================
+16. REMOVE PROCESS KEY
+======================================================================
+
+Run:
+
+Remove-Item Env:PRIVACY_FIELD_ENCRYPTION_KEY_B64
+
+Required:
+
+PROCESS_SCOPED_TEST_KEY_REMOVED:
+YES
+
+======================================================================
+17. REQUIRED REPORT
+======================================================================
+
+Return exactly:
+
+RENTIPID_PRIVACY_V1_PHASE_6ZD_C3W_PRIVACY_FAILURE_REMEDIATION_REPORT
+
+BRANCH:
+HEAD:
+
+PRIVACY_FAILURES_REPORTED:
+PRIVACY_FAILURES_CLASSIFIED:
+UNCLASSIFIED_PRIVACY_FAILURES:
+
+FAILURE_1_TEST:
+FAILURE_1_CLASSIFICATION:
+FAILURE_1_ROOT_CAUSE:
+FAILURE_1_REMEDIATION:
+
+FAILURE_2_TEST:
+FAILURE_2_CLASSIFICATION:
+FAILURE_2_ROOT_CAUSE:
+FAILURE_2_REMEDIATION:
+
+FAILURE_3_TEST:
+FAILURE_3_CLASSIFICATION:
+FAILURE_3_ROOT_CAUSE:
+FAILURE_3_REMEDIATION:
+
+FAILURE_4_TEST:
+FAILURE_4_CLASSIFICATION:
+FAILURE_4_ROOT_CAUSE:
+FAILURE_4_REMEDIATION:
+
+FAILURE_5_TEST:
+FAILURE_5_CLASSIFICATION:
+FAILURE_5_ROOT_CAUSE:
+FAILURE_5_REMEDIATION:
+
+ASSERTION_STRENGTH_REDUCED:
+SKIPPED_PRIVACY_TESTS_ADDED:
+MOCK_SCOPE_EXPANDED:
+
+C3_SCOPE_FILES_TOTAL:
+C3_CREATED_FILES_MISSING_FROM_SCOPE:
+C3_MODIFIED_FILES_MISSING_FROM_SCOPE:
+EVIDENCE_REFERENCED_FILES_MISSING_FROM_SCOPE:
+UNRELATED_FILES_IN_C3_SCOPE:
+
+AUTHORITATIVE_PERMISSION_CATALOG:
+AUTHORITATIVE_DATABASE_PERMISSION_CHECK:
+AUTHORITATIVE_PRIVACY_PERMISSION_PROVEN:
+COMPETING_PRIVACY_PERMISSION_PATHS:
+
+TEMPORARY_FIX_WS_SCRIPT_REMAINING:
+TEMPORARY_REMEDIATION_SCRIPTS_REMAINING:
+
+DIFF_CHECK_EXIT_CODE:
+TYPESCRIPT_EXIT_CODE:
+C3_LINT_EXIT_CODE:
+C3_LINT_ERRORS:
+C3_LINT_WARNINGS:
+
+VALIDATED_FILES_TOTAL:
+VALIDATED_FILES_MISSING:
+VALIDATED_FILE_DUPLICATES:
+EVIDENCE_REFERENCED_FILES_MISSING_FROM_VALIDATED_SET:
+UNRELATED_FILES_IN_VALIDATED_SET:
+PREVALIDATION_HASHED_FILES:
+PREVALIDATION_HASHED_FILES_EQUALS_VALIDATED_FILES:
+
+TEST_DATABASE_GUARD_EXIT_CODE:
+PRISMA_VALIDATE_EXIT_CODE:
+PRISMA_GENERATE_EXIT_CODE:
+PRIVACY_LINT_EXIT_CODE:
+PRIVACY_TEST_EXIT_CODE:
+SECURITY_TEST_EXIT_CODE:
+PLAYWRIGHT_EXIT_CODE:
+BUILD_EXIT_CODE:
+
+PRIVACY_TEST_SUITES_PASSED:
+PRIVACY_TEST_SUITES_FAILED:
+PRIVACY_TESTS_PASSED:
+PRIVACY_TESTS_FAILED:
+PRIVACY_TESTS_SKIPPED:
+
+SECURITY_TEST_SUITES_PASSED:
+SECURITY_TEST_SUITES_FAILED:
+SECURITY_TESTS_PASSED:
+SECURITY_TESTS_FAILED:
+SECURITY_TESTS_SKIPPED:
+
+PLAYWRIGHT_TESTS_PASSED:
+PLAYWRIGHT_TESTS_FAILED:
+PLAYWRIGHT_TESTS_SKIPPED:
+
+POSTVALIDATION_HASHED_FILES:
+HASH_PATHS_COMPARED:
+HASH_MISMATCHES:
+HASH_PATHS_ONLY_IN_PRE:
+HASH_PATHS_ONLY_IN_POST:
+FILES_CHANGED_DURING_FINAL_VALIDATION:
+
+CONTROLS_TOTAL:
+CONTROL_17:
+CONTROLS_WITH_REAL_IMPLEMENTATION_EVIDENCE:
+CONTROLS_WITH_REAL_TEST_EVIDENCE:
+PLACEHOLDER_CONTROLS:
+N_A_HASH_FIELDS:
+INVALID_IMPLEMENTATION_RANGES:
+INVALID_TEST_RANGES:
+TESTS_WITHOUT_REAL_ASSERTIONS:
+
+PROCESS_SCOPED_TEST_KEY_PRINTED:
+PROCESS_SCOPED_TEST_KEY_REMOVED:
+
+PRODUCTION_DATABASE_USED:
+PRODUCTION_PERSONAL_DATA_ACCESSED:
+PRODUCTION_MIGRATION_APPLIED:
+VERCEL_PRODUCTION_CHANGED:
+AZURE_CONFIGURATION_CHANGED:
+UNAUTHORIZED_COMMIT_CREATED:
+UNAUTHORIZED_TAG_CREATED:
+UNAUTHORIZED_PUSH_PERFORMED:
+UNAUTHORIZED_DEPLOYMENT_PERFORMED:
+
+PHASE_RESULT:
+
+PHASE_6ZD_C3_COMPLETION_READY:
+PHASE_7_READINESS:
+
+FINAL_MARKER:
+
+# RENTIPID_PRIVACY_V1_PHASE_6ZD_C3_CORRECTIVE_IMPLEMENTATION_COMPLETE
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-07T12:25:23+08:00.
+
+The user's current state is as follows:
+Active Document: c:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\security\soc-gate4g.test.ts (LANGUAGE_TYPESCRIPT)
+Cursor is on line: 1
+Other open documents:
+- c:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\fix-incident.js (LANGUAGE_JAVASCRIPT)
+- c:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\fix-all.js (LANGUAGE_JAVASCRIPT)
+- c:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\docs\final-documentation\privacy-module\PHASE_5_PRISMA_SCHEMA_RECOVERY_MATRIX.md (LANGUAGE_MARKDOWN)
+- c:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\tests\security\rules\phase3-lifecycle.integration.test.ts (LANGUAGE_TYPESCRIPT)
+- c:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\prisma\schema.prisma (LANGUAGE_UNSPECIFIED)
+</ADDITIONAL_METADATA>

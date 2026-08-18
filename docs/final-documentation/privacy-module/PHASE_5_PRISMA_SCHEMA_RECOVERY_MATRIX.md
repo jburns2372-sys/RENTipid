@@ -1,0 +1,7 @@
+# PHASE 5: PRISMA SCHEMA RECOVERY MATRIX
+
+| ITEM_TYPE | MODEL_OR_ENUM | REFERENCED_BY | REQUIRED_FIELDS | REQUIRED_RELATIONS | REQUIRED_INDEXES | REQUIRED_UNIQUE_CONSTRAINTS | REQUIRED_DEFAULTS | EXISTING_MIGRATION_EVIDENCE | EXISTING_DOCUMENTATION_EVIDENCE | RECOVERY_ACTION | CONFIDENCE |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| MODEL | CookieConsentReceipt | tests/privacy/cookie-consent.test.ts, src/app/api/privacy/cookies/route.ts | id, user_id, anonymous_consent_id, policy_version, consent_version, necessary_enabled, functional_enabled, analytics_enabled, marketing_enabled, consent_action, consented_at, ip_address, user_agent | user (User) | None | None | id, consented_at | NO | YES (Phase 3 tests/files) | CREATE MINIMUM MODEL (CASE B) | HIGH |
+| MODEL | DataSubjectRequest | src/app/dashboard/admin/privacy/requests/page.tsx, dsr.integration.test.ts | id, reference_number, user_id, request_type, status, identity_verification_status, due_at, requester_email_encrypted, requester_message, submitted_at, created_at, resolved_at, resolution_notes, assigned_to_id | user (User), assigned_to (User) | None | reference_number | id, submitted_at, created_at | NO | YES (Phase 3 tests/files) | CREATE MINIMUM MODEL (CASE B) | HIGH |
+| MODEL | PrivacyPolicyVersion | src/app/dashboard/admin/privacy/policies/page.tsx | id, version, status, effective_at, created_at, content_url, created_by_id, approved_by_id | created_by (User), approved_by (User) | None | version | id, created_at | NO | YES (Phase 3 tests/files) | CREATE MINIMUM MODEL (CASE B) | HIGH |

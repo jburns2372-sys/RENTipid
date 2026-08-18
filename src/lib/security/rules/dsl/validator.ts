@@ -63,6 +63,7 @@ export function validateRuleDsl(dslInput: unknown): DslValidationResult {
   // 2. Strict Zod Schema parsing
   const parseResult = RuleDslV1Schema.safeParse(dslInput);
   if (!parseResult.success) {
+    console.error("ZOD ERROR:", parseResult.error);
     return { valid: false, privacySafeError: "DSL_SCHEMA_VALIDATION_FAILED" };
   }
 

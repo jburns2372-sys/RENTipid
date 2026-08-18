@@ -1,0 +1,77 @@
+﻿# PROCESSOR_SUBPROCESSOR_REGISTRY.md
+
+PROCESSOR_ID: PROC-01
+PROVIDER: Vercel
+OPERATING_STATUS: ACTIVE
+PLAN: PRO
+PLAN_STATUS: ACTIVE
+LEGAL_ENTITY: Vercel Inc.
+SERVICE: Hosting
+DATA_CATEGORIES: 
+- account and profile information rendered through the application;
+- listing and booking information transmitted through application requests;
+- Privacy-request information transmitted through Privacy APIs;
+- authentication and session-related metadata;
+- technical request, security, and deployment logs;
+- uploaded content only when transmitted through Vercel-hosted application endpoints.
+DEPLOYMENT_MODEL: REGIONAL_FUNCTIONS_WITH_GLOBAL_DELIVERY
+FUNCTION_REGION: iad1
+DPA_APPLICABILITY: APPLICABLE_TO_VERIFIED_PRO_PLAN
+CONTRACTUAL_BASIS: STANDARD_ONLINE_SERVICE_TERMS_AND_DATA_PROCESSING_ADDENDUM
+CROSS_BORDER_PROCESSING_POSSIBLE: YES
+FINAL_STATUS: VERIFIED_ACTIVE_PROCESSOR
+
+PROCESSOR_ID: PROC-02
+PROVIDER_NAME: Microsoft Azure
+PROVIDER_LEGAL_ENTITY: Microsoft Corporation
+SERVICE: MANAGED POSTGRESQL DATABASE HOSTING
+OPERATING_STATUS: ACTIVE
+DATA_CATEGORIES: 
+- user accounts and profiles;
+- provider and renter records;
+- listings;
+- bookings;
+- rental agreements;
+- payment and transaction references;
+- messages when stored in PostgreSQL;
+- claims and disputes;
+- verification-document metadata;
+- Privacy requests;
+- consent records;
+- legal-hold records;
+- audit logs;
+- security-event records stored in PostgreSQL.
+RESOURCE_NAME: rentipid-postgres-db
+VERCEL_PRODUCTION_CONNECTION: VERIFIED
+VERCEL_PRODUCTION_CONNECTION_EVIDENCE: SANITIZED PRODUCTION DATABASE HOSTNAME MATCH
+PROCESSING_REGION: Southeast Asia
+REGION_EVIDENCE: PROVIDER DASHBOARD PROJECT/RESOURCE REGION FIELD
+CROSS_BORDER_PROCESSING_POSSIBLE: YES
+CONTRACTUAL_BASIS: STANDARD_ONLINE_SERVICE_TERMS_AND_DATA_PROCESSING_TERMS
+DPA_TITLE: Microsoft Products and Services Data Protection Addendum
+DPA_STATUS: STANDARD_PROVIDER_DATA_PROTECTION_TERMS_VERIFIED
+ACCOUNT_SPECIFIC_NEGOTIATED_DPA: NOT_SEPARATELY_VERIFIED
+SUBPROCESSOR_STATUS: OFFICIAL_MICROSOFT_SUBPROCESSORS
+SUBPROCESSOR_EVIDENCE: Official Microsoft Online Services Subprocessor List
+SECURITY_SAFEGUARDS: VERIFIED
+SECURITY_EVIDENCE: Official Azure Database for PostgreSQL Security Documentation
+BACKUP_RETENTION: 7-35 Days
+BACKUP_RETENTION_EVIDENCE: Official Azure Database for PostgreSQL Service Default Range
+DELETION_OR_RETURN_INFORMATION: Official Microsoft Data Protection Terms
+FINAL_STATUS: VERIFIED_ACTIVE_PROCESSOR
+
+PROVIDER_NAME: PayMongo
+OPERATING_STATUS: SANDBOX
+
+PROVIDER_NAME: External KYC
+OPERATING_STATUS: NOT_ACTIVE
+PERSONAL_DATA_TRANSFER: NONE
+ACTIVATION_RESTRICTED_PENDING_REVIEW: YES
+
+PROVIDER_NAME: External AI
+OPERATING_STATUS: MOCK
+
+PROVIDER_NAME: Analytics
+OPERATING_STATUS: NOT_ACTIVE
+PERSONAL_DATA_TRANSFER: NONE
+ACTIVATION_RESTRICTED_PENDING_REVIEW: YES

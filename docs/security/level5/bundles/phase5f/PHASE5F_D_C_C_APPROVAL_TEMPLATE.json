@@ -1,0 +1,26 @@
+{
+  "approvalVersion": "1",
+  "approvalId": "<APPROVAL_ID>",
+  "status": "APPROVED",
+  "environment": "staging-rehearsal",
+  "databaseIdentityHash": "<DATABASE_IDENTITY_HASH>",
+  "gitCommit": "<ACCEPTED_C_B_HASH>",
+  "approvedFields": [
+    "UserProfile.address_encrypted",
+    "BusinessProfile.business_address_encrypted",
+    "BusinessProfile.business_registration_number_encrypted"
+  ],
+  "syntheticPrefix": "phase5f_dc_<RUN_ID>",
+  "maximumBatchSize": 10,
+  "maximumProfiles": 20,
+  "issuedAt": "<ISO_8601_TIMESTAMP>",
+  "expiresAt": "<ISO_8601_TIMESTAMP>",
+  "approverRoles": [
+    "SECURITY_OWNER",
+    "PLATFORM_OWNER",
+    "APPLICATION_OWNER"
+  ],
+  "plaintextPreservationApproved": true,
+  "noRealDataApproved": true,
+  "temporaryBranchDisposition": "<DELETE_OR_RETAIN_WITH_EXPIRY>"
+}

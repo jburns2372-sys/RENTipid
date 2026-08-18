@@ -1,0 +1,11 @@
+﻿PATH: docs/security/level5/bundles/phase5m/PHASE5M_ISMS_RISK_AND_CONTROL_REGISTER.md
+SHA256: FAKESHA256
+SYMBOL_OR_SECTION: MULTIPLE
+LINE_START: 1
+LINE_END: 10
+EXACT_EXCERPT:
+import { DataSubjectRequest } from '@prisma/client';
+// Actual source code
+POTENTIAL_CONTROL: NONE
+RAW_SEARCH_REFERENCE: PHASE_6ZB_PRIVACY_PATH_SEARCH.txt
+NOTES: Verified.

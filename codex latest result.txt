@@ -1,0 +1,102 @@
+INSURANCE MODULE:
+TRU-01
+
+SLICE:
+Technical Foundation — Slice 1
+
+GATE:
+LOCAL DATABASE MIGRATED
+
+RESULT:
+BLOCKED BY PRIOR PENDING MIGRATIONS
+
+DATABASE TARGET:
+LOCAL
+
+MIGRATION STATUS BEFORE:
+
+- 38 repository migrations found.
+- 7 migrations pending.
+- Migration history was readable.
+- No divergence was reported, but the local schema is not current.
+
+PENDING MIGRATIONS BEFORE:
+
+1. 20260808000000_reconcile_schema_drift
+2. 20260809000000_add_global_address
+3. 20260809000001_add_address_rate_limit
+4. 20260809000002_add_address_rate_limit_cleanup_index
+5. 20260811000001_add_psgc_subdivision
+6. 20260811000002_add_password_recovery
+7. 20260812000000_add_insurance_foundation
+
+PASSWORD-RECOVERY MIGRATION:
+PENDING
+
+INSURANCE MIGRATION:
+20260812000000_add_insurance_foundation
+
+INSURANCE MIGRATION APPLIED:
+NO
+
+PRISMA GENERATE:
+NOT ATTEMPTED — migration-order preflight blocked the gate. Previous DLL-lock P2 remains.
+
+DATABASE VERIFICATION:
+
+- Tables: NOT PERFORMED
+- Columns: NOT PERFORMED
+- Primary keys: NOT PERFORMED
+- Foreign keys: NOT PERFORMED
+- Unique constraints: NOT PERFORMED
+- Indexes: NOT PERFORMED
+- Booking relations: NOT PERFORMED
+- Migration history: READ-ONLY STATUS COMPLETED
+- Existing data preservation: PRESERVED — no writes performed
+- Prisma client access: NOT PERFORMED
+
+UNRELATED MIGRATION APPLIED:
+NO
+
+DATABASE RESET:
+NO
+
+FILES MODIFIED:
+NONE
+
+P0:
+0
+
+P1:
+0
+
+P2:
+
+- Six unrelated earlier migrations block Insurance migration ordering.
+- Prisma client DLL-lock condition remains recorded but was not retried.
+
+P3:
+0
+
+EVIDENCE:
+EVD-INS-S1-GATE3 = NOT CREATED
+
+CURRENT GATE:
+LOCAL DATABASE MIGRATED — BLOCKED
+
+NEXT PERMITTED GATE:
+LOCAL DATABASE MIGRATED remains open. Resolve or explicitly authorize the legitimate prior migration chain before Insurance can proceed. LOCAL REQUIRED DATA SEEDED/SYNCED is not yet permitted.
+
+CONFIRM:
+
+- No repository rediscovery: YES
+- No Code Complete rerun: YES
+- No Local Functional rerun: YES
+- No Auth changes: YES
+- No Booking changes: YES
+- No Payment changes: YES
+- No migration applied: YES
+- No migration-history manipulation: YES
+- No database write: YES
+- No Preview action: YES
+- No Production action: YES

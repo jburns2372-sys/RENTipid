@@ -2,10 +2,34 @@ import React from 'react';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import { prisma } from '@/lib/prisma';
+import ProfileFormClient, { ExtendedUserProfile, ExtendedBusinessProfile } from '@/components/profile/ProfileFormClient';
+import { AddressService } from '@/lib/address/AddressService';
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
-  const user = session?.user as any;
+  const user = session?.user as { id?: string; name?: string | null; email?: string | null; image?: string | null; role?: string; status?: string } | undefined;
+
+  let userProfile: ExtendedUserProfile | null = null;
+  let businessProfile: ExtendedBusinessProfile | null = null;
+
+  if (user?.id) {
+    userProfile = await prisma.userProfile.findUnique({ 
+      where: { user_id: user.id },
+      include: { global_address: true }
+    });
+    if (userProfile && userProfile.global_address) {
+      userProfile.global_address = AddressService.readNormalizedAddress(userProfile.global_address as unknown as Record<string, unknown>) as unknown as typeof userProfile.global_address;
+    }
+
+    businessProfile = await prisma.businessProfile.findUnique({ 
+      where: { user_id: user.id },
+      include: { global_business_address: true }
+    });
+    if (businessProfile && businessProfile.global_business_address) {
+      businessProfile.global_business_address = AddressService.readNormalizedAddress(businessProfile.global_business_address as unknown as Record<string, unknown>) as unknown as typeof businessProfile.global_business_address;
+    }
+  }
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-4xl">
@@ -39,11 +63,17 @@ export default async function ProfilePage() {
         </div>
 
         <div className="mt-8 pt-6 border-t">
-          <button disabled className="bg-gray-200 text-gray-500 px-4 py-2 rounded font-medium cursor-not-allowed">
-            Edit Profile (Coming Soon)
-          </button>
+          <a href="/account/delete" role="button" className="bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 px-4 py-2 rounded font-medium transition-colors inline-block">
+            Delete Account
+          </a>
         </div>
       </div>
+
+      <ProfileFormClient 
+        user={user as unknown as Partial<import('@prisma/client').User>} 
+        initialUserProfile={userProfile} 
+        initialBusinessProfile={businessProfile} 
+      />
       
       <AIAssistantButton context="Profile Management" />
     </div>

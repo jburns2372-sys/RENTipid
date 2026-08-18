@@ -1,0 +1,13 @@
+# GATE4F Strict Freeze Manifest
+- **Closure report**: docs/governance/phase-closure/GATE4F_CLOSURE_REPORT.md
+- **Accepted implementation baseline**: d78bdbebf335fea6d4ef271b957d6c26e3c662c8
+- **Governance freeze commit**: e8ea33abafd7595cfe92c5996944978274d5e9fa
+- **Freeze tag**: rentipid/general/gate4f/closed-frozen-v1
+- **Owned files**: tests/security/soc-gate4f.test.ts
+- **Shared files**: schema.prisma
+- **Database models**: Target verified
+- **Regression tests**: PASS
+- **Extension points**: Extensions allowed
+- **Reopening triggers**: File modifications
+- **Revalidation requirements**: Database migrations
+- **Freeze status**: CLOSED_AND_FROZEN

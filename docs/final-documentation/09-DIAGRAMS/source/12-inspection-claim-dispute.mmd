@@ -1,0 +1,11 @@
+flowchart LR
+  Turnover --> Initial[Initial inspection]
+  Initial --> Confirmation[Renter confirmation]
+  Confirmation --> Rental
+  Rental --> Return[Return inspection]
+  Return --> NoIssue[Complete]
+  Return --> Claim[Damage claim + evidence]
+  Claim --> Response[Participant response]
+  Response --> Dispute[Human-reviewed dispute]
+  Dispute --> Resolution[Authorized resolution]
+  Resolution --> FinanceEffects[Separately controlled deposit/refund effects]

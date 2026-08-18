@@ -5,48 +5,66 @@ import { redirect } from 'next/navigation';
 import { PrismaClient } from '@prisma/client';
 import { ShieldAlert } from 'lucide-react';
 import { revalidatePath } from 'next/cache';
+import { logAdministrationEvent } from '@/lib/security/events/writers/administration-writer';
+import { processSecurityEvent } from '@/lib/security/events/event-ingestion';
 
 const prisma = new PrismaClient();
 
 export default async function FinanceApprovalSettingsPage() {
   const session = await getServerSession(authOptions);
-  const role = (session?.user as any)?.role;
+  const role = (session?.user as { role?: string; id?: string })?.role;
 
   if (role !== 'Super Admin') {
     redirect('/unauthorized');
   }
 
-  // Get or create settings
-  let payoutApprovalThreshold = await prisma.systemSetting.findUnique({ where: { setting_key: 'FINANCE_PAYOUT_APPROVAL_THRESHOLD' } });
-  if (!payoutApprovalThreshold) {
-    payoutApprovalThreshold = await prisma.systemSetting.create({
-      data: { setting_key: 'FINANCE_PAYOUT_APPROVAL_THRESHOLD', setting_value: '50000', description: 'Payout amount requiring Super Admin approval' }
-    });
-  }
+  // Get settings without creating them
+  const payoutApprovalThreshold = await prisma.systemSetting.findUnique({ where: { setting_key: 'FINANCE_PAYOUT_APPROVAL_THRESHOLD' } });
+  const refundApprovalThreshold = await prisma.systemSetting.findUnique({ where: { setting_key: 'FINANCE_REFUND_APPROVAL_THRESHOLD' } });
+  const globalFinanceFreeze = await prisma.systemSetting.findUnique({ where: { setting_key: 'GLOBAL_FINANCE_FREEZE' } });
 
-  let refundApprovalThreshold = await prisma.systemSetting.findUnique({ where: { setting_key: 'FINANCE_REFUND_APPROVAL_THRESHOLD' } });
-  if (!refundApprovalThreshold) {
-    refundApprovalThreshold = await prisma.systemSetting.create({
-      data: { setting_key: 'FINANCE_REFUND_APPROVAL_THRESHOLD', setting_value: '10000', description: 'Refund amount requiring Super Admin approval' }
-    });
-  }
-
-  let globalFinanceFreeze = await prisma.systemSetting.findUnique({ where: { setting_key: 'GLOBAL_FINANCE_FREEZE' } });
-  if (!globalFinanceFreeze) {
-    globalFinanceFreeze = await prisma.systemSetting.create({
-      data: { setting_key: 'GLOBAL_FINANCE_FREEZE', setting_value: 'false', description: 'If true, no manual refunds or payouts can be processed' }
-    });
-  }
+  const payoutVal = payoutApprovalThreshold?.setting_value || '50000';
+  const refundVal = refundApprovalThreshold?.setting_value || '10000';
+  const freezeVal = globalFinanceFreeze?.setting_value || 'false';
 
   async function updateSettings(formData: FormData) {
     'use server';
+    const session = await getServerSession(authOptions);
+    const userId = (session?.user as { role?: string; id?: string })?.id;
+
+    if ((session?.user as { role?: string; id?: string })?.role !== 'Super Admin') {
+      throw new Error('Unauthorized');
+    }
+
     const payoutThresh = formData.get('payout_threshold') as string;
     const refundThresh = formData.get('refund_threshold') as string;
     const freeze = formData.get('freeze') === 'on' ? 'true' : 'false';
 
-    await prisma.systemSetting.update({ where: { setting_key: 'FINANCE_PAYOUT_APPROVAL_THRESHOLD' }, data: { setting_value: payoutThresh } });
-    await prisma.systemSetting.update({ where: { setting_key: 'FINANCE_REFUND_APPROVAL_THRESHOLD' }, data: { setting_value: refundThresh } });
-    await prisma.systemSetting.update({ where: { setting_key: 'GLOBAL_FINANCE_FREEZE' }, data: { setting_value: freeze } });
+    const updates = [
+      { key: 'FINANCE_PAYOUT_APPROVAL_THRESHOLD', value: payoutThresh },
+      { key: 'FINANCE_REFUND_APPROVAL_THRESHOLD', value: refundThresh },
+      { key: 'GLOBAL_FINANCE_FREEZE', value: freeze }
+    ];
+
+    for (const update of updates) {
+      const result = await prisma.systemSetting.upsert({
+        where: { setting_key: update.key },
+        update: { setting_value: update.value },
+        create: { setting_key: update.key, setting_value: update.value }
+      });
+      processSecurityEvent(result, "LIVE", "PRODUCTION").catch(console.error);
+
+      await logAdministrationEvent({
+        action: update.key === 'GLOBAL_FINANCE_FREEZE' ? 'ADMIN_EMERGENCY_CONTROL_CHANGED' : 'ADMIN_SECURITY_SETTING_CHANGED',
+        outcome: 'COMPLETED',
+        actorUserId: userId as string,
+        targetType: 'SystemSetting',
+        targetId: update.key,
+        metadata: {
+          new_value: update.value
+        }
+      });
+    }
 
     revalidatePath('/dashboard/super-admin/finance-approval-settings');
   }
@@ -54,7 +72,7 @@ export default async function FinanceApprovalSettingsPage() {
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <h1 className="text-2xl font-bold">Finance Approval & Safety Settings</h1>
-      
+
       <div className="bg-amber-50 border border-amber-200 p-4 rounded-xl flex items-start gap-3">
         <ShieldAlert className="text-amber-500 shrink-0" />
         <div>
@@ -66,19 +84,19 @@ export default async function FinanceApprovalSettingsPage() {
       <form action={updateSettings} className="bg-white border rounded-xl p-6 shadow-sm space-y-6">
         <div>
           <label className="block text-sm font-medium mb-1">Provider Payout Super Admin Approval Threshold (₱)</label>
-          <input type="number" name="payout_threshold" defaultValue={payoutApprovalThreshold.setting_value} className="w-full border p-2 rounded-lg" />
+          <input type="number" name="payout_threshold" defaultValue={payoutVal} className="w-full border p-2 rounded-lg" />
           <p className="text-xs text-gray-500 mt-1">Any payout above this amount requires Super Admin approval before Finance can process it.</p>
         </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">Refund Super Admin Approval Threshold (₱)</label>
-          <input type="number" name="refund_threshold" defaultValue={refundApprovalThreshold.setting_value} className="w-full border p-2 rounded-lg" />
+          <input type="number" name="refund_threshold" defaultValue={refundVal} className="w-full border p-2 rounded-lg" />
           <p className="text-xs text-gray-500 mt-1">Any refund above this amount requires Super Admin approval before Finance can process it.</p>
         </div>
 
         <div className="border-t pt-4">
           <label className="flex items-center gap-3 bg-red-50 p-4 rounded-lg border border-red-200 cursor-pointer">
-            <input type="checkbox" name="freeze" defaultChecked={globalFinanceFreeze.setting_value === 'true'} className="w-5 h-5 accent-red-600" />
+            <input type="checkbox" name="freeze" defaultChecked={freezeVal === 'true'} className="w-5 h-5 accent-red-600" />
             <div>
               <span className="font-bold text-red-800 block">Global Finance Freeze (Emergency Stop)</span>
               <span className="text-sm text-red-700">If enabled, ALL manual refunds and payouts are blocked. Finance cannot process any settlements.</span>

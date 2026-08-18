@@ -1,0 +1,10 @@
+flowchart TB
+  Browser --> Next[Root Next.js runtime]
+  Next --> Auth[NextAuth remains at root]
+  Next --> Pages[163 page routes]
+  Next --> RootHandlers[65 root API route files]
+  RootHandlers --> RootServices[src/lib services]
+  RootHandlers -. compatibility / proxy where configured .-> Extracted[apps/api target]
+  Extracted --> Worker[apps/worker target]
+  state[CURRENT_REPOSITORY_RUNTIME_TRANSITION_STATE:\nPARTIALLY_SPLIT_IMPLEMENTATION] --- RootHandlers
+  state --- Extracted

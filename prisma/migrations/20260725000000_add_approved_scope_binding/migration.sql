@@ -1,0 +1,1 @@
+ALTER TABLE "SecurityResponseApprovalRequest" ADD COLUMN "response_type" "SecurityResponseActionType"; ALTER TABLE "SecurityResponseApprovalRequest" ADD COLUMN "target_type" TEXT; ALTER TABLE "SecurityResponseApprovalRequest" ADD COLUMN "target_id" TEXT;

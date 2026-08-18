@@ -2,16 +2,50 @@ import React from 'react';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
+import { parseMarketplaceCategoryMetadata } from '@/lib/marketplace/category-metadata';
+import { canShowMarketplaceTestData } from '@/lib/marketplace/test-data-visibility';
 
 const prisma = new PrismaClient();
 
-export default async function BrowsePage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+export default async function BrowsePage({ searchParams }: { searchParams: Promise<{ category?: string, q?: string, location?: string }> }) {
   const resolvedSearchParams = await searchParams;
   const categoryFilter = resolvedSearchParams.category;
+  const queryFilter = resolvedSearchParams.q;
+  const locationFilter = resolvedSearchParams.location;
+  const showTestData = canShowMarketplaceTestData();
 
-  const whereClause: any = { status: 'Published' };
+  const whereClause: any = {
+    status: 'Published',
+    ...(showTestData ? {} : { is_test_data: false }),
+  };
+
+  const AND: any[] = [];
+
   if (categoryFilter) {
-    whereClause.category = { slug: categoryFilter };
+    AND.push({ category: { slug: categoryFilter } });
+  }
+
+  if (queryFilter) {
+    AND.push({
+      OR: [
+        { title: { contains: queryFilter, mode: 'insensitive' } },
+        { description: { contains: queryFilter, mode: 'insensitive' } },
+        { category: { name: { contains: queryFilter, mode: 'insensitive' } } }
+      ]
+    });
+  }
+
+  if (locationFilter) {
+    AND.push({
+      OR: [
+        { location: { contains: locationFilter, mode: 'insensitive' } },
+        { city: { contains: locationFilter, mode: 'insensitive' } }
+      ]
+    });
+  }
+
+  if (AND.length > 0) {
+    whereClause.AND = AND;
   }
 
   const listings = await prisma.listing.findMany({
@@ -21,9 +55,14 @@ export default async function BrowsePage({ searchParams }: { searchParams: Promi
   });
 
   const categories = await prisma.category.findMany({
-    where: { is_active: true },
-    orderBy: { name: 'asc' }
+    where: { is_active: true, requirements: { isNot: null } },
+    include: { requirements: true },
   });
+  const orderedCategories = categories
+    .map((category) => ({ category, metadata: parseMarketplaceCategoryMetadata(category.requirements?.notes) }))
+    .filter((item) => item.metadata)
+    .sort((left, right) => left.metadata!.sortOrder - right.metadata!.sortOrder)
+    .map((item) => item.category);
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-7xl">
@@ -39,7 +78,7 @@ export default async function BrowsePage({ searchParams }: { searchParams: Promi
                   All Categories
                 </Link>
               </li>
-              {categories.map((c: any) => (
+              {orderedCategories.map((c) => (
                 <li key={c.id}>
                   <Link href={`/browse?category=${c.slug}`} className={`block py-1 hover:text-blue-600 ${categoryFilter === c.slug ? 'font-semibold text-blue-600' : 'text-gray-600'}`}>
                     {c.name}
@@ -52,7 +91,7 @@ export default async function BrowsePage({ searchParams }: { searchParams: Promi
 
         <main className="flex-1">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {listings.map((listing: any) => (
+            {listings.map((listing) => (
               <Link href={`/listing/${listing.id}`} key={listing.id} className="group block bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
                 <div className="h-48 bg-gray-200 relative">
                   {listing.photos?.[0] ? (

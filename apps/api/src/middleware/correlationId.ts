@@ -17,12 +17,12 @@ export const correlationMiddleware = (req: Request, res: Response, next: NextFun
     // Use AppInsights Zone to track the context natively
     const telemetryContext = appInsights.getCorrelationContext();
     if (telemetryContext) {
-      telemetryContext.customProperties.correlationId = correlationId;
+      telemetryContext.customProperties.setProperty('correlationId', correlationId);
     }
   }
 
   // Attach to request object for easy internal logging
-  (req as any).correlationId = correlationId;
+  (req as Request & { correlationId: string }).correlationId = correlationId;
   
   next();
 };

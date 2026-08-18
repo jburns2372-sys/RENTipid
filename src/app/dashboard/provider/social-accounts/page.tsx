@@ -9,7 +9,7 @@ export default async function ProviderSocialAccountsPage() {
   const session = await getServerSession(authOptions);
   const role = (session?.user as any)?.role;
 
-  if (role !== 'Individual Provider' && role !== 'Business Provider') {
+  if (role !== 'Individual Provider' && role !== 'Business Provider' && role !== 'Super Admin') {
     redirect('/unauthorized');
   }
 

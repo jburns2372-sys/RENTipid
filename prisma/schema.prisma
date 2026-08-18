@@ -24,7 +24,14 @@ model User {
   businessProfile       BusinessProfile?
   listings              Listing[]
   auditLogs             AuditLog[]
+  apiSecurityLogs       ApiSecurityLog[]
   aiBotLogs             AIBotLog[]
+  aiServiceSessions     AiServiceSession[]
+  aiConversations       AiConversation[]
+  aiSupportCases        AiSupportCase[]
+  aiInteractionFeedback AiInteractionFeedback[]
+  aiInteractionEvents   AiInteractionEvent[]
+  feedbacksAuthored     SocialFeedback[]
   verificationDocuments VerificationDocument[]
 
   // Bookings and Notifications
@@ -32,16 +39,24 @@ model User {
   providerBookings Booking[]      @relation("ProviderBookings")
   notifications    Notification[]
 
+  // SOC Responses
+  security_response_execution_requests   SecurityResponseExecution[] @relation("ExecutionRequester")
+  security_response_execution_operations SecurityResponseExecution[] @relation("ExecutionOperator")
+
   // Finance
-  payments      Payment[]
-  ledgerEntries FinanceLedger[]
+  payments            Payment[]
+  ledgerEntries       FinanceLedger[]
+  insuranceSelections InsuranceSelection[]
+  insuranceOrders     InsuranceOrder[]
 
   // Marketing & Social
-  socialAccounts   SocialAccount[]
-  campaignsCreated MarketingCampaign[]
-  postsCreated     MarketingPost[]          @relation("PostCreator")
-  postsApproved    MarketingPost[]          @relation("PostApprover")
-  optIns           ProviderPromotionOptIn[]
+  socialAccounts       SocialAccount[]
+  campaignsCreated     MarketingCampaign[]
+  postsCreated         MarketingPost[]          @relation("PostCreator")
+  postsApproved        MarketingPost[]          @relation("PostApprover")
+  marketingPostReviews MarketingPostReview[]
+  socialPostQueues     SocialPostQueue[]
+  optIns               ProviderPromotionOptIn[]
 
   // Phase 10: Beta & UAT Tracking
   is_test_data Boolean @default(false)
@@ -56,30 +71,174 @@ model User {
   phoneIdentity     PhoneIdentity?
   authSessions      AuthSession[]
   accountLinkEvents AccountLinkEvent[]
+  paymentActionLogs       PaymentActionLog[]
+
+  // SOC Incident Cases
+  assigned_incident_cases            IncidentCase[]         @relation("AssignedIncidentCases")
+  created_incident_cases             IncidentCase[]         @relation("CreatedIncidentCases")
+  incident_case_histories            IncidentCaseHistory[]  @relation("IncidentCaseHistoryActor")
+  incident_case_assignment_histories IncidentCaseHistory[]  @relation("IncidentCaseHistoryAssignedTo")
+  incident_case_notes                IncidentCaseNote[]
+  incident_case_evidences            IncidentCaseEvidence[]
+
+  // MFA
+  mfa                   UserMfa?
+  password_reset_tokens PasswordResetToken[]
+
+  // SOC Playbooks & Approvals (Gate 4G)
+  created_playbooks     SecurityResponsePlaybook[]         @relation("PlaybookCreator")
+  approved_playbooks    SecurityResponsePlaybook[]         @relation("PlaybookApprover")
+  linked_case_playbooks IncidentCasePlaybookLink[]         @relation("CasePlaybookLinker")
+  requested_approvals   SecurityResponseApprovalRequest[]  @relation("ApprovalRequester")
+  reviewed_approvals    SecurityResponseApprovalRequest[]  @relation("ApprovalReviewer")
+  approval_decisions    SecurityResponseApprovalDecision[] @relation("ApprovalDecisionActor")
+  revoked_grants        SecurityResponseApprovalGrant[]    @relation("GrantRevoker")
+
+  // Privacy Module v1
+  cookie_consents   CookieConsentReceipt[]
+  dsr_requests      DataSubjectRequest[]   @relation("DSRRequester")
+  dsr_assignments   DataSubjectRequest[]   @relation("DSRAssignee")
+  created_policies  PrivacyPolicyVersion[] @relation("PolicyAuthor")
+  approved_policies PrivacyPolicyVersion[] @relation("PolicyApprover")
+
+  socialAttributions SocialAttribution[]
+}
+
+model UserMfa {
+  id                      String    @id @default(cuid())
+  user_id                 String    @unique
+  status                  String // "DISABLED" | "ENROLLMENT_PENDING" | "ENABLED" | "RECOVERY_REQUIRED"
+  envelope_version        String
+  envelope_algorithm      String
+  envelope_key_id         String
+  envelope_nonce          String
+  envelope_ciphertext     String
+  envelope_auth_tag       String
+  recovery_code_hashes    String[]
+  recovery_codes_consumed Int       @default(0)
+  security_version        Int       @default(1)
+  enrolled_at             DateTime  @default(now())
+  activated_at            DateTime?
+  last_verified_at        DateTime?
+  reset_at                DateTime?
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model PasswordResetToken {
+  id         String    @id @default(cuid())
+  user_id    String
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  token_hash String    @unique
+  expires_at DateTime
+  used_at    DateTime?
+  created_at DateTime  @default(now())
+
+  @@index([user_id, created_at])
+  @@index([expires_at])
+}
+
+model PasswordResetRequest {
+  id            String   @id @default(cuid())
+  identity_hash String
+  ip_hash       String
+  requested_at  DateTime @default(now())
+
+  @@index([identity_hash, requested_at])
+  @@index([ip_hash, requested_at])
+}
+
+model Address {
+  id                            String    @id @default(cuid())
+  addressLine1_encrypted        String?
+  addressLine2_encrypted        String?
+  sublocality_encrypted         String?
+  locality_encrypted            String?
+  administrativeArea2_encrypted String?
+  administrativeArea1_encrypted String?
+  postalCode_encrypted          String?
+  countryCode                   String?
+  formattedAddress_encrypted    String?
+  latitude_encrypted            String?
+  longitude_encrypted           String?
+  provider                      String    @default("MANUAL")
+  providerPlaceId               String?
+  validationStatus              String    @default("UNVERIFIED")
+  validationLevel               String?
+  manuallyEdited                Boolean   @default(false)
+  validatedAt                   DateTime?
+
+  // Philippine PSGC canonical codes (nullable for non-PH addresses)
+  regionPsgcCode      String?
+  provincePsgcCode    String?
+  localityPsgcCode    String?
+  sublocalityPsgcCode String?
+
+  userProfile     UserProfile?
+  businessProfile BusinessProfile?
+}
+
+model PsgcSubdivision {
+  id              String   @id @default(cuid())
+  psgcCode        String   @unique
+  name            String
+  geographicLevel String // REGION, PROVINCE, CITY, MUNICIPALITY, SUB_MUNICIPALITY, BARANGAY
+  parentPsgcCode  String?
+  isActive        Boolean  @default(true)
+  source          String   @default("PSA_PSGC")
+  sourceVersion   String
+  syncedAt        DateTime @default(now())
+
+  parent   PsgcSubdivision?  @relation("PsgcHierarchy", fields: [parentPsgcCode], references: [psgcCode])
+  children PsgcSubdivision[] @relation("PsgcHierarchy")
+
+  @@index([parentPsgcCode, geographicLevel])
+  @@index([geographicLevel, name])
+  @@index([geographicLevel, isActive])
+}
+
+model AddressApiRateLimit {
+  key     String   @id
+  points  Int      @default(0)
+  resetAt DateTime
+
+  @@index([resetAt])
 }
 
 model UserProfile {
   id                  String  @id @default(cuid())
   user_id             String  @unique
   user                User    @relation(fields: [user_id], references: [id])
+  first_name          String?
+  last_name           String?
+  display_name        String?
   address             String?
+  address_encrypted   String?
   city                String?
   province            String?
   country             String?
   profile_photo       String?
   verification_status String // "Unverified" | "Pending" | "Verified" | "Rejected"
   trust_score         Int     @default(0)
+
+  global_address_id String?  @unique
+  global_address    Address? @relation(fields: [global_address_id], references: [id])
 }
 
 model BusinessProfile {
-  id                           String  @id @default(cuid())
-  user_id                      String  @unique
-  user                         User    @relation(fields: [user_id], references: [id])
-  business_name                String
-  business_registration_number String?
-  business_address             String?
-  authorized_representative    String?
-  verification_status          String // "Unverified" | "Pending" | "Verified" | "Rejected"
+  id                                     String  @id @default(cuid())
+  user_id                                String  @unique
+  user                                   User    @relation(fields: [user_id], references: [id])
+  business_name                          String
+  business_registration_number           String?
+  business_registration_number_encrypted String?
+  business_address                       String?
+  business_address_encrypted             String?
+  authorized_representative              String?
+  verification_status                    String // "Unverified" | "Pending" | "Verified" | "Rejected"
+
+  global_business_address_id String?  @unique
+  global_business_address    Address? @relation(fields: [global_business_address_id], references: [id])
 }
 
 // Category Foundation
@@ -128,12 +287,14 @@ model CategoryRequirement {
 // Listings Foundation
 model Listing {
   id          String   @id @default(cuid())
+  marketingCampaigns CampaignListingLink[]
   provider_id String
   provider    User     @relation(fields: [provider_id], references: [id])
   category_id String
   category    Category @relation(fields: [category_id], references: [id])
   title       String
   description String?
+  socialFeedbacks SocialFeedback[]
 
   // Location
   location String?
@@ -189,6 +350,8 @@ model Listing {
   // Phase 10: Beta & UAT Tracking
   is_test_data Boolean @default(false)
   beta_label   String?
+
+  socialAttributions SocialAttribution[]
 }
 
 model ListingPhoto {
@@ -265,6 +428,10 @@ model Booking {
   rentalAgreement     RentalAgreement?
   ledgerEntries       FinanceLedger[]
   gatewayTransactions GatewayTransaction[]
+  insuranceOffers     InsuranceOffer[]
+  insuranceSelection  InsuranceSelection?
+  insuranceOrder      InsuranceOrder?
+  insurancePolicy     InsurancePolicy?
 
   inspectionReports InspectionReport[]
   turnoverRecords   TurnoverRecord[]
@@ -273,10 +440,13 @@ model Booking {
   depositActions    DepositAction[]
   refundRequests    RefundRequest[]
   providerPayouts   ProviderPayout[]
+  paymentActionLogs PaymentActionLog[]
 
   // Phase 10: Beta & UAT Tracking
   is_test_data Boolean @default(false)
   beta_label   String?
+
+  socialAttributions SocialAttribution[]
 }
 
 model BookingStatusHistory {
@@ -308,6 +478,8 @@ model Payment {
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  socialAttributions SocialAttribution[]
 }
 
 // ----------------------------------------------------------------------
@@ -322,6 +494,7 @@ model GatewayTransaction {
 
   provider             String // "PayMongo" | "Xendit" | "Maya" | "Mock" | "Manual"
   provider_mode        String // "Sandbox" | "Live" | "Internal"
+  idempotency_key      String? @unique
   gateway_reference    String? @unique
   gateway_checkout_url String?
   gateway_status       String // "Created" | "Checkout Pending" | "Paid Sandbox" | "Failed Sandbox" | "Expired" | "Cancelled" | "Refunded Placeholder" | "Error"
@@ -341,6 +514,7 @@ model GatewayTransaction {
   updated_at DateTime @updatedAt
 
   reconciliationLogs PaymentReconciliationLog[]
+  paymentActionLogs  PaymentActionLog[]
 }
 
 model PaymentWebhookLog {
@@ -374,6 +548,40 @@ model PaymentReconciliationLog {
   created_at        DateTime @default(now())
 }
 
+model PaymentActionLog {
+  id                     String              @id @default(cuid())
+  gateway_transaction_id String?
+  gateway_transaction    GatewayTransaction? @relation(fields: [gateway_transaction_id], references: [id], onDelete: SetNull)
+  booking_id             String
+  booking                Booking             @relation(fields: [booking_id], references: [id], onDelete: Restrict)
+
+  action_code   String // "PAYMENT_INITIALIZED"
+  actor_type    String // "RENTER"
+  actor_user_id String?
+  actor_user    User?   @relation(fields: [actor_user_id], references: [id], onDelete: Restrict)
+
+  provider           String?
+  provider_reference String?
+
+  amount            Decimal? @db.Decimal(20, 4)
+  currency          String?
+  expected_amount   Decimal? @db.Decimal(20, 4)
+  received_amount   Decimal? @db.Decimal(20, 4)
+  expected_currency String?
+  received_currency String?
+
+  outcome        String // "SUCCESS"
+  failure_reason String?
+
+  source_workflow     String
+  source_operation_id String
+
+  idempotency_key String @unique
+
+  occurred_at DateTime
+  created_at  DateTime @default(now())
+}
+
 model FinanceLedger {
   id         String   @id @default(cuid())
   user_id    String?
@@ -381,10 +589,19 @@ model FinanceLedger {
   booking_id String?
   booking    Booking? @relation(fields: [booking_id], references: [id])
 
-  transaction_type String // "Platform Fee" | "Provider Payout" | "Escrow Deposit" | "Refund"
+  transaction_type String // "Platform Fee" | "Provider Payout" | "Escrow Deposit" | "Refund" | "Insurance Premium" | "Insurance Refund"
   amount           Float
   balance_type     String // "Credit" | "Debit"
   description      String?
+
+  // Extended Financials (Insurance Module)
+  amount_minor     Int?
+  currency         String?
+  idempotency_key  String?          @unique
+  source_reference String?
+  policy_id        String?
+  insurancePolicy  InsurancePolicy? @relation(fields: [policy_id], references: [id])
+  audit_reference  String?
 
   created_at DateTime @default(now())
 }
@@ -593,6 +810,33 @@ model AuditLog {
   created_at    DateTime @default(now())
 }
 
+model ApiSecurityLog {
+  id                     String   @id @default(cuid())
+  event_code             String
+  outcome                String
+  actor_user_id          String?
+  actor                  User?    @relation(fields: [actor_user_id], references: [id])
+  subject_reference_hash String?
+  ip_reference_hash      String?
+  device_reference_hash  String?
+  target_reference_hash  String?
+  safe_route_family      String
+  http_method            String
+  policy_family          String?
+  threshold_category     String?
+  distinct_target_count  Int?
+  correlation_id         String?
+  environment            String
+  lifecycle              String
+  sanitized_metadata     String?
+  occurred_at            DateTime
+  created_at             DateTime @default(now())
+
+  @@index([event_code, occurred_at])
+  @@index([ip_reference_hash, occurred_at])
+  @@index([correlation_id])
+}
+
 model AIBotLog {
   id               String   @id @default(cuid())
   user_id          String?
@@ -616,6 +860,33 @@ model SystemSetting {
 }
 
 // ----------------------------------------------------------------------
+// Phase 4: Identity & Session Security Telemetry
+// ----------------------------------------------------------------------
+model AuthenticationSecurityLog {
+  id                     String   @id @default(cuid())
+  event_code             String
+  outcome                String
+  actor_user_id          String?
+  subject_reference_hash String?
+  ip_reference_hash      String?
+  device_reference_hash  String?
+  session_reference_hash String?
+  hmac_key_version       String
+  environment            String
+  lifecycle              String
+  retention_class        String
+  expires_at             DateTime
+  sanitized_metadata     String?
+  occurred_at            DateTime @default(now())
+
+  @@index([event_code, occurred_at])
+  @@index([subject_reference_hash, occurred_at])
+  @@index([ip_reference_hash, occurred_at])
+  @@index([device_reference_hash, occurred_at])
+  @@index([expires_at])
+}
+
+// ----------------------------------------------------------------------
 // Phase 9: Error & System Monitoring
 // ----------------------------------------------------------------------
 
@@ -636,6 +907,7 @@ model SystemErrorLog {
 
 model SocialAccount {
   id                      String    @id @default(cuid())
+  marketingCampaigns      CampaignTargetAccount[]
   owner_user_id           String?
   owner                   User?     @relation(fields: [owner_user_id], references: [id])
   business_provider_id    String? // Optional string ref to BusinessProfile
@@ -644,14 +916,27 @@ model SocialAccount {
   account_handle          String
   account_type            String
   connection_status       String
+  health_status           String    @default("UNKNOWN")
+  capabilities            String? // Stored as JSON string to avoid jsonb for basic postgres compatibility
+  credential_reference    String?
+  last_validation_error   String?
+  last_sync_at            DateTime?
   access_token_encrypted  String?
   refresh_token_encrypted String?
   token_expires_at        DateTime?
   scopes                  String?
   last_connected_at       DateTime?
+  feedbacks               SocialFeedback[]
   disconnected_at         DateTime?
   created_at              DateTime  @default(now())
   updated_at              DateTime  @updatedAt
+
+  socialMetrics         SocialMetric[]
+  providerEvents        SocialProviderEvent[]
+  queues                SocialPostQueue[]
+  marketingPosts        MarketingPost[]
+  marketingPostVersions MarketingPostVersion[]
+  publicationAttempts   SocialPublicationAttempt[]
 }
 
 model MarketingCampaign {
@@ -675,6 +960,7 @@ model MarketingCampaign {
 
   posts     MarketingPost[]
   approvals CampaignApproval[]
+  socialFeedbacks SocialFeedback[]
   assets    PromotionAsset[]
   utmLinks  UTMLink[]
   analytics CampaignAnalytics[]
@@ -682,35 +968,67 @@ model MarketingCampaign {
   // Phase 10: Beta & UAT Tracking
   is_test_data Boolean @default(false)
   beta_label   String?
+
+  socialMetrics      SocialMetric[]
+  socialAttributions SocialAttribution[]
+  listings           CampaignListingLink[]
+  target_accounts    CampaignTargetAccount[]
+}
+
+model CampaignListingLink {
+  id          String            @id @default(cuid())
+  campaign_id String
+  campaign    MarketingCampaign @relation(fields: [campaign_id], references: [id])
+  listing_id  String
+  listing     Listing           @relation(fields: [listing_id], references: [id])
+  created_at  DateTime          @default(now())
+
+  @@unique([campaign_id, listing_id])
+}
+
+model CampaignTargetAccount {
+  id                String            @id @default(cuid())
+  campaign_id       String
+  campaign          MarketingCampaign @relation(fields: [campaign_id], references: [id])
+  target_account_id String
+  target_account    SocialAccount     @relation(fields: [target_account_id], references: [id])
+  created_at        DateTime          @default(now())
+
+  @@unique([campaign_id, target_account_id])
 }
 
 model MarketingPost {
-  id               String            @id @default(cuid())
-  campaign_id      String
-  campaign         MarketingCampaign @relation(fields: [campaign_id], references: [id])
-  listing_id       String?
-  listing          Listing?          @relation(fields: [listing_id], references: [id])
-  provider_id      String? // String ref to User
-  platform         String
-  post_type        String
-  post_title       String?
-  caption          String?
-  hashtags         String?
-  media_type       String?
-  media_file_path  String?
-  media_prompt     String?
-  destination_url  String?
-  tracking_url     String?
-  scheduled_at     DateTime?
-  published_at     DateTime?
-  post_status      String
-  approval_status  String
-  rejection_reason String?
+  id                String            @id @default(cuid())
+  campaign_id       String
+  campaign          MarketingCampaign @relation(fields: [campaign_id], references: [id])
+  listing_id        String?
+  listing           Listing?          @relation(fields: [listing_id], references: [id])
+  provider_id       String? // String ref to User
+  target_account_id String?
+  target_account    SocialAccount?    @relation(fields: [target_account_id], references: [id])
+  platform          String
+  post_type         String
+  post_title        String?
+  caption           String?
+  hashtags          String?
+  media_type        String?
+  media_file_path   String?
+  media_prompt      String?
+  destination_url   String?
+  tracking_url      String?
+  scheduled_at      DateTime?
+  published_at      DateTime?
+  socialFeedbacks   SocialFeedback[]
+  post_status       String
+  approval_status   String
+  rejection_reason  String?
 
   created_by_id  String?
   created_by     User?   @relation("PostCreator", fields: [created_by_id], references: [id])
   approved_by_id String?
   approved_by    User?   @relation("PostApprover", fields: [approved_by_id], references: [id])
+
+  version Int @default(1)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -720,6 +1038,11 @@ model MarketingPost {
   utmLinks     UTMLink[]
   analytics    CampaignAnalytics[]
   queueEntries SocialPostQueue[]
+  versions     MarketingPostVersion[]
+  reviews      MarketingPostReview[]
+
+  socialMetrics      SocialMetric[]
+  socialAttributions SocialAttribution[]
 }
 
 model CampaignApproval {
@@ -805,15 +1128,54 @@ model ProviderPromotionOptIn {
 }
 
 model SocialPostQueue {
-  id            String        @id @default(cuid())
-  post_id       String
-  post          MarketingPost @relation(fields: [post_id], references: [id])
-  platform      String
-  status        String // "Pending" | "Posting" | "Success" | "Failed"
-  error_message String?
-  scheduled_at  DateTime?
-  processed_at  DateTime?
-  created_at    DateTime      @default(now())
+  id                  String                @id @default(cuid())
+  post_id             String
+  post                MarketingPost         @relation(fields: [post_id], references: [id])
+  approved_version_id String?
+  post_version        MarketingPostVersion? @relation(fields: [approved_version_id], references: [id])
+  target_account_id   String?
+  target_account      SocialAccount?        @relation(fields: [target_account_id], references: [id])
+  platform            String
+  status              String // "Pending" | "Posting" | "Success" | "Failed" | "Cancelled"
+  error_message       String?
+  scheduled_at        DateTime?
+  timezone            String?
+  idempotency_key     String?               @unique
+  processed_at        DateTime?
+  cancelled_at        DateTime?
+  cancellation_reason String?
+  created_by_id       String?
+  created_by          User?                 @relation(fields: [created_by_id], references: [id])
+  created_at          DateTime              @default(now())
+
+  publication_attempts SocialPublicationAttempt[]
+}
+
+model SocialPublicationAttempt {
+  id                   String               @id @default(cuid())
+  queue_id             String
+  queue                SocialPostQueue      @relation(fields: [queue_id], references: [id], onDelete: Cascade)
+  post_version_id      String
+  post_version         MarketingPostVersion @relation(fields: [post_version_id], references: [id])
+  social_account_id    String
+  social_account       SocialAccount        @relation(fields: [social_account_id], references: [id])
+  provider             String
+  provider_post_id     String?
+  attempt_number       Int                  @default(1)
+  publication_key      String               // Stable idempotency key across retries for the same publication intent
+  correlation_id       String?
+  status               String // "PENDING" | "PROCESSING" | "SUCCEEDED" | "FAILED_RETRYABLE" | "FAILED_FINAL" | "CANCELLED"
+  normalized_error     String?              @db.Text
+  is_retryable         Boolean              @default(false)
+  next_retry_at        DateTime?
+  started_at           DateTime?
+  completed_at         DateTime?
+  created_at           DateTime             @default(now())
+  updated_at           DateTime             @updatedAt
+
+  @@unique([queue_id, attempt_number])
+  @@index([queue_id])
+  @@index([status, next_retry_at])
 }
 
 // ----------------------------------------------------------------------
@@ -1031,11 +1393,14 @@ enum SecurityEventSource {
   AI_BOT_LOG
   PAYMENT_WEBHOOK_LOG
   PAYMENT_RECONCILIATION_LOG
+  PAYMENT_ACTION_LOG
   VERIFICATION_DOCUMENT
   DAMAGE_CLAIM
   DISPUTE_CASE
   INSPECTION_REPORT
   SYSTEM_SETTING
+  AUTHENTICATION_SECURITY_LOG
+  API_SECURITY_LOG
 }
 
 enum SecurityDomain {
@@ -1132,6 +1497,12 @@ model SecurityEvent {
   primaryAlerts   SecurityAlert[]         @relation("PrimaryAlertEvent")
   evidenceRecords SecurityAlertEvidence[] @relation("AlertEvidenceEvent")
   candidateLogs   RuleEvaluationLog[]     @relation("CandidateEvent")
+
+  // SOC Incident Cases
+  primary_incident_cases IncidentCase[] @relation("OriginatingSecurityEvent")
+
+  behavioral_evidence_links BehavioralRiskEvidenceLink[]
+  geo_enrichment            SecurityEventGeoEnrichment?
 
   @@index([lifecycle_type, occurred_at, id])
   @@index([source_type, source_record_id])
@@ -1230,6 +1601,7 @@ enum DetectionCorrelationSubject {
   ACTOR_USER_ID
   TARGET_USER_ID
   TARGET_RESOURCE_ID
+  CORRELATION_KEY
   GLOBAL
 }
 
@@ -1494,4 +1866,1466 @@ model AccountLinkEvent {
   created_at       DateTime @default(now())
 
   @@index([user_id])
+// Phase 4: Incident Case Foundation (Gate 4F)
+// ----------------------------------------------------------------------
+
+enum IncidentCaseStatus {
+  OPEN
+  TRIAGED
+  INVESTIGATING
+  CONTAINMENT_PENDING
+  RESOLVED
+  CLOSED
+  REOPENED
+}
+
+enum IncidentCaseSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum IncidentCaseOrigin {
+  MANUAL
+  SECURITY_EVENT
+  SECURITY_ALERT
+  EXTERNAL_PROVIDER
+  ADMIN_ESCALATION
+}
+
+enum IncidentCaseHistoryReason {
+  CREATED
+  TRIAGED
+  ASSIGNED
+  REASSIGNED
+  INVESTIGATION_STARTED
+  CONTAINMENT_REQUESTED
+  RESOLVED
+  CLOSED
+  REOPENED
+  ESCALATED
+  CORRECTION_RECORDED
+}
+
+enum IncidentCaseNoteType {
+  TRIAGE
+  INVESTIGATION
+  EVIDENCE_REVIEW
+  ESCALATION
+  RESOLUTION
+  CLOSURE
+  REOPENING
+  INTERNAL
+}
+
+enum IncidentCaseEvidenceType {
+  SECURITY_EVENT
+  AUDIT_LOG
+  SYSTEM_LOG
+  PROVIDER_EVENT
+  TRANSACTION_REFERENCE
+  DOCUMENT_REFERENCE
+  IMAGE_REFERENCE
+  USER_STATEMENT
+  OTHER
+}
+
+enum IncidentCaseEvidenceSource {
+  INTERNAL_SYSTEM
+  EXTERNAL_PROVIDER
+  USER_SUBMITTED
+  ADMINISTRATIVE
+}
+
+model IncidentCase {
+  id                            String               @id @default(cuid())
+  case_reference                String               @unique // length 21
+  status                        IncidentCaseStatus   @default(OPEN)
+  severity                      IncidentCaseSeverity
+  origin                        IncidentCaseOrigin
+  title                         String // max 160
+  summary                       String? // max 2000
+  created_at                    DateTime             @default(now())
+  updated_at                    DateTime             @updatedAt
+  opened_at                     DateTime
+  resolved_at                   DateTime?
+  closed_at                     DateTime?
+  reopened_at                   DateTime?
+  assigned_user_id              String?
+  assigned_user                 User?                @relation("AssignedIncidentCases", fields: [assigned_user_id], references: [id], onDelete: SetNull)
+  created_by_user_id            String?
+  created_by_user               User?                @relation("CreatedIncidentCases", fields: [created_by_user_id], references: [id], onDelete: SetNull)
+  originating_security_event_id String?
+  originating_security_event    SecurityEvent?       @relation("OriginatingSecurityEvent", fields: [originating_security_event_id], references: [id], onDelete: Restrict)
+  version                       Int                  @default(1)
+  legal_hold                    Boolean              @default(false)
+  retention_until               DateTime?
+
+  histories                    IncidentCaseHistory[]
+  notes                        IncidentCaseNote[]
+  evidences                    IncidentCaseEvidence[]
+  playbook_links               IncidentCasePlaybookLink[]
+  approval_requests            SecurityResponseApprovalRequest[]
+  approval_grants              SecurityResponseApprovalGrant[]
+  security_response_executions SecurityResponseExecution[]
+}
+
+model IncidentCaseHistory {
+  id                  String                    @id @default(cuid())
+  incident_case_id    String
+  incident_case       IncidentCase              @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  previous_status     IncidentCaseStatus?
+  new_status          IncidentCaseStatus
+  reason              IncidentCaseHistoryReason
+  reason_note         String? // max 1000
+  actor_user_id       String?
+  actor_user          User?                     @relation("IncidentCaseHistoryActor", fields: [actor_user_id], references: [id], onDelete: SetNull)
+  assigned_to_user_id String?
+  assigned_to_user    User?                     @relation("IncidentCaseHistoryAssignedTo", fields: [assigned_to_user_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  occurred_at         DateTime
+  idempotency_key     String
+
+  @@unique([incident_case_id, idempotency_key])
+  @@index([incident_case_id, occurred_at, id])
+}
+
+model IncidentCaseNote {
+  id               String               @id @default(cuid())
+  incident_case_id String
+  incident_case    IncidentCase         @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  actor_user_id    String?
+  actor_user       User?                @relation(fields: [actor_user_id], references: [id], onDelete: SetNull)
+  note_type        IncidentCaseNoteType
+  content          String // max 4000
+  content_hash     String // length 64 hex
+  is_redacted      Boolean              @default(false)
+  created_at       DateTime             @default(now())
+  idempotency_key  String
+
+  @@unique([incident_case_id, idempotency_key])
+  @@index([incident_case_id, created_at, id])
+}
+
+model IncidentCaseEvidence {
+  id                    String                     @id @default(cuid())
+  incident_case_id      String
+  incident_case         IncidentCase               @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  evidence_type         IncidentCaseEvidenceType
+  source_classification IncidentCaseEvidenceSource
+  added_by_user_id      String?
+  added_by_user         User?                      @relation(fields: [added_by_user_id], references: [id], onDelete: SetNull)
+  collected_at          DateTime
+  created_at            DateTime                   @default(now())
+  reference_key         String // max 256
+  integrity_hash        String // length 64 hex
+  content_type          String? // max 120
+  size_bytes            Int? // non-negative
+  idempotency_key       String
+  legal_hold            Boolean                    @default(false)
+  retention_until       DateTime?
+
+  @@unique([incident_case_id, idempotency_key])
+  @@index([incident_case_id, collected_at, id])
+}
+
+// ----------------------------------------------------------------------
+// Phase 4: SOC Playbooks & Approvals (Gate 4G)
+// ----------------------------------------------------------------------
+
+enum SecurityPlaybookStatus {
+  DRAFT
+  REVIEW_PENDING
+  ACTIVE
+  ARCHIVED
+}
+
+enum SecurityResponseActionType {
+  ACCOUNT_RESTRICTION
+  PAYMENT_FREEZE
+  BOOKING_FREEZE
+  SESSION_REVOCATION
+  CREDENTIAL_ROTATION
+  INFRASTRUCTURE_ENFORCEMENT
+  MANUAL_PROCEDURE
+  NOOP_SIMULATION
+}
+
+enum SecurityResponseReversibility {
+  REVERSIBLE
+  IRREVERSIBLE
+  MANUAL_INTERVENTION_REQUIRED
+}
+
+enum SecurityApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+  EXPIRED
+  REVOKED
+  CONSUMED
+}
+
+enum SecurityApprovalEventType {
+  REQUESTED
+  APPROVED
+  REJECTED
+  CANCELLED
+  EXPIRED
+  REVOKED
+  CONSUMED
+}
+
+enum SecurityApprovalGrantState {
+  AVAILABLE
+  CONSUMED
+  REVOKED
+  EXPIRED
+}
+
+model SecurityResponsePlaybook {
+  id             String                 @id @default(cuid())
+  playbook_id    String
+  version        Int
+  name           String
+  description    String
+  status         SecurityPlaybookStatus @default(DRAFT)
+  created_by_id  String?
+  created_by     User?                  @relation("PlaybookCreator", fields: [created_by_id], references: [id], onDelete: SetNull)
+  approved_by_id String?
+  approved_by    User?                  @relation("PlaybookApprover", fields: [approved_by_id], references: [id], onDelete: SetNull)
+  lock_version   Int                    @default(0)
+  created_at     DateTime               @default(now())
+  updated_at     DateTime               @updatedAt
+
+  steps                        SecurityResponseStep[]
+  case_links                   IncidentCasePlaybookLink[]
+  approval_requests            SecurityResponseApprovalRequest[]
+  security_response_executions SecurityResponseExecution[]
+
+  @@unique([playbook_id, version])
+  @@index([status])
+}
+
+model SecurityResponseStep {
+  id                String                        @id @default(cuid())
+  playbook_id       String
+  playbook_version  Int
+  playbook          SecurityResponsePlaybook      @relation(fields: [playbook_id, playbook_version], references: [playbook_id, version], onDelete: Restrict)
+  step_order        Int
+  action_type       SecurityResponseActionType
+  human_instruction String
+  expected_evidence String?
+  reversibility     SecurityResponseReversibility
+  duration_seconds  Int?
+  risk_level        SecuritySeverity
+  approval_required Boolean                       @default(true)
+
+  @@unique([playbook_id, playbook_version, step_order])
+}
+
+model IncidentCasePlaybookLink {
+  id               String                   @id @default(cuid())
+  incident_case_id String
+  incident_case    IncidentCase             @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  playbook_id      String
+  playbook_version Int
+  playbook         SecurityResponsePlaybook @relation(fields: [playbook_id, playbook_version], references: [playbook_id, version], onDelete: Restrict)
+  linked_by_id     String?
+  linked_by        User?                    @relation("CasePlaybookLinker", fields: [linked_by_id], references: [id], onDelete: SetNull)
+  linked_at        DateTime                 @default(now())
+
+  @@unique([incident_case_id, playbook_id, playbook_version])
+}
+
+model SecurityResponseApprovalRequest {
+  id               String                      @id @default(cuid())
+  requester_id     String
+  requester        User                        @relation("ApprovalRequester", fields: [requester_id], references: [id], onDelete: Restrict)
+  approver_id      String?
+  approver         User?                       @relation("ApprovalReviewer", fields: [approver_id], references: [id], onDelete: SetNull)
+  incident_case_id String
+  incident_case    IncidentCase                @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  playbook_id      String
+  playbook_version Int
+  playbook         SecurityResponsePlaybook    @relation(fields: [playbook_id, playbook_version], references: [playbook_id, version], onDelete: Restrict)
+  status           SecurityApprovalStatus      @default(PENDING)
+  justification    String                      @db.Text
+  response_type    SecurityResponseActionType?
+  target_type      String?
+  target_id        String?
+  requested_at     DateTime                    @default(now())
+  decision_at      DateTime?
+  expires_at       DateTime?
+  idempotency_key  String                      @unique
+
+  decisions SecurityResponseApprovalDecision[]
+  grants    SecurityResponseApprovalGrant[]
+
+  @@index([incident_case_id])
+  @@index([status])
+}
+
+model SecurityResponseApprovalDecision {
+  id              String                          @id @default(cuid())
+  request_id      String
+  request         SecurityResponseApprovalRequest @relation(fields: [request_id], references: [id], onDelete: Restrict)
+  event_type      SecurityApprovalEventType
+  actor_id        String?
+  actor           User?                           @relation("ApprovalDecisionActor", fields: [actor_id], references: [id], onDelete: SetNull)
+  reason          String?                         @db.Text
+  occurred_at     DateTime                        @default(now())
+  idempotency_key String
+
+  @@unique([request_id, idempotency_key])
+  @@index([request_id, occurred_at])
+}
+
+model SecurityResponseApprovalGrant {
+  id               String                          @id @default(cuid())
+  request_id       String                          @unique
+  request          SecurityResponseApprovalRequest @relation(fields: [request_id], references: [id], onDelete: Restrict)
+  incident_case_id String
+  incident_case    IncidentCase                    @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  playbook_id      String
+  playbook_version Int
+  grant_state      SecurityApprovalGrantState      @default(AVAILABLE)
+  issued_at        DateTime                        @default(now())
+  expires_at       DateTime
+  consumed_at      DateTime?
+  revoked_at       DateTime?
+  revoked_by_id    String?
+  revoked_by       User?                           @relation("GrantRevoker", fields: [revoked_by_id], references: [id], onDelete: SetNull)
+
+  execution SecurityResponseExecution?
+
+  @@index([incident_case_id])
+  @@index([grant_state, expires_at])
+}
+
+enum SecurityExecutionStatus {
+  PENDING
+  EXECUTING
+  SUCCEEDED
+  FAILED
+  ROLLBACK_PENDING
+  ROLLED_BACK
+  ROLLBACK_FAILED
+  CANCELLED
+}
+
+model SecurityResponseExecution {
+  id                  String                        @id @default(cuid())
+  incident_case_id    String
+  incident_case       IncidentCase                  @relation(fields: [incident_case_id], references: [id], onDelete: Restrict)
+  playbook_id         String
+  playbook_version    Int
+  playbook            SecurityResponsePlaybook      @relation(fields: [playbook_id, playbook_version], references: [playbook_id, version], onDelete: Restrict)
+  approval_request_id String
+  approval_grant_id   String                        @unique
+  approval_grant      SecurityResponseApprovalGrant @relation(fields: [approval_grant_id], references: [id], onDelete: Restrict)
+  response_type       SecurityResponseActionType
+  target_type         String
+  target_id           String
+  status              SecurityExecutionStatus       @default(PENDING)
+  idempotency_key     String                        @unique
+  requested_by_id     String
+  requested_by        User                          @relation("ExecutionRequester", fields: [requested_by_id], references: [id], onDelete: Restrict)
+  executed_by_id      String
+  executed_by         User                          @relation("ExecutionOperator", fields: [executed_by_id], references: [id], onDelete: Restrict)
+  started_at          DateTime?
+  completed_at        DateTime?
+  failed_at           DateTime?
+  rolled_back_at      DateTime?
+  failure_code        String?                       @db.Text
+  lock_version        Int                           @default(0)
+  created_at          DateTime                      @default(now())
+  updated_at          DateTime                      @updatedAt
+
+  actions SecurityResponseAction[]
+
+  @@index([incident_case_id])
+  @@index([status])
+}
+
+model SecurityResponseAction {
+  id               String                     @id @default(cuid())
+  execution_id     String
+  execution        SecurityResponseExecution  @relation(fields: [execution_id], references: [id], onDelete: Restrict)
+  sequence         Int
+  action_type      SecurityResponseActionType
+  target_reference String
+  before_state     String?                    @db.Text
+  after_state      String?                    @db.Text
+  status           SecurityExecutionStatus    @default(PENDING)
+  executed_at      DateTime?
+  rolled_back_at   DateTime?
+  failure_metadata String?                    @db.Text
+
+  @@unique([execution_id, sequence])
+}
+
+// ----------------------------------------------------------------------
+// Phase 5: Behavioral Risk Engine (Slice 2 Persistence)
+// ----------------------------------------------------------------------
+
+model BehavioralRiskAssessment {
+  id                String              @id @default(cuid())
+  subject_reference String
+  score             Int
+  risk_band         String
+  confidence        String
+  policy_version    String
+  environment       SecurityEnvironment
+  lifecycle         SecurityLifecycle
+  window_start      DateTime
+  window_end        DateTime
+  generated_time    DateTime
+  advisory_only     Boolean             @default(true)
+  source_diversity  Int
+  fingerprint       String              @unique
+  created_at        DateTime            @default(now())
+
+  signals BehavioralRiskSignal[]
+
+  @@index([subject_reference, environment, lifecycle])
+  @@index([environment, lifecycle])
+  @@index([generated_time])
+  @@index([policy_version])
+}
+
+model BehavioralRiskSignal {
+  id               String                   @id @default(cuid())
+  assessment_id    String
+  assessment       BehavioralRiskAssessment @relation(fields: [assessment_id], references: [id], onDelete: Cascade)
+  signal_code      String
+  title            String
+  explanation      String
+  raw_weight       Int
+  effective_weight Int
+  confidence       String
+  first_observed   DateTime
+  last_observed    DateTime
+  source_count     Int
+  sort_ordinal     Int
+
+  evidence_links BehavioralRiskEvidenceLink[]
+
+  @@unique([assessment_id, signal_code])
+}
+
+model BehavioralRiskEvidenceLink {
+  signal_id         String
+  signal            BehavioralRiskSignal @relation(fields: [signal_id], references: [id], onDelete: Cascade)
+  security_event_id String
+  security_event    SecurityEvent        @relation(fields: [security_event_id], references: [id], onDelete: Restrict)
+  created_at        DateTime             @default(now())
+
+  @@id([signal_id, security_event_id])
+  @@index([security_event_id])
+}
+
+// ----------------------------------------------------------------------
+// Phase 6A: Live Geospatial Threat Map
+// ----------------------------------------------------------------------
+
+model SecurityEventGeoEnrichment {
+  id                        String        @id @default(cuid())
+  security_event_id         String        @unique
+  security_event            SecurityEvent @relation(fields: [security_event_id], references: [id], onDelete: Cascade)
+  status                    String
+  provider                  String
+  provider_database_version String?
+  ip_fingerprint            String
+  country_code              String?
+  country_name              String?
+  region_name               String?
+  city_name                 String?
+  latitude                  Float?
+  longitude                 Float?
+  accuracy_radius_km        Float?
+  location_precision        String?
+  lookup_attempted_at       DateTime?
+  resolved_at               DateTime?
+  expires_at                DateTime?
+  failure_code              String?
+  created_at                DateTime      @default(now())
+  updated_at                DateTime      @updatedAt
+
+  @@index([status])
+  @@index([country_code])
+  @@index([ip_fingerprint])
+}
+
+model ProhibitedItemPolicy {
+  id                         String    @id @default(uuid())
+  policyCode                 String    @unique
+  name                       String
+  slug                       String    @unique
+  summary                    String
+  fullDescription            String
+  classification             String
+  riskLevel                  String
+  enforcementAction          String
+  examples                   String
+  prohibitedKeywords         String
+  reviewKeywords             String
+  exclusions                 String
+  regulator                  String?
+  legalReference             String?
+  publicGuidance             String?
+  internalGuidance           String?
+  automaticBlockEnabled      Boolean   @default(false)
+  manualReviewRequired       Boolean   @default(false)
+  securityEscalationRequired Boolean   @default(false)
+  accountEnforcementEligible Boolean   @default(false)
+  isActive                   Boolean   @default(true)
+  effectiveFrom              DateTime
+  effectiveUntil             DateTime?
+  policyVersion              String
+  displayOrder               Int       @default(0)
+  created_at                 DateTime  @default(now())
+  updated_at                 DateTime  @updatedAt
+  createdByUserId            String?
+  updatedByUserId            String?
+
+  listingPolicyEvaluations ListingPolicyEvaluation[]
+  listingEnforcementCases  ListingEnforcementCase[]
+  policyChangeRecords      PolicyChangeRecord[]
+}
+
+model ListingPolicyEvaluation {
+  id                       String    @id @default(uuid())
+  listingId                String
+  providerUserId           String
+  evaluationSource         String
+  policyVersion            String
+  submittedTitle           String
+  submittedDescriptionHash String
+  matchedPolicyId          String?
+  matchedTerms             String
+  riskScore                Int
+  classification           String
+  decision                 String
+  reasonCode               String
+  userSafeReason           String
+  internalReason           String
+  rulesEngineVersion       String
+  modelName                String?
+  confidence               Float?
+  requiresManualReview     Boolean   @default(false)
+  evaluatedAt              DateTime  @default(now())
+  resolvedAt               DateTime?
+  resolvedByUserId         String?
+
+  matchedPolicy           ProhibitedItemPolicy?    @relation(fields: [matchedPolicyId], references: [id])
+  listingEnforcementCases ListingEnforcementCase[]
+}
+
+model ListingEnforcementCase {
+  id                String    @id @default(uuid())
+  caseNumber        String    @unique
+  listingId         String
+  userId            String
+  evaluationId      String
+  policyId          String
+  caseStatus        String
+  severity          String
+  enforcementAction String
+  evidenceReference String?
+  internalNotes     String?
+  userNotice        String?
+  assignedToUserId  String?
+  openedAt          DateTime  @default(now())
+  resolvedAt        DateTime?
+  resolvedByUserId  String?
+  resolution        String?
+  appealEligible    Boolean   @default(false)
+  appealDeadline    DateTime?
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+
+  evaluation ListingPolicyEvaluation @relation(fields: [evaluationId], references: [id])
+  policy     ProhibitedItemPolicy    @relation(fields: [policyId], references: [id])
+  appeals    ListingPolicyAppeal[]
+}
+
+model ListingPolicyAppeal {
+  id                   String    @id @default(uuid())
+  enforcementCaseId    String
+  appellantUserId      String
+  appealReason         String
+  supportingStatement  String
+  submittedDocumentIds String
+  status               String
+  reviewerUserId       String?
+  reviewerDecision     String?
+  reviewerNotes        String?
+  submittedAt          DateTime  @default(now())
+  reviewedAt           DateTime?
+  created_at           DateTime  @default(now())
+  updated_at           DateTime  @updatedAt
+
+  enforcementCase ListingEnforcementCase @relation(fields: [enforcementCaseId], references: [id])
+}
+
+model PolicyChangeRecord {
+  id               String   @id @default(uuid())
+  policyId         String
+  previousVersion  String
+  newVersion       String
+  changeType       String
+  changeSummary    String
+  previousValues   String
+  newValues        String
+  changedByUserId  String
+  approvedByUserId String?
+  changedAt        DateTime @default(now())
+
+  policy ProhibitedItemPolicy @relation(fields: [policyId], references: [id])
+}
+
+model CookieConsentReceipt {
+  id                   String    @id @default(cuid())
+  user_id              String?
+  anonymous_consent_id String?
+  policy_version       String
+  consent_version      Int
+  necessary_enabled    Boolean
+  functional_enabled   Boolean
+  analytics_enabled    Boolean
+  marketing_enabled    Boolean
+  consent_action       String
+  source               String?
+  consented_at         DateTime  @default(now())
+  withdrawn_at         DateTime?
+  ip_address           String
+  user_agent           String
+
+  user User? @relation(fields: [user_id], references: [id])
+}
+
+model DataSubjectRequest {
+  id                           String    @id @default(cuid())
+  reference_number             String    @unique
+  user_id                      String
+  request_type                 String
+  status                       String
+  identity_verification_status String?
+  due_at                       DateTime?
+  requester_email_encrypted    String?
+  requester_message            String?
+  submitted_at                 DateTime  @default(now())
+  created_at                   DateTime  @default(now())
+  resolved_at                  DateTime?
+  resolution_notes             String?
+  assigned_to_id               String?
+  dpo_escalation_status        String?
+  dpo_escalated_at             DateTime?
+  dpo_escalated_by_user_id     String?
+  dpo_escalation_reason        String?
+  user                         User      @relation("DSRRequester", fields: [user_id], references: [id])
+  assigned_to                  User?     @relation("DSRAssignee", fields: [assigned_to_id], references: [id])
+}
+
+// Insurance Technical Foundation — Slice 1
+model InsurancePartner {
+  id           String   @id @default(cuid())
+  adapter_key  String   @unique
+  display_name String
+  environment  String
+  status       String   @default("DISABLED")
+  is_mock      Boolean  @default(false)
+  is_enabled   Boolean  @default(false)
+  capabilities Json
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  products           InsuranceProduct[]
+  offers             InsuranceOffer[]
+  policies           InsurancePolicy[]
+  webhook_events     InsuranceWebhookEvent[]
+  reconciliationLogs InsuranceReconciliationLog[]
+
+  @@index([status, is_enabled])
+}
+
+model InsuranceProduct {
+  id              String   @id @default(cuid())
+  partner_id      String
+  product_code    String
+  display_name    String
+  coverage_type   String
+  status          String   @default("DRAFT")
+  currency        String   @db.VarChar(3)
+  terms_reference String?
+  configuration   Json?
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  partner  InsurancePartner  @relation(fields: [partner_id], references: [id], onDelete: Restrict)
+  offers   InsuranceOffer[]
+  policies InsurancePolicy[]
+
+  @@unique([partner_id, product_code])
+  @@index([status])
+}
+
+model InsuranceOffer {
+  id                String   @id @default(cuid())
+  partner_id        String
+  product_id        String
+  booking_id        String
+  external_offer_id String
+  status            String   @default("AVAILABLE")
+  premium_amount    Decimal  @db.Decimal(20, 4)
+  tax_amount        Decimal  @default(0) @db.Decimal(20, 4)
+  currency          String   @db.VarChar(3)
+  coverage_start    DateTime
+  coverage_end      DateTime
+  expires_at        DateTime
+  normalized_terms  Json?
+  created_at        DateTime @default(now())
+
+  partner InsurancePartner @relation(fields: [partner_id], references: [id], onDelete: Restrict)
+  product InsuranceProduct @relation(fields: [product_id], references: [id], onDelete: Restrict)
+  booking Booking          @relation(fields: [booking_id], references: [id], onDelete: Restrict)
+
+  @@unique([partner_id, external_offer_id])
+  @@index([booking_id, status])
+  @@index([expires_at])
+}
+
+model InsuranceSelection {
+  id                 String   @id @default(cuid())
+  booking_id         String   @unique
+  user_id            String
+  offer_reference    String
+  partner_key        String
+  product_code       String
+  disclosure_version String
+  premium_minor      Int
+  currency           String   @db.VarChar(3)
+  coverage_start     DateTime
+  coverage_end       DateTime
+  offer_expires_at   DateTime
+  consent_accepted   Boolean
+  consented_at       DateTime
+  idempotency_key    String   @unique
+  request_hash       String
+  status             String   @default("SELECTED")
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  booking Booking         @relation(fields: [booking_id], references: [id], onDelete: Restrict)
+  user    User            @relation(fields: [user_id], references: [id], onDelete: Restrict)
+  order   InsuranceOrder?
+
+  @@index([user_id, created_at])
+  @@index([status, offer_expires_at])
+}
+
+model InsuranceOrder {
+  id                        String   @id @default(cuid())
+  selection_id              String   @unique
+  booking_id                String   @unique
+  user_id                   String
+  idempotency_key           String   @unique
+  request_hash              String
+  status                    String   @default("SELECTED")
+  payment_dependency_status String   @default("PENDING")
+  payment_reference         String?
+  issuance_idempotency_key  String?  @unique
+  issuance_request_hash     String?
+  external_order_id         String?
+  failure_code              String?
+  created_at                DateTime @default(now())
+  updated_at                DateTime @updatedAt
+
+  selection InsuranceSelection @relation(fields: [selection_id], references: [id], onDelete: Restrict)
+  booking   Booking            @relation(fields: [booking_id], references: [id], onDelete: Restrict)
+  user      User               @relation(fields: [user_id], references: [id], onDelete: Restrict)
+  policy    InsurancePolicy?
+
+  @@index([user_id, status])
+  @@index([status, updated_at])
+}
+
+model InsurancePolicy {
+  id                       String    @id @default(cuid())
+  partner_id               String
+  product_id               String
+  booking_id               String    @unique
+  insurance_order_id       String?   @unique
+  external_policy_id       String
+  order_reference          String
+  idempotency_key          String    @unique
+  status                   String    @default("PENDING") // "PENDING" | "ISSUED" | "ACTIVE" | "EXPIRED" | "CANCELLATION_REQUESTED" | "CANCELLATION_PENDING" | "CANCELLED" | "CANCELLATION_REJECTED" | "CANCELLATION_FAILED"
+  premium_amount           Decimal   @db.Decimal(20, 4)
+  tax_amount               Decimal   @default(0) @db.Decimal(20, 4)
+  currency                 String    @db.VarChar(3)
+  coverage_start           DateTime
+  coverage_end             DateTime
+  issued_at                DateTime?
+  cancelled_at             DateTime?
+  cancellation_reason_code String?
+  normalized_snapshot      Json?
+  created_at               DateTime  @default(now())
+  updated_at               DateTime  @updatedAt
+
+  partner            InsurancePartner             @relation(fields: [partner_id], references: [id], onDelete: Restrict)
+  product            InsuranceProduct             @relation(fields: [product_id], references: [id], onDelete: Restrict)
+  booking            Booking                      @relation(fields: [booking_id], references: [id], onDelete: Restrict)
+  insurance_order    InsuranceOrder?              @relation(fields: [insurance_order_id], references: [id], onDelete: Restrict)
+  claims             InsuranceClaim[]
+  ledgerEntries      FinanceLedger[]
+  reconciliationLogs InsuranceReconciliationLog[]
+  financeExceptions  InsuranceFinanceException[]
+
+  @@unique([partner_id, external_policy_id])
+  @@index([status, coverage_end])
+}
+
+model InsuranceReconciliationLog {
+  id              String           @id @default(cuid())
+  partner_id      String
+  partner         InsurancePartner @relation(fields: [partner_id], references: [id])
+  policy_id       String?
+  policy          InsurancePolicy? @relation(fields: [policy_id], references: [id])
+  order_reference String?
+
+  batch_reference       String?
+  internal_amount_minor Int?
+  partner_amount_minor  Int?
+  currency              String  @default("PHP")
+  settlement_reference  String?
+
+  classification String // "MATCHED" | "MISSING_INTERNAL" | "MISSING_PARTNER" | "AMOUNT_MISMATCH" | "CURRENCY_MISMATCH" | "STATUS_MISMATCH" | "DUPLICATE" | "PENDING_REVIEW" | "RESOLVED"
+  status         String @default("PENDING") // "PENDING" | "RESOLVED"
+
+  created_at           DateTime  @default(now())
+  resolved_at          DateTime?
+  resolution_reference String?
+  audit_reference      String?
+
+  @@index([partner_id])
+  @@index([batch_reference])
+  @@index([classification])
+}
+
+model InsuranceFinanceException {
+  id              String           @id @default(cuid())
+  policy_id       String?
+  policy          InsurancePolicy? @relation(fields: [policy_id], references: [id])
+  order_reference String?
+
+  exception_type String // "PREMIUM_COLLECTION_FAILED" | "REFUND_FAILED" | "ORPHANED_POLICY"
+  description    String
+  context        Json?
+  status         String @default("OPEN") // "OPEN" | "REVIEWING" | "RESOLVED"
+
+  created_at          DateTime  @default(now())
+  resolved_at         DateTime?
+  resolution_notes    String?
+  resolved_by_user_id String?
+
+  @@index([status])
+  @@index([exception_type])
+}
+
+model InsuranceClaim {
+  id                  String    @id @default(cuid())
+  policy_id           String
+  external_claim_id   String?
+  idempotency_key     String    @unique
+  status              String    @default("SUBMITTED")
+  incident_type       String
+  incident_at         DateTime
+  incident_summary    String?
+  claimant_user_id    String?
+  claimed_amount      Int?
+  currency            String?
+  normalized_snapshot Json?
+  submitted_at        DateTime  @default(now())
+  resolved_at         DateTime?
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
+
+  policy    InsurancePolicy          @relation(fields: [policy_id], references: [id], onDelete: Restrict)
+  evidences InsuranceClaimEvidence[]
+
+  @@unique([policy_id, external_claim_id])
+  @@index([status, submitted_at])
+  @@index([claimant_user_id])
+}
+
+model InsuranceClaimEvidence {
+  id               String   @id @default(cuid())
+  claim_id         String
+  evidence_type    String
+  file_reference   String
+  mime_type        String?
+  size_bytes       Int?
+  uploaded_by      String
+  idempotency_key  String   @unique
+  partner_transfer String   @default("PENDING")
+  created_at       DateTime @default(now())
+
+  claim InsuranceClaim @relation(fields: [claim_id], references: [id], onDelete: Cascade)
+
+  @@index([claim_id])
+}
+
+model InsuranceWebhookEvent {
+  id                String    @id @default(cuid())
+  partner_id        String
+  external_event_id String
+  event_type        String
+  body_hash         String
+  signature_valid   Boolean
+  processing_status String    @default("PENDING")
+  occurred_at       DateTime?
+  received_at       DateTime  @default(now())
+  processed_at      DateTime?
+  failure_code      String?
+
+  partner InsurancePartner @relation(fields: [partner_id], references: [id], onDelete: Restrict)
+
+  @@unique([partner_id, external_event_id])
+  @@index([processing_status, received_at])
+}
+
+model PrivacyPolicyVersion {
+  id             String    @id @default(cuid())
+  version        String    @unique
+  status         String
+  effective_at   DateTime?
+  published_at   DateTime  @default(now())
+  created_at     DateTime  @default(now())
+  content_url    String?
+  created_by_id  String?
+  approved_by_id String?
+
+  created_by  User? @relation("PolicyAuthor", fields: [created_by_id], references: [id])
+  approved_by User? @relation("PolicyApprover", fields: [approved_by_id], references: [id])
+}
+
+model InsuranceConfig {
+  id                String   @id @default(cuid())
+  killSwitchEnabled Boolean  @default(true)
+  reason            String?
+  updatedByUserId   String
+  updatedAt         DateTime @updatedAt
+  version           Int      @default(1)
+
+  @@map("insurance_configs")
+}
+
+// ---------------------------------------------------------
+// PHASE 6: UNIFIED AUTONOMOUS AI CUSTOMER SERVICE & DIGITAL HUMAN
+// ---------------------------------------------------------
+
+model AiServiceSession {
+  id                String    @id @default(cuid())
+  userId            String?
+  nonce             String?   @unique
+  channel           String // "help" | "digital_human" | "contextual" | "pwa"
+  conversationId    String?
+  sourceRoute       String?
+  locale            String    @default("en")
+  voiceEnabled      Boolean   @default(false)
+  avatarEnabled     Boolean   @default(false)
+  providerSessionId String? // Short-lived provider ref
+  status            String // "active" | "ended" | "failed" | "blocked"
+  startedAt         DateTime  @default(now())
+  lastActiveAt      DateTime  @default(now())
+  endedAt           DateTime?
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId, status, lastActiveAt])
+  @@index([userId, startedAt])
+}
+
+model AiConversation {
+  id           String   @id @default(cuid())
+  userId       String?
+  activeCaseId String?
+  continuityKey String? @unique
+  summary      String?  @db.Text
+  lastIntent   String?
+  lastChannel  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user     User?       @relation(fields: [userId], references: [id])
+  messages AiMessage[]
+  feedback AiInteractionFeedback[]
+  events   AiInteractionEvent[]
+
+  @@index([userId, updatedAt])
+}
+
+model AiMessage {
+  id             String   @id @default(cuid())
+  conversationId String
+  sessionId      String?
+  role           String // "user" | "assistant" | "system" | "tool"
+  channel        String
+  content        String   @db.Text
+  safePayload    Json? // Structured metadata without secrets
+  createdAt      DateTime @default(now())
+
+  conversation AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  feedback     AiInteractionFeedback[]
+  events       AiInteractionEvent[]
+}
+
+model AiSupportCase {
+  id             String    @id @default(cuid())
+  caseNumber     String    @unique
+  userId         String?
+  activeIssueKey String?   @unique
+  category       String
+  subcategory    String?
+  severity       String // "low" | "medium" | "high" | "critical"
+  riskLevel      String // "safe" | "consequential" | "external"
+  status         String // "OPEN" | "UNDERSTANDING" | "DIAGNOSING" | "AWAITING_EVIDENCE" | "AWAITING_USER_CONFIRMATION" | "POLICY_EVALUATION" | "EXECUTING" | "VERIFYING" | "SAFE_HOLD" | "RESOLVED" | "CLOSED" | "SYSTEM_BLOCKED"
+  summary        String?   @db.Text
+  policyVersion  String?
+  slaDueAt       DateTime?
+  openedAt       DateTime  @default(now())
+  resolvedAt     DateTime?
+  closedAt       DateTime?
+  lastActivityAt DateTime  @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId, status, lastActivityAt])
+}
+
+model AiCaseEntityLink {
+  id           String   @id @default(cuid())
+  caseId       String
+  entityType   String // "Booking" | "Listing" | "Payment" | etc.
+  entityId     String
+  relationship String // "primary" | "evidence" | "related"
+  createdAt    DateTime @default(now())
+
+  @@index([caseId])
+  @@index([entityType, entityId])
+}
+
+model AiCaseEvidence {
+  id                 String   @id @default(cuid())
+  caseId             String
+  submittedByUserId  String
+  evidenceType       String // "Transaction" | "Media" | "Documents" | "Statements" | "ProviderResult"
+  fileReference      String? // Secure file ref
+  description        String?  @db.Text
+  sourceChannel      String
+  verificationStatus String // "pending" | "verified" | "rejected"
+  createdAt          DateTime @default(now())
+}
+
+model AiToolExecution {
+  id                  String    @id @default(cuid())
+  caseId              String?
+  sessionId           String
+  toolName            String
+  requestFingerprint  String
+  riskClass           String // "READ_ONLY" | "DRAFT_ONLY" | "USER_CONFIRMATION_REQUIRED" | "POLICY_ENGINE_REQUIRED" | "EXTERNAL_AUTHORITY_REQUIRED"
+  authorizationStatus String // "pending" | "authorized" | "denied"
+  policyStatus        String?
+  confirmationStatus  String?
+  idempotencyKey      String?
+  externalReference   String?
+  executionStatus     String // "pending" | "executing" | "success" | "failed" | "blocked"
+  verificationStatus  String?
+  startedAt           DateTime  @default(now())
+  completedAt         DateTime?
+
+  @@unique([idempotencyKey])
+}
+
+model AiPolicyDecision {
+  id            String   @id @default(cuid())
+  caseId        String?
+  policyType    String
+  policyVersion String
+  inputHash     String
+  decision      String // "approved" | "denied" | "hold"
+  resultData    Json?
+  reasonCode    String
+  createdAt     DateTime @default(now())
+
+  @@index([policyType, policyVersion, inputHash])
+}
+
+model AiResolution {
+  id                    String    @id @default(cuid())
+  caseId                String
+  resolutionType        String // "interim" | "final"
+  resolutionStatus      String // "proposed" | "confirmed" | "executed" | "failed"
+  policyDecisionId      String?
+  toolExecutionId       String?
+  userFacingExplanation String    @db.Text
+  verifiedAt            DateTime?
+  closedAt              DateTime?
+}
+
+model AiFollowUp {
+  id                  String    @id @default(cuid())
+  caseId              String
+  triggerAt           DateTime
+  triggerType         String // "reminder" | "recheck" | "re-evaluation"
+  status              String // "pending" | "triggered" | "completed" | "cancelled"
+  attemptCount        Int       @default(0)
+  lastAttemptAt       DateTime?
+  nextAttemptAt       DateTime?
+  eventType           String?
+  sourceEventKey      String?   @unique
+  deduplicationKey    String?   @unique
+  userId              String?
+  relatedEntityType   String?
+  relatedEntityId     String?
+  eligibleAt          DateTime?
+  expiresAt           DateTime?
+  cooldownUntil       DateTime?
+  lastCheckedAt       DateTime?
+  allowedTool         String?
+  auditMetadata       Json?
+  notificationId      String?   @unique
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  @@index([caseId])
+  @@index([status, triggerAt])
+  @@index([userId, eventType, relatedEntityType, relatedEntityId, cooldownUntil], map: "AiFollowUp_proactive_cooldown_idx")
+}
+
+model AiInteractionFeedback {
+  id             String   @id @default(cuid())
+  userId         String
+  conversationId String
+  messageId      String
+  caseId         String?
+  rating         String // "THUMBS_UP" | "THUMBS_DOWN"
+  reason         String?
+  comment        String?  @db.VarChar(500)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversation AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  message      AiMessage      @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, messageId])
+  @@index([createdAt, rating])
+  @@index([conversationId, createdAt])
+  @@index([caseId])
+}
+
+model AiInteractionEvent {
+  id                String    @id @default(cuid())
+  userId            String?
+  conversationId    String?
+  messageId         String?
+  caseId            String?
+  eventType         String
+  interactionSource String?
+  suggestionId      String?
+  route             String?
+  intent            String?
+  specialistId      String?
+  knowledgeSourceKey String?
+  knowledgeChunkKey  String?
+  toolExecutionId    String?
+  responseLatencyMs  Int?
+  knowledgeMatched   Boolean?
+  outcome            String?
+  idempotencyKey     String?   @unique
+  createdAt          DateTime  @default(now())
+
+  user         User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversation AiConversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  message      AiMessage?      @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@index([eventType, createdAt])
+  @@index([interactionSource, createdAt])
+  @@index([suggestionId, createdAt])
+  @@index([caseId, createdAt])
+  @@index([messageId])
+}
+
+model AiKnowledgeSource {
+  id               String    @id @default(cuid())
+  slug             String    @unique
+  sourceKey        String
+  title            String
+  module           String    @default("Legacy")
+  topic            String    @default("General")
+  category         String
+  applicableRoles  String // Transitional compatibility field.
+  roles             Json?
+  visibility       String    @default("AUTHENTICATED")
+  status           String // "ACTIVE" | "SUPERSEDED" | "ARCHIVED" | "RETIRED"
+  approvalStatus   String    @default("APPROVED")
+  authority        String    @default("LEGACY")
+  approvalEvidence String?
+  version          String
+  effectiveFrom    DateTime
+  effectiveUntil   DateTime?
+  sourceType       String // "faq" | "policy" | "guide" | canonical registry types
+  sourceLocator    String?
+  sourceReference  String?   @db.Text // Transitional legacy content/reference field.
+  contentHash      String?
+  lastSyncedAt     DateTime?
+  supersedesId     String?
+  metadata         Json?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  supersedes   AiKnowledgeSource?  @relation("AiKnowledgeSupersession", fields: [supersedesId], references: [id], onDelete: SetNull)
+  supersededBy AiKnowledgeSource[] @relation("AiKnowledgeSupersession")
+  chunks       AiKnowledgeChunk[]
+
+  @@unique([sourceKey, version])
+  @@index([status, approvalStatus, effectiveFrom, effectiveUntil])
+  @@index([module, topic])
+  @@index([visibility])
+  @@index([contentHash])
+}
+
+model AiKnowledgeChunk {
+  id                String   @id @default(cuid())
+  knowledgeSourceId String
+  chunkKey          String
+  headingPath       String
+  content           String   @db.Text
+  normalizedContent String   @db.Text
+  contentHash       String
+  keywords          Json?
+  ordinal           Int
+  visibility        String?
+  roles             Json?
+  effectiveFrom     DateTime?
+  effectiveUntil    DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  knowledgeSource AiKnowledgeSource @relation(fields: [knowledgeSourceId], references: [id], onDelete: Cascade)
+
+  @@unique([knowledgeSourceId, chunkKey])
+  @@index([knowledgeSourceId, ordinal])
+  @@index([contentHash])
+  @@index([visibility])
+}
+
+model AiProviderSession {
+  id                 String    @id @default(cuid())
+  userId             String?
+  sessionId          String
+  provider           String // "azure_voice" | "digital_human_x"
+  providerSessionRef String    @unique // Short-lived ref
+  status             String // "initializing" | "active" | "failed" | "closed"
+  expiresAt          DateTime
+  createdAt          DateTime  @default(now())
+  endedAt            DateTime?
+}
+
+// ----------------------------------------------------------------------
+// Phase 10: Social Media, Promotion & Feedback Intelligence Module
+// Phase 3: Database & Shared Foundation
+// ----------------------------------------------------------------------
+
+enum SocialMetricClassification {
+  ACTUAL
+  DERIVED
+  ESTIMATED
+}
+
+enum SocialProviderEventState {
+  PENDING
+  PROCESSED
+  FAILED
+  RETRYING
+  IGNORED
+}
+
+enum SocialAttributionStatus {
+  PENDING
+  CONFIRMED
+  REJECTED
+  UNCERTAIN
+}
+
+model SocialMetric {
+  id                String             @id @default(cuid())
+  provider          String
+  social_account_id String
+  socialAccount     SocialAccount      @relation(fields: [social_account_id], references: [id], onDelete: Cascade)
+  campaign_id       String?
+  campaign          MarketingCampaign? @relation(fields: [campaign_id], references: [id], onDelete: SetNull)
+  post_id           String?
+  post              MarketingPost?     @relation(fields: [post_id], references: [id], onDelete: SetNull)
+
+  metric_type           String // impressions, reach, engagement, clicks, etc.
+  metric_value          Float
+  measurement_timestamp DateTime
+  provider_timestamp    DateTime?
+  source_classification SocialMetricClassification @default(ACTUAL)
+  provider_reference    String?
+  deduplication_key     String?                    @unique
+  ingestion_timestamp   DateTime                   @default(now())
+
+  @@index([provider, social_account_id])
+  @@index([metric_type, measurement_timestamp])
+}
+
+model SocialAttribution {
+  id                     String             @id @default(cuid())
+  campaign_id            String?
+  campaign               MarketingCampaign? @relation(fields: [campaign_id], references: [id], onDelete: SetNull)
+  post_id                String?
+  post                   MarketingPost?     @relation(fields: [post_id], references: [id], onDelete: SetNull)
+  listing_id             String?
+  listing                Listing?           @relation(fields: [listing_id], references: [id], onDelete: SetNull)
+  user_id                String?
+  user                   User?              @relation(fields: [user_id], references: [id], onDelete: SetNull)
+  booking_id             String?
+  booking                Booking?           @relation(fields: [booking_id], references: [id], onDelete: SetNull)
+  payment_transaction_id String?
+  payment                Payment?           @relation(fields: [payment_transaction_id], references: [id], onDelete: SetNull)
+
+  attribution_token  String?                 @unique
+  source_channel     String
+  event_type         String // "CLICK", "REGISTRATION", "BOOKING", "PAYMENT"
+  occurred_at        DateTime
+  attribution_status SocialAttributionStatus @default(PENDING)
+  confidence_score   Int? // 0-100
+  attribution_method String?
+  sanitized_metadata String?
+
+  created_at DateTime @default(now())
+
+  @@index([source_channel, occurred_at])
+  @@index([attribution_token])
+}
+
+model SocialProviderEvent {
+  id                String                   @id @default(cuid())
+  provider          String
+  social_account_id String?
+  socialAccount     SocialAccount?           @relation(fields: [social_account_id], references: [id], onDelete: Cascade)
+  provider_event_id String?
+  event_type        String
+  payload_summary   String? // Sanitized/normalized payload
+  received_at       DateTime                 @default(now())
+  processing_state  SocialProviderEventState @default(PENDING)
+  processed_at      DateTime?
+  retry_count       Int                      @default(0)
+  error_state       String?
+  idempotency_key   String                   @unique
+
+  @@index([provider, processing_state, received_at])
+  @@index([idempotency_key])
+  socialFeedbacks   SocialFeedback[]
+}
+
+model MarketingPostVersion {
+  id                String         @id @default(cuid())
+  post_id           String
+  post              MarketingPost  @relation(fields: [post_id], references: [id])
+  version_number    Int
+  content_snapshot  String?
+  media_snapshot    String?
+  target_channels   String?
+  target_account_id String?
+  target_account    SocialAccount? @relation(fields: [target_account_id], references: [id])
+  change_reason     String?
+  editor_id         String
+  created_at        DateTime       @default(now())
+
+  reviews MarketingPostReview[]
+  queues  SocialPostQueue[]
+  publication_attempts SocialPublicationAttempt[]
+}
+
+model MarketingPostReview {
+  id                     String               @id @default(cuid())
+  post_id                String
+  post                   MarketingPost        @relation(fields: [post_id], references: [id])
+  post_version_id        String
+  post_version           MarketingPostVersion @relation(fields: [post_version_id], references: [id])
+  version_number         Int
+  reviewer_id            String
+  reviewer               User                 @relation(fields: [reviewer_id], references: [id])
+  decision               String // "APPROVED" | "REJECTED"
+  comment                String?
+  override_reason        String?
+  self_approval_override Boolean              @default(false)
+  created_at             DateTime             @default(now())
+}
+
+enum SocialFeedbackStatus {
+  NEW
+  CLASSIFIED
+  NEEDS_REVIEW
+  ESCALATED
+  RESPONDED
+  RESOLVED
+  ARCHIVED
+}
+
+enum SocialFeedbackSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum SocialFeedbackSentiment {
+  POSITIVE
+  NEUTRAL
+  NEGATIVE
+}
+
+model SocialFeedback {
+  id                    String                   @id @default(cuid())
+  provider              String
+  social_account_id     String?
+  socialAccount         SocialAccount?           @relation(fields: [social_account_id], references: [id], onDelete: SetNull)
+  provider_feedback_id  String
+  provider_event_id     String?
+  providerEvent         SocialProviderEvent?     @relation(fields: [provider_event_id], references: [id], onDelete: SetNull)
+  campaign_id           String?
+  campaign              MarketingCampaign?       @relation(fields: [campaign_id], references: [id], onDelete: SetNull)
+  marketing_post_id     String?
+  marketingPost         MarketingPost?           @relation(fields: [marketing_post_id], references: [id], onDelete: SetNull)
+  listing_id            String?
+  listing               Listing?                 @relation(fields: [listing_id], references: [id], onDelete: SetNull)
+  author_provider_id    String?
+  author                User?                    @relation(fields: [author_provider_id], references: [id], onDelete: SetNull)
+  
+  feedback_type         String // COMMENT, REVIEW, MESSAGE, COMPLAINT, QUESTION, PRAISE, SPAM
+  normalized_text       String                   @db.Text
+  sentiment             SocialFeedbackSentiment?
+  topic                 String?
+  severity              SocialFeedbackSeverity   @default(LOW)
+  status                SocialFeedbackStatus     @default(NEW)
+  
+  ai_classification_metadata String?             @db.Text
+  
+  linked_case_type      String? // SUPPORT, INCIDENT, DISPUTE
+  linked_case_id        String?
+  
+  received_at           DateTime                 @default(now())
+  reviewed_at           DateTime?
+  created_at            DateTime                 @default(now())
+  updated_at            DateTime                 @updatedAt
+
+  @@unique([provider, social_account_id, provider_feedback_id])
+  @@index([status, severity])
 }

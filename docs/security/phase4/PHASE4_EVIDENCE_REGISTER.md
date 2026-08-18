@@ -1,0 +1,33 @@
+# PHASE 4 EVIDENCE REGISTER
+
+- Phase 3 protected commit: 8aebe460698babf7e441dd0b13717281b5c1eb0c
+- Phase 3 tag: rentipid-soc-phase3-complete
+- Gate 3G accepted evidence: Documented in Phase 3 reports.
+- Gate 3H accepted evidence: Documented in Phase 3 reports.
+- Gate 4A document evidence: [ACCEPTED]
+- Gate 4A-R1 document evidence: [ACCEPTED]
+- Gate 4B-1 Identity Telemetry evidence:
+  - Source model: AuthenticationSecurityLog
+  - Writer: src/lib/security/events/writers/authentication-writer.ts
+  - Adapter: src/lib/security/events/adapters/authentication-security-log-adapter.ts
+  - HMAC helper: src/lib/security/telemetry-hmac.ts
+  - Instrumented flows: Login success, login failure (invalid credentials/user not found), account blacklisted
+  - Deferred flows: Password recovery (not implemented), Session explicit revocation (not implemented)
+- Gate 4B-1R1 Remediation and Test Evidence:
+  - gate4b-authentication-regression.test.ts: [ACCEPTED]
+  - gate4b-authentication-idempotency.test.ts: [ACCEPTED]
+  - gate4b-authentication-writer.test.ts: [ACCEPTED]
+  - gate4b-adapter-contract.test.ts: [ACCEPTED]
+  - gate4b-telemetry-hmac.test.ts: [ACCEPTED]
+  - phase3-lifecycle.integration.test.ts: [ACCEPTED_KNOWN_PHASE3_DEGRADATION] (Will be repaired in Gate 4C)
+- Evidence-reuse conditions: Applied (Phase 3 evidence fully reused for Gate 4A since no code changed).
+
+### Gate 4D-A Evidence
+*   **Compatible Rules**: API-RATE-ABUSE-01, API-AUTHORIZATION-PROBE-01.
+*   **Unverified Rules**: API-RESOURCE-ENUMERATION-01, WEB-CSRF-FAILURE-01, BOT-SCRAPING-01, BOT-BOOKING-ABUSE-01.
+*   **Test Counts**: 
+    *   Initialization Tests: 5
+    *   Correlation Semantics: 1
+    *   Cleanup / Privacy: 1
+*   **Advisory-only Result**: Verified that no cases or incident responses were mutated or generated. Rules strictly generate alerts.
+*   **Cleanup Totals**: Validated 0 residual test rules, 0 residual logs.

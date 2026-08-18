@@ -1,0 +1,10 @@
+flowchart TB
+  User --> Profile[User / business profile]
+  Profile --> Submit[Submit required KYC evidence]
+  Submit --> Upload[Validated restricted document storage]
+  Upload --> Review[Compliance review]
+  Review --> Approved[Verified state]
+  Review --> Correction[Correction / additional evidence]
+  Correction --> Submit
+  Review --> Rejected[Reasoned rejected state]
+  Privacy[Minimum necessary access + sanitized audit] --- Review

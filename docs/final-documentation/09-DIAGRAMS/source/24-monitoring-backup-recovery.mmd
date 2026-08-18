@@ -1,0 +1,11 @@
+flowchart TB
+  App[Root app / extracted API / worker] --> Telemetry[Sanitized telemetry target]
+  Telemetry --> AppInsights[Application Insights definition]
+  AppInsights --> LogAnalytics[Log Analytics definition]
+  Events[Security ingestion] --> Failures[Failure records]
+  Events --> Checkpoint[Checkpoints]
+  Recovery[Authorized recovery job] --> Lease[Exclusive lease]
+  Lease --> Replay[Bounded idempotent replay]
+  Replay --> Checkpoint
+  Data[(Database target)] --> Backup[Backup/restore readiness evidence]
+  boundary[External monitoring and backup state require separate verification] --- Backup

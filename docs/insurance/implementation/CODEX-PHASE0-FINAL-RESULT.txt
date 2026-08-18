@@ -1,0 +1,430 @@
+RENTipid CODEX PHASE 0 FINAL RESULT
+====================================
+
+REPORT DATE
+-----------
+2026-08-11 (Asia/Shanghai)
+
+REPORT SCOPE
+------------
+This report records only work and evidence already obtained during this Codex
+session. No repository discovery, test, build, migration, seed, deployment,
+database operation, login, or external-service action was repeated to produce
+this file.
+
+GIT BASELINE
+------------
+BRANCH: feature/soc-phase4-threat-response
+HEAD: 6f55296cdf1ff2bda3c550448fc307f264f1f397
+HEAD CHANGED BY THIS SESSION: NO COMMIT WAS CREATED
+INITIAL WORKTREE: DIRTY BEFORE CODEX WORK
+PRE-EXISTING USER CHANGES: PRESERVED
+ADDRESS FROZEN BASELINE: 6f55296cdf1ff2bda3c550448fc307f264f1f397
+
+PHASE 0 STATUS
+--------------
+STATUS: COMPLETED
+
+The one-time repository baseline and classification were completed. Sixteen
+authoritative registries were created under docs/RENTipid-Master and now serve
+as the single source of truth for module, feature, route, API, database,
+migration, seed, RBAC, integration, test, security, gap, dependency, closure,
+freeze, and deployment status.
+
+Phase 0 established the following material conclusions:
+
+1. Global Address and PSGC is the only module with an accepted complete
+   Local-to-Preview-to-Production-readiness chain under the current standard.
+   It remains CLOSED / FROZEN and was not modified.
+2. Health, errors, and logging (FND-04) reached LOCAL ACCEPTANCE PASS during
+   Wave 1 and is held at the global Preview barrier.
+3. MFA, Audit, SOC, and Privacy have accepted local evidence for defined
+   historical scopes, but their missing current-standard Preview and
+   Production gates were not manufactured.
+4. Most marketplace, transaction, payment, trust, communication,
+   administration, analytics, mobile, legal, and documentation modules remain
+   IN IMPLEMENTATION.
+5. Insurance (TRU-01) is NOT STARTED. Existing code contains only a listing
+   category flag/document type, not an insurance module.
+6. Direct messaging (COM-01) is NOT STARTED.
+7. No global RENTipid LOCAL-RC1 exists.
+8. No Preview or Production action was performed during this execution block.
+
+INSURANCE MODULE STATUS
+-----------------------
+MODULE: TRU-01 Insurance
+CURRENT STATUS: NOT STARTED
+NEXT PERMITTED GATE: CODE COMPLETE
+CLOSED / FROZEN: NO
+PREVIEW MIGRATED: NO
+PREVIEW ACCEPTANCE PASS: NO
+PRODUCTION-READY: NO
+
+Observed existing insurance scope is limited to a category/listing flag and a
+document type. No accepted policy, product/coverage definition, quote,
+eligibility, consent, premium, booking linkage, claim linkage, settlement,
+ledger integration, administration workflow, audit contract, or end-to-end
+acceptance evidence exists.
+
+Insurance must not bypass its dependency chain. It depends on stable listing
+risk classification, booking and pricing, payments/ledger, legal/versioned
+consent, evidence storage, claims, RBAC, and audit behavior.
+
+R1-R15 STATUS
+-------------
+No authoritative Insurance Phase 0 rubric defining R1 through R15 was supplied
+in this session or found in the targeted existing documentation inspection.
+Accordingly, no meaning or PASS result is invented for these labels.
+
+R1  = NOT ESTABLISHED / NOT CLAIMED
+R2  = NOT ESTABLISHED / NOT CLAIMED
+R3  = NOT ESTABLISHED / NOT CLAIMED
+R4  = NOT ESTABLISHED / NOT CLAIMED
+R5  = NOT ESTABLISHED / NOT CLAIMED
+R6  = NOT ESTABLISHED / NOT CLAIMED
+R7  = NOT ESTABLISHED / NOT CLAIMED
+R8  = NOT ESTABLISHED / NOT CLAIMED
+R9  = NOT ESTABLISHED / NOT CLAIMED
+R10 = NOT ESTABLISHED / NOT CLAIMED
+R11 = NOT ESTABLISHED / NOT CLAIMED
+R12 = NOT ESTABLISHED / NOT CLAIMED
+R13 = NOT ESTABLISHED / NOT CLAIMED
+R14 = NOT ESTABLISHED / NOT CLAIMED
+R15 = NOT ESTABLISHED / NOT CLAIMED
+
+These entries mean that the labels lack an authoritative definition, not that
+fifteen tests failed. Before Insurance implementation, R1-R15 must be mapped to
+explicit requirements and promotion evidence without replacing or bypassing
+the mandatory project-wide gate pipeline.
+
+WAVE 1 IMPLEMENTATION COMPLETED
+-------------------------------
+FND-04 HEALTH, ERRORS, AND LOGGING
+
+- Express readiness now performs a real Prisma SELECT 1 database probe.
+- Express readiness returns 200 ready or 503 not_ready.
+- Next App Router now has a force-dynamic, no-store /api/health endpoint with
+  the same truthful database probe and 200/503 behavior.
+- Caught database details are not returned to clients.
+- Express API runtime scripts use the required react-server condition.
+- Required import paths and middleware typing were corrected.
+- Migration: NOT REQUIRED / VERIFIED.
+- Seed/sync: NOT REQUIRED / VERIFIED.
+- Status: LOCAL ACCEPTANCE PASS.
+- Preview promotion: held by the global barrier.
+
+EXPRESS API BASELINE RECONCILIATION
+
+- Telemetry privacy behavior was restored from an accepted historical safety
+  checkpoint.
+- Correlation property typing was corrected.
+- Security-writer import paths were corrected.
+- Enforcement-case permission usage was aligned with the existing permission
+  vocabulary.
+- Azure OpenAI overload typing was corrected without weakening types.
+- Webhook service import depth was corrected.
+- Express TypeScript diagnostics were reduced from eleven to two.
+- Both remaining diagnostics are stale FinanceLedger field references in
+  apps/api/src/services/ledgerService.ts and are deferred to Wave 4 Finance.
+
+IDENTITY/AUTH CHANGE RECORD CR-2026-001
+
+- NEXTAUTH_SECRET fallback behavior was removed.
+- Missing NEXTAUTH_SECRET now fails closed.
+- Unknown-user and incorrect-password outcomes return one generic credential
+  error.
+- A shared account-access policy was added.
+- Verified accounts are allowed.
+- Pending non-privileged users are restricted to approved onboarding/profile
+  paths.
+- Pending privileged roles are denied.
+- Suspended, Blacklisted, and unknown statuses are denied.
+- Proxy enforcement is documented as an optimistic boundary, not a substitute
+  for database-authoritative route/service authorization.
+- Express requirePermission and requireAdmin use database-authoritative user
+  status and the existing frozen permission vocabulary.
+- Delta status: CODE COMPLETE.
+- Real local credential/account-state acceptance remains required.
+- The full Identity/Auth module remains IN IMPLEMENTATION.
+
+PASSWORD RECOVERY FOUNDATION
+
+- nodemailer 7.0.7 and @types/nodemailer 7.0.4 were pinned.
+- PasswordResetToken and PasswordResetRequest schema models were added.
+- An additive password-recovery migration was created and validated.
+- The migration was NOT applied.
+- No reset email was sent.
+- No reset token was delivered.
+- No credential was changed.
+- No account or database state was manipulated to produce PASS.
+- SMTP reset delivery and token-authorized credential mutation were not
+  implemented because explicit owner authorization is required.
+
+VALIDATION RESULTS ALREADY OBTAINED
+-----------------------------------
+1. Express health tests:
+   2 passed, 0 failed.
+
+2. Next health tests:
+   2 passed, 0 failed.
+
+3. Telemetry privacy tests:
+   15 passed, 0 failed.
+
+4. Auth account-access policy and proxy tests:
+   23 passed, 0 failed.
+
+5. Root TypeScript:
+   PASS after the health and auth changes.
+
+6. Affected-file ESLint:
+   PASS.
+
+7. Prisma schema validation:
+   PASS with password-recovery models and migration present.
+
+8. Live local Next /api/health:
+   HTTP 200 with ready/database-connected result.
+
+9. Live local Express /health/ready:
+   HTTP 200 with ready/database-connected result.
+
+10. Configured database target safety classification:
+    DATABASE_URL present and parseable; target classified as localhost and not
+    cloud-like. No URL, hostname, credential, or secret value was printed.
+
+11. Express API package TypeScript:
+    FAIL with exactly 2 remaining diagnostics. Both are FinanceLedger/schema
+    drift in ledgerService.ts. This result is recorded as an open defect, not
+    masked.
+
+12. Dependency/toolchain observations:
+    Installed Node 20.18.0 is below the minimum required by some dependencies
+    (20.18.1 or 20.19 depending on package).
+    npm audit reported 29 moderate and 13 high findings requiring scoped
+    reconciliation.
+
+No validation was rerun while preparing this report.
+
+DATABASE STATUS
+---------------
+- Existing Address migrations and PSGC baseline remain CLOSED / FROZEN.
+- Baseline migration count before this session's recovery work: 36.
+- New migration 37:
+  prisma/migrations/20260811000002_add_password_recovery/migration.sql
+- Migration 37 status: VALIDATED / NOT APPLIED.
+- Password-reset schema status: VALIDATED.
+- Destructive reset: NOT PERFORMED.
+- Password-recovery database write: NOT PERFORMED.
+- Preview database operation: NOT PERFORMED.
+- Production database connection: NOT PERFORMED.
+- Production database write: NOT PERFORMED.
+
+DEFECTS AND OPEN GAPS
+---------------------
+CURRENT WAVE 1 DEFECTS
+
+1. Password recovery is incomplete and blocked at implementation authorization.
+2. Real local credential/account-state acceptance for CR-2026-001 remains.
+3. User roles/statuses remain unconstrained database strings.
+4. Core and SOC permission vocabularies can drift.
+5. Registration can return a raw caught error message on internal failure.
+6. Environment/configuration remains fragmented and the production example is
+   incomplete.
+7. Required roles/settings/rules/templates are not yet unified under one
+   deterministic seed manifest.
+8. The two Express API FinanceLedger compiler diagnostics remain.
+9. Node engine-version mismatch and dependency audit findings remain.
+
+INSURANCE DEFECTS/GAPS
+
+1. No authoritative insurance domain model.
+2. No policy or coverage lifecycle.
+3. No quote, premium, fee, tax, or deposit contract.
+4. No eligibility or underwriting rules.
+5. No versioned insurance consent.
+6. No booking/payment/ledger integration.
+7. No coverage activation/expiration/cancellation behavior.
+8. No claim-to-policy validation.
+9. No determination-to-financial-adjustment integration.
+10. No insurer/provider adapter contract.
+11. No webhook/idempotency/reconciliation contract.
+12. No renter/provider/admin insurance workflow.
+13. No dedicated RBAC/audit matrix.
+14. No focused tests or local acceptance.
+15. No Preview/Production evidence.
+
+PROJECT-WIDE MATERIAL GAPS
+
+- Provider KYC/KYB deployed runtime is unproven.
+- Several cloud storage adapters throw not-implemented errors.
+- Listing editing and prohibited-item enforcement contain placeholders.
+- Search/availability/concurrency acceptance is incomplete.
+- Pricing and agreement-version contracts are incomplete.
+- Refund execution returns placeholder success.
+- Real provider payout execution is a manual placeholder.
+- Financial equality/reconciliation is not proven end-to-end.
+- Claims, disputes, and reviews are incomplete.
+- Direct messaging is absent.
+- Notification inbox/read-state is absent.
+- AI Help Center tool dispatch and responses are mock-only.
+- Support forms are not wired to mutations.
+- Administration role journeys lack complete positive/negative/audit proof.
+- Analytics contains mock data and unreconciled KPIs.
+- PWA lacks a service worker/offline behavior.
+- Native mobile projects/tests are absent.
+- Legal/versioned consent coverage is incomplete.
+- Current manuals are not reconciled to runtime.
+- No global renter/provider/damage/finance/security/admin acceptance exists.
+- No current LOCAL-RC1 artifact exists.
+
+EXTERNAL-ONLY BLOCKERS
+----------------------
+- PayMongo live commercial activation and explicit owner authorization.
+- Real social-platform OAuth/application approval.
+- Selected cloud storage, Azure Search, and OpenAI credentials/runtime.
+- Native store signing/accounts.
+- DPO registration recorded as pending in historical Privacy evidence.
+
+External blockers do not excuse incomplete local engineering and are not
+treated as local PASS evidence.
+
+CURRENT HUMAN BLOCKER
+---------------------
+Explicit owner authorization is required before implementing:
+
+1. SMTP delivery of a single-use, expiring password-reset link to the submitted
+   email address for an existing account.
+2. Password mutation only after valid token verification, with hashed tokens,
+   rate limiting, audit logging, single-use invalidation, and session
+   revocation.
+
+No email or credential mutation will occur until this authorization is given.
+
+FILES CREATED BY THIS SESSION
+-----------------------------
+AUTHORITATIVE REGISTRIES
+
+docs/RENTipid-Master/01-MASTER-MODULE-REGISTER.md
+docs/RENTipid-Master/02-FEATURE-REGISTER.md
+docs/RENTipid-Master/03-ROUTE-REGISTER.md
+docs/RENTipid-Master/04-API-REGISTER.md
+docs/RENTipid-Master/05-DATABASE-REGISTER.md
+docs/RENTipid-Master/06-MIGRATION-REGISTER.md
+docs/RENTipid-Master/07-SEED-REGISTER.md
+docs/RENTipid-Master/08-RBAC-REGISTER.md
+docs/RENTipid-Master/09-INTEGRATION-REGISTER.md
+docs/RENTipid-Master/10-TEST-REGISTER.md
+docs/RENTipid-Master/11-SECURITY-REGISTER.md
+docs/RENTipid-Master/12-KNOWN-GAP-REGISTER.md
+docs/RENTipid-Master/13-DEPENDENCY-REGISTER.md
+docs/RENTipid-Master/14-CLOSURE-REGISTER.md
+docs/RENTipid-Master/15-FREEZE-REGISTER.md
+docs/RENTipid-Master/16-DEPLOYMENT-REGISTER.md
+docs/RENTipid-Master/CR-2026-001.md
+
+IMPLEMENTATION AND TEST FILES
+
+apps/api/src/routes/__tests__/health.test.ts
+src/app/api/health/route.ts
+tests/foundation/health-route.test.ts
+src/lib/security/account-access-policy.ts
+tests/security/auth-account-access-policy.test.ts
+prisma/migrations/20260811000002_add_password_recovery/migration.sql
+
+THIS REPORT
+
+docs/insurance/implementation/CODEX-PHASE0-FINAL-RESULT.txt
+
+FILES MODIFIED BY THIS SESSION
+------------------------------
+apps/api/package.json
+apps/api/src/middleware/appInsights.ts
+apps/api/src/middleware/auth.ts
+apps/api/src/middleware/correlationId.ts
+apps/api/src/middleware/rateLimiter.ts
+apps/api/src/routes/enforcement-cases.ts
+apps/api/src/routes/health.ts
+apps/api/src/routes/webhooks.ts
+apps/api/src/services/aiService.ts
+package.json
+package-lock.json
+prisma/schema.prisma
+src/app/(auth)/login/page.tsx
+src/lib/auth.ts
+src/proxy.ts
+tests/security/auth-security-regression.test.ts
+
+The existing proxy-focused security test fixture was also updated for the
+account-state and missing-secret cases. Its exact path was not retained in the
+session handoff, so no unverified pathname is invented here.
+
+PRE-EXISTING DIRTY WORKTREE ITEMS PRESERVED
+-------------------------------------------
+The initial worktree already included a modified playwright.config.ts,
+untracked .agents content, two untracked governance documents,
+vercel_env.json, and vercel_logs.json. These were treated as user-owned and
+were not overwritten or removed.
+
+AUTHORITATIVE STATUS SUMMARY
+----------------------------
+PHASE 0: COMPLETED
+WAVE 1: IN IMPLEMENTATION
+FND-04 HEALTH: LOCAL ACCEPTANCE PASS
+CR-2026-001 AUTH HARDENING: CODE COMPLETE
+IDN-01 AUTHENTICATION: IN IMPLEMENTATION
+TRU-01 INSURANCE: NOT STARTED
+GLOBAL ADDRESS/PSGC: CLOSED / FROZEN
+GLOBAL RENTIPID LOCAL-RC1: NOT STARTED
+PREVIEW PROMOTION THIS SESSION: NOT PERFORMED
+PRODUCTION DEPLOYMENT: NOT PERFORMED
+PRODUCTION DATABASE CONNECTION: NOT PERFORMED
+PRODUCTION DATABASE WRITE: NOT PERFORMED
+
+COMPLETE NEXT-STEP HANDOFF
+--------------------------
+FIRST OPEN IMPLEMENTATION SLICE:
+Identity password recovery.
+
+REQUIRED OWNER ACTION:
+Explicitly authorize the SMTP reset-link and token-authorized credential-change
+behavior described under CURRENT HUMAN BLOCKER.
+
+AFTER AUTHORIZATION, THE NEXT ENGINEERING SEQUENCE IS:
+
+1. Implement a provider-neutral reset-email abstraction and strict environment
+   contract without logging token or secret values.
+2. Implement enumeration-resistant reset requests.
+3. Store only hashed, expiring, single-use reset tokens.
+4. Apply request rate limiting and audit/security event logging.
+5. Implement token validation and password mutation.
+6. Revoke existing sessions after successful reset.
+7. Add focused happy-path, negative, expiry, replay, enumeration, ownership,
+   rate-limit, audit, and persistence tests.
+8. Validate the additive migration against the local database without a
+   destructive reset.
+9. Run local credential/account-state and password-recovery acceptance.
+10. Record evidence and promote only the changed Identity scope through the
+    mandatory gates.
+
+INSURANCE HANDOFF:
+
+Insurance remains Wave 5 and must not be implemented ahead of unmet dependency
+gates. Once Waves 1-4 dependencies are stable:
+
+1. Define the authoritative Insurance scope and explicit R1-R15 meanings.
+2. Record product/legal decisions for coverage, exclusions, pricing,
+   cancellation, claims, settlement, consent, and provider responsibilities.
+3. Map Insurance dependencies to listing risk, booking, payments, ledger,
+   legal policy versions, storage, claims, RBAC, audit, notifications, and
+   administration.
+4. Implement and promote Insurance through CODE COMPLETE, LOCAL FUNCTIONAL,
+   LOCAL DATABASE MIGRATED, LOCAL REQUIRED DATA SEEDED/SYNCED, LOCAL
+   ACCEPTANCE PASS, PREVIEW MIGRATED, PREVIEW ACCEPTANCE PASS,
+   PRODUCTION-READY, and CLOSED / FROZEN.
+5. Keep live insurer/payment activation separately classified as
+   BLOCKED-EXTERNAL until credentials, contracts, and owner authorization
+   exist.
+
+END OF REPORT
+

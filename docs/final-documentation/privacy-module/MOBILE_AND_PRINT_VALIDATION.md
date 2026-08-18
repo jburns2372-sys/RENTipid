@@ -1,0 +1,5 @@
+# MOBILE_AND_PRINT_VALIDATION.md
+
+common mobile widths: PENDING
+tablet width: PENDING
+STATUS: PENDING_EXECUTION

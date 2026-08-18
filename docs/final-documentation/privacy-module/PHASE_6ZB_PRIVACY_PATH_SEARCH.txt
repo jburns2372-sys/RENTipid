@@ -1,0 +1,16 @@
+﻿
+docs/security/level5/bundles/phase5m/PHASE5M_PRIVACY_ISMS_EVIDENCE.md
+src/app/account/delete/actions.ts
+src/app/account/delete/page.tsx
+src/app/api/privacy/consent/route.ts
+src/app/api/privacy/correction/route.ts
+src/app/api/privacy/deletion/route.ts
+src/app/api/privacy/export/route.ts
+src/app/dashboard/admin/account-deletions/page.tsx
+src/app/privacy/page.tsx
+src/lib/privacy/data-classification.ts
+src/lib/privacy/privacy-workflow.ts
+src/lib/privacy/retention-policy.ts
+tests/privacy/phase5m.test.ts
+
+

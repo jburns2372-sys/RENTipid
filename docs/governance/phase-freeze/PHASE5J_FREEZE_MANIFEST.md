@@ -1,0 +1,13 @@
+# PHASE5J Strict Freeze Manifest
+- **Closure report**: docs/governance/phase-closure/PHASE5J_CLOSURE_REPORT.md
+- **Accepted implementation baseline**: c99befec129c58c8ac3b04487f22d651be4da44d
+- **Governance freeze commit**: 00ea3ab232e12ac35786b0908813feed76f23a40
+- **Freeze tag**: rentipid/general/phase5j/closed-frozen-v1
+- **Owned files**: tests/security/soc-phase5j.test.ts
+- **Shared files**: schema.prisma
+- **Database models**: Target verified
+- **Regression tests**: PASS
+- **Extension points**: Extensions allowed
+- **Reopening triggers**: File modifications
+- **Revalidation requirements**: Database migrations
+- **Freeze status**: CLOSED_AND_FROZEN

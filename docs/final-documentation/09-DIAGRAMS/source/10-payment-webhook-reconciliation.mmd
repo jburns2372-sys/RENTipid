@@ -1,0 +1,15 @@
+sequenceDiagram
+  participant UI as Checkout
+  participant Pay as Payment service
+  participant Provider as PayMongo mode
+  participant Hook as Webhook handler
+  participant Recon as Reconciliation
+  UI->>Pay: Authorized booking/payment request
+  Pay->>Pay: Validate state, amount, currency, mode
+  Pay->>Provider: Provider request only when authorized
+  Provider-->>Hook: Signed event
+  Hook->>Hook: Verify signature and idempotency
+  Hook->>Recon: Record provider evidence
+  Recon->>Recon: Compare booking, payment, gateway, ledger
+  Recon-->>UI: Sanitized reconciled / mismatch state
+  Note over UI,Recon: PHASE19_COMPLETE_NO_GO_FROZEN<br/>Live activation not authorized

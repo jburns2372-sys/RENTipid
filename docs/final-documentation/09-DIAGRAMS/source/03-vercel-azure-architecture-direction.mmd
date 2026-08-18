@@ -1,0 +1,10 @@
+flowchart LR
+  Browser --> Vercel[Vercel frontend and authentication direction]
+  Vercel --> AzureAPI[Azure Container Apps API direction]
+  AzureJobs[Azure Container Apps Job direction] --> PostgreSQL[(Azure PostgreSQL direction)]
+  AzureAPI --> PostgreSQL
+  AzureAPI --> Blob[Azure Blob private-access direction]
+  AzureAPI --> KeyVault[Key Vault secret boundary]
+  AzureAPI --> Monitor[Application Insights / Log Analytics direction]
+  AzureAPI --> ACR[Container Registry artifact direction]
+  boundary[No provisioning, deployment, migration, traffic, or DNS authority] --- AzureAPI

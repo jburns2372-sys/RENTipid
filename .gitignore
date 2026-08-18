@@ -46,3 +46,4 @@ uploads-temp
 *.key
 logs
 .terraform/
+/.address-local-state.json

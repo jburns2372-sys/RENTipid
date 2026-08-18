@@ -17,10 +17,10 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
         id: superAdminUserId,
         email: "gate3h-test-admin@test.com",
         full_name: "Gate3H Test Admin",
-        phone_number: "+15550000003",
+        mobile_number: "+15550000003",
         role: "Super Admin",
         status: "Verified",
-        onboarding_step: "Completed"
+        account_type: "Individual"
       },
       update: {
         role: "Super Admin",
@@ -33,26 +33,35 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
       create: {
         rule_id: testRuleId,
         version: 1,
+        name: "Gate 3H Integration Rule",
+        description: "Validates advisory alert generation and deduplication.",
         status: "ACTIVE",
-        source_type: "PAYMENT_WEBHOOK_LOG",
         security_domain: "PAYMENT_SECURITY",
         result_classification: "POLICY_VIOLATION",
         base_severity: "HIGH",
+        base_confidence_score: 80,
         threshold_count: 1,
-        time_window_seconds: 3600,
+        window_seconds: 3600,
         cooldown_seconds: 3600,
-        correlation_subject_type: "IP_ADDRESS",
+        max_evidence_events: 10,
+        evaluation_timeout_ms: 1000,
+        correlation_subject_type: "GLOBAL",
+        deduplication_strategy: "WINDOW_BUCKET",
+        confidence_formula: "STATIC_BASE",
+
         evaluation_dsl: {
-          operator: "AND",
-          conditions: [
+          "AND": [
             {
               field: "event_code",
               operator: "EQUALS",
-              value: "WEBHOOK_TEST_EVENT"
+              value: "WEBHOOK_FAIL"
             }
           ]
         },
-        created_by: superAdminUserId
+        created_by_type: "USER",
+        created_by_user_id: superAdminUserId,
+        activated_at: new Date(),
+        activated_by_id: superAdminUserId
       },
       update: {
         status: "ACTIVE"
@@ -66,6 +75,10 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
     });
 
     await prisma.ruleEvaluationLog.deleteMany({
+      where: { rule_id: testRuleId }
+    });
+
+    await prisma.detectionEvaluationCheckpoint.deleteMany({
       where: { rule_id: testRuleId }
     });
 
@@ -90,6 +103,8 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
 
   it("should evaluate a valid event and generate exactly one deduplicated advisory alert", async () => {
     // 1. Insert mock source record
+    const now = new Date();
+    const tenMinsAgo = new Date(now.getTime() - 10 * 60000);
     const webhook = await prisma.paymentWebhookLog.create({
       data: {
         id: testWebhookId,
@@ -98,47 +113,52 @@ describe("Phase 3 Lifecycle Integration (Gate 3H Closeout)", () => {
         verification_status: "Failed",
         processing_status: "PROCESSED",
         headers_summary: "{}",
-        payload_summary: "{}"
+        payload_summary: "{}",
+        received_at: tenMinsAgo
       }
     });
 
     // 2. Ingest normalized event
-    const ingestResult = await processSecurityEvent(webhook, "TESTING", "PRODUCTION");
+    const ingestResult = await processSecurityEvent(webhook, "TEST", "PRODUCTION");
     expect(ingestResult.success).toBe(true);
 
-    // 3. Evaluate rules (should match our test rule since WEBHOOK_TEST_EVENT matches)
-    // Wait, the processSecurityEvent generates event_code WEBHOOK_TEST_EVENT because provider=TEST and event_type=EVENT
+    // 3. Run Detection Evaluator to process the log
     const cycleResult = await runDetectionEvaluationCycle({
       environments: ["PRODUCTION"],
-      lifecycles: ["TESTING"]
+      lifecycles: ["TEST"]
     });
+    console.log("CYCLE RESULT:", JSON.stringify(cycleResult, null, 2));
     expect(cycleResult.success).toBe(true);
 
+    // debug: Check what RuleEvaluationLog was generated
+    const logs = await prisma.ruleEvaluationLog.findMany({
+      where: { rule_id: testRuleId }
+    });
+    console.log("DEBUG LOGS:", JSON.stringify(logs, null, 2));
+
     // 4. Generate alerts
-    const now = new Date();
-    const tenMinsAgo = new Date(now.getTime() - 10 * 60000);
+    const boundaryEnd = new Date(Date.now() + 60000); // Pad +1 minute for DB skew
     const alertResult = await AlertGeneratorService.runSecurityAlertGenerationCycle(
       testRuleId,
       1,
-      { startTime: tenMinsAgo, endTime: now }
+      { startTime: tenMinsAgo, endTime: boundaryEnd }
     );
     expect(alertResult.alertsCreated).toBe(1);
 
     // 5. Confirm Privacy-Safe DTO and Advisory Status
     const alerts = await prisma.securityAlert.findMany({
-      where: { rule_id: testRuleId }
+      where: { rule_id: testRuleId },
+      include: { primary_event: { select: { event_code: true, source_summary: true } } }
     });
     expect(alerts.length).toBe(1);
 
     const alert = alerts[0];
-    expect(alert.status).toBe("OPEN"); // Advisory
-    expect(alert.countermeasure_status).toBe("NONE"); // No automatic countermeasure
+    expect(alert.review_status).toBe("UNREVIEWED"); // Advisory
 
     // Check privacy-safe detail mapping
-    const details = alert.alert_details as { event_code?: string };
-    expect(details?.event_code).toBe("WEBHOOK_TEST_EVENT");
+    expect(alert.primary_event.event_code).toBe("WEBHOOK_TEST_EVENT");
     // Ensure raw payloads aren't dumped into the alert
-    expect(JSON.stringify(details)).not.toContain("payload_summary");
+    expect(JSON.stringify(alert.primary_event.source_summary)).not.toContain("payload_summary");
 
     // 6. Deduplication Check - Re-run alert generator
     const duplicateAlertResult = await AlertGeneratorService.runSecurityAlertGenerationCycle(

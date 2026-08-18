@@ -1,15 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 
+import { assertSafeLocalTestDatabaseTarget } from './src/lib/test-database-guard';
+
 // Load test environment variables
-dotenv.config({ path: '.env.test' });
+dotenv.config({ path: ['.env.test.local', '.env.test'] });
 
 // Test database guard - EXPLICIT ALLOWLIST
-if (!process.env.DATABASE_URL || !process.env.DATABASE_URL.includes('rentipid_test_soc')) {
-  console.error("FATAL: DATABASE_URL must explicitly contain 'rentipid_test_soc'.");
-  console.error("Value:", process.env.DATABASE_URL);
-  process.exit(1);
-}
+assertSafeLocalTestDatabaseTarget();
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -23,7 +21,7 @@ export default defineConfig({
   workers: 1, // Safe worker count for serial DB changes
   reporter: [['html', { outputFolder: 'playwright-report' }]],
   use: {
-    baseURL: 'http://localhost:3001',
+    baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:3001',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -34,8 +32,8 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: {
-    command: 'npx cross-env NODE_ENV=test dotenv -e .env.test -- npx next start -p 3001',
+  webServer: process.env.PLAYWRIGHT_TEST_BASE_URL ? undefined : {
+    command: 'npx cross-env NODE_ENV=test dotenv -e .env.test -- npx next dev -p 3001',
     port: 3001,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,

@@ -1,0 +1,14 @@
+sequenceDiagram
+  participant Analyst
+  participant Case
+  participant Supervisor
+  participant Approval
+  participant Execution
+  Analyst->>Case: Investigate and link safe evidence
+  Analyst->>Approval: Request minimum reversible scope
+  Supervisor->>Approval: Independent approve / reject
+  Approval->>Execution: Time-bound scoped grant
+  Execution->>Execution: Freeze, scope, idempotency, concurrency checks
+  Execution-->>Case: Sanitized outcome
+  Supervisor->>Execution: Separate rollback request when eligible
+  Execution->>Execution: Divergence check and rollback

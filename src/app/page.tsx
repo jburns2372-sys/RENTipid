@@ -2,10 +2,32 @@ import React from 'react';
 import Link from 'next/link';
 import { Search, ShieldCheck, Zap, ArrowRight, Bot } from 'lucide-react';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
+import { PrismaClient } from '@prisma/client';
+import {
+  MARKETPLACE_CATEGORY_METADATA_PREFIX,
+  parseMarketplaceCategoryMetadata,
+} from '@/lib/marketplace/category-metadata';
 
 import RentipidLogo from '@/components/brand/RentipidLogo';
 
-export default function Home() {
+const prisma = new PrismaClient();
+
+export default async function Home() {
+  const categoryRows = await prisma.category.findMany({
+    where: {
+      is_active: true,
+      requirements: { notes: { startsWith: MARKETPLACE_CATEGORY_METADATA_PREFIX } },
+    },
+    include: { requirements: true },
+  });
+  const popularCategories = categoryRows
+    .map((category) => ({
+      category,
+      metadata: parseMarketplaceCategoryMetadata(category.requirements?.notes),
+    }))
+    .filter((item) => item.metadata?.featured)
+    .sort((left, right) => left.metadata!.sortOrder - right.metadata!.sortOrder);
+
   return (
     <>
       {/* Hero Section */}
@@ -13,20 +35,20 @@ export default function Home() {
         <div className="container mx-auto px-4 text-center max-w-4xl">
           <RentipidLogo variant="full" size="xl" showText={false} className="mb-8" />
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-6">
-            Why buy it? <span className="text-blue-600">RENTipid.</span>
+            Why Buy? <span className="text-blue-600">RENTipid!</span>
           </h1>
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
             A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.
           </p>
 
-          {/* Search Bar */}
+                    {/* Search Bar */}
           <form action="/browse" method="GET" className="bg-white p-2 rounded-full shadow-lg border max-w-2xl mx-auto flex items-center mb-10">
             <div className="flex-1 px-4 text-left">
-              <label htmlFor="category" className="block text-xs font-semibold text-gray-800 cursor-pointer">What are you looking for?</label>
+              <label htmlFor="q" className="block text-xs font-semibold text-gray-800 cursor-pointer">What are you looking for?</label>
               <input
                 type="text"
-                id="category"
-                name="category"
+                id="q"
+                name="q"
                 placeholder="Tools, vehicles, venues..."
                 className="w-full text-sm text-gray-800 placeholder-gray-400 focus:outline-none bg-transparent"
               />
@@ -56,23 +78,15 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Category Preview */}
+{/* Category Preview */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold mb-8 text-center">Popular Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
-            {[
-              { name: 'Tools', icon: '🔨' },
-              { name: 'Vehicles', icon: '🚗' },
-              { name: 'Event Eqpt', icon: '🎪' },
-              { name: 'Cameras', icon: '📷' },
-              { name: 'Venues', icon: '🏢' },
-              { name: 'Heavy Eqpt', icon: '🚜' }
-            ].map((cat, i) => (
-              <Link href="/browse" key={i} className="flex flex-col items-center justify-center p-6 border rounded-xl hover:shadow-md hover:border-blue-200 transition-all cursor-pointer bg-slate-50 hover:bg-white">
-                <span className="text-3xl mb-3">{cat.icon}</span>
-                <span className="font-medium text-sm text-gray-800">{cat.name}</span>
+            {popularCategories.map(({ category }) => (
+              <Link href={`/browse?category=${category.slug}`} key={category.id} className="flex flex-col items-center justify-center p-6 border rounded-xl hover:shadow-md hover:border-blue-200 transition-all cursor-pointer bg-slate-50 hover:bg-white">
+                <span className="text-3xl mb-3">{category.icon}</span>
+                <span className="font-medium text-sm text-gray-800">{category.name}</span>
               </Link>
             ))}
           </div>
@@ -135,7 +149,7 @@ export default function Home() {
                   <span className="text-green-500 mr-3 mt-1"><ShieldCheck size={20} /></span>
                   <div>
                     <h4 className="font-semibold">Save money and space</h4>
-                    <p className="text-gray-600 text-sm">Don't buy a drill for one hole. Rent it for a day.</p>
+                    <p className="text-gray-600 text-sm">Don&apos;t buy a drill for one hole. Rent it for a day.</p>
                   </div>
                 </li>
                 <li className="flex items-start">

@@ -1,0 +1,13 @@
+# SLICE5B Strict Freeze Manifest
+- **Closure report**: docs/governance/phase-closure/SLICE5B_CLOSURE_REPORT.md
+- **Accepted implementation baseline**: bd8bd6023ed7f2b1eb5265585b8f7e6d09418c21
+- **Governance freeze commit**: b0f18173092bba122757b2e3a63b1a0dc1adb327
+- **Freeze tag**: rentipid/general/slice5b/closed-frozen-v1
+- **Owned files**: tests/security/soc-slice5b.test.ts
+- **Shared files**: schema.prisma
+- **Database models**: Target verified
+- **Regression tests**: PASS
+- **Extension points**: Extensions allowed
+- **Reopening triggers**: File modifications
+- **Revalidation requirements**: Database migrations
+- **Freeze status**: CLOSED_AND_FROZEN
