@@ -49,6 +49,13 @@ model User {
 
   // Phase 15: Mobile & Compliance
   accountDeletionRequests AccountDeletionRequest[]
+
+  // Phase 1: Unified Multi-Login Authentication
+  authIdentities    AuthIdentity[]
+  emailCredential   EmailCredential?
+  phoneIdentity     PhoneIdentity?
+  authSessions      AuthSession[]
+  accountLinkEvents AccountLinkEvent[]
 }
 
 model UserProfile {
@@ -1403,4 +1410,88 @@ model DetectionEvaluationCheckpoint {
   updated_at DateTime @updatedAt
 
   @@unique([rule_id, rule_version, environment, lifecycle_type])
+}
+
+// ----------------------------------------------------------------------
+// Phase 1: Unified Multi-Login Authentication
+// ----------------------------------------------------------------------
+
+model AuthIdentity {
+  id               String   @id @default(cuid())
+  user_id          String
+  user             User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  provider         String   // e.g., "google", "facebook", "apple"
+  provider_subject String   // the durable subject ID from the provider
+  provider_email   String?  // for metadata/UX, not durable identity
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+
+  @@unique([provider, provider_subject])
+  @@index([user_id])
+}
+
+model EmailCredential {
+  id                  String    @id @default(cuid())
+  user_id             String    @unique
+  user                User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  normalized_email    String    @unique
+  password_hash       String
+  is_verified         Boolean   @default(false)
+  verified_at         DateTime?
+  password_changed_at DateTime?
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
+}
+
+model PhoneIdentity {
+  id                  String    @id @default(cuid())
+  user_id             String    @unique
+  user                User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  canonical_phone     String    @unique // e.g., +1234567890
+  is_verified         Boolean   @default(false)
+  verified_at         DateTime?
+  channel             String?   // e.g., "SMS", "WhatsApp"
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
+}
+
+model VerificationChallenge {
+  id               String    @id @default(cuid())
+  purpose          String    // "EMAIL_VERIFICATION", "PASSWORD_RESET", "MOBILE_OTP", "ACCOUNT_LINK"
+  target_identity  String    // e.g., email address or phone number
+  challenge_hashed String    // Hashed OTP or token
+  expires_at       DateTime
+  attempt_count    Int       @default(0)
+  is_consumed      Boolean   @default(false)
+  request_context  String?   // IP, UserAgent
+  created_at       DateTime  @default(now())
+}
+
+model AuthSession {
+  id                   String    @id @default(cuid())
+  user_id              String
+  user                 User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  session_token        String    @unique
+  issued_at            DateTime  @default(now())
+  expires_at           DateTime
+  revoked_at           DateTime?
+  authentication_level String    // "MFA", "PASSWORD", "OAUTH", "OTP"
+  device_metadata      String?
+  ip_address           String?
+  
+  @@index([user_id])
+}
+
+model AccountLinkEvent {
+  id               String   @id @default(cuid())
+  user_id          String
+  user             User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  provider         String
+  provider_subject String
+  status           String   // "SUCCESS", "BLOCKED", "UNLINKED"
+  reason           String?
+  ip_address       String?
+  created_at       DateTime @default(now())
+  
+  @@index([user_id])
 }
