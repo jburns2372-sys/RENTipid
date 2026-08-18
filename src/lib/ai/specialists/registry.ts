@@ -1,5 +1,18 @@
 export type RiskCeiling = 'INFORMATION' | 'PERSONALIZED' | 'ACTION';
 
+export const supportSubdomainIds = [
+  'GENERAL_SUPPORT',
+  'BOOKING',
+  'PAYMENT_REFUND_DEPOSIT',
+  'RENTAL',
+  'CLAIM_DISPUTE',
+  'INSURANCE',
+  'KYC_ACCOUNT',
+  'PROVIDER',
+] as const;
+
+export type SupportSubdomainId = (typeof supportSubdomainIds)[number];
+
 export interface AiSpecialist {
   id: string;
   name: string;
@@ -13,7 +26,7 @@ export interface AiSpecialist {
   version: string;
 }
 
-export const aiSpecialistRegistry: Record<string, AiSpecialist> = {
+export const aiSpecialistRegistry: Record<SupportSubdomainId, AiSpecialist> = {
   GENERAL_SUPPORT: {
     id: 'GENERAL_SUPPORT',
     name: 'General Support Specialist',
@@ -29,7 +42,7 @@ export const aiSpecialistRegistry: Record<string, AiSpecialist> = {
     id: 'BOOKING',
     name: 'Booking Specialist',
     description: 'Handles active and pending booking inquiries.',
-    allowedIntents: ['booking_status', 'booking_acceptance', 'booking_cancel', 'booking_change'],
+    allowedIntents: ['booking_help', 'booking_status', 'booking_acceptance', 'cancellation', 'booking_cancel', 'modification', 'booking_change'],
     knowledgeDomains: ['booking_policy'],
     allowedTools: ['get_booking_status', 'cancel_booking'],
     riskCeiling: 'ACTION',
@@ -41,7 +54,7 @@ export const aiSpecialistRegistry: Record<string, AiSpecialist> = {
     id: 'PAYMENT_REFUND_DEPOSIT',
     name: 'Financial Support Specialist',
     description: 'Handles inquiries regarding payments, deposits, and refunds.',
-    allowedIntents: ['deposit_status', 'payment_inquiry', 'payment_issue', 'refund_status', 'refund_request'],
+    allowedIntents: ['deposit_status', 'payment_problem', 'payment_inquiry', 'payment_issue', 'refund_status', 'refund_request'],
     knowledgeDomains: ['financial_policy'],
     allowedTools: ['get_payment_status', 'get_refund_status'],
     riskCeiling: 'PERSONALIZED',
@@ -53,7 +66,7 @@ export const aiSpecialistRegistry: Record<string, AiSpecialist> = {
     id: 'RENTAL',
     name: 'Rental Specialist',
     description: 'Handles active rental extensions and issues.',
-    allowedIntents: ['rental_extend'],
+    allowedIntents: ['rental_support', 'rental_extend'],
     knowledgeDomains: ['rental_rules'],
     allowedTools: ['request_extension'],
     riskCeiling: 'ACTION',
@@ -65,7 +78,7 @@ export const aiSpecialistRegistry: Record<string, AiSpecialist> = {
     id: 'CLAIM_DISPUTE',
     name: 'Case Specialist',
     description: 'Handles damage reports and disputes.',
-    allowedIntents: ['damage_report', 'claim_status'],
+    allowedIntents: ['claim', 'claim_status', 'damage', 'damage_report'],
     knowledgeDomains: ['dispute_policy'],
     allowedTools: ['get_claim_status', 'report_damage'],
     riskCeiling: 'ACTION',
@@ -77,7 +90,7 @@ export const aiSpecialistRegistry: Record<string, AiSpecialist> = {
     id: 'INSURANCE',
     name: 'Insurance Specialist',
     description: 'Handles insurance inquiries.',
-    allowedIntents: ['insurance_info'],
+    allowedIntents: ['insurance_support', 'insurance_info'],
     knowledgeDomains: ['insurance_terms'],
     allowedTools: [],
     riskCeiling: 'INFORMATION',
@@ -89,7 +102,7 @@ export const aiSpecialistRegistry: Record<string, AiSpecialist> = {
     id: 'KYC_ACCOUNT',
     name: 'Account Specialist',
     description: 'Handles identity and account status inquiries.',
-    allowedIntents: ['kyc_status'],
+    allowedIntents: ['kyc_account_support', 'kyc_status'],
     knowledgeDomains: ['account_policy'],
     allowedTools: ['get_kyc_status'],
     riskCeiling: 'PERSONALIZED',
@@ -101,7 +114,7 @@ export const aiSpecialistRegistry: Record<string, AiSpecialist> = {
     id: 'PROVIDER',
     name: 'Provider Specialist',
     description: 'Handles provider-specific dashboard and listing queries.',
-    allowedIntents: ['listing_status', 'payout_status'],
+    allowedIntents: ['provider_operational_support', 'listing_status', 'payout_status'],
     knowledgeDomains: ['provider_policy'],
     allowedTools: ['get_listing_status', 'get_payout_status'],
     riskCeiling: 'PERSONALIZED',

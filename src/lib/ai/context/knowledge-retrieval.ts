@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { canAccessKnowledge, parseStoredRoles } from '@/lib/ai/knowledge/visibility';
+import { KNOWLEDGE_REGISTRY_ID } from '@/lib/ai/knowledge/source-registry';
 
 const MAX_SOURCES = 250;
 const MAX_RESULTS = 4;
@@ -84,7 +85,7 @@ export async function retrieveApprovedKnowledgeMatches(
   });
   const canonicalSourcesPresent = sources.some(source => {
     const metadata = source.metadata;
-    return Boolean(metadata && typeof metadata === 'object' && !Array.isArray(metadata) && (metadata as Record<string, unknown>).registryId === 'KB1-INITIAL-146');
+    return Boolean(metadata && typeof metadata === 'object' && !Array.isArray(metadata) && (metadata as Record<string, unknown>).registryId === KNOWLEDGE_REGISTRY_ID);
   });
 
   const matches: RetrievedKnowledgeMatch[] = [];

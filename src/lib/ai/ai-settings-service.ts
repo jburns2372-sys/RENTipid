@@ -10,6 +10,7 @@ export interface AISettings {
   disclaimerText: string;
   enabledModules: string[];
   enabledBots: string[];
+  specialistStates?: Readonly<Record<string, boolean>>;
 }
 
 // In Next.js 14/15, we can use React cache or unstable_cache.
@@ -47,6 +48,13 @@ export async function getAISettings(): Promise<AISettings> {
     .filter(s => s.setting_key.startsWith('ai_bot_') && s.setting_value === 'true')
     .map(s => s.setting_key.replace('ai_bot_', '').replace('_enabled', ''));
 
+  // Revision 2 specialist flags reuse the existing SystemSetting feature-control namespace.
+  const specialistStates = Object.fromEntries(
+    allSettings
+      .filter(s => s.setting_key.startsWith('ai_specialist_') && s.setting_key.endsWith('_enabled'))
+      .map(s => [s.setting_key, s.setting_value === 'true']),
+  );
+
   // If DB is completely empty (first run), we might want to default everything to enabled.
   // For safety, we will assume true if not explicitly set to false in the DB.
   // A robust way is to just let the action seed them, but we'll use a fallback here if needed.
@@ -60,7 +68,8 @@ export async function getAISettings(): Promise<AISettings> {
     responseStyle,
     disclaimerText,
     enabledModules,
-    enabledBots
+    enabledBots,
+    specialistStates,
   };
 }
 

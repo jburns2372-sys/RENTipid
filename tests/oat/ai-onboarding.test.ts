@@ -116,7 +116,7 @@ describe('AI OAT Onboarding', () => {
 
     const oatCase = await prisma.aiSupportCase.create({
       data: {
-        caseNumber: 'OAT-CASE-1',
+        caseNumber: `OAT-CASE-1-${Date.now()}`,
         userId: renter!.id,
         category: 'Test',
         severity: 'low',
@@ -143,7 +143,7 @@ describe('AI OAT Onboarding', () => {
 
     const nonOatCase = await prisma.aiSupportCase.create({
       data: {
-        caseNumber: 'NON-OAT-CASE-1',
+        caseNumber: `NON-OAT-CASE-1-${Date.now()}`,
         userId: otherUser.id,
         category: 'Test',
         severity: 'low',

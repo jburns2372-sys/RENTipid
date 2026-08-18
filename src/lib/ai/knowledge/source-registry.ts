@@ -9,8 +9,8 @@ import {
   type KnowledgeVisibility,
 } from './types';
 
-export const KNOWLEDGE_REGISTRY_ID = 'KB1-INITIAL-146';
-export const KNOWLEDGE_REGISTRY_COUNT = 146;
+export const KNOWLEDGE_REGISTRY_ID = 'KB1-INITIAL-147';
+export const KNOWLEDGE_REGISTRY_COUNT = 147;
 export const KNOWLEDGE_REGISTRY_PATH =
   'final-documentation/ai-knowledge/KNOWLEDGE-IMPLEMENTATION-REGISTRY.md';
 export const KNOWLEDGE_REGISTRY_FREEZE_PATH =

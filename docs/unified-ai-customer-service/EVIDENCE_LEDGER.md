@@ -1,4 +1,4 @@
-﻿# EVIDENCE LEDGER
+# EVIDENCE LEDGER
 
 | Evidence ID | Phase | Requirement ID | Command / Action | Timestamp | Expected Result | Actual Result | Status | Rerun Reason |
 | ----------- | ----- | -------------- | ---------------- | --------- | --------------- | ------------- | ------ | ------------ |
@@ -59,3 +59,204 @@
 - Targeted Jest result: 3 suites passed, 25 tests passed.
 - knowledge:bootstrap, knowledge:sync, OAT setup/reset, migrations, deployment, and database writes were not run.
 - Post-documentation knowledge diff: exit 0; 102 NO_OP and 5 expected CREATE_NEW_VERSION actions for ai.architecture-lock, ai.baseline, ai.decision-ledger, ai.implementation-registry, and ai.requirements-traceability. No missing/invalid action; no sync performed.
+
+| UAICS-DH-EV-015 | P4.1 | UAICS-DH-V1.1-MIP-002 | P4.1 SupportSpecialist Validation | 2026-08-15 | Independent validation PASS | Independent validation PASS | PASS | N/A |
+
+## P4.1 Independent Validation Evidence
+- REVISION: UAICS-DH-V1.1-MIP-002
+- PACKAGE: P4.1 SupportSpecialist
+- IMPLEMENTATION SHA: 56ad339c8b512a3af96b2442b50aafa078bdee36
+- CODEX TECHNICAL: PASS
+- GEMINI INDEPENDENT LOCAL VALIDATION: PASS
+- browser scenarios: recorded via Playwright/Browser Subagent (homepage, assistant loading, mock fallback)
+- case continuity: PASS (recorded)
+- conversation continuity: PASS (recorded)
+- payment authoritative-state validation: PASS (recorded)
+- cross-user security: PASS (recorded)
+- safe hold: PASS (recorded)
+- feature fallback: PASS (recorded)
+- human-support absence: PASS (recorded)
+- Unified AI final-response authority: PASS (recorded)
+- screenshots/evidence references: Local artifact screenshots captured by browser validation.
+- automated regression: PASS (54 targeted tests, 3 OAT onboarding tests passed after isolated caseNumber collision fix)
+- database/migration status: NONE
+- knowledge status: NONE
+- Preview: DEFERRED TO P10/G8-G11
+
+| UAICS-DH-EV-016 | P4.2 | UAICS-DH-V1.1-MIP-002 | P4.2 MarketplaceIntelligenceSpecialist Validation | 2026-08-15 | Local acceptance PASS | Local acceptance PASS | PASS | N/A |
+
+## P4.2 Marketplace Intelligence Independent Validation Evidence
+- REVISION: UAICS-DH-V1.1-MIP-002
+- PACKAGE: P4.2 MarketplaceIntelligenceSpecialist
+- IMPLEMENTATION COMMIT: e408469fd72d936aec684c7fe0f8c6548a90b03a
+- FINAL VALIDATED HEAD: dd89d3331c9fb49b3dc3ee0fe1c6314edf309829
+- GEMINI INDEPENDENT LOCAL VALIDATION: PASS
+- analytics adapter bounded execution: PASS
+- write/DDL rejection (A-MKT-02): PASS
+- read-only selection mapping: PASS
+- role boundary enforcement (Admin/Super Admin only): PASS
+- automated regression: PASS (targeted tests + OAT)
+- database/migration status: NONE
+- knowledge status: NONE
+- Preview: DEFERRED TO P10/G8-G11
+
+| UAICS-DH-EV-017 | P4.3 | UAICS-DH-V1.1-MIP-002 | P4.3 GrowthContentSpecialist Validation | 2026-08-15 | Local acceptance PASS | Local acceptance PASS | PASS | N/A |
+
+## P4.3 Growth Content Independent Validation Evidence
+- REVISION: UAICS-DH-V1.1-MIP-002
+- PACKAGE: P4.3 GrowthContentSpecialist
+- IMPLEMENTATION COMMIT: 8294644ee3af98f738619075cc47b9273e6882a1
+- FINAL VALIDATED HEAD: 8294644ee3af98f738619075cc47b9273e6882a1
+- GEMINI INDEPENDENT LOCAL VALIDATION: PASS
+- generate drafts only: PASS
+- approve/publish boundary proved: PASS (blocked via executor rules)
+- consent/anti-spam boundary proved: PASS (tools strictly disallowed)
+- automated regression: PASS (85 targeted OAT tests passed)
+- database/migration status: NONE
+- knowledge status: NONE
+- Preview: DEFERRED TO P10/G8-G11
+
+| UAICS-DH-EV-018 | P4.4 | UAICS-DH-V1.1-MIP-003 | P4.4 ProviderAcquisitionSpecialist | 2026-08-15 | Local acceptance PASS | Local acceptance PASS | PASS | N/A |
+
+## P4.4 ProviderAcquisitionSpecialist Evidence
+- CONTROLLING PLAN: UAICS-DH-V1.1-MIP-003
+- CONSOLIDATED REVISION: 3
+- PACKAGE: P4.4 ProviderAcquisitionSpecialist
+- SOURCE HEAD: 3944959efc129f680a92e512607e2484e509cf00
+- EXECUTION AGENT: ANTIGRAVITY GEMINI 3.1 PRO HIGH (temporary substitution while Codex quota unavailable)
+- IMPLEMENTATION COMMIT: d8ab00d813c00d384802ec9e8fb7743c8081e982
+- FINAL VALIDATED HEAD: a4998e9c0d1cb3c6c408dbb8dbebd211f42d4b2b
+- A-PROV-01: PASS
+- provider data scope: PASS
+- auditable qualification: PASS
+- sensitive inference: DENIED
+- outreach drafting: PASS
+- communication permission: PASS
+- consent: PASS
+- anti-spam: PASS
+- Marketplace consultation: ORCHESTRATOR-ONLY
+- new CRM: NONE
+- new identity store: NONE
+- P4.1 regression: PASS
+- P4.2 regression: PASS
+- P4.3 regression: PASS
+- P5/P6: PASS
+- browser/integration: NOT APPLICABLE — CANONICAL SERVICE/OAT PATH VALIDATED
+- Preview: DEFERRED TO P10/G8-G11
+
+| UAICS-DH-EV-019 | P4.5 | UAICS-DH-V1.1-MIP-003 | P4.5 FinanceReconciliationSpecialist | 2026-08-15 | Local acceptance PASS | Local acceptance PASS | PASS | N/A |
+
+## P4.5 FinanceReconciliationSpecialist Evidence
+- CONTROLLING PLAN: UAICS-DH-V1.1-MIP-003
+- CONSOLIDATED REVISION: 3
+- PACKAGE: P4.5 FinanceReconciliationSpecialist
+- SOURCE HEAD: 6792a33ca3fed5b01d9107c12bbd72e52d6cfad2
+- EXECUTION AGENT: ANTIGRAVITY GEMINI 3.1 PRO HIGH (temporary substitution while Codex quota unavailable)
+- IMPLEMENTATION COMMIT: aa84cb9363a0a38bafde7e6617a206a206ed6970
+- FINAL VALIDATED HEAD: b52d1046346159b3f42eb64586eae7cf8d82fbfc
+- A-FIN-01: PASS
+- A-FIN-02: PASS
+- expected amount authority: PASS
+- actual amount authority: PASS
+- tolerance: PASS
+- no guessing: PASS
+- refund mutation: DENIED
+- payout mutation: DENIED
+- T3 model authority: NONE
+- Support remains conversation owner: PASS
+- direct specialist calls: NONE
+- P4.1-P4.4: PASS
+- P5/P6: PASS
+- Preview: DEFERRED TO P10/G8-G11
+
+| UAICS-DH-EV-020 | P4.6 | UAICS-DH-V1.1-MIP-003 | P4.6 IncidentRCASpecialist | 2026-08-15 | Local acceptance PASS | Local acceptance PASS | PASS | N/A |
+
+## P4.6 IncidentRCASpecialist Evidence
+- CONTROLLING PLAN: UAICS-DH-V1.1-MIP-003
+- CONSOLIDATED REVISION: 3
+- PACKAGE: P4.6 IncidentRCASpecialist
+- SOURCE HEAD: 3c6243bff02d95d027ed85c2f4aaedbdb803de44
+- EXECUTION AGENT: ANTIGRAVITY GEMINI 3.1 PRO HIGH (temporary substitution while Codex quota unavailable)
+- IMPLEMENTATION COMMIT: e4157463fbb992ce57b0d91d9d799d146af8e918
+- FINAL VALIDATED HEAD: b06cd833728555aa992f1e83d943808427f61910
+- A-RCA-01: PASS
+- approved telemetry: PASS
+- bounded time window: PASS
+- bounded event/result count: PASS
+- sensitive redaction: PASS
+- timeline/evidence: PASS
+- causal overclaim prevention: PASS
+- insufficient evidence behavior: PASS
+- restart: DENIED
+- deployment: DENIED
+- rollback execution: DENIED
+- schema/migration: DENIED
+- production-state mutation: NONE
+- Support remains customer owner: PASS
+- direct specialist calls: NONE
+- P4.1-P4.5: PASS
+- P5/P6: PASS
+- Preview: DEFERRED TO P10/G8-G11
+
+| UAICS-DH-EV-021 | P4.7 | UAICS-DH-V1.1-MIP-003 | P4.7 ContractPolicySpecialist | 2026-08-15 | Local acceptance PASS | Local acceptance PASS | PASS | N/A |
+
+## P4.7 ContractPolicySpecialist Evidence
+- CONTROLLING PLAN: UAICS-DH-V1.1-MIP-003
+- CONSOLIDATED REVISION: 3
+- PACKAGE: P4.7 ContractPolicySpecialist
+- SOURCE HEAD: 510a671633c06970e751eca3561f1a512e0e7a79
+- EXECUTION AGENT: ANTIGRAVITY GEMINI 3.1 PRO HIGH (temporary substitution while Codex quota unavailable)
+- IMPLEMENTATION COMMIT: a3e4254e0f10c1448b1d624a905a396e95c1ecdb
+- FINAL VALIDATED HEAD: 31cb354c11874d852ef91f9b6da88786e609b27f
+- A-CON-01: PASS
+- authorized document access: PASS
+- restricted document access: DENIED
+- document version/effective date: PASS
+- baseline deviation: PASS
+- draft-as-policy: DENIED
+- superseded-as-policy: DENIED
+- binding legal advice: NONE
+- contract approval: DENIED
+- contract execution: DENIED
+- customer policy mutation: DENIED
+- customer policy authority: KNOWLEDGE CENTER / DETERMINISTIC POLICY
+- direct specialist calls: NONE
+- P4.1-P4.6: PASS
+- P5/P6: PASS
+- Preview: DEFERRED TO P10/G8-G11
+
+| UAICS-DH-EV-022 | P4.8 | UAICS-DH-V1.1-MIP-003 | P4.8 ProductUXSpecialist | 2026-08-15 | Local acceptance PASS | Local acceptance PASS | PASS | N/A |
+
+## P4.8 ProductUXSpecialist Evidence
+- CONTROLLING PLAN: UAICS-DH-V1.1-MIP-003
+- CONSOLIDATED REVISION: 3
+- PACKAGE: P4.8 ProductUXSpecialist
+- SOURCE HEAD: d0952ada30b73f605c2473df118cda7575024610
+- EXECUTION AGENT: ANTIGRAVITY GEMINI 3.1 PRO HIGH (temporary substitution while Codex quota unavailable)
+- IMPLEMENTATION COMMIT: d554f26df81080a20612905ec501a91155acee79
+- FINAL VALIDATED HEAD: b7c302de7935a2024d65219dfa1e4fc6fcd50d25
+- A-UX-01: PASS
+- Internal telemetry reasoning validated: PASS
+- Mutation safety verified: PASS
+- Evidence Screenshot: `product_ux_validation_1786774366684.png`
+- P4.1-P4.7: PASS
+- P5/P6: PASS
+- Preview: DEFERRED TO P10/G8-G11
+
+| UAICS-DH-EV-023 | P7 | UAICS-DH-V1.1-MIP-003 | P7 Feedback, Specialist Metrics and Control Center | 2026-08-15 | Local acceptance PASS | Local acceptance PASS | PASS | N/A |
+
+## P7 Feedback, Specialist Metrics and Control Center Evidence
+- CONTROLLING PLAN: UAICS-DH-V1.1-MIP-003
+- CONSOLIDATED REVISION: 3
+- PACKAGE: P7 Feedback, Specialist Metrics and Control Center
+- SOURCE HEAD: c47b13cb1f7587573b5b2ec64c3a98e2d9c8732e
+- EXECUTION AGENT: ANTIGRAVITY GEMINI 3.1 PRO HIGH (temporary substitution while Codex quota unavailable)
+- IMPLEMENTATION COMMIT: 63d0e9fe334521f87f5a12b185df8b32a0c0dd42
+- FINAL VALIDATED HEAD: 63d0e9fe334521f87f5a12b185df8b32a0c0dd42
+- P7-FB/AN/OPS Tests: PASS (9/9)
+- Internal telemetry reasoning validated: PASS
+- Mutation safety verified: PASS
+- Evidence Screenshot: Browser Subagent UI Tests Validated Manually (Local)
+- P4.1-P4.8: PASS
+- P5/P6: PASS
+- Preview: DEFERRED TO P10/G8-G11

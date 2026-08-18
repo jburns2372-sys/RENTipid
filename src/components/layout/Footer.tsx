@@ -23,12 +23,15 @@ export default function Footer() {
         </div>
         
         <div>
-          <h2 className="font-semibold mb-4 text-gray-800">Trust & Safety</h2>
+          <h2 className="font-semibold mb-4 text-gray-800">Trust & Legal</h2>
           <ul className="space-y-2 text-sm text-gray-600">
-            <li><Link href="/safety" className="hover:text-blue-600">Safety Center</Link></li>
-            <li><Link href="/prohibited-items" className="hover:text-blue-600">Prohibited Items</Link></li>
-            <li><Link href="/terms" className="hover:text-blue-600">Terms & Conditions</Link></li>
-            <li><Link href="/privacy" className="hover:text-blue-600">Privacy Policy</Link></li>
+            <li><Link href="/help/trust-safety-legal/global-legal-compliance" className="hover:text-blue-600">Global Legal Compliance</Link></li>
+            <li><Link href="/help/privacy" className="hover:text-blue-600">Privacy</Link></li>
+            <li><Link href="/terms" className="hover:text-blue-600">Terms</Link></li>
+            <li><Link href="/help/marketplace-safety" className="hover:text-blue-600">Consumer Protection</Link></li>
+            <li><Link href="/safety" className="hover:text-blue-600">Content / Marketplace Standards</Link></li>
+            <li><Link href="/prohibited-items" className="hover:text-blue-600">Intellectual Property</Link></li>
+            <li><Link href="/help/complaints-appeals" className="hover:text-blue-600">Report Illegal Activity</Link></li>
           </ul>
         </div>
         

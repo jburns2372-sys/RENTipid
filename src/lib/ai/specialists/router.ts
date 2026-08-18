@@ -1,20 +1,23 @@
-import { aiSpecialistRegistry, AiSpecialist } from './registry';
+import { AiSpecialist, aiSpecialistRegistry } from './registry';
+import { intentOwnershipRegistry, IntentOwnershipDefinition } from './ownership-registry';
+
+export interface RoutedIntentOwnership {
+  ownership: IntentOwnershipDefinition;
+  supportSubdomain: AiSpecialist;
+}
+
+export function routeIntentOwnership(resolvedIntent: string | undefined): RoutedIntentOwnership {
+  const ownership = intentOwnershipRegistry.resolveWithGeneralFallback(resolvedIntent);
+  const supportSubdomain = ownership.supportSubdomainId
+    ? aiSpecialistRegistry[ownership.supportSubdomainId]
+    : aiSpecialistRegistry.GENERAL_SUPPORT;
+  return Object.freeze({ ownership, supportSubdomain });
+}
 
 /**
- * Deterministically routes an intent to the correct specialist.
+ * Preserves the accepted P4 compatibility result while ownership is resolved
+ * by the Revision 2 exactly-one-owner registry.
  */
 export function routeToSpecialist(resolvedIntent: string | undefined): AiSpecialist {
-  if (!resolvedIntent) {
-    return aiSpecialistRegistry['GENERAL_SUPPORT'];
-  }
-
-  for (const key of Object.keys(aiSpecialistRegistry)) {
-    const specialist = aiSpecialistRegistry[key];
-    if (specialist.status === 'enabled' && specialist.allowedIntents.includes(resolvedIntent)) {
-      return specialist;
-    }
-  }
-
-  // Fallback if intent is recognized but no specialist handles it, or if it's unknown
-  return aiSpecialistRegistry['GENERAL_SUPPORT'];
+  return routeIntentOwnership(resolvedIntent).supportSubdomain;
 }
