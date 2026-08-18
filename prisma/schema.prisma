@@ -1866,6 +1866,7 @@ model AccountLinkEvent {
   created_at       DateTime @default(now())
 
   @@index([user_id])
+}
 // Phase 4: Incident Case Foundation (Gate 4F)
 // ----------------------------------------------------------------------
 
