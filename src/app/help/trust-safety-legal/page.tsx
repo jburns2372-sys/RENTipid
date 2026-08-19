@@ -65,6 +65,16 @@ export default function TrustSafetyLegalPage() {
             </p>
           </div>
         </Link>
+
+        <Link href="/help/intellectual-property" className="block group">
+          <div className="bg-white border border-gray-200 rounded-xl p-6 h-full shadow-sm group-hover:shadow-md group-hover:border-blue-300 transition-all">
+            <svg className="text-indigo-500 mb-4 w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M14.83 14.83a4 4 0 1 1 0-5.66"></path></svg>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-700">Intellectual Property</h2>
+            <p className="text-gray-600">
+              Copyright rules, trademark policies, and how to report IP infringement.
+            </p>
+          </div>
+        </Link>
       </div>
 
       <div className="mt-12 bg-gray-50 border border-gray-200 rounded-xl p-6">

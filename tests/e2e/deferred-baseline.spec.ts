@@ -208,10 +208,13 @@ test.describe('Phase 1 Entry Gate 1A - Deferred Baseline Tests', () => {
     const originalSetting = await prisma.systemSetting.findUnique({ where: { setting_key: 'PAYMENT_EMERGENCY_FREEZE' } });
 
     try {
+      // 0. ENSURE CLEAN SLATE
+      await prisma.systemSetting.deleteMany({ where: { setting_key: 'PAYMENT_EMERGENCY_FREEZE' } });
+
       // 1. Checkout reaches its expected state before freeze
       await login(page, RENTER_EMAIL);
       await page.goto(`/checkout/${BOOKING_ID}`);
-      await expect(page.locator('text=Emergency Freeze Active').or(page.locator('text=ACTIVE'))).toHaveCount(0);
+      await expect(page.locator('text=Live payment is currently frozen').or(page.locator('text=Emergency Freeze Active'))).toHaveCount(0);
 
       // C. MANAGEMENT ACTION TEST (Super Admin)
       await login(page, SUPER_ADMIN_EMAIL);

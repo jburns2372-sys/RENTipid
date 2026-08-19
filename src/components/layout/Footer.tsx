@@ -28,9 +28,9 @@ export default function Footer() {
             <li><Link href="/help/trust-safety-legal/global-legal-compliance" className="hover:text-blue-600">Global Legal Compliance</Link></li>
             <li><Link href="/help/privacy" className="hover:text-blue-600">Privacy</Link></li>
             <li><Link href="/terms" className="hover:text-blue-600">Terms</Link></li>
-            <li><Link href="/help/marketplace-safety" className="hover:text-blue-600">Consumer Protection</Link></li>
-            <li><Link href="/safety" className="hover:text-blue-600">Content / Marketplace Standards</Link></li>
-            <li><Link href="/prohibited-items" className="hover:text-blue-600">Intellectual Property</Link></li>
+            <li><Link href="/safety" className="hover:text-blue-600">Consumer Protection & Safety</Link></li>
+            <li><Link href="/prohibited-items" className="hover:text-blue-600">Prohibited Items</Link></li>
+            <li><Link href="/help/intellectual-property" className="hover:text-blue-600">Intellectual Property</Link></li>
             <li><Link href="/help/complaints-appeals" className="hover:text-blue-600">Report Illegal Activity</Link></li>
           </ul>
         </div>

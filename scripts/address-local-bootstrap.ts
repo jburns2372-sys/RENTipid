@@ -306,12 +306,13 @@ async function main(): Promise<void> {
       NODE_OPTIONS: [process.env.NODE_OPTIONS, '--conditions=react-server'].filter(Boolean).join(' '),
     };
     await runCommand('npx', ['tsx', 'scripts/address-local-psgc.ts', `--expected-db=${LOCAL_ADDRESS_DATABASE}`], offlineServerEnvironment);
-    await ensureLocalTestUser(environment);
     await runAddressTests(environment);
     writeLocalState({ version: 1, offlineCompleted: true, targetIdentity, isolation, sourceFingerprint: fingerprint });
   } else {
-    console.log('Offline bootstrap inputs are unchanged; Prisma, PSGC, user seed, and focused tests are skipped.');
+    console.log('Offline bootstrap inputs are unchanged; Prisma, PSGC, and focused tests are skipped.');
   }
+
+  await ensureLocalTestUser(environment);
 
   const googleKey = await acquireGoogleKey({ ...readEnvironmentFile(), ...environment });
   updateEnvironmentFile({ GOOGLE_MAPS_API_KEY: googleKey });
