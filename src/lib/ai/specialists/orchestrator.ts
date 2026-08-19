@@ -146,7 +146,7 @@ export class UnifiedAiSpecialistOrchestrator {
         : process.env.NODE_ENV === 'test'
           ? 'test'
           : 'development',
-      commitIdentity: process.env.VERCEL_GIT_COMMIT_SHA?.trim() || process.env.VERCEL_DEPLOYMENT_ID?.trim() || undefined,
+      commitIdentity: process.env.VERCEL_GIT_COMMIT_SHA,
     });
     return Object.freeze({ result, trace });
   }

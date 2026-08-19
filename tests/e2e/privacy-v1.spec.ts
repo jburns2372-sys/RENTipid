@@ -42,8 +42,8 @@ test.describe('Privacy Module v1 Browser Validation', () => {
   let unauthAdminUser: { email: string, user: User };
 
   test.beforeAll(async () => {
-    if (!process.env.DATABASE_URL || !process.env.DATABASE_URL.includes('rentipid_test') || process.env.DATABASE_URL.includes('test_soc')) {
-      throw new Error("FATAL: DATABASE_URL must explicitly contain 'rentipid_test' (and not test_soc).");
+    if (!process.env.DATABASE_URL || !process.env.DATABASE_URL.includes('rentipid_test_soc')) {
+      throw new Error("FATAL: DATABASE_URL must explicitly contain 'rentipid_test_soc'.");
     }
 
     userA = await setupTestUser('Renter');

@@ -38,9 +38,9 @@ export function assertSafeLocalTestDatabaseTarget() {
     throw new Error('DATABASE_SAFETY_GUARD_REJECTED_TARGET: Database name is rentipid_db');
   }
 
-  const strictTestDbRegex = /^(?:rentipid_test(?:_(?!prod(?:uction)?$)[a-z0-9_]+)?|rentipid_address(?:_(?!prod(?:uction)?$)[a-z0-9_]+)?)$/i;
+  const strictTestDbRegex = /^rentipid_test_soc(?:_[0-9]+)?$/;
   if (!strictTestDbRegex.test(dbName)) {
-    throw new Error('DATABASE_SAFETY_GUARD_REJECTED_TARGET: Database name does not match strict test pattern');
+    throw new Error('DATABASE_SAFETY_GUARD_REJECTED_TARGET: Database name does not match strict test pattern ^rentipid_test_soc(?:_[0-9]+)?$');
   }
 
   if (directUrlStr) {

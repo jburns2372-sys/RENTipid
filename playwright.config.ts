@@ -11,7 +11,6 @@ assertSafeLocalTestDatabaseTarget();
 
 export default defineConfig({
   testDir: './tests/e2e',
-  testIgnore: process.env.RUN_SOC_TESTS ? ['**/address-system/**', 'local-address-live.spec.ts'] : ['**/address-system/**', 'local-address-live.spec.ts', '**/soc-*.spec.ts'],
   timeout: 60000,
   expect: {
     timeout: 10000
