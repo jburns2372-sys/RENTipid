@@ -2,15 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 import { Search, ShieldCheck, Zap, ArrowRight, Bot } from 'lucide-react';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import {
   MARKETPLACE_CATEGORY_METADATA_PREFIX,
   parseMarketplaceCategoryMetadata,
 } from '@/lib/marketplace/category-metadata';
 
 import RentipidLogo from '@/components/brand/RentipidLogo';
-
-const prisma = new PrismaClient();
 
 export default async function Home() {
   const categoryRows = await prisma.category.findMany({

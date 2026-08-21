@@ -36,12 +36,12 @@ export default function TrustSafetyLegalPage() {
           </div>
         </Link>
 
-        <Link href="/help/marketplace-safety" className="block group">
+        <Link href="/prohibited-items" className="block group">
           <div className="bg-white border border-gray-200 rounded-xl p-6 h-full shadow-sm group-hover:shadow-md group-hover:border-blue-300 transition-all">
-            <Shield className="text-green-500 mb-4" size={28} />
-            <h2 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-700">Marketplace Safety</h2>
+            <Shield className="text-red-500 mb-4" size={28} />
+            <h2 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-700">Prohibited & Restricted Items</h2>
             <p className="text-gray-600">
-              Prohibited/regulated listings, fraud/scam controls, content rules, IP notices and safety reporting.
+              Catalogue of prohibited, restricted, and unsupported items and services on RENTipid.
             </p>
           </div>
         </Link>
@@ -62,6 +62,16 @@ export default function TrustSafetyLegalPage() {
             <h2 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-700">Advertising & Recommendation Transparency</h2>
             <p className="text-gray-600">
               Sponsored/promoted labels, ranking/recommendation disclosures, and AI transparency.
+            </p>
+          </div>
+        </Link>
+
+        <Link href="/help/intellectual-property" className="block group">
+          <div className="bg-white border border-gray-200 rounded-xl p-6 h-full shadow-sm group-hover:shadow-md group-hover:border-blue-300 transition-all">
+            <svg className="text-indigo-500 mb-4 w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M14.83 14.83a4 4 0 1 1 0-5.66"></path></svg>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-700">Intellectual Property</h2>
+            <p className="text-gray-600">
+              Copyright rules, trademark policies, and how to report IP infringement.
             </p>
           </div>
         </Link>
