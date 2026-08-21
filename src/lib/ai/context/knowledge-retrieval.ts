@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { canAccessKnowledge, parseStoredRoles } from '@/lib/ai/knowledge/visibility';
-import { resolveDomainIntent } from '@/lib/ai/specialists/intent-resolver';
+
 import {
   classifyRentipidQuestion,
   type ConversationContextMessage,
@@ -199,7 +199,7 @@ export async function retrieveApprovedKnowledgeEvidence(
   }
   const conceptTokens = [...new Set(baseExpansions.flatMap(tokenizeKnowledgeText))];
   const intentDomains = [...new Set([
-    ...resolveDomainIntent(classification.effectiveQuestion),
+    ...classification.domains,
     ...concepts.flatMap(concept => concept.domains),
   ])];
   const now = new Date();

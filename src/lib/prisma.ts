@@ -3,15 +3,17 @@ import { PrismaNeon } from '@prisma/adapter-neon';
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
-const adapter = new PrismaNeon({
-  connectionString: process.env.DATABASE_URL!
+const connectionString = process.env.DATABASE_URL || '';
+const isLocalTest = connectionString.includes('127.0.0.1') || connectionString.includes('localhost');
+
+const adapter = isLocalTest ? null : new PrismaNeon({
+  connectionString: connectionString
 });
 
 export const prisma =
   globalForPrisma.prisma ||
-  new PrismaClient({
-    adapter,
-    log: [],
-  });
+  new PrismaClient(
+    adapter ? ({ adapter, log: [] } as any) : { log: [] }
+  );
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;

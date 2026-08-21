@@ -63,7 +63,7 @@ describe('KB-1 local canonical acceptance', () => {
     ['PROHIBITED ITEMS', 'Are firearms restricted listings?', 'Renter', ['provider.prohibited-items', 'route.prohibited-items']],
     ['RENTER', 'What guidance is available for renters?', 'Renter', ['core.user-manual', 'core.role-training-guides', 'marketplace.']],
     ['RENTER', 'How does a renter use RENTipid?', 'Renter', ['core.user-manual', 'marketplace.']],
-    ['PROVIDER', 'How do I become a provider?', 'Business Provider', ['core.user-manual', 'marketplace.', 'core.role-training-guides']],
+    ['PROVIDER', 'How do I become a provider?', 'Business Provider', ['core.user-manual', 'marketplace.', 'core.role-training-guides', 'core.registration-onboarding']],
     ['PROVIDER', 'What guidance exists for business providers?', 'Business Provider', ['core.registration-onboarding', 'core.role-training-guides', 'marketplace.', 'provider.rbac']],
     ['LISTINGS', 'How do listing workflows work?', 'Business Provider', ['provider.workflow-status', 'marketplace.', 'core.']],
     ['LISTINGS', 'How are listings reviewed?', 'Business Provider', ['provider.workflow-status', 'marketplace.', 'registry.']],
