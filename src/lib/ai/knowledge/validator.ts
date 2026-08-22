@@ -50,7 +50,7 @@ export function validateKnowledgeContent(
       issues.push({ sourceKey: entry.sourceKey, category: 'CHUNK_VISIBILITY_BROADENED', location: chunk.headingPath });
     }
   }
-  if (chunks.length === 0) {
+  if (chunks.length === 0 && adapted.metadata?.omitted !== true) {
     issues.push({ sourceKey: entry.sourceKey, category: 'EMPTY_CONTENT', location: entry.sourceLocator });
   }
   return issues;

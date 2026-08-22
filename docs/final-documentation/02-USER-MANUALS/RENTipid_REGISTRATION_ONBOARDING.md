@@ -1,26 +1,26 @@
-# RENTipid Registration and Onboarding Guide
+# Becoming a RENTipid Provider
 
-## Account Creation
+To offer your items for rent and turn your idle assets into income, you must register as a RENTipid Provider.
 
-To join RENTipid as a renter or provider, you must create an account. 
+## Registration Process
 
-1. Go to the RENTipid home page and select "Register" or "Sign up".
-2. You will be prompted to enter your Full Name, Email Address, Mobile Number, and create secure sign-in credentials.
-3. You must select your location details, including your Address, City, Province, and Country.
-4. Agree to the Terms and Conditions and Privacy Policy.
-5. Click "Register" to create your account.
+1. Go to the registration page. 
+2. Choose your provider type:
+   - **Register as Provider** (`/register/individual`): For individuals renting out personal items. You must provide your Full Name, Email, Mobile Number, Password, and Location Details (Address, City, Province).
+   - **Register as Business** (`/register/business`): For registered companies listing assets or fleet. You must provide your Business Name, Business Registration Number (DTI/SEC/Permit), Business Address, and the Authorized Representative's contact details.
+3. Agree to the Terms and Conditions, Privacy Policy, and asset ownership declaration.
+4. Click Register to create your account. You will be redirected to log in.
 
-After registering, you can sign in to the platform. By default, new user registrations are given the Renter role for individual accounts.
+## Provider Onboarding and KYC
 
-## Provider Onboarding
+After registering, your account status is Pending. Before you can receive payouts or fully operate, you must complete the Provider Onboarding Checklist (`/dashboard/provider/onboarding-checklist`).
 
-If you want to offer items for rent, you must complete the provider onboarding process.
+You are required to submit Know Your Customer (KYC) documentation. Your profile and KYC verification status will remain "Pending" until approved by the RENTipid team. 
 
-1. Navigate to the Provider Registration section (either as an Individual Provider or Business Provider).
-2. Complete the required KYC (Know Your Customer) and identity verification steps.
-3. Submit any required business documentation if registering as a Business Provider.
-4. Once your provider profile is verified and approved, you can create listings.
+## Listing Eligibility
 
-## Profile and KYC
+Once your profile is completed and you have started your onboarding, you may navigate to **Provider Listings** (`/dashboard/provider/listings`) to create your first listing. Note that your listing will require approval before it becomes publicly visible.
 
-All users are required to maintain accurate profile information. You can view your current KYC status and submitted documents on your profile page. The profile page lets you edit the supported fields shown for your account and turn email notifications on or off. Privacy settings allow you to request data correction, export, or deletion through authorized workflows.
+## Important Note on Payouts
+
+All provider payouts are currently processed manually. You must submit your payout details for finance verification. Automatic payouts are strictly disabled during the pilot phase.

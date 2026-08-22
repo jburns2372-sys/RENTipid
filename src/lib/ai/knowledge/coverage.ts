@@ -35,7 +35,7 @@ export async function buildKnowledgeCoverageReport(
     const versions = stored.filter(source => source.sourceKey === entry.sourceKey);
     const activeVersions = versions.filter(source => source.status === 'ACTIVE');
     const active = activeVersions[0];
-    const excluded = !isSynchronizable(entry);
+    const excluded = !isSynchronizable(entry) || expected?.adapted.metadata?.omitted === true;
     const duplicate = activeVersions.length > 1;
     const missing = !excluded && !active;
     const invalid = Boolean(expected?.issues.length);

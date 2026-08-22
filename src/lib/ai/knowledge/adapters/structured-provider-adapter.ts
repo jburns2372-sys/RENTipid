@@ -165,7 +165,14 @@ export async function adaptStructuredProvider(
       },
       orderBy: [{ displayOrder: 'asc' }, { policyCode: 'asc' }],
     });
-    if (policies.length === 0) throw new Error('STRUCTURED_PROVIDER_EMPTY:provider.prohibited-items');
+    if (policies.length === 0) {
+      return {
+        title: 'Active Prohibited and Restricted Items Catalogue',
+        content: '',
+        keywords: ['prohibited', 'restricted', 'items'],
+        metadata: { activePolicyCount: 0, omitted: true },
+      };
+    }
     return {
       title: 'Active Prohibited and Restricted Items Catalogue',
       content: `# Active Prohibited and Restricted Items Catalogue
