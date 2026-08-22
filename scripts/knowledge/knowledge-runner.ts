@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../../src/lib/prisma';
 import { bootstrapKnowledge } from '../../src/lib/ai/knowledge/bootstrap';
 import { buildKnowledgeCoverageReport } from '../../src/lib/ai/knowledge/coverage';
 import { assertKnowledgeMutationEnvironment } from '../../src/lib/ai/knowledge/environment-guard';
@@ -11,8 +11,6 @@ import {
   validateKnowledgeRegistry,
 } from '../../src/lib/ai/knowledge/source-registry';
 import { diffKnowledge, prepareCanonicalKnowledge, synchronizeKnowledge } from '../../src/lib/ai/knowledge/synchronizer';
-
-const prisma = new PrismaClient();
 
 function repeatArgument(args: string[]): number {
   const index = args.indexOf('--repeat');
