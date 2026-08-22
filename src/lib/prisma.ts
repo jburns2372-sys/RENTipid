@@ -1,5 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import { PrismaNeon } from '@prisma/adapter-neon';
+import { neonConfig } from '@neondatabase/serverless';
+import { WebSocket } from 'ws';
+
+neonConfig.webSocketConstructor = WebSocket;
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
@@ -13,6 +17,7 @@ const adapter = isLocalTest ? null : new PrismaNeon({
 export const prisma =
   globalForPrisma.prisma ||
   new PrismaClient(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     adapter ? ({ adapter, log: [] } as any) : { log: [] }
   );
 
