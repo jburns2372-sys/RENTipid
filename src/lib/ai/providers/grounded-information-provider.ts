@@ -216,12 +216,12 @@ class LocalGroundedComposerProvider implements GroundedInformationProvider {
       });
 
       if (composedAnswer.length > 0) composedAnswer += '\n\n';
-      composedAnswer += `**${section.sectionTitle}**\n${sectionText}`;
+      composedAnswer += `${section.sectionTitle}\n${sectionText.replace(/[*_>#`]/g, '')}`;
     }
 
     if (input.structuredCategoryFacts && input.structuredCategoryFacts.length > 0) {
       const factsText = input.structuredCategoryFacts.map(f => `${f.entity}: ${f.canonicalCategory || 'Unknown'} - ${f.status}`).join('\n');
-      composedAnswer += `\n\n**Category Facts**\n${factsText}`;
+      composedAnswer += `\n\nCategory Facts\n${factsText}`;
     }
 
     // Wrap in a direct answer context

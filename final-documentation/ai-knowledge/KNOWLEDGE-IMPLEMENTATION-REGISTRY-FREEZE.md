@@ -7,7 +7,7 @@ CANDIDATES: `147`
 ACCOUNTED: `147`  
 UNCLASSIFIED: `0`  
 UNACCOUNTED: `0`  
-REGISTRY_SHA256: `F32C43E2BF3DDD81ED1ABCCEE757AC83F97E701CE73AF907387BB4C409962FE9`
+REGISTRY_SHA256: `66F9D4C11A07B30EE0D421D80D379C4F8725B8110E1595D821A110129F886957`
 HASH_CANONICALIZATION: `UTF-8 text; CRLF and CR normalized to LF; trailing-newline presence and all other characters preserved`
 
 Validated invariants:
@@ -34,5 +34,13 @@ The registry is the sole KB-1 implementation input. Changes require an explicit 
 - Trigger: lower-role safe-uncertainty test exposed internal/local-test policy-limit detail
 - Change: `ROLE_RESTRICTED/AUTHENTICATED` to `SUPER_ADMIN_ONLY`
 - Reason: the documents are approved internal implementation knowledge, but their local-test thresholds are not approved customer policy.
+- Discovery scope: no repository-wide rediscovery performed.
+
+## Targeted exception 3
+
+- Source: `provider.workflow-status`
+- Trigger: Basic Inquiry AI OAT
+- Change: `AUTHENTICATED` to `PUBLIC`
+- Reason: Listing creation inquiries from unauthenticated users incorrectly fallback to provider onboarding due to missing visibility. Descriptions are non-mutative and should be public.
 - Discovery scope: no repository-wide rediscovery performed.
 

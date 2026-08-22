@@ -72,6 +72,13 @@ function evidenceRef(match: RetrievedKnowledgeMatch): string {
   return `knowledge:${match.sourceKey}:${match.chunkKey}`;
 }
 
+function stripSafeMarkdown(text: string): string {
+  return text
+    .replace(/\[([^\]]+)]\([^\s)]+\)/g, '$1')
+    .replace(/[*_>#`]/g, '')
+    .trim();
+}
+
 function simpleEnglish(value: string): string {
   return value
     .replace(/\[([^\]]+)]\([^\s)]+\)/g, '$1')
@@ -104,11 +111,12 @@ interface CandidateClaim {
 function procedureIntro(analysis: RentipidQuestionClassification): string {
   if (analysis.intent === 'BOOKING_PROCESS') return 'Booking on RENTipid works like this:';
   if (analysis.intent === 'PROVIDER_PAYMENT_PROCESS') return 'Providers receive rental payment through this payout process:';
-  if (analysis.intent === 'CREATE_LISTING' && analysis.providerContext === 'EXISTING_PROVIDER') {
+  if (analysis.intent === 'LISTING_CREATION' && analysis.providerContext === 'EXISTING_PROVIDER') {
     return 'Since you already have a provider account, create the listing like this:';
   }
-  if (analysis.intent === 'CREATE_LISTING') return 'Create a rental listing like this:';
-  if (analysis.intent === 'REGISTRATION') return 'Create a RENTipid account like this:';
+  if (analysis.intent === 'LISTING_CREATION') return 'Create a rental listing like this:';
+  if (analysis.intent === 'GENERAL_REGISTRATION') return 'Create a RENTipid account like this:';
+  if (analysis.intent === 'PROVIDER_ONBOARDING') return 'Become a RENTipid Provider like this:';
   return 'Here is what to do:';
 }
 
@@ -119,8 +127,9 @@ function answerIntentScore(
   const text = [match.sourceKey, match.topic, match.headingPath, match.content].join(' ');
   if (analysis.intent === 'BOOKING_PROCESS' && /\bbooking process|send a booking request\b/i.test(text)) return 30;
   if (analysis.intent === 'PROVIDER_PAYMENT_PROCESS' && /\bprovider payout process\b/i.test(text)) return 30;
-  if (analysis.intent === 'CREATE_LISTING' && /\blisting creation|create new listing\b/i.test(text)) return 30;
-  if (analysis.intent === 'REGISTRATION' && /\baccount creation\b/i.test(text)) return 30;
+  if (analysis.intent === 'LISTING_CREATION' && /\blisting creation|create new listing\b/i.test(text)) return 30;
+  if (analysis.intent === 'GENERAL_REGISTRATION' && /\baccount creation|registration process\b/i.test(text)) return 30;
+  if (analysis.intent === 'PROVIDER_ONBOARDING' && /\bprovider onboarding|become a rentipid provider|register as\b/i.test(text)) return 30;
   return 0;
 }
 
@@ -191,7 +200,7 @@ function staticAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
     return categoryAnswer(input, analysis);
   }
 
-  const procedural = ['BOOKING_PROCESS', 'PROVIDER_PAYMENT_PROCESS', 'CREATE_LISTING', 'REGISTRATION']
+  const procedural = ['BOOKING_PROCESS', 'PROVIDER_PAYMENT_PROCESS', 'LISTING_CREATION', 'GENERAL_REGISTRATION', 'PROVIDER_ONBOARDING']
     .includes(analysis.intent)
     || /\b(?:how|steps?|start|create|register|list|publish|edit|change|update|submit|need)\b/i.test(input.question);
   const rankedEvidence = [...eligibleEvidence].sort((left, right) => {
@@ -368,6 +377,14 @@ function categoryAnswer(
 ): GroundedAnswerResult {
   const categories = rentalCategories(input.evidence);
   if (categories.length === 0) {
+    if (input.evidence.length > 0) {
+      return {
+        message: `Here is the RENTipid information regarding your query:\n\n${stripSafeMarkdown(input.evidence[0].content)}`,
+        evidenceRefs: [evidenceRef(input.evidence[0])],
+        materialClaims: [],
+        safelyUncertain: false,
+      };
+    }
     return {
       message: 'Approved RENTipid category information is unavailable for that item.',
       evidenceRefs: [],
@@ -459,7 +476,7 @@ function recomposeStaticAnswer(input: GroundedAnswerInput): GroundedAnswerResult
   }
 
   if (selected.length === 0) return staticAnswer(input);
-  const procedural = ['BOOKING_PROCESS', 'PROVIDER_PAYMENT_PROCESS', 'CREATE_LISTING', 'REGISTRATION']
+  const procedural = ['BOOKING_PROCESS', 'PROVIDER_PAYMENT_PROCESS', 'LISTING_CREATION', 'GENERAL_REGISTRATION', 'PROVIDER_ONBOARDING']
     .includes(analysis.intent);
   const message = procedural
     ? procedureIntro(analysis) + '\n'

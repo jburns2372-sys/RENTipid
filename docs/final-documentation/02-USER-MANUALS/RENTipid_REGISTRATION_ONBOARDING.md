@@ -1,14 +1,15 @@
-# Becoming a RENTipid Provider
+# RENTipid Account Registration & Provider Onboarding
 
-To offer your items for rent and turn your idle assets into income, you must register as a RENTipid Provider.
+To participate in the RENTipid marketplace, you must register for an account.
 
 ## Registration Process
 
 1. Go to the registration page. 
-2. Choose your provider type:
+2. Choose your account type:
+   - **Register as Renter** (`/register`): For users who want to browse and rent items. You must provide your Full Name, Email, Mobile Number, and Password.
    - **Register as Provider** (`/register/individual`): For individuals renting out personal items. You must provide your Full Name, Email, Mobile Number, Password, and Location Details (Address, City, Province).
    - **Register as Business** (`/register/business`): For registered companies listing assets or fleet. You must provide your Business Name, Business Registration Number (DTI/SEC/Permit), Business Address, and the Authorized Representative's contact details.
-3. Agree to the Terms and Conditions, Privacy Policy, and asset ownership declaration.
+3. Agree to the Terms and Conditions, Privacy Policy, and any applicable declarations.
 4. Click Register to create your account. You will be redirected to log in.
 
 ## Provider Onboarding and KYC

@@ -10,9 +10,10 @@ export type RentipidQuestionClass =
 export type CustomerQuestionIntent =
   | 'BOOKING_PROCESS'
   | 'PROVIDER_PAYMENT_PROCESS'
-  | 'CREATE_LISTING'
+  | 'LISTING_CREATION'
   | 'CATEGORY_ELIGIBILITY'
-  | 'REGISTRATION'
+  | 'GENERAL_REGISTRATION'
+  | 'PROVIDER_ONBOARDING'
   | 'GENERAL_RENTIPID'
   | 'OUT_OF_SCOPE';
 
@@ -87,10 +88,10 @@ function categoryTerms(prompt: string): string[] {
 function customerIntent(prompt: string): CustomerQuestionIntent {
   if (CATEGORY_ELIGIBILITY.test(prompt)) return 'CATEGORY_ELIGIBILITY';
   if (PROVIDER_PAYMENT.test(prompt)) return 'PROVIDER_PAYMENT_PROCESS';
-  if (CREATE_LISTING.test(prompt)) return 'CREATE_LISTING';
+  if (CREATE_LISTING.test(prompt)) return 'LISTING_CREATION';
   if (BOOKING_PROCESS.test(prompt)) return 'BOOKING_PROCESS';
-  if (PROVIDER_ONBOARDING.test(prompt)) return 'REGISTRATION';
-  if (REGISTRATION.test(prompt)) return 'REGISTRATION';
+  if (PROVIDER_ONBOARDING.test(prompt)) return 'PROVIDER_ONBOARDING';
+  if (REGISTRATION.test(prompt)) return 'GENERAL_REGISTRATION';
   return 'GENERAL_RENTIPID';
 }
 
@@ -138,9 +139,10 @@ export function classifyRentipidQuestion(
   const intentDomains: Partial<Record<CustomerQuestionIntent, readonly string[]>> = {
     BOOKING_PROCESS: ['Marketplace'],
     PROVIDER_PAYMENT_PROCESS: ['Payments', 'Finance'],
-    CREATE_LISTING: ['Marketplace'],
+    LISTING_CREATION: ['Marketplace'],
     CATEGORY_ELIGIBILITY: ['Marketplace'],
-    REGISTRATION: ['Core', 'Profile'],
+    GENERAL_REGISTRATION: ['Core', 'Profile'],
+    PROVIDER_ONBOARDING: ['Core', 'Profile'],
   };
   domains = [...new Set([...domains, ...(intentDomains[intent] ?? [])])];
   const requestedCategoryTerms = intent === 'CATEGORY_ELIGIBILITY' ? categoryTerms(trimmed) : [];
