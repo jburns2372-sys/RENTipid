@@ -33,7 +33,7 @@ const QUERY_STOP_WORDS = new Set([
   'find', 'follow', 'up', 'where', 'which', 'who', 'why', 'work', 'would', 'you',
 ]);
 
-const SECRET_QUERY = /\b(?:database[_ ]?url|api[_ -]?key|secret key|client[_ -]?secret|jwt[_ -]?secret|signing[_ -]?secret|private key|session token|password hash|password)\b/i;
+const SECRET_QUERY = /\b(?:database[_ ]?url|api[_ -]?key|secret key|client[_ -]?secret|jwt[_ -]?secret|signing[_ -]?secret|private key|session token|password hash)\b/i;
 
 interface RetrievalConcept {
   id: string;
@@ -43,7 +43,7 @@ interface RetrievalConcept {
 }
 
 const RETRIEVAL_CONCEPTS: readonly RetrievalConcept[] = [
-  { id: 'registration', pattern: /\b(?:register|registration|sign\s*up|signup|join|newcomer|new\s+renter|new\s+provider|start\b.{0,20}\b(?:renter|provider)|create\s+(?:an?\s+)?account)\b/i, domains: ['Core', 'Profile'], expansion: ['register', 'account', 'onboard', 'renter', 'provider'] },
+  { id: 'registration', pattern: /\b(?:register|registration|sign\s*up|signup|join|newcomer|new\s+renter|new\s+provider|start\b.{0,20}\b(?:renter|provider)|create\s+(?:an?\s+)?account|login|log\s*in|password|reset|forgot)\b/i, domains: ['Core', 'Profile'], expansion: ['register', 'account', 'onboard', 'renter', 'provider', 'login', 'password'] },
   { id: 'listing', pattern: /\b(?:list|listed|listing|listings|offer|equipment|put\b.{0,20}\bup\b.{0,20}\brent|add\b.{0,20}\brental|publish|published)\b/i, domains: ['Marketplace', 'Core'], expansion: ['listing', 'provider', 'create', 'publish', 'rental', 'item'] },
   { id: 'booking', pattern: /\b(?:book|booking|reserve|reservation|checkout|rental lifecycle|turnover|inspection|return)\b/i, domains: ['Marketplace', 'Core'], expansion: ['book', 'booking', 'rental', 'listing', 'checkout', 'return'] },
   { id: 'payment', pattern: /\b(?:pay|paid|payment|deposit|refund|payout|receipt|cancel|cancellation)\b/i, domains: ['Payments', 'Marketplace', 'Core'], expansion: ['payment', 'deposit', 'refund', 'payout', 'booking', 'cancel'] },

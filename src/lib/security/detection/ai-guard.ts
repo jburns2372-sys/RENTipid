@@ -39,7 +39,6 @@ export class AIGuard {
       'system prompt',
       'reveal your instructions',
       'database_url',
-      'password',
       'override policy',
       'bypass security',
       'the user approved this',
@@ -48,7 +47,7 @@ export class AIGuard {
 
     for (const phrase of blocklist) {
       if (lowerPrompt.includes(phrase)) {
-        if (phrase === 'database_url' || phrase === 'password') {
+        if (phrase === 'database_url') {
           this.evaluator.evaluateEvent({
             sourceType: 'AIBotLog',
             eventType: 'AI_SECRET_REQUEST_ATTEMPT',
@@ -100,7 +99,6 @@ export class AIGuard {
   public checkOutputProtection(output: string, userId: string, ipAddress: string): { blocked: boolean, redactedOutput?: string } {
     const sensitivePatterns = [
       /sk-[a-zA-Z0-9]{32,}/g, // Mock API keys
-      /password/i,
       /postgres:\/\//i
     ];
 

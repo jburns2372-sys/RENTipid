@@ -4,19 +4,18 @@ To participate in the RENTipid marketplace, you must register for an account.
 
 ## Registration Process
 
-1. Go to the registration page. 
-2. Choose your account type:
-   - **Register as Renter** (`/register`): For users who want to browse and rent items. You must provide your Full Name, Email, Mobile Number, and Password.
-   - **Register as Provider** (`/register/individual`): For individuals renting out personal items. You must provide your Full Name, Email, Mobile Number, Password, and Location Details (Address, City, Province).
-   - **Register as Business** (`/register/business`): For registered companies listing assets or fleet. You must provide your Business Name, Business Registration Number (DTI/SEC/Permit), Business Address, and the Authorized Representative's contact details.
-3. Agree to the Terms and Conditions, Privacy Policy, and any applicable declarations.
-4. Click Register to create your account. You will be redirected to log in.
+1. Go to the registration page.
+2. Choose your account type: Register as Renter, Register as Provider (Individual), or Register as Business.
+3. Complete the required account profile details based on your chosen account type.
+4. Agree to the Terms and Conditions and Privacy Policy.
+5. Click Register to create your account and log in.
 
 ## Provider Onboarding and KYC
 
-After registering, your account status is Pending. Before you can receive payouts or fully operate, you must complete the Provider Onboarding Checklist (`/dashboard/provider/onboarding-checklist`).
-
-You are required to submit Know Your Customer (KYC) documentation. Your profile and KYC verification status will remain "Pending" until approved by the RENTipid team. 
+1. After registering as a Provider, navigate to the Provider Onboarding Checklist.
+2. Complete your profile and submit your required Know Your Customer (KYC) verification documents.
+3. Wait for the RENTipid team to review and approve your KYC submission.
+4. Once approved, you can proceed to create your first rental listing.
 
 ## Listing Eligibility
 
@@ -25,3 +24,18 @@ Once your profile is completed and you have started your onboarding, you may nav
 ## Important Note on Payouts
 
 All provider payouts are currently processed manually. You must submit your payout details for finance verification. Automatic payouts are strictly disabled during the pilot phase.
+
+## Account Login and Password Reset
+
+1. To log in, go to the /login page and enter your registered email address and password.
+2. If you cannot log in due to an incorrect password, note that automated password reset emails are not currently implemented in RENTipid.
+3. If you forgot your password, you must contact RENTipid Support (/support) to request a manual account recovery.
+
+## Profile and Account Information
+
+If you need to change your account information:
+1. Open your Profile and select **Edit Profile**.
+2. Update the supported personal, contact, address, or provider-business fields.
+3. Select **Save Changes**.
+
+Note that Identity, account role, and KYC verification decisions are not changed by editing ordinary profile fields. For those verifications, use the official verification workflows.

@@ -28,7 +28,7 @@ export function resolveDomainIntent(prompt: string): string[] {
   if (/\b(legal|laws?|compliance|regulations?|jurisdictions?)\b/.test(lowerPrompt)) {
     domains.push('Legal', 'Compliance');
   }
-  if (/\b(register|registration|newcomer|join|account|profile|onboard|onboarding|sign up|signup|login)\b/.test(lowerPrompt)) {
+  if (/\b(register|registration|newcomer|join|account|profile|onboard|onboarding|sign up|signup|login|log in|password|forgot|reset|cannot log in|verify|verification|change|information)\b/.test(lowerPrompt)) {
     domains.push('Core', 'Profile');
   }
   if (/\b(book|booking|booked|reserve|reservation|rent|renter|renters|rental|checkout|list|listed|listing|listings|publish|published|offer|equipment|marketplace|item|provider|browse|search|discover|inspection|turnover|return|agreement|review|reviews|feedback)\b/.test(lowerPrompt)) {
