@@ -28,6 +28,14 @@ export async function POST(req: Request) {
     if (isValid) {
       const res = NextResponse.json({ success: true });
       res.headers.set("Cache-Control", "no-store, max-age=0, must-revalidate");
+      // Set a step-up cookie for the OAT harness test
+      res.cookies.set("mfa_step_up", "true", {
+        path: "/",
+        maxAge: 900,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax"
+      });
       return res;
     } else {
       return NextResponse.json({ error: "Invalid token" }, { status: 400 });

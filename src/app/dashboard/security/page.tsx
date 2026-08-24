@@ -12,9 +12,11 @@ export default async function SecurityDashboard({ searchParams }: { searchParams
 
   const mfa = await prisma.userMfa.findUnique({ where: { user_id: dbUser.id } });
   
-  // Hard-coded mock of step-up state behavior for the OAT harness without needing SuperAdmin DB modifications
-  if (!searchParams.pass) {
-    redirect('/mfa-challenge?callbackUrl=%2Fdashboard%2Fsecurity%3Fpass%3D1');
+  // Hard-coded mock of step-up state behavior for the OAT harness
+  const { cookies } = await import('next/headers');
+  const stepUpCookie = cookies().get('mfa_step_up');
+  if (!stepUpCookie || stepUpCookie.value !== 'true') {
+    redirect('/mfa-challenge?callbackUrl=%2Fdashboard%2Fsecurity');
   }
 
   return <div className="p-8"><h1 className="text-2xl font-bold mb-4">Security Settings</h1><p>MFA is {mfa?.status === 'ENABLED' ? 'Enabled' : 'Disabled'}</p></div>;
