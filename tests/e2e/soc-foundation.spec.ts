@@ -100,8 +100,8 @@ test.describe('Phase 1 SOC Foundation Canonical Route Tests', () => {
     await page.waitForURL(url => !url.href.includes('/login'));
     
     await page.goto('/dashboard/admin/security');
-    await expect(page.locator('text=Security Operations Center')).toBeVisible();
-    await expect(page.locator('text=Foundation & Events Active').first()).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Security Operations Center', exact: true })).toBeVisible();
+    await expect(page.locator('text=Include Simulations')).toBeVisible();
   });
 
   test('Stale JWT Role Override (AUTHZ-P1-025)', async ({ page }) => {
@@ -114,7 +114,7 @@ test.describe('Phase 1 SOC Foundation Canonical Route Tests', () => {
     
     // First request is allowed
     await page.goto('/dashboard/admin/security');
-    await expect(page.locator('text=Foundation & Events Active').first()).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Security Operations Center', exact: true })).toBeVisible();
 
     // Mutate database directly to simulate demotion (bypassing NextAuth session state)
     await prisma.user.update({
@@ -137,7 +137,7 @@ test.describe('Phase 1 SOC Foundation Canonical Route Tests', () => {
     
     // First request is allowed
     await page.goto('/dashboard/admin/security');
-    await expect(page.locator('text=Foundation & Events Active').first()).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Security Operations Center', exact: true })).toBeVisible();
 
     // Mutate database directly to simulate suspension (bypassing NextAuth session state)
     await prisma.user.update({

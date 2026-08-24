@@ -140,7 +140,7 @@ function relevanceScore(text: string, questionTokens: readonly string[]): number
 
 function extractSteps(match: RetrievedKnowledgeMatch, questionTokens: readonly string[]): CandidateClaim[] {
   const ref = evidenceRef(match);
-  return match.content
+  const steps = match.content
     .split(/\r?\n/)
     .map((line, ordinal) => ({ line, ordinal }))
     .filter(({ line }) => /^\s*\d+[.)]\s+/.test(line))
@@ -150,6 +150,9 @@ function extractSteps(match: RetrievedKnowledgeMatch, questionTokens: readonly s
       return text ? { text, supportingText, ref, score: relevanceScore(text, questionTokens), ordinal } : null;
     })
     .filter((claim): claim is CandidateClaim => claim !== null);
+  
+  if (steps.length > 0) console.log('DEBUG extractSteps: Found steps for chunk:', match.chunkKey, steps.map(s => s.text));
+  return steps;
 }
 
 function extractSentences(match: RetrievedKnowledgeMatch, questionTokens: readonly string[]): CandidateClaim[] {
@@ -223,8 +226,11 @@ function staticAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
         );
         return utility(right) - utility(left);
       });
+      
+    console.log('DEBUG: procedural=', procedural, 'options.length=', options.length);
     if (options.length > 0) {
-      const selected = options[0].steps.slice(0, 4);
+      console.log('DEBUG: options[0].steps=', options[0].steps);
+      const selected = options[0].steps.slice(0, 7);
       const intentMessage = procedureIntro(analysis) + '\n'
         + selected.map((step, index) => (index + 1) + '. ' + step.text).join('\n');
       return {

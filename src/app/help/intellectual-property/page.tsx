@@ -23,7 +23,7 @@ export default function IntellectualPropertyPage() {
       <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm mb-8 prose max-w-none text-gray-700">
         <h2 className="text-2xl font-semibold text-gray-900 mt-0 mb-4">1. Copyright and Trademark Infringement</h2>
         <p>
-          You may not post, distribute, or reproduce in any way any copyrighted material, trademarks, or other proprietary information without obtaining the prior written consent of the owner of such proprietary rights. It is our policy to terminate the privileges of any user who repeatedly infringes the copyright rights of others upon receipt of prompt notification to RENTipid by the copyright owner or the copyright owner's legal agent.
+          You may not post, distribute, or reproduce in any way any copyrighted material, trademarks, or other proprietary information without obtaining the prior written consent of the owner of such proprietary rights. It is our policy to terminate the privileges of any user who repeatedly infringes the copyright rights of others upon receipt of prompt notification to RENTipid by the copyright owner or the copyright owner&apos;s legal agent.
         </p>
 
         <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">2. Reporting IP Violations</h2>
@@ -40,7 +40,7 @@ export default function IntellectualPropertyPage() {
 
         <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">3. Counter-Notices</h2>
         <p>
-          If you believe that your content that was removed (or to which access was disabled) is not infringing, or that you have the authorization from the copyright owner, the copyright owner's agent, or pursuant to the law, to post and use the material in your content, you may send a counter-notice containing the necessary information to our Copyright Agent.
+          If you believe that your content that was removed (or to which access was disabled) is not infringing, or that you have the authorization from the copyright owner, the copyright owner&apos;s agent, or pursuant to the law, to post and use the material in your content, you may send a counter-notice containing the necessary information to our Copyright Agent.
         </p>
 
         <div className="mt-8 bg-blue-50 p-6 rounded-lg border border-blue-100 flex gap-4">

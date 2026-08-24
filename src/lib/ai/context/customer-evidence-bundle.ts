@@ -36,7 +36,7 @@ export interface CustomerEvidenceBundle {
 function requestedEntities(
   classification: RentipidQuestionClassification,
 ): string[] {
-  return [...classification.requestedCategoryTerms];
+  return [...(classification.requestedCategoryTerms || [])];
 }
 
 export function buildCustomerEvidenceBundle(
