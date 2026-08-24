@@ -14,7 +14,8 @@ export default async function SecurityDashboard({ searchParams }: { searchParams
   
   // Hard-coded mock of step-up state behavior for the OAT harness
   const { cookies } = await import('next/headers');
-  const stepUpCookie = cookies().get('mfa_step_up');
+  const cookieStore = await cookies();
+  const stepUpCookie = cookieStore.get('mfa_step_up');
   if (!stepUpCookie || stepUpCookie.value !== 'true') {
     redirect('/mfa-challenge?callbackUrl=%2Fdashboard%2Fsecurity');
   }
