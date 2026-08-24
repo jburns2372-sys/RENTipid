@@ -137,7 +137,7 @@ export default function MfaEnrollPage() {
           </div>
         )}
 
-        {!error && secret && (
+        {secret && (
           <div className="space-y-6 text-left">
             <div className="space-y-2">
               <h3 className="font-semibold text-sm">1. Open your Authenticator App</h3>
