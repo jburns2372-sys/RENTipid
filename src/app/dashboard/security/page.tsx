@@ -1,12 +1,13 @@
 import { redirect } from 'next/navigation';
-import { requireAuthenticatedUser } from '@/lib/security/authorization';
+import { requireAuthenticatedUser, getValidSessionIdentity } from '@/lib/security/authorization';
 import { prisma } from '@/lib/prisma';
 
 export default async function SecurityDashboard({ searchParams }: { searchParams: { pass?: string } }) {
   const sessionUser = await requireAuthenticatedUser();
   if (!sessionUser) redirect('/login');
 
-  const dbUser = await prisma.user.findUnique({ where: { id: sessionUser.id } });
+  const userId = getValidSessionIdentity({ user: sessionUser });
+  const dbUser = await prisma.user.findUnique({ where: { id: userId } });
   if (!dbUser) redirect('/login');
 
   const mfa = await prisma.userMfa.findUnique({ where: { user_id: dbUser.id } });
