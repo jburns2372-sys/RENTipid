@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { requireAuthenticatedUser } from '@/lib/security/authorization';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 export default async function SecurityDashboard({ searchParams }: { searchParams: { pass?: string } }) {
   const sessionUser = await requireAuthenticatedUser();
