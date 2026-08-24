@@ -30,6 +30,7 @@ export function evaluateAccountAccess(role: string, status: string): AccountAcce
 export function isPendingAccountPathAllowed(path: string): boolean {
   return path === '/dashboard'
     || path.startsWith('/dashboard/profile')
+    || path.startsWith('/dashboard/security')
     || path.startsWith('/dashboard/kyc')
     || path.startsWith('/dashboard/privacy')
     || path.startsWith('/dashboard/renter/onboarding-checklist')
