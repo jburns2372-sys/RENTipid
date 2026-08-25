@@ -5,6 +5,10 @@ import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { createAuditLog } from '@/lib/audit';
+import {
+  MfaSessionAssuranceRequiredError,
+  requireCurrentSessionAal2,
+} from '@/lib/security/auth/mfa-session-assurance';
 
 const prisma = new PrismaClient();
 
@@ -29,6 +33,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     const userId = (session.user as {id?: string}).id;
+    await requireCurrentSessionAal2();
 
     const body = await req.json();
     const validatedData = changePasswordSchema.safeParse(body);
@@ -75,6 +80,9 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
+    if (error instanceof MfaSessionAssuranceRequiredError) {
+      return NextResponse.json({ error: 'MFA step-up required' }, { status: 403 });
+    }
     console.error('POST /api/profile/change-password error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }

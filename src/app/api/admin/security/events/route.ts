@@ -9,6 +9,7 @@ import {
   DenialCategory
 } from "@/lib/security/authorization";
 import { SECURITY_PERMISSIONS } from "@/lib/security/permissions";
+import { getCurrentSessionAal2 } from "@/lib/security/auth/mfa-session-assurance";
 import { z } from "zod";
 import { 
   SecurityEventSource, 
@@ -55,6 +56,11 @@ export async function GET(request: NextRequest) {
     const activePermissions = policyResult.permissions!;
     if (!canAccessSecurityPermission(activePermissions, SECURITY_PERMISSIONS.EVENTS_VIEW)) {
       await recordSecurityAccessDenied(dbUser.id, "SOC_ACCESS_DENIED_PERMISSION", SECURITY_PERMISSIONS.EVENTS_VIEW);
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    const assurance = await getCurrentSessionAal2();
+    if (!assurance || assurance.userId !== dbUser.id) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 

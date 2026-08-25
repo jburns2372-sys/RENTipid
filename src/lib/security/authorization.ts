@@ -5,6 +5,11 @@ import { PrismaClient, Prisma } from "@prisma/client";
 import { getPhase1PermissionsForRole, SecurityPermission } from "./permissions";
 import { createPrivacySafeAuthorizationContext, serializePrivacySafeIp } from "./serializers";
 import { logAdministrationEvent } from "./events/writers/administration-writer";
+import {
+  getCurrentSessionAal2,
+  MfaSessionAssuranceRequiredError,
+  requireCurrentSessionAal2,
+} from "./auth/mfa-session-assurance";
 import { redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
@@ -191,7 +196,7 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
     }
 
     // 4. Step-up Authentication Enforcement
-    // Privileged SOC operations require recent MFA verification in the authoritative DB.
+    // Privileged SOC operations require current-session MFA assurance.
     const mfa = await prisma.userMfa.findUnique({ where: { user_id: dbUser.id } });
     const sessionIat = getValidSessionTimestamp(sessionUser);
     
@@ -206,23 +211,20 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
       redirect("/login");
     }
 
-    const STEP_UP_EXPIRY_MS = 4 * 60 * 60 * 1000; // 4 hours bounded expiry
-    const now = Date.now();
-    let isMfaVerified = false;
-
-    if (mfa && mfa.status === 'ENABLED' && mfa.last_verified_at) {
-      if (now - mfa.last_verified_at.getTime() < STEP_UP_EXPIRY_MS) {
-        isMfaVerified = true;
-      }
+    if (!mfa || mfa.status !== 'ENABLED') {
+      redirect("/mfa-enroll");
     }
 
-    // MFA enforcement (skipped in development)
-    if (process.env.NODE_ENV !== 'development') {
-      if (mfa && mfa.status === 'ENABLED' && !isMfaVerified) {
+    try {
+      const assurance = await requireCurrentSessionAal2();
+      if (assurance.userId !== dbUser.id) {
         redirect("/mfa-challenge");
-      } else if (!mfa || mfa.status !== 'ENABLED') {
-        redirect("/mfa-enroll");
       }
+    } catch (error) {
+      if (error instanceof MfaSessionAssuranceRequiredError) {
+        redirect("/mfa-challenge");
+      }
+      throw error;
     }
 
     // 5. Return explicit privacy-safe context
@@ -233,7 +235,7 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
       throw e; // Let Next.js handle redirect
     }
     // Any unexpected authorization service failure fails closed
-    console.error("Authorization Service Failure", e);
+    console.error("Authorization Service Failure");
     redirect("/dashboard");
   }
 }
@@ -275,9 +277,14 @@ export async function assertSecurityPermissionForService(
       return false;
     }
 
+    const assurance = await getCurrentSessionAal2();
+    if (!assurance || assurance.userId !== actorUserId) {
+      return false;
+    }
+
     return true;
-  } catch (e: unknown) {
-    console.error("Service Authorization Failure", e);
+  } catch {
+    console.error("Service Authorization Failure");
     return false;
   }
 }

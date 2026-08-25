@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { signOut } from 'next-auth/react';
+import { signOutWithStepUpCleanup } from '@/lib/auth/sign-out';
 
 interface UserNavMenuProps {
   user: {
@@ -65,7 +65,7 @@ export default function UserNavMenu({ user, dashboardLink }: UserNavMenuProps) {
           
           <div className="border-t border-gray-100 mt-1"></div>
           <button 
-            onClick={() => { setIsOpen(false); signOut({ callbackUrl: '/' }); }}
+            onClick={() => { setIsOpen(false); void signOutWithStepUpCleanup('/'); }}
             className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
           >
             Logout

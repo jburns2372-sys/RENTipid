@@ -1,10 +1,15 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
+import { randomBytes } from "node:crypto";
 import { PrismaClient } from "@prisma/client";
 import { logAuthenticationEvent } from "./security/events/writers/authentication-writer";
 
 const prisma = new PrismaClient();
+
+function generateMfaSessionId(): string {
+  return randomBytes(32).toString("base64url");
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -29,7 +34,6 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Invalid credentials");
         }
 
-        console.log('TRYING TO LOG IN:', credentials.email, 'DB URL:', process.env.DATABASE_URL);
         const user = await prisma.user.findUnique({
           where: { email: credentials.email }
         });
@@ -94,23 +98,28 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
-    async jwt({ token, user, trigger, session }) {
+    async jwt({ token, user, trigger }) {
       if (user) {
         token.id = user.id;
         token.role = (user as { role?: string }).role;
         token.status = (user as { status?: string }).status;
+        token.mfaSessionId = generateMfaSessionId();
       }
 
       if (trigger === 'update') {
-        // Client cannot assert MFA verification.
-        // Server-side state (last_verified_at) is authoritative.
+        // Client updates cannot assert or replace server-bound MFA state.
       }
 
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        const sessionUser = session.user as any;
+        const sessionUser = session.user as typeof session.user & {
+          id?: string;
+          role?: string;
+          status?: string;
+          iat?: number;
+        };
         sessionUser.id = typeof token.id === "string" ? token.id : undefined;
         sessionUser.role = typeof token.role === "string" ? token.role : undefined;
         sessionUser.status = typeof token.status === "string" ? token.status : undefined;

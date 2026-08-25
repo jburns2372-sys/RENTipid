@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { requireAuthenticatedUser, getValidSessionIdentity } from "@/lib/security/authorization";
 import { MfaService } from "@/lib/security/auth/mfa-service";
+import { MfaRateLimiter } from "@/lib/security/auth/mfa-rate-limiter";
 
 export async function POST() {
   try {
@@ -11,6 +12,17 @@ export async function POST() {
 
     const userId = getValidSessionIdentity({ user: sessionUser });
     const userEmail = sessionUser.email || "";
+
+    const allowed = await MfaRateLimiter.consume(userId, "enrollment");
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "Too many MFA requests" },
+        {
+          status: 429,
+          headers: { "Retry-After": String(MfaRateLimiter.retryAfterSeconds("enrollment")) }
+        }
+      );
+    }
 
     const { secret } = await MfaService.generateEnrollment(userId, userEmail);
 

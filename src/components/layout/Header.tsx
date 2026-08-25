@@ -2,8 +2,9 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import RentipidLogo from '@/components/brand/RentipidLogo';
+import { signOutWithStepUpCleanup } from '@/lib/auth/sign-out';
 
 export default function Header() {
   const { data: session, status } = useSession();
@@ -57,7 +58,7 @@ export default function Header() {
                 <Link href={getDashboardLink()} className="text-sm font-medium text-gray-600 hover:text-blue-600 px-3 py-2">
                   Dashboard
                 </Link>
-                <button onClick={() => signOut({ callbackUrl: '/' })} className="text-sm font-medium text-red-600 hover:text-red-700 px-3 py-2">
+                <button onClick={() => void signOutWithStepUpCleanup('/')} className="text-sm font-medium text-red-600 hover:text-red-700 px-3 py-2">
                   Logout
                 </button>
               </>

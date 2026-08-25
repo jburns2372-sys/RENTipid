@@ -77,6 +77,7 @@ model User {
 
   // MFA
   mfa                   UserMfa?
+  mfaSessionAssurances  MfaSessionAssurance[]
   password_reset_tokens PasswordResetToken[]
 
   // SOC Playbooks & Approvals (Gate 4G)
@@ -120,6 +121,25 @@ model UserMfa {
   reset_at                DateTime?
 
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model MfaSessionAssurance {
+  id                String    @id @default(cuid())
+  session_key_hash  String    @unique
+  user_id           String
+  assurance_level   String
+  verified_at       DateTime
+  expires_at        DateTime
+  revoked_at        DateTime?
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+  factor_id         String?
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([session_key_hash, user_id, assurance_level])
+  @@index([user_id, expires_at])
+  @@index([revoked_at, expires_at])
 }
 
 model PasswordResetToken {

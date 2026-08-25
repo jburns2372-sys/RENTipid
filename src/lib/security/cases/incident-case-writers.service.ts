@@ -14,6 +14,7 @@ import {
   SECURITY_PERMISSIONS,
   SecurityPermission,
 } from '../permissions';
+import { getCurrentSessionAal2 } from '../auth/mfa-session-assurance';
 
 export interface IncidentCaseTransactionRunner {
   $transaction<T>(
@@ -231,6 +232,17 @@ export async function requireIncidentCasePermission(
       });
       return { allowed: false };
     }
+
+    const assurance = await getCurrentSessionAal2();
+    if (!assurance || assurance.userId !== authorization.actor!.id) {
+      await appendCaseAudit(tx, {
+        actorUserId: authorization.actor!.id,
+        action: 'SOC_INCIDENT_CASE_AUTHORIZATION_DENIED',
+        permission,
+      });
+      return { allowed: false };
+    }
+
     return {
       allowed: true,
       value: {
