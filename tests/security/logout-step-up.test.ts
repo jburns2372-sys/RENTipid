@@ -1,13 +1,18 @@
 import { POST as clearLegacyStepUp } from '@/app/api/auth/logout/route';
 import { signOut } from 'next-auth/react';
 import { signOutWithStepUpCleanup } from '@/lib/auth/sign-out';
-import { revokeCurrentSessionAal2 } from '@/lib/security/auth/mfa-session-assurance';
+import { resolveCurrentSessionBinding, revokeCurrentSessionAal2 } from '@/lib/security/auth/mfa-session-assurance';
+import { revokeCurrentUserSession } from '@/lib/auth/session-registry';
 
 jest.mock('next-auth/react', () => ({
   signOut: jest.fn(),
 }));
 jest.mock('@/lib/security/auth/mfa-session-assurance', () => ({
+  resolveCurrentSessionBinding: jest.fn(),
   revokeCurrentSessionAal2: jest.fn(),
+}));
+jest.mock('@/lib/auth/session-registry', () => ({
+  revokeCurrentUserSession: jest.fn(),
 }));
 
 describe('logout step-up cleanup', () => {
@@ -16,6 +21,12 @@ describe('logout step-up cleanup', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (revokeCurrentSessionAal2 as jest.Mock).mockResolvedValue(true);
+    (resolveCurrentSessionBinding as jest.Mock).mockResolvedValue({
+      userId: 'user-1',
+      sessionKeyHash: 'session-hash',
+      tokenExpiresAt: null,
+    });
+    (revokeCurrentUserSession as jest.Mock).mockResolvedValue(1);
   });
 
   afterAll(() => {
@@ -32,6 +43,7 @@ describe('logout step-up cleanup', () => {
     expect(setCookie).toMatch(/Path=\//i);
     expect(response.headers.get('cache-control')).toContain('no-store');
     expect(revokeCurrentSessionAal2).toHaveBeenCalledTimes(1);
+    expect(revokeCurrentUserSession).toHaveBeenCalledTimes(1);
   });
 
   it('clears legacy state before invoking normal NextAuth sign-out', async () => {

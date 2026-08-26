@@ -1,16 +1,15 @@
 import "server-only";
-import { createHash } from "node:crypto";
 import { cookies, headers } from "next/headers";
 import { getServerSession } from "next-auth";
 import { getToken } from "next-auth/jwt";
 import type { JWT } from "next-auth/jwt";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { hashSessionIdentifier, isTrustedSessionIdentifier } from "./session-key";
+import { getActiveSessionByHash } from "@/lib/auth/session-registry";
 
 export const MFA_SESSION_ASSURANCE_LEVEL_AAL2 = "AAL2";
 export const MFA_SESSION_ASSURANCE_TTL_MS = 4 * 60 * 60 * 1000;
-
-const MIN_SERVER_SESSION_ID_LENGTH = 32;
 
 export class MfaSessionAssuranceRequiredError extends Error {
   constructor() {
@@ -54,7 +53,7 @@ function getTrustedMfaSessionId(token: JWT): string | null {
   }
 
   const sessionId = token.mfaSessionId.trim();
-  if (sessionId.length < MIN_SERVER_SESSION_ID_LENGTH) {
+  if (!isTrustedSessionIdentifier(sessionId)) {
     return null;
   }
 
@@ -76,10 +75,6 @@ function resolveTokenExpiresAt(token: JWT): Date | null | false {
   }
 
   return expiresAt;
-}
-
-function hashSessionIdentifier(sessionId: string): string {
-  return createHash("sha256").update(sessionId, "utf8").digest("hex");
 }
 
 async function getServerJwt(): Promise<JWT | null> {
@@ -133,11 +128,13 @@ export async function resolveCurrentSessionBinding(): Promise<CurrentSessionBind
       return null;
     }
 
-    return {
+    const binding = {
       userId,
       sessionKeyHash: hashSessionIdentifier(sessionId),
       tokenExpiresAt,
     };
+    if (!(await getActiveSessionByHash(binding.userId, binding.sessionKeyHash))) return null;
+    return binding;
   } catch {
     return null;
   }

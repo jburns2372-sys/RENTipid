@@ -78,6 +78,7 @@ model User {
   // MFA
   mfa                   UserMfa?
   mfaSessionAssurances  MfaSessionAssurance[]
+  userSessions          UserSession[]
   password_reset_tokens PasswordResetToken[]
 
   // SOC Playbooks & Approvals (Gate 4G)
@@ -100,6 +101,21 @@ model User {
 
   // R4-PIR-01: Semantic Adaptive Learning
   semantic_learning_candidates SemanticLearningCandidate[]
+}
+
+model UserSession {
+  id               String    @id @default(cuid())
+  user_id          String
+  session_key_hash String    @unique
+  created_at       DateTime  @default(now())
+  last_seen_at     DateTime  @default(now())
+  expires_at       DateTime
+  revoked_at       DateTime?
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id, revoked_at, expires_at])
+  @@index([expires_at])
 }
 
 model UserMfa {

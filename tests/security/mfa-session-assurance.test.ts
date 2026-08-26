@@ -14,6 +14,9 @@ jest.mock('@/lib/prisma', () => {
   return { prisma };
 });
 jest.mock('@/lib/auth', () => ({ authOptions: { secret: 'test-secret' } }));
+jest.mock('@/lib/auth/session-registry', () => ({
+  getActiveSessionByHash: jest.fn(),
+}));
 jest.mock('next-auth', () => ({ getServerSession: jest.fn() }));
 jest.mock('next-auth/jwt', () => ({ getToken: jest.fn() }));
 jest.mock('next/headers', () => ({
@@ -24,6 +27,7 @@ jest.mock('next/headers', () => ({
 import { getServerSession } from 'next-auth';
 import { getToken } from 'next-auth/jwt';
 import { cookies, headers } from 'next/headers';
+import { getActiveSessionByHash } from '@/lib/auth/session-registry';
 import {
   getCurrentSessionAal2,
   grantCurrentSessionAal2,
@@ -35,6 +39,7 @@ const mockGetServerSession = getServerSession as jest.Mock;
 const mockGetToken = getToken as jest.Mock;
 const mockCookies = cookies as jest.Mock;
 const mockHeaders = headers as jest.Mock;
+const mockGetActiveSessionByHash = getActiveSessionByHash as jest.Mock;
 const { prisma: mockPrisma } = require('@/lib/prisma'); // eslint-disable-line @typescript-eslint/no-require-imports
 const mockFindUnique = mockPrisma.mfaSessionAssurance.findUnique as jest.Mock;
 const mockCreate = mockPrisma.mfaSessionAssurance.create as jest.Mock;
@@ -74,6 +79,7 @@ describe('MFA session assurance service', () => {
     jest.clearAllMocks();
     mockCookies.mockResolvedValue({ getAll: () => [] });
     mockHeaders.mockResolvedValue(new Headers());
+    mockGetActiveSessionByHash.mockResolvedValue({ id: 'registered-session' });
     mockBoundSession();
     mockFindUnique.mockResolvedValue(activeRecord());
   });

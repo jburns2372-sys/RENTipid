@@ -9,6 +9,7 @@ import {
   MfaSessionAssuranceRequiredError,
   requireCurrentSessionAal2,
 } from '@/lib/security/auth/mfa-session-assurance';
+import { revokeAllUserSessions } from '@/lib/auth/session-registry';
 
 const prisma = new PrismaClient();
 
@@ -33,6 +34,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     const userId = (session.user as {id?: string}).id;
+    if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     await requireCurrentSessionAal2();
 
     const body = await req.json();
@@ -69,6 +71,7 @@ export async function POST(req: Request) {
       where: { id: userId },
       data: { password_hash: newHash }
     });
+    await revokeAllUserSessions(userId);
 
     await createAuditLog({
       actor_user_id: userId,

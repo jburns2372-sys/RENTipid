@@ -62,6 +62,9 @@ export default function UserNavMenu({ user, dashboardLink }: UserNavMenuProps) {
           <Link href="/dashboard/profile?tab=security" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setIsOpen(false)}>
             Security
           </Link>
+          <Link href="/account/sessions" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setIsOpen(false)}>
+            Active Sessions
+          </Link>
           
           <div className="border-t border-gray-100 mt-1"></div>
           <button 

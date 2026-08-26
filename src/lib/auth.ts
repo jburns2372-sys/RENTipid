@@ -2,10 +2,10 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { randomBytes } from "node:crypto";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { logAuthenticationEvent } from "./security/events/writers/authentication-writer";
-
-const prisma = new PrismaClient();
+import { getActiveSessionByHash, registerUserSession } from "./auth/session-registry";
+import { hashSessionIdentifier, isTrustedSessionIdentifier } from "./security/auth/session-key";
 
 function generateMfaSessionId(): string {
   return randomBytes(32).toString("base64url");
@@ -104,6 +104,11 @@ export const authOptions: NextAuthOptions = {
         token.role = (user as { role?: string }).role;
         token.status = (user as { status?: string }).status;
         token.mfaSessionId = generateMfaSessionId();
+        await registerUserSession({
+          userId: user.id,
+          mfaSessionId: token.mfaSessionId,
+          tokenExpiresAt: typeof token.exp === "number" ? new Date(token.exp * 1000) : null,
+        });
       }
 
       if (trigger === 'update') {
@@ -113,7 +118,12 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      if (session.user) {
+      if (session.user && typeof token.id === "string" && isTrustedSessionIdentifier(token.mfaSessionId)) {
+        const active = await getActiveSessionByHash(token.id, hashSessionIdentifier(token.mfaSessionId));
+        if (!active) {
+          session.user = undefined as never;
+          return session;
+        }
         const sessionUser = session.user as typeof session.user & {
           id?: string;
           role?: string;
@@ -124,6 +134,8 @@ export const authOptions: NextAuthOptions = {
         sessionUser.role = typeof token.role === "string" ? token.role : undefined;
         sessionUser.status = typeof token.status === "string" ? token.status : undefined;
         sessionUser.iat = typeof token.iat === "number" ? token.iat : undefined;
+      } else if (session.user) {
+        session.user = undefined as never;
       }
       return session;
     }

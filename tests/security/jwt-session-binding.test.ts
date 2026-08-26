@@ -1,4 +1,10 @@
+jest.mock('@/lib/auth/session-registry', () => ({
+  getActiveSessionByHash: jest.fn(),
+  registerUserSession: jest.fn(),
+}));
+
 import { authOptions } from '@/lib/auth';
+import { getActiveSessionByHash, registerUserSession } from '@/lib/auth/session-registry';
 
 const jwtCallback = authOptions.callbacks?.jwt as (params: Record<string, unknown>) => Promise<Record<string, unknown>>;
 const sessionCallback = authOptions.callbacks?.session as unknown as (params: Record<string, unknown>) => Promise<Record<string, unknown>>;
@@ -16,6 +22,12 @@ function loginToken(userId = 'user-1') {
 }
 
 describe('NextAuth JWT MFA session binding', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (getActiveSessionByHash as jest.Mock).mockResolvedValue({ id: 'registered-session' });
+    (registerUserSession as jest.Mock).mockResolvedValue({ id: 'registered-session' });
+  });
+
   it('creates a server-generated session identifier on new login', async () => {
     const token = await loginToken();
 
