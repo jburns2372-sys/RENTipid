@@ -1,7 +1,7 @@
 /**
  * RENTipid Unified Multi-Login Authentication v1.1
  * Gate 1 — Comprehensive Targeted Test Suite
- * 
+ *
  * Covers FR-01 through FR-16 using in-memory mocks.
  * No database, no external providers, no real OTPs.
  */
@@ -12,7 +12,7 @@ import {
   normalizeOAuthProfile,
   GENERIC_AUTH_MESSAGE,
 } from '@/lib/auth/unified/services';
-import type { UnifiedAuthConfig, AuthMethod } from '@/lib/auth/unified/config';
+import type { UnifiedAuthConfig } from '@/lib/auth/unified/config';
 import {
   AUTH_METHODS,
   getUnifiedAuthConfig,
@@ -598,7 +598,7 @@ describe('FR-08: Identity Linking', () => {
   });
 
   test('audit event recorded on link', async () => {
-    const { authService, store, audit } = createTestServices();
+    const { authService, store } = createTestServices();
     const regResult = await authService.registerEmailPassword({ email: 'audit-link@test.com', password: 'P1', fullName: 'AL', consent: CONSENT });
     await authService.linkProviderIdentity({ userId: regResult.user!.id, provider: 'facebook', providerSubject: 'fb-audit-1', profile: { id: 'fb-audit-1' }, recentAuthentication: true });
     expect(store.identityEvents.some(e => e.action === 'LINK' && e.outcome === 'SUCCESS')).toBe(true);
@@ -723,7 +723,7 @@ describe('FR-11: RBAC Authority', () => {
 
 describe('FR-12: Privileged MFA Preservation', () => {
   test('OAuth authentication does not create MFA session (service layer only returns user)', async () => {
-    const { authService, store } = createTestServices();
+    const { authService } = createTestServices();
     const user = await authService.resolveOAuthSignIn({
       provider: 'google', providerSubject: 'g-mfa-1',
       profile: { sub: 'g-mfa-1', email: 'mfa@gmail.com', email_verified: true },
@@ -732,16 +732,18 @@ describe('FR-12: Privileged MFA Preservation', () => {
     // The service layer returns the user record only — MFA session is created by NextAuth callbacks
     // Verify no MFA-related data is injected at the service level
     expect(user.id).toBeTruthy();
-    expect((user as any)['mfaSessionId']).toBeUndefined();
-    expect((user as any)['aal2']).toBeUndefined();
+    const sessionFreeUser = user as typeof user & { mfaSessionId?: unknown; aal2?: unknown };
+    expect(sessionFreeUser.mfaSessionId).toBeUndefined();
+    expect(sessionFreeUser.aal2).toBeUndefined();
   });
 
   test('phone OTP authentication does not grant AAL2 at service level', async () => {
     const { otpService } = createTestServices();
     const { challengeId } = await otpService.start({ channel: 'sms', phone: '+639173333333' });
     const user = await otpService.verifyForSignIn({ channel: 'sms', phone: '+639173333333', challengeId, code: VALID_TEST_CODE, consent: CONSENT });
-    expect((user as any)['mfaSessionId']).toBeUndefined();
-    expect((user as any)['aal2']).toBeUndefined();
+    const sessionFreeUser = user as typeof user & { mfaSessionId?: unknown; aal2?: unknown };
+    expect(sessionFreeUser.mfaSessionId).toBeUndefined();
+    expect(sessionFreeUser.aal2).toBeUndefined();
   });
 });
 

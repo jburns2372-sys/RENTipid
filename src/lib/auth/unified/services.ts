@@ -536,10 +536,10 @@ export class PhoneOtpAuthenticationService {
     this.maxAttempts = options.maxAttempts || 5;
   }
 
-  async start(input: { channel: PhoneOtpChannel; phone: string; networkKey?: string | null; sessionKey?: string | null }): Promise<{ challengeId: string; message: string }> {
+  async start(input: { channel: PhoneOtpChannel; phone: string; networkKey?: string | null; clientReference?: string | null }): Promise<{ challengeId: string; message: string }> {
     this.requireMethod(input.channel);
     const phoneE164 = normalizeE164Phone(input.phone);
-    await this.enforceStartLimits(input.channel, phoneE164, input.networkKey, input.sessionKey);
+    await this.enforceStartLimits(input.channel, phoneE164, input.networkKey, input.clientReference);
     let providerChallengeId: string;
     try {
       providerChallengeId = (await this.provider.start({ channel: input.channel, phoneE164 })).providerChallengeId;
@@ -561,7 +561,7 @@ export class PhoneOtpAuthenticationService {
       max_attempts: this.maxAttempts,
       send_count: 1,
       last_sent_at: now,
-      session_reference_hash: input.sessionKey ? createReferenceHash(input.sessionKey, 'phone-otp-session') : null,
+      session_reference_hash: input.clientReference ? createReferenceHash(input.clientReference, 'phone-otp-client-reference') : null,
       ip_reference_hash: input.networkKey ? createReferenceHash(input.networkKey, 'phone-otp-network') : null,
     });
     await this.auditEvent({ eventCode: 'AUTH_PHONE_OTP_STARTED', outcome: 'SUCCESS', subjectReference: createReferenceHash(phoneE164, 'phone-otp'), metadata: { channel: input.channel, phone: maskE164Phone(phoneE164) } });
@@ -575,10 +575,10 @@ export class PhoneOtpAuthenticationService {
     code: string;
     consent?: ConsentInput;
     networkKey?: string | null;
-    sessionKey?: string | null;
+    clientReference?: string | null;
   }): Promise<UnifiedUserRecord> {
     const phoneE164 = normalizeE164Phone(input.phone);
-    await this.verifyChallenge(input.channel, phoneE164, input.challengeId, input.code, input.networkKey, input.sessionKey);
+    await this.verifyChallenge(input.channel, phoneE164, input.challengeId, input.code, input.networkKey, input.clientReference);
     return this.resolvePhoneUser(phoneE164, input.channel, input.consent);
   }
 
@@ -590,14 +590,14 @@ export class PhoneOtpAuthenticationService {
     code: string;
     recentAuthentication?: boolean;
     networkKey?: string | null;
-    sessionKey?: string | null;
+    clientReference?: string | null;
   }): Promise<{ linked: boolean }> {
     requireRecentAuthentication(input.recentAuthentication);
     const user = await this.repo.findUserById(input.userId);
     if (!user) throw new UnifiedAuthError('INVALID_CREDENTIALS');
     ensureUserCanAuthenticate(user);
     const phoneE164 = normalizeE164Phone(input.phone);
-    await this.verifyChallenge(input.channel, phoneE164, input.challengeId, input.code, input.networkKey, input.sessionKey);
+    await this.verifyChallenge(input.channel, phoneE164, input.challengeId, input.code, input.networkKey, input.clientReference);
     const existing = await this.repo.findPhoneIdentity(phoneE164);
     if (existing && existing.user_id !== user.id) {
       await this.repo.recordIdentityEvent({ user_id: user.id, identity_type: 'phone', action: 'LINK_BLOCKED', outcome: 'DENIED', phone_e164: phoneE164, reason: 'IDENTITY_IN_USE' });
@@ -614,10 +614,10 @@ export class PhoneOtpAuthenticationService {
     if (!this.config.methods[method].enabled) throw new UnifiedAuthError('METHOD_DISABLED');
   }
 
-  private async verifyChallenge(channel: PhoneOtpChannel, phoneE164: string, challengeId: string, code: string, networkKey?: string | null, sessionKey?: string | null) {
+  private async verifyChallenge(channel: PhoneOtpChannel, phoneE164: string, challengeId: string, code: string, networkKey?: string | null, clientReference?: string | null) {
     this.requireMethod(channel);
     if (!code || code.length > 16) throw new UnifiedAuthError('INVALID_OTP');
-    await this.enforceVerifyLimits(channel, phoneE164, networkKey, sessionKey);
+    await this.enforceVerifyLimits(channel, phoneE164, networkKey, clientReference);
     const challenge = await this.repo.findVerificationChallenge(challengeId);
     if (!challenge || challenge.channel !== channel || challenge.phone_e164 !== phoneE164) {
       await this.auditEvent({ eventCode: 'AUTH_PHONE_OTP_FAILED', outcome: 'FAILURE', subjectReference: createReferenceHash(phoneE164, 'phone-otp'), metadata: { channel, reason: 'challenge_not_found' } });
@@ -693,17 +693,17 @@ export class PhoneOtpAuthenticationService {
     return user;
   }
 
-  private async enforceStartLimits(channel: PhoneOtpChannel, phoneE164: string, networkKey?: string | null, sessionKey?: string | null) {
+  private async enforceStartLimits(channel: PhoneOtpChannel, phoneE164: string, networkKey?: string | null, clientReference?: string | null) {
     await this.consumeLimit(`auth:otp:${channel}:number:${createReferenceHash(phoneE164, 'phone-otp-number')}`, 5, 15 * 60 * 1000);
     await this.consumeLimit(`auth:otp:${channel}:cooldown:${createReferenceHash(phoneE164, 'phone-otp-cooldown')}`, 1, 30 * 1000);
     if (networkKey) await this.consumeLimit(`auth:otp:${channel}:network:${createReferenceHash(networkKey, 'phone-otp-network')}`, 30, 15 * 60 * 1000);
-    if (sessionKey) await this.consumeLimit(`auth:otp:${channel}:session:${createReferenceHash(sessionKey, 'phone-otp-session')}`, 10, 15 * 60 * 1000);
+    if (clientReference) await this.consumeLimit(`auth:otp:${channel}:client:${createReferenceHash(clientReference, 'phone-otp-client-rate-limit')}`, 10, 15 * 60 * 1000);
   }
 
-  private async enforceVerifyLimits(channel: PhoneOtpChannel, phoneE164: string, networkKey?: string | null, sessionKey?: string | null) {
+  private async enforceVerifyLimits(channel: PhoneOtpChannel, phoneE164: string, networkKey?: string | null, clientReference?: string | null) {
     await this.consumeLimit(`auth:otp:${channel}:verify:number:${createReferenceHash(phoneE164, 'phone-otp-number')}`, 20, 15 * 60 * 1000);
     if (networkKey) await this.consumeLimit(`auth:otp:${channel}:verify:network:${createReferenceHash(networkKey, 'phone-otp-network')}`, 60, 15 * 60 * 1000);
-    if (sessionKey) await this.consumeLimit(`auth:otp:${channel}:verify:session:${createReferenceHash(sessionKey, 'phone-otp-session')}`, 30, 15 * 60 * 1000);
+    if (clientReference) await this.consumeLimit(`auth:otp:${channel}:verify:client:${createReferenceHash(clientReference, 'phone-otp-client-rate-limit')}`, 30, 15 * 60 * 1000);
   }
 
   private async consumeLimit(key: string, limit: number, windowMs: number) {

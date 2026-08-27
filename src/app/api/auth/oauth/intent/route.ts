@@ -15,9 +15,10 @@ function isOAuthMethod(value: unknown): value is OAuthAuthMethod {
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
   const provider = body?.provider;
-  const accepted = body?.accepted === true || body?.termsAccepted === true || body?.privacyAccepted === true;
+  const termsAccepted = body?.termsAccepted === true;
+  const privacyAccepted = body?.privacyAccepted === true;
 
-  if (!isOAuthMethod(provider) || !accepted || !isUnifiedAuthMethodEnabled(provider)) {
+  if (!isOAuthMethod(provider) || !termsAccepted || !privacyAccepted || !isUnifiedAuthMethodEnabled(provider)) {
     return NextResponse.json({ message: GENERIC_AUTH_MESSAGE }, { status: 200 });
   }
 

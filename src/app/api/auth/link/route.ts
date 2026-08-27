@@ -1,8 +1,13 @@
-import { NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import type { PhoneOtpChannel } from '@/lib/auth/unified/config';
 import { createPhoneOtpAuthenticationService, createUnifiedAuthenticationService } from '@/lib/auth/unified/factory';
+import {
+  applyOtpAnonymousClientCookie,
+  resolveOtpAnonymousClient,
+  type OtpAnonymousClientIdentity,
+} from '@/lib/auth/unified/anonymous-client';
 import { GENERIC_AUTH_MESSAGE } from '@/lib/auth/unified/services';
 import { getCurrentSessionAal2 } from '@/lib/security/auth/mfa-session-assurance';
 
@@ -22,15 +27,22 @@ async function currentUserId(): Promise<string | null> {
   return typeof userId === 'string' && userId.trim() ? userId : null;
 }
 
-export async function POST(request: Request) {
+function genericResponse(anonymousClient?: OtpAnonymousClientIdentity) {
+  const response = NextResponse.json({ message: GENERIC_AUTH_MESSAGE }, { status: 200 });
+  if (anonymousClient) applyOtpAnonymousClientCookie(response, anonymousClient);
+  return response;
+}
+
+export async function POST(request: NextRequest) {
   const userId = await currentUserId();
   const assurance = userId ? await getCurrentSessionAal2() : null;
   const body = await request.json().catch(() => null);
 
   if (!userId || assurance?.userId !== userId) {
-    return NextResponse.json({ message: GENERIC_AUTH_MESSAGE }, { status: 200 });
+    return genericResponse();
   }
 
+  let anonymousClient: OtpAnonymousClientIdentity | undefined;
   try {
     if (body?.type === 'email_password') {
       await createUnifiedAuthenticationService().linkEmailPassword({
@@ -40,6 +52,7 @@ export async function POST(request: Request) {
         recentAuthentication: true,
       });
     } else if (body?.type === 'phone') {
+      anonymousClient = resolveOtpAnonymousClient(request);
       await createPhoneOtpAuthenticationService().verifyForLink({
         userId,
         channel: parseChannel(body.channel),
@@ -48,14 +61,14 @@ export async function POST(request: Request) {
         code: String(body.code || ''),
         recentAuthentication: true,
         networkKey: getHeader(request, 'x-forwarded-for'),
-        sessionKey: getHeader(request, 'user-agent'),
+        clientReference: anonymousClient.clientReference,
       });
     } else {
-      return NextResponse.json({ message: GENERIC_AUTH_MESSAGE }, { status: 200 });
+      return genericResponse();
     }
 
-    return NextResponse.json({ message: GENERIC_AUTH_MESSAGE }, { status: 200 });
+    return genericResponse(anonymousClient);
   } catch {
-    return NextResponse.json({ message: GENERIC_AUTH_MESSAGE }, { status: 200 });
+    return genericResponse(anonymousClient);
   }
 }

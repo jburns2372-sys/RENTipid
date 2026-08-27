@@ -1,7 +1,7 @@
 /**
  * Mock Phone Verification Provider for Gate 1 tests.
  * Test-only — NOT imported by production runtime.
- * 
+ *
  * Valid test code: "123456"
  * All other codes are rejected.
  */

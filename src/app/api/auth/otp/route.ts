@@ -1,6 +1,7 @@
-import { NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import type { PhoneOtpChannel } from '@/lib/auth/unified/config';
 import { createPhoneOtpAuthenticationService } from '@/lib/auth/unified/factory';
+import { applyOtpAnonymousClientCookie, resolveOtpAnonymousClient } from '@/lib/auth/unified/anonymous-client';
 import { GENERIC_AUTH_MESSAGE } from '@/lib/auth/unified/services';
 
 export const dynamic = 'force-dynamic';
@@ -13,20 +14,34 @@ function parseChannel(value: unknown): PhoneOtpChannel {
   return value === 'whatsapp' ? 'whatsapp' : 'sms';
 }
 
-export async function POST(request: Request) {
+type OtpStartService = Pick<ReturnType<typeof createPhoneOtpAuthenticationService>, 'start'>;
+
+export async function handleOtpPost(
+  request: NextRequest,
+  service: OtpStartService = createPhoneOtpAuthenticationService(),
+) {
   const body = await request.json().catch(() => null);
   const phone = typeof body?.phone === 'string' ? body.phone : '';
   const channel = parseChannel(body?.channel);
+  const anonymousClient = resolveOtpAnonymousClient(request);
 
   try {
-    const result = await createPhoneOtpAuthenticationService().start({
+    const result = await service.start({
       phone,
       channel,
       networkKey: getHeader(request, 'x-forwarded-for'),
-      sessionKey: getHeader(request, 'user-agent'),
+      clientReference: anonymousClient.clientReference,
     });
-    return NextResponse.json({ message: GENERIC_AUTH_MESSAGE, challengeId: result.challengeId }, { status: 200 });
+    const response = NextResponse.json({ message: GENERIC_AUTH_MESSAGE, challengeId: result.challengeId }, { status: 200 });
+    applyOtpAnonymousClientCookie(response, anonymousClient);
+    return response;
   } catch {
-    return NextResponse.json({ message: GENERIC_AUTH_MESSAGE }, { status: 200 });
+    const response = NextResponse.json({ message: GENERIC_AUTH_MESSAGE }, { status: 200 });
+    applyOtpAnonymousClientCookie(response, anonymousClient);
+    return response;
   }
+}
+
+export async function POST(request: NextRequest) {
+  return handleOtpPost(request);
 }
