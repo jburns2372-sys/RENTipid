@@ -80,6 +80,11 @@ model User {
   mfaSessionAssurances  MfaSessionAssurance[]
   userSessions          UserSession[]
   password_reset_tokens PasswordResetToken[]
+  emailCredential       EmailCredential?
+  authProviderIdentities AuthProviderIdentity[]
+  phoneIdentities       PhoneIdentity[]
+  authConsentReceipts   AuthConsentReceipt[]
+  authIdentityEvents    AuthIdentityEvent[]
 
   // SOC Playbooks & Approvals (Gate 4G)
   created_playbooks     SecurityResponsePlaybook[]         @relation("PlaybookCreator")
@@ -179,6 +184,119 @@ model PasswordResetRequest {
 
   @@index([identity_hash, requested_at])
   @@index([ip_hash, requested_at])
+}
+
+model EmailCredential {
+  id                  String    @id @default(cuid())
+  user_id             String    @unique
+  normalized_email    String    @unique
+  password_hash       String
+  is_verified         Boolean   @default(false)
+  verified_at         DateTime?
+  password_changed_at DateTime?
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([normalized_email])
+}
+
+model AuthProviderIdentity {
+  id                 String    @id @default(cuid())
+  user_id            String
+  provider           String
+  provider_subject   String
+  email              String?
+  email_verified     Boolean   @default(false)
+  is_private_email   Boolean   @default(false)
+  display_name       String?
+  avatar_url         String?
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
+  last_seen_at       DateTime?
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([provider, provider_subject])
+  @@index([user_id, provider])
+  @@index([provider, updated_at])
+}
+
+model PhoneIdentity {
+  id           String    @id @default(cuid())
+  user_id      String
+  phone_e164   String    @unique
+  verified_at  DateTime
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+  last_seen_at DateTime?
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model PhoneVerificationChallenge {
+  id                     String    @id
+  channel                String
+  phone_e164             String
+  provider_challenge_id  String?
+  status                 String
+  attempt_count          Int       @default(0)
+  max_attempts           Int       @default(5)
+  send_count             Int       @default(1)
+  last_sent_at           DateTime
+  expires_at             DateTime
+  consumed_at            DateTime?
+  session_reference_hash String?
+  ip_reference_hash      String?
+  created_at             DateTime  @default(now())
+  updated_at             DateTime  @updatedAt
+
+  @@index([phone_e164, channel, status, created_at])
+  @@index([expires_at])
+  @@index([ip_reference_hash, created_at])
+  @@index([session_reference_hash, created_at])
+}
+
+model AuthRateLimit {
+  key      String   @id
+  points   Int      @default(0)
+  reset_at DateTime
+
+  @@index([reset_at])
+}
+
+model AuthConsentReceipt {
+  id              String   @id @default(cuid())
+  user_id         String
+  terms_version   String
+  privacy_version String
+  accepted_at     DateTime
+  created_at      DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id, accepted_at])
+}
+
+model AuthIdentityEvent {
+  id                              String   @id @default(cuid())
+  user_id                         String
+  identity_type                   String
+  action                          String
+  outcome                         String
+  provider                        String?
+  provider_subject_reference_hash String?
+  phone_reference_hash            String?
+  reason                          String?
+  created_at                      DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id, created_at])
+  @@index([identity_type, action, outcome])
 }
 
 model Address {
