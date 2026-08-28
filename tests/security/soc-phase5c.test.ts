@@ -43,9 +43,10 @@ describe('PHASE5C - MFA Implementation Evidence', () => {
     expect(mfa?.status).toBe('ENROLLMENT_PENDING');
   });
 
-  it('duplicate execution: fails to generate second enrollment', async () => {
-    await expect(MfaService.generateEnrollment(userId, userEmail))
-      .rejects.toThrow('MFA is already enrolled or pending.');
+  it('duplicate execution: overwrites pending enrollment', async () => {
+    const res = await MfaService.generateEnrollment(userId, userEmail);
+    expect(res.secret).toBeDefined();
+    secret = res.secret;
   });
 
   it('invalid input: fails activation with wrong token', async () => {

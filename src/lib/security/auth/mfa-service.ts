@@ -15,8 +15,8 @@ export class MfaService {
   static async generateEnrollment(userId: string, userEmail: string): Promise<{ secret: string, otpauthUrl: string }> {
     const existing = await prisma.userMfa.findUnique({ where: { user_id: userId } });
     
-    if (existing && existing.status !== 'DISABLED') {
-      throw new Error('MFA is already enrolled or pending.');
+    if (existing && (existing.status === 'ENABLED' || existing.status === 'RECOVERY_REQUIRED')) {
+      throw new Error('MFA is already enrolled.');
     }
 
     const secret = generateSecret();
