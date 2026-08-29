@@ -45,7 +45,7 @@ export default function RegisterRenter() {
       });
 
       if (res.ok) {
-        router.push('/login?registered=true');
+        router.push('/verify-email?sent=true');
       } else {
         const data = await res.json();
         setError(data.message || 'Registration failed');

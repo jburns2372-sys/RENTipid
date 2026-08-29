@@ -15,6 +15,7 @@ export const GENERIC_AUTH_MESSAGE = 'If the details are valid, you can continue.
 export type UnifiedAuthErrorCode =
   | 'ACCOUNT_DISABLED'
   | 'CONSENT_REQUIRED'
+  | 'EMAIL_NOT_VERIFIED'
   | 'IDENTITY_IN_USE'
   | 'INVALID_CREDENTIALS'
   | 'INVALID_OAUTH_PROFILE'
@@ -49,6 +50,13 @@ export interface UnifiedUserRecord {
   status: string;
   password_hash?: string | null;
   mobile_number?: string | null;
+}
+
+export interface EmailCredentialRecord {
+  user_id: string;
+  normalized_email: string;
+  password_hash: string;
+  is_verified: boolean;
 }
 
 export interface AuthProviderIdentityRecord {
@@ -97,6 +105,7 @@ export interface CreateUnifiedUserInput {
 export interface UnifiedAuthRepository {
   findUserById(userId: string): Promise<UnifiedUserRecord | null>;
   findUserByEmail(email: string): Promise<UnifiedUserRecord | null>;
+  findEmailCredential(email: string): Promise<EmailCredentialRecord | null>;
   createUser(input: CreateUnifiedUserInput): Promise<UnifiedUserRecord>;
   updateUserPassword(userId: string, passwordHash: string | null): Promise<void>;
   updateUserEmailAndPassword(userId: string, email: string, passwordHash: string): Promise<UnifiedUserRecord>;
@@ -337,8 +346,13 @@ export class UnifiedAuthenticationService {
     this.requireMethod('email');
     if (!this.passwordHasher) throw new UnifiedAuthError('PROVIDER_UNAVAILABLE');
     const email = canonicalizeEmail(input.email);
-    const user = await this.repo.findUserByEmail(email);
-    const valid = Boolean(user?.password_hash && await this.passwordHasher.compare(input.password, user.password_hash));
+    const credential = await this.repo.findEmailCredential(email);
+    const user = credential ? await this.repo.findUserById(credential.user_id) : null;
+    const valid = Boolean(
+      user &&
+      credential &&
+      await this.passwordHasher.compare(input.password, credential.password_hash)
+    );
     if (!user || !valid) {
       await this.auditEvent({
         eventCode: 'AUTH_LOGIN_FAILED',
@@ -347,6 +361,15 @@ export class UnifiedAuthenticationService {
         metadata: { reason: 'invalid_credentials' },
       });
       throw new UnifiedAuthError('INVALID_CREDENTIALS');
+    }
+    if (!credential.is_verified) {
+      await this.auditEvent({
+        eventCode: 'AUTH_EMAIL_LOGIN_VERIFICATION_REQUIRED',
+        outcome: 'DENIED',
+        userId: user.id,
+        subjectReference: createReferenceHash(email, 'email-login'),
+      });
+      throw new UnifiedAuthError('EMAIL_NOT_VERIFIED');
     }
     ensureUserCanAuthenticate(user);
     await this.auditEvent({ eventCode: 'AUTH_LOGIN_SUCCEEDED', outcome: 'SUCCESS', userId: user.id, subjectReference: createReferenceHash(email, 'email-login') });

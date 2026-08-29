@@ -8,6 +8,7 @@ import {
 import type {
   AuthProviderIdentityRecord,
   CreateUnifiedUserInput,
+  EmailCredentialRecord,
   PhoneIdentityRecord,
   UnifiedAuthRepository,
   UnifiedUserRecord,
@@ -147,6 +148,19 @@ export class PrismaUnifiedAuthRepository implements UnifiedAuthRepository {
     if (credential?.user) return toUserRecord(credential.user);
 
     return toUserRecord(await prisma.user.findUnique({ where: { email: normalizedEmail }, select: userSelect() }));
+  }
+
+  async findEmailCredential(email: string): Promise<EmailCredentialRecord | null> {
+    const normalizedEmail = canonicalizeEmail(email);
+    return await db.emailCredential.findUnique({
+      where: { normalized_email: normalizedEmail },
+      select: {
+        user_id: true,
+        normalized_email: true,
+        password_hash: true,
+        is_verified: true,
+      },
+    }) as EmailCredentialRecord | null;
   }
 
   async createUser(input: CreateUnifiedUserInput): Promise<UnifiedUserRecord> {

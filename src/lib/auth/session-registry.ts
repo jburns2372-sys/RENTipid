@@ -1,5 +1,6 @@
 import 'server-only';
 
+import type { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { logAuthenticationEvent } from '@/lib/security/events/writers/authentication-writer';
 import { hashSessionIdentifier, isTrustedSessionIdentifier } from '@/lib/security/auth/session-key';
@@ -12,6 +13,11 @@ export type SessionBindingInput = {
   sessionKeyHash: string;
   tokenExpiresAt?: Date | null;
 };
+
+type SessionRevocationTransaction = Pick<
+  Prisma.TransactionClient,
+  'userSession' | 'mfaSessionAssurance'
+>;
 
 function boundedExpiry(expiry: Date, tokenExpiresAt?: Date | null) {
   if (!tokenExpiresAt) return expiry;
@@ -87,14 +93,34 @@ export async function revokeOtherUserSessions(userId: string, currentSessionKeyH
   return count;
 }
 
-export async function revokeAllUserSessions(userId: string) {
-  const now = new Date();
-  const result = await prisma.$transaction(async (tx) => {
-    const sessions = await tx.userSession.findMany({ where: { user_id: userId, revoked_at: null }, select: { session_key_hash: true } });
-    const count = await tx.userSession.updateMany({ where: { user_id: userId, revoked_at: null }, data: { revoked_at: now } });
-    await tx.mfaSessionAssurance.updateMany({ where: { user_id: userId, session_key_hash: { in: sessions.map((s) => s.session_key_hash) }, revoked_at: null }, data: { revoked_at: now } });
-    return count.count;
+export async function revokeAllUserSessionsInTransaction(
+  tx: SessionRevocationTransaction,
+  userId: string,
+  revokedAt = new Date(),
+) {
+  const sessions = await tx.userSession.findMany({
+    where: { user_id: userId, revoked_at: null },
+    select: { session_key_hash: true },
   });
+  const count = await tx.userSession.updateMany({
+    where: { user_id: userId, revoked_at: null },
+    data: { revoked_at: revokedAt },
+  });
+  await tx.mfaSessionAssurance.updateMany({
+    where: {
+      user_id: userId,
+      session_key_hash: { in: sessions.map((session) => session.session_key_hash) },
+      revoked_at: null,
+    },
+    data: { revoked_at: revokedAt },
+  });
+  return count.count;
+}
+
+export async function revokeAllUserSessions(userId: string) {
+  const result = await prisma.$transaction((tx) =>
+    revokeAllUserSessionsInTransaction(tx, userId),
+  );
   if (result) void logAuthenticationEvent({ event_code: 'SESSION_REVOKED', outcome: 'SUCCESS', actor_user_id: userId, sanitized_metadata: { reason: 'security_reset' } });
   return result;
 }

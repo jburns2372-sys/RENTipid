@@ -6,6 +6,7 @@ import * as auditModule from '../../../src/lib/audit';
 
 jest.mock('@prisma/client', () => {
   const mPrismaClient = {
+    $transaction: jest.fn(async (callback: (client: unknown) => unknown) => callback(mPrismaClient)),
     user: {
       findUnique: jest.fn(),
       create: jest.fn(),
@@ -14,6 +15,9 @@ jest.mock('@prisma/client', () => {
       create: jest.fn(),
     },
     businessProfile: {
+      create: jest.fn(),
+    },
+    emailCredential: {
       create: jest.fn(),
     },
   };
@@ -26,6 +30,12 @@ jest.mock('bcryptjs', () => ({
 
 jest.mock('../../../src/lib/audit', () => ({
   createAuditLog: jest.fn(),
+}));
+
+const mockRequestEmailVerification = jest.fn().mockResolvedValue({ accepted: true });
+jest.mock('../../../src/lib/auth/unified/ancillary-factory', () => ({
+  createAuthAncillaryService: () => ({ requestEmailVerification: mockRequestEmailVerification }),
+  resolveAuthPublicBaseUrl: () => 'http://localhost:3000',
 }));
 
 describe('Identity and Account Mutation Validation', () => {
@@ -163,6 +173,17 @@ describe('Identity and Account Mutation Validation', () => {
           role: 'Renter'
         })
       });
+      expect((prismaMock as unknown as { emailCredential: { create: jest.Mock } }).emailCredential.create).toHaveBeenCalledWith({
+        data: expect.objectContaining({
+          user_id: '123',
+          normalized_email: 'test@example.com',
+          password_hash: 'hashed_pw',
+          is_verified: false,
+        }),
+      });
+      expect(mockRequestEmailVerification).toHaveBeenCalledWith(expect.objectContaining({
+        email: 'test@example.com',
+      }));
       // Ensure no raw object was spread
       expect((prismaMock.user.create as jest.Mock).mock.calls[0][0].data.admin).toBeUndefined();
     });

@@ -8,7 +8,7 @@ To participate in the RENTipid marketplace, you must register for an account.
 2. Choose your account type: Register as Renter, Register as Provider (Individual), or Register as Business.
 3. Complete the required account profile details based on your chosen account type.
 4. Agree to the Terms and Conditions and Privacy Policy.
-5. Click Register to create your account and log in.
+5. Click Register, then use the single-use verification link sent to your email address before signing in.
 
 ## Provider Onboarding and KYC
 
@@ -28,8 +28,9 @@ All provider payouts are currently processed manually. You must submit your payo
 ## Account Login and Password Reset
 
 1. To log in, go to the /login page and enter your registered email address and password.
-2. If you cannot log in due to an incorrect password, note that automated password reset emails are not currently implemented in RENTipid.
-3. If you forgot your password, you must contact RENTipid Support (/support) to request a manual account recovery.
+2. If you forgot your password, select **Forgot password?** or open `/forgot-password`.
+3. Submit your registered email address. RENTipid returns the same response whether or not an eligible password account exists.
+4. Use the short-lived, single-use link in the email to choose a new password. Successful reset signs out existing sessions.
 
 ## Profile and Account Information
 

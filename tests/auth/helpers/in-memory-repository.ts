@@ -7,6 +7,7 @@ import type {
   UnifiedUserRecord,
   CreateUnifiedUserInput,
   AuthProviderIdentityRecord,
+  EmailCredentialRecord,
   PhoneIdentityRecord,
   VerificationChallengeRecord,
 } from '@/lib/auth/unified/services';
@@ -56,6 +57,13 @@ export class InMemoryUnifiedAuthRepository implements UnifiedAuthRepository {
       if (user) return user;
     }
     return this.store.users.find((u) => u.email === normalized) ?? null;
+  }
+
+  async findEmailCredential(email: string): Promise<EmailCredentialRecord | null> {
+    const normalized = canonicalizeEmail(email);
+    return this.store.emailCredentials.find(
+      (credential) => credential.normalized_email === normalized,
+    ) ?? null;
   }
 
   async createUser(input: CreateUnifiedUserInput): Promise<UnifiedUserRecord> {

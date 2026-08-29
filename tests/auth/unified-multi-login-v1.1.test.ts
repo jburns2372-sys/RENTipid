@@ -272,10 +272,19 @@ describe('FR-03: Returning User Resolution', () => {
   });
 
   test('returning email/password user authenticates to same User', async () => {
-    const { authService } = createTestServices();
+    const { authService, store } = createTestServices();
     await authService.registerEmailPassword({ email: 'r@test.com', password: 'Pass1', fullName: 'R', consent: CONSENT });
+    store.emailCredentials[0].is_verified = true;
     const user = await authService.authenticateEmailPassword({ email: 'r@test.com', password: 'Pass1' });
     expect(user.email).toBe('r@test.com');
+  });
+
+  test('unverified email/password credential cannot sign in', async () => {
+    const { authService } = createTestServices();
+    await authService.registerEmailPassword({ email: 'pending@test.com', password: 'Pass1', fullName: 'Pending', consent: CONSENT });
+    await expect(
+      authService.authenticateEmailPassword({ email: 'pending@test.com', password: 'Pass1' }),
+    ).rejects.toMatchObject({ code: 'EMAIL_NOT_VERIFIED' });
   });
 
   test('returning SMS phone user resolves same User ID', async () => {
@@ -799,8 +808,9 @@ describe('FR-13: Phase 8 Session Integration', () => {
 
 describe('FR-14: Audit Event Safety', () => {
   test('successful login audit event does not contain password', async () => {
-    const { authService, audit } = createTestServices();
+    const { authService, audit, store } = createTestServices();
     await authService.registerEmailPassword({ email: 'aud@test.com', password: 'SecretPass123!', fullName: 'A', consent: CONSENT });
+    store.emailCredentials[0].is_verified = true;
     await authService.authenticateEmailPassword({ email: 'aud@test.com', password: 'SecretPass123!' });
     audit.events.forEach(event => {
       const json = JSON.stringify(event);

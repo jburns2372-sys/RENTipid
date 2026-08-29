@@ -4,6 +4,10 @@ import bcrypt from 'bcryptjs';
 import { createAuditLog } from '@/lib/audit';
 import { RegisterInputSchema } from '@/lib/security/identity-input-security';
 import { ProfileFieldProtection, ProfileFieldContext } from '@/lib/security/crypto/profile-field-protection';
+import {
+  createAuthAncillaryService,
+  resolveAuthPublicBaseUrl,
+} from '@/lib/auth/unified/ancillary-factory';
 
 const prisma = new PrismaClient();
 
@@ -57,46 +61,60 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'User with this email already exists' }, { status: 409 });
     }
 
-    const password_hash = await bcrypt.hash(password, 10);
+    const password_hash = await bcrypt.hash(password, 12);
 
-    const user = await prisma.user.create({
-      data: {
-        email,
-        full_name,
-        mobile_number,
-        password_hash,
-        account_type,
-        role,
-        status: 'Pending',
+    const user = await prisma.$transaction(async (tx) => {
+      const createdUser = await tx.user.create({
+        data: {
+          email,
+          full_name,
+          mobile_number,
+          password_hash,
+          account_type,
+          role,
+          status: 'Pending',
+        }
+      });
+
+      await tx.emailCredential.create({
+        data: {
+          user_id: createdUser.id,
+          normalized_email: email,
+          password_hash,
+          is_verified: false,
+          password_changed_at: new Date(),
+        },
+      });
+
+      if (account_type === 'Business') {
+        await tx.businessProfile.create({
+          data: {
+            user_id: createdUser.id,
+            business_name: business_name || full_name,
+            business_registration_number: null,
+            business_registration_number_encrypted: businessRegistrationNumberEncrypted,
+            business_address: null,
+            business_address_encrypted: businessAddressEncrypted,
+            authorized_representative: authorized_representative || full_name,
+            verification_status: 'Pending'
+          }
+        });
+      } else {
+        await tx.userProfile.create({
+          data: {
+            user_id: createdUser.id,
+            address: null,
+            address_encrypted: userAddressEncrypted,
+            city: city || '',
+            province: province || '',
+            country: country || 'Philippines',
+            verification_status: 'Pending'
+          }
+        });
       }
-    });
 
-    if (account_type === 'Business') {
-      await prisma.businessProfile.create({
-        data: {
-          user_id: user.id,
-          business_name: business_name || full_name,
-          business_registration_number: null,
-          business_registration_number_encrypted: businessRegistrationNumberEncrypted,
-          business_address: null,
-          business_address_encrypted: businessAddressEncrypted,
-          authorized_representative: authorized_representative || full_name,
-          verification_status: 'Pending'
-        }
-      });
-    } else {
-      await prisma.userProfile.create({
-        data: {
-          user_id: user.id,
-          address: null,
-          address_encrypted: userAddressEncrypted,
-          city: city || '',
-          province: province || '',
-          country: country || 'Philippines',
-          verification_status: 'Pending'
-        }
-      });
-    }
+      return createdUser;
+    });
 
     await createAuditLog({
       actor_user_id: user.id,
@@ -106,10 +124,17 @@ export async function POST(req: Request) {
       details: 'Registered as ' + role
     });
 
-    return NextResponse.json({ message: 'User registered successfully', userId: user.id }, { status: 201 });
+    const forwardedFor = req.headers?.get?.('x-forwarded-for');
+    await createAuthAncillaryService().requestEmailVerification({
+      email,
+      baseUrl: resolveAuthPublicBaseUrl(req.url || 'http://localhost:3000/api/auth/register'),
+      rawIp: forwardedFor?.split(',')[0]?.trim() || null,
+    }).catch(() => undefined);
+
+    return NextResponse.json({ message: 'Registration accepted. Check your email to verify your account.' }, { status: 201 });
 
   } catch (error) {
     console.error('Registration error:', error);
-    return NextResponse.json({ message: 'Internal server error during registration', error: (error as Error).message }, { status: 500 });
+    return NextResponse.json({ message: 'Internal server error during registration' }, { status: 500 });
   }
 }

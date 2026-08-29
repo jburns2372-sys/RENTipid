@@ -27,7 +27,7 @@ describe('LOGIN / ACCOUNT SUPPORT INQUIRY AI QUALITY GATE', () => {
     
     expect(result.success).toBe(true);
     expect(result.message).toContain('If you forgot your password');
-    expect(result.message).toContain('automated password reset emails are not currently implemented');
+    expect(result.message).toContain('/forgot-password');
     expect(result.message).not.toContain('I don\'t have enough approved RENTipid information');
   });
 
@@ -38,7 +38,7 @@ describe('LOGIN / ACCOUNT SUPPORT INQUIRY AI QUALITY GATE', () => {
     });
     
     expect(result.success).toBe(true);
-    expect(result.message).toContain('automated password reset emails are not currently implemented');
+    expect(result.message).toContain('single-use link');
     expect(result.message).not.toContain('I don\'t have enough approved RENTipid information');
   });
 
@@ -49,7 +49,7 @@ describe('LOGIN / ACCOUNT SUPPORT INQUIRY AI QUALITY GATE', () => {
     });
     
     expect(result.success).toBe(true);
-    expect(result.message).toContain('If you cannot log in due to an incorrect password');
+    expect(result.message).toContain('If you forgot your password');
     expect(result.message).not.toContain('I don\'t have enough approved RENTipid information');
   });
 

@@ -47,10 +47,14 @@ export async function POST(req: Request) {
     const { currentPassword, newPassword } = validatedData.data;
 
     const user = await prisma.user.findUnique({
-      where: { id: userId }
+      where: { id: userId },
+      select: {
+        password_hash: true,
+        emailCredential: { select: { user_id: true } },
+      },
     });
 
-    if (!user || !user.password_hash) {
+    if (!user || !user.password_hash || !user.emailCredential) {
       return NextResponse.json({ error: 'Invalid user or authentication method' }, { status: 400 });
     }
 
@@ -67,9 +71,19 @@ export async function POST(req: Request) {
 
     const newHash = await bcrypt.hash(newPassword, 12);
 
-    await prisma.user.update({
-      where: { id: userId },
-      data: { password_hash: newHash }
+    const passwordChangedAt = new Date();
+    await prisma.$transaction(async (tx) => {
+      await tx.user.update({
+        where: { id: userId },
+        data: { password_hash: newHash },
+      });
+      await tx.emailCredential.update({
+        where: { user_id: userId },
+        data: {
+          password_hash: newHash,
+          password_changed_at: passwordChangedAt,
+        },
+      });
     });
     await revokeAllUserSessions(userId);
 
