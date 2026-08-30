@@ -13,7 +13,7 @@ import { getActiveSessionByHash, registerUserSession } from "./auth/session-regi
 import { hashSessionIdentifier, isTrustedSessionIdentifier } from "./security/auth/session-key";
 import { MFA_SESSION_ASSURANCE_LEVEL_AAL2 } from "./security/auth/mfa-session-assurance";
 import type { OAuthAuthMethod } from "./auth/unified/config";
-import { getUnifiedAuthConfig } from "./auth/unified/config";
+import { getUnifiedAuthConfig, isPublicAuthMethodEnabled } from "./auth/unified/config";
 import { readOAuthConsent } from "./auth/unified/oauth-consent";
 import { createPhoneOtpAuthenticationService, createUnifiedAuthenticationService } from "./auth/unified/factory";
 import { UnifiedAuthError } from "./auth/unified/services";
@@ -137,10 +137,10 @@ function buildAuthProviders(): Provider[] {
     }));
   }
 
-  if (config.methods.sms.enabled || config.methods.whatsapp.enabled) {
+  if (config.methods.whatsapp.enabled) {
     providers.push(CredentialsProvider({
       id: "phone-otp",
-      name: "Phone OTP",
+      name: "WhatsApp OTP",
       credentials: {
         channel: { label: "Channel", type: "text" },
         phone: { label: "Phone", type: "text" },
@@ -150,9 +150,9 @@ function buildAuthProviders(): Provider[] {
         privacyAccepted: { label: "Privacy", type: "text" },
       },
       async authorize(credentials, req) {
-        const channel = credentials?.channel === "whatsapp" ? "whatsapp" : "sms";
+        const channel = "whatsapp";
         const rawIp = requestHeader(req, "x-forwarded-for");
-        if (!credentials?.phone || !credentials?.challengeId || !credentials?.code) {
+        if (credentials?.channel !== "whatsapp" || !credentials?.phone || !credentials?.challengeId || !credentials?.code) {
           await logAuthenticationEvent({
             event_code: "AUTH_PHONE_OTP_FAILED",
             outcome: "Failure",
@@ -210,7 +210,7 @@ function buildAuthProviders(): Provider[] {
     }));
   }
 
-  if (config.oauth.apple.enabled && config.oauth.apple.clientId && config.oauth.apple.clientSecret) {
+  if (isPublicAuthMethodEnabled("apple") && config.oauth.apple.clientId && config.oauth.apple.clientSecret) {
     providers.push(AppleProvider({
       clientId: config.oauth.apple.clientId,
       clientSecret: config.oauth.apple.clientSecret,

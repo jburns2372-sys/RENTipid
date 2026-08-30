@@ -126,7 +126,7 @@ describe('FR-01: Unified Gateway', () => {
     expect(AUTH_METHODS).toEqual(['google', 'facebook', 'apple', 'email', 'sms', 'whatsapp']);
   });
 
-  test('getGatewayMethodStates returns all six methods with enabled states', () => {
+  test('getGatewayMethodStates keeps retired SMS and deferred Apple out of the public gateway', () => {
     const states = getGatewayMethodStates({
       AUTH_GOOGLE_ENABLED: 'true',
       GOOGLE_CLIENT_ID: 'id', GOOGLE_CLIENT_SECRET: 'secret',
@@ -142,7 +142,14 @@ describe('FR-01: Unified Gateway', () => {
     expect(states).toHaveLength(6);
     const methods = states.map(s => s.method);
     expect(methods).toEqual(['google', 'facebook', 'apple', 'email', 'sms', 'whatsapp']);
-    states.forEach(s => expect(s.enabled).toBe(true));
+    expect(Object.fromEntries(states.map((state) => [state.method, state.enabled]))).toEqual({
+      google: true,
+      facebook: true,
+      apple: false,
+      email: true,
+      sms: false,
+      whatsapp: true,
+    });
   });
 
   test('disabled flag correctly disables a method', () => {

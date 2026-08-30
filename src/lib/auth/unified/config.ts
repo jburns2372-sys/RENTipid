@@ -27,6 +27,7 @@ export const TWILIO_VERIFY_ENV = {
 
 export const DEFAULT_AUTH_TERMS_VERSION = 'unified-multi-login-v1.1';
 export const DEFAULT_AUTH_PRIVACY_VERSION = 'unified-multi-login-v1.1';
+export const APPLE_LOGIN_DEFERRED_ENV = 'AUTH_APPLE_DEFERRED';
 
 type EnvSource = Record<string, string | undefined>;
 
@@ -122,9 +123,22 @@ export function getUnifiedAuthConfig(env: EnvSource = process.env): UnifiedAuthC
 
 export function getGatewayMethodStates(env: EnvSource = process.env): AuthMethodState[] {
   const config = getUnifiedAuthConfig(env);
-  return AUTH_METHODS.map((method) => config.methods[method]);
+  return AUTH_METHODS.map((method) => ({
+    ...config.methods[method],
+    enabled: isPublicAuthMethodEnabled(method, env),
+  }));
 }
 
 export function isUnifiedAuthMethodEnabled(method: AuthMethod, env: EnvSource = process.env): boolean {
   return getUnifiedAuthConfig(env).methods[method].enabled;
+}
+
+export function isAppleLoginDeferred(env: EnvSource = process.env): boolean {
+  return isFeatureFlagEnabled(env, APPLE_LOGIN_DEFERRED_ENV, true);
+}
+
+export function isPublicAuthMethodEnabled(method: AuthMethod, env: EnvSource = process.env): boolean {
+  if (method === 'sms') return false;
+  if (method === 'apple' && isAppleLoginDeferred(env)) return false;
+  return isUnifiedAuthMethodEnabled(method, env);
 }

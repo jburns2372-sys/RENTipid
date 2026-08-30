@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { OAuthAuthMethod } from '@/lib/auth/unified/config';
-import { AUTH_METHODS, isUnifiedAuthMethodEnabled } from '@/lib/auth/unified/config';
+import { AUTH_METHODS, isPublicAuthMethodEnabled } from '@/lib/auth/unified/config';
 import { createOAuthConsentToken, OAUTH_CONSENT_COOKIE } from '@/lib/auth/unified/oauth-consent';
 import { GENERIC_AUTH_MESSAGE } from '@/lib/auth/unified/services';
 
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   const termsAccepted = body?.termsAccepted === true;
   const privacyAccepted = body?.privacyAccepted === true;
 
-  if (!isOAuthMethod(provider) || !termsAccepted || !privacyAccepted || !isUnifiedAuthMethodEnabled(provider)) {
+  if (!isOAuthMethod(provider) || !termsAccepted || !privacyAccepted || !isPublicAuthMethodEnabled(provider)) {
     return NextResponse.json({ message: GENERIC_AUTH_MESSAGE }, { status: 200 });
   }
 

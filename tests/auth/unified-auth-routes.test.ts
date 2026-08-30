@@ -21,6 +21,7 @@ const TEST_ENV_KEYS = [
   'GOOGLE_CLIENT_ID',
   'GOOGLE_CLIENT_SECRET',
   'AUTH_SMS_OTP_ENABLED',
+  'AUTH_WHATSAPP_OTP_ENABLED',
   'TWILIO_ACCOUNT_SID',
   'TWILIO_AUTH_TOKEN',
   'TWILIO_VERIFY_SERVICE_SID',
@@ -93,7 +94,7 @@ function otpRequest(options: {
   return new NextRequest('http://localhost/api/auth/otp', {
     method: 'POST',
     headers,
-    body: JSON.stringify({ phone: options.phone || '+639171000001', channel: 'sms' }),
+    body: JSON.stringify({ phone: options.phone || '+639171000001', channel: 'whatsapp' }),
   });
 }
 
@@ -107,7 +108,7 @@ function createOtpHarness(blockedDimension?: 'number' | 'client' | 'network') {
     limiter,
     {
       config: getUnifiedAuthConfig({
-        AUTH_SMS_OTP_ENABLED: 'true',
+        AUTH_WHATSAPP_OTP_ENABLED: 'true',
         TWILIO_ACCOUNT_SID: 'test-account',
         TWILIO_AUTH_TOKEN: 'test-token',
         TWILIO_VERIFY_SERVICE_SID: 'test-service',
@@ -134,6 +135,7 @@ describe('Unified auth route corrections', () => {
     process.env.GOOGLE_CLIENT_ID = 'route-test-google-client';
     process.env.GOOGLE_CLIENT_SECRET = 'route-test-google-secret';
     process.env.AUTH_SMS_OTP_ENABLED = 'true';
+    process.env.AUTH_WHATSAPP_OTP_ENABLED = 'true';
     process.env.TWILIO_ACCOUNT_SID = 'route-test-account';
     process.env.TWILIO_AUTH_TOKEN = 'route-test-token';
     process.env.TWILIO_VERIFY_SERVICE_SID = 'route-test-service';

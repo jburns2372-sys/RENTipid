@@ -65,15 +65,14 @@ function SocialButton({
   );
 }
 
-/* ── Phone OTP ──────────────────────────────────── */
+/* ── WhatsApp OTP ───────────────────────────────── */
 
-type PhoneStep = 'input' | 'verify';
+type WhatsAppStep = 'input' | 'verify';
 
-function PhoneOtpForm({ smsEnabled, whatsappEnabled }: { smsEnabled: boolean; whatsappEnabled: boolean }) {
+function WhatsAppOtpForm() {
   const router = useRouter();
-  const [step, setStep] = useState<PhoneStep>('input');
+  const [step, setStep] = useState<WhatsAppStep>('input');
   const [phone, setPhone] = useState('');
-  const [channel, setChannel] = useState<'sms' | 'whatsapp'>(smsEnabled ? 'sms' : 'whatsapp');
   const [challengeId, setChallengeId] = useState('');
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
@@ -87,7 +86,7 @@ function PhoneOtpForm({ smsEnabled, whatsappEnabled }: { smsEnabled: boolean; wh
       const res = await fetch('/api/auth/otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, channel }),
+        body: JSON.stringify({ phone, channel: 'whatsapp' }),
       });
       const data = await res.json();
       if (data.challengeId) {
@@ -111,7 +110,7 @@ function PhoneOtpForm({ smsEnabled, whatsappEnabled }: { smsEnabled: boolean; wh
       const res = await signIn('phone-otp', {
         redirect: false,
         phone,
-        channel,
+        channel: 'whatsapp',
         challengeId,
         code,
         termsAccepted: 'true',
@@ -134,7 +133,7 @@ function PhoneOtpForm({ smsEnabled, whatsappEnabled }: { smsEnabled: boolean; wh
     return (
       <form onSubmit={handleVerify} className="space-y-4">
         <p className="text-sm text-gray-600">
-          Enter the verification code sent to your phone via {channel === 'whatsapp' ? 'WhatsApp' : 'SMS'}.
+          Enter the code sent to your WhatsApp.
         </p>
         {error && <div className="bg-red-50 text-red-600 p-3 rounded text-sm border border-red-200">{error}</div>}
         <input
@@ -163,7 +162,7 @@ function PhoneOtpForm({ smsEnabled, whatsappEnabled }: { smsEnabled: boolean; wh
           onClick={() => { setStep('input'); setCode(''); setChallengeId(''); setError(''); }}
           className="w-full text-sm text-gray-500 hover:text-gray-700 transition"
         >
-          ← Change phone number
+          ← Change WhatsApp number
         </button>
       </form>
     );
@@ -173,9 +172,9 @@ function PhoneOtpForm({ smsEnabled, whatsappEnabled }: { smsEnabled: boolean; wh
     <form onSubmit={handleStart} className="space-y-4">
       {error && <div className="bg-red-50 text-red-600 p-3 rounded text-sm border border-red-200">{error}</div>}
       <div>
-        <label className="block text-sm font-medium mb-1" htmlFor="phone-input">Phone Number</label>
+        <label className="block text-sm font-medium mb-1" htmlFor="whatsapp-number-input">WhatsApp number</label>
         <input
-          id="phone-input"
+          id="whatsapp-number-input"
           type="tel"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
@@ -184,33 +183,13 @@ function PhoneOtpForm({ smsEnabled, whatsappEnabled }: { smsEnabled: boolean; wh
           className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-600 outline-none"
         />
       </div>
-      {smsEnabled && whatsappEnabled && (
-        <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={() => setChannel('sms')}
-            className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium border transition ${channel === 'sms' ? 'bg-blue-50 border-blue-300 text-blue-700' : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'}`}
-            id="channel-sms-btn"
-          >
-            📱 SMS
-          </button>
-          <button
-            type="button"
-            onClick={() => setChannel('whatsapp')}
-            className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium border transition ${channel === 'whatsapp' ? 'bg-green-50 border-green-300 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'}`}
-            id="channel-whatsapp-btn"
-          >
-            💬 WhatsApp
-          </button>
-        </div>
-      )}
       <button
         type="submit"
         disabled={loading || !phone.trim()}
         className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
-        id="phone-start-btn"
+        id="whatsapp-start-btn"
       >
-        {loading ? 'Sending code...' : 'Send Verification Code'}
+        {loading ? 'Sending code...' : 'Send code through WhatsApp'}
       </button>
     </form>
   );
@@ -336,14 +315,12 @@ function EmailPasswordForm() {
 
 function UnifiedGateway() {
   const { isEnabled, loaded } = useAuthMethods();
-  const [showPhone, setShowPhone] = useState(false);
+  const [showWhatsApp, setShowWhatsApp] = useState(false);
 
   const googleEnabled = isEnabled('google');
   const facebookEnabled = isEnabled('facebook');
   const appleEnabled = isEnabled('apple');
-  const smsEnabled = isEnabled('sms');
   const whatsappEnabled = isEnabled('whatsapp');
-  const phoneEnabled = smsEnabled || whatsappEnabled;
   const emailEnabled = isEnabled('email');
   const hasSocial = googleEnabled || facebookEnabled || appleEnabled;
 
@@ -383,27 +360,30 @@ function UnifiedGateway() {
         </div>
       )}
 
-      {/* Phone / OTP */}
-      {phoneEnabled && (
-        <div id="phone-auth-section">
-          {hasSocial && !showPhone && (
+      {/* WhatsApp OTP */}
+      {whatsappEnabled && (
+        <div id="whatsapp-auth-section">
+          {hasSocial && !showWhatsApp && (
             <button
               type="button"
-              onClick={() => setShowPhone(true)}
+              onClick={() => setShowWhatsApp(true)}
               className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-lg border border-gray-300 font-medium bg-white hover:bg-gray-50 text-gray-700 transition-all duration-200"
-              id="auth-btn-phone"
+              id="auth-btn-whatsapp"
             >
-              📱 Continue with Phone
+              <svg aria-hidden="true" className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.04 2a9.84 9.84 0 00-8.42 14.93L2 22l5.2-1.57A9.96 9.96 0 1012.04 2zm0 17.92a8.03 8.03 0 01-4.1-1.12l-.3-.18-3.08.93.96-3-.2-.31a7.92 7.92 0 1114.65-4.2 8 8 0 01-7.93 7.88zm4.35-5.94c-.24-.12-1.41-.69-1.63-.77-.22-.08-.38-.12-.54.12-.16.24-.62.77-.76.93-.14.16-.28.18-.52.06-.24-.12-1-.37-1.92-1.19a7.18 7.18 0 01-1.33-1.65c-.14-.24-.01-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.47-.39-.41-.54-.42h-.46a.88.88 0 00-.64.3c-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.51.58.18 1.1.16 1.51.1.46-.07 1.41-.58 1.61-1.13.2-.56.2-1.03.14-1.13-.06-.1-.22-.16-.46-.28z" />
+              </svg>
+              Continue with WhatsApp
             </button>
           )}
-          {(showPhone || !hasSocial) && (
-            <PhoneOtpForm smsEnabled={smsEnabled} whatsappEnabled={whatsappEnabled} />
+          {(showWhatsApp || !hasSocial) && (
+            <WhatsAppOtpForm />
           )}
         </div>
       )}
 
       {/* Divider */}
-      {(hasSocial || phoneEnabled) && emailEnabled && (
+      {(hasSocial || whatsappEnabled) && emailEnabled && (
         <div className="flex items-center gap-4">
           <div className="flex-1 border-t border-gray-200" />
           <span className="text-sm text-gray-400">or</span>

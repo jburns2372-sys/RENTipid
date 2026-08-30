@@ -14,8 +14,8 @@ type TwilioCheckResponse = {
   valid?: boolean;
 };
 
-function twilioChannel(channel: PhoneOtpChannel): 'sms' | 'whatsapp' {
-  return channel === 'whatsapp' ? 'whatsapp' : 'sms';
+function requireWhatsAppChannel(channel: PhoneOtpChannel): asserts channel is 'whatsapp' {
+  if (channel !== 'whatsapp') throw new Error('SMS_AUTH_RETIRED');
 }
 
 function formBody(values: Record<string, string>): URLSearchParams {
@@ -40,9 +40,10 @@ export class TwilioVerifyPhoneVerificationProvider implements PhoneVerificationP
   }
 
   async start(input: { channel: PhoneOtpChannel; phoneE164: string }): Promise<{ providerChallengeId: string }> {
+    requireWhatsAppChannel(input.channel);
     const response = await this.request<TwilioStartResponse>('Verifications', formBody({
       To: input.phoneE164,
-      Channel: twilioChannel(input.channel),
+      Channel: 'whatsapp',
     }));
 
     if (!response.sid) throw new Error('TWILIO_VERIFY_START_FAILED');
@@ -50,6 +51,7 @@ export class TwilioVerifyPhoneVerificationProvider implements PhoneVerificationP
   }
 
   async verify(input: { channel: PhoneOtpChannel; phoneE164: string; providerChallengeId: string; code: string }): Promise<{ approved: boolean }> {
+    requireWhatsAppChannel(input.channel);
     const response = await this.request<TwilioCheckResponse>('VerificationCheck', formBody({
       To: input.phoneE164,
       Code: input.code,
