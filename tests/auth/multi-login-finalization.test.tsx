@@ -122,7 +122,7 @@ describe('retired SMS public initiation', () => {
   test('returns a controlled non-enumerating response without calling the OTP service', async () => {
     await installWebPrimitives();
     const { NextRequest } = await import('next/server');
-    const { handleOtpPost } = await import('@/app/api/auth/otp/route');
+    const { handleOtpPost } = await import('@/lib/auth/unified/otp-route');
     const start = jest.fn();
     const response = await handleOtpPost(new NextRequest('http://localhost/api/auth/otp', {
       method: 'POST',
@@ -138,7 +138,7 @@ describe('retired SMS public initiation', () => {
   test('continues to route WhatsApp initiation to the established OTP service', async () => {
     await installWebPrimitives();
     const { NextRequest } = await import('next/server');
-    const { handleOtpPost } = await import('@/app/api/auth/otp/route');
+    const { handleOtpPost } = await import('@/lib/auth/unified/otp-route');
     const start = jest.fn().mockResolvedValue({ challengeId: 'whatsapp-challenge' });
     const response = await handleOtpPost(new NextRequest('http://localhost/api/auth/otp', {
       method: 'POST',

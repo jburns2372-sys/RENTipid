@@ -353,7 +353,7 @@ export class UnifiedAuthenticationService {
       credential &&
       await this.passwordHasher.compare(input.password, credential.password_hash)
     );
-    if (!user || !valid) {
+    if (!user || !credential || !valid) {
       await this.auditEvent({
         eventCode: 'AUTH_LOGIN_FAILED',
         outcome: 'FAILURE',

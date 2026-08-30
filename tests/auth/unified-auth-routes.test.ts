@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { POST as createOAuthIntent } from '@/app/api/auth/oauth/intent/route';
-import { handleOtpPost } from '@/app/api/auth/otp/route';
+import { handleOtpPost } from '@/lib/auth/unified/otp-route';
 import { getUnifiedAuthConfig } from '@/lib/auth/unified/config';
 import {
   OTP_ANONYMOUS_CLIENT_COOKIE,
