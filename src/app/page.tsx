@@ -14,7 +14,7 @@ export default async function Home() {
   const categoryRows = await prisma.category.findMany({
     where: {
       is_active: true,
-      requirements: { notes: { startsWith: MARKETPLACE_CATEGORY_METADATA_PREFIX } },
+      requirements: { is: { notes: { startsWith: MARKETPLACE_CATEGORY_METADATA_PREFIX } } },
     },
     include: { requirements: true },
   });
