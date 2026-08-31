@@ -1,9 +1,34 @@
 "use client";
 
 import React, { useState, Suspense } from 'react';
+import RentipidLogo from '@/components/brand/RentipidLogo';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+
+export function normalizeLoginCallbackUrl(
+  callbackUrl: string | null | undefined,
+  currentOrigin?: string,
+): string {
+  if (!callbackUrl) {
+    return '/';
+  }
+
+  if (callbackUrl.startsWith('/')) {
+    return callbackUrl;
+  }
+
+  try {
+    const parsed = new URL(callbackUrl);
+    if (currentOrigin && parsed.origin === currentOrigin) {
+      return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+    }
+  } catch {
+    // Fall back to the safe default for malformed callback URLs.
+  }
+
+  return '/';
+}
 
 function LoginForm() {
   const router = useRouter();
@@ -21,11 +46,12 @@ function LoginForm() {
     const formData = new FormData(e.currentTarget);
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
-    const callbackUrl = searchParams.get('callbackUrl') || '/';
+    const callbackUrl = normalizeLoginCallbackUrl(searchParams.get('callbackUrl'));
 
     try {
       const res = await signIn('credentials', {
         redirect: false,
+        callbackUrl,
         email,
         password,
       });
@@ -34,7 +60,7 @@ function LoginForm() {
         setError('Invalid email or password');
         setLoading(false);
       } else {
-        router.push(callbackUrl);
+        router.push(normalizeLoginCallbackUrl(res?.url, window.location.origin) || callbackUrl);
         router.refresh();
       }
     } catch {
@@ -91,8 +117,6 @@ function LoginForm() {
     </>
   );
 }
-
-import RentipidLogo from '@/components/brand/RentipidLogo';
 
 export default function Login() {
   return (
