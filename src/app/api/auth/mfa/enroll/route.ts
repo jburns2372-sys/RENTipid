@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { requireAuthenticatedUser, getValidSessionIdentity } from "@/lib/security/authorization";
 import { MfaService } from "@/lib/security/auth/mfa-service";
 import { MfaRateLimiter } from "@/lib/security/auth/mfa-rate-limiter";
+import QRCode from "qrcode";
 
 export async function POST() {
   try {
@@ -24,9 +25,23 @@ export async function POST() {
       );
     }
 
-    const { secret } = await MfaService.generateEnrollment(userId, userEmail);
+    const { secret, otpauthUrl } = await MfaService.generateEnrollment(userId, userEmail);
 
-    const res = NextResponse.json({ secret });
+    let qrCode = "";
+    try {
+      qrCode = await QRCode.toDataURL(otpauthUrl, {
+        width: 256,
+        margin: 2,
+        color: {
+          dark: "#111827",
+          light: "#FFFFFF"
+        }
+      });
+    } catch {
+      // Graceful fallback to manual secret entry if QR code generation fails
+    }
+
+    const res = NextResponse.json({ secret, qrCode, otpauthUrl });
     res.headers.set("Cache-Control", "no-store, max-age=0, must-revalidate");
     return res;
   } catch (error) {

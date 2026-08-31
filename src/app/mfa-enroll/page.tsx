@@ -3,10 +3,14 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, AlertCircle } from "lucide-react";
+import { ShieldCheck, AlertCircle, QrCode as QrCodeIcon, KeyRound, Copy, Check } from "lucide-react";
+import Image from "next/image";
 
 export default function MfaEnrollPage() {
   const [secret, setSecret] = useState<string | null>(null);
+  const [qrCode, setQrCode] = useState<string | null>(null);
+  const [showManualKey, setShowManualKey] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [token, setToken] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -24,6 +28,7 @@ export default function MfaEnrollPage() {
         }
         const data = await res.json();
         setSecret(data.secret);
+        setQrCode(data.qrCode || null);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to fetch secret");
       } finally {
@@ -32,6 +37,13 @@ export default function MfaEnrollPage() {
     }
     fetchSecret();
   }, []);
+
+  const handleCopySecret = () => {
+    if (!secret) return;
+    navigator.clipboard.writeText(secret);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
 
   const handleActivate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,6 +64,7 @@ export default function MfaEnrollPage() {
       
       // Activation successful
       setSecret(null); // Clear secret from memory
+      setQrCode(null);
       setToken(""); // Clear token
       setRecoveryCodes(data.recoveryCodes);
     } catch (err) {
@@ -63,16 +76,16 @@ export default function MfaEnrollPage() {
 
   const handleFinish = () => {
     setRecoveryCodes(null);
-    router.push("/dashboard");
+    router.push("/dashboard/super-admin");
   };
 
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50 dark:bg-gray-900">
-        <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
           <div className="mb-6 text-center">
             <h2 className="text-2xl font-semibold tracking-tight">Two-Factor Authentication</h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Initiating secure setup...</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Generating secure QR Code...</p>
           </div>
         </div>
       </div>
@@ -82,7 +95,7 @@ export default function MfaEnrollPage() {
   if (recoveryCodes) {
     return (
       <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50 dark:bg-gray-900">
-        <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-green-500/20 p-6">
+        <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-green-500/20 p-8">
           <div className="mb-6 text-center">
             <ShieldCheck className="w-12 h-12 text-green-500 mx-auto mb-4" />
             <h2 className="text-2xl font-semibold tracking-tight">MFA Activated Successfully</h2>
@@ -119,11 +132,14 @@ export default function MfaEnrollPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50 dark:bg-gray-900">
-      <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+      <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
         <div className="mb-6 text-center">
+          <div className="inline-flex p-3 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 mb-3">
+            <QrCodeIcon className="w-8 h-8" />
+          </div>
           <h2 className="text-2xl font-semibold tracking-tight">Set Up Two-Factor Authentication</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-            Protect your RENTipid account by requiring a Time-Based One-Time Password (TOTP) when signing in.
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            Scan the QR code with your Authenticator App (Google Authenticator, Microsoft Authenticator, or Authy).
           </p>
         </div>
         
@@ -137,31 +153,61 @@ export default function MfaEnrollPage() {
           </div>
         )}
 
-        {secret && (
+        {(qrCode || secret) && (
           <div className="space-y-6 text-left">
-            <div className="space-y-2">
-              <h3 className="font-semibold text-sm">1. Open your Authenticator App</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                Use an app like Google Authenticator, Authy, or Microsoft Authenticator.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="font-semibold text-sm">2. Enter this Secret Key manually</h3>
-              <div className="bg-gray-100 dark:bg-gray-900 p-4 rounded-md border border-gray-200 dark:border-gray-700 flex justify-center">
-                <code className="text-lg font-mono tracking-widest text-primary break-all text-center">
-                  {secret}
-                </code>
+            {/* Step 1: QR Code */}
+            {qrCode ? (
+              <div className="space-y-3">
+                <h3 className="font-semibold text-sm text-gray-700 dark:text-gray-300">1. Scan this QR Code</h3>
+                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col items-center justify-center">
+                  <img
+                    src={qrCode}
+                    alt="MFA QR Code"
+                    width={200}
+                    height={200}
+                    className="w-48 h-48 rounded-lg"
+                  />
+                  <span className="text-xs text-gray-400 mt-2 font-medium">Time-Based (TOTP) &bull; RENTipid</span>
+                </div>
               </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-                Time-Based (TOTP) &bull; RENTipid
-              </p>
-            </div>
+            ) : null}
 
-            <div className="space-y-2">
-              <h3 className="font-semibold text-sm">3. Verify the generated code</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                Enter the 6-digit code from your app to confirm setup.
+            {/* Manual Secret Key Toggle */}
+            {secret && (
+              <div className="space-y-2">
+                <button
+                  type="button"
+                  onClick={() => setShowManualKey(!showManualKey)}
+                  className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1.5 font-medium"
+                >
+                  <KeyRound className="w-3.5 h-3.5" />
+                  {showManualKey ? "Hide manual secret key" : "Can't scan the QR code? Enter secret manually"}
+                </button>
+
+                {showManualKey && (
+                  <div className="p-3 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 space-y-2 animate-in fade-in duration-200">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Account: Super Admin (RENTipid)</p>
+                    <div className="flex items-center justify-between bg-white dark:bg-gray-800 p-2.5 rounded border font-mono text-xs tracking-wider text-gray-800 dark:text-gray-200 break-all">
+                      <span>{secret}</span>
+                      <button
+                        type="button"
+                        onClick={handleCopySecret}
+                        className="ml-2 p-1 text-gray-500 hover:text-blue-600 transition shrink-0"
+                        title="Copy secret"
+                      >
+                        {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Step 2: Verification Code */}
+            <div className="space-y-2 pt-2 border-t border-gray-100 dark:border-gray-700">
+              <h3 className="font-semibold text-sm text-gray-700 dark:text-gray-300">2. Enter 6-digit Authenticator Code</h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                Enter the numerical code currently shown in your authenticator app.
               </p>
               <form onSubmit={handleActivate} className="flex gap-2">
                 <input 
@@ -173,11 +219,12 @@ export default function MfaEnrollPage() {
                   placeholder="000000" 
                   value={token}
                   onChange={(e) => setToken(e.target.value)}
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 font-mono text-center text-lg tracking-widest"
+                  className="flex h-11 w-full rounded-lg border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50 font-mono text-center tracking-widest font-semibold"
                   required
                   disabled={activating}
+                  autoFocus
                 />
-                <Button type="submit" disabled={activating || token.length !== 6}>
+                <Button type="submit" className="h-11 px-5 font-semibold" disabled={activating || token.length !== 6}>
                   {activating ? "Activating..." : "Activate"}
                 </Button>
               </form>
@@ -188,3 +235,4 @@ export default function MfaEnrollPage() {
     </div>
   );
 }
+
