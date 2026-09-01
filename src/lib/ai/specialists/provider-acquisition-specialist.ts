@@ -75,11 +75,12 @@ export class ProviderAcquisitionSpecialistExecutor implements SpecialistExecutor
       return blocked('Provider Acquisition cannot autonomously approve KYC, activate accounts, or modify state.', 'STATE_MODIFICATION_BLOCKED');
     }
 
-    // Only allow operations if context contains valid provider/onboarding data or marketplace insights.
+    // Only allow operations if context contains valid provider/onboarding data, listingbridge import, or marketplace insights.
     const validRefs = invocation.safeContext.sourceRefs.filter(ref =>
       ref.includes('provider_lead') ||
       ref.includes('provider_onboarding') ||
       ref.includes('fleet_prospect') ||
+      ref.includes('listingbridge') ||
       ref.includes('MarketplaceIntelligenceSpecialist')
     );
 
@@ -108,8 +109,9 @@ export class ProviderAcquisitionSpecialistExecutor implements SpecialistExecutor
     let draftResponse = '';
     try {
       draftResponse = await this.createDraft(invocation);
-    } catch (e: any) {
-      return blocked(`Draft generation failed: ${e.message}`);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      return blocked(`Draft generation failed: ${message}`);
     }
 
     return {

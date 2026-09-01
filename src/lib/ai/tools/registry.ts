@@ -2,6 +2,7 @@ import { AiToolGateway, ToolDefinition } from './AiToolGateway';
 import { AiPolicyEngine } from '../policy/AiPolicyEngine';
 import { socialDomainTools } from './social-registry';
 import { executeMarketplaceAnalyticsQueryTool } from './marketplace-registry';
+import { registerListingBridgeTools } from '../../listingbridge/ai/tools';
 
 const policyEngine = AiPolicyEngine.getInstance();
 
@@ -139,7 +140,7 @@ export const checkKycTool: ToolDefinition = {
   description: 'Retrieve KYC status securely',
   allowedRoles: ['Renter', 'Provider'],
   requiresPolicy: true,
-  handler: async (args: {}, context) => {
+  handler: async (_args: Record<string, never>, context) => {
     const user = mockDomainDb.users.find(u => u.id === context.userId);
     const providerStatus = user ? user.kycStatus : 'UNKNOWN';
     
@@ -184,7 +185,7 @@ export const mediateBookingChange: ToolDefinition = {
   riskClass: 'CONFIRMED_ACTION',
   description: 'Initiate a structured mediation request for a booking change',
   allowedRoles: ['Renter', 'Provider'],
-  handler: async (args: { caseId: string, bookingId: string, requestType: string, requestedChange: any }, context) => {
+  handler: async (args: { caseId: string, bookingId: string, requestType: string, requestedChange: unknown }, context) => {
     // Dynamic import to avoid circular dependencies if any
     const { MediationService } = await import('../mediation/MediationService');
     const service = MediationService.getInstance();
@@ -217,4 +218,7 @@ export function registerAllTools(gateway: AiToolGateway) {
   gateway.registerTool(executeMarketplaceAnalyticsQueryTool);
 
   gateway.registerTool(mediateBookingChange);
+
+  // Register ListingBridge Tools
+  registerListingBridgeTools(gateway);
 }

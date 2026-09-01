@@ -97,7 +97,7 @@ export const intentOwnershipDefinitions: readonly IntentOwnershipDefinition[] = 
       version: '1.0',
       status: 'ENABLED' as const,
     })),
-    ...['provider_lead', 'partner_growth', 'provider_qualification', 'fleet_prospect', 'provider_onboarding_assistance', 'provider_outreach_draft', 'provider_followup_recommendation'].map(intent => ({
+    ...['provider_lead', 'partner_growth', 'provider_qualification', 'fleet_prospect', 'provider_onboarding_assistance', 'provider_outreach_draft', 'provider_followup_recommendation', 'listingbridge_import_assistance', 'listingbridge_assistance'].map(intent => ({
       intent,
       primarySpecialistId: 'ProviderAcquisitionSpecialist' as const,
       consultedSpecialists: ['MarketplaceIntelligenceSpecialist'] as readonly Revision2SpecialistId[],

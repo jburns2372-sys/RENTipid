@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import { unifiedAiSpecialistOrchestrator } from '../../src/lib/ai/specialists/orchestrator';
 
 describe('Unified AI Specialist Orchestrator - Commit Identity Resolution', () => {

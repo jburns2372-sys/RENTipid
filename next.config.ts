@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  serverExternalPackages: ['applicationinsights', 'diagnostic-channel-publishers'],
 };
 
 export default nextConfig;
