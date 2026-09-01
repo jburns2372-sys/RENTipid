@@ -67,7 +67,7 @@ export const testConnectorDescriptor: ListingBridgeConnectorDescriptor = {
   environments: {
     LOCAL: { state: 'APPROVED' },
     TEST: { state: 'APPROVED' },
-    PREVIEW: { state: 'REVIEW_REQUIRED', reason: 'Internal connector is not preview-approved by default' },
+    PREVIEW: { state: 'APPROVED' },
     PRODUCTION: { state: 'DISABLED', reason: 'Internal connector must never run in production' },
   },
   featureStatus: 'INTERNAL_ONLY',

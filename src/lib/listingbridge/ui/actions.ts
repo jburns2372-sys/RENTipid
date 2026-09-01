@@ -3,6 +3,7 @@ import {
   ListingBridgeConnectorRegistry,
   ListingBridgeTestConnector,
   listingBridgeTestConnectorDescriptor,
+  resolveListingBridgeEnvironment,
 } from '../connectors';
 import { isListingBridgeEnabled } from '../connectors/feature-flags';
 import { ListingBridgeReviewSnapshotEngine } from '../review/review-snapshot-engine';
@@ -63,8 +64,8 @@ export class ListingBridgeUiService {
       });
     }
 
-    const isProduction = process.env.NODE_ENV === 'production';
-    const env = isProduction ? 'PRODUCTION' : 'LOCAL';
+    const currentEnvironment = resolveListingBridgeEnvironment();
+    const isTrueProduction = currentEnvironment === 'PRODUCTION';
 
     const testConnector = new ListingBridgeTestConnector();
     const registry =
@@ -73,12 +74,12 @@ export class ListingBridgeUiService {
         { connector: testConnector, descriptor: listingBridgeTestConnectorDescriptor },
       ]);
 
-    const enabled = await registry.listEnabledConnectors({ environment: env });
+    const enabled = await registry.listEnabledConnectors({ environment: currentEnvironment });
 
     const safeConnectors: ConnectorOptionDTO[] = enabled
       .filter((c: ListingBridgePublicConnectorDescriptor) => {
-        // Internal test connectors must never appear in production
-        if (isProduction && c.id.includes('test')) return false;
+        // Internal test connectors must never appear in true production
+        if (isTrueProduction && c.id.includes('test')) return false;
         return true;
       })
       .map((c: ListingBridgePublicConnectorDescriptor) => ({

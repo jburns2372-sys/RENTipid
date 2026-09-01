@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export default async function ProviderDashboard() {
   const session = await getServerSession(authOptions);
-  const user = session?.user as any;
+  const user = session?.user as { name?: string | null; status?: string | null; role?: string | null } | undefined;
 
   return (
     <div className="container mx-auto py-12 px-4">
@@ -41,11 +41,24 @@ export default async function ProviderDashboard() {
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
           <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">My Listings</h2>
-          <div className="h-48 flex flex-col items-center justify-center bg-gray-50 rounded border border-dashed">
-            <span className="text-gray-400 text-sm mb-4">Listing functionality pending Phase 3</span>
-            <button disabled className="bg-gray-300 text-gray-600 px-4 py-2 rounded font-medium cursor-not-allowed">
-              Create Listing
-            </button>
+          <div className="h-48 flex flex-col items-center justify-center bg-gray-50 rounded border border-dashed p-4 text-center">
+            <p className="text-gray-600 text-sm mb-4">
+              Manage your rentals or add new items to the RENTipid marketplace.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/dashboard/provider/listings/new"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition shadow-sm"
+              >
+                + Create New Listing
+              </Link>
+              <Link
+                href="/dashboard/provider/listings/import"
+                className="bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-300 px-4 py-2 rounded-lg font-medium text-sm transition"
+              >
+                Import Existing Listing
+              </Link>
+            </div>
           </div>
         </div>
         

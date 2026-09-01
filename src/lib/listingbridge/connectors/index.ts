@@ -5,3 +5,4 @@ export * from './feature-flags';
 export * from './registry';
 export * from './test-connector';
 export * from './seed';
+export * from './environment';
