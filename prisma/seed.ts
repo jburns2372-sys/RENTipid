@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { runMarketplaceSampleSeed } from '../src/lib/marketplace/seed-reconciler';
+import { seedListingBridgeSystemSettings } from '../src/lib/listingbridge';
 const prisma = new PrismaClient();
 
 async function main() {
@@ -58,6 +59,9 @@ async function main() {
       },
     });
   }
+
+  console.log('Seeding ListingBridge System Settings...');
+  await seedListingBridgeSystemSettings(prisma);
 
   console.log('Seeding Development Accounts...');
   
