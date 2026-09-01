@@ -6,13 +6,28 @@ import {
 } from '../../../src/lib/listingbridge';
 
 describe('ListingBridge Seed & Sync Authority (G1 Reopen)', () => {
-  it('defines all seven required ListingBridge feature flag keys with valid defaults', () => {
+  it('defines all seven required ListingBridge feature flag keys with locked safe rollout defaults', () => {
     const requiredKeys = Object.values(LISTINGBRIDGE_FEATURE_FLAGS);
     expect(requiredKeys).toHaveLength(7);
 
     const definedKeys = LISTINGBRIDGE_DEFAULT_SYSTEM_SETTINGS.map((s) => s.setting_key);
     expect(definedKeys).toHaveLength(7);
     expect(definedKeys.sort()).toEqual(requiredKeys.slice().sort());
+
+    const defaultsMap = new Map(
+      LISTINGBRIDGE_DEFAULT_SYSTEM_SETTINGS.map((s) => [s.setting_key, s.setting_value]),
+    );
+
+    // Rollout-sensitive & external capabilities must default to safe/off
+    expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.GLOBAL)).toBe('false');
+    expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.URL_IMPORT)).toBe('false');
+    expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.API_CONNECTORS)).toBe('false');
+    expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.AVAILABILITY_IMPORT)).toBe('false');
+
+    // Subordinate internal capabilities are ready when global switch is enabled
+    expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.FILE_IMPORT)).toBe('true');
+    expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.MEDIA_IMPORT)).toBe('true');
+    expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.AI_MAPPING)).toBe('true');
 
     for (const setting of LISTINGBRIDGE_DEFAULT_SYSTEM_SETTINGS) {
       expect(typeof setting.setting_key).toBe('string');
@@ -50,27 +65,31 @@ describe('ListingBridge Seed & Sync Authority (G1 Reopen)', () => {
       },
     };
 
-    // First execution: all 7 created
+    // First execution: all 7 created with safe defaults
     const firstResult = await seedListingBridgeSystemSettings(mockDb);
     expect(firstResult).toHaveLength(7);
     expect(databaseMap.size).toBe(7);
     expect(mockDb.systemSetting.upsert).toHaveBeenCalledTimes(7);
 
-    // Simulate administrator manually overriding one flag to 'false'
-    databaseMap.set(LISTINGBRIDGE_FEATURE_FLAGS.AVAILABILITY_IMPORT, {
-      setting_key: LISTINGBRIDGE_FEATURE_FLAGS.AVAILABILITY_IMPORT,
-      setting_value: 'false',
-      description: 'Disabled by compliance admin',
+    // Initial safe values verified
+    expect(databaseMap.get(LISTINGBRIDGE_FEATURE_FLAGS.GLOBAL)?.setting_value).toBe('false');
+    expect(databaseMap.get(LISTINGBRIDGE_FEATURE_FLAGS.URL_IMPORT)?.setting_value).toBe('false');
+
+    // Simulate administrator manually enabling GLOBAL in an environment
+    databaseMap.set(LISTINGBRIDGE_FEATURE_FLAGS.GLOBAL, {
+      setting_key: LISTINGBRIDGE_FEATURE_FLAGS.GLOBAL,
+      setting_value: 'true',
+      description: 'Master kill-switch enabled by operator',
     });
 
-    // Second execution (repeat run / sync): must be idempotent and preserve admin override
+    // Second execution (repeat run / sync): must be idempotent and preserve operator override
     const secondResult = await seedListingBridgeSystemSettings(mockDb);
     expect(secondResult).toHaveLength(7);
     expect(databaseMap.size).toBe(7);
     expect(mockDb.systemSetting.upsert).toHaveBeenCalledTimes(14);
 
-    // Verify admin override was preserved
-    const availabilitySetting = databaseMap.get(LISTINGBRIDGE_FEATURE_FLAGS.AVAILABILITY_IMPORT);
-    expect(availabilitySetting?.setting_value).toBe('false');
+    // Verify operator override was preserved
+    const globalSetting = databaseMap.get(LISTINGBRIDGE_FEATURE_FLAGS.GLOBAL);
+    expect(globalSetting?.setting_value).toBe('true');
   });
 });

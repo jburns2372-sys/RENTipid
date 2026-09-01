@@ -9,7 +9,7 @@ export interface ListingBridgeSystemSettingSeedDefinition {
 export const LISTINGBRIDGE_DEFAULT_SYSTEM_SETTINGS: readonly ListingBridgeSystemSettingSeedDefinition[] = Object.freeze([
   {
     setting_key: LISTINGBRIDGE_FEATURE_FLAGS.GLOBAL,
-    setting_value: 'true',
+    setting_value: 'false',
     description: 'Master kill-switch for ListingBridge v1.0 import subsystem',
   },
   {
@@ -19,12 +19,12 @@ export const LISTINGBRIDGE_DEFAULT_SYSTEM_SETTINGS: readonly ListingBridgeSystem
   },
   {
     setting_key: LISTINGBRIDGE_FEATURE_FLAGS.URL_IMPORT,
-    setting_value: 'true',
+    setting_value: 'false',
     description: 'Enable secure URL retrieval imports',
   },
   {
     setting_key: LISTINGBRIDGE_FEATURE_FLAGS.API_CONNECTORS,
-    setting_value: 'true',
+    setting_value: 'false',
     description: 'Enable authorized partner API connectors',
   },
   {
@@ -39,7 +39,7 @@ export const LISTINGBRIDGE_DEFAULT_SYSTEM_SETTINGS: readonly ListingBridgeSystem
   },
   {
     setting_key: LISTINGBRIDGE_FEATURE_FLAGS.AVAILABILITY_IMPORT,
-    setting_value: 'true',
+    setting_value: 'false',
     description: 'Enable external availability calendar import',
   },
 ]);
