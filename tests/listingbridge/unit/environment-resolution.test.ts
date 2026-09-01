@@ -30,30 +30,29 @@ function createMockEvaluator(
   return new ListingBridgeFeatureFlagEvaluator(db);
 }
 
-function setProcessEnv(key: string, value: string | undefined): void {
-  if (value === undefined) {
-    delete process.env[key];
-  } else {
-    Object.defineProperty(process.env, key, {
-      value,
-      configurable: true,
-      writable: true,
-      enumerable: true,
-    });
-  }
-}
-
 describe('ListingBridge: Environment Resolution & Connector Policy', () => {
-  const originalEnv = { ...process.env };
+  const envMap = process.env as Record<string, string | undefined>;
+  const savedNodeEnv = process.env.NODE_ENV;
+  const savedVercelEnv = process.env.VERCEL_ENV;
+  const savedAppEnv = process.env.APP_ENV;
 
   afterEach(() => {
-    for (const key of Object.keys(process.env)) {
-      if (!(key in originalEnv)) {
-        delete process.env[key];
-      }
+    if (savedNodeEnv !== undefined) {
+      envMap.NODE_ENV = savedNodeEnv;
+    } else {
+      delete envMap.NODE_ENV;
     }
-    for (const [key, value] of Object.entries(originalEnv)) {
-      setProcessEnv(key, value);
+
+    if (savedVercelEnv !== undefined) {
+      envMap.VERCEL_ENV = savedVercelEnv;
+    } else {
+      delete envMap.VERCEL_ENV;
+    }
+
+    if (savedAppEnv !== undefined) {
+      envMap.APP_ENV = savedAppEnv;
+    } else {
+      delete envMap.APP_ENV;
     }
   });
 
@@ -110,8 +109,9 @@ describe('ListingBridge: Environment Resolution & Connector Policy', () => {
 
   describe('Connector Policy & Availability Across Environments', () => {
     it('allows the deterministic test connector in PREVIEW environment', async () => {
-      setProcessEnv('NODE_ENV', 'production');
-      setProcessEnv('VERCEL_ENV', 'preview');
+      envMap.NODE_ENV = 'production';
+      envMap.VERCEL_ENV = 'preview';
+      delete envMap.APP_ENV;
 
       const registry = createListingBridgeConnectorRegistry(
         [
@@ -136,8 +136,9 @@ describe('ListingBridge: Environment Resolution & Connector Policy', () => {
     });
 
     it('strictly forbids and strips the internal test connector in true PRODUCTION', async () => {
-      setProcessEnv('NODE_ENV', 'production');
-      setProcessEnv('VERCEL_ENV', 'production');
+      envMap.NODE_ENV = 'production';
+      envMap.VERCEL_ENV = 'production';
+      delete envMap.APP_ENV;
 
       const registry = createListingBridgeConnectorRegistry(
         [
