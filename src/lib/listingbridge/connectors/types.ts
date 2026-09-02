@@ -27,6 +27,20 @@ export interface ListingBridgeConnectorCapabilities {
   readonly authorizationType: ListingBridgeAuthorizationType;
 }
 
+export type ListingBridgeConnectorCredentialState =
+  | 'AVAILABLE'
+  | 'NOT_CONFIGURED'
+  | 'PARTNER_APPROVAL_REQUIRED'
+  | 'CERTIFICATION_REQUIRED';
+
+export type ListingBridgeConnectorRetrievalMode = 'DIRECT_API' | 'AUTHORIZED_PARTNER_API' | 'ASSISTED';
+
+export interface ListingBridgeExternalPropertyReference {
+  readonly sourceReference: string;
+  readonly sourceReferenceHash: string;
+  readonly providerSupplied: boolean;
+}
+
 export interface ListingBridgeConnectorConfig {
   readonly id: string;
   readonly name: string;

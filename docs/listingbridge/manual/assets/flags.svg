@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="524" viewBox="0 0 920 524">
+<rect width="920" height="524" fill="white"/>
+<text x="40" y="34" font-family="Arial" font-size="20" font-weight="700" fill="#0f172a">Feature-flag and rollback model.</text>
+<rect x="150" y="66" width="430" height="34" rx="5" fill="#eff6ff" stroke="#334155" stroke-width="1.2"/>
+<text x="365" y="88" text-anchor="middle" font-family="Arial" font-size="13" fill="#0f172a">LISTINGBRIDGE_GLOBAL=false</text>
+<line x1="365" y1="100" x2="365" y2="120" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="150" y="120" width="430" height="34" rx="5" fill="#eff6ff" stroke="#334155" stroke-width="1.2"/>
+<text x="365" y="142" text-anchor="middle" font-family="Arial" font-size="13" fill="#0f172a">URL_IMPORT=false</text>
+<line x1="365" y1="154" x2="365" y2="174" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="150" y="174" width="430" height="34" rx="5" fill="#eff6ff" stroke="#334155" stroke-width="1.2"/>
+<text x="365" y="196" text-anchor="middle" font-family="Arial" font-size="13" fill="#0f172a">API_CONNECTORS=false</text>
+<line x1="365" y1="208" x2="365" y2="228" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="150" y="228" width="430" height="34" rx="5" fill="#eff6ff" stroke="#334155" stroke-width="1.2"/>
+<text x="365" y="250" text-anchor="middle" font-family="Arial" font-size="13" fill="#0f172a">AVAILABILITY_IMPORT=false</text>
+<line x1="365" y1="262" x2="365" y2="282" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="150" y="282" width="430" height="34" rx="5" fill="#eff6ff" stroke="#334155" stroke-width="1.2"/>
+<text x="365" y="304" text-anchor="middle" font-family="Arial" font-size="13" fill="#0f172a">Manual Listing Available</text>
+<line x1="365" y1="316" x2="365" y2="336" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="150" y="336" width="430" height="34" rx="5" fill="#eff6ff" stroke="#334155" stroke-width="1.2"/>
+<text x="365" y="358" text-anchor="middle" font-family="Arial" font-size="13" fill="#0f172a">Existing Drafts Intact</text>
+<line x1="365" y1="370" x2="365" y2="390" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="150" y="390" width="430" height="34" rx="5" fill="#eff6ff" stroke="#334155" stroke-width="1.2"/>
+<text x="365" y="412" text-anchor="middle" font-family="Arial" font-size="13" fill="#0f172a">No Destructive DB Rollback</text>
+<line x1="365" y1="424" x2="365" y2="444" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="150" y="444" width="430" height="34" rx="5" fill="#eff6ff" stroke="#334155" stroke-width="1.2"/>
+<text x="365" y="466" text-anchor="middle" font-family="Arial" font-size="13" fill="#0f172a">Controlled Change Required</text>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L6,3 z" fill="#1d4ed8"/></marker></defs>
+</svg>

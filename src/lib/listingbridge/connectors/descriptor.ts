@@ -18,6 +18,7 @@ export const listingBridgeConnectorCapabilityIds = [
   'MEDIA',
   'AVAILABILITY',
   'STRUCTURED_FILE',
+  'ASSISTED_PROVIDER_DATA',
   'URL_RETRIEVAL',
   'OAUTH_API_AUTHORIZATION',
   'API_KEY_AUTHORIZATION',
@@ -31,6 +32,7 @@ export const listingBridgeSourceModes = [
   'AUTHORIZED_API',
   'PMS_FEED',
   'STRUCTURED_FILE',
+  'ASSISTED_IMPORT',
   'PUBLIC_URL',
   'MANUAL',
   'INTERNAL_TEST',
@@ -212,8 +214,8 @@ export const listingBridgeConnectorDescriptorSchema = z.object({
     ctx.addIssue({ code: 'custom', message: 'URL_RETRIEVAL requires PUBLIC_URL sourceMode', path: ['sourceMode'] });
   }
 
-  if (capabilities.has('STRUCTURED_FILE') && !['STRUCTURED_FILE', 'INTERNAL_TEST'].includes(descriptor.sourceMode)) {
-    ctx.addIssue({ code: 'custom', message: 'STRUCTURED_FILE requires STRUCTURED_FILE or INTERNAL_TEST sourceMode', path: ['sourceMode'] });
+  if (capabilities.has('STRUCTURED_FILE') && !['STRUCTURED_FILE', 'INTERNAL_TEST', 'ASSISTED_IMPORT'].includes(descriptor.sourceMode)) {
+    ctx.addIssue({ code: 'custom', message: 'STRUCTURED_FILE requires STRUCTURED_FILE, ASSISTED_IMPORT, or INTERNAL_TEST sourceMode', path: ['sourceMode'] });
   }
 
   if (capabilities.has('OAUTH_API_AUTHORIZATION') && !['OAUTH', 'OAUTH_SERVER_SIDE'].includes(descriptor.authorization.type)) {

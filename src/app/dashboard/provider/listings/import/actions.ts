@@ -7,7 +7,9 @@ import {
   ListingBridgeTestConnector,
   LISTINGBRIDGE_TEST_SOURCE_REFERENCE,
   LISTINGBRIDGE_TEST_CONNECTOR_ID,
+  createListingBridgePlatformConnectors,
 } from '@/lib/listingbridge/connectors';
+import type { ExternalConnectorInput } from '@/lib/listingbridge/connectors/external-connector-base';
 import { ListingBridgeReviewSnapshotEngine } from '@/lib/listingbridge/review/review-snapshot-engine';
 import { ListingBridgeDraftCreationService } from '@/lib/listingbridge/draft/draft-creation-service';
 import { ListingImportRepository } from '@/lib/listingbridge/repository/listing-import-repository';
@@ -56,6 +58,36 @@ export interface CreateNativeDraftActionResult {
   errorMessage?: string;
 }
 
+export interface AssistedImportInput extends Omit<ExternalConnectorInput, 'data'> {
+  readonly data?: string | Record<string, unknown>;
+}
+
+/** Processes provider-supplied content only; source URLs are references and never retrieval targets. */
+export async function processAssistedImportAction(connectorId: string, input: AssistedImportInput): Promise<StartImportActionResult> {
+  const session = await getServerSession(authOptions);
+  const user = session?.user as AuthSessionUser | undefined;
+  if (!user?.id) return { success: false, errorCode: 'UNAUTHENTICATED', errorMessage: 'You must be logged in to import a listing.' };
+
+  const connector = createListingBridgePlatformConnectors().find(value => value.descriptor.id === connectorId)?.connector;
+  if (!connector) return { success: false, errorCode: 'CONNECTOR_NOT_REGISTERED', errorMessage: 'This assisted source is not available.' };
+  const sourceReferenceHash = input.sourceReference ? Buffer.from(input.sourceReference).toString('hex').slice(0, 64) : `${connectorId}:provider-input`;
+  const prisma = getPrisma();
+  const importRepo = new ListingImportRepository(prisma);
+
+  try {
+    const { job } = await importRepo.createOrGetJob({ providerId: user.id, sourceConnector: connectorId, sourceTier: 'TIER_3_FILE', sourceReferenceHash, sourceReferenceLabel: input.sourceReferenceLabel, authorizationMethod: 'MANUAL_PROVIDER_INPUT', idempotencyKey: `assisted-${user.id}-${connectorId}-${sourceReferenceHash}` });
+    const canonicalContract = await connector.ingestProviderInput({ ...input, data: input.data }, user.id);
+    const sourceRecord = await importRepo.attachSource({ jobId: job.id, sourceConnector: connectorId, sourceTier: 'TIER_3_FILE', sourceMode: 'ASSISTED_IMPORT', connectorVersion: '1.1.0', authorizationMethod: 'MANUAL_PROVIDER_INPUT', sourceReferenceHash: canonicalContract.source.sourceReferenceHash, sourceReferenceLabel: input.sourceReferenceLabel, retrievedAt: new Date() });
+    await importRepo.saveCanonicalPayload(job.id, canonicalContract);
+    for (const [fieldName, confidence] of Object.entries(canonicalContract.fieldConfidence)) {
+      await importRepo.upsertField({ jobId: job.id, sourceId: sourceRecord.id, fieldName, normalizedValue: (canonicalContract.property as Record<string, unknown>)[fieldName], confidenceState: confidence.state, confidenceScore: confidence.score, authority: confidence.authority, isRequired: confidence.requiresProviderReview, isBlocking: confidence.state === 'MISSING' || confidence.state === 'CONFLICT', providerModified: false, validationState: confidence.state === 'MISSING' ? 'PENDING' : 'VALIDATED' });
+    }
+    return { success: true, jobId: job.id, snapshot: snapshotEngine.buildSnapshot({ importJobId: job.id, providerId: user.id, jobStatus: 'NEEDS_REVIEW', contract: canonicalContract, rights: { rightsConfirmed: false, isBlocking: true } }) };
+  } catch (err: unknown) {
+    return { success: false, errorCode: 'ASSISTED_IMPORT_FAILED', errorMessage: err instanceof Error ? err.message : String(err) };
+  }
+}
+
 /**
  * Initiates an import job in the database and builds the initial review snapshot.
  */
@@ -64,6 +96,16 @@ export async function startImportAction(connectorId: string): Promise<StartImpor
   const user = session?.user as AuthSessionUser | undefined;
   if (!user?.id) {
     return { success: false, errorCode: 'UNAUTHENTICATED', errorMessage: 'You must be logged in to import a listing.' };
+  }
+
+  if (connectorId !== LISTINGBRIDGE_TEST_CONNECTOR_ID) {
+    return {
+      success: false,
+      errorCode: connectorId === 'facebook.marketplace.assisted.v1' ? 'ASSISTED_IMPORT_REQUIRES_PROVIDER_DATA' : 'CONNECTOR_NOT_CONFIGURED',
+      errorMessage: connectorId === 'facebook.marketplace.assisted.v1'
+        ? 'Facebook Marketplace automated retrieval is disabled. Upload or enter listing data you are authorized to use.'
+        : 'This connector is not configured for the current environment.',
+    };
   }
 
   const prisma = getPrisma();
@@ -84,15 +126,11 @@ export async function startImportAction(connectorId: string): Promise<StartImpor
 
     let canonicalContract: CanonicalImportContract;
 
-    if (connectorId === LISTINGBRIDGE_TEST_CONNECTOR_ID || connectorId.includes('test')) {
+    if (connectorId === LISTINGBRIDGE_TEST_CONNECTOR_ID) {
       const testConnector = new ListingBridgeTestConnector();
       const rawListing = await testConnector.fetchListing(LISTINGBRIDGE_TEST_SOURCE_REFERENCE);
       canonicalContract = await testConnector.normalize(rawListing);
-    } else {
-      const testConnector = new ListingBridgeTestConnector();
-      const rawListing = await testConnector.fetchListing(LISTINGBRIDGE_TEST_SOURCE_REFERENCE);
-      canonicalContract = await testConnector.normalize(rawListing);
-    }
+    } else throw new Error('CONNECTOR_NOT_CONFIGURED');
 
     // Attach source to job
     try {

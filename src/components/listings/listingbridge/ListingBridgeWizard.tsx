@@ -13,6 +13,7 @@ import {
   saveCorrectionAction,
   confirmRightsAction,
   createNativeDraftAction,
+  processAssistedImportAction,
 } from '@/app/dashboard/provider/listings/import/actions';
 
 export type ListingBridgeWizardStage =
@@ -44,6 +45,8 @@ export default function ListingBridgeWizard({
     initialConnectors[0]?.id || 'internal.test.fixture',
   );
   const [rightsConfirmed, setRightsConfirmed] = useState<boolean>(false);
+  const [assistedSourceUrl, setAssistedSourceUrl] = useState<string>('');
+  const [assistedListingText, setAssistedListingText] = useState<string>('');
   const [activeSnapshot, setActiveSnapshot] = useState<ListingBridgeReviewSnapshot | null>(
     initialSnapshot,
   );
@@ -106,7 +109,9 @@ export default function ListingBridgeWizard({
     setCorrectionError('');
 
     try {
-      const res = await startImportAction(selectedConnectorId || 'internal.test.fixture');
+      const res = selectedConnectorId !== 'internal.test.fixture'
+        ? await processAssistedImportAction(selectedConnectorId, { type: 'PASTED_TEXT', data: assistedListingText, sourceReference: assistedSourceUrl || undefined })
+        : await startImportAction(selectedConnectorId);
       if (res.success && res.snapshot) {
         // Also persist rights confirmation
         await confirmRightsAction(res.snapshot.importJobId, {
@@ -265,6 +270,9 @@ export default function ListingBridgeWizard({
                   />
                 </div>
                 <p className="text-sm text-gray-600 mt-2">{connector.description}</p>
+                <p className={`mt-2 text-xs font-semibold ${connector.availabilityState === 'AVAILABLE' ? 'text-emerald-700' : 'text-amber-700'}`}>
+                  {connector.retrievalMode === 'ASSISTED' ? 'Provider-assisted import' : connector.availabilityState === 'AVAILABLE' ? 'Available' : 'Unavailable'}
+                </p>
                 <span className="mt-3 inline-block text-xs font-medium text-blue-700 bg-blue-100 px-2 py-0.5 rounded w-fit">
                   {connector.tier.replace(/_/g, ' ')}
                 </span>
@@ -314,6 +322,16 @@ export default function ListingBridgeWizard({
             Before importing details into RENTipid, please verify that you hold legitimate management authority
             for this property and own or have explicit permission to use all submitted photos and content.
           </p>
+
+          {selectedConnectorId !== 'internal.test.fixture' && (
+            <div className="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <label className="block text-sm font-semibold text-gray-800" htmlFor="assisted-source-url">Source URL reference (optional)</label>
+              <input id="assisted-source-url" type="url" value={assistedSourceUrl} onChange={(event) => setAssistedSourceUrl(event.target.value)} placeholder="https://..." className="w-full border border-gray-300 rounded-lg p-2.5 text-sm" />
+              <label className="block text-sm font-semibold text-gray-800" htmlFor="assisted-listing-text">Paste listing details</label>
+              <textarea id="assisted-listing-text" rows={6} value={assistedListingText} onChange={(event) => setAssistedListingText(event.target.value)} placeholder="Provide facts from the listing you manage." className="w-full border border-gray-300 rounded-lg p-2.5 text-sm" />
+              <p className="text-xs text-gray-600">Only submit information and media that you own or are authorized to use. RENTipid does not need your external-platform password.</p>
+            </div>
+          )}
 
           {correctionError && (
             <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg text-xs text-rose-800">

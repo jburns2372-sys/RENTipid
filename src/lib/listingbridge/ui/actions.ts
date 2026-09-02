@@ -4,6 +4,7 @@ import {
   ListingBridgeTestConnector,
   listingBridgeTestConnectorDescriptor,
   resolveListingBridgeEnvironment,
+  createListingBridgePlatformConnectors,
 } from '../connectors';
 import { isListingBridgeEnabled } from '../connectors/feature-flags';
 import { ListingBridgeReviewSnapshotEngine } from '../review/review-snapshot-engine';
@@ -22,6 +23,10 @@ export interface ConnectorOptionDTO {
   readonly tier: string;
   readonly supportedImportMethods: readonly string[];
   readonly requiresAuth: boolean;
+  readonly availabilityState: string;
+  readonly availabilityMessage?: string;
+  readonly retrievalMode?: string;
+  readonly automatedFetch?: boolean;
 }
 
 export interface ListingBridgeUiActionResponse<T> {
@@ -72,26 +77,35 @@ export class ListingBridgeUiService {
       this.registry ??
       createListingBridgeConnectorRegistry([
         { connector: testConnector, descriptor: listingBridgeTestConnectorDescriptor },
+        ...createListingBridgePlatformConnectors(),
       ]);
 
-    const enabled = await registry.listEnabledConnectors({ environment: currentEnvironment });
+    const registered = registry.listRegisteredConnectors();
 
-    const safeConnectors: ConnectorOptionDTO[] = enabled
+    const safeConnectors: ConnectorOptionDTO[] = (await Promise.all(registered
       .filter((c: ListingBridgePublicConnectorDescriptor) => {
         // Internal test connectors must never appear in true production
         if (isTrueProduction && c.id.includes('test')) return false;
         return true;
       })
-      .map((c: ListingBridgePublicConnectorDescriptor) => ({
+      .map(async (c: ListingBridgePublicConnectorDescriptor) => {
+        const availability = await registry.evaluateAvailability(c.id, { environment: currentEnvironment });
+        const retrievalMode = c.id === 'facebook.marketplace.assisted.v1' ? 'ASSISTED' : c.sourceMode;
+        return {
         id: c.id,
         name: c.displayName,
-        description: `Import listings from ${c.displayName}`,
+        description: retrievalMode === 'ASSISTED' ? `Import information from a ${c.displayName} listing you manage` : `Import listings from ${c.displayName}`,
         tier: c.tier,
         supportedImportMethods: [c.sourceMode],
         requiresAuth:
           c.capabilities.includes('PROVIDER_RIGHTS_CONFIRMATION') ||
           c.authorization.requiresProviderRightsConfirmation,
-      }));
+        availabilityState: availability.available ? 'AVAILABLE' : 'DISABLED',
+        availabilityMessage: availability.blockedReasons.join(', '),
+        retrievalMode,
+        automatedFetch: retrievalMode !== 'ASSISTED',
+        };
+      })) as ConnectorOptionDTO[]);
 
     return Object.freeze({
       success: true,

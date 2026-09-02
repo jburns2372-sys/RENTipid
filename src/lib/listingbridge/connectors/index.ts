@@ -6,3 +6,5 @@ export * from './registry';
 export * from './test-connector';
 export * from './seed';
 export * from './environment';
+export * from './external-connector-base';
+export * from './platform-connectors';
