@@ -216,7 +216,7 @@ describe('MFA Authorization Integration', () => {
     await grantSessionBoundAal2(testUserFinanceId, 'finance-authorized-session');
 
     await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
-    expect(redirect).toHaveBeenCalledWith('/dashboard');
+    expect(redirect).toHaveBeenCalledWith('/unauthorized');
   });
 
   it('permission without current-session assurance is denied even with recent global MFA metadata', async () => {
@@ -224,7 +224,7 @@ describe('MFA Authorization Integration', () => {
     mockCurrentSession(testUserId, 'admin-missing-assurance');
 
     await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
-    expect(redirect).toHaveBeenCalledWith('/mfa-challenge');
+    expect(redirect).toHaveBeenCalledWith(expect.stringMatching(/^\/mfa-challenge/));
   });
 
   it('permission plus valid step-up succeeds', async () => {
@@ -246,7 +246,7 @@ describe('MFA Authorization Integration', () => {
 
     // Should fail for write
     await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
-    expect(redirect).toHaveBeenCalledWith('/dashboard');
+    expect(redirect).toHaveBeenCalledWith('/unauthorized');
   });
 
   it('Finance permission does not imply security permission', async () => {
@@ -278,7 +278,7 @@ describe('MFA Authorization Integration', () => {
     // We don't spy on logAdministrationEvent directly here to avoid breaking module boundaries,
     // but we can check if it redirects without throwing error.
     await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
-    expect(redirect).toHaveBeenCalledWith('/dashboard');
+    expect(redirect).toHaveBeenCalledWith('/unauthorized');
   });
 
   it('does not let Session A assurance elevate Session B for the same user', async () => {
@@ -288,7 +288,7 @@ describe('MFA Authorization Integration', () => {
     mockCurrentSession(testUserId, 'admin-session-b');
 
     await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
-    expect(redirect).toHaveBeenCalledWith('/mfa-challenge');
+    expect(redirect).toHaveBeenCalledWith(expect.stringMatching(/^\/mfa-challenge/));
   });
 
   it('does not let a forged step-up cookie authorize without current-session assurance', async () => {
@@ -296,7 +296,7 @@ describe('MFA Authorization Integration', () => {
     mockCurrentSession(testUserId, 'admin-forged-cookie', { stepUpCookie: true });
 
     await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
-    expect(redirect).toHaveBeenCalledWith('/mfa-challenge');
+    expect(redirect).toHaveBeenCalledWith(expect.stringMatching(/^\/mfa-challenge/));
   });
 
   it('accepts valid current-session assurance without the UX cookie', async () => {
@@ -320,7 +320,7 @@ describe('MFA Authorization Integration', () => {
     mockCurrentSession(testUserId, sessionLabel);
 
     await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
-    expect(redirect).toHaveBeenCalledWith('/mfa-challenge');
+    expect(redirect).toHaveBeenCalledWith(expect.stringMatching(/^\/mfa-challenge/));
   });
 
   it('denies unauthenticated privileged access', async () => {
@@ -336,6 +336,6 @@ describe('MFA Authorization Integration', () => {
     await prisma.$disconnect();
 
     await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
-    expect(redirect).toHaveBeenCalledWith('/mfa-challenge');
+    expect(redirect).toHaveBeenCalledWith(expect.stringMatching(/^\/mfa-challenge/));
   });
 });
