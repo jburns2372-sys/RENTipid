@@ -131,3 +131,41 @@ PRODUCTION_DEPLOYED_DURING_G10: NO
 LIFECYCLE_PROGRESS: G1 PASS, G2 PASS, G3 PASS, G4 PASS, G5 PASS, G6 PASS, G7 PASS, G8 PASS, G9 PASS, G10 PASS
 NEXT_GATE: G11 ACCEPTED (Awaiting Owner/Business Acceptance)
 ```
+
+---
+
+## 7. Corrective Security Addendum (SOC MFA 404 & Reauthentication Loop Closure)
+
+**Date:** `2026-09-03`
+**Status:** `PASS — CORRECTIVE REVALIDATION COMPLETE`
+
+1. **Incident Context & G11 Hold:**
+   - Following initial technical completion, a navigation defect was discovered during live testing: entering a valid Google Authenticator code in the Security Operations Center (SOC) resulted in an immediate 404 redirect to `/dashboard`.
+   - Gate 11 (Business Acceptance) was immediately placed on hold pending full diagnosis and resolution.
+
+2. **Root Cause Analysis & Two-Stage Resolution:**
+   - **Defect 1 (Missing Return Target):** `requireSecurityPermission` redirected to `/mfa-challenge` without passing `callbackUrl`, causing fallback to non-existent `/dashboard`. Resolved in SHA `092b1049478cbfe7d9b6e7c8a1d8b410b4b7340c` using `getSafeInternalRedirect()`.
+   - **Defect 2 (Reauthentication Loop):** Post-MFA client transition using `router.push(safeTarget)` re-rendered the cached soft-redirect RSC payload (`CLIENT_ROUTER_STALE_AUTH_STATE`), presenting the challenge a second time. Resolved in SHA `e96159755bc8c51eefc3e9b9f275b01f35059aa0` by switching to server-authoritative document navigation via `window.location.assign(safeTarget)`.
+
+3. **Verification & Deployment Pipeline:**
+   - **Targeted Security Test Suite:** 3 suites, 32 tests passed 100% (`tests/security/mfa-soc-redirect.test.ts`, `tests/security/mfa-authorization.test.ts`, `tests/security/session-step-up.test.ts`).
+   - **Security Baseline Reconciliation:** Pre-existing historical baseline debt verified (38 suites / 165 tests failed at baseline vs 34 suites / 195 tests current); 0 hotfix-attributable regressions.
+   - **Preview Verification:** Deployed to `dpl_E9EbDHkQfu2FxNNDtTkJ643Pn2wV`; automated smoke passed 100%.
+   - **Production Hotfix Deployment:** Deployed to `dpl_AgSBE1aK7sBn9hxXvgzVj1mh9Gi9` (`https://www.rentipid.com.ph`); automated smoke passed 100%.
+   - **Owner Production OAT:** Personally tested by the Owner on live canonical production (`https://www.rentipid.com.ph`):
+     - Single valid TOTP code entered
+     - `Verify Identity` clicked once
+     - SOC opened immediately (`/dashboard/admin/security`)
+     - 0 intermediate 404
+     - 0 reauthentication loop
+     - 0 second clicks required
+     - Outcome: `PASS`
+
+4. **Final Corrective Determination:**
+   - **Critical Blockers:** 0
+   - **High Blockers:** 0
+   - **Application Security Fix SHA:** `e96159755bc8c51eefc3e9b9f275b01f35059aa0`
+   - **Active Production Deployment ID:** `dpl_AgSBE1aK7sBn9hxXvgzVj1mh9Gi9`
+   - **G10 COMPLETED:** `PASS`
+   - **TECHNICAL COMPLETION:** `YES`
+   - **CORRECTIVE FINAL STATUS:** `PASS`
