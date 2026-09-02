@@ -29,6 +29,7 @@ describe('RENTipid ListingBridge v1.1 — G2 Local Functional Verification', () 
         data: {
           name: 'Condo Suite',
           slug: 'condo-suite',
+          risk_level: 'LOW',
         },
       });
     }
@@ -233,7 +234,6 @@ describe('RENTipid ListingBridge v1.1 — G2 Local Functional Verification', () 
         capacity: { bedrooms: 1, guests: 2 },
       }),
       mimeType: 'application/json',
-      fileName: 'listing.json',
     }, providerId);
     expect(jsonFile.property.title).toBe('JSON Structured Condo');
 
@@ -242,7 +242,6 @@ describe('RENTipid ListingBridge v1.1 — G2 Local Functional Verification', () 
       type: 'STRUCTURED_FILE',
       data: 'title,description,price\nCSV Unit,Cozy condo,2500',
       mimeType: 'text/csv',
-      fileName: 'listing.csv',
     }, providerId);
     expect(csvFile.property.title).toBe('CSV Unit');
 
@@ -289,9 +288,8 @@ describe('RENTipid ListingBridge v1.1 — G2 Local Functional Verification', () 
       jobStatus: 'READY_FOR_DRAFT',
       contract,
       media: {
-        totalCandidateCount: 1,
+        totalCandidates: 1,
         validatedCount: 1,
-        pendingCount: 0,
         rejectedCount: 0,
         duplicateCount: 0,
         hasCoverPhoto: true,
@@ -301,13 +299,6 @@ describe('RENTipid ListingBridge v1.1 — G2 Local Functional Verification', () 
         rightsConfirmed: true,
         confirmedAt: new Date(),
         isBlocking: false,
-        attestation: {
-          ownsOrManagesProperty: true,
-          authorizedToSubmitImportedInformation: true,
-          hasImportedMediaReuseRights: true,
-          acceptsAccuracyResponsibility: true,
-          confirmedAt: new Date().toISOString(),
-        },
       },
     });
 
