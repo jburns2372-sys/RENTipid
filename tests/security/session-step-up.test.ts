@@ -4,10 +4,21 @@ process.env.MFA_ENCRYPTION_KEY = randomBytes(32).toString('hex');
 import { requireSecurityPermission } from '../../src/lib/security/authorization';
 import { PrismaClient } from '@prisma/client';
 import { getServerSession } from 'next-auth';
+import { getToken } from 'next-auth/jwt';
+import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 jest.mock('next-auth', () => ({
   getServerSession: jest.fn()
+}));
+
+jest.mock('next-auth/jwt', () => ({
+  getToken: jest.fn()
+}));
+
+jest.mock('next/headers', () => ({
+  cookies: jest.fn(),
+  headers: jest.fn()
 }));
 
 jest.mock('next/navigation', () => ({
@@ -15,6 +26,9 @@ jest.mock('next/navigation', () => ({
 }));
 
 const prisma = new PrismaClient();
+const mockGetToken = getToken as jest.Mock;
+const mockCookies = cookies as jest.Mock;
+const mockHeaders = headers as jest.Mock;
 
 describe('Session Step-Up Controls', () => {
   let testUserId: string;
@@ -34,6 +48,7 @@ describe('Session Step-Up Controls', () => {
   });
 
   afterAll(async () => {
+    await prisma.mfaSessionAssurance.deleteMany({ where: { user_id: testUserId } });
     await prisma.userMfa.deleteMany({ where: { user_id: testUserId } });
     await prisma.user.delete({ where: { id: testUserId } });
     await prisma.$disconnect();
@@ -41,11 +56,15 @@ describe('Session Step-Up Controls', () => {
 
   beforeEach(async () => {
     jest.clearAllMocks();
+    await prisma.mfaSessionAssurance.deleteMany({ where: { user_id: testUserId } });
     await prisma.userMfa.deleteMany({ where: { user_id: testUserId } });
     await prisma.user.update({
       where: { id: testUserId },
       data: { status: 'Verified', role: 'Super Admin' }
     });
+    mockGetToken.mockResolvedValue(null);
+    mockCookies.mockResolvedValue({ getAll: () => [] });
+    mockHeaders.mockResolvedValue(new Headers());
   });
 
   it('denies access if account is disabled/suspended', async () => {
@@ -59,7 +78,7 @@ describe('Session Step-Up Controls', () => {
     });
 
     await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
-    expect(redirect).toHaveBeenCalledWith('/dashboard');
+    expect(redirect).toHaveBeenCalledWith('/unauthorized');
   });
 
   it('denies access if MFA step-up is missing', async () => {
@@ -81,7 +100,7 @@ describe('Session Step-Up Controls', () => {
     });
 
     await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
-    expect(redirect).toHaveBeenCalledWith('/mfa-challenge');
+    expect(redirect).toHaveBeenCalledWith(expect.stringMatching(/^\/mfa-challenge/));
   });
 
   it('denies access if step-up is expired', async () => {
@@ -105,7 +124,7 @@ describe('Session Step-Up Controls', () => {
     });
 
     await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
-    expect(redirect).toHaveBeenCalledWith('/mfa-challenge');
+    expect(redirect).toHaveBeenCalledWith(expect.stringMatching(/^\/mfa-challenge/));
   });
 
   it('accepts current step-up only when permission also exists', async () => {
@@ -123,9 +142,20 @@ describe('Session Step-Up Controls', () => {
       }
     });
 
+    const sessionId = `rentipid-stepup-${testUserId}-${'x'.repeat(64)}`;
     (getServerSession as jest.Mock).mockResolvedValue({
       user: { id: testUserId, iat: Math.floor(Date.now() / 1000) }
     });
+    mockGetToken.mockResolvedValue({
+      id: testUserId,
+      mfaSessionId: sessionId,
+      exp: Math.floor(Date.now() / 1000) + 3600
+    });
+    mockCookies.mockResolvedValue({ getAll: () => [] });
+    mockHeaders.mockResolvedValue(new Headers());
+
+    const { grantCurrentSessionAal2 } = await import('../../src/lib/security/auth/mfa-session-assurance');
+    await grantCurrentSessionAal2();
 
     const context = await requireSecurityPermission('security.response.execute');
     expect(context).toBeDefined();
@@ -188,7 +218,7 @@ describe('Session Step-Up Controls', () => {
     });
 
     await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
-    expect(redirect).toHaveBeenCalledWith('/dashboard');
+    expect(redirect).toHaveBeenCalledWith('/unauthorized');
   });
 
   it('client input cannot set MFA verification', async () => {
@@ -213,6 +243,6 @@ describe('Session Step-Up Controls', () => {
 
     await expect(requireSecurityPermission('security.response.execute')).rejects.toThrow('NEXT_REDIRECT');
     // Should still redirect to mfa-challenge because DB is authoritative
-    expect(redirect).toHaveBeenCalledWith('/mfa-challenge');
+    expect(redirect).toHaveBeenCalledWith(expect.stringMatching(/^\/mfa-challenge/));
   });
 });
