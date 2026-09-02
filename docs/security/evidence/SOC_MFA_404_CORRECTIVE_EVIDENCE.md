@@ -4,7 +4,7 @@
 **Status:** `PASS_PREVIEW`  
 **Classification:** `MEDIUM` (Navigation/Redirect Defect; MFA Security & Assurance Invariants Fully Intact)  
 **Branch:** `feature/listingbridge-v1.1-assisted-imports`  
-**Fix Application Source SHA:** `092b1049ad4cb96a1eb1d4ee5a40b3ffebba30e0`  
+**Fix Application Source SHA:** `092b1049478cbfe7d9b6e7c8a1d8b410b4b7340c`  
 **Preview Deployment ID:** `dpl_AaYMLakZWM9ueDGvAWAQL1NKxWs3`  
 **Preview URL:** `https://ren-tipid-kgyszkef4-jburns2372-sys-projects.vercel.app`  
 **Date:** `2026-09-02`  
@@ -71,7 +71,7 @@ When users accessed the Security Operations Center (`/dashboard/admin/security`)
 
 ## 5. Governance & Next Steps
 
-- **Fix Application Source SHA:** `092b1049ad4cb96a1eb1d4ee5a40b3ffebba30e0`
+- **Fix Application Source SHA:** `092b1049478cbfe7d9b6e7c8a1d8b410b4b7340c`
 - **Preview Deployment ID:** `dpl_AaYMLakZWM9ueDGvAWAQL1NKxWs3`
 - **G10 Revalidation Requirement:** `G10_CORRECTIVE_REVALIDATION_REQUIRED: YES`
 - **Next Gate:** Controlled Production Security Hotfix + G10 Corrective Revalidation.
