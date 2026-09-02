@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ShieldCheck, AlertCircle } from "lucide-react";
+import { getSafeInternalRedirect } from "@/lib/security/auth/safe-redirect";
 
 export default function MfaChallengePage() {
   const [token, setToken] = useState("");
@@ -28,16 +29,12 @@ export default function MfaChallengePage() {
         throw new Error(data.error || "Failed to verify MFA");
       }
       
-      // Verification successful, return user to the originally protected destination where existing authorization flow supports it.
+      // Verification successful, return user to the originally protected destination.
       const urlParams = new URLSearchParams(window.location.search);
-      let callbackUrl = urlParams.get("callbackUrl") || "/dashboard";
+      const rawCallbackUrl = urlParams.get("callbackUrl");
+      const safeTarget = getSafeInternalRedirect(rawCallbackUrl, "/dashboard/admin/security");
       
-      // Ensure the redirect is relative and not an open redirect vulnerability
-      if (!callbackUrl.startsWith("/")) {
-        callbackUrl = "/dashboard";
-      }
-      
-      router.push(callbackUrl);
+      router.push(safeTarget);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to verify MFA");
     } finally {

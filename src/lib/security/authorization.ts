@@ -11,6 +11,8 @@ import {
   requireCurrentSessionAal2,
 } from "./auth/mfa-session-assurance";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { getSafeInternalRedirect } from "./auth/safe-redirect";
 
 const prisma = new PrismaClient();
 
@@ -185,14 +187,14 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
     const policyResult = await assertAccountAllowedForSocAccess(dbUser);
     if (!policyResult.allowed) {
       await recordSecurityAccessDenied(dbUser.id, policyResult.reason as DenialCategory, permission);
-      redirect("/dashboard"); // Redirect unauthorized verified users to standard dashboard
+      redirect("/unauthorized"); // Redirect unauthorized verified users to unauthorized page
     }
 
     // 3. Permission evaluation
     const activePermissions = policyResult.permissions!;
     if (!canAccessSecurityPermission(activePermissions, permission)) {
       await recordSecurityAccessDenied(dbUser.id, "SOC_ACCESS_DENIED_PERMISSION", permission);
-      redirect("/dashboard");
+      redirect("/unauthorized");
     }
 
     // 4. Step-up Authentication Enforcement
@@ -215,14 +217,28 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
       redirect("/mfa-enroll");
     }
 
+    // Determine current path for post-MFA return target
+    let currentPath = "/dashboard/admin/security";
+    try {
+      const headerList = await headers();
+      const detected = headerList.get("x-current-path");
+      if (detected && detected.startsWith("/")) {
+        currentPath = detected;
+      }
+    } catch {
+      // In non-RSC or unit test contexts where headers() may throw
+    }
+    const safeReturnTarget = getSafeInternalRedirect(currentPath, "/dashboard/admin/security");
+    const mfaChallengeUrl = `/mfa-challenge?callbackUrl=${encodeURIComponent(safeReturnTarget)}`;
+
     try {
       const assurance = await requireCurrentSessionAal2();
       if (assurance.userId !== dbUser.id) {
-        redirect("/mfa-challenge");
+        redirect(mfaChallengeUrl);
       }
     } catch (error) {
       if (error instanceof MfaSessionAssuranceRequiredError) {
-        redirect("/mfa-challenge");
+        redirect(mfaChallengeUrl);
       }
       throw error;
     }
@@ -236,7 +252,7 @@ export async function requireSecurityPermission(permission: SecurityPermission) 
     }
     // Any unexpected authorization service failure fails closed
     console.error("Authorization Service Failure");
-    redirect("/dashboard");
+    redirect("/unauthorized");
   }
 }
 
