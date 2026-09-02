@@ -1,12 +1,18 @@
-# Security Operations Center (SOC) MFA 404 Corrective Diagnosis & Fix Evidence
+# Security Operations Center (SOC) MFA 404 Corrective Diagnosis, Fix & Production Verification Evidence
 
 **Document ID:** `RENTIPID-SEC-SOC-MFA-404-001`  
-**Status:** `PASS_PREVIEW`  
+**Status:** `PASS_PRODUCTION_TECHNICAL`  
 **Classification:** `MEDIUM` (Navigation/Redirect Defect; MFA Security & Assurance Invariants Fully Intact)  
 **Branch:** `feature/listingbridge-v1.1-assisted-imports`  
 **Fix Application Source SHA:** `092b1049478cbfe7d9b6e7c8a1d8b410b4b7340c`  
+**Evidence Correction SHA:** `54699292c3a503a4ebc459caea2e584f27f0525d`  
 **Preview Deployment ID:** `dpl_AaYMLakZWM9ueDGvAWAQL1NKxWs3`  
 **Preview URL:** `https://ren-tipid-kgyszkef4-jburns2372-sys-projects.vercel.app`  
+**Production Deployment ID:** `dpl_6cPAT7gm25sxnwyNKVgLUcG7viUM`  
+**Production Deployment URL:** `https://ren-tipid-5h3ish60o-jburns2372-sys-projects.vercel.app`  
+**Production Canonical URL:** `https://www.rentipid.com.ph`  
+**Production Source HEAD:** `11097fbef0b3d8816fb8e154fce01c626cb839b2`  
+**Production Database Branch:** `rentipid-production` (`br-proud-sunset-ap0ofil2`) on project `holy-shape-01357429`  
 **Date:** `2026-09-02`  
 
 ---
@@ -47,6 +53,7 @@ When users accessed the Security Operations Center (`/dashboard/admin/security`)
 ## 3. Targeted Test Suite & Local Validation
 
 - **Unit Test Suite:** `tests/security/mfa-soc-redirect.test.ts` (9 tests passing).
+- **MFA Authorization Suite:** `tests/security/mfa-authorization.test.ts` (15 tests passing).
 - **TypeScript Typecheck:** `npm run typecheck` (PASS, 0 errors).
 - **Production Build:** `npm run build` (PASS, exit code 0).
 - **Targeted ESLint:** 0 errors, 0 warnings across all modified and new files.
@@ -55,7 +62,7 @@ When users accessed the Security Operations Center (`/dashboard/admin/security`)
 
 ---
 
-## 4. Preview Deployment & Browser Flow Verification
+## 4. Preview Deployment Verification
 
 | Check | Deployed Preview Result | Status |
 | :--- | :--- | :---: |
@@ -69,9 +76,25 @@ When users accessed the Security Operations Center (`/dashboard/admin/security`)
 
 ---
 
-## 5. Governance & Next Steps
+## 5. Controlled Production Deployment & Automated Verification
 
-- **Fix Application Source SHA:** `092b1049478cbfe7d9b6e7c8a1d8b410b4b7340c`
-- **Preview Deployment ID:** `dpl_AaYMLakZWM9ueDGvAWAQL1NKxWs3`
-- **G10 Revalidation Requirement:** `G10_CORRECTIVE_REVALIDATION_REQUIRED: YES`
-- **Next Gate:** Controlled Production Security Hotfix + G10 Corrective Revalidation.
+| Check | Production Target (`https://www.rentipid.com.ph`) | Status |
+| :--- | :--- | :---: |
+| **Production Health API** | HTTP 200 (`status: ready, database: connected`) | **PASS** |
+| **Production Database Binding** | Neon `holy-shape-01357429` / `rentipid-production` (`br-proud-sunset-ap0ofil2`) | **PASS** |
+| **Production DB Mutated** | `NO` (0 schema migrations, 0 reseed) | **PASS** |
+| **Unauthenticated SOC Protection** | `/dashboard/admin/security` -> HTTP 307 (Location: `/login?callbackUrl=%2Fdashboard%2Fadmin%2Fsecurity`) | **PASS** |
+| **MFA Challenge Route** | `/mfa-challenge?callbackUrl=...` -> HTTP 200 | **PASS** |
+| **Invalid TOTP Rejection** | `/api/auth/mfa/verify` returns HTTP 401 | **PASS** |
+| **ListingBridge Smoke Check** | `/dashboard/provider/listings/import` -> HTTP 307 | **PASS** |
+| **Manual Listing Smoke Check** | `/dashboard/provider/listings/new` -> HTTP 307 | **PASS** |
+| **Open Redirect Vulnerability** | `ABSENT` (strict relative path validation) | **PASS** |
+| **New Critical / High Errors** | `0` | **PASS** |
+
+---
+
+## 6. G10 Corrective Technical Revalidation Summary
+
+- **G10 Technical Revalidation:** `PASS`
+- **Owner Production OAT Status:** `PENDING` (manual login & TOTP validation on live environment)
+- **G11 Started:** `NO`
