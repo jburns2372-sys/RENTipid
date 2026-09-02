@@ -1,7 +1,7 @@
 # Security Operations Center (SOC) MFA 404 & Reauthentication Loop Diagnosis, Fix & Verification Evidence
 
 **Document ID:** `RENTIPID-SEC-SOC-MFA-404-001`  
-**Status:** `PASS_PREVIEW`  
+**Status:** `PASS_PRODUCTION_TECHNICAL`  
 **Classification:** `MEDIUM` (Navigation / Client Router Caching Defect; MFA Security & Assurance Invariants Fully Intact)  
 **Branch:** `feature/listingbridge-v1.1-assisted-imports`  
 **New Security Application SHA:** `e96159755bc8c51eefc3e9b9f275b01f35059aa0`  
@@ -9,10 +9,12 @@
 **Evidence Correction SHA:** `546992994d6456500b4ca745a6a116f971a39ec7`  
 **Preview Deployment ID:** `dpl_E9EbDHkQfu2FxNNDtTkJ643Pn2wV`  
 **Preview URL:** `https://ren-tipid-q8q8107vv-jburns2372-sys-projects.vercel.app`  
-**Production Deployment ID:** `dpl_6cPAT7gm25sxnwyNKVgLUcG7viUM` (Pending Hotfix Promotion)  
+**Production Deployment ID:** `dpl_AgSBE1aK7sBn9hxXvgzVj1mh9Gi9`  
+**Production Deployment URL:** `https://ren-tipid-oij4jb94g-jburns2372-sys-projects.vercel.app`  
 **Production Canonical URL:** `https://www.rentipid.com.ph`  
-**Owner Production OAT:** `FAIL` (Observed MFA reauthentication loop on dpl_6cPAT7gm25sxnwyNKVgLUcG7viUM prior to fresh navigation fix)  
-**Date:** `2026-09-02`  
+**Production Source Git SHA:** `e96159755bc8c51eefc3e9b9f275b01f35059aa0`  
+**Production Database Branch:** `rentipid-production` (`br-proud-sunset-ap0ofil2`) on project `holy-shape-01357429`  
+**Date:** `2026-09-03`  
 
 ---
 
@@ -74,10 +76,26 @@
 
 ---
 
-## 5. Lifecycle Status
+## 5. Controlled Production Deployment & Automated Smoke (`dpl_AgSBE1aK7sBn9hxXvgzVj1mh9Gi9`)
 
-- **Corrective Status:** `PASS_PREVIEW`
-- **Owner Production OAT:** `FAIL` (on previous build; ready for controlled production hotfix)
-- **Production Redeployed:** `NO`
-- **G10 Final Status:** `BLOCKED_PENDING_PRODUCTION_HOTFIX`
+| Check | Production Target (`https://www.rentipid.com.ph`) | Status |
+| :--- | :--- | :---: |
+| **Production Health API** | HTTP 200 (`status: ready, database: connected`) | **PASS** |
+| **Production Database Binding** | Neon `holy-shape-01357429` / `rentipid-production` (`br-proud-sunset-ap0ofil2`) | **PASS** |
+| **Production DB Mutated** | `NO` (0 schema migrations, 0 reseed) | **PASS** |
+| **Unauthenticated SOC Protection** | `/dashboard/admin/security` -> HTTP 307 (Location: `/login?callbackUrl=%2Fdashboard%2Fadmin%2Fsecurity`) | **PASS** |
+| **MFA Challenge Route** | `/mfa-challenge?callbackUrl=...` -> HTTP 200 | **PASS** |
+| **Invalid TOTP Rejection** | `/api/auth/mfa/verify` returns HTTP 401 | **PASS** |
+| **ListingBridge Smoke Check** | `/dashboard/provider/listings/import` -> HTTP 307 | **PASS** |
+| **Manual Listing Smoke Check** | `/dashboard/provider/listings/new` -> HTTP 307 | **PASS** |
+| **Open Redirect Vulnerability** | `ABSENT` (strict relative path validation) | **PASS** |
+| **Production Logs (Vercel)** | 0 Critical / 0 High Errors | **PASS** |
+
+---
+
+## 6. Lifecycle & Acceptance Status
+
+- **Technical Revalidation:** `PASS`
+- **Owner Production OAT:** `PENDING` (manual login & TOTP verification on live canonical site)
+- **G10 Corrective Final Status:** `PENDING_OWNER_OAT`
 - **G11 Started:** `NO`
