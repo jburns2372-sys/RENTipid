@@ -35,6 +35,7 @@ export default function UserNavMenu({ user, dashboardLink }: UserNavMenuProps) {
       >
         <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold overflow-hidden border border-blue-200">
           {user.image ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
             <img src={user.image} alt={user.name || 'User'} className="h-full w-full object-cover" />
           ) : (
             user.name ? user.name.charAt(0).toUpperCase() : 'U'
@@ -61,6 +62,9 @@ export default function UserNavMenu({ user, dashboardLink }: UserNavMenuProps) {
           </Link>
           <Link href="/dashboard/profile?tab=security" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setIsOpen(false)}>
             Security
+          </Link>
+          <Link href="/account/sessions" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setIsOpen(false)}>
+            Active Sessions
           </Link>
           
           <div className="border-t border-gray-100 mt-1"></div>

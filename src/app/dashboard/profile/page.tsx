@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/prisma';
 import ProfileFormClient, { ExtendedUserProfile, ExtendedBusinessProfile } from '@/components/profile/ProfileFormClient';
 import { AddressService } from '@/lib/address/AddressService';
+import { isSyntheticIdentityEmail, resolveProfileDisplayEmail } from '@/lib/auth/unified/display-email';
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
@@ -12,8 +13,17 @@ export default async function ProfilePage() {
 
   let userProfile: ExtendedUserProfile | null = null;
   let businessProfile: ExtendedBusinessProfile | null = null;
+  let providerIdentities: { id: string; provider: string; email: string | null; email_verified: boolean }[] = [];
 
   if (user?.id) {
+    if (isSyntheticIdentityEmail(user.email)) {
+      providerIdentities = await prisma.authProviderIdentity.findMany({
+        where: { user_id: user.id },
+        select: { id: true, provider: true, email: true, email_verified: true },
+        orderBy: [{ email_verified: 'desc' }, { provider: 'asc' }, { id: 'asc' }],
+      });
+    }
+
     userProfile = await prisma.userProfile.findUnique({ 
       where: { user_id: user.id },
       include: { global_address: true }
@@ -31,6 +41,8 @@ export default async function ProfilePage() {
     }
   }
 
+  const displayEmail = resolveProfileDisplayEmail(user?.email, providerIdentities);
+
   return (
     <div className="container mx-auto py-12 px-4 max-w-4xl">
       <h1 className="text-3xl font-bold mb-8">My Profile</h1>
@@ -45,7 +57,7 @@ export default async function ProfilePage() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-500 mb-1">Email Address</label>
-            <p className="font-medium text-gray-900">{user?.email}</p>
+            <p className="font-medium text-gray-900">{displayEmail}</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-500 mb-1">Account Role</label>

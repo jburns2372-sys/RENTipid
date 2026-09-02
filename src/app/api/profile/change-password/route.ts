@@ -9,6 +9,7 @@ import {
   MfaSessionAssuranceRequiredError,
   requireCurrentSessionAal2,
 } from '@/lib/security/auth/mfa-session-assurance';
+import { revokeAllUserSessions } from '@/lib/auth/session-registry';
 
 const prisma = new PrismaClient();
 
@@ -33,6 +34,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     const userId = (session.user as {id?: string}).id;
+    if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     await requireCurrentSessionAal2();
 
     const body = await req.json();
@@ -45,10 +47,14 @@ export async function POST(req: Request) {
     const { currentPassword, newPassword } = validatedData.data;
 
     const user = await prisma.user.findUnique({
-      where: { id: userId }
+      where: { id: userId },
+      select: {
+        password_hash: true,
+        emailCredential: { select: { user_id: true } },
+      },
     });
 
-    if (!user || !user.password_hash) {
+    if (!user || !user.password_hash || !user.emailCredential) {
       return NextResponse.json({ error: 'Invalid user or authentication method' }, { status: 400 });
     }
 
@@ -65,10 +71,21 @@ export async function POST(req: Request) {
 
     const newHash = await bcrypt.hash(newPassword, 12);
 
-    await prisma.user.update({
-      where: { id: userId },
-      data: { password_hash: newHash }
+    const passwordChangedAt = new Date();
+    await prisma.$transaction(async (tx) => {
+      await tx.user.update({
+        where: { id: userId },
+        data: { password_hash: newHash },
+      });
+      await tx.emailCredential.update({
+        where: { user_id: userId },
+        data: {
+          password_hash: newHash,
+          password_changed_at: passwordChangedAt,
+        },
+      });
     });
+    await revokeAllUserSessions(userId);
 
     await createAuditLog({
       actor_user_id: userId,
