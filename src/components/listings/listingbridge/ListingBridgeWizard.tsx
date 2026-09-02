@@ -1,12 +1,19 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import type { ConnectorOptionDTO } from '@/lib/listingbridge/ui/actions';
 import type {
   ListingBridgeReviewSnapshot,
   ReviewFieldModel,
 } from '@/lib/listingbridge/review/types';
 import type { ListingBridgeConfidenceState } from '@/lib/listingbridge/types/canonical-contract';
+import {
+  startImportAction,
+  saveCorrectionAction,
+  confirmRightsAction,
+  createNativeDraftAction,
+} from '@/app/dashboard/provider/listings/import/actions';
 
 export type ListingBridgeWizardStage =
   | 'SOURCE_SELECTION'
@@ -34,7 +41,7 @@ export default function ListingBridgeWizard({
     initialSnapshot ? 'REVIEW_DETAILS' : 'SOURCE_SELECTION',
   );
   const [selectedConnectorId, setSelectedConnectorId] = useState<string>(
-    initialConnectors[0]?.id || '',
+    initialConnectors[0]?.id || 'internal.test.fixture',
   );
   const [rightsConfirmed, setRightsConfirmed] = useState<boolean>(false);
   const [activeSnapshot, setActiveSnapshot] = useState<ListingBridgeReviewSnapshot | null>(
@@ -92,110 +99,35 @@ export default function ListingBridgeWizard({
     setStage('RIGHTS_CONFIRMATION');
   };
 
-  const handleConfirmRights = () => {
+  const handleConfirmRights = async () => {
     if (!rightsConfirmed) return;
     setStage('IMPORTING');
+    setIsSubmitting(true);
+    setCorrectionError('');
 
-    // Simulate progress transition in client for demonstration/test
-    setTimeout(() => {
-      if (!activeSnapshot) {
-        // Sample baseline snapshot for demonstration
-        const sampleSnapshot: ListingBridgeReviewSnapshot = {
-          importJobId: 'job-lb-demo-001',
-          providerId: 'provider-current',
-          jobStatus: 'NEEDS_REVIEW',
-          fields: [
-            {
-              fieldName: 'title',
-              displayName: 'Listing Title',
-              normalizedValue: 'Spacious 2BR Suite near Ayala Triangle',
-              confidenceState: 'HIGH_CONFIDENCE',
-              isRequired: true,
-              isBlocking: false,
-              providerModified: false,
-              validationState: 'VALIDATED',
-              allowedActions: ['CONFIRM', 'EDIT'],
-            },
-            {
-              fieldName: 'description',
-              displayName: 'Description',
-              normalizedValue: 'Cozy two-bedroom unit with fast WiFi, air conditioning, and city view.',
-              confidenceState: 'HIGH_CONFIDENCE',
-              isRequired: true,
-              isBlocking: false,
-              providerModified: false,
-              validationState: 'VALIDATED',
-              allowedActions: ['CONFIRM', 'EDIT'],
-            },
-            {
-              fieldName: 'propertyType',
-              displayName: 'Property Type',
-              normalizedValue: 'condominiums',
-              confidenceState: 'REVIEW_RECOMMENDED',
-              isRequired: true,
-              isBlocking: false,
-              providerModified: false,
-              validationState: 'VALIDATED',
-              allowedActions: ['CONFIRM', 'EDIT'],
-            },
-          ],
-          unresolvedItems: [],
-          media: {
-            totalCandidates: 2,
-            validatedCount: 2,
-            rejectedCount: 0,
-            duplicateCount: 0,
-            hasCoverPhoto: true,
-            isBlocking: false,
-          },
-          location: {
-            normalizedAddress: {
-              addressLine1: 'Ayala Avenue',
-              addressLine2: null,
-              sublocality: null,
-              locality: 'Makati',
-              administrativeArea2: null,
-              administrativeArea1: 'Metro Manila',
-              postalCode: '1226',
-              countryCode: 'PH',
-              formattedAddress: 'Ayala Avenue, Makati, Metro Manila',
-              latitude: 14.5547,
-              longitude: 121.0244,
-              provider: 'MANUAL',
-              providerPlaceId: null,
-              validationStatus: 'VERIFIED',
-              validationLevel: null,
-              manuallyEdited: false,
-              validatedAt: null,
-            },
-            isWithinPhilippineBounds: true,
-            conflicts: [],
-            isBlocking: false,
-            requiresReview: false,
-          },
-          duplicate: {
-            matchLevel: 'NO_MATCH',
-            confidenceScore: 0,
-            signals: [],
-            isBlocking: false,
-            requiresReview: false,
-          },
-          rights: {
-            rightsConfirmed: true,
-            isBlocking: false,
-          },
-          readiness: {
-            isReadyForDraft: true,
-            blockingReasons: [],
-            warningReasons: ['Field propertyType is recommended for review'],
-            resolvedFieldsCount: 3,
-            unresolvedBlockingCount: 0,
-          },
-        };
-        setActiveSnapshot(sampleSnapshot);
+    try {
+      const res = await startImportAction(selectedConnectorId || 'internal.test.fixture');
+      if (res.success && res.snapshot) {
+        // Also persist rights confirmation
+        await confirmRightsAction(res.snapshot.importJobId, {
+          ownsOrManagesProperty: true,
+          authorizedToSubmitImportedInformation: true,
+          hasImportedMediaReuseRights: true,
+          acceptsAccuracyResponsibility: true,
+        });
+        setActiveSnapshot(res.snapshot);
+        setStage('REVIEW_DETAILS');
+      } else {
+        setCorrectionError(res.errorMessage || 'Failed to start import.');
+        setStage('RIGHTS_CONFIRMATION');
       }
-      setStage('REVIEW_DETAILS');
-    }, 600);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setCorrectionError(msg);
+      setStage('RIGHTS_CONFIRMATION');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleOpenEdit = (field: ReviewFieldModel) => {
@@ -205,7 +137,7 @@ export default function ListingBridgeWizard({
     setCorrectionError('');
   };
 
-  const handleSaveCorrection = () => {
+  const handleSaveCorrection = async () => {
     if (!editingField || !activeSnapshot) return;
 
     if (!editValue.trim()) {
@@ -216,36 +148,26 @@ export default function ListingBridgeWizard({
     setIsSubmitting(true);
     setCorrectionError('');
 
-    // Update field locally and recompute readiness
-    const updatedFields = activeSnapshot.fields.map((f) => {
-      if (f.fieldName === editingField.fieldName) {
-        return {
-          ...f,
-          normalizedValue: editValue.trim(),
-          confidenceState: 'VERIFIED' as const,
-          providerModified: true,
-          validationState: 'VALIDATED' as const,
-          isBlocking: false,
-        };
+    try {
+      const res = await saveCorrectionAction(
+        activeSnapshot.importJobId,
+        editingField.fieldName,
+        editValue.trim(),
+        activeSnapshot,
+      );
+
+      if (res.success && res.snapshot) {
+        setActiveSnapshot(res.snapshot);
+        setEditingField(null);
+      } else {
+        setCorrectionError(res.errorMessage || 'Failed to save correction.');
       }
-      return f;
-    });
-
-    const updatedSnapshot: ListingBridgeReviewSnapshot = {
-      ...activeSnapshot,
-      fields: updatedFields,
-      readiness: {
-        ...activeSnapshot.readiness,
-        isReadyForDraft: true,
-        blockingReasons: activeSnapshot.readiness.blockingReasons.filter(
-          (r) => !r.includes(editingField.fieldName),
-        ),
-      },
-    };
-
-    setActiveSnapshot(updatedSnapshot);
-    setEditingField(null);
-    setIsSubmitting(false);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setCorrectionError(msg);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleProceedToDraftReady = () => {
@@ -256,6 +178,32 @@ export default function ListingBridgeWizard({
         importJobId: activeSnapshot.importJobId,
         isReady: true,
       });
+    }
+  };
+
+  const handleCreateDraft = async () => {
+    if (!activeSnapshot || isSubmitting) return;
+    setIsSubmitting(true);
+    setCorrectionError('');
+
+    try {
+      const res = await createNativeDraftAction(activeSnapshot.importJobId, activeSnapshot);
+      if (res.success && res.listingId) {
+        setCreatedListingId(res.listingId);
+        if (onDraftCreated) {
+          onDraftCreated({
+            listingId: res.listingId,
+            importJobId: activeSnapshot.importJobId,
+          });
+        }
+      } else {
+        setCorrectionError(res.errorMessage || 'Draft creation failed.');
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setCorrectionError(msg);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -271,7 +219,7 @@ export default function ListingBridgeWizard({
             Bring an Existing Listing into RENTipid
           </h1>
         </div>
-        {onManualFallback && (
+        {onManualFallback ? (
           <button
             type="button"
             onClick={onManualFallback}
@@ -279,6 +227,13 @@ export default function ListingBridgeWizard({
           >
             ← Build listing manually instead
           </button>
+        ) : (
+          <Link
+            href="/dashboard/provider/listings/new"
+            className="text-sm font-medium text-gray-600 hover:text-gray-900 underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1"
+          >
+            ← Build listing manually instead
+          </Link>
         )}
       </div>
 
@@ -317,20 +272,23 @@ export default function ListingBridgeWizard({
             ))}
 
             {/* Manual listing fallback card */}
-            <div
+            <Link
+              href="/dashboard/provider/listings/new"
               onClick={onManualFallback}
-              className="flex flex-col p-4 border border-dashed border-gray-300 rounded-xl hover:border-gray-400 bg-gray-50/60 cursor-pointer transition justify-between"
+              className="flex flex-col p-4 border border-dashed border-gray-300 rounded-xl hover:border-gray-400 bg-gray-50/60 cursor-pointer transition justify-between group focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <div>
-                <div className="font-semibold text-gray-900">Create New Listing Directly</div>
+                <div className="font-semibold text-gray-900 group-hover:text-blue-600 transition">
+                  Create New Listing Directly
+                </div>
                 <p className="text-sm text-gray-600 mt-2">
                   Start fresh with our step-by-step listing creation wizard.
                 </p>
               </div>
-              <span className="mt-3 text-xs font-semibold text-gray-700 underline">
+              <span className="mt-3 text-xs font-semibold text-gray-700 underline group-hover:text-blue-600">
                 Open standard wizard →
               </span>
-            </div>
+            </Link>
           </div>
 
           <div className="flex justify-end pt-4">
@@ -357,6 +315,12 @@ export default function ListingBridgeWizard({
             for this property and own or have explicit permission to use all submitted photos and content.
           </p>
 
+          {correctionError && (
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg text-xs text-rose-800">
+              {correctionError}
+            </div>
+          )}
+
           <div className="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
             <label className="flex items-start gap-3 cursor-pointer">
               <input
@@ -382,10 +346,10 @@ export default function ListingBridgeWizard({
             <button
               type="button"
               onClick={handleConfirmRights}
-              disabled={!rightsConfirmed}
+              disabled={!rightsConfirmed || isSubmitting}
               className="px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:opacity-50 transition"
             >
-              Begin Secure Import
+              {isSubmitting ? 'Starting Import...' : 'Begin Secure Import'}
             </button>
           </div>
         </section>
@@ -448,75 +412,55 @@ export default function ListingBridgeWizard({
             </div>
           )}
 
-          {/* Duplicate Notice */}
-          {activeSnapshot.duplicate.matchLevel !== 'NO_MATCH' && (
-            <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 space-y-1">
-              <div className="font-bold">ℹ️ Property Duplicate Intelligence</div>
-              <p className="text-sm">
-                Possible existing listing match detected ({activeSnapshot.duplicate.matchLevel}).
-              </p>
-            </div>
-          )}
-
-          {/* Fields Review Table/Cards */}
+          {/* Fields Review Table */}
           <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
-            <div className="px-6 py-4 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
-              <h2 id="review-heading" className="font-bold text-gray-900">
-                Imported Listing Information
-              </h2>
-              <span className="text-xs text-gray-500">
-                Job ID: {activeSnapshot.importJobId}
-              </span>
+            <div className="p-4 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
+              <h3 className="font-bold text-gray-900">Extracted & Normalized Information</h3>
+              <span className="text-xs text-gray-500 font-mono">Job: {activeSnapshot.importJobId}</span>
             </div>
 
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-gray-200">
               {activeSnapshot.fields.map((field) => (
-                <div
-                  key={field.fieldName}
-                  className="p-4 sm:px-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 hover:bg-gray-50/50 transition"
-                >
-                  <div className="space-y-1 max-w-xl">
+                <div key={field.fieldName} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="space-y-1 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-sm text-gray-900">
-                        {field.displayName}
-                      </span>
+                      <span className="font-semibold text-sm text-gray-900">{field.displayName}</span>
+                      {field.isRequired && (
+                        <span className="text-xs text-rose-500 font-bold">*Required</span>
+                      )}
                       {getBadgeForConfidence(field.confidenceState)}
-                      {field.providerModified && (
-                        <span className="text-xs text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200">
-                          Edited by you
-                        </span>
-                      )}
                     </div>
-                    <div className="text-sm text-gray-700 break-words">
-                      {field.confidenceState === 'PROHIBITED' ? (
-                        <span className="text-gray-400 italic">
-                          This field cannot be imported under RENTipid safety policy.
-                        </span>
-                      ) : (
-                        typeof field.normalizedValue === 'object'
+                    <p className="text-sm text-gray-700">
+                      {typeof field.normalizedValue === 'string'
+                        ? field.normalizedValue
+                        : field.normalizedValue
                           ? JSON.stringify(field.normalizedValue)
-                          : String(field.normalizedValue || '(None)')
-                      )}
-                    </div>
+                          : <span className="text-gray-400 italic">Not provided</span>}
+                    </p>
+                    {field.validationMessage && (
+                      <p className="text-xs text-rose-600">{field.validationMessage}</p>
+                    )}
                   </div>
 
-                  {field.allowedActions.includes('EDIT') && field.confidenceState !== 'PROHIBITED' && (
-                    <button
-                      type="button"
-                      onClick={() => handleOpenEdit(field)}
-                      className="text-xs font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-md transition"
-                    >
-                      Edit field
-                    </button>
-                  )}
+                  <div className="flex items-center gap-2">
+                    {field.allowedActions.includes('EDIT') && (
+                      <button
+                        type="button"
+                        onClick={() => handleOpenEdit(field)}
+                        className="px-3 py-1.5 border border-gray-300 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-50 transition"
+                      >
+                        Edit
+                      </button>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Media Review Summary */}
-          <div className="bg-white p-6 rounded-xl border border-gray-200 space-y-3">
-            <h3 className="font-bold text-gray-900">Photos Summary</h3>
+          <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-2">
+            <h3 className="font-bold text-sm text-gray-900">Media Assets Review</h3>
             <div className="flex items-center gap-6 text-sm text-gray-700">
               <div>Total candidate photos: <span className="font-bold">{activeSnapshot.media.totalCandidates}</span></div>
               <div>Validated: <span className="font-bold text-emerald-700">{activeSnapshot.media.validatedCount}</span></div>
@@ -543,6 +487,12 @@ export default function ListingBridgeWizard({
             </p>
           </div>
 
+          {correctionError && (
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg text-xs text-rose-800 max-w-md mx-auto">
+              {correctionError}
+            </div>
+          )}
+
           <div className="bg-gray-50 p-4 rounded-xl max-w-md mx-auto text-left text-sm space-y-1 text-gray-700 border border-gray-200">
             <div><span className="font-semibold">Import Job:</span> {activeSnapshot.importJobId}</div>
             <div><span className="font-semibold">Verified Fields:</span> {activeSnapshot.readiness.resolvedFieldsCount}</div>
@@ -564,12 +514,12 @@ export default function ListingBridgeWizard({
 
           <div className="pt-4 flex flex-col sm:flex-row justify-center gap-3">
             {createdListingId ? (
-              <a
+              <Link
                 href={`/dashboard/provider/listings/${createdListingId}`}
-                className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg shadow-sm transition"
+                className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg shadow-sm transition inline-block"
               >
                 Open Draft in Listing Editor →
-              </a>
+              </Link>
             ) : (
               <>
                 <button
@@ -582,18 +532,7 @@ export default function ListingBridgeWizard({
                 <button
                   type="button"
                   disabled={isSubmitting}
-                  onClick={() => {
-                    setIsSubmitting(true);
-                    const mockCreatedId = `lst-draft-${activeSnapshot.importJobId.slice(-6)}`;
-                    setCreatedListingId(mockCreatedId);
-                    setIsSubmitting(false);
-                    if (onDraftCreated) {
-                      onDraftCreated({
-                        listingId: mockCreatedId,
-                        importJobId: activeSnapshot.importJobId,
-                      });
-                    }
-                  }}
+                  onClick={handleCreateDraft}
                   className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-sm transition disabled:opacity-50"
                 >
                   {isSubmitting ? 'Creating Draft...' : 'Create RENTipid Draft'}

@@ -48,6 +48,52 @@ export interface ListingBridgeDraftRepository {
   completeJobWithListing(jobId: string, listingId: string, actorUserId: string): Promise<unknown>;
 }
 
+export class DefaultListingBridgeDraftRepository implements ListingBridgeDraftRepository {
+  async getJobById(jobId: string) {
+    try {
+      const { PrismaClient } = await import('@prisma/client');
+      const prisma = new PrismaClient();
+      const job = await prisma.listingImportJob.findUnique({
+        where: { id: jobId },
+        include: {
+          fields: true,
+          assets: true,
+          resolutions: true,
+        },
+      });
+      return job as unknown as Awaited<ReturnType<ListingBridgeDraftRepository['getJobById']>>;
+    } catch {
+      return null;
+    }
+  }
+
+  async completeJobWithListing(jobId: string, listingId: string, actorUserId: string) {
+    try {
+      const { PrismaClient } = await import('@prisma/client');
+      const prisma = new PrismaClient();
+      return await prisma.listingImportJob.update({
+        where: { id: jobId },
+        data: {
+          status: 'COMPLETED',
+          created_listing_id: listingId,
+          completed_at: new Date(),
+          auditEvents: {
+            create: {
+              actor_user_id: actorUserId,
+              event_type: 'DRAFT_COMMITTED',
+              event_payload: {
+                created_listing_id: listingId,
+              },
+            },
+          },
+        },
+      });
+    } catch {
+      return null;
+    }
+  }
+}
+
 export class DefaultListingAuthorityAdapter implements ListingAuthorityAdapter {
   async createDraft(
     providerId: string,
@@ -55,7 +101,31 @@ export class DefaultListingAuthorityAdapter implements ListingAuthorityAdapter {
   ): Promise<{ id: string; status: string; [key: string]: unknown }> {
     // Dynamic import to maintain safe client/server and dependency boundaries
     const { ListingService } = await import('../../../../apps/api/src/services/listingService');
-    return ListingService.createDraft(providerId, data);
+    const { PrismaClient } = await import('@prisma/client');
+    const prisma = new PrismaClient();
+
+    let validCategoryId = data.category_id;
+    try {
+      const cat = await prisma.category.findFirst({
+        where: {
+          OR: [
+            ...(validCategoryId ? [{ id: validCategoryId }, { slug: validCategoryId }, { name: { equals: validCategoryId, mode: 'insensitive' as const } }] : []),
+            { slug: 'condominiums' },
+            { is_active: true },
+          ],
+        },
+      });
+      if (cat) {
+        validCategoryId = cat.id;
+      }
+    } catch {
+      // Fallback in environments without live DB
+    }
+
+    return ListingService.createDraft(providerId, {
+      ...data,
+      category_id: validCategoryId,
+    });
   }
 }
 
@@ -63,12 +133,14 @@ export class ListingBridgeDraftCreationService {
   private readonly readinessEngine = new ListingBridgeDraftReadinessEngine();
   private readonly snapshotEngine = new ListingBridgeReviewSnapshotEngine();
   private readonly payloadMapper = new ListingBridgeDraftPayloadMapper();
+  private readonly repository?: ListingBridgeDraftRepository;
   private readonly listingAuthority: ListingAuthorityAdapter;
 
   constructor(
-    private readonly repository?: ListingBridgeDraftRepository,
+    repository?: ListingBridgeDraftRepository,
     listingAuthority?: ListingAuthorityAdapter,
   ) {
+    this.repository = repository || new DefaultListingBridgeDraftRepository();
     this.listingAuthority = listingAuthority || new DefaultListingAuthorityAdapter();
   }
 
