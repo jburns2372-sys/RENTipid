@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ShieldCheck, AlertCircle } from "lucide-react";
 import { getSafeInternalRedirect } from "@/lib/security/auth/safe-redirect";
@@ -10,7 +9,6 @@ export default function MfaChallengePage() {
   const [token, setToken] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [verifying, setVerifying] = useState(false);
-  const router = useRouter();
 
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +32,9 @@ export default function MfaChallengePage() {
       const rawCallbackUrl = urlParams.get("callbackUrl");
       const safeTarget = getSafeInternalRedirect(rawCallbackUrl, "/dashboard/admin/security");
       
-      router.push(safeTarget);
+      // Perform a fresh document navigation to bypass Next.js client router cache
+      // ensuring the newly granted AAL2 session assurance in PostgreSQL is recognized immediately.
+      window.location.assign(safeTarget);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to verify MFA");
     } finally {
