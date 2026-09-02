@@ -6,14 +6,16 @@
 **Branch:** `feature/listingbridge-v1.1-assisted-imports`  
 **Fix Application Source SHA:** `092b1049478cbfe7d9b6e7c8a1d8b410b4b7340c`  
 **Evidence Correction SHA:** `546992994d6456500b4ca745a6a116f971a39ec7`  
-**Post-Preview Test-Only Commit:** `11097fb04659108eb511d48a62855638b500ab08`  
+**Post-Preview Test-Only Files:**  
+- `tests/security/mfa-authorization.test.ts`  
+- `tests/security/session-step-up.test.ts`  
 **Post-Preview Runtime Source Change:** `NO`  
 **Preview Deployment ID:** `dpl_AaYMLakZWM9ueDGvAWAQL1NKxWs3`  
 **Preview URL:** `https://ren-tipid-kgyszkef4-jburns2372-sys-projects.vercel.app`  
 **Production Deployment ID:** `dpl_6cPAT7gm25sxnwyNKVgLUcG7viUM`  
 **Production Deployment URL:** `https://ren-tipid-5h3ish60o-jburns2372-sys-projects.vercel.app`  
 **Production Canonical URL:** `https://www.rentipid.com.ph`  
-**Production Source HEAD:** `11097fb04659108eb511d48a62855638b500ab08`  
+**Production Source Git SHA:** `11097fb04659108eb511d48a62855638b500ab08`  
 **Production Database Branch:** `rentipid-production` (`br-proud-sunset-ap0ofil2`) on project `holy-shape-01357429`  
 **Date:** `2026-09-02`  
 
@@ -52,18 +54,21 @@ When users accessed the Security Operations Center (`/dashboard/admin/security`)
 
 ---
 
-## 3. Targeted Test Suite & Local Validation
+## 3. Targeted Test Suite & Static Validation
 
-- **Targeted MFA Suites Executed:**
+- **Targeted MFA Security Suites (3 suites / 32 tests PASS):**
   - `tests/security/mfa-soc-redirect.test.ts` (9/9 tests passed)
   - `tests/security/mfa-authorization.test.ts` (15/15 tests passed)
   - `tests/security/session-step-up.test.ts` (8/8 tests passed)
-- **Total Security Tests:** 3 suites, 32 tests passed (PASS).
+- **Full Security Regression (`tests/security`):**
+  - Total Suites: 160
+  - Total Tests: 1605
+  - Passed Suites: 126
+  - Passed Tests: 1410
 - **TypeScript Typecheck:** `npm run typecheck` (PASS, 0 errors).
-- **Production Build:** `npm run build` (PASS, exit code 0).
-- **Targeted ESLint:** 0 errors, 0 warnings across all modified and new files.
 - **Prisma Validate:** Valid schema.
 - **Git Diff Check:** Clean diff check.
+- **Targeted ESLint:** 0 errors, 0 warnings across all modified and new files.
 
 ---
 
