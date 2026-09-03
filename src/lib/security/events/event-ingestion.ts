@@ -4,12 +4,12 @@ import {
   SecurityEventIngestionResult
 } from "./taxonomy";
 import { getAdapterForRecord } from "./adapters/registry";
-import { PrismaClient, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import crypto from "crypto";
 import { validateSummaryBounds } from "../serializers";
 import { DetectionEvaluator } from "../detection/evaluator";
 
-const prisma = new PrismaClient();
 const globalDetectionEvaluator = new DetectionEvaluator();
 
 export async function processSecurityEvent(

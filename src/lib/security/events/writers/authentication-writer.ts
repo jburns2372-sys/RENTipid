@@ -1,8 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { processSecurityEvent } from "../event-ingestion";
 import { pseudonymizeTelemetryContext, getTelemetryHmacKeyVersion } from "../../telemetry-hmac";
-
-const prisma = new PrismaClient();
 
 export async function logAuthenticationEvent(options: {
   event_code: string;

@@ -140,10 +140,19 @@ function WhatsAppOtpForm({ callbackUrl }: { callbackUrl: string }) {
 
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!code || loading) return;
     setError('');
     setLoading(true);
+
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
     try {
-      const res = await signIn('phone-otp', {
+      const timeoutPromise = new Promise<{ error?: string; url?: string | null }>((resolve) => {
+        timeoutId = setTimeout(() => {
+          resolve({ error: 'TIMEOUT' });
+        }, 12000);
+      });
+
+      const signInPromise = signIn('phone-otp', {
         redirect: false,
         phone,
         channel: 'whatsapp',
@@ -152,8 +161,16 @@ function WhatsAppOtpForm({ callbackUrl }: { callbackUrl: string }) {
         termsAccepted: 'true',
         privacyAccepted: 'true',
       });
+
+      const res = await Promise.race([signInPromise, timeoutPromise]);
+      if (timeoutId) clearTimeout(timeoutId);
+
       if (res?.error) {
-        setError('Invalid verification code. Please try again.');
+        setError(
+          res.error === 'TIMEOUT'
+            ? 'Verification took longer than expected. Please check your connection or request a new code.'
+            : 'Invalid verification code. Please try again.'
+        );
         setLoading(false);
       } else {
         const origin = typeof window !== 'undefined' ? window.location.origin : undefined;
@@ -161,6 +178,7 @@ function WhatsAppOtpForm({ callbackUrl }: { callbackUrl: string }) {
         router.refresh();
       }
     } catch {
+      if (timeoutId) clearTimeout(timeoutId);
       setError('Something went wrong. Please try again.');
       setLoading(false);
     }
