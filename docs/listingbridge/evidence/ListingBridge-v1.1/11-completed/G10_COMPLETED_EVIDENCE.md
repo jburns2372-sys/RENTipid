@@ -165,7 +165,35 @@ NEXT_GATE: G11 ACCEPTED (Awaiting Owner/Business Acceptance)
    - **Critical Blockers:** 0
    - **High Blockers:** 0
    - **Application Security Fix SHA:** `e96159755bc8c51eefc3e9b9f275b01f35059aa0`
-   - **Active Production Deployment ID:** `dpl_AgSBE1aK7sBn9hxXvgzVj1mh9Gi9`
    - **G10 COMPLETED:** `PASS`
    - **TECHNICAL COMPLETION:** `YES`
    - **CORRECTIVE FINAL STATUS:** `PASS`
+
+---
+
+## 8. Release-Lineage & Unified Multi-Login v1.1 Restoration Reconciliation
+
+**Date:** `2026-09-03`  
+**Status:** `PASS — G10 HOLD CLEARED / READY FOR G11 OWNER ACCEPTANCE`  
+
+1. **Multi-Login Incident Resolution:**
+   - **Incident Root Cause:** Initial branch divergence where `feature/listingbridge-v1.1-assisted-imports` branched prior to Multi-Login commits landing on `feature/unified-multi-login-v1.1`.
+   - **Restoration Execution:** Forward-ported known-good Multi-Login implementation (SHA `0161b0043abb9c036129277fb64dfa9a82af5cba`) into the current lineage (SHA `8330788895b06bd2078646f6bac54512cb335ca1`).
+   - **Verification Gates:** R1 Preview Restoration (`dpl_sqB99Xmt4FxhqrBe5j6k4hft4N5k`) PASS; R2 Production Restoration (`dpl_3o2N2BjG6wh5PhAFGfyT4U1u2XPT`) PASS.
+   - **R2 Evidence SHA:** `471c89b1dc34d098e5faba8503ba3650f32b7d28`
+
+2. **Branch Lineage Synchronization:**
+   - `origin/feature/listingbridge-v1.1-assisted-imports` cleanly fast-forwarded to `471c89b1dc34d098e5faba8503ba3650f32b7d28`, uniting both ListingBridge v1.1 and Unified Multi-Login capabilities into a single authoritative release head.
+   - Reconciled Remote Branches: `origin/fix/restore-unified-multi-login-v1.1` and `origin/feature/listingbridge-v1.1-assisted-imports` match exactly at SHA `471c89b1dc34d098e5faba8503ba3650f32b7d28`.
+
+3. **Current Authoritative Production Baseline:**
+   - **Production Deployment ID:** `dpl_3o2N2BjG6wh5PhAFGfyT4U1u2XPT`
+   - **Canonical Domain:** `https://www.rentipid.com.ph`
+   - **ListingBridge v1.1 Production State:** Intact, healthy, fail-closed boundaries preserved.
+   - **SOC MFA Hard Navigation:** Preserved (`window.location.assign(safeTarget)`).
+   - **Multi-Login Gateway:** Active (Google, Facebook, WhatsApp, Email).
+
+4. **G10 Hold Clearance & Gate Status:**
+   - **LISTINGBRIDGE_OTHER_G10_BLOCKERS:** `0`
+   - **LISTINGBRIDGE_G10_RECONCILED:** `PASS`
+   - **LISTINGBRIDGE_G11_STATUS:** `READY_FOR_OWNER_ACCEPTANCE` (Pending Owner Business Acceptance Testing)
