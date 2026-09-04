@@ -14,21 +14,26 @@ export function normalizeLoginCallbackUrl(
     return '/';
   }
 
-  if (callbackUrl.startsWith('/')) {
-    if (callbackUrl.startsWith('//') || callbackUrl.startsWith('/\\') || callbackUrl.startsWith('\\')) {
+  const trimmed = callbackUrl.trim();
+  if (!trimmed) {
+    return '/';
+  }
+
+  if (trimmed.startsWith('/')) {
+    if (trimmed.startsWith('//') || trimmed.startsWith('/\\') || trimmed.startsWith('\\')) {
       return '/';
     }
-    if (callbackUrl === '/dashboard' || callbackUrl === '/dashboard/') {
+    if (trimmed === '/dashboard' || trimmed === '/dashboard/' || trimmed === '/login' || trimmed === '/login/') {
       return '/';
     }
-    return callbackUrl;
+    return trimmed;
   }
 
   try {
-    const parsed = new URL(callbackUrl);
+    const parsed = new URL(trimmed);
     if (currentOrigin && parsed.origin === currentOrigin) {
       const path = `${parsed.pathname}${parsed.search}${parsed.hash}`;
-      if (path === '/dashboard' || path === '/dashboard/') {
+      if (path === '/dashboard' || path === '/dashboard/' || parsed.pathname === '/login' || parsed.pathname === '/login/') {
         return '/';
       }
       return path;
@@ -146,6 +151,9 @@ function WhatsAppOtpForm({ callbackUrl }: { callbackUrl: string }) {
 
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
     try {
+      const origin = typeof window !== 'undefined' ? window.location.origin : undefined;
+      const safeTarget = normalizeLoginCallbackUrl(callbackUrl, origin);
+
       const timeoutPromise = new Promise<{ error?: string; url?: string | null }>((resolve) => {
         timeoutId = setTimeout(() => {
           resolve({ error: 'TIMEOUT' });
@@ -154,6 +162,7 @@ function WhatsAppOtpForm({ callbackUrl }: { callbackUrl: string }) {
 
       const signInPromise = signIn('phone-otp', {
         redirect: false,
+        callbackUrl: safeTarget,
         phone,
         channel: 'whatsapp',
         challengeId,
@@ -172,10 +181,30 @@ function WhatsAppOtpForm({ callbackUrl }: { callbackUrl: string }) {
             : 'Invalid verification code. Please try again.'
         );
         setLoading(false);
+        return;
+      }
+
+      // Verify that the session is authenticated before navigating
+      let sessionConfirmed = false;
+      try {
+        const sessionRes = await fetch('/api/auth/session');
+        if (sessionRes.ok) {
+          const sessionData = await sessionRes.json();
+          if (sessionData && sessionData.user) {
+            sessionConfirmed = true;
+          }
+        }
+      } catch {
+        sessionConfirmed = !res?.error;
+      }
+
+      if (sessionConfirmed) {
+        if (typeof window !== 'undefined') {
+          window.location.assign(safeTarget);
+        }
       } else {
-        const origin = typeof window !== 'undefined' ? window.location.origin : undefined;
-        router.push(normalizeLoginCallbackUrl(res?.url, origin) || callbackUrl);
-        router.refresh();
+        setError('Authentication session could not be established. Please try again.');
+        setLoading(false);
       }
     } catch {
       if (timeoutId) clearTimeout(timeoutId);
@@ -270,17 +299,20 @@ function EmailPasswordForm({ callbackUrl }: { callbackUrl: string }) {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
     setError('');
     setLoading(true);
     try {
-      const res = await signIn('credentials', { redirect: false, callbackUrl, email, password });
+      const origin = typeof window !== 'undefined' ? window.location.origin : undefined;
+      const safeTarget = normalizeLoginCallbackUrl(callbackUrl, origin);
+      const res = await signIn('credentials', { redirect: false, callbackUrl: safeTarget, email, password });
       if (res?.error) {
         setError('Invalid email or password');
         setLoading(false);
       } else {
-        const origin = typeof window !== 'undefined' ? window.location.origin : undefined;
-        router.push(normalizeLoginCallbackUrl(res?.url, origin) || callbackUrl);
-        router.refresh();
+        if (typeof window !== 'undefined') {
+          window.location.assign(safeTarget);
+        }
       }
     } catch {
       setError('An error occurred. Please try again.');

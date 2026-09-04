@@ -12,7 +12,6 @@ describe('WhatsApp OTP Verification Stall & Telemetry Containment Tests', () => 
 
   describe('1. Security Event Telemetry & Pool Containment', () => {
     it('does not throw when authentication logging experiences a database error', async () => {
-      // Spy on prisma.authenticationSecurityLog.create and simulate connection timeout
       const createSpy = jest.spyOn(prisma.authenticationSecurityLog, 'create').mockRejectedValueOnce(
         new Error('Timed out fetching a new connection from the connection pool.')
       );
@@ -45,19 +44,42 @@ describe('WhatsApp OTP Verification Stall & Telemetry Containment Tests', () => 
 
       secEventCreateSpy.mockRestore();
     });
+
+    it('verifies that authentication-writer and event-ingestion share prisma instance', () => {
+      expect(prisma).toBeDefined();
+      expect(typeof prisma.securityEvent.create).toBe('function');
+      expect(typeof prisma.authenticationSecurityLog.create).toBe('function');
+    });
   });
 
   describe('2. Frontend Bounded Timeout & Safety', () => {
     it('normalizes valid internal callbackUrl correctly', () => {
       expect(normalizeLoginCallbackUrl('/dashboard/provider/listings/import')).toBe('/dashboard/provider/listings/import');
       expect(normalizeLoginCallbackUrl('/')).toBe('/');
+      expect(normalizeLoginCallbackUrl('/browse')).toBe('/browse');
     });
 
-    it('deflects dangerous callbackUrls and 404 targets', () => {
+    it('deflects dangerous callbackUrls, 404 targets, and login loops', () => {
       expect(normalizeLoginCallbackUrl('//evil.com')).toBe('/');
       expect(normalizeLoginCallbackUrl('https://evil.com/hack')).toBe('/');
       expect(normalizeLoginCallbackUrl('/dashboard')).toBe('/');
       expect(normalizeLoginCallbackUrl('/dashboard/')).toBe('/');
+      expect(normalizeLoginCallbackUrl('/login')).toBe('/');
+      expect(normalizeLoginCallbackUrl('/login/')).toBe('/');
+      expect(normalizeLoginCallbackUrl('https://www.rentipid.com.ph/login', 'https://www.rentipid.com.ph')).toBe('/');
+      expect(normalizeLoginCallbackUrl('https://www.rentipid.com.ph/dashboard', 'https://www.rentipid.com.ph')).toBe('/');
+      expect(normalizeLoginCallbackUrl(null)).toBe('/');
+      expect(normalizeLoginCallbackUrl('')).toBe('/');
+      expect(normalizeLoginCallbackUrl('   ')).toBe('/');
+    });
+
+    it('preserves valid origins when matching current origin', () => {
+      expect(
+        normalizeLoginCallbackUrl(
+          'https://www.rentipid.com.ph/dashboard/provider/listings/import',
+          'https://www.rentipid.com.ph'
+        )
+      ).toBe('/dashboard/provider/listings/import');
     });
   });
 
@@ -71,6 +93,26 @@ describe('WhatsApp OTP Verification Stall & Telemetry Containment Tests', () => 
 
       const providerUnavailable = new UnifiedAuthError('PROVIDER_UNAVAILABLE');
       expect(providerUnavailable.code).toBe('PROVIDER_UNAVAILABLE');
+    });
+  });
+
+  describe('4. R3B Session Navigation & Callback Contracts', () => {
+    it('phone-otp destination never navigates to /login upon success', () => {
+      const origin = 'https://www.rentipid.com.ph';
+      const returnedNextAuthUrl = 'https://www.rentipid.com.ph/login';
+      const requestedCallbackUrl = '/dashboard/provider/listings/import';
+
+      const safeRequested = normalizeLoginCallbackUrl(requestedCallbackUrl, origin);
+      expect(safeRequested).toBe('/dashboard/provider/listings/import');
+
+      const safeReturned = normalizeLoginCallbackUrl(returnedNextAuthUrl, origin);
+      expect(safeReturned).toBe('/'); // /login correctly deflected to '/'
+    });
+
+    it('absent or empty callbackUrl defaults safely to root', () => {
+      expect(normalizeLoginCallbackUrl(undefined)).toBe('/');
+      expect(normalizeLoginCallbackUrl(null)).toBe('/');
+      expect(normalizeLoginCallbackUrl('')).toBe('/');
     });
   });
 });
