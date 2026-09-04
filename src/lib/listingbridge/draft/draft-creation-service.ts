@@ -95,36 +95,35 @@ export class DefaultListingBridgeDraftRepository implements ListingBridgeDraftRe
 }
 
 export class DefaultListingAuthorityAdapter implements ListingAuthorityAdapter {
+  private prismaClient?: any;
+
+  constructor(prismaClient?: any) {
+    this.prismaClient = prismaClient;
+  }
+
   async createDraft(
     providerId: string,
     data: NativeListingDraftPayload,
   ): Promise<{ id: string; status: string; [key: string]: unknown }> {
     // Dynamic import to maintain safe client/server and dependency boundaries
     const { ListingService } = await import('../../../../apps/api/src/services/listingService');
-    const { PrismaClient } = await import('@prisma/client');
-    const prisma = new PrismaClient();
+    const { resolveAuthoritativeCategory } = await import('../../categories/category-resolver');
 
-    let validCategoryId = data.category_id;
-    try {
-      const cat = await prisma.category.findFirst({
-        where: {
-          OR: [
-            ...(validCategoryId ? [{ id: validCategoryId }, { slug: validCategoryId }, { name: { equals: validCategoryId, mode: 'insensitive' as const } }] : []),
-            { slug: 'condominiums' },
-            { is_active: true },
-          ],
-        },
-      });
-      if (cat) {
-        validCategoryId = cat.id;
-      }
-    } catch {
-      // Fallback in environments without live DB
+    let prisma = this.prismaClient;
+    if (!prisma) {
+      const { PrismaClient } = await import('@prisma/client');
+      prisma = new PrismaClient();
+    }
+
+    const resolution = await resolveAuthoritativeCategory(data.category_id, prisma);
+    if (!resolution.success || !resolution.categoryId) {
+      const errorPrefix = resolution.errorCode || 'CATEGORY_RESOLUTION_FAILED';
+      throw new Error(`${errorPrefix}: ${resolution.errorMessage}`);
     }
 
     return ListingService.createDraft(providerId, {
       ...data,
-      category_id: validCategoryId,
+      category_id: resolution.categoryId,
     });
   }
 }
@@ -298,11 +297,24 @@ export class ListingBridgeDraftCreationService {
       });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
+      const isRefDataMissing = msg.startsWith('CATEGORY_REFERENCE_DATA_MISSING:');
+      const isResolutionFailed = msg.startsWith('CATEGORY_RESOLUTION_FAILED:');
+
+      const errorCode = isRefDataMissing
+        ? 'CATEGORY_REFERENCE_DATA_MISSING'
+        : isResolutionFailed
+          ? 'CATEGORY_RESOLUTION_FAILED'
+          : 'LISTING_AUTHORITY_CREATION_FAILED';
+
+      const errorMessage = isRefDataMissing || isResolutionFailed
+        ? msg.replace(/^[A-Z_]+:\s*/, '')
+        : `Listing creation failed in native authority: ${msg}`;
+
       return Object.freeze({
         success: false,
         importJobId,
-        errorCode: 'LISTING_AUTHORITY_CREATION_FAILED',
-        errorMessage: `Listing creation failed in native authority: ${msg}`,
+        errorCode,
+        errorMessage,
       });
     }
   }

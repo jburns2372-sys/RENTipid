@@ -1,30 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 import { runMarketplaceSampleSeed } from '../src/lib/marketplace/seed-reconciler';
 import { seedListingBridgeSystemSettings } from '../src/lib/listingbridge';
+import { CANONICAL_CATEGORIES } from '../src/lib/categories/canonical-categories';
 const prisma = new PrismaClient();
 
 async function main() {
   console.log('Seeding Phase 1 Categories...');
 
-  const categories = [
-    { name: 'Tools', slug: 'tools', risk_level: 'Low', description: 'Power tools, hand tools, and gardening equipment.' },
-    { name: 'Construction Equipment', slug: 'construction-equipment', risk_level: 'Medium', description: 'Scaffolding, cement mixers, and generators.', requires_deposit: true },
-    { name: 'Heavy Equipment', slug: 'heavy-equipment', risk_level: 'High', requires_admin_approval: true, requires_deposit: true, requires_insurance: true },
-    { name: 'Event Equipment', slug: 'event-equipment', risk_level: 'Low', description: 'Tents, chairs, tables, and sound systems.' },
-    { name: 'Cameras and Gadgets', slug: 'cameras-and-gadgets', risk_level: 'Medium', requires_deposit: true },
-    { name: 'Cars and Motorcycles', slug: 'cars-and-motorcycles', risk_level: 'Regulated', requires_admin_approval: true, requires_deposit: true, requires_insurance: true, requires_permit: true },
-    { name: 'Trucks and Commercial Vehicles', slug: 'trucks-and-commercial-vehicles', risk_level: 'Regulated', requires_admin_approval: true, requires_deposit: true, requires_insurance: true, requires_permit: true },
-    { name: 'Condominiums', slug: 'condominiums', risk_level: 'Regulated', requires_admin_approval: true, requires_deposit: true, requires_permit: true },
-    { name: 'Rooms', slug: 'rooms', risk_level: 'Medium', requires_deposit: true },
-    { name: 'Beach Resorts', slug: 'beach-resorts', risk_level: 'Regulated', requires_admin_approval: true, requires_deposit: true, requires_permit: true },
-    { name: 'Event Venues', slug: 'event-venues', risk_level: 'Medium', requires_deposit: true },
-    { name: 'Office Equipment', slug: 'office-equipment', risk_level: 'Low' },
-    { name: 'Boats', slug: 'boats', risk_level: 'Regulated', requires_admin_approval: true, requires_deposit: true, requires_insurance: true, requires_permit: true },
-    { name: 'Aircraft / Helicopter Charter Inquiry Only', slug: 'aircraft-charter', risk_level: 'Regulated', requires_admin_approval: true, requires_deposit: true, requires_insurance: true, requires_permit: true },
-    { name: 'Other Legally Rentable Assets', slug: 'other', risk_level: 'Medium' }
-  ];
-
-  for (const cat of categories) {
+  for (const cat of CANONICAL_CATEGORIES) {
     await prisma.category.upsert({
       where: { slug: cat.slug },
       update: {},
