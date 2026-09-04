@@ -1,8 +1,14 @@
 'use server';
 
+import crypto from 'crypto';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { PrismaClient, ListingImportResolutionType, ListingImportAuditEventType } from '@prisma/client';
+import {
+  PrismaClient,
+  ListingImportResolutionType,
+  ListingImportAuditEventType,
+  ListingImportAssetStatus,
+} from '@prisma/client';
 import {
   ListingBridgeTestConnector,
   LISTINGBRIDGE_TEST_SOURCE_REFERENCE,
@@ -13,8 +19,11 @@ import type { ExternalConnectorInput } from '@/lib/listingbridge/connectors/exte
 import { ListingBridgeReviewSnapshotEngine } from '@/lib/listingbridge/review/review-snapshot-engine';
 import { ListingBridgeDraftCreationService } from '@/lib/listingbridge/draft/draft-creation-service';
 import { ListingImportRepository } from '@/lib/listingbridge/repository/listing-import-repository';
-import type { ListingBridgeReviewSnapshot } from '@/lib/listingbridge/review/types';
+import type { ListingBridgeReviewSnapshot, MediaReviewSummary } from '@/lib/listingbridge/review/types';
 import type { CanonicalImportContract } from '@/lib/listingbridge/types/canonical-contract';
+import type { ListingImportJobStatus } from '@/lib/listingbridge/types/job-state';
+import { validateUploadRequest, LISTING_PHOTO_POLICY } from '@/lib/security/upload-security';
+import { storageService } from '@/lib/storage/storage-service';
 
 const getPrisma = () => new PrismaClient();
 const snapshotEngine = new ListingBridgeReviewSnapshotEngine();
@@ -45,6 +54,20 @@ export interface SaveCorrectionActionResult {
 export interface ConfirmRightsActionResult {
   success: boolean;
   confirmedAt?: string;
+  snapshot?: ListingBridgeReviewSnapshot;
+  errorCode?: string;
+  errorMessage?: string;
+}
+
+export interface UploadMediaActionResult {
+  success: boolean;
+  asset?: {
+    id: string;
+    url?: string;
+    label?: string;
+    status: string;
+  };
+  snapshot?: ListingBridgeReviewSnapshot;
   errorCode?: string;
   errorMessage?: string;
 }
@@ -311,7 +334,141 @@ export async function saveCorrectionAction(
 }
 
 /**
- * Persists provider rights confirmation in the database.
+ * Builds the authoritative review snapshot from database state.
+ */
+export async function buildAuthoritativeSnapshot(
+  jobId: string,
+  userId: string,
+  prisma: PrismaClient,
+): Promise<ListingBridgeReviewSnapshot | null> {
+  const job = await prisma.listingImportJob.findUnique({
+    where: { id: jobId },
+    include: {
+      fields: true,
+      assets: true,
+      resolutions: true,
+    },
+  });
+
+  if (!job || job.provider_id !== userId) return null;
+
+  const contract = (job.canonical_payload as unknown as CanonicalImportContract) || {
+    schemaVersion: 'rentipid.listingbridge.v1' as const,
+    source: {
+      connectorId: job.source_connector,
+      connectorTier: 'TIER_3_FILE' as const,
+      sourceMode: 'ASSISTED_IMPORT',
+      authorizationMethod: 'MANUAL_PROVIDER_INPUT' as const,
+      sourceReferenceHash: job.source_reference_hash,
+      sourceReferenceLabel: job.source_reference_label || undefined,
+      retrievedAt: job.created_at.toISOString(),
+    },
+    identity: {
+      canonicalId: `listingbridge:assisted:${job.id}`,
+      externalListingId: undefined,
+      provenanceHash: job.source_reference_hash,
+    },
+    property: {
+      title: 'Imported Listing Draft',
+      propertyType: 'condominiums',
+    },
+    location: {
+      country: 'PH',
+    },
+    pricingHints: {
+      currency: 'PHP' as const,
+    },
+    media: [],
+    fieldConfidence: {},
+    unresolvedFields: [],
+    provenance: {
+      rawPayloadHash: job.raw_payload_hash || '',
+      aiAssisted: false,
+      aiOutputAuthoritative: false as const,
+      extractedFactCount: job.fields.length,
+      rejectedFields: [],
+    },
+  };
+
+  const rightsConfirmed = (job.resolutions || []).some(
+    (r) => r.field_name === 'listingbridge.rightsConfirmation.v1',
+  );
+
+  const assets = job.assets || [];
+  const fields = job.fields || [];
+  const validatedAssets = assets.filter((a) => a.status === 'VALIDATED');
+  const rejectedAssets = assets.filter((a) => a.status === 'REJECTED');
+  const totalCandidates = Math.max(assets.length, contract.media?.length || 0);
+  const validatedCount = Math.max(validatedAssets.length, contract.media?.length || 0);
+
+  const mediaSummary: MediaReviewSummary = {
+    totalCandidates,
+    validatedCount,
+    rejectedCount: rejectedAssets.length,
+    duplicateCount: 0,
+    hasCoverPhoto: validatedAssets.some((a) => a.is_cover) || (contract.media || []).some((m) => m.isCover),
+    isBlocking: validatedCount === 0,
+    assets: validatedAssets.map((a) => ({
+      id: a.id,
+      url: a.rentipid_asset_path || undefined,
+      label: a.source_url_label || undefined,
+      status: a.status,
+      isCover: a.is_cover,
+      sizeBytes: a.file_size_bytes || undefined,
+    })),
+  };
+
+  const snapshot = snapshotEngine.buildSnapshot({
+    importJobId: job.id,
+    providerId: job.provider_id,
+    jobStatus: (job.status as unknown as ListingImportJobStatus) || 'NEEDS_REVIEW',
+    contract,
+    media: mediaSummary,
+    rights: {
+      rightsConfirmed,
+      confirmedAt: rightsConfirmed ? new Date() : undefined,
+      isBlocking: !rightsConfirmed,
+    },
+  });
+
+  const resolvedFieldMap = new Map<string, unknown>();
+  for (const f of fields) {
+    if (f.provider_modified && f.normalized_value !== null && f.normalized_value !== undefined) {
+      resolvedFieldMap.set(f.field_name, f.normalized_value);
+    }
+  }
+
+  if (resolvedFieldMap.size > 0) {
+    const updatedFields = snapshot.fields.map((field) => {
+      if (resolvedFieldMap.has(field.fieldName)) {
+        return {
+          ...field,
+          normalizedValue: resolvedFieldMap.get(field.fieldName),
+          confidenceState: 'VERIFIED' as const,
+          providerModified: true,
+          validationState: 'VALIDATED' as const,
+          isBlocking: false,
+        };
+      }
+      return field;
+    });
+    return {
+      ...snapshot,
+      fields: updatedFields,
+      readiness: {
+        ...snapshot.readiness,
+        blockingReasons: snapshot.readiness.blockingReasons.filter(
+          (reason) => !Array.from(resolvedFieldMap.keys()).some((fn) => reason.includes(fn)),
+        ),
+      },
+    };
+  }
+
+  return snapshot;
+}
+
+/**
+ * Persists provider rights confirmation authoritatively and fails closed on error.
  */
 export async function confirmRightsAction(
   jobId: string,
@@ -336,6 +493,7 @@ export async function confirmRightsAction(
       return { success: false, errorCode: 'OWNERSHIP_MISMATCH', errorMessage: 'Unauthorized.' };
     }
 
+    // Persist rights confirmation authoritatively - fails closed on error
     try {
       await prisma.listingImportResolution.upsert({
         where: {
@@ -359,7 +517,16 @@ export async function confirmRightsAction(
           resolved_at: new Date(),
         },
       });
+    } catch (persistErr: unknown) {
+      const msg = persistErr instanceof Error ? persistErr.message : String(persistErr);
+      return {
+        success: false,
+        errorCode: 'RIGHTS_PERSISTENCE_FAILED',
+        errorMessage: `Failed to persist rights confirmation: ${msg}`,
+      };
+    }
 
+    try {
       await prisma.listingImportAuditEvent.create({
         data: {
           job_id: jobId,
@@ -369,16 +536,177 @@ export async function confirmRightsAction(
         },
       });
     } catch {
-      // Non-blocking in mock environments
+      // Non-blocking for audit logging
+    }
+
+    let updatedSnapshot: ListingBridgeReviewSnapshot | null = null;
+    try {
+      updatedSnapshot = await buildAuthoritativeSnapshot(jobId, user.id, prisma);
+    } catch {
+      // Non-blocking for snapshot compilation fallback
     }
 
     return {
       success: true,
       confirmedAt: new Date().toISOString(),
+      snapshot: updatedSnapshot || undefined,
     };
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     return { success: false, errorCode: 'RIGHTS_CONFIRMATION_FAILED', errorMessage: msg };
+  }
+}
+
+/**
+ * Uploads, validates, and persists a provider-supplied listing photo for an assisted import job.
+ */
+export async function uploadAssistedMediaAction(formData: FormData): Promise<UploadMediaActionResult> {
+  const session = await getServerSession(authOptions);
+  const user = session?.user as AuthSessionUser | undefined;
+  if (!user?.id) {
+    return { success: false, errorCode: 'UNAUTHENTICATED', errorMessage: 'You must be logged in to upload photos.' };
+  }
+
+  const jobId = formData.get('jobId');
+  if (!jobId || typeof jobId !== 'string') {
+    return { success: false, errorCode: 'JOB_ID_REQUIRED', errorMessage: 'Import job ID is required.' };
+  }
+
+  const validation = await validateUploadRequest(formData, 'file', LISTING_PHOTO_POLICY);
+  if (!validation.isValid || !validation.files || validation.files.length === 0) {
+    return {
+      success: false,
+      errorCode: validation.error || 'INVALID_UPLOAD',
+      errorMessage: validation.message || 'File upload validation failed.',
+    };
+  }
+
+  const file = validation.files[0];
+  const prisma = getPrisma();
+
+  try {
+    const job = await prisma.listingImportJob.findUnique({
+      where: { id: jobId },
+      include: { assets: true },
+    });
+
+    if (!job || job.provider_id !== user.id) {
+      return { success: false, errorCode: 'OWNERSHIP_MISMATCH', errorMessage: 'Unauthorized.' };
+    }
+
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const contentSha256 = crypto.createHash('sha256').update(buffer).digest('hex');
+
+    const extMatch = file.name.match(/\.[0-9a-z]+$/i);
+    const ext = extMatch ? extMatch[0].toLowerCase() : '.jpg';
+    const storageFileName = `listingbridge-${jobId.slice(0, 8)}-${Date.now()}-${contentSha256.slice(0, 8)}${ext}`;
+
+    const uploadRes = await storageService.uploadPublicFile(buffer, storageFileName);
+    const isCover = job.assets.length === 0;
+
+    const asset = await prisma.listingImportAsset.upsert({
+      where: {
+        job_id_content_sha256: {
+          job_id: jobId,
+          content_sha256: contentSha256,
+        },
+      },
+      create: {
+        job_id: jobId,
+        source_reference_hash: `provider-upload-${contentSha256.slice(0, 16)}`,
+        source_url_label: file.name,
+        content_sha256: contentSha256,
+        rentipid_asset_path: uploadRes.url,
+        file_size_bytes: buffer.length,
+        mime_type: file.type,
+        status: ListingImportAssetStatus.VALIDATED,
+        is_cover: isCover,
+        display_order: job.assets.length,
+        validated_at: new Date(),
+      },
+      update: {
+        status: ListingImportAssetStatus.VALIDATED,
+        rentipid_asset_path: uploadRes.url,
+        file_size_bytes: buffer.length,
+        mime_type: file.type,
+        validated_at: new Date(),
+      },
+    });
+
+    const snapshot = await buildAuthoritativeSnapshot(jobId, user.id, prisma);
+
+    return {
+      success: true,
+      asset: {
+        id: asset.id,
+        url: asset.rentipid_asset_path || uploadRes.url,
+        label: asset.source_url_label || file.name,
+        status: asset.status,
+      },
+      snapshot: snapshot || undefined,
+    };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { success: false, errorCode: 'UPLOAD_FAILED', errorMessage: msg };
+  }
+}
+
+/**
+ * Removes an uploaded media asset from an assisted import job and updates the snapshot.
+ */
+export async function removeAssistedMediaAction(
+  jobId: string,
+  assetId: string,
+): Promise<UploadMediaActionResult> {
+  const session = await getServerSession(authOptions);
+  const user = session?.user as AuthSessionUser | undefined;
+  if (!user?.id) {
+    return { success: false, errorCode: 'UNAUTHENTICATED', errorMessage: 'You must be logged in.' };
+  }
+
+  const prisma = getPrisma();
+  try {
+    const job = await prisma.listingImportJob.findUnique({ where: { id: jobId } });
+    if (!job || job.provider_id !== user.id) {
+      return { success: false, errorCode: 'OWNERSHIP_MISMATCH', errorMessage: 'Unauthorized.' };
+    }
+
+    await prisma.listingImportAsset.delete({
+      where: { id: assetId },
+    });
+
+    const snapshot = await buildAuthoritativeSnapshot(jobId, user.id, prisma);
+    return {
+      success: true,
+      snapshot: snapshot || undefined,
+    };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { success: false, errorCode: 'DELETE_FAILED', errorMessage: msg };
+  }
+}
+
+/**
+ * Refreshes and returns the authoritative review snapshot for a job.
+ */
+export async function refreshReviewSnapshotAction(jobId: string): Promise<StartImportActionResult> {
+  const session = await getServerSession(authOptions);
+  const user = session?.user as AuthSessionUser | undefined;
+  if (!user?.id) {
+    return { success: false, errorCode: 'UNAUTHENTICATED', errorMessage: 'You must be logged in.' };
+  }
+
+  const prisma = getPrisma();
+  try {
+    const snapshot = await buildAuthoritativeSnapshot(jobId, user.id, prisma);
+    if (!snapshot) {
+      return { success: false, errorCode: 'JOB_NOT_FOUND', errorMessage: 'Job not found or unauthorized.' };
+    }
+    return { success: true, jobId, snapshot };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { success: false, errorCode: 'REFRESH_FAILED', errorMessage: msg };
   }
 }
 

@@ -185,16 +185,36 @@ export class ListingBridgeDraftCreationService {
     let snapshot: ListingBridgeReviewSnapshot;
     if (options?.overrideSnapshot) {
       snapshot = options.overrideSnapshot;
-    } else if (job && job.canonical_payload) {
-      const contract = job.canonical_payload as CanonicalImportContract;
+    } else if (job && (job.canonical_payload || options?.overrideContract)) {
+      const contract = (job.canonical_payload as CanonicalImportContract) || options?.overrideContract!;
       const rightsConfirmed = (job.resolutions || []).some(
         (r) => r.field_name === 'listingbridge.rightsConfirmation.v1',
       );
+      const validatedAssets = (job.assets || []).filter((a) => a.status === 'VALIDATED');
+      const totalCandidates = Math.max((job.assets || []).length, contract.media?.length || 0);
+      const validatedCount = Math.max(validatedAssets.length, contract.media?.length || 0);
+
+      const media = {
+        totalCandidates,
+        validatedCount,
+        rejectedCount: (job.assets || []).filter((a) => a.status === 'REJECTED').length,
+        duplicateCount: 0,
+        hasCoverPhoto: validatedAssets.some((a) => a.is_cover) || (contract.media || []).some((m) => m.isCover),
+        isBlocking: validatedCount === 0,
+        assets: validatedAssets.map((a) => ({
+          id: a.id,
+          url: a.storage_path || undefined,
+          status: a.status,
+          isCover: a.is_cover,
+        })),
+      };
+
       snapshot = this.snapshotEngine.buildSnapshot({
         importJobId,
         providerId: job.provider_id,
         jobStatus: (job.status as unknown as ListingImportJobStatus) || 'NEEDS_REVIEW',
         contract,
+        media,
         rights: {
           rightsConfirmed,
           isBlocking: !rightsConfirmed,
@@ -226,6 +246,22 @@ export class ListingBridgeDraftCreationService {
         errorMessage: 'Import job is not eligible for draft creation due to unresolved blockers.',
         blockingReasons: readiness.blockingReasons,
       });
+    }
+
+    // 5b. When not overridden by a snapshot, verify rights directly in DB
+    if (!options?.overrideSnapshot && job && job.resolutions && job.resolutions.length > 0) {
+      const hasDbRights = job.resolutions.some(
+        (r) => r.field_name === 'listingbridge.rightsConfirmation.v1',
+      );
+      if (!hasDbRights) {
+        return Object.freeze({
+          success: false,
+          importJobId,
+          errorCode: 'DRAFT_READINESS_FAILED',
+          errorMessage: 'Provider rights confirmation is required before draft readiness',
+          blockingReasons: ['RIGHTS_NOT_CONFIRMED: Provider rights confirmation is required before draft readiness'],
+        });
+      }
     }
 
     // 6. Map reviewed canonical snapshot to native RENTipid draft payload

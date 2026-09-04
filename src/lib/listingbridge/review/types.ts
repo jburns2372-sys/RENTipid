@@ -31,6 +31,15 @@ export interface UnresolvedReviewItem {
   readonly permittedActions: readonly ReviewFieldAction[];
 }
 
+export interface ReviewMediaAsset {
+  readonly id: string;
+  readonly url?: string;
+  readonly label?: string;
+  readonly status: string;
+  readonly isCover: boolean;
+  readonly sizeBytes?: number;
+}
+
 export interface MediaReviewSummary {
   readonly totalCandidates: number;
   readonly validatedCount: number;
@@ -38,6 +47,7 @@ export interface MediaReviewSummary {
   readonly duplicateCount: number;
   readonly hasCoverPhoto: boolean;
   readonly isBlocking: boolean;
+  readonly assets?: readonly ReviewMediaAsset[];
 }
 
 export interface LocationReviewSummary {

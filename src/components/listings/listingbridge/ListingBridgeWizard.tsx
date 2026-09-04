@@ -14,6 +14,9 @@ import {
   confirmRightsAction,
   createNativeDraftAction,
   processAssistedImportAction,
+  uploadAssistedMediaAction,
+  removeAssistedMediaAction,
+  refreshReviewSnapshotAction,
 } from '@/app/dashboard/provider/listings/import/actions';
 
 export type ListingBridgeWizardStage =
@@ -55,6 +58,8 @@ export default function ListingBridgeWizard({
   const [correctionError, setCorrectionError] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [createdListingId, setCreatedListingId] = useState<string | null>(null);
+  const [isUploadingMedia, setIsUploadingMedia] = useState<boolean>(false);
+  const [mediaUploadError, setMediaUploadError] = useState<string>('');
 
   // Confidence state badge mapping with high contrast and accessible text
   const getBadgeForConfidence = (state: ListingBridgeConfidenceState) => {
@@ -80,18 +85,18 @@ export default function ListingBridgeWizard({
       case 'CONFLICT':
         return (
           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 border border-rose-300">
-            ⛔ Conflict found
+            ⚡ Conflict
           </span>
         );
       case 'MISSING':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-100 text-purple-800 border border-purple-300">
-            ❓ Missing required
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 border border-gray-300">
+            Missing
           </span>
         );
       case 'PROHIBITED':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-300">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-900 border border-red-300">
             🚫 Excluded (Policy)
           </span>
         );
@@ -110,28 +115,113 @@ export default function ListingBridgeWizard({
 
     try {
       const res = selectedConnectorId !== 'internal.test.fixture'
-        ? await processAssistedImportAction(selectedConnectorId, { type: 'PASTED_TEXT', data: assistedListingText, sourceReference: assistedSourceUrl || undefined })
+        ? await processAssistedImportAction(selectedConnectorId, {
+            type: 'PASTED_TEXT',
+            data: assistedListingText,
+            sourceReference: assistedSourceUrl || undefined,
+          })
         : await startImportAction(selectedConnectorId);
-      if (res.success && res.snapshot) {
-        // Also persist rights confirmation
-        await confirmRightsAction(res.snapshot.importJobId, {
-          ownsOrManagesProperty: true,
-          authorizedToSubmitImportedInformation: true,
-          hasImportedMediaReuseRights: true,
-          acceptsAccuracyResponsibility: true,
-        });
-        setActiveSnapshot(res.snapshot);
-        setStage('REVIEW_DETAILS');
-      } else {
+
+      if (!res.success || !res.jobId || !res.snapshot) {
         setCorrectionError(res.errorMessage || 'Failed to start import.');
         setStage('RIGHTS_CONFIRMATION');
+        return;
       }
+
+      // Persist rights confirmation authoritatively - fails closed on error
+      const rightsRes = await confirmRightsAction(res.jobId, {
+        ownsOrManagesProperty: true,
+        authorizedToSubmitImportedInformation: true,
+        hasImportedMediaReuseRights: true,
+        acceptsAccuracyResponsibility: true,
+      });
+
+      if (!rightsRes.success) {
+        setCorrectionError(rightsRes.errorMessage || 'Failed to authoritatively confirm listing rights.');
+        setStage('RIGHTS_CONFIRMATION');
+        return;
+      }
+
+      // Authoritative post-confirmation snapshot
+      if (rightsRes.snapshot) {
+        setActiveSnapshot(rightsRes.snapshot);
+      } else {
+        const refreshed = await refreshReviewSnapshotAction(res.jobId);
+        if (refreshed.success && refreshed.snapshot) {
+          setActiveSnapshot(refreshed.snapshot);
+        } else {
+          setActiveSnapshot({
+            ...res.snapshot,
+            rights: { rightsConfirmed: true, confirmedAt: new Date(), isBlocking: false },
+            readiness: {
+              ...res.snapshot.readiness,
+              blockingReasons: res.snapshot.readiness.blockingReasons.filter(
+                (r) => !r.includes('RIGHTS_NOT_CONFIRMED'),
+              ),
+            },
+          });
+        }
+      }
+
+      setStage('REVIEW_DETAILS');
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       setCorrectionError(msg);
       setStage('RIGHTS_CONFIRMATION');
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0 || !activeSnapshot) return;
+
+    setIsUploadingMedia(true);
+    setMediaUploadError('');
+
+    try {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const formData = new FormData();
+        formData.append('jobId', activeSnapshot.importJobId);
+        formData.append('file', file);
+
+        const res = await uploadAssistedMediaAction(formData);
+        if (!res.success) {
+          setMediaUploadError(res.errorMessage || 'Failed to upload photo.');
+          break;
+        }
+        if (res.snapshot) {
+          setActiveSnapshot(res.snapshot);
+        }
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setMediaUploadError(msg);
+    } finally {
+      setIsUploadingMedia(false);
+      e.target.value = '';
+    }
+  };
+
+  const handleRemovePhoto = async (assetId: string) => {
+    if (!activeSnapshot) return;
+    setIsUploadingMedia(true);
+    setMediaUploadError('');
+
+    try {
+      const res = await removeAssistedMediaAction(activeSnapshot.importJobId, assetId);
+      if (!res.success) {
+        setMediaUploadError(res.errorMessage || 'Failed to remove photo.');
+      } else if (res.snapshot) {
+        setActiveSnapshot(res.snapshot);
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setMediaUploadError(msg);
+    } finally {
+      setIsUploadingMedia(false);
     }
   };
 
@@ -478,15 +568,100 @@ export default function ListingBridgeWizard({
             </div>
           </div>
 
-          {/* Media Review Summary */}
-          <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-2">
-            <h3 className="font-bold text-sm text-gray-900">Media Assets Review</h3>
-            <div className="flex items-center gap-6 text-sm text-gray-700">
-              <div>Total candidate photos: <span className="font-bold">{activeSnapshot.media.totalCandidates}</span></div>
-              <div>Validated: <span className="font-bold text-emerald-700">{activeSnapshot.media.validatedCount}</span></div>
-              {activeSnapshot.media.rejectedCount > 0 && (
-                <div>Rejected: <span className="font-bold text-rose-700">{activeSnapshot.media.rejectedCount}</span></div>
-              )}
+          {/* Media Review Summary & Provider Photo Upload Control */}
+          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-3">
+              <div>
+                <h3 className="font-bold text-sm text-gray-900">Media Assets Review</h3>
+                <p className="text-xs text-gray-500">Only upload photos you own or are authorized to use.</p>
+              </div>
+              <div className="flex items-center gap-4 text-xs sm:text-sm text-gray-700">
+                <div>Total candidate photos: <span className="font-bold">{activeSnapshot.media.totalCandidates}</span></div>
+                <div>Validated: <span className="font-bold text-emerald-700">{activeSnapshot.media.validatedCount}</span></div>
+                {activeSnapshot.media.rejectedCount > 0 && (
+                  <div>Rejected: <span className="font-bold text-rose-700">{activeSnapshot.media.rejectedCount}</span></div>
+                )}
+              </div>
+            </div>
+
+            {/* Uploaded photos list */}
+            {activeSnapshot.media.assets && activeSnapshot.media.assets.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                {activeSnapshot.media.assets.map((asset) => (
+                  <div
+                    key={asset.id}
+                    className="relative border border-gray-200 rounded-lg overflow-hidden bg-gray-50 p-2 text-xs space-y-1"
+                  >
+                    {asset.url && (asset.url.startsWith('/') || asset.url.startsWith('http')) ? (
+                      <img
+                        src={asset.url}
+                        alt={asset.label || 'Listing photo'}
+                        className="w-full h-24 object-cover rounded"
+                      />
+                    ) : (
+                      <div className="w-full h-24 bg-gray-200 flex items-center justify-center text-gray-400 text-lg rounded">
+                        📷
+                      </div>
+                    )}
+                    <div className="truncate font-medium text-gray-800" title={asset.label || asset.id}>
+                      {asset.label || 'Photo'}
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                        {asset.status}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleRemovePhoto(asset.id)}
+                        disabled={isUploadingMedia}
+                        className="text-[10px] text-rose-600 hover:text-rose-800 font-semibold disabled:opacity-50"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Upload error display */}
+            {mediaUploadError && (
+              <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg text-xs text-rose-800">
+                {mediaUploadError}
+              </div>
+            )}
+
+            {/* Provider photo upload control */}
+            <div className="pt-2">
+              <label htmlFor="assisted-photo-upload" className="block text-xs font-semibold text-gray-700 mb-1">
+                Add listing photos
+              </label>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                <input
+                  type="file"
+                  id="assisted-photo-upload"
+                  accept="image/jpeg,image/png,image/webp"
+                  multiple
+                  onChange={handlePhotoUpload}
+                  disabled={isUploadingMedia}
+                  className="block w-full sm:w-auto text-xs text-gray-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-lg file:border-0
+                    file:text-xs file:font-semibold
+                    file:bg-blue-50 file:text-blue-700
+                    hover:file:bg-blue-100
+                    disabled:opacity-50 cursor-pointer"
+                />
+                {isUploadingMedia && (
+                  <div className="flex items-center gap-2 text-xs text-blue-600 font-medium">
+                    <div className="animate-spin rounded-full h-3.5 w-3.5 border-2 border-blue-600 border-t-transparent" />
+                    <span>Validating & uploading photo...</span>
+                  </div>
+                )}
+              </div>
+              <p className="text-[11px] text-gray-500 mt-1">
+                Supported formats: JPEG, PNG, WebP (up to 5MB each). At least 1 validated photo is required.
+              </p>
             </div>
           </div>
         </section>

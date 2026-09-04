@@ -31,7 +31,8 @@ export class ListingBridgeReviewSnapshotEngine {
     const fields: ReviewFieldModel[] = input.fields ? [...input.fields] : this.deriveFieldsFromContract(input.contract);
 
     // 2. Derive Unresolved Items
-    const unresolvedItems: UnresolvedReviewItem[] = input.contract.unresolvedFields.map((u) => {
+    const unresolvedFields = input.contract.unresolvedFields || [];
+    const unresolvedItems: UnresolvedReviewItem[] = unresolvedFields.map((u) => {
       const field = fields.find((f) => f.fieldName === u.fieldName);
       return {
         fieldName: u.fieldName,
@@ -44,32 +45,40 @@ export class ListingBridgeReviewSnapshotEngine {
     });
 
     // 3. Default Media Summary
+    const contractMedia = input.contract.media || [];
     const media: MediaReviewSummary = input.media || {
-      totalCandidates: input.contract.media.length,
-      validatedCount: input.contract.media.length,
+      totalCandidates: contractMedia.length,
+      validatedCount: contractMedia.length,
       rejectedCount: 0,
       duplicateCount: 0,
-      hasCoverPhoto: input.contract.media.some((m) => m.isCover),
-      isBlocking: input.contract.media.length === 0,
+      hasCoverPhoto: contractMedia.some((m) => m.isCover),
+      isBlocking: contractMedia.length === 0,
+      assets: contractMedia.map((m, idx) => ({
+        id: `media-${idx}`,
+        url: m.sourceUrlLabel,
+        label: m.caption || m.sourceUrlLabel,
+        status: 'VALIDATED',
+        isCover: m.isCover,
+      })),
     };
 
     // 4. Default Location Summary
     const location: LocationReviewSummary = input.location || {
       normalizedAddress: {
-        addressLine1: input.contract.location.rawLocationString || null,
+        addressLine1: input.contract.location?.rawLocationString || null,
         addressLine2: null,
         sublocality: null,
-        locality: input.contract.location.city || null,
+        locality: input.contract.location?.city || null,
         administrativeArea2: null,
-        administrativeArea1: input.contract.location.province || null,
-        postalCode: input.contract.location.postalCode || null,
-        countryCode: input.contract.location.country || 'PH',
-        formattedAddress: input.contract.location.rawLocationString || null,
-        latitude: input.contract.location.latitude ?? null,
-        longitude: input.contract.location.longitude ?? null,
+        administrativeArea1: input.contract.location?.province || null,
+        postalCode: input.contract.location?.postalCode || null,
+        countryCode: input.contract.location?.country || 'PH',
+        formattedAddress: input.contract.location?.rawLocationString || null,
+        latitude: input.contract.location?.latitude ?? null,
+        longitude: input.contract.location?.longitude ?? null,
         provider: 'MANUAL',
         providerPlaceId: null,
-        validationStatus: input.contract.fieldConfidence.location?.state === 'VERIFIED' ? 'VERIFIED' : 'UNVERIFIED',
+        validationStatus: input.contract.fieldConfidence?.location?.state === 'VERIFIED' ? 'VERIFIED' : 'UNVERIFIED',
         validationLevel: null,
         manuallyEdited: false,
         validatedAt: null,
@@ -77,7 +86,7 @@ export class ListingBridgeReviewSnapshotEngine {
       isWithinPhilippineBounds: true,
       conflicts: [],
       isBlocking: false,
-      requiresReview: input.contract.fieldConfidence.location?.state === 'REVIEW_RECOMMENDED',
+      requiresReview: input.contract.fieldConfidence?.location?.state === 'REVIEW_RECOMMENDED',
     };
 
     // 5. Default Duplicate Summary
@@ -124,52 +133,52 @@ export class ListingBridgeReviewSnapshotEngine {
     const fields: ReviewFieldModel[] = [];
 
     // Title
-    const titleConf = contract.fieldConfidence.title;
+    const titleConf = contract.fieldConfidence?.title;
     fields.push({
       fieldName: 'title',
       displayName: 'Listing Title',
-      normalizedValue: contract.property.title,
+      normalizedValue: contract.property?.title,
       sourceValueHash: titleConf?.provenance?.sourceHash,
       confidenceState: titleConf?.state || 'REVIEW_RECOMMENDED',
       isRequired: true,
       isBlocking: titleConf?.state === 'CONFLICT' || titleConf?.state === 'MISSING',
       providerModified: false,
-      validationState: contract.property.title ? 'VALIDATED' : 'INVALID',
+      validationState: contract.property?.title ? 'VALIDATED' : 'INVALID',
       allowedActions: ['CONFIRM', 'EDIT'],
     });
 
     // Description
-    const descConf = contract.fieldConfidence.description;
+    const descConf = contract.fieldConfidence?.description;
     fields.push({
       fieldName: 'description',
       displayName: 'Description',
-      normalizedValue: contract.property.description,
+      normalizedValue: contract.property?.description,
       sourceValueHash: descConf?.provenance?.sourceHash,
       confidenceState: descConf?.state || 'REVIEW_RECOMMENDED',
       isRequired: true,
       isBlocking: descConf?.state === 'CONFLICT' || descConf?.state === 'MISSING',
       providerModified: false,
-      validationState: contract.property.description ? 'VALIDATED' : 'INVALID',
+      validationState: contract.property?.description ? 'VALIDATED' : 'INVALID',
       allowedActions: ['CONFIRM', 'EDIT'],
     });
 
     // Property Type
-    const typeConf = contract.fieldConfidence.propertyType;
+    const typeConf = contract.fieldConfidence?.propertyType;
     fields.push({
       fieldName: 'propertyType',
       displayName: 'Property Type',
-      normalizedValue: contract.property.propertyType,
+      normalizedValue: contract.property?.propertyType,
       sourceValueHash: typeConf?.provenance?.sourceHash,
       confidenceState: typeConf?.state || 'REVIEW_RECOMMENDED',
       isRequired: true,
       isBlocking: typeConf?.state === 'CONFLICT' || typeConf?.state === 'MISSING',
       providerModified: false,
-      validationState: contract.property.propertyType ? 'VALIDATED' : 'INVALID',
+      validationState: contract.property?.propertyType ? 'VALIDATED' : 'INVALID',
       allowedActions: ['CONFIRM', 'EDIT'],
     });
 
     // Capacity
-    const capConf = contract.fieldConfidence.capacity;
+    const capConf = contract.fieldConfidence?.capacity;
     fields.push({
       fieldName: 'capacity',
       displayName: 'Guest Capacity',
@@ -184,7 +193,7 @@ export class ListingBridgeReviewSnapshotEngine {
     });
 
     // Amenities
-    const amenConf = contract.fieldConfidence.amenities;
+    const amenConf = contract.fieldConfidence?.amenities;
     fields.push({
       fieldName: 'amenities',
       displayName: 'Amenities',
@@ -199,7 +208,7 @@ export class ListingBridgeReviewSnapshotEngine {
     });
 
     // Pricing Hints
-    const priceConf = contract.fieldConfidence.pricingHints;
+    const priceConf = contract.fieldConfidence?.pricingHints;
     fields.push({
       fieldName: 'pricingHints',
       displayName: 'Pricing Hints',
