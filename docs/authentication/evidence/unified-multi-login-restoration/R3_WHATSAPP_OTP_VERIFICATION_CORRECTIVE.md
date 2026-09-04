@@ -70,9 +70,46 @@ Timed out fetching a new connection from the connection pool. More info: http://
 
 ---
 
-## 4. Current Acceptance State
+## 4. Initial Acceptance State
 
 - **Application Hotfix SHA:** `9a4dc9bd8bf189eb2601f6fc540c4cdd6fe16ef8`
-- **Active Production Deployment:** `dpl_HzbURXqC8bL4AkX9aanVAQnDCpFg`
-- **Owner Targeted Runtime Test:** `AWAITING_OWNER`
-- **ListingBridge G11:** `HOLD` (resumes once Owner verifies WhatsApp login path)
+- **Initial Production Deployment:** `dpl_HzbURXqC8bL4AkX9aanVAQnDCpFg`
+- **First Owner Runtime Test:** `FAIL` (Callback 200 succeeded, but UI remained on "Verifying..." without navigating)
+- **Prisma Pool Corrective Status:** `PASS / PRESERVED` (0 connection pool timeouts in production logs)
+
+---
+
+## 5. R3B Follow-Up: Session Callback & Hard Navigation Corrective
+
+### Symptom & Root Cause
+1. **Omitted callbackUrl:** `signIn('phone-otp')` did not pass `callbackUrl`, causing NextAuth to default to the origin referrer: `https://www.rentipid.com.ph/login`.
+2. **Client Router No-Op:** `normalizeLoginCallbackUrl` returned `"/login"`. Calling `router.push('/login')` while already at `/login` produced a client router no-op.
+3. **Stuck Loading State:** The success branch did not reset `loading: false`, leaving the button indefinitely disabled displaying "Verifying...".
+
+### R3B Implementation Fix
+1. **Explicit Safe Target Propagation:** `safeTarget` is computed upfront via `normalizeLoginCallbackUrl(callbackUrl, origin)` and passed into `signIn('phone-otp', { redirect: false, callbackUrl: safeTarget, ... })`.
+2. **Login Loop Deflection:** `normalizeLoginCallbackUrl` explicitly deflects `/login` and `/login/` to `'/'` (matching `/dashboard` safety invariant).
+3. **Session Verification Probe:** Verified `/api/auth/session` before executing navigation, ensuring an active authenticated session exists.
+4. **Authoritative Hard Navigation:** Replaced soft client-side navigation with `window.location.assign(safeTarget)`, guaranteeing the newly issued session cookie is attached to a fresh document request and bypassing any stale client-side router caching.
+5. **Loading State Integrity:** Loading state is cleared on all error, timeout, or missing-session outcomes; double-submission remains blocked.
+
+### R3B Verification & Deployments
+- **R3B Application SHA:** `9104aef80ff9680d121729a3f09086cc91113b0c`
+- **Rollback Target Deployment ID:** `dpl_HzbURXqC8bL4AkX9aanVAQnDCpFg`
+- **Preview Deployment ID:** `dpl_Xq3Fhvjq49DKfhFsiHcRTVKwJttq` (PASS, HTTP 200)
+- **Active Production Hotfix Deployment ID:** `dpl_12DeQkVzxWba5RpEyj8zw2bXbb11` (PASS, HTTP 200)
+- **Canonical Production URL:** `https://www.rentipid.com.ph`
+- **Test Suite Results:**
+  - `tests/auth/whatsapp-otp-verification-stall.test.ts`: 9/9 PASS
+  - Auth Baseline Suites: 142/142 PASS (Total Auth Tests: 151/151 PASS)
+  - SOC/MFA Suites: 53/53 PASS
+  - TypeScript Typecheck: PASS
+  - Production Build: PASS
+- **Database Schema Changed:** NO
+- **Database Migrations Executed:** NO
+- **Production Database Mutated:** NO
+- **Owner Second Runtime Test:** `AWAITING_OWNER`
+- **ListingBridge G11 Status:** `HOLD`
+  - *Hold Reason 1:* `WHATSAPP_CORRECTIVE` (Awaiting Owner runtime retest)
+  - *Hold Reason 2:* `LISTINGBRIDGE_ASSISTED_CONNECTOR_PRODUCTION_AVAILABILITY`
+
