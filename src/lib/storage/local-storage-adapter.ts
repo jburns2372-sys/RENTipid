@@ -1,13 +1,20 @@
 import { StorageAdapter } from './storage-interface';
-import { writeFile, unlink } from 'fs/promises';
+import { writeFile, unlink, mkdir } from 'fs/promises';
 import path from 'path';
 
+/**
+ * LocalStorageAdapter is for LOCAL development and testing only.
+ * It is NOT valid durable storage for Vercel Serverless / Production environments.
+ */
 export class LocalStorageAdapter implements StorageAdapter {
   async uploadFile(buffer: Buffer, fileName: string, isPrivate: boolean): Promise<{ url: string; path: string }> {
-    const filePath = isPrivate
-      ? path.join(process.cwd(), 'private_uploads', fileName)
-      : path.join(process.cwd(), 'public/uploads', fileName);
-    
+    const parentDir = isPrivate
+      ? path.join(process.cwd(), 'private_uploads')
+      : path.join(process.cwd(), 'public/uploads');
+
+    await mkdir(parentDir, { recursive: true });
+
+    const filePath = path.join(parentDir, fileName);
     await writeFile(filePath, buffer);
     
     return {

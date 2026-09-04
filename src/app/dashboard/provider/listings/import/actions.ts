@@ -605,34 +605,41 @@ export async function uploadAssistedMediaAction(formData: FormData): Promise<Upl
     const uploadRes = await storageService.uploadPublicFile(buffer, storageFileName);
     const isCover = job.assets.length === 0;
 
-    const asset = await prisma.listingImportAsset.upsert({
-      where: {
-        job_id_content_sha256: {
-          job_id: jobId,
-          content_sha256: contentSha256,
+    let asset;
+    try {
+      asset = await prisma.listingImportAsset.upsert({
+        where: {
+          job_id_content_sha256: {
+            job_id: jobId,
+            content_sha256: contentSha256,
+          },
         },
-      },
-      create: {
-        job_id: jobId,
-        source_reference_hash: `provider-upload-${contentSha256.slice(0, 16)}`,
-        source_url_label: file.name,
-        content_sha256: contentSha256,
-        rentipid_asset_path: uploadRes.url,
-        file_size_bytes: buffer.length,
-        mime_type: file.type,
-        status: ListingImportAssetStatus.VALIDATED,
-        is_cover: isCover,
-        display_order: job.assets.length,
-        validated_at: new Date(),
-      },
-      update: {
-        status: ListingImportAssetStatus.VALIDATED,
-        rentipid_asset_path: uploadRes.url,
-        file_size_bytes: buffer.length,
-        mime_type: file.type,
-        validated_at: new Date(),
-      },
-    });
+        create: {
+          job_id: jobId,
+          source_reference_hash: `provider-upload-${contentSha256.slice(0, 16)}`,
+          source_url_label: file.name,
+          content_sha256: contentSha256,
+          rentipid_asset_path: uploadRes.url,
+          file_size_bytes: buffer.length,
+          mime_type: file.type,
+          status: ListingImportAssetStatus.VALIDATED,
+          is_cover: isCover,
+          display_order: job.assets.length,
+          validated_at: new Date(),
+        },
+        update: {
+          status: ListingImportAssetStatus.VALIDATED,
+          rentipid_asset_path: uploadRes.url,
+          file_size_bytes: buffer.length,
+          mime_type: file.type,
+          validated_at: new Date(),
+        },
+      });
+    } catch (dbErr: unknown) {
+      // Compensating cleanup of uploaded blob if DB persistence fails
+      await storageService.deleteFile(uploadRes.url).catch(() => {});
+      throw dbErr;
+    }
 
     const snapshot = await buildAuthoritativeSnapshot(jobId, user.id, prisma);
 

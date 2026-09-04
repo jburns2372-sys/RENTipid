@@ -397,4 +397,72 @@ describe('ListingBridge v1.1 Rights Confirmation & Media Readiness Regression Su
       expect(res.errorCode).toBe('OWNERSHIP_MISMATCH');
     });
   });
+
+  describe('4. Durable Storage & Production Invariants', () => {
+    it('4.1: Local storage adapter is blocked in Production when STORAGE_PROVIDER=local and no token is present', async () => {
+      const originalEnv = process.env.NODE_ENV;
+      const originalProvider = process.env.STORAGE_PROVIDER;
+      const originalToken = process.env.BLOB_READ_WRITE_TOKEN;
+      const originalVercel = process.env.VERCEL;
+
+      const env = process.env as Record<string, string | undefined>;
+
+      try {
+        env.NODE_ENV = 'production';
+        process.env.VERCEL = '1';
+        process.env.STORAGE_PROVIDER = 'local';
+        delete process.env.BLOB_READ_WRITE_TOKEN;
+        delete process.env.ALLOW_LOCAL_STORAGE_IN_PRODUCTION;
+
+        // Re-import storage service in fresh context
+        const { storageService } = await import('../../../src/lib/storage/storage-service');
+        expect(() => {
+          const ServiceClass = storageService.constructor as new () => { adapter: unknown };
+          const instance = new ServiceClass();
+          // Accessing the adapter property triggers resolveAdapter
+          void instance.adapter;
+        }).toThrow(/FATAL: LocalStorageAdapter is disabled in Production\/Vercel/);
+      } finally {
+        env.NODE_ENV = originalEnv;
+        process.env.STORAGE_PROVIDER = originalProvider;
+        if (originalToken) process.env.BLOB_READ_WRITE_TOKEN = originalToken;
+        if (originalVercel) process.env.VERCEL = originalVercel;
+      }
+    });
+
+    it('4.2: VercelBlobStorageAdapter returns a durable https public URL', async () => {
+      const { VercelBlobStorageAdapter } = await import('../../../src/lib/storage/vercel-blob-storage-adapter');
+      const adapter = new VercelBlobStorageAdapter();
+
+      // Mock put
+      jest.spyOn(adapter, 'uploadFile').mockResolvedValue({
+        url: 'https://store_5mxwewro6obcfu60.public.blob.vercel-storage.com/uploads/listingbridge-test.jpg',
+        path: 'uploads/listingbridge-test.jpg',
+      });
+
+      const res = await adapter.uploadFile(Buffer.from('fake-image-bytes'), 'listingbridge-test.jpg', false);
+      expect(res.url).toMatch(/^https:\/\/.+\.blob\.vercel-storage\.com\//);
+      expect(res.url).not.toContain('/var/task');
+      expect(res.url).not.toContain('public/uploads');
+    });
+
+    it('4.3: Storage service auto-selects vercel_blob when BLOB_READ_WRITE_TOKEN is configured', async () => {
+      const originalToken = process.env.BLOB_READ_WRITE_TOKEN;
+      const originalProvider = process.env.STORAGE_PROVIDER;
+
+      try {
+        process.env.BLOB_READ_WRITE_TOKEN = 'vercel_blob_rw_test_token';
+        delete process.env.STORAGE_PROVIDER;
+
+        const { storageService } = await import('../../../src/lib/storage/storage-service');
+        const ServiceClass = storageService.constructor as new () => { adapter: { constructor: { name: string } } };
+        const instance = new ServiceClass();
+        expect(instance.adapter.constructor.name).toBe('VercelBlobStorageAdapter');
+      } finally {
+        if (originalToken) process.env.BLOB_READ_WRITE_TOKEN = originalToken;
+        else delete process.env.BLOB_READ_WRITE_TOKEN;
+        if (originalProvider) process.env.STORAGE_PROVIDER = originalProvider;
+      }
+    });
+  });
 });
