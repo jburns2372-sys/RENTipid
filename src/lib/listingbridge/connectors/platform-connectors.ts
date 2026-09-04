@@ -2,9 +2,10 @@ import type { ListingBridgeConnectorDescriptor } from './descriptor';
 import { ListingBridgeExternalConnector, makeCanonicalMapper, type ExternalConnectorOptions } from './external-connector-base';
 
 const assistedEnvironments = {
-  LOCAL: { state: 'APPROVED' as const }, TEST: { state: 'APPROVED' as const },
-  PREVIEW: { state: 'DISABLED' as const, reason: 'Requires a later v1.1 lifecycle gate' },
-  PRODUCTION: { state: 'DISABLED' as const, reason: 'Assisted connector is disabled until a controlled v1.1 release' },
+  LOCAL: { state: 'APPROVED' as const },
+  TEST: { state: 'APPROVED' as const },
+  PREVIEW: { state: 'APPROVED' as const },
+  PRODUCTION: { state: 'APPROVED' as const },
 };
 
 function assistedDescriptor(input: { id: string; internalName: string; displayName: string; complianceReference: string }): ListingBridgeConnectorDescriptor {
@@ -12,10 +13,10 @@ function assistedDescriptor(input: { id: string; internalName: string; displayNa
     id: input.id, internalName: input.internalName, displayName: input.displayName, version: '1.1.0', tier: 'TIER_3_FILE', sourceMode: 'ASSISTED_IMPORT',
     authorization: { type: 'MANUAL_PROVIDER_INPUT', requiresProviderRightsConfirmation: true, serverSideOnly: false, credentialReferenceRequired: false },
     capabilities: ['LISTING_FACTS', 'MEDIA', 'STRUCTURED_FILE', 'ASSISTED_PROVIDER_DATA', 'PROVIDER_RIGHTS_CONFIRMATION'], environments: assistedEnvironments,
-    featureStatus: 'DISABLED', featureControl: { requiredGlobalFlag: 'LISTINGBRIDGE_GLOBAL', requiredCapabilityFlags: ['LISTINGBRIDGE_FILE_IMPORT'] },
+    featureStatus: 'ENABLED', featureControl: { requiredGlobalFlag: 'LISTINGBRIDGE_GLOBAL', requiredCapabilityFlags: ['LISTINGBRIDGE_FILE_IMPORT'] },
     compliance: { status: 'APPROVED', reference: input.complianceReference }, health: { state: 'HEALTHY', message: 'Local provider-input processing only; no external platform is contacted' },
     timeoutPolicy: { connectTimeoutMs: 1000, responseTimeoutMs: 10000, maxRedirects: 0, maxResponseBytes: 10 * 1024 * 1024 },
-    retryPolicy: { maxAttempts: 1, baseDelayMs: 100, maxDelayMs: 100, retryableStatusCodes: [] }, ratePolicy: { policyRef: `${input.id}.local-input-policy`, maxRequestsPerMinute: 60, burstLimit: 5 }, enabled: false,
+    retryPolicy: { maxAttempts: 1, baseDelayMs: 100, maxDelayMs: 100, retryableStatusCodes: [] }, ratePolicy: { policyRef: `${input.id}.local-input-policy`, maxRequestsPerMinute: 60, burstLimit: 5 }, enabled: true,
   };
 }
 

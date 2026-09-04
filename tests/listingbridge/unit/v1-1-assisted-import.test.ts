@@ -14,7 +14,7 @@ describe('ListingBridge v1.1 provider-assisted imports', () => {
   it('registers exactly five assisted connectors with stable IDs', () => {
     const registrations = createListingBridgePlatformConnectors();
     expect(registrations.map(value => value.descriptor.id)).toEqual(['airbnb.assisted.v1', 'booking.com.assisted.v1', 'agoda.assisted.v1', 'facebook.marketplace.assisted.v1', 'external.listing.assisted.v1']);
-    expect(registrations.every(value => value.descriptor.sourceMode === 'ASSISTED_IMPORT' && value.descriptor.enabled === false)).toBe(true);
+    expect(registrations.every(value => value.descriptor.sourceMode === 'ASSISTED_IMPORT' && value.descriptor.enabled === true)).toBe(true);
   });
 
   it.each([

@@ -271,10 +271,12 @@ export default function ListingBridgeWizard({
                 </div>
                 <p className="text-sm text-gray-600 mt-2">{connector.description}</p>
                 <p className={`mt-2 text-xs font-semibold ${connector.availabilityState === 'AVAILABLE' ? 'text-emerald-700' : 'text-amber-700'}`}>
-                  {connector.retrievalMode === 'ASSISTED' ? 'Provider-assisted import' : connector.availabilityState === 'AVAILABLE' ? 'Available' : 'Unavailable'}
+                  {connector.availabilityState === 'AVAILABLE'
+                    ? (connector.retrievalMode === 'ASSISTED' ? 'Provider-assisted import' : 'Available')
+                    : 'Unavailable'}
                 </p>
                 <span className="mt-3 inline-block text-xs font-medium text-blue-700 bg-blue-100 px-2 py-0.5 rounded w-fit">
-                  {connector.tier.replace(/_/g, ' ')}
+                  {connector.tier === 'TIER_3_FILE' ? 'Assisted file/import' : connector.tier.replace(/_/g, ' ')}
                 </span>
               </label>
             ))}

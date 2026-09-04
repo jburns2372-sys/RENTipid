@@ -90,7 +90,10 @@ export class ListingBridgeUiService {
       })
       .map(async (c: ListingBridgePublicConnectorDescriptor) => {
         const availability = await registry.evaluateAvailability(c.id, { environment: currentEnvironment });
-        const retrievalMode = c.id === 'facebook.marketplace.assisted.v1' ? 'ASSISTED' : c.sourceMode;
+        const retrievalMode =
+          c.sourceMode === 'ASSISTED_IMPORT' || c.capabilities.includes('ASSISTED_PROVIDER_DATA')
+            ? 'ASSISTED'
+            : c.sourceMode;
         return {
         id: c.id,
         name: c.displayName,
