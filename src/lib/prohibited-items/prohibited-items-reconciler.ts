@@ -215,21 +215,47 @@ export async function reconcileProhibitedItems(
     (process.env.ALLOW_PREVIEW_PROHIBITED_ITEMS_RECONCILIATION === 'true' ||
       process.argv.includes('--authorize-preview-reference-reconciliation'));
 
-  // Legacy fallback flag only if no targetEnvironment specified
+  // Legacy fallback flag strictly for local/non-remote use
   const genericAuth =
     options?.allowProhibitedItemsReconciliation ??
     (process.env.ALLOW_PROHIBITED_ITEMS_RECONCILIATION === 'true');
 
-  const isAuthorized =
-    targetEnvironment === 'production'
+  const isDryRun = options?.dryRun ?? (process.env.DRY_RUN === 'true' || process.argv.includes('--dry-run'));
+
+  // Authorization resolution: Remote mutation strictly requires environment-specific authorization
+  const isAuthorized = isRemote
+    ? targetEnvironment === 'production'
+      ? allowProd
+      : targetEnvironment === 'preview'
+        ? allowPreview
+        : false
+    : targetEnvironment === 'production'
       ? allowProd
       : targetEnvironment === 'preview'
         ? allowPreview
         : (allowProd || allowPreview || genericAuth);
 
-  const isDryRun = options?.dryRun ?? (process.env.DRY_RUN === 'true' || process.argv.includes('--dry-run'));
+  // Guard 1: Database mismatch and required database name guard
+  if (expectedDatabaseName && actualDatabaseName !== expectedDatabaseName) {
+    throw new Error(
+      `PROHIBITED_ITEMS_RECONCILIATION_DATABASE_MISMATCH: Expected database '${expectedDatabaseName}', but received '${actualDatabaseName}'.`
+    );
+  }
 
-  // Cross-environment authorization guard: Disallow production auth on preview or preview auth on production
+  if (isRemote && !expectedDatabaseName) {
+    throw new Error(
+      'PROHIBITED_ITEMS_RECONCILIATION_EXPECTED_DATABASE_REQUIRED: EXPECTED_DATABASE_NAME must be specified for remote reconciliation.'
+    );
+  }
+
+  // Guard 2: Target environment guard for remote databases
+  if (isRemote && (!targetEnvironment || !['production', 'preview'].includes(targetEnvironment))) {
+    throw new Error(
+      'PROHIBITED_ITEMS_RECONCILIATION_TARGET_ENV_REQUIRED: REFERENCE_DATA_TARGET_ENVIRONMENT must be explicitly specified as "production" or "preview" for remote reconciliation.'
+    );
+  }
+
+  // Guard 3: Cross-environment authorization guard: Disallow production auth on preview or preview auth on production
   if (isRemote && !isDryRun) {
     if (targetEnvironment === 'production' && allowPreview && !allowProd) {
       throw new Error(
@@ -243,7 +269,7 @@ export async function reconcileProhibitedItems(
     }
   }
 
-  // Guard 1: Authorization guard for remote/production databases
+  // Guard 4: Authorization guard for remote/production databases
   if (isRemote && !isAuthorized && !isDryRun) {
     throw new Error(
       `PROHIBITED_ITEMS_RECONCILIATION_NOT_AUTHORIZED: Explicit operator authorization required for ${
@@ -252,21 +278,41 @@ export async function reconcileProhibitedItems(
     );
   }
 
-  // Guard 2: Expected database name guard for remote databases
-  if (isRemote && !expectedDatabaseName) {
+  // Guard 5: Expected Neon endpoint ID guard for remote databases
+  if (isRemote && !expectedEndpointId) {
     throw new Error(
-      'PROHIBITED_ITEMS_RECONCILIATION_EXPECTED_DATABASE_REQUIRED: EXPECTED_DATABASE_NAME must be specified for remote reconciliation.'
+      'PROHIBITED_ITEMS_RECONCILIATION_EXPECTED_ENDPOINT_REQUIRED: EXPECTED_NEON_ENDPOINT_ID must be specified for remote reconciliation.'
     );
   }
 
-  // Guard 3: Database mismatch guard
-  if (expectedDatabaseName && actualDatabaseName !== expectedDatabaseName) {
-    throw new Error(
-      `PROHIBITED_ITEMS_RECONCILIATION_DATABASE_MISMATCH: Expected database '${expectedDatabaseName}', but received '${actualDatabaseName}'.`
-    );
+  // Guard 6: Strict remote environment-to-identity binding
+  if (isRemote && targetEnvironment === 'production') {
+    if (expectedDatabaseName !== 'rentipid_production') {
+      throw new Error(
+        `PROHIBITED_ITEMS_RECONCILIATION_DATABASE_MISMATCH: Expected database 'rentipid_production' for Production reconciliation, but received '${expectedDatabaseName}'.`
+      );
+    }
+    if (expectedEndpointId !== 'ep-gentle-fog-apwlhnhf') {
+      throw new Error(
+        `PROHIBITED_ITEMS_RECONCILIATION_ENDPOINT_MISMATCH: Expected Neon endpoint 'ep-gentle-fog-apwlhnhf' for Production reconciliation, but received '${expectedEndpointId}'.`
+      );
+    }
   }
 
-  // Guard 4: Expected Neon endpoint ID guard
+  if (isRemote && targetEnvironment === 'preview') {
+    if (expectedDatabaseName !== 'rentipid_production') {
+      throw new Error(
+        `PROHIBITED_ITEMS_RECONCILIATION_DATABASE_MISMATCH: Expected database 'rentipid_production' for Preview reconciliation, but received '${expectedDatabaseName}'.`
+      );
+    }
+    if (expectedEndpointId !== 'ep-soft-pine-ap1b22e5') {
+      throw new Error(
+        `PROHIBITED_ITEMS_RECONCILIATION_ENDPOINT_MISMATCH: Expected Neon endpoint 'ep-soft-pine-ap1b22e5' for Preview reconciliation, but received '${expectedEndpointId}'.`
+      );
+    }
+  }
+
+  // Guard 7: Connected Neon endpoint ID mismatch guard
   if (expectedEndpointId) {
     if (!actualEndpointId) {
       throw new Error(

@@ -33,7 +33,7 @@ async function main() {
   console.log('  RENTipid Prohibited Items Reference Reconciler');
   console.log('==================================================');
   console.log(`MODE:                  ${isDryRun ? 'DRY_RUN (Read-Only Diff)' : 'MUTATION'}`);
-  console.log(`TARGET_ENV:            ${targetEnvironment || 'AUTO_DETECT'}`);
+  console.log(`TARGET_ENV:            ${targetEnvironment || 'UNSPECIFIED (FAIL-CLOSED)'}`);
   console.log(`EXPECTED_DB:           ${expectedDatabaseName || 'NONE_SPECIFIED'}`);
   console.log(`EXPECTED_ENDPOINT:     ${expectedEndpointId || 'NONE_SPECIFIED'}`);
   console.log(`AUTH_PROD:             ${isProdAuthorized}`);
@@ -47,7 +47,6 @@ async function main() {
     targetEnvironment,
     allowProductionReconciliation: isProdAuthorized,
     allowPreviewReconciliation: isPreviewAuthorized,
-    allowProhibitedItemsReconciliation: isProdAuthorized || isPreviewAuthorized,
     dryRun: isDryRun,
   });
 
