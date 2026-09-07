@@ -39,6 +39,7 @@ export interface ReferenceDataIntegrityReport {
 export interface ReferenceDataCheckOptions {
   databaseUrl?: string;
   expectedDatabaseName?: string;
+  expectedEndpointId?: string;
 }
 
 /**
@@ -63,10 +64,24 @@ export async function checkReferenceDataIntegrity(
   const host = parsedUrl.hostname;
   const isNeon = host.includes('neon.tech');
 
-  if (options?.expectedDatabaseName && actualDatabaseName !== options.expectedDatabaseName) {
+  const neonEndpointMatch = host.match(/^(ep-[a-z0-9-]+?)(?:-pooler)?\./);
+  const actualEndpointId = neonEndpointMatch ? neonEndpointMatch[1] : null;
+
+  const expectedDb = options?.expectedDatabaseName || process.env.EXPECTED_DATABASE_NAME;
+  const expectedEndpoint = options?.expectedEndpointId || process.env.EXPECTED_NEON_ENDPOINT_ID;
+
+  if (expectedDb && actualDatabaseName !== expectedDb) {
     throw new Error(
-      `REFERENCE_DATA_CHECK_DATABASE_MISMATCH: Expected '${options.expectedDatabaseName}', but targeting '${actualDatabaseName}'.`
+      `REFERENCE_DATA_CHECK_DATABASE_MISMATCH: Expected '${expectedDb}', but targeting '${actualDatabaseName}'.`
     );
+  }
+
+  if (expectedEndpoint) {
+    if (!actualEndpointId || actualEndpointId !== expectedEndpoint) {
+      throw new Error(
+        `REFERENCE_DATA_CHECK_ENDPOINT_MISMATCH: Expected Neon endpoint '${expectedEndpoint}', but targeting '${actualEndpointId || host}'.`
+      );
+    }
   }
 
   let prohibitedRows: Array<{ policyCode: string; slug: string; isActive: boolean; policyVersion: string }> = [];

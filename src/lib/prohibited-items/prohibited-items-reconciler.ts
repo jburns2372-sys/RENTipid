@@ -14,7 +14,11 @@ import {
 export interface ProhibitedItemsReconcileOptions {
   databaseUrl?: string;
   expectedDatabaseName?: string;
+  expectedEndpointId?: string;
+  targetEnvironment?: 'production' | 'preview' | 'local';
   allowProhibitedItemsReconciliation?: boolean;
+  allowProductionReconciliation?: boolean;
+  allowPreviewReconciliation?: boolean;
   dryRun?: boolean;
 }
 
@@ -184,22 +188,67 @@ export async function reconcileProhibitedItems(
   }
 
   const actualDatabaseName = parsedUrl.pathname.replace(/^\//, '').split('?')[0];
-  const isNeon = parsedUrl.hostname.includes('neon.tech');
-  const isRemote = isNeon || !['localhost', '127.0.0.1', '::1'].includes(parsedUrl.hostname);
+  const hostname = parsedUrl.hostname;
+  const isNeon = hostname.includes('neon.tech');
+  const isRemote = isNeon || !['localhost', '127.0.0.1', '::1'].includes(hostname);
+
+  // Extract Neon endpoint ID from hostname (e.g. ep-gentle-fog-apwlhnhf or ep-gentle-fog-apwlhnhf-pooler)
+  const neonEndpointMatch = hostname.match(/^(ep-[a-z0-9-]+?)(?:-pooler)?\./);
+  const actualEndpointId = neonEndpointMatch ? neonEndpointMatch[1] : null;
 
   const expectedDatabaseName =
     options?.expectedDatabaseName || process.env.EXPECTED_DATABASE_NAME;
-  const isAuthorized =
-    options?.allowProhibitedItemsReconciliation ??
-    (process.env.ALLOW_PROHIBITED_ITEMS_RECONCILIATION === 'true' ||
+  const expectedEndpointId =
+    options?.expectedEndpointId || process.env.EXPECTED_NEON_ENDPOINT_ID;
+  const targetEnvironment =
+    options?.targetEnvironment ||
+    (process.env.REFERENCE_DATA_TARGET_ENVIRONMENT as 'production' | 'preview' | 'local' | undefined);
+
+  // Authorizations: production vs preview
+  const allowProd =
+    options?.allowProductionReconciliation ??
+    (process.env.ALLOW_PRODUCTION_PROHIBITED_ITEMS_RECONCILIATION === 'true' ||
       process.argv.includes('--authorize-production-reference-reconciliation'));
 
+  const allowPreview =
+    options?.allowPreviewReconciliation ??
+    (process.env.ALLOW_PREVIEW_PROHIBITED_ITEMS_RECONCILIATION === 'true' ||
+      process.argv.includes('--authorize-preview-reference-reconciliation'));
+
+  // Legacy fallback flag only if no targetEnvironment specified
+  const genericAuth =
+    options?.allowProhibitedItemsReconciliation ??
+    (process.env.ALLOW_PROHIBITED_ITEMS_RECONCILIATION === 'true');
+
+  const isAuthorized =
+    targetEnvironment === 'production'
+      ? allowProd
+      : targetEnvironment === 'preview'
+        ? allowPreview
+        : (allowProd || allowPreview || genericAuth);
+
   const isDryRun = options?.dryRun ?? (process.env.DRY_RUN === 'true' || process.argv.includes('--dry-run'));
+
+  // Cross-environment authorization guard: Disallow production auth on preview or preview auth on production
+  if (isRemote && !isDryRun) {
+    if (targetEnvironment === 'production' && allowPreview && !allowProd) {
+      throw new Error(
+        'PROHIBITED_ITEMS_RECONCILIATION_AUTH_MISMATCH: Preview authorization cannot be used for Production reconciliation.'
+      );
+    }
+    if (targetEnvironment === 'preview' && allowProd && !allowPreview) {
+      throw new Error(
+        'PROHIBITED_ITEMS_RECONCILIATION_AUTH_MISMATCH: Production authorization cannot be used for Preview reconciliation.'
+      );
+    }
+  }
 
   // Guard 1: Authorization guard for remote/production databases
   if (isRemote && !isAuthorized && !isDryRun) {
     throw new Error(
-      'PROHIBITED_ITEMS_RECONCILIATION_NOT_AUTHORIZED: Explicit operator authorization required (ALLOW_PROHIBITED_ITEMS_RECONCILIATION=true or --authorize-production-reference-reconciliation).'
+      `PROHIBITED_ITEMS_RECONCILIATION_NOT_AUTHORIZED: Explicit operator authorization required for ${
+        targetEnvironment ? targetEnvironment.toUpperCase() : 'remote'
+      } reconciliation.`
     );
   }
 
@@ -215,6 +264,20 @@ export async function reconcileProhibitedItems(
     throw new Error(
       `PROHIBITED_ITEMS_RECONCILIATION_DATABASE_MISMATCH: Expected database '${expectedDatabaseName}', but received '${actualDatabaseName}'.`
     );
+  }
+
+  // Guard 4: Expected Neon endpoint ID guard
+  if (expectedEndpointId) {
+    if (!actualEndpointId) {
+      throw new Error(
+        `PROHIBITED_ITEMS_RECONCILIATION_ENDPOINT_MISMATCH: Expected Neon endpoint '${expectedEndpointId}', but hostname '${hostname}' is not a valid Neon endpoint.`
+      );
+    }
+    if (actualEndpointId !== expectedEndpointId) {
+      throw new Error(
+        `PROHIBITED_ITEMS_RECONCILIATION_ENDPOINT_MISMATCH: Expected Neon endpoint '${expectedEndpointId}', but connected to '${actualEndpointId}'.`
+      );
+    }
   }
 
   if (isNeon) {
