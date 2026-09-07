@@ -40,6 +40,7 @@ export default async function ProviderListingManagePage({
   }
 
   const isDraftOrRejected = listing.status === 'Draft' || listing.status === 'Rejected';
+  const canWithdrawForEdit = listing.status === 'Submitted for Review';
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-5xl">
@@ -81,12 +82,23 @@ export default async function ProviderListingManagePage({
           </div>
         </div>
         
-        {isDraftOrRejected && (
-          <form action={`/api/listings/${listing.id}/submit`} method="POST">
-             <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition">
-               Submit for Review
-             </button>
-          </form>
+        {(isDraftOrRejected || canWithdrawForEdit) && (
+          <div className="flex flex-wrap items-center justify-end gap-3">
+            {isDraftOrRejected && (
+              <form action={`/api/listings/${listing.id}/submit`} method="POST">
+                <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition">
+                  Submit for Review
+                </button>
+              </form>
+            )}
+            {canWithdrawForEdit && (
+              <form action={`/api/listings/${listing.id}/withdraw`} method="POST">
+                <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition">
+                  Withdraw & Edit
+                </button>
+              </form>
+            )}
+          </div>
         )}
       </div>
 

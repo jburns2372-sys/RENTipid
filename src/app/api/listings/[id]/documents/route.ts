@@ -9,6 +9,7 @@ const prisma = new PrismaClient();
 
 const ALLOWED_MIME_TYPES = ['application/pdf', 'image/jpeg', 'image/png'];
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const EDITABLE_LISTING_STATUSES = ['Draft', 'Rejected'];
 
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -24,6 +25,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     const listing = await prisma.listing.findUnique({ where: { id: listingId } });
     if (!listing || listing.provider_id !== providerId) {
       return NextResponse.json({ message: 'Listing not found or forbidden' }, { status: 403 });
+    }
+    if (!EDITABLE_LISTING_STATUSES.includes(listing.status)) {
+      return NextResponse.json({ message: 'Withdraw the listing before changing documents' }, { status: 400 });
     }
 
     const formData = await req.formData();
