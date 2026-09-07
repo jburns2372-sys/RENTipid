@@ -1,76 +1,85 @@
-import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
-import { PrismaClient } from '@prisma/client';
-import fs from 'fs/promises';
+import { ADMIN_LISTING_REVIEW_ROLES } from '@/lib/listings/admin-review-service';
+import { prisma } from '@/lib/prisma';
 
-const prisma = new PrismaClient();
+export const dynamic = 'force-dynamic';
 
-export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
+function isAllowedDocumentHost(url: URL) {
+  return url.protocol === 'https:' && (
+    url.hostname === 'blob.vercel-storage.com' ||
+    url.hostname.endsWith('.blob.vercel-storage.com') ||
+    url.hostname.endsWith('.blob.core.windows.net')
+  );
+}
+
+export async function GET(_request: Request, context: RouteContext<'/api/documents/[id]'>) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user) {
-      return new NextResponse('Unauthorized', { status: 401 });
-    }
+    const sessionUser = session?.user as { id?: string } | undefined;
+    if (!sessionUser?.id) return new Response('Unauthorized', { status: 401 });
 
-    const userId = (session.user as any).id;
-    const role = (session.user as any).role;
-    const isAdmin = role === 'Admin' || role === 'Compliance Admin' || role === 'Super Admin';
-
-    const { id: documentId } = await params;
-
-    let docPath = '';
-    let docType = 'application/pdf';
-
-    const listingDoc = await prisma.listingDocument.findUnique({
-      where: { id: documentId },
-      include: { listing: true },
-    });
-
-    if (listingDoc) {
-      if (!isAdmin && listingDoc.listing.provider_id !== userId) {
-        return new NextResponse('Forbidden', { status: 403 });
-      }
-      docPath = listingDoc.file_path;
-      docType = listingDoc.file_type || 'application/pdf';
-    } else {
-      const kycDoc = await prisma.verificationDocument.findUnique({
+    const { id: documentId } = await context.params;
+    const [requestingUser, listingDocument] = await Promise.all([
+      prisma.user.findUnique({
+        where: { id: sessionUser.id },
+        select: { id: true, role: true, status: true },
+      }),
+      prisma.listingDocument.findUnique({
         where: { id: documentId },
-      });
+        include: { listing: { select: { provider_id: true } } },
+      }),
+    ]);
 
-      if (!kycDoc) {
-        return new NextResponse('Document not found', { status: 404 });
-      }
-
-      if (!isAdmin && kycDoc.user_id !== userId) {
-        return new NextResponse('Forbidden', { status: 403 });
-      }
-      docPath = kycDoc.file_url;
-      docType = docPath.endsWith('.pdf') ? 'application/pdf' : 'image/jpeg';
+    if (!requestingUser || requestingUser.status !== 'Verified') {
+      return new Response('Forbidden', { status: 403 });
     }
 
-    // If stored as HTTP URL (e.g. Vercel Blob or remote storage), redirect or proxy
-    if (docPath.startsWith('http://') || docPath.startsWith('https://')) {
-      return NextResponse.redirect(new URL(docPath));
+    const isAdmin = ADMIN_LISTING_REVIEW_ROLES.includes(
+      requestingUser.role as (typeof ADMIN_LISTING_REVIEW_ROLES)[number],
+    );
+    let documentPath: string;
+    let documentType: string;
+
+    if (listingDocument) {
+      if (!isAdmin && listingDocument.listing.provider_id !== requestingUser.id) {
+        return new Response('Forbidden', { status: 403 });
+      }
+      documentPath = listingDocument.file_path;
+      documentType = listingDocument.file_type || 'application/octet-stream';
+    } else {
+      const verificationDocument = await prisma.verificationDocument.findUnique({ where: { id: documentId } });
+      if (!verificationDocument) return new Response('Document not found', { status: 404 });
+      if (!isAdmin && verificationDocument.user_id !== requestingUser.id) {
+        return new Response('Forbidden', { status: 403 });
+      }
+      documentPath = verificationDocument.file_url;
+      documentType = documentPath.toLowerCase().endsWith('.pdf') ? 'application/pdf' : 'image/jpeg';
     }
 
-    // Otherwise serve local file from disk
+    let remoteUrl: URL;
     try {
-      await fs.access(docPath);
+      remoteUrl = new URL(documentPath);
     } catch {
-      return new NextResponse('File not found on server', { status: 404 });
+      return new Response('Document storage path is unavailable', { status: 404 });
+    }
+    if (!isAllowedDocumentHost(remoteUrl)) {
+      return new Response('Document storage host is not allowed', { status: 403 });
     }
 
-    const fileBuffer = await fs.readFile(docPath);
-    return new NextResponse(fileBuffer, {
-      status: 200,
+    const upstream = await fetch(remoteUrl, { cache: 'no-store', redirect: 'error' });
+    if (!upstream.ok || !upstream.body) return new Response('Document unavailable', { status: 502 });
+
+    return new Response(upstream.body, {
       headers: {
-        'Content-Type': docType,
-        'Cache-Control': 'no-store',
+        'Cache-Control': 'private, no-store, max-age=0',
+        'Content-Disposition': 'inline',
+        'Content-Type': upstream.headers.get('content-type') || documentType,
+        'X-Content-Type-Options': 'nosniff',
       },
     });
-  } catch (error) {
-    console.error('Document fetch error:', error);
-    return new NextResponse('Internal server error', { status: 500 });
+  } catch {
+    console.error('Document fetch failed');
+    return new Response('Internal server error', { status: 500 });
   }
 }

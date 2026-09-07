@@ -2,6 +2,8 @@ import React from 'react';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import Link from 'next/link';
+import { ClipboardCheck } from 'lucide-react';
 
 export default async function AdminDashboard() {
   const session = await getServerSession(authOptions);
@@ -10,11 +12,11 @@ export default async function AdminDashboard() {
     <div className="container mx-auto py-12 px-4">
       <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
       
-      <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-        <h2 className="text-xl font-semibold mb-4">Platform Overview</h2>
-        <div className="h-64 flex items-center justify-center bg-gray-50 rounded border border-dashed">
-          <span className="text-gray-400">Admin features pending Phase 3</span>
-        </div>
+      <div className="border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 className="text-xl font-semibold">Operations</h2>
+        <Link href="/dashboard/admin/listings" className="mt-5 inline-flex h-10 items-center gap-2 bg-blue-700 px-4 text-sm font-semibold text-white hover:bg-blue-800">
+          <ClipboardCheck size={17} aria-hidden="true" /> Listing Review Queue
+        </Link>
       </div>
       
       <AIAssistantButton context="Admin Dashboard" />

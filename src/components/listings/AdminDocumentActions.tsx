@@ -1,68 +1,90 @@
-"use client";
+'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Check, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-export default function AdminDocumentActions({ docId, currentStatus }: { docId: string, currentStatus: string }) {
+export default function AdminDocumentActions({
+  documentId,
+  currentStatus,
+  rejectionReason,
+  reviewEnabled,
+}: {
+  documentId: string;
+  currentStatus: string;
+  rejectionReason?: string | null;
+  reviewEnabled: boolean;
+}) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [pending, setPending] = useState<'approve' | 'reject' | null>(null);
   const [reason, setReason] = useState('');
   const [showReject, setShowReject] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleAction = async (action: 'APPROVE' | 'REJECT') => {
-    if (action === 'REJECT' && !reason) {
-      alert('Please provide a rejection reason');
+  async function review(action: 'approve' | 'reject') {
+    const rejectionReasonValue = reason.trim();
+    if (action === 'reject' && !rejectionReasonValue) {
+      setError('A rejection reason is required.');
       return;
     }
 
-    setLoading(true);
+    setPending(action);
+    setError('');
     try {
-      const res = await fetch(`/api/admin/documents/verify`, {
+      const response = await fetch(`/api/admin/documents/${documentId}/${action}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ document_id: docId, action, reason })
+        body: action === 'reject' ? JSON.stringify({ reason: rejectionReasonValue }) : undefined,
       });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.message || 'Unable to review this document.');
 
-      if (res.ok) {
-        setShowReject(false);
-        router.refresh();
-      } else {
-        alert('Failed to update document status');
-      }
-    } catch (err) {
-      alert('An error occurred');
+      setShowReject(false);
+      setReason('');
+      router.refresh();
+    } catch (reviewError) {
+      setError(reviewError instanceof Error ? reviewError.message : 'Unable to review this document.');
     } finally {
-      setLoading(false);
+      setPending(null);
     }
-  };
+  }
 
   if (currentStatus === 'Approved') {
-    return <span className="text-green-600 font-bold text-sm">✓ Approved</span>;
+    return <span className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-700"><Check size={16} /> Approved</span>;
+  }
+
+  if (currentStatus === 'Rejected') {
+    return (
+      <div className="text-right">
+        <span className="text-sm font-semibold text-red-700">Rejected</span>
+        {rejectionReason && <p className="mt-1 max-w-64 text-xs text-red-700">{rejectionReason}</p>}
+      </div>
+    );
+  }
+
+  if (!reviewEnabled) {
+    return <span className="text-sm font-semibold text-gray-700">{currentStatus}</span>;
   }
 
   return (
-    <div className="flex flex-col items-end">
+    <div className="w-full max-w-72">
+      {error && <p role="alert" className="mb-2 text-xs text-red-700">{error}</p>}
       {showReject ? (
-        <div className="flex flex-col space-y-2 mt-2 w-64">
-          <input 
-            type="text" 
-            placeholder="Rejection reason..." 
-            value={reason} 
-            onChange={e => setReason(e.target.value)}
-            className="border p-1.5 text-xs rounded"
-          />
-          <div className="flex space-x-2">
-            <button onClick={() => handleAction('REJECT')} disabled={loading} className="bg-red-600 text-white px-2 py-1 rounded text-xs">Confirm Reject</button>
-            <button onClick={() => setShowReject(false)} className="bg-gray-200 text-gray-800 px-2 py-1 rounded text-xs">Cancel</button>
+        <div className="space-y-2">
+          <label htmlFor={`document-reason-${documentId}`} className="sr-only">Document rejection reason</label>
+          <input id={`document-reason-${documentId}`} value={reason} onChange={(event) => setReason(event.target.value)} placeholder="Required correction" className="h-9 w-full border border-gray-300 px-2 text-sm" />
+          <div className="flex justify-end gap-2">
+            <button type="button" onClick={() => setShowReject(false)} className="h-8 px-3 text-xs font-medium text-gray-700">Cancel</button>
+            <button type="button" onClick={() => review('reject')} disabled={pending !== null} className="h-8 bg-red-700 px-3 text-xs font-semibold text-white disabled:opacity-50">Confirm reject</button>
           </div>
         </div>
       ) : (
-        <div className="flex space-x-2">
-          <button onClick={() => handleAction('APPROVE')} disabled={loading} className="bg-green-100 text-green-700 hover:bg-green-200 px-3 py-1 rounded text-xs font-semibold transition">
-            Approve
+        <div className="flex justify-end gap-2">
+          <button type="button" onClick={() => review('approve')} disabled={pending !== null} className="inline-flex h-9 items-center gap-1 bg-emerald-700 px-3 text-xs font-semibold text-white disabled:opacity-50">
+            <Check size={15} /> {pending === 'approve' ? 'Approving...' : 'Approve'}
           </button>
-          <button onClick={() => setShowReject(true)} disabled={loading} className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded text-xs font-semibold transition">
-            Reject
+          <button type="button" onClick={() => setShowReject(true)} disabled={pending !== null} className="inline-flex h-9 items-center gap-1 border border-red-700 px-3 text-xs font-semibold text-red-700 disabled:opacity-50">
+            <X size={15} /> Reject
           </button>
         </div>
       )}

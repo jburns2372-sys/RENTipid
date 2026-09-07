@@ -49,7 +49,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
     await createAuditLog({
       actor_user_id: providerId,
-      action: 'LISTING_SUBMISSION_WITHDRAWN',
+      action: 'LISTING_WITHDRAWN',
       module: 'Listings',
       target_id: listingId,
       details: `Withdrawn listing submission '${listing.title}' from ${previousStatus} to ${newStatus}`,

@@ -471,6 +471,8 @@ describe('Manual Listing APIs & Security Boundaries', () => {
           where: { id: 'list-super-1' },
           data: expect.objectContaining({
             status: 'Submitted for Review',
+            rejection_reason: null,
+            published_at: null,
           }),
         })
       );
@@ -576,7 +578,7 @@ describe('Manual Listing APIs & Security Boundaries', () => {
       });
       expect(createAuditLog).toHaveBeenCalledWith({
         actor_user_id: 'prov-user-1',
-        action: 'LISTING_SUBMISSION_WITHDRAWN',
+        action: 'LISTING_WITHDRAWN',
         module: 'Listings',
         target_id: 'list-bmw-1',
         details: expect.stringContaining('Submitted for Review to Draft'),

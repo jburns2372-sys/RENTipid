@@ -62,7 +62,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     // Update status to Submitted for Review
     const updated = await prisma.listing.update({
       where: { id: listingId },
-      data: { status: 'Submitted for Review' },
+      data: { status: 'Submitted for Review', rejection_reason: null, published_at: null },
     });
 
     await createAuditLog({
