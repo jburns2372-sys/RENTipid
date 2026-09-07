@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { PrismaClient } from '@prisma/client';
 import { createAuditLog } from '@/lib/audit';
+import { canCreateListing } from '@/lib/permissions';
 
 const prisma = new PrismaClient();
 
@@ -18,7 +19,7 @@ export async function POST(req: Request) {
     const role = (session.user as any).role;
     const status = (session.user as any).status;
 
-    if (role !== 'Individual Provider' && role !== 'Business Provider') {
+    if (!canCreateListing(role)) {
       return NextResponse.json({ message: 'Only providers can create listings' }, { status: 403 });
     }
 

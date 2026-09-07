@@ -109,3 +109,10 @@ export const ROLE_PERMISSIONS: Record<UserRole, Record<PermissionModule, Permiss
 export const hasPermission = (role: UserRole, module: PermissionModule, action: PermissionAction): boolean => {
   return ROLE_PERMISSIONS[role]?.[module]?.includes(action) || false;
 };
+
+export const canCreateListing = (roleOrUser: string | { role?: string | null } | undefined | null): boolean => {
+  if (!roleOrUser) return false;
+  const role = typeof roleOrUser === 'string' ? roleOrUser : roleOrUser.role;
+  if (!role) return false;
+  return hasPermission(role as UserRole, 'listings', 'create');
+};
