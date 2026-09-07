@@ -63,12 +63,26 @@ export async function checkReferenceDataIntegrity(
   const actualDatabaseName = parsedUrl.pathname.replace(/^\//, '').split('?')[0];
   const host = parsedUrl.hostname;
   const isNeon = host.includes('neon.tech');
+  const isRemote = isNeon || !['localhost', '127.0.0.1', '::1'].includes(host);
 
   const neonEndpointMatch = host.match(/^(ep-[a-z0-9-]+?)(?:-pooler)?\./);
   const actualEndpointId = neonEndpointMatch ? neonEndpointMatch[1] : null;
 
   const expectedDb = options?.expectedDatabaseName || process.env.EXPECTED_DATABASE_NAME;
   const expectedEndpoint = options?.expectedEndpointId || process.env.EXPECTED_NEON_ENDPOINT_ID;
+
+  if (isRemote) {
+    if (!expectedDb) {
+      throw new Error(
+        'REFERENCE_DATA_CHECK_EXPECTED_DATABASE_REQUIRED: EXPECTED_DATABASE_NAME must be specified for remote reference-data integrity check.'
+      );
+    }
+    if (!expectedEndpoint) {
+      throw new Error(
+        'REFERENCE_DATA_CHECK_EXPECTED_ENDPOINT_REQUIRED: EXPECTED_NEON_ENDPOINT_ID must be specified for remote reference-data integrity check.'
+      );
+    }
+  }
 
   if (expectedDb && actualDatabaseName !== expectedDb) {
     throw new Error(

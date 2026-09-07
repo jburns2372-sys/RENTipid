@@ -453,4 +453,172 @@ describe('Prohibited Items Reference-Data Permanence Corrective Suite', () => {
       expect(completeActiveCodes.size).toBe(25);
     });
   });
+
+  describe('Group 5: Strict Remote Identity Fail-Closed Gate & Authorization Contract', () => {
+    const prodUrl =
+      'postgresql://neondb_owner:npg_secret@ep-gentle-fog-apwlhnhf.c-7.us-east-1.aws.neon.tech/rentipid_production?sslmode=require';
+    const previewUrl =
+      'postgresql://neondb_owner:npg_secret@ep-soft-pine-ap1b22e5.c-7.us-east-1.aws.neon.tech/rentipid_production?sslmode=require';
+
+    it('Case 14 (Req 1): remote mutation with omitted endpoint -> BLOCK', async () => {
+      await expect(
+        reconcileProhibitedItems({
+          databaseUrl: prodUrl,
+          expectedDatabaseName: 'rentipid_production',
+          targetEnvironment: 'production',
+          allowProductionReconciliation: true,
+          dryRun: false,
+        }),
+      ).rejects.toThrow(/PROHIBITED_ITEMS_RECONCILIATION_EXPECTED_ENDPOINT_REQUIRED/);
+    });
+
+    it('Case 15 (Req 2): remote mutation with omitted targetEnvironment -> BLOCK', async () => {
+      await expect(
+        reconcileProhibitedItems({
+          databaseUrl: prodUrl,
+          expectedDatabaseName: 'rentipid_production',
+          expectedEndpointId: 'ep-gentle-fog-apwlhnhf',
+          allowProductionReconciliation: true,
+          dryRun: false,
+        }),
+      ).rejects.toThrow(/PROHIBITED_ITEMS_RECONCILIATION_TARGET_ENV_REQUIRED/);
+    });
+
+    it('Case 16 (Req 3): remote mutation with legacy generic authorization only -> BLOCK', async () => {
+      await expect(
+        reconcileProhibitedItems({
+          databaseUrl: prodUrl,
+          expectedDatabaseName: 'rentipid_production',
+          expectedEndpointId: 'ep-gentle-fog-apwlhnhf',
+          targetEnvironment: 'production',
+          allowProhibitedItemsReconciliation: true,
+          allowProductionReconciliation: false,
+          dryRun: false,
+        }),
+      ).rejects.toThrow(/PROHIBITED_ITEMS_RECONCILIATION_NOT_AUTHORIZED/);
+    });
+
+    it('Case 17 (Req 4): Production auth + Production DB + omitted endpoint -> BLOCK', async () => {
+      await expect(
+        reconcileProhibitedItems({
+          databaseUrl: prodUrl,
+          expectedDatabaseName: 'rentipid_production',
+          targetEnvironment: 'production',
+          allowProductionReconciliation: true,
+          dryRun: false,
+        }),
+      ).rejects.toThrow(/PROHIBITED_ITEMS_RECONCILIATION_EXPECTED_ENDPOINT_REQUIRED/);
+    });
+
+    it('Case 18 (Req 5): Preview auth + Preview DB + omitted endpoint -> BLOCK', async () => {
+      await expect(
+        reconcileProhibitedItems({
+          databaseUrl: previewUrl,
+          expectedDatabaseName: 'rentipid_production',
+          targetEnvironment: 'preview',
+          allowPreviewReconciliation: true,
+          dryRun: false,
+        }),
+      ).rejects.toThrow(/PROHIBITED_ITEMS_RECONCILIATION_EXPECTED_ENDPOINT_REQUIRED/);
+    });
+
+    it('Case 19 (Req 6): correct DB/endpoint but undefined environment -> BLOCK', async () => {
+      await expect(
+        reconcileProhibitedItems({
+          databaseUrl: prodUrl,
+          expectedDatabaseName: 'rentipid_production',
+          expectedEndpointId: 'ep-gentle-fog-apwlhnhf',
+          allowProductionReconciliation: true,
+          dryRun: false,
+        }),
+      ).rejects.toThrow(/PROHIBITED_ITEMS_RECONCILIATION_TARGET_ENV_REQUIRED/);
+    });
+
+    it('Case 20 (Req 7): correct Production DB + endpoint + environment + Production auth -> PASS', async () => {
+      const res = await reconcileProhibitedItems({
+        databaseUrl: prodUrl,
+        expectedDatabaseName: 'rentipid_production',
+        expectedEndpointId: 'ep-gentle-fog-apwlhnhf',
+        targetEnvironment: 'production',
+        allowProductionReconciliation: true,
+        dryRun: true,
+      }).catch((err) => err);
+
+      if (res instanceof Error) {
+        expect(res.message).not.toMatch(/PROHIBITED_ITEMS_RECONCILIATION_/);
+      }
+    });
+
+    it('Case 21 (Req 8): correct Preview DB + endpoint + environment + Preview auth -> PASS', async () => {
+      const res = await reconcileProhibitedItems({
+        databaseUrl: previewUrl,
+        expectedDatabaseName: 'rentipid_production',
+        expectedEndpointId: 'ep-soft-pine-ap1b22e5',
+        targetEnvironment: 'preview',
+        allowPreviewReconciliation: true,
+        dryRun: true,
+      }).catch((err) => err);
+
+      if (res instanceof Error) {
+        expect(res.message).not.toMatch(/PROHIBITED_ITEMS_RECONCILIATION_/);
+      }
+    });
+
+    it('Case 22 (Req 9): remote integrity check with same DB name but omitted endpoint -> BLOCK', async () => {
+      await expect(
+        checkReferenceDataIntegrity({
+          databaseUrl: prodUrl,
+          expectedDatabaseName: 'rentipid_production',
+        }),
+      ).rejects.toThrow(/REFERENCE_DATA_CHECK_EXPECTED_ENDPOINT_REQUIRED/);
+    });
+
+    it('Case 23 (Req 10): remote integrity check with wrong endpoint -> BLOCK', async () => {
+      await expect(
+        checkReferenceDataIntegrity({
+          databaseUrl: prodUrl,
+          expectedDatabaseName: 'rentipid_production',
+          expectedEndpointId: 'ep-soft-pine-ap1b22e5', // Mismatched endpoint
+        }),
+      ).rejects.toThrow(/REFERENCE_DATA_CHECK_ENDPOINT_MISMATCH/);
+    });
+
+    it('Case 24 (Req 11): localhost/disposable-test behavior remains functional', async () => {
+      const localUrl = 'postgresql://postgres:postgres@localhost:5432/rentipid_test_soc';
+      const localRes = await reconcileProhibitedItems({
+        databaseUrl: localUrl,
+        dryRun: true,
+      }).catch((err) => err);
+
+      if (localRes instanceof Error) {
+        expect(localRes.message).not.toMatch(/PROHIBITED_ITEMS_RECONCILIATION_EXPECTED_/);
+        expect(localRes.message).not.toMatch(/PROHIBITED_ITEMS_RECONCILIATION_TARGET_ENV_/);
+      }
+    });
+
+    it('Case 25 (Req 12): pooled host extraction still resolves to the correct exact endpoint ID', async () => {
+      const pooledProdUrl =
+        'postgresql://neondb_owner:npg_secret@ep-gentle-fog-apwlhnhf-pooler.c-7.us-east-1.aws.neon.tech/rentipid_production?sslmode=require';
+      const pooledPreviewUrl =
+        'postgresql://neondb_owner:npg_secret@ep-soft-pine-ap1b22e5-pooler.c-7.us-east-1.aws.neon.tech/rentipid_production?sslmode=require';
+
+      const prodCheck = await checkReferenceDataIntegrity({
+        databaseUrl: pooledProdUrl,
+        expectedDatabaseName: 'rentipid_production',
+        expectedEndpointId: 'ep-gentle-fog-apwlhnhf',
+      }).catch((err) => err);
+      if (prodCheck instanceof Error) {
+        expect(prodCheck.message).not.toMatch(/REFERENCE_DATA_CHECK_ENDPOINT_MISMATCH/);
+      }
+
+      const prevCheck = await checkReferenceDataIntegrity({
+        databaseUrl: pooledPreviewUrl,
+        expectedDatabaseName: 'rentipid_production',
+        expectedEndpointId: 'ep-soft-pine-ap1b22e5',
+      }).catch((err) => err);
+      if (prevCheck instanceof Error) {
+        expect(prevCheck.message).not.toMatch(/REFERENCE_DATA_CHECK_ENDPOINT_MISMATCH/);
+      }
+    });
+  });
 });
