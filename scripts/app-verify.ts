@@ -41,12 +41,14 @@ async function verifyDatabase(databaseUrl: string, expectedName: string) {
     const quote = String.fromCharCode(34);
     const counts = await client.query<{
       categories: string; settings: string; users: string; qc_barangays: string; barangays: string;
+      prohibited_items: string;
     }>(`SELECT
       (SELECT COUNT(*) FROM ${quote}Category${quote})::text AS categories,
       (SELECT COUNT(*) FROM ${quote}SystemSetting${quote})::text AS settings,
       (SELECT COUNT(*) FROM ${quote}User${quote})::text AS users,
       (SELECT COUNT(*) FROM ${quote}PsgcSubdivision${quote} WHERE ${quote}parentPsgcCode${quote} = '1381300000' AND ${quote}geographicLevel${quote} = 'BARANGAY' AND ${quote}isActive${quote})::text AS qc_barangays,
-      (SELECT COUNT(*) FROM ${quote}PsgcSubdivision${quote} WHERE ${quote}geographicLevel${quote} = 'BARANGAY' AND ${quote}isActive${quote})::text AS barangays`);
+      (SELECT COUNT(*) FROM ${quote}PsgcSubdivision${quote} WHERE ${quote}geographicLevel${quote} = 'BARANGAY' AND ${quote}isActive${quote})::text AS barangays,
+      (SELECT COUNT(*) FROM ${quote}ProhibitedItemPolicy${quote} WHERE ${quote}isActive${quote} = true)::text AS prohibited_items`);
     const cities = await client.query<{ psgcCode: string }>(
       `SELECT ${quote}psgcCode${quote} FROM ${quote}PsgcSubdivision${quote} WHERE ${quote}psgcCode${quote} = ANY($1::text[]) AND ${quote}isActive${quote}`,
       [['1381300000', '1380600000', '1380300000', '0730600000', '1130700000']],
@@ -100,7 +102,8 @@ async function verifyLocal(): Promise<void> {
     systemPass = Number(evidence.counts.categories) >= 15
       && Number(evidence.counts.settings) >= 2 && Number(evidence.counts.users) >= 6;
     referencePass = Number(evidence.counts.qc_barangays) === 142
-      && Number(evidence.counts.barangays) >= 40000 && evidence.cities === 5;
+      && Number(evidence.counts.barangays) >= 40000 && evidence.cities === 5
+      && Number(evidence.counts.prohibited_items) === 25;
     rbacPass = evidence.roles === 6;
   }
   let state: Record<string, unknown> | null = null;
@@ -149,7 +152,8 @@ async function verifyRemote(kind: 'preview' | 'production-readiness'): Promise<v
   const migrated = evidence.migrationApplied;
   const system = Number(evidence.counts.categories) >= 15 && Number(evidence.counts.settings) >= 2;
   const reference = Number(evidence.counts.qc_barangays) === 142
-    && Number(evidence.counts.barangays) >= 40000 && evidence.cities === 5;
+    && Number(evidence.counts.barangays) >= 40000 && evidence.cities === 5
+    && Number(evidence.counts.prohibited_items) === 25;
   print(`${kind.toUpperCase().replace('-', '_')}_DATABASE_IDENTITY`, 'PASS');
   print(`${kind.toUpperCase().replace('-', '_')}_MIGRATIONS`, migrated ? 'PASS' : 'FAIL');
   print(`${kind.toUpperCase().replace('-', '_')}_SYSTEM_DATA`, system ? 'PASS' : 'FAIL');
