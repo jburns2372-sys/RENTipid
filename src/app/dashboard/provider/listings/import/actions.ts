@@ -102,7 +102,8 @@ export async function processAssistedImportAction(connectorId: string, input: As
     const canonicalContract = await connector.ingestProviderInput({ ...input, data: input.data }, user.id);
     const sourceRecord = await importRepo.attachSource({ jobId: job.id, sourceConnector: connectorId, sourceTier: 'TIER_3_FILE', sourceMode: 'ASSISTED_IMPORT', connectorVersion: '1.1.0', authorizationMethod: 'MANUAL_PROVIDER_INPUT', sourceReferenceHash: canonicalContract.source.sourceReferenceHash, sourceReferenceLabel: input.sourceReferenceLabel, retrievedAt: new Date() });
     await importRepo.saveCanonicalPayload(job.id, canonicalContract);
-    for (const [fieldName, confidence] of Object.entries(canonicalContract.fieldConfidence)) {
+    for (const [fieldName, confidenceRaw] of Object.entries(canonicalContract.fieldConfidence)) {
+      const confidence = confidenceRaw as any;
       await importRepo.upsertField({ jobId: job.id, sourceId: sourceRecord.id, fieldName, normalizedValue: (canonicalContract.property as Record<string, unknown>)[fieldName], confidenceState: confidence.state, confidenceScore: confidence.score, authority: confidence.authority, isRequired: confidence.requiresProviderReview, isBlocking: confidence.state === 'MISSING' || confidence.state === 'CONFLICT', providerModified: false, validationState: confidence.state === 'MISSING' ? 'PENDING' : 'VALIDATED' });
     }
     return { success: true, jobId: job.id, snapshot: snapshotEngine.buildSnapshot({ importJobId: job.id, providerId: user.id, jobStatus: 'NEEDS_REVIEW', contract: canonicalContract, rights: { rightsConfirmed: false, isBlocking: true } }) };

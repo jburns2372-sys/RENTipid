@@ -67,7 +67,11 @@ export default function ListingWizard({ categories }: { categories: any[] }) {
       
       if (res.ok) {
         const data = await res.json();
-        router.push(`/dashboard/provider/listings`);
+        if (data.id) {
+          router.push(`/dashboard/provider/listings/${data.id}`);
+        } else {
+          router.push(`/dashboard/provider/listings`);
+        }
       } else {
         const data = await res.json();
         setError(data.message || 'Failed to create listing');

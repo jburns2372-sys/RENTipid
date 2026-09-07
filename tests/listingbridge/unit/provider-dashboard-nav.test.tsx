@@ -37,15 +37,13 @@ describe('Provider Dashboard Navigation', () => {
     // Verify My Listings section
     expect(screen.getByText('My Listings')).toBeTruthy();
 
-    // Verify "+ Create New Listing" link
+    // Verify "+ Create New Listing" link is the primary action
     const createLink = screen.getByRole('link', { name: /\+ Create New Listing/i });
     expect(createLink).toBeTruthy();
     expect(createLink.getAttribute('href')).toBe('/dashboard/provider/listings/new');
 
-    // Verify "Import Existing Listing" link
-    const importLink = screen.getByRole('link', { name: /Import Existing Listing/i });
-    expect(importLink).toBeTruthy();
-    expect(importLink.getAttribute('href')).toBe('/dashboard/provider/listings/import');
+    // Verify "Import Existing Listing" link is retired/absent
+    expect(screen.queryByText(/Import Existing Listing/i)).toBeNull();
 
     // Ensure legacy "pending Phase 3" disabled button is gone
     expect(screen.queryByText(/Listing functionality pending Phase 3/i)).toBeNull();

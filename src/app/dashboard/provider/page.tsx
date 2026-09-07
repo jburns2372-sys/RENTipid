@@ -52,12 +52,6 @@ export default async function ProviderDashboard() {
               >
                 + Create New Listing
               </Link>
-              <Link
-                href="/dashboard/provider/listings/import"
-                className="bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-300 px-4 py-2 rounded-lg font-medium text-sm transition"
-              >
-                Import Existing Listing
-              </Link>
             </div>
           </div>
         </div>

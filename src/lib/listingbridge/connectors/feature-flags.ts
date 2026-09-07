@@ -59,7 +59,8 @@ export function isManualListingCreationIndependentOfListingBridgeFlags(): true {
 }
 
 export function isListingBridgeEnabled(): boolean {
-  return process.env.LISTINGBRIDGE_GLOBAL !== 'false';
+  // RETIRED: ListingBridge product decommissioned per Owner decision.
+  return false;
 }
 
 export class ListingBridgeFeatureFlagEvaluator {

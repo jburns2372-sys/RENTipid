@@ -4,13 +4,21 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { PrismaClient } from '@prisma/client';
 import { notFound, redirect } from 'next/navigation';
+import Link from 'next/link';
 import PhotoUploader from '@/components/listings/PhotoUploader';
 import DocumentUploader from '@/components/listings/DocumentUploader';
 
 const prisma = new PrismaClient();
 
-export default async function ProviderListingManagePage({ params }: { params: Promise<{ id: string }> }) {
+export default async function ProviderListingManagePage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams?: Promise<{ error?: string }>;
+}) {
   const { id } = await params;
+  const sParams = searchParams ? await searchParams : {};
   const session = await getServerSession(authOptions);
   const user = session?.user as any;
 
@@ -35,6 +43,24 @@ export default async function ProviderListingManagePage({ params }: { params: Pr
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-5xl">
+      {/* Error alert banner */}
+      {sParams.error === 'MissingPhotos' && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm font-medium flex items-center gap-2">
+          <svg className="w-5 h-5 text-red-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <span>Please upload at least 1 photo before submitting your listing for review.</span>
+        </div>
+      )}
+      {sParams.error === 'MissingDocuments' && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm font-medium flex items-center gap-2">
+          <svg className="w-5 h-5 text-red-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <span>This category requires compliance or proof of ownership verification documents before submission.</span>
+        </div>
+      )}
+
       <div className="flex justify-between items-center mb-8 border-b pb-4">
         <div>
           <h1 className="text-3xl font-bold mb-2">Manage Listing: {listing.title}</h1>
@@ -90,9 +116,20 @@ export default async function ProviderListingManagePage({ params }: { params: Pr
                 <span className="text-gray-500">Location</span>
                 <span className="font-medium text-gray-900">{listing.location}, {listing.city}</span>
               </div>
+              {listing.description && (
+                <div className="pt-2">
+                  <span className="text-gray-500 block mb-1">Description</span>
+                  <p className="text-gray-800 text-xs line-clamp-3 bg-gray-50 p-2 rounded">{listing.description}</p>
+                </div>
+              )}
             </div>
             {isDraftOrRejected && (
-              <button disabled className="mt-4 text-blue-600 text-sm font-medium hover:underline">Edit Details (Disabled for Demo)</button>
+              <Link
+                href={`/dashboard/provider/listings/${listing.id}/edit`}
+                className="mt-4 inline-block text-blue-600 text-sm font-medium hover:underline"
+              >
+                Edit Details →
+              </Link>
             )}
           </div>
         </div>
