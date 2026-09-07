@@ -1,8 +1,9 @@
 import { CANONICAL_CATEGORIES } from '../src/lib/categories/canonical-categories';
 
-interface ReconcileOptions {
+export interface ReconcileOptions {
   databaseUrl?: string;
-  allowProduction?: boolean;
+  expectedDatabaseName?: string;
+  allowCategoryReconciliation?: boolean;
 }
 
 export interface ReconcileResult {
@@ -12,17 +13,53 @@ export interface ReconcileResult {
   updatedCount: number;
   unchangedCount: number;
   canonicalCount: number;
+  databaseName: string;
   categories: Array<{ id: string; slug: string; name: string }>;
 }
 
 export async function reconcileCategories(options?: ReconcileOptions): Promise<ReconcileResult> {
-  const databaseUrl = options?.databaseUrl || process.env.DATABASE_URL;
+  const databaseUrl = options?.databaseUrl || process.env.TARGET_DB_URL || process.env.DATABASE_URL;
   if (!databaseUrl) {
-    throw new Error('DATABASE_URL is required for category reconciliation.');
+    throw new Error('DATABASE_URL or TARGET_DB_URL is required for category reconciliation.');
   }
 
-  // Safety checks
-  const isNeon = databaseUrl.includes('neon.tech');
+  // Parse and validate database URL
+  let parsedUrl: URL;
+  try {
+    parsedUrl = new URL(databaseUrl);
+  } catch (e: any) {
+    throw new Error(`Invalid database URL format: ${e.message}`);
+  }
+
+  const actualDatabaseName = parsedUrl.pathname.replace(/^\//, '').split('?')[0];
+  const isNeon = parsedUrl.hostname.includes('neon.tech');
+  const isRemote = isNeon || !['localhost', '127.0.0.1'].includes(parsedUrl.hostname);
+
+  const expectedDatabaseName =
+    options?.expectedDatabaseName || process.env.EXPECTED_DATABASE_NAME;
+  const isAuthorized =
+    options?.allowCategoryReconciliation ?? (process.env.ALLOW_CATEGORY_RECONCILIATION === 'true');
+
+  // Guard 1: Authorization guard for production/remote databases
+  if (isRemote && !isAuthorized) {
+    throw new Error(
+      'CATEGORY_RECONCILIATION_NOT_AUTHORIZED: Explicit authorization required (ALLOW_CATEGORY_RECONCILIATION=true).'
+    );
+  }
+
+  // Guard 2: Expected database name guard
+  if (isRemote && !expectedDatabaseName) {
+    throw new Error(
+      'CATEGORY_RECONCILIATION_EXPECTED_DATABASE_REQUIRED: EXPECTED_DATABASE_NAME must be specified for remote reconciliation.'
+    );
+  }
+
+  // Guard 3: Database mismatch guard
+  if (expectedDatabaseName && actualDatabaseName !== expectedDatabaseName) {
+    throw new Error(
+      `CATEGORY_RECONCILIATION_DATABASE_MISMATCH: Expected database '${expectedDatabaseName}', but received '${actualDatabaseName}'.`
+    );
+  }
 
   if (isNeon) {
     // Use @neondatabase/serverless for rock-solid HTTP connection to Neon
@@ -42,11 +79,7 @@ export async function reconcileCategories(options?: ReconcileOptions): Promise<R
       const existing = await sql`SELECT id, name, risk_level, requires_deposit, requires_insurance, requires_permit, requires_admin_approval FROM "Category" WHERE slug = ${cat.slug}`;
 
       if (existing.length === 0) {
-        // Generate CUID-like ID or let default cuid generate if db handles it
-        // In Prisma schema: id String @id @default(cuid())
-        // Since SQL INSERT without id needs cuid if no DB default, check if table has default
-        // In PostgreSQL migration: id TEXT NOT NULL, CONSTRAINT Category_pkey PRIMARY KEY (id)
-        // Prisma schema handles cuid() at client level or gen_random_uuid() / cuid
+        // Generate CUID-like ID format
         const generatedId = `cat_${cat.slug.replace(/[^a-z0-9]/g, '_')}_${Date.now().toString(36)}`;
         await sql`
           INSERT INTO "Category" (
@@ -90,6 +123,7 @@ export async function reconcileCategories(options?: ReconcileOptions): Promise<R
       updatedCount,
       unchangedCount,
       canonicalCount: CANONICAL_CATEGORIES.length,
+      databaseName: actualDatabaseName,
       categories: allCategories.map((r: any) => ({ id: r.id, slug: r.slug, name: r.name })),
     };
   } else {
@@ -150,6 +184,7 @@ export async function reconcileCategories(options?: ReconcileOptions): Promise<R
         updatedCount,
         unchangedCount: 0,
         canonicalCount: CANONICAL_CATEGORIES.length,
+        databaseName: actualDatabaseName,
         categories: allCategories,
       };
     } finally {
@@ -160,8 +195,16 @@ export async function reconcileCategories(options?: ReconcileOptions): Promise<R
 
 async function cli() {
   const targetUrl = process.env.TARGET_DB_URL || process.env.DATABASE_URL;
+  const expectedDatabaseName = process.env.EXPECTED_DATABASE_NAME;
+  const allowCategoryReconciliation = process.env.ALLOW_CATEGORY_RECONCILIATION === 'true';
+
   console.log('=== TARGETED CATEGORY REFERENCE-DATA RECONCILER ===\n');
-  const result = await reconcileCategories({ databaseUrl: targetUrl });
+  const result = await reconcileCategories({
+    databaseUrl: targetUrl,
+    expectedDatabaseName,
+    allowCategoryReconciliation,
+  });
+  console.log('DATABASE_NAME:', result.databaseName);
   console.log('CATEGORY_COUNT_BEFORE:', result.beforeCount);
   console.log('CREATED_COUNT:', result.createdCount);
   console.log('UPDATED_COUNT:', result.updatedCount);
@@ -172,7 +215,7 @@ async function cli() {
 
 if (require.main === module) {
   cli().catch((err) => {
-    console.error('Reconciliation failed:', err);
+    console.error('Reconciliation failed:', err.message);
     process.exit(1);
   });
 }

@@ -295,7 +295,23 @@ describe('ListingBridge v1.1 Category Reference-Data & Resolution Fail-Closed Su
         }),
       };
 
-      const service = new ListingBridgeDraftCreationService(undefined, mockAuthority);
+      const mockRepo = {
+        getJobById: jest.fn().mockResolvedValue({
+          id: 'job-002',
+          provider_id: 'usr-prov-001',
+          status: 'NEEDS_REVIEW',
+          created_listing_id: null,
+          fields: [
+            { fieldName: 'title', normalizedValue: 'Test Condo', confidenceState: 'VERIFIED', isRequired: true, isBlocking: false, providerModified: true, validationState: 'VALIDATED', authority: 'PROVIDER' },
+            { fieldName: 'propertyType', normalizedValue: 'condominiums', confidenceState: 'VERIFIED', isRequired: true, isBlocking: false, providerModified: false, validationState: 'VALIDATED', authority: 'EXTERNAL' },
+          ],
+          assets: [{ id: 'a1', status: 'VALIDATED', is_cover: true, storage_path: 'https://store.blob.vercel-storage.com/photo.jpg' }],
+          resolutions: [{ field_name: 'listingbridge.rightsConfirmation.v1', resolved_value: { confirmed: true }, resolved_at: new Date() }],
+        }),
+        completeJobWithListing: jest.fn().mockResolvedValue({ id: 'job-002' }),
+      };
+
+      const service = new ListingBridgeDraftCreationService(mockRepo as any, mockAuthority);
       const result = await service.createDraftFromImport({
         actorUserId: 'usr-prov-001',
         importJobId: 'job-002',
@@ -305,6 +321,59 @@ describe('ListingBridge v1.1 Category Reference-Data & Resolution Fail-Closed Su
       expect(result.status).toBe('Draft');
       expect(result.status).not.toBe('Active');
       expect(result.status).not.toBe('Published');
+    });
+  });
+
+  describe('4. Hardened Category Reconciler Target Guards', () => {
+    // Import dynamically or directly to verify guard contracts
+    const { reconcileCategories } = require('../../../scripts/reconcile-production-categories');
+
+    it('4.1: Rejects before mutation when expected rentipid_production but actual is neondb', async () => {
+      const wrongTargetUrl =
+        'postgresql://neondb_owner:npg_secret@ep-gentle-fog-apwlhnhf.c-7.us-east-1.aws.neon.tech/neondb?sslmode=require';
+
+      await expect(
+        reconcileCategories({
+          databaseUrl: wrongTargetUrl,
+          expectedDatabaseName: 'rentipid_production',
+          allowCategoryReconciliation: true,
+        }),
+      ).rejects.toThrow(/CATEGORY_RECONCILIATION_DATABASE_MISMATCH/);
+    });
+
+    it('4.2: Rejects before mutation when explicit authorization is missing for remote/neon target', async () => {
+      const targetUrl =
+        'postgresql://neondb_owner:npg_secret@ep-gentle-fog-apwlhnhf.c-7.us-east-1.aws.neon.tech/rentipid_production?sslmode=require';
+
+      await expect(
+        reconcileCategories({
+          databaseUrl: targetUrl,
+          expectedDatabaseName: 'rentipid_production',
+          allowCategoryReconciliation: false,
+        }),
+      ).rejects.toThrow(/CATEGORY_RECONCILIATION_NOT_AUTHORIZED/);
+    });
+
+    it('4.3: Rejects before mutation when expectedDatabaseName is omitted for remote/neon target', async () => {
+      const targetUrl =
+        'postgresql://neondb_owner:npg_secret@ep-gentle-fog-apwlhnhf.c-7.us-east-1.aws.neon.tech/rentipid_production?sslmode=require';
+
+      await expect(
+        reconcileCategories({
+          databaseUrl: targetUrl,
+          allowCategoryReconciliation: true,
+        }),
+      ).rejects.toThrow(/CATEGORY_RECONCILIATION_EXPECTED_DATABASE_REQUIRED/);
+    });
+
+    it('4.4: Rejects when database URL is malformed', async () => {
+      await expect(
+        reconcileCategories({
+          databaseUrl: 'not-a-valid-url',
+          expectedDatabaseName: 'rentipid_production',
+          allowCategoryReconciliation: true,
+        }),
+      ).rejects.toThrow(/Invalid database URL format/);
     });
   });
 });
