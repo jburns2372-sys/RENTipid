@@ -7,6 +7,12 @@ import Link from 'next/link';
 
 const prisma = new PrismaClient();
 
+const editableListingStatuses = new Set(['Draft', 'Rejected']);
+
+function getManageActionLabel(status: string) {
+  return status === 'Rejected' ? 'Manage / Resubmit' : 'Manage / Submit';
+}
+
 export default async function ProviderListingsPage() {
   const session = await getServerSession(authOptions);
   const user = session?.user as any;
@@ -75,9 +81,35 @@ export default async function ProviderListingsPage() {
                   <td className="p-4 text-gray-600">
                     {listing.daily_rate ? `₱${listing.daily_rate.toLocaleString()}` : 'N/A'}
                   </td>
-                  <td className="p-4 space-x-2">
-                    <button className="text-blue-600 hover:underline font-medium">Edit</button>
-                    {listing.status === 'Draft' && <button className="text-green-600 hover:underline font-medium">Submit</button>}
+                  <td className="p-4">
+                    <div className="flex flex-wrap items-center gap-3">
+                      {editableListingStatuses.has(listing.status) ? (
+                        <>
+                          <Link
+                            href={`/dashboard/provider/listings/${listing.id}/edit`}
+                            aria-label={`Edit ${listing.title}`}
+                            className="text-blue-600 hover:underline font-medium"
+                          >
+                            Edit
+                          </Link>
+                          <Link
+                            href={`/dashboard/provider/listings/${listing.id}`}
+                            aria-label={`${getManageActionLabel(listing.status)} ${listing.title}`}
+                            className="text-green-600 hover:underline font-medium"
+                          >
+                            {getManageActionLabel(listing.status)}
+                          </Link>
+                        </>
+                      ) : (
+                        <Link
+                          href={`/dashboard/provider/listings/${listing.id}`}
+                          aria-label={`Manage ${listing.title}`}
+                          className="text-blue-600 hover:underline font-medium"
+                        >
+                          Manage
+                        </Link>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
