@@ -15,25 +15,39 @@ import { reconcileProhibitedItems } from '../src/lib/prohibited-items/prohibited
 
 async function main() {
   const isDryRun = process.argv.includes('--dry-run') || process.env.DRY_RUN === 'true';
-  const isAuthorized =
+  const isProdAuthorized =
     process.argv.includes('--authorize-production-reference-reconciliation') ||
-    process.env.ALLOW_PROHIBITED_ITEMS_RECONCILIATION === 'true';
+    process.env.ALLOW_PRODUCTION_PROHIBITED_ITEMS_RECONCILIATION === 'true';
+  const isPreviewAuthorized =
+    process.argv.includes('--authorize-preview-reference-reconciliation') ||
+    process.env.ALLOW_PREVIEW_PROHIBITED_ITEMS_RECONCILIATION === 'true';
 
   const expectedDatabaseName = process.env.EXPECTED_DATABASE_NAME;
+  const expectedEndpointId = process.env.EXPECTED_NEON_ENDPOINT_ID;
+  const targetEnvironment = (process.env.REFERENCE_DATA_TARGET_ENVIRONMENT ||
+    (process.argv.includes('--preview') ? 'preview' : process.argv.includes('--production') ? 'production' : undefined)) as 'production' | 'preview' | 'local' | undefined;
+
   const targetUrl = process.env.TARGET_DB_URL || process.env.DATABASE_URL;
 
   console.log('==================================================');
   console.log('  RENTipid Prohibited Items Reference Reconciler');
   console.log('==================================================');
-  console.log(`MODE: ${isDryRun ? 'DRY_RUN (Read-Only Diff)' : 'MUTATION'}`);
-  console.log(`OPERATOR_AUTHORIZED: ${isAuthorized}`);
-  console.log(`EXPECTED_DB: ${expectedDatabaseName || 'NONE_SPECIFIED'}`);
+  console.log(`MODE:                  ${isDryRun ? 'DRY_RUN (Read-Only Diff)' : 'MUTATION'}`);
+  console.log(`TARGET_ENV:            ${targetEnvironment || 'AUTO_DETECT'}`);
+  console.log(`EXPECTED_DB:           ${expectedDatabaseName || 'NONE_SPECIFIED'}`);
+  console.log(`EXPECTED_ENDPOINT:     ${expectedEndpointId || 'NONE_SPECIFIED'}`);
+  console.log(`AUTH_PROD:             ${isProdAuthorized}`);
+  console.log(`AUTH_PREVIEW:          ${isPreviewAuthorized}`);
   console.log('--------------------------------------------------');
 
   const result = await reconcileProhibitedItems({
     databaseUrl: targetUrl,
     expectedDatabaseName,
-    allowProhibitedItemsReconciliation: isAuthorized,
+    expectedEndpointId,
+    targetEnvironment,
+    allowProductionReconciliation: isProdAuthorized,
+    allowPreviewReconciliation: isPreviewAuthorized,
+    allowProhibitedItemsReconciliation: isProdAuthorized || isPreviewAuthorized,
     dryRun: isDryRun,
   });
 

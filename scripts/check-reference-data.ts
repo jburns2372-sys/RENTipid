@@ -13,6 +13,7 @@ import { checkReferenceDataIntegrity } from '../src/lib/reference-data/reference
 async function main() {
   const databaseUrl = process.env.TARGET_DB_URL || process.env.DATABASE_URL;
   const expectedDatabaseName = process.env.EXPECTED_DATABASE_NAME;
+  const expectedEndpointId = process.env.EXPECTED_NEON_ENDPOINT_ID;
 
   console.log('==================================================');
   console.log('  RENTipid Reference-Data Integrity Gate (Read-Only)');
@@ -21,6 +22,7 @@ async function main() {
   const report = await checkReferenceDataIntegrity({
     databaseUrl,
     expectedDatabaseName,
+    expectedEndpointId,
   });
 
   console.log(`DATABASE:   ${report.databaseName} (${report.host})`);
