@@ -26,6 +26,10 @@ import { DetectionEvaluator } from '../security/detection/evaluator';
 import { parseSemanticContext } from './semantic/normalizer';
 import type { SemanticContextBundle } from './semantic/contracts';
 import { processAdaptiveLearningEvent } from './semantic/adaptive-learning';
+import { resolveCanonicalIntent } from './context/canonical-intent-resolver';
+import { buildCustomerEvidenceBundle } from './context/customer-evidence-bundle';
+import { processMockAIRequest } from './mock-ai';
+
 
 export interface AIGroundingTrace {
   answerClass: SpecialistAnswerClass;
@@ -153,8 +157,11 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     fuzzyMatchEnabled: settings.semanticFuzzyMatchEnabled,
   });
 
+  const canonicalMatch = await resolveCanonicalIntent(prompt, userRole);
+
   // P4 + Revision 2: resolve intent, exactly-one owner, and compatibility support subdomain.
-  const resolvedIntent = resolveIntent(prompt);
+  const resolvedIntent = canonicalMatch?.compatibilityIntent ?? canonicalMatch?.intentKey ?? resolveIntent(prompt);
+
   const questionClassification = classifyRentipidQuestion(prompt, req.conversationContext ?? []);
   // Existing explicit test-tool syntax remains a request only; it grants no authority.
   const toolMatch = prompt.match(/execute tool:\s*([a-zA-Z0-9_]+)/i);
@@ -226,6 +233,13 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     req.conversationContext ?? [],
     semanticContextBundle,
   );
+  // Keep the command boundary tolerant of legacy retrieval adapters and test doubles
+  // while preserving the canonical bundle produced by the real retriever.
+  const evidenceBundle = retrieval.bundle ?? buildCustomerEvidenceBundle(
+    prompt,
+    retrieval.classification,
+    retrieval.matches,
+  );
   const sourceRefs: string[] = entityHint
     ? [`live:${entityHint.entityType}:${entityHint.entityId}`]
     : [];
@@ -242,7 +256,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     authorizedLiveContext: safeContext,
     liveEvidenceRef: entityHint ? `live:${entityHint.entityType}:${entityHint.entityId}` : undefined,
     questionAnalysis: retrieval.classification,
-    evidenceBundle: retrieval.bundle,
+    evidenceBundle,
     semanticContext: semanticContextBundle,
   } as const;
   const groundingTrace = (answer: GroundedAnswerResult): AIGroundingTrace => Object.freeze({
@@ -250,12 +264,12 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     classification: retrieval.classification.kind,
     intent: retrieval.classification.intent,
     domains: Object.freeze([...retrieval.classification.domains]),
-    requestedEntities: Object.freeze([...retrieval.bundle.requestedEntities]),
-    retrievedSourceKeys: Object.freeze([...new Set(retrieval.bundle.sections.map(section => section.sourceKey))]),
-    retrievedSectionKeys: Object.freeze(retrieval.bundle.sections.map(section => section.sectionKey)),
-    chunkCount: retrieval.bundle.chunkCount,
-    customerVisibleChunkCount: retrieval.bundle.customerVisibleChunkCount,
-    evidenceBundleSize: retrieval.bundle.characterSize,
+    requestedEntities: Object.freeze([...evidenceBundle.requestedEntities]),
+    retrievedSourceKeys: Object.freeze([...new Set(evidenceBundle.sections.map(section => section.sourceKey))]),
+    retrievedSectionKeys: Object.freeze(evidenceBundle.sections.map(section => section.sectionKey)),
+    chunkCount: evidenceBundle.chunkCount,
+    customerVisibleChunkCount: evidenceBundle.customerVisibleChunkCount,
+    evidenceBundleSize: evidenceBundle.characterSize,
     composerMode: answer.composerMode ?? 'DETERMINISTIC_FALLBACK',
     composerProvider: answer.composerProvider ?? 'deterministic-evidence-fallback',
     verifierPassed: answer.adequacyPassed === true,
@@ -318,14 +332,16 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
         }),
       };
     }
-    const draft = await composeCanonicalInformationAnswer(
-      groundingInput,
-      {
-        providerMode: settings.providerMode,
-        systemPrompt,
-        conversationContext: safeContext,
-      }
-    );
+    const draft = settings.providerMode === 'mock'
+      ? await processMockAIRequest(botId, prompt, safeContext, systemPrompt, groundingInput, settings.providerMode)
+      : await composeCanonicalInformationAnswer(
+        groundingInput,
+        {
+          providerMode: settings.providerMode,
+          systemPrompt,
+          conversationContext: safeContext,
+        }
+      );
     const outputCheck = aiGuard.checkOutputProtection(draft.message, userId || 'anonymous', '127.0.0.1');
     if (outputCheck.blocked) {
       return {

@@ -2,7 +2,6 @@ generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -3692,4 +3691,64 @@ model SemanticLearningCandidate {
   @@unique([normalizedPhrase, canonicalCandidateId, domain, semanticType])
   @@index([status])
   @@index([canonicalCandidateId])
+}
+
+model CanonicalQuestionIntent {
+  id                  String                       @id @default(cuid())
+  intentKey           String                       @unique
+  canonicalQuestion   String
+  normalizedQuestion  String                       @unique
+  domain              String
+  feature             String
+  status              String                       @default("ACTIVE")
+  version             String                       @default("v1.2")
+  effectiveAt         DateTime                     @default(now())
+  createdAt           DateTime                     @default(now())
+  updatedAt           DateTime                     @updatedAt
+
+  aliases             CanonicalQuestionAlias[]
+  accessScopes        CanonicalIntentAccessScope[]
+
+  @@index([domain, feature])
+  @@index([status])
+}
+
+model CanonicalQuestionAlias {
+  id                  String                  @id @default(cuid())
+  canonicalIntentId   String
+  canonicalIntent     CanonicalQuestionIntent @relation(fields: [canonicalIntentId], references: [id], onDelete: Cascade)
+  aliasText           String
+  normalizedAliasText String                  @unique
+  aliasType           String                  // SYNONYM | COLLOQUIAL | ABBREVIATION | TYPO | ROLE_SPECIFIC
+  confidence          Float                   @default(1.0)
+  status              String                  @default("ACTIVE")
+  createdAt           DateTime                @default(now())
+
+  @@index([canonicalIntentId])
+  @@index([status])
+}
+
+model CanonicalIntentAccessScope {
+  id                  String                  @id @default(cuid())
+  canonicalIntentId   String
+  canonicalIntent     CanonicalQuestionIntent @relation(fields: [canonicalIntentId], references: [id], onDelete: Cascade)
+  audience            String                  // RENTER | PROVIDER | ADMIN | INTERNAL | PUBLIC
+  role                String                  // Guest | Renter | Individual Provider | Business Provider | Admin | Super Admin | Operator
+  requiredPermission  String?
+  answerClass         String                  // INFORMATION | ELIGIBILITY_POLICY | PERSONALIZED_READ | ACTION | UNSUPPORTED_EXTERNAL
+  authorityType       String                  // KNOWLEDGE_CENTER | POLICY_TAXONOMY | LIVE_SERVICE | TOOL_GATEWAY
+  authorityReference  String                  // Source key, policy code, live service identifier, or tool key
+  knowledgeSourceKey  String?
+  knowledgeSectionKey String?
+  liveServiceKey      String?
+  toolKey             String?
+  status              String                  @default("ACTIVE")
+  createdAt           DateTime                @default(now())
+  updatedAt           DateTime                @updatedAt
+
+  @@index([canonicalIntentId])
+  @@index([audience, role])
+  @@index([answerClass])
+  @@index([authorityType])
+  @@index([status])
 }

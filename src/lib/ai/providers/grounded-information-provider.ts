@@ -209,11 +209,11 @@ class LocalGroundedComposerProvider implements GroundedInformationProvider {
     for (const section of input.bundle.sections) {
       const sectionText = section.chunks.map(c => c.content).join(' ');
       
-      claims.push({
-        text: section.sectionTitle,
-        evidenceRefs: section.chunks.map(c => c.evidenceRef),
-        supportingText: sectionText,
-      });
+      claims.push(...section.chunks.map(chunk => ({
+        text: chunk.content,
+        evidenceRefs: [chunk.evidenceRef],
+        supportingText: chunk.content,
+      })));
 
       if (composedAnswer.length > 0) composedAnswer += '\n\n';
       composedAnswer += `${section.sectionTitle}\n${sectionText.replace(/[*_>#`]/g, '')}`;

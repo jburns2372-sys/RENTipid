@@ -174,7 +174,19 @@ export async function retrieveApprovedKnowledgeEvidence(
   conversationContext: readonly ConversationContextMessage[] = [],
   semanticContext?: SemanticContextBundle,
 ): Promise<KnowledgeRetrievalResult> {
-  const classification = classifyRentipidQuestion(prompt, conversationContext);
+  let classification = classifyRentipidQuestion(prompt, conversationContext);
+  const semanticProviderOnboarding = semanticContext?.intentHints.some(
+    match => match.canonicalId === 'PROVIDER_ONBOARDING'
+  );
+  if (semanticProviderOnboarding && classification.intent !== 'PROVIDER_ONBOARDING') {
+    classification = {
+      ...classification,
+      kind: 'STATIC_RENTIPID_KNOWLEDGE',
+      intent: 'PROVIDER_ONBOARDING',
+      providerContext: 'PROVIDER_ONBOARDING',
+      domains: [...new Set([...classification.domains, 'Core', 'Profile'])],
+    };
+  }
   if (classification.kind !== 'STATIC_RENTIPID_KNOWLEDGE' || SECRET_QUERY.test(prompt)) {
     return {
       classification,

@@ -50,7 +50,7 @@ const PROVIDER_ONBOARDING =
 const CATEGORY_ELIGIBILITY =
   /\b(?:categor(?:y|ies)|allowed|eligible|can\s+i\s+(?:list|rent\s*out|offer)|types?\s+of\s+rentals?)\b|\b(?:item|type|rental|category)\b.{0,25}\bsupported\b|\bsupported\b.{0,25}\b(?:item|type|rental|category)\b/i;
 const CREATE_LISTING =
-  /\b(?:create|add|make|start|publish|list|offer|put)\b.{0,45}\b(?:listing|rental|item|equipment|something|another)\b|\b(?:list|rent\s*out|offer)\s+(?:an?\s+|another\s+)?(?:item|rental|something)\b/i;
+  /\b(?:create|add|make|start|publish|list|offer|put)\b.{0,45}\b(?:listing|rental|item|equipment|something|another)\b|\b(?:list|rent\s*out|offer)\s+(?:(?:an?|another|my)\s+)?(?:item|rental|something)\b/i;
 const PROVIDER_PAYMENT =
   /\b(?:providers?|rental\s+earnings?)\b.{0,45}\b(?:paid|payment|payout|earnings?|receive)\b|\b(?:paid|payment|payout|earnings?|receive)\b.{0,45}\bproviders?\b|\breceive\b.{0,35}\brental\s+payment\b/i;
 const BOOKING_PROCESS =
@@ -86,9 +86,9 @@ function categoryTerms(prompt: string): string[] {
 }
 
 function customerIntent(prompt: string): CustomerQuestionIntent {
+  if (CREATE_LISTING.test(prompt)) return 'LISTING_CREATION';
   if (CATEGORY_ELIGIBILITY.test(prompt)) return 'CATEGORY_ELIGIBILITY';
   if (PROVIDER_PAYMENT.test(prompt)) return 'PROVIDER_PAYMENT_PROCESS';
-  if (CREATE_LISTING.test(prompt)) return 'LISTING_CREATION';
   if (BOOKING_PROCESS.test(prompt)) return 'BOOKING_PROCESS';
   if (PROVIDER_ONBOARDING.test(prompt)) return 'PROVIDER_ONBOARDING';
   if (REGISTRATION.test(prompt)) return 'GENERAL_REGISTRATION';
