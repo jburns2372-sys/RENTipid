@@ -4,13 +4,19 @@ import { del, get, put, type GetBlobResult } from '@vercel/blob';
 export function getBlobToken(isPrivate: boolean): string | undefined {
   return isPrivate
     ? process.env.PRIVATE_BLOB_READ_WRITE_TOKEN || process.env.BLOB_READ_WRITE_TOKEN
-    : process.env.BLOB_READ_WRITE_TOKEN;
+    : process.env.LISTING_MEDIA_BLOB_READ_WRITE_TOKEN || process.env.BLOB_READ_WRITE_TOKEN;
+}
+
+export function getPrivateBlobCredentialOptions() {
+  const storeId = process.env.PRIVATE_BLOB_STORE_ID;
+  const oidcToken = process.env.VERCEL_OIDC_TOKEN;
+  return storeId && oidcToken ? { storeId, oidcToken } : { token: getBlobToken(true) };
 }
 
 export async function getPrivateBlob(filePathOrUrl: string): Promise<GetBlobResult | null> {
   return get(filePathOrUrl, {
     access: 'private',
-    token: getBlobToken(true),
+    ...getPrivateBlobCredentialOptions(),
     useCache: false,
   });
 }
@@ -27,7 +33,7 @@ export class VercelBlobStorageAdapter implements StorageAdapter {
     const blob = await put(pathname, buffer, {
       access: isPrivate ? 'private' : 'public',
       addRandomSuffix: false,
-      token,
+      ...(isPrivate ? getPrivateBlobCredentialOptions() : { token }),
     });
 
     return {
@@ -38,8 +44,8 @@ export class VercelBlobStorageAdapter implements StorageAdapter {
 
   async deleteFile(filePathOrUrl: string): Promise<boolean> {
     try {
-      const token = getBlobToken(filePathOrUrl.startsWith('private/') || filePathOrUrl.includes('/private/'));
-      await del(filePathOrUrl, { token });
+      const isPrivate = filePathOrUrl.startsWith('private/') || filePathOrUrl.includes('/private/');
+      await del(filePathOrUrl, isPrivate ? getPrivateBlobCredentialOptions() : { token: getBlobToken(false) });
       return true;
     } catch {
       return false;

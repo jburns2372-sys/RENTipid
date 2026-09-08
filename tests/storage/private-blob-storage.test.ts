@@ -18,7 +18,8 @@ describe('Vercel Blob access modes', () => {
     else process.env.BLOB_READ_WRITE_TOKEN = original.blobToken;
     if (original.privateToken === undefined) delete process.env.PRIVATE_BLOB_READ_WRITE_TOKEN;
     else process.env.PRIVATE_BLOB_READ_WRITE_TOKEN = original.privateToken;
-    process.env.NODE_ENV = original.nodeEnv;
+    if (original.nodeEnv === undefined) Reflect.deleteProperty(process.env, 'NODE_ENV');
+    else Reflect.set(process.env, 'NODE_ENV', original.nodeEnv);
   });
 
   it('uploads private documents with private access', async () => {
