@@ -2,15 +2,21 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { ADMIN_LISTING_REVIEW_ROLES } from '@/lib/listings/admin-review-service';
 import { prisma } from '@/lib/prisma';
+import { getPrivateBlob } from '@/lib/storage/vercel-blob-storage-adapter';
 
 export const dynamic = 'force-dynamic';
 
-function isAllowedDocumentHost(url: URL) {
-  return url.protocol === 'https:' && (
-    url.hostname === 'blob.vercel-storage.com' ||
-    url.hostname.endsWith('.blob.vercel-storage.com') ||
-    url.hostname.endsWith('.blob.core.windows.net')
-  );
+function isAllowedLegacyDocumentHost(value: string) {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' && (
+      url.hostname === 'blob.vercel-storage.com' ||
+      url.hostname.endsWith('.blob.vercel-storage.com') ||
+      url.hostname.endsWith('.blob.core.windows.net')
+    );
+  } catch {
+    return false;
+  }
 }
 
 export async function GET(_request: Request, context: RouteContext<'/api/documents/[id]'>) {
@@ -57,24 +63,21 @@ export async function GET(_request: Request, context: RouteContext<'/api/documen
       documentType = documentPath.toLowerCase().endsWith('.pdf') ? 'application/pdf' : 'image/jpeg';
     }
 
-    let remoteUrl: URL;
-    try {
-      remoteUrl = new URL(documentPath);
-    } catch {
-      return new Response('Document storage path is unavailable', { status: 404 });
-    }
-    if (!isAllowedDocumentHost(remoteUrl)) {
-      return new Response('Document storage host is not allowed', { status: 403 });
-    }
+    const blob = listingDocument
+      ? await getPrivateBlob(documentPath)
+      : !isAllowedLegacyDocumentHost(documentPath)
+        ? null
+        : await fetch(documentPath, { cache: 'no-store', redirect: 'error' }).then(async (response) => {
+          if (!response.ok || !response.body) return null;
+          return { stream: response.body, headers: response.headers, blob: { contentType: response.headers.get('content-type') } };
+        });
+    if (!blob || !blob.stream) return new Response('Document unavailable', { status: 502 });
 
-    const upstream = await fetch(remoteUrl, { cache: 'no-store', redirect: 'error' });
-    if (!upstream.ok || !upstream.body) return new Response('Document unavailable', { status: 502 });
-
-    return new Response(upstream.body, {
+    return new Response(blob.stream, {
       headers: {
         'Cache-Control': 'private, no-store, max-age=0',
         'Content-Disposition': 'inline',
-        'Content-Type': upstream.headers.get('content-type') || documentType,
+        'Content-Type': blob.blob.contentType || blob.headers.get('content-type') || documentType,
         'X-Content-Type-Options': 'nosniff',
       },
     });

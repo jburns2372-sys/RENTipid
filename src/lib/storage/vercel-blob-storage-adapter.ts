@@ -1,9 +1,23 @@
 import { StorageAdapter } from './storage-interface';
-import { put, del } from '@vercel/blob';
+import { del, get, put, type GetBlobResult } from '@vercel/blob';
+
+export function getBlobToken(isPrivate: boolean): string | undefined {
+  return isPrivate
+    ? process.env.PRIVATE_BLOB_READ_WRITE_TOKEN || process.env.BLOB_READ_WRITE_TOKEN
+    : process.env.BLOB_READ_WRITE_TOKEN;
+}
+
+export async function getPrivateBlob(filePathOrUrl: string): Promise<GetBlobResult | null> {
+  return get(filePathOrUrl, {
+    access: 'private',
+    token: getBlobToken(true),
+    useCache: false,
+  });
+}
 
 export class VercelBlobStorageAdapter implements StorageAdapter {
   async uploadFile(buffer: Buffer, fileName: string, isPrivate: boolean): Promise<{ url: string; path: string }> {
-    const token = process.env.BLOB_READ_WRITE_TOKEN;
+    const token = getBlobToken(isPrivate);
     if (!token && process.env.NODE_ENV === 'production') {
       throw new Error('BLOB_READ_WRITE_TOKEN is required for production storage operations.');
     }
@@ -11,7 +25,7 @@ export class VercelBlobStorageAdapter implements StorageAdapter {
     const pathname = isPrivate ? `private/${fileName}` : `uploads/${fileName}`;
 
     const blob = await put(pathname, buffer, {
-      access: 'public',
+      access: isPrivate ? 'private' : 'public',
       addRandomSuffix: false,
       token,
     });
@@ -24,7 +38,7 @@ export class VercelBlobStorageAdapter implements StorageAdapter {
 
   async deleteFile(filePathOrUrl: string): Promise<boolean> {
     try {
-      const token = process.env.BLOB_READ_WRITE_TOKEN;
+      const token = getBlobToken(filePathOrUrl.startsWith('private/') || filePathOrUrl.includes('/private/'));
       await del(filePathOrUrl, { token });
       return true;
     } catch {
