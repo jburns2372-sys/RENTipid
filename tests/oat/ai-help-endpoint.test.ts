@@ -2,6 +2,7 @@ import { POST } from '../../src/app/api/ai/chat/route';
 import { PrismaClient } from '@prisma/client';
 import { getServerSession } from 'next-auth/next';
 import { OAT_SHARED_USERS } from '../../src/lib/oat/oat-shared-users';
+import { seedCanonicalIntents } from '../../src/lib/ai/context/canonical-intent-registry';
 
 jest.mock('next-auth/next', () => ({
   getServerSession: jest.fn()
@@ -9,9 +10,11 @@ jest.mock('next-auth/next', () => ({
 
 const prisma = new PrismaClient();
 const mockedGetServerSession = getServerSession as jest.MockedFunction<typeof getServerSession>;
+let ownerId: string;
 
 describe('AI-OAT-HELP-ENDPOINT-001', () => {
   beforeAll(async () => {
+    await seedCanonicalIntents();
     const renter = await prisma.user.upsert({
       where: { email: OAT_SHARED_USERS.RENTER.email },
       update: {
@@ -34,6 +37,23 @@ describe('AI-OAT-HELP-ENDPOINT-001', () => {
         role: OAT_SHARED_USERS.RESTRICTED.role
       }
     } as any);
+
+    const owner = await prisma.user.upsert({
+      where: { email: OAT_SHARED_USERS.OWNER.email },
+      update: {
+        role: OAT_SHARED_USERS.OWNER.role,
+        status: 'Active',
+      },
+      create: {
+        email: OAT_SHARED_USERS.OWNER.email,
+        password_hash: 'oat-test-only',
+        full_name: 'OAT Owner',
+        account_type: 'Individual',
+        role: OAT_SHARED_USERS.OWNER.role,
+        status: 'Active',
+      },
+    });
+    ownerId = owner.id;
   });
 
   afterAll(async () => {
@@ -97,5 +117,29 @@ describe('AI-OAT-HELP-ENDPOINT-001', () => {
     expect(followUp.conversationId).toBe(first.conversationId);
     expect(followUp.message).toMatch(/identity verification|business documentation|provider/i);
     expect(followUp.message).not.toMatch(/source key|chunk id|registry|mock ai/i);
+  });
+
+  it('returns a verified taxonomy answer for an authenticated Owner canonical question', async () => {
+    mockedGetServerSession.mockResolvedValueOnce({
+      user: { id: ownerId, role: OAT_SHARED_USERS.OWNER.role },
+    } as any);
+
+    const response = await POST(new Request('http://localhost/api/ai/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        botId: 'Concierge',
+        prompt: 'Can I list a condominium on RENTipid?',
+        module: 'Help',
+        channel: 'help',
+      }),
+    }));
+    const data = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(data.isBlocked).toBe(false);
+    expect(data.message).toMatch(/condominiums? is a supported rentipid rental category/i);
+    expect(data.message).toMatch(/admin approval|permit documentation/i);
+    expect(data.message).not.toMatch(/not sufficient to answer|could you be more specific/i);
   });
 });

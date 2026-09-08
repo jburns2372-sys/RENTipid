@@ -13,6 +13,7 @@ const CUSTOMER_ROLES = ['Guest', 'Renter', 'Individual Provider', 'Business Prov
 
 export interface AnswerabilityCase {
   sourceKey: string;
+  sourceTitle: string;
   sectionKey: string;
   sectionTitle: string;
   questionSubject: string;
@@ -20,6 +21,7 @@ export interface AnswerabilityCase {
   entities: readonly string[];
   multiEntities: readonly string[];
   role: string;
+  applicableRoles: readonly string[];
   expectedAuthorityClass: 'STATIC_RENTIPID_KNOWLEDGE';
   supportedFactualScope: string;
   variants: readonly {
@@ -40,6 +42,10 @@ export interface CustomerAnswerabilityCatalog {
 
 function roleFor(visibility: string, roles: string[]): string | undefined {
   return CUSTOMER_ROLES.find(role => canAccessKnowledge(visibility, roles, role));
+}
+
+function rolesFor(visibility: string, roles: string[]): string[] {
+  return CUSTOMER_ROLES.filter(role => canAccessKnowledge(visibility, roles, role));
 }
 
 function variantsFor(
@@ -153,6 +159,7 @@ export async function loadCustomerAnswerabilityCatalog(): Promise<CustomerAnswer
       entities: Set<string>;
       contents: string[];
       role: string;
+      applicableRoles: Set<string>;
     }>();
 
     for (const chunk of source.chunks) {
@@ -182,7 +189,9 @@ export async function loadCustomerAnswerabilityCatalog(): Promise<CustomerAnswer
         entities: new Set<string>(),
         contents: [],
         role,
+        applicableRoles: new Set<string>(),
       };
+      rolesFor(visibility, roles).forEach(applicableRole => current.applicableRoles.add(applicableRole));
       block.entities.forEach(entity => current.entities.add(entity));
       current.contents.push(block.content);
       grouped.set(block.sectionKey, current);
@@ -196,6 +205,7 @@ export async function loadCustomerAnswerabilityCatalog(): Promise<CustomerAnswer
       const multiEntities = supportedMultiEntities(section.title, content);
       cases.push(Object.freeze({
         sourceKey: source.sourceKey,
+        sourceTitle: source.title,
         sectionKey,
         sectionTitle: section.title,
         questionSubject: section.title === 'Document' || section.title === source.title
@@ -205,6 +215,7 @@ export async function loadCustomerAnswerabilityCatalog(): Promise<CustomerAnswer
         entities: Object.freeze(entities),
         multiEntities: Object.freeze(multiEntities),
         role: section.role,
+        applicableRoles: Object.freeze([...section.applicableRoles]),
         expectedAuthorityClass: 'STATIC_RENTIPID_KNOWLEDGE' as const,
         supportedFactualScope: content.slice(0, 500),
         variants: Object.freeze(variantsFor(

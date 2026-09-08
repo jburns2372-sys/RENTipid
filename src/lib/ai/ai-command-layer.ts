@@ -32,6 +32,10 @@ import { processMockAIRequest } from './mock-ai';
 
 
 export interface AIGroundingTrace {
+  canonicalIntentKey: string | null;
+  bindingAnswerClass: string | null;
+  authorityType: string | null;
+  authorityReference: string | null;
   answerClass: SpecialistAnswerClass;
   classification: RentipidQuestionClass;
   intent: string;
@@ -232,6 +236,15 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     userRole,
     req.conversationContext ?? [],
     semanticContextBundle,
+    canonicalMatch?.selectedScope.authorityType === 'KNOWLEDGE_CENTER'
+      && canonicalMatch.selectedScope.knowledgeSourceKey
+      ? {
+          sourceKey: canonicalMatch.selectedScope.knowledgeSourceKey,
+          sectionKey: canonicalMatch.selectedScope.knowledgeSectionKey,
+          allowInternal: canonicalMatch.selectedScope.audience === 'INTERNAL'
+            && ['SUPER ADMIN', 'OWNER'].includes((userRole ?? '').trim().toUpperCase()),
+        }
+      : undefined,
   );
   // Keep the command boundary tolerant of legacy retrieval adapters and test doubles
   // while preserving the canonical bundle produced by the real retriever.
@@ -258,8 +271,13 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     questionAnalysis: retrieval.classification,
     evidenceBundle,
     semanticContext: semanticContextBundle,
+    bindingAuthority: canonicalMatch?.selectedScope,
   } as const;
   const groundingTrace = (answer: GroundedAnswerResult): AIGroundingTrace => Object.freeze({
+    canonicalIntentKey: canonicalMatch?.intentKey ?? null,
+    bindingAnswerClass: canonicalMatch?.selectedScope.answerClass ?? null,
+    authorityType: canonicalMatch?.selectedScope.authorityType ?? null,
+    authorityReference: canonicalMatch?.selectedScope.authorityReference ?? null,
     answerClass,
     classification: retrieval.classification.kind,
     intent: retrieval.classification.intent,

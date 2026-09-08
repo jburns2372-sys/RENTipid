@@ -12,6 +12,34 @@ import {
   type GroundedSynthesisOutput,
 } from '../providers/grounded-information-provider';
 import { AiCircuitBreaker } from '../resilience/AiCircuitBreaker';
+import { composePolicyAuthorityAnswer } from './policy-authority';
+import { composeToolAuthorityExplanation } from './tool-authority';
+
+function internalKnowledgeAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
+  const matches = input.evidence.filter(match => match.audience === 'INTERNAL');
+  if (matches.length === 0) {
+    return uncertainty(input, false, 1, ['INTERNAL_AUTHORITY_UNAVAILABLE'], 'INTERNAL_AUTHORITY_UNAVAILABLE');
+  }
+  const claims = matches.map(match => {
+    const ref = `knowledge:${match.sourceKey}:${match.chunkKey}`;
+    return { text: match.content, evidenceRefs: [ref], supportingText: match.content };
+  });
+  return {
+    message: matches.map(match => match.content).join('\n\n'),
+    evidenceRefs: claims.flatMap(claim => claim.evidenceRefs),
+    materialClaims: claims,
+    safelyUncertain: false,
+    adequacyPassed: true,
+    evidenceSufficient: true,
+    compositionAttempts: 1,
+    answeredIntent: input.questionAnalysis?.intent,
+    coveredEntities: [],
+    composerMode: 'DETERMINISTIC_FALLBACK',
+    composerProvider: 'deterministic-internal-knowledge',
+    verifierReasons: [],
+    retryUsed: false,
+  };
+}
 
 export interface CanonicalInformationAnswerOptions {
   providerMode: string;
@@ -79,6 +107,23 @@ export async function composeCanonicalInformationAnswer(
   input: GroundedAnswerInput,
   options: CanonicalInformationAnswerOptions,
 ): Promise<GroundedAnswerResult> {
+  if (input.bindingAuthority?.authorityType === 'POLICY_TAXONOMY') {
+    if (!input.questionAnalysis) throw new Error('QUESTION_ANALYSIS_REQUIRED');
+    return composePolicyAuthorityAnswer(
+      input.bindingAuthority.authorityReference,
+      input.questionAnalysis,
+    );
+  }
+  if (input.bindingAuthority?.authorityType === 'TOOL_GATEWAY') {
+    if (!input.questionAnalysis) throw new Error('QUESTION_ANALYSIS_REQUIRED');
+    return composeToolAuthorityExplanation(
+      input.bindingAuthority.toolKey ?? input.bindingAuthority.authorityReference,
+      input.questionAnalysis,
+    );
+  }
+  if (input.bindingAuthority?.audience === 'INTERNAL') {
+    return internalKnowledgeAnswer(input);
+  }
   if (input.classification !== 'STATIC_RENTIPID_KNOWLEDGE') {
     return decorateFallback(composeGroundedDraft(input), input);
   }

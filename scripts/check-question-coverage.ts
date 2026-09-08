@@ -1,11 +1,38 @@
-import { seedCanonicalIntents } from '../src/lib/ai/context/canonical-intent-registry';
+import {
+  buildComprehensiveCanonicalIntentCatalog,
+  seedCanonicalIntents,
+} from '../src/lib/ai/context/canonical-intent-registry';
 import { runDuplicateIntentAudit } from '../src/lib/ai/knowledge/duplicate-intent-auditor';
 import { generateQuestionCoverageMatrix } from '../src/lib/ai/knowledge/question-coverage-matrix';
+import { validateCanonicalAuthorityBindings } from '../src/lib/ai/context/canonical-authority-integrity';
+import { prisma } from '../src/lib/prisma';
 
 async function main() {
   console.log('🔍 Seeding canonical intents and access scopes...');
   const seedResult = await seedCanonicalIntents();
   console.log(`✅ Seed complete: Created ${seedResult.createdCount}, Updated ${seedResult.updatedCount}, Unchanged ${seedResult.unchangedCount}, Deleted ${seedResult.deletedCount}`);
+
+  const catalog = await buildComprehensiveCanonicalIntentCatalog();
+  const [intentCount, aliasCount, accessScopeCount] = await Promise.all([
+    prisma.canonicalQuestionIntent.count({ where: { status: 'ACTIVE' } }),
+    prisma.canonicalQuestionAlias.count({ where: { status: 'ACTIVE' } }),
+    prisma.canonicalIntentAccessScope.count({ where: { status: 'ACTIVE' } }),
+  ]);
+  console.log(`Canonical intents: ${intentCount}`);
+  console.log(`Canonical aliases: ${aliasCount}`);
+  console.log(`Access scopes: ${accessScopeCount}`);
+  console.log(`Discovered support behaviors: ${catalog.length}`);
+
+  const authority = await validateCanonicalAuthorityBindings(catalog);
+  console.log(`DANGLING_KNOWLEDGE_REFERENCES: ${authority.danglingKnowledgeReferences}`);
+  console.log(`DANGLING_POLICY_REFERENCES: ${authority.danglingPolicyReferences}`);
+  console.log(`DANGLING_LIVE_SERVICE_REFERENCES: ${authority.danglingLiveServiceReferences}`);
+  console.log(`DANGLING_TOOL_REFERENCES: ${authority.danglingToolReferences}`);
+  console.log(`AUTHORITY_UNBOUND_INTENTS: ${authority.authorityUnboundIntents}`);
+  if (!authority.passed) {
+    console.error('Authority binding integrity FAILED:', authority.issues);
+    process.exit(1);
+  }
 
   console.log('\n📊 Running zero-duplication audit...');
   const audit = await runDuplicateIntentAudit();
@@ -42,4 +69,4 @@ async function main() {
 main().catch(err => {
   console.error('Fatal error during check-question-coverage:', err);
   process.exit(1);
-});
+}).finally(async () => prisma.$disconnect());

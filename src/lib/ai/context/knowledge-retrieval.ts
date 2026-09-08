@@ -168,11 +168,18 @@ export interface KnowledgeRetrievalResult {
   bundle: CustomerEvidenceBundle;
 }
 
+export interface KnowledgeAuthorityBinding {
+  sourceKey: string;
+  sectionKey?: string | null;
+  allowInternal?: boolean;
+}
+
 export async function retrieveApprovedKnowledgeEvidence(
   prompt: string,
   userRole: string | undefined,
   conversationContext: readonly ConversationContextMessage[] = [],
   semanticContext?: SemanticContextBundle,
+  authorityBinding?: KnowledgeAuthorityBinding,
 ): Promise<KnowledgeRetrievalResult> {
   let classification = classifyRentipidQuestion(prompt, conversationContext);
   const semanticProviderOnboarding = semanticContext?.intentHints.some(
@@ -217,6 +224,7 @@ export async function retrieveApprovedKnowledgeEvidence(
   const now = new Date();
   const sources = await prisma.aiKnowledgeSource.findMany({
     where: {
+      ...(authorityBinding ? { sourceKey: authorityBinding.sourceKey } : {}),
       status: 'ACTIVE',
       approvalStatus: 'APPROVED',
       effectiveFrom: { lte: now },
@@ -234,6 +242,7 @@ export async function retrieveApprovedKnowledgeEvidence(
   const firstAttempt: RetrievedKnowledgeMatch[] = [];
   const recoveryAttempt: RetrievedKnowledgeMatch[] = [];
   const accessibleCustomerChunks: RetrievedKnowledgeMatch[] = [];
+  const boundChunks: RetrievedKnowledgeMatch[] = [];
   const customerProjectionRequired = isOrdinaryCustomerRole(userRole);
 
   for (const source of sources) {
@@ -289,6 +298,7 @@ export async function retrieveApprovedKnowledgeEvidence(
         keywords: chunkKeywords,
       });
       if (customerProjectionRequired && !block) continue;
+      if (authorityBinding?.sectionKey && block?.sectionKey !== authorityBinding.sectionKey) continue;
       const headingTokens = new Set(tokenizeKnowledgeText(chunk.headingPath));
       const contentTokens = new Set(tokenizeKnowledgeText(projectedContent));
       const keywordTokens = new Set(tokenizeKnowledgeText(chunkKeywords.join(' ')));
@@ -359,6 +369,12 @@ export async function retrieveApprovedKnowledgeEvidence(
         accessibleCustomerChunks.push({ ...base, score: 0, coverage: 0, attempt: 1 });
       }
 
+      if (authorityBinding
+        && (base.audience === 'CUSTOMER' || (authorityBinding.allowInternal && base.audience === 'INTERNAL'))) {
+        boundChunks.push({ ...base, score: 100, coverage: 1, attempt: 1 });
+        continue;
+      }
+
       if (coverage >= MIN_QUERY_COVERAGE && sharedScore > 0) {
         firstAttempt.push({ ...base, score: sharedScore, coverage, attempt: 1 });
       }
@@ -384,6 +400,16 @@ export async function retrieveApprovedKnowledgeEvidence(
         }
       }
     }
+  }
+
+  if (authorityBinding) {
+    const matches = boundChunks.sort((left, right) => left.ordinal - right.ordinal).slice(0, MAX_RESULTS);
+    return {
+      classification,
+      matches,
+      attempts: matches.length > 0 ? 1 : 0,
+      bundle: buildCustomerEvidenceBundle(prompt, classification, matches),
+    };
   }
 
   const firstAttemptHasIntendedDomain = firstAttempt.some(match => intentDomains.includes(match.module));
@@ -470,8 +496,15 @@ export async function retrieveApprovedKnowledgeMatches(
   userRole: string | undefined,
   conversationContext: readonly ConversationContextMessage[] = [],
   semanticContext?: SemanticContextBundle,
+  authorityBinding?: KnowledgeAuthorityBinding,
 ): Promise<RetrievedKnowledgeMatch[]> {
-  const result = await retrieveApprovedKnowledgeEvidence(prompt, userRole, conversationContext, semanticContext);
+  const result = await retrieveApprovedKnowledgeEvidence(
+    prompt,
+    userRole,
+    conversationContext,
+    semanticContext,
+    authorityBinding,
+  );
   return [...result.matches];
 }
 
@@ -484,8 +517,15 @@ export async function retrieveApprovedKnowledge(
   userRole: string | undefined,
   conversationContext: readonly ConversationContextMessage[] = [],
   semanticContext?: SemanticContextBundle,
+  authorityBinding?: KnowledgeAuthorityBinding,
 ): Promise<string | null> {
-  const matches = await retrieveApprovedKnowledgeMatches(prompt, userRole, conversationContext, semanticContext);
+  const matches = await retrieveApprovedKnowledgeMatches(
+    prompt,
+    userRole,
+    conversationContext,
+    semanticContext,
+    authorityBinding,
+  );
   if (matches.length === 0) return null;
   return matches
     .map(match => `[${match.sourceKey} > ${match.headingPath}]\n${match.content}`)

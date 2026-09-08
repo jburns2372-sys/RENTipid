@@ -1,4 +1,6 @@
 import { prisma } from '@/lib/prisma';
+import { createHash } from 'node:crypto';
+import { loadCustomerAnswerabilityCatalog } from '@/lib/ai/knowledge/customer-answerability-harness';
 
 export interface SeedAccessScope {
   audience: 'RENTER' | 'PROVIDER' | 'ADMIN' | 'INTERNAL' | 'PUBLIC';
@@ -40,6 +42,7 @@ export function normalizeQuestionText(text: string): string {
     .toLowerCase()
     .trim()
     .replace(/[^\w\s]/gi, '')
+    .replace(/\b(?:a|an|the)\b/g, ' ')
     .replace(/\s+/g, ' ');
 }
 
@@ -63,24 +66,24 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
         role: 'Individual Provider',
         answerClass: 'INFORMATION',
         authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'KB-PROVIDER-LISTING-01',
-        knowledgeSourceKey: 'KB-PROVIDER-LISTING-01'
+        authorityReference: 'provider.workflow-status',
+        knowledgeSourceKey: 'provider.workflow-status'
       },
       {
         audience: 'PROVIDER',
         role: 'Business Provider',
         answerClass: 'INFORMATION',
         authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'KB-PROVIDER-LISTING-01',
-        knowledgeSourceKey: 'KB-PROVIDER-LISTING-01'
+        authorityReference: 'provider.workflow-status',
+        knowledgeSourceKey: 'provider.workflow-status'
       },
       {
         audience: 'RENTER',
         role: 'Renter',
         answerClass: 'INFORMATION',
         authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'KB-PROVIDER-LISTING-01',
-        knowledgeSourceKey: 'KB-PROVIDER-LISTING-01'
+        authorityReference: 'provider.workflow-status',
+        knowledgeSourceKey: 'provider.workflow-status'
       }
     ]
   },
@@ -131,24 +134,24 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
         role: 'Renter',
         answerClass: 'INFORMATION',
         authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'KB-ACCOUNT-SECURITY-01',
-        knowledgeSourceKey: 'KB-ACCOUNT-SECURITY-01'
+        authorityReference: 'core.registration-onboarding',
+        knowledgeSourceKey: 'core.registration-onboarding'
       },
       {
         audience: 'PROVIDER',
         role: 'Individual Provider',
         answerClass: 'INFORMATION',
         authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'KB-ACCOUNT-SECURITY-01',
-        knowledgeSourceKey: 'KB-ACCOUNT-SECURITY-01'
+        authorityReference: 'core.registration-onboarding',
+        knowledgeSourceKey: 'core.registration-onboarding'
       },
       {
         audience: 'ADMIN',
         role: 'Admin',
         answerClass: 'INFORMATION',
         authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'KB-ACCOUNT-SECURITY-01',
-        knowledgeSourceKey: 'KB-ACCOUNT-SECURITY-01'
+        authorityReference: 'core.registration-onboarding',
+        knowledgeSourceKey: 'core.registration-onboarding'
       }
     ]
   },
@@ -202,16 +205,8 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
         role: 'Renter',
         answerClass: 'ACTION',
         authorityType: 'TOOL_GATEWAY',
-        authorityReference: 'cancel_booking_tool',
-        toolKey: 'cancel_booking_tool'
-      },
-      {
-        audience: 'PROVIDER',
-        role: 'Individual Provider',
-        answerClass: 'ACTION',
-        authorityType: 'TOOL_GATEWAY',
-        authorityReference: 'provider_cancel_booking_tool',
-        toolKey: 'provider_cancel_booking_tool'
+        authorityReference: 'cancelBooking',
+        toolKey: 'cancelBooking'
       }
     ]
   },
@@ -232,16 +227,34 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
         role: 'Guest',
         answerClass: 'ELIGIBILITY_POLICY',
         authorityType: 'POLICY_TAXONOMY',
-        authorityReference: 'PROHIBITED_ITEMS_POLICY_CATALOG'
+        authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY'
       },
       {
         audience: 'PROVIDER',
         role: 'Individual Provider',
         answerClass: 'ELIGIBILITY_POLICY',
         authorityType: 'POLICY_TAXONOMY',
-        authorityReference: 'PROHIBITED_ITEMS_POLICY_CATALOG'
+        authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY'
       }
     ]
+  },
+  {
+    intentKey: 'listing.item.restriction',
+    canonicalQuestion: 'What items are prohibited or restricted on RENTipid?',
+    domain: 'Trust & Safety',
+    feature: 'prohibited_items',
+    aliases: [
+      { aliasText: 'What am I not allowed to list', aliasType: 'SYNONYM' },
+      { aliasText: 'Which rental items are restricted', aliasType: 'SYNONYM' },
+      { aliasText: 'Can I list a firearm on RENTipid', aliasType: 'SYNONYM' },
+    ],
+    accessScopes: [{
+      audience: 'PUBLIC',
+      role: 'Guest',
+      answerClass: 'ELIGIBILITY_POLICY',
+      authorityType: 'POLICY_TAXONOMY',
+      authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY',
+    }],
   },
 
   // 6. Internal / Developer Questions
@@ -261,8 +274,8 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
         requiredPermission: 'KNOWLEDGE_ADMIN',
         answerClass: 'INFORMATION',
         authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'KB-INTERNAL-KNOWLEDGE-VALIDATION-01',
-        knowledgeSourceKey: 'KB-INTERNAL-KNOWLEDGE-VALIDATION-01'
+        authorityReference: 'ai.implementation-registry',
+        knowledgeSourceKey: 'ai.implementation-registry'
       },
       {
         audience: 'INTERNAL',
@@ -270,8 +283,8 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
         requiredPermission: 'KNOWLEDGE_ADMIN',
         answerClass: 'INFORMATION',
         authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'KB-INTERNAL-KNOWLEDGE-VALIDATION-01',
-        knowledgeSourceKey: 'KB-INTERNAL-KNOWLEDGE-VALIDATION-01'
+        authorityReference: 'ai.implementation-registry',
+        knowledgeSourceKey: 'ai.implementation-registry'
       }
     ]
   },
@@ -291,12 +304,90 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
         requiredPermission: 'SYSTEM_ADMIN',
         answerClass: 'INFORMATION',
         authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'KB-INTERNAL-RELEASE-GATES-01',
-        knowledgeSourceKey: 'KB-INTERNAL-RELEASE-GATES-01'
+        authorityReference: 'ai.requirements-traceability',
+        knowledgeSourceKey: 'ai.requirements-traceability'
       }
     ]
   }
 ];
+
+function generatedIntentKey(sourceKey: string, sectionKey: string): string {
+  const readable = `${sourceKey}.${sectionKey.split(':').at(-1) ?? 'section'}`
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '.')
+    .replace(/^\.|\.$/g, '')
+    .slice(0, 96);
+  const digest = createHash('sha256').update(`${sourceKey}:${sectionKey}`).digest('hex').slice(0, 10);
+  return `knowledge.${readable}.${digest}`;
+}
+
+function audienceForRole(role: string): SeedAccessScope['audience'] {
+  if (role === 'Guest') return 'PUBLIC';
+  if (role.includes('Provider')) return 'PROVIDER';
+  if (role === 'Renter') return 'RENTER';
+  return 'ADMIN';
+}
+
+function generatedAliases(
+  canonicalQuestion: string,
+  variants: readonly { question: string; context?: readonly unknown[] }[],
+): SeedAlias[] {
+  const seen = new Set([normalizeQuestionText(canonicalQuestion)]);
+  const aliases: SeedAlias[] = [];
+  for (const variant of variants) {
+    if (variant.context) continue;
+    const normalized = normalizeQuestionText(variant.question);
+    if (!normalized || seen.has(normalized)) continue;
+    seen.add(normalized);
+    aliases.push({ aliasText: variant.question, aliasType: 'SYNONYM' });
+    if (aliases.length === 3) break;
+  }
+  return aliases;
+}
+
+export async function buildComprehensiveCanonicalIntentCatalog(): Promise<SeedCanonicalIntent[]> {
+  const catalog = [...CANONICAL_INTENT_SEED_CATALOG];
+  const answerability = await loadCustomerAnswerabilityCatalog();
+  const reservedQuestions = new Set(catalog.flatMap(intent => [
+    normalizeQuestionText(intent.canonicalQuestion),
+    ...intent.aliases.map(alias => normalizeQuestionText(alias.aliasText)),
+  ]));
+
+  for (const item of answerability.cases) {
+    if (item.sourceKey === 'provider.marketplace-taxonomy'
+      || item.sourceKey === 'provider.prohibited-items') continue;
+    if (item.sourceKey === 'provider.workflow-status' && item.sectionTitle === 'Listings') continue;
+    if (item.sourceKey === 'core.registration-onboarding'
+      && /password reset/i.test(item.sectionTitle)) continue;
+
+    const canonicalQuestion = item.variants[0]?.question;
+    if (!canonicalQuestion || reservedQuestions.has(normalizeQuestionText(canonicalQuestion))) continue;
+    reservedQuestions.add(normalizeQuestionText(canonicalQuestion));
+    const publicAccess = item.applicableRoles.includes('Guest');
+    const applicableRoles = publicAccess ? ['Guest'] : item.applicableRoles;
+    const accessScopes = applicableRoles.map(role => ({
+      audience: audienceForRole(role),
+      role,
+      answerClass: 'INFORMATION' as const,
+      authorityType: 'KNOWLEDGE_CENTER' as const,
+      authorityReference: item.sourceKey,
+      knowledgeSourceKey: item.sourceKey,
+      knowledgeSectionKey: item.sectionKey,
+    }));
+    if (accessScopes.length === 0) continue;
+
+    catalog.push({
+      intentKey: generatedIntentKey(item.sourceKey, item.sectionKey),
+      canonicalQuestion,
+      domain: item.domain,
+      feature: item.sectionTitle.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, ''),
+      aliases: generatedAliases(canonicalQuestion, item.variants),
+      accessScopes,
+    });
+  }
+
+  return catalog;
+}
 
 export interface CanonicalSeedResult {
   createdCount: number;
@@ -310,7 +401,10 @@ export async function seedCanonicalIntents(): Promise<CanonicalSeedResult> {
   let updatedCount = 0;
   let unchangedCount = 0;
 
-  for (const item of CANONICAL_INTENT_SEED_CATALOG) {
+  const desiredCatalog = await buildComprehensiveCanonicalIntentCatalog();
+  const desiredIntentKeys = new Set(desiredCatalog.map(item => item.intentKey));
+
+  for (const item of desiredCatalog) {
     const normalizedQuestion = normalizeQuestionText(item.canonicalQuestion);
 
     const existing = await prisma.canonicalQuestionIntent.findUnique({
@@ -431,6 +525,23 @@ export async function seedCanonicalIntents(): Promise<CanonicalSeedResult> {
         createdCount++;
       }
     }
+  }
+
+  const staleGenerated = await prisma.canonicalQuestionIntent.findMany({
+    where: {
+      status: 'ACTIVE',
+      intentKey: { startsWith: 'knowledge.' },
+    },
+    select: { id: true, intentKey: true },
+  });
+  for (const stale of staleGenerated) {
+    if (desiredIntentKeys.has(stale.intentKey)) continue;
+    await prisma.$transaction([
+      prisma.canonicalQuestionIntent.update({ where: { id: stale.id }, data: { status: 'INACTIVE' } }),
+      prisma.canonicalQuestionAlias.updateMany({ where: { canonicalIntentId: stale.id }, data: { status: 'INACTIVE' } }),
+      prisma.canonicalIntentAccessScope.updateMany({ where: { canonicalIntentId: stale.id }, data: { status: 'INACTIVE' } }),
+    ]);
+    updatedCount++;
   }
 
   return { createdCount, updatedCount, unchangedCount, deletedCount: 0 };

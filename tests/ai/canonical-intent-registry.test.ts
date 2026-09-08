@@ -10,8 +10,8 @@ describe('Canonical Intent Registry & Resolver', () => {
   });
 
   test('normalizes question text deterministically', () => {
-    expect(normalizeQuestionText('How do I list an item?')).toBe('how do i list an item');
-    expect(normalizeQuestionText('  HOW   DO I LIST AN ITEM?! ')).toBe('how do i list an item');
+    expect(normalizeQuestionText('How do I list an item?')).toBe('how do i list item');
+    expect(normalizeQuestionText('  HOW   DO I LIST AN ITEM?! ')).toBe('how do i list item');
     expect(normalizeQuestionText('hw do i lst my car')).toBe('hw do i lst my car');
   });
 

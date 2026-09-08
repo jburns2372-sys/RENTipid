@@ -81,11 +81,16 @@ function categoryTerms(prompt: string): string[] {
   if (!match) return [];
   return match[1]
     .split(/\s*(?:,|\band\b|\bor\b)\s*/i)
-    .map(value => value.replace(/^(?:a|an|the|my)\s+/i, '').trim())
+    .map(value => value
+      .replace(/^(?:a|an|the|my)\s+/i, '')
+      .replace(/\s+(?:on|in|through|via)\s+(?:the\s+)?rentipid(?:\s+(?:app|marketplace|platform))?$/i, '')
+      .replace(/\s+(?:property|properties|category|categories|item|items|rental|rentals|listing|listings)$/i, '')
+      .trim())
     .filter(value => value.length > 1 && !/^(?:item|something|another\s+item)$/i.test(value));
 }
 
 function customerIntent(prompt: string): CustomerQuestionIntent {
+  if (CATEGORY_ELIGIBILITY.test(prompt) && !/\bhow\s+(?:can|do)\s+i\b/i.test(prompt)) return 'CATEGORY_ELIGIBILITY';
   if (CREATE_LISTING.test(prompt)) return 'LISTING_CREATION';
   if (CATEGORY_ELIGIBILITY.test(prompt)) return 'CATEGORY_ELIGIBILITY';
   if (PROVIDER_PAYMENT.test(prompt)) return 'PROVIDER_PAYMENT_PROCESS';

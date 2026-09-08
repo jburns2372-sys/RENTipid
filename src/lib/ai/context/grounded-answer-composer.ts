@@ -43,6 +43,13 @@ export interface GroundedAnswerInput {
   questionAnalysis?: RentipidQuestionClassification;
   evidenceBundle?: CustomerEvidenceBundle;
   semanticContext?: SemanticContextBundle;
+  bindingAuthority?: {
+    audience: string;
+    answerClass: string;
+    authorityType: string;
+    authorityReference: string;
+    toolKey?: string | null;
+  };
   onDiagnostic?: (diagnostic: GroundedAnswerDiagnostic) => void;
 }
 
