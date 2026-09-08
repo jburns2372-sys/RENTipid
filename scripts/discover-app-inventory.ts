@@ -20,7 +20,7 @@ export function discoverAppInventory(root = process.cwd()): DiscoveredAppInvento
   const registryEntries = getKnowledgeRegistry(root);
   const knowledgeSourceKeys = Array.from(new Set(registryEntries.map(e => e.sourceKey))).sort();
   const rawModules = Array.from(new Set(registryEntries.map(e => e.module)));
-  
+
   // Standardized modules list based on repository inspection & registry
   const modules = Array.from(new Set([
     ...rawModules,
