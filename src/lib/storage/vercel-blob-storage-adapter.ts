@@ -8,9 +8,11 @@ export function getBlobToken(isPrivate: boolean): string | undefined {
 }
 
 export function getPrivateBlobCredentialOptions() {
+  const token = getBlobToken(true);
+  if (token) return { token };
   const storeId = process.env.PRIVATE_BLOB_STORE_ID;
   const oidcToken = process.env.VERCEL_OIDC_TOKEN;
-  return storeId && oidcToken ? { storeId, oidcToken } : { token: getBlobToken(true) };
+  return storeId && oidcToken ? { storeId, oidcToken } : {};
 }
 
 export async function getPrivateBlob(filePathOrUrl: string): Promise<GetBlobResult | null> {

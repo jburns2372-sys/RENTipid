@@ -99,6 +99,7 @@ async function main() {
       const replacement = await put(pathname, bytes, {
         access: 'private',
         addRandomSuffix: false,
+        allowOverwrite: true,
         contentType: document.file_type,
         ...getPrivateBlobCredentialOptions(),
       });
@@ -108,11 +109,15 @@ async function main() {
       if (anonymous.ok) throw new Error('private copy is anonymously accessible');
 
       await prisma.listingDocument.update({ where: { id: document.id }, data: { file_path: replacement.pathname } });
-      await del(document.file_path, { token: process.env.BLOB_READ_WRITE_TOKEN || privateToken });
+      try {
+        await del(document.file_path, { token: process.env.LISTING_MEDIA_BLOB_READ_WRITE_TOKEN || process.env.BLOB_READ_WRITE_TOKEN || privateToken });
+      } catch {
+        console.warn(`Legacy public blob cleanup skipped for ${document.id}`);
+      }
       migrated += 1;
-    } catch {
+    } catch (err: any) {
       failed += 1;
-      console.error(`Document migration failed at item ${index + 1}`);
+      console.error(`Document migration failed at item ${index + 1}: ${err?.message || err}`);
     }
   }
 
