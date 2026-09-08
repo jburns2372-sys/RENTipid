@@ -164,7 +164,10 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   const canonicalMatch = await resolveCanonicalIntent(prompt, userRole);
 
   // P4 + Revision 2: resolve intent, exactly-one owner, and compatibility support subdomain.
-  const resolvedIntent = canonicalMatch?.compatibilityIntent ?? canonicalMatch?.intentKey ?? resolveIntent(prompt);
+  const resolvedIntent = canonicalMatch?.compatibilityIntent
+    ?? (canonicalMatch?.selectedScope?.answerClass === 'INFORMATION' ? 'support_info' : undefined)
+    ?? canonicalMatch?.intentKey
+    ?? resolveIntent(prompt);
 
   const questionClassification = classifyRentipidQuestion(prompt, req.conversationContext ?? []);
   // Existing explicit test-tool syntax remains a request only; it grants no authority.

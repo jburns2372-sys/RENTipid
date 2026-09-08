@@ -37,7 +37,9 @@ function compatibilityIntent(intentKey: string, feature: string): string | undef
     booking_cancellation: 'booking_cancel',
     prohibited_items: 'provider_operational_support',
   };
-  return byFeature[feature] ?? (intentKey.startsWith('internal.') ? undefined : undefined);
+  if (byFeature[feature]) return byFeature[feature];
+  if (intentKey.startsWith('knowledge.')) return 'support_info';
+  return intentKey.startsWith('internal.') ? undefined : undefined;
 }
 
 export async function resolveCanonicalIntent(
