@@ -298,9 +298,17 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
   }
 ];
 
-export async function seedCanonicalIntents(): Promise<{ createdCount: number; updatedCount: number }> {
+export interface CanonicalSeedResult {
+  createdCount: number;
+  updatedCount: number;
+  unchangedCount: number;
+  deletedCount: number;
+}
+
+export async function seedCanonicalIntents(): Promise<CanonicalSeedResult> {
   let createdCount = 0;
   let updatedCount = 0;
+  let unchangedCount = 0;
 
   for (const item of CANONICAL_INTENT_SEED_CATALOG) {
     const normalizedQuestion = normalizeQuestionText(item.canonicalQuestion);
@@ -329,6 +337,7 @@ export async function seedCanonicalIntents(): Promise<{ createdCount: number; up
           })
         : existing;
       if (needsUpdate) updatedCount++;
+      else unchangedCount++;
     } else {
       intentRecord = await prisma.canonicalQuestionIntent.create({
         data: {
@@ -346,24 +355,29 @@ export async function seedCanonicalIntents(): Promise<{ createdCount: number; up
     // Seed Aliases
     for (const alias of item.aliases) {
       const normalizedAliasText = normalizeQuestionText(alias.aliasText);
-      await prisma.canonicalQuestionAlias.upsert({
-        where: { normalizedAliasText },
-        update: {
-          canonicalIntentId: intentRecord.id,
-          aliasText: alias.aliasText,
-          aliasType: alias.aliasType,
-          confidence: alias.confidence ?? 1.0,
-          status: 'ACTIVE'
-        },
-        create: {
-          canonicalIntentId: intentRecord.id,
-          aliasText: alias.aliasText,
-          normalizedAliasText,
-          aliasType: alias.aliasType,
-          confidence: alias.confidence ?? 1.0,
-          status: 'ACTIVE'
-        }
-      });
+      const existingAlias = await prisma.canonicalQuestionAlias.findUnique({ where: { normalizedAliasText } });
+      const aliasData = {
+        canonicalIntentId: intentRecord.id,
+        aliasText: alias.aliasText,
+        aliasType: alias.aliasType,
+        confidence: alias.confidence ?? 1.0,
+        status: 'ACTIVE' as const,
+      };
+      if (!existingAlias) {
+        await prisma.canonicalQuestionAlias.create({ data: { ...aliasData, normalizedAliasText } });
+        createdCount++;
+      } else if (
+        existingAlias.canonicalIntentId !== intentRecord.id
+        || existingAlias.aliasText !== aliasData.aliasText
+        || existingAlias.aliasType !== aliasData.aliasType
+        || existingAlias.confidence !== aliasData.confidence
+        || existingAlias.status !== aliasData.status
+      ) {
+        await prisma.canonicalQuestionAlias.update({ where: { normalizedAliasText }, data: aliasData });
+        updatedCount++;
+      } else {
+        unchangedCount++;
+      }
     }
 
     // Seed Access Scopes
@@ -377,20 +391,26 @@ export async function seedCanonicalIntents(): Promise<{ createdCount: number; up
       });
 
       if (existingScope) {
-        await prisma.canonicalIntentAccessScope.update({
-          where: { id: existingScope.id },
-          data: {
-            requiredPermission: scope.requiredPermission,
-            answerClass: scope.answerClass,
-            authorityType: scope.authorityType,
-            authorityReference: scope.authorityReference,
-            knowledgeSourceKey: scope.knowledgeSourceKey,
-            knowledgeSectionKey: scope.knowledgeSectionKey,
-            liveServiceKey: scope.liveServiceKey,
-            toolKey: scope.toolKey,
-            status: 'ACTIVE'
-          }
-        });
+        const scopeData = {
+          requiredPermission: scope.requiredPermission,
+          answerClass: scope.answerClass,
+          authorityType: scope.authorityType,
+          authorityReference: scope.authorityReference,
+          knowledgeSourceKey: scope.knowledgeSourceKey,
+          knowledgeSectionKey: scope.knowledgeSectionKey,
+          liveServiceKey: scope.liveServiceKey,
+          toolKey: scope.toolKey,
+          status: 'ACTIVE' as const,
+        };
+        const needsScopeUpdate = Object.entries(scopeData).some(([key, value]) =>
+          (existingScope[key as keyof typeof existingScope] ?? null) !== (value ?? null)
+        );
+        if (needsScopeUpdate) {
+          await prisma.canonicalIntentAccessScope.update({ where: { id: existingScope.id }, data: scopeData });
+          updatedCount++;
+        } else {
+          unchangedCount++;
+        }
       } else {
         await prisma.canonicalIntentAccessScope.create({
           data: {
@@ -408,11 +428,12 @@ export async function seedCanonicalIntents(): Promise<{ createdCount: number; up
             status: 'ACTIVE'
           }
         });
+        createdCount++;
       }
     }
   }
 
-  return { createdCount, updatedCount };
+  return { createdCount, updatedCount, unchangedCount, deletedCount: 0 };
 }
 
 export async function getCanonicalQuestionSuggestions(userRole: string): Promise<CanonicalQuestionSuggestion[]> {
