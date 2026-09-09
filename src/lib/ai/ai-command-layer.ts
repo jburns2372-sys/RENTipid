@@ -189,8 +189,12 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   const entityHint = userId ? resolveAiEntityHint(module, recordId, userId) : undefined;
   const isRecordScoped = Boolean(userId && entityHint);
   const isConsequentialAction = Boolean(requestedTool)
-    || questionClassification.kind === 'CONSEQUENTIAL_ACTION';
-  const answerClass: SpecialistAnswerClass = isConsequentialAction ? 'ACTION' : isRecordScoped ? 'PERSONALIZED' : 'INFORMATION';
+    || (!canonicalMatch && questionClassification.kind === 'CONSEQUENTIAL_ACTION');
+  const answerClass: SpecialistAnswerClass = isConsequentialAction
+    ? 'ACTION'
+    : isRecordScoped
+      ? 'PERSONALIZED'
+      : 'INFORMATION';
   const requestedRiskClass: SpecialistRiskClass = isConsequentialAction
     ? 'T2_OPERATIONAL'
     : isRecordScoped
@@ -239,8 +243,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     userRole,
     req.conversationContext ?? [],
     semanticContextBundle,
-    canonicalMatch?.selectedScope.authorityType === 'KNOWLEDGE_CENTER'
-      && canonicalMatch.selectedScope.knowledgeSourceKey
+    canonicalMatch?.selectedScope.knowledgeSourceKey
       ? {
           sourceKey: canonicalMatch.selectedScope.knowledgeSourceKey,
           sectionKey: canonicalMatch.selectedScope.knowledgeSectionKey,
@@ -249,11 +252,25 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
         }
       : undefined,
   );
+  const effectiveClassification = canonicalMatch?.intentKey
+    ? {
+        ...retrieval.classification,
+        kind: (canonicalMatch.selectedScope.answerClass === 'ACTION'
+          ? 'CONSEQUENTIAL_ACTION'
+          : (canonicalMatch.selectedScope.answerClass === 'PERSONALIZED_READ' && entityHint)
+          ? 'LIVE_RENTIPID_STATE'
+          : 'STATIC_RENTIPID_KNOWLEDGE') as any,
+        intent: canonicalMatch.intentKey as any,
+        requestedCategoryTerms: canonicalMatch.selectedScope.answerClass === 'ELIGIBILITY_POLICY'
+          ? retrieval.classification.requestedCategoryTerms
+          : [],
+      }
+    : retrieval.classification;
   // Keep the command boundary tolerant of legacy retrieval adapters and test doubles
   // while preserving the canonical bundle produced by the real retriever.
-  const evidenceBundle = retrieval.bundle ?? buildCustomerEvidenceBundle(
+  const evidenceBundle = buildCustomerEvidenceBundle(
     prompt,
-    retrieval.classification,
+    effectiveClassification,
     retrieval.matches,
   );
   const sourceRefs: string[] = entityHint
@@ -266,12 +283,12 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   const systemPrompt = getSystemPrompt(botId, userRole || 'Guest', module);
   const groundingInput = {
     question: prompt,
-    effectiveQuestion: retrieval.classification.effectiveQuestion,
-    classification: retrieval.classification.kind,
+    effectiveQuestion: effectiveClassification.effectiveQuestion,
+    classification: effectiveClassification.kind,
     evidence: retrieval.matches,
     authorizedLiveContext: safeContext,
     liveEvidenceRef: entityHint ? `live:${entityHint.entityType}:${entityHint.entityId}` : undefined,
-    questionAnalysis: retrieval.classification,
+    questionAnalysis: effectiveClassification,
     evidenceBundle,
     semanticContext: semanticContextBundle,
     bindingAuthority: canonicalMatch?.selectedScope,

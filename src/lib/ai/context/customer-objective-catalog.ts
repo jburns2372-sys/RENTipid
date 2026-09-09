@@ -259,16 +259,18 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
     answerContract: {
       requiredFacts: [
         'Supported payment methods include GCash, Maya, Debit/Credit Cards (Visa/Mastercard), and Online Banking via PayMongo',
-        'All payments must be completed through RENTipid secure checkout',
+        'All transactions are processed securely in Philippine Peso (PHP) through RENTipid checkout',
         'Direct cash payments to providers outside the platform violate terms and void protection'
       ],
-      optionalFacts: ['All transactions are processed in Philippine Peso (PHP)'],
+      optionalFacts: ['All payments must be completed through RENTipid secure checkout'],
       forbiddenClaims: ['Cryptocurrency is accepted', 'Direct bank transfer to provider allowed'],
       authorityClass: 'STATIC_KNOWLEDGE',
       authorityReference: 'provider.payment-status-currency',
-      knowledgeSourceKey: 'provider.payment-status-currency'
+      knowledgeSourceKey: 'provider.payment-status-currency',
+      knowledgeSectionKey: 'provider-payment-status-currency:payment-and-currency-status'
     },
     aliases: [
+      { text: 'how can i pay for rented item?', style: 'PLAIN' },
       { text: 'What payment methods are supported?', style: 'FORMAL' },
       { text: 'How do I pay for a booking?', style: 'PLAIN' },
       { text: 'Can I pay using GCash or Maya?', style: 'PLAIN' },
@@ -347,7 +349,8 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       optionalFacts: ['If a damage claim is filed, the deposit is held until claim resolution'],
       forbiddenClaims: ['Deposit is given to provider in cash', 'Deposit is non-refundable'],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'marketplace.user-marketplace-manual'
+      authorityReference: 'provider.payment-status-currency',
+      knowledgeSourceKey: 'provider.payment-status-currency'
     },
     aliases: [
       { text: 'When do I get my deposit back?', style: 'PLAIN' },
@@ -356,6 +359,37 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       { text: 'kailan maibabalik ang security deposit ko?', style: 'TAGLISH' },
       { text: 'kailan babalik deposit ko', style: 'TAGLISH' },
       { text: 'Deposit release timeline', style: 'SHORT' }
+    ]
+  },
+  {
+    objectiveId: 'renter.refund.request_how_to',
+    canonicalQuestion: 'How do I request a refund for a rental on RENTipid?',
+    domain: 'Payments',
+    subdomain: 'Refunds',
+    lifecycleStage: 'CANCELLATION_OR_DISPUTE',
+    persona: 'RENTER',
+    answerContract: {
+      requiredFacts: [
+        'For booking cancellations, navigate to Dashboard > Bookings > Cancel Booking before item handover; refunds are automatically initiated based on the listing cancellation policy',
+        'If an item is defective, damaged, or not as described at handover, refuse the item and report the issue immediately in the app for a full refund',
+        'For return disputes or deposit deductions, file an issue under Dashboard > Bookings > Report Issue',
+        'Approved refunds are processed back to your original payment method (GCash, Maya, Card) within 3–7 business days'
+      ],
+      optionalFacts: ['Full refund applies if the provider cancels or if the item fails initial handover inspection'],
+      forbiddenClaims: ['Refunds are paid in cash on the spot', 'Renters can demand arbitrary cash refunds from providers directly'],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'provider.workflow-status',
+      knowledgeSourceKey: 'provider.workflow-status',
+      knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-claims-and-disputes'
+    },
+    aliases: [
+      { text: 'how can i request for refund?', style: 'PLAIN' },
+      { text: 'How do I ask for a refund?', style: 'PLAIN' },
+      { text: 'Where do I request a refund?', style: 'SHORT' },
+      { text: 'paano mag-request ng refund?', style: 'TAGLISH' },
+      { text: 'paano humingi ng refund sa rentipid', style: 'TAGLISH' },
+      { text: 'I want a refund what do I do', style: 'COLLOQUIAL' },
+      { text: 'Refund request process', style: 'FORMAL' }
     ]
   },
   {
@@ -375,7 +409,9 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       forbiddenClaims: ['Refund is instant cash', 'Provider pays refund directly'],
       authorityClass: 'POLICY_PLUS_LIVE',
       authorityReference: 'AUTHORIZED_PAYMENT_SERVICE',
-      liveServiceKey: 'AUTHORIZED_PAYMENT_SERVICE'
+      liveServiceKey: 'AUTHORIZED_PAYMENT_SERVICE',
+      knowledgeSourceKey: 'provider.workflow-status',
+      knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-claims-and-disputes'
     },
     aliases: [
       { text: 'Where is my refund?', style: 'SHORT' },
@@ -429,8 +465,8 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       optionalFacts: ['Dispute evidence including rental agreements and handover signatures will be submitted to the card network'],
       forbiddenClaims: ['Chargebacks are processed without bank review', 'Chargebacks result in immediate cash payouts'],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'marketplace.user-marketplace-manual',
-      knowledgeSourceKey: 'marketplace.user-marketplace-manual'
+      authorityReference: 'provider.workflow-status',
+      knowledgeSourceKey: 'provider.workflow-status'
     },
     aliases: [
       { text: 'What is this chargeback?', style: 'SHORT' },
@@ -460,8 +496,9 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       optionalFacts: ['Platform service fees and applicable withholding are deducted prior to payout'],
       forbiddenClaims: ['Provider is paid before handover', 'Renter pays provider in cash'],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'marketplace.user-marketplace-manual',
-      knowledgeSourceKey: 'marketplace.user-marketplace-manual'
+      authorityReference: 'provider.payment-status-currency',
+      knowledgeSourceKey: 'provider.payment-status-currency',
+      knowledgeSectionKey: 'provider-payment-status-currency:payment-and-currency-status-provider-payout-process'
     },
     aliases: [
       { text: 'When will I get paid for my rental?', style: 'PLAIN' },
@@ -488,7 +525,9 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       forbiddenClaims: ['Money is lost', 'Renter canceled after rental completion'],
       authorityClass: 'LIVE_SERVICE',
       authorityReference: 'AUTHORIZED_PAYOUT_FINANCE_SERVICE',
-      liveServiceKey: 'AUTHORIZED_PAYOUT_FINANCE_SERVICE'
+      liveServiceKey: 'AUTHORIZED_PAYOUT_FINANCE_SERVICE',
+      knowledgeSourceKey: 'provider.payment-status-currency',
+      knowledgeSectionKey: 'provider-payment-status-currency:payment-and-currency-status-provider-payout-process'
     },
     aliases: [
       { text: 'Where is my payout?', style: 'SHORT' },
@@ -514,8 +553,8 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       optionalFacts: ['Exportable monthly earnings statements are available in the provider financial reports section'],
       forbiddenClaims: ['Platform takes 100% of earnings', 'Security deposits are credited to provider revenue'],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'marketplace.user-marketplace-manual',
-      knowledgeSourceKey: 'marketplace.user-marketplace-manual'
+      authorityReference: 'provider.payment-status-currency',
+      knowledgeSourceKey: 'provider.payment-status-currency'
     },
     aliases: [
       { text: 'How much did I earn?', style: 'SHORT' },
@@ -558,6 +597,42 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
   // 5. INSURANCE & RENTAL PROTECTION
   // =========================================================================
   {
+    objectiveId: 'rental.damage.general',
+    canonicalQuestion: 'What happens if an item is damaged during a rental?',
+    domain: 'Insurance',
+    subdomain: 'Damage & Incidents',
+    lifecycleStage: 'ACTIVE_RENTAL_OR_POST_RETURN',
+    persona: 'ALL_CUSTOMERS',
+    answerContract: {
+      requiredFacts: [
+        'Report any damage immediately upon discovery or during the return inspection window (24–48 hours)',
+        'Provide clear photos, videos, pre-rental and post-rental inspection records, and repair or replacement cost estimates',
+        'The security deposit held in escrow is utilized first for verified damage deductions',
+        'RENTipid platform rental protection covers verified accidental damage and total loss (excluding normal wear and tear and intentional damage)',
+        'If the renter and provider cannot agree, submit a formal claim under Dashboard > Bookings > Report Issue / File Claim for platform dispute evaluation'
+      ],
+      optionalFacts: ['Commercial third-party insurance carrier certificates are not currently active; protection is mediated via platform escrow and claims'],
+      forbiddenClaims: [
+        'Damage claims are paid out in cash instantly without inspection',
+        'Wear and tear is covered by damage claims',
+        'Active commercial insurance certificate can be downloaded'
+      ],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'provider.workflow-status',
+      knowledgeSourceKey: 'provider.workflow-status',
+      knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-claims-and-disputes'
+    },
+    aliases: [
+      { text: 'what happens if the item rented is damaged?', style: 'PLAIN' },
+      { text: 'What happens if I damage the item?', style: 'PLAIN' },
+      { text: 'What if the item breaks during rental?', style: 'PLAIN' },
+      { text: 'paano kung masira ang gamit na nirentahan?', style: 'TAGLISH' },
+      { text: 'nasira ko yung rental ano mangyayari', style: 'TAGLISH' },
+      { text: 'Damage procedure during rental', style: 'FORMAL' },
+      { text: 'what if item is broken', style: 'SHORT' }
+    ]
+  },
+  {
     objectiveId: 'insurance.coverage.scope',
     canonicalQuestion: 'What does RENTipid insurance and rental protection cover?',
     domain: 'Insurance',
@@ -578,9 +653,9 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
         'Wear and tear is covered'
       ],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'route.terms',
-      knowledgeSourceKey: 'route.terms',
-      knowledgeSectionKey: 'route-terms:rentipid-terms-and-conditions'
+      authorityReference: 'provider.workflow-status',
+      knowledgeSourceKey: 'provider.workflow-status',
+      knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-claims-and-disputes'
     },
     aliases: [
       { text: 'What does insurance cover?', style: 'SHORT' },
@@ -612,8 +687,9 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
         'Claims can be filed months after rental completion'
       ],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'marketplace.user-marketplace-manual',
-      knowledgeSourceKey: 'marketplace.user-marketplace-manual'
+      authorityReference: 'provider.workflow-status',
+      knowledgeSourceKey: 'provider.workflow-status',
+      knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-claims-and-disputes'
     },
     aliases: [
       { text: 'How do I file a claim?', style: 'SHORT' },
@@ -674,6 +750,7 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       toolKey: 'cancelBooking'
     },
     aliases: [
+      { text: 'how can i cancel rental booking?', style: 'PLAIN' },
       { text: 'How do I cancel a booking?', style: 'SHORT' },
       { text: 'Can I cancel my rental reservation?', style: 'PLAIN' },
       { text: 'paano mag-cancel ng booking?', style: 'TAGLISH' },
@@ -697,7 +774,9 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       optionalFacts: ['If provider declines extension, the item must be returned at original scheduled time'],
       forbiddenClaims: ['Extensions are automatic without provider consent', 'Late returns are free'],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'marketplace.user-marketplace-manual'
+      authorityReference: 'provider.workflow-status',
+      knowledgeSourceKey: 'provider.workflow-status',
+      knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-booking-process'
     },
     aliases: [
       { text: 'Can I extend my rental days?', style: 'PLAIN' },
@@ -729,7 +808,8 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       forbiddenClaims: ['KYC is never required', 'Expired IDs are accepted'],
       authorityClass: 'STATIC_KNOWLEDGE',
       authorityReference: 'core.registration-onboarding',
-      knowledgeSourceKey: 'core.registration-onboarding'
+      knowledgeSourceKey: 'core.registration-onboarding',
+      knowledgeSectionKey: 'core-registration-onboarding:rentipid-account-registration-provider-onboarding-provider-onboarding-and-kyc'
     },
     aliases: [
       { text: 'How do I verify KYC?', style: 'SHORT' },
@@ -758,7 +838,8 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       forbiddenClaims: ['Support agents can see your password', 'Password reset links never expire'],
       authorityClass: 'STATIC_KNOWLEDGE',
       authorityReference: 'core.registration-onboarding',
-      knowledgeSourceKey: 'core.registration-onboarding'
+      knowledgeSourceKey: 'core.registration-onboarding',
+      knowledgeSectionKey: 'core-registration-onboarding:rentipid-account-registration-provider-onboarding'
     },
     aliases: [
       { text: 'I forgot my password how to reset?', style: 'PLAIN' },
@@ -766,6 +847,40 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       { text: 'nakalimutan ko password ko paano ma-recover?', style: 'TAGLISH' },
       { text: 'paano mag-reset ng password', style: 'TAGLISH' },
       { text: 'Password recovery steps', style: 'SHORT' }
+    ]
+  },
+  {
+    objectiveId: 'provider.profile.public_vs_private',
+    canonicalQuestion: 'May I see or know the provider\'s account details when renting?',
+    domain: 'Account',
+    subdomain: 'Profile & Privacy',
+    lifecycleStage: 'EVALUATING_OR_BOOKING',
+    persona: 'RENTER',
+    answerContract: {
+      requiredFacts: [
+        'Renters can view the provider\'s public profile including display name, verified badge status, overall ratings, customer reviews, and active listings',
+        'All communication with the provider must take place securely through RENTipid in-app messaging',
+        'Private account credentials including bank accounts, payout destinations, e-wallet details, government IDs, KYC documents, TIN, and login passwords are strictly confidential and never shared',
+        'All payments and security deposits are handled exclusively through RENTipid secure platform checkout—renters never pay into a provider\'s personal bank account'
+      ],
+      optionalFacts: ['Business providers may display their registered business name on approved public listings'],
+      forbiddenClaims: [
+        'Renters receive the provider\'s private bank account number',
+        'Providers share bank details to receive direct wire transfers'
+      ],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'core.registration-onboarding',
+      knowledgeSourceKey: 'core.registration-onboarding',
+      knowledgeSectionKey: 'core-registration-onboarding:rentipid-account-registration-provider-onboarding'
+    },
+    aliases: [
+      { text: 'may i know the account of provider when i rent his property?', style: 'PLAIN' },
+      { text: 'Can I see the provider\'s account details?', style: 'PLAIN' },
+      { text: 'Can I get the provider\'s bank account to pay?', style: 'PLAIN' },
+      { text: 'makikita ko ba account ng provider kapag nag-rent?', style: 'TAGLISH' },
+      { text: 'makikita ba bank account ng owner', style: 'TAGLISH' },
+      { text: 'Provider profile visibility and account privacy', style: 'FORMAL' },
+      { text: 'Can I see provider details', style: 'SHORT' }
     ]
   },
 
@@ -787,8 +902,8 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       optionalFacts: ['You can view active refunds under Payments & Refunds and provider earnings under Payouts'],
       forbiddenClaims: ['Funds are lost', 'All balances are zero'],
       authorityClass: 'CLARIFICATION_REQUIRED',
-      authorityReference: 'marketplace.user-marketplace-manual',
-      knowledgeSourceKey: 'marketplace.user-marketplace-manual',
+      authorityReference: 'provider.payment-status-currency',
+      knowledgeSourceKey: 'provider.payment-status-currency',
       clarificationPrompt: 'Please specify whether you are asking about a security deposit return, a booking refund, or provider payout earnings.'
     },
     aliases: [
@@ -831,4 +946,5 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
 export function getCustomerObjective(objectiveId: string): CustomerObjectiveDefinition | undefined {
   return CANONICAL_CUSTOMER_OBJECTIVES.find(o => o.objectiveId === objectiveId);
 }
+
 

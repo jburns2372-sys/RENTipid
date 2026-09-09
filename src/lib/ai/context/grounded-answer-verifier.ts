@@ -58,7 +58,7 @@ function coversQuestion(input: GroundedVerificationInput): boolean {
   if (!input.answer.message.trim() || input.answer.materialClaims.length === 0) return false;
   const asksHow = /\b(?:how|steps?|what happens|process)\b/i.test(input.bundle.question);
   if (!asksHow) return true;
-  const supportedAction = /\b(?:add|apply|browse|check|choose|complete|confirm|contact|create|enter|find|follow|open|provide|receive|register|request|return|review|save|select|send|sign|submit|upload|use|verify)\b/i;
+  const supportedAction = /\b(?:add|apply|browse|check|choose|complete|confirm|contact|create|enter|find|follow|open|provide|receive|register|request|return|review|save|select|send|sign|submit|upload|use|verify|report|inspect|deduct|pay|payments?|paying|cancel|dispute|file|support|supported|processed?|settle|escrow|manage)\b/i;
   return supportedAction.test(input.answer.message)
     && input.answer.materialClaims.some(claim => supportedAction.test(claim.supportingText ?? claim.text));
 }

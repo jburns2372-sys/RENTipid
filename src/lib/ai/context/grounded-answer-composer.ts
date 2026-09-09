@@ -234,9 +234,7 @@ function staticAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
         return utility(right) - utility(left);
       });
       
-    console.log('DEBUG: procedural=', procedural, 'options.length=', options.length);
     if (options.length > 0) {
-      console.log('DEBUG: options[0].steps=', options[0].steps);
       const selected = options[0].steps.slice(0, 7);
       const intentMessage = procedureIntro(analysis) + '\n'
         + selected.map((step, index) => (index + 1) + '. ' + step.text).join('\n');

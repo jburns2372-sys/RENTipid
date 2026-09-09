@@ -194,6 +194,12 @@ export async function retrieveApprovedKnowledgeEvidence(
       domains: [...new Set([...classification.domains, 'Core', 'Profile'])],
     };
   }
+  if (authorityBinding) {
+    classification = {
+      ...classification,
+      kind: 'STATIC_RENTIPID_KNOWLEDGE',
+    };
+  }
   if (classification.kind !== 'STATIC_RENTIPID_KNOWLEDGE' || SECRET_QUERY.test(prompt)) {
     return {
       classification,
@@ -217,6 +223,7 @@ export async function retrieveApprovedKnowledgeEvidence(
     baseExpansions = baseExpansions.concat(semanticContext.retrievalExpansions);
   }
   const conceptTokens = [...new Set(baseExpansions.flatMap(tokenizeKnowledgeText))];
+
   const intentDomains = [...new Set([
     ...classification.domains,
     ...concepts.flatMap(concept => concept.domains),
@@ -298,7 +305,6 @@ export async function retrieveApprovedKnowledgeEvidence(
         keywords: chunkKeywords,
       });
       if (customerProjectionRequired && !block) continue;
-      if (authorityBinding?.sectionKey && block?.sectionKey !== authorityBinding.sectionKey) continue;
       const headingTokens = new Set(tokenizeKnowledgeText(chunk.headingPath));
       const contentTokens = new Set(tokenizeKnowledgeText(projectedContent));
       const keywordTokens = new Set(tokenizeKnowledgeText(chunkKeywords.join(' ')));
@@ -316,13 +322,25 @@ export async function retrieveApprovedKnowledgeEvidence(
       const materialClaims = queryTokens.filter(token => MATERIAL_CLAIM_TOKENS.has(token));
       if (materialClaims.some(token => !matchedTokens.has(token))) continue;
       const domainMatched = intentDomains.includes(source.module);
-      const isLegal = source.module === 'Legal' || source.topic === 'compliance' || source.topic === 'legal';
+      const isLegal = source.module === 'Legal' || source.topic === 'compliance' || source.topic === 'legal' || source.sourceKey === 'route.terms';
       let sharedScore = lexicalScore;
       if (domainMatched) sharedScore += 5;
       if (source.topic.toLowerCase() === 'overview' && queryTokens.includes('rentipid')) sharedScore += 3;
       if (['MANUAL', 'PUBLISHED_GUIDANCE'].includes(source.sourceType)) sharedScore += 1;
       if (source.authority !== 'LEGACY') sharedScore += 0.25;
-      if (isLegal && !intentDomains.includes('Legal')) sharedScore -= 20;
+
+      // Operational manuals boost
+      if (['provider.workflow-status', 'provider.payment-status-currency', 'core.registration-onboarding'].includes(source.sourceKey)) {
+        sharedScore += 12;
+      }
+
+      // Broad source domination protection:
+      // Generic legal/terms document is penalized unless the user is asking specifically about terms/legal agreements
+      const isExplicitTermsQuery = /\b(?:terms and conditions|terms of service|terms|legal terms|tos)\b/i.test(classification.effectiveQuestion);
+      if (isLegal && !isExplicitTermsQuery) {
+        sharedScore -= 30;
+      }
+
       const normalizedQuestion = normalizePhrase(classification.effectiveQuestion);
       const sourceTitlePhrase = normalizePhrase(source.title);
       const sectionTitlePhrase = normalizePhrase(chunk.headingPath.split('>').at(-1) ?? '');
@@ -371,7 +389,8 @@ export async function retrieveApprovedKnowledgeEvidence(
 
       if (authorityBinding
         && (base.audience === 'CUSTOMER' || (authorityBinding.allowInternal && base.audience === 'INTERNAL'))) {
-        boundChunks.push({ ...base, score: 100, coverage: 1, attempt: 1 });
+        const isExactSection = authorityBinding.sectionKey ? base.sectionKey === authorityBinding.sectionKey : true;
+        boundChunks.push({ ...base, score: isExactSection ? 100 : 80, coverage: 1, attempt: 1 });
         continue;
       }
 
@@ -403,7 +422,11 @@ export async function retrieveApprovedKnowledgeEvidence(
   }
 
   if (authorityBinding) {
-    const matches = boundChunks.sort((left, right) => left.ordinal - right.ordinal).slice(0, MAX_RESULTS);
+    const exactSectionChunks = authorityBinding.sectionKey
+      ? boundChunks.filter(c => c.sectionKey === authorityBinding.sectionKey)
+      : [];
+    const candidateChunks = exactSectionChunks.length > 0 ? exactSectionChunks : boundChunks;
+    const matches = candidateChunks.sort((left, right) => left.ordinal - right.ordinal).slice(0, MAX_RESULTS);
     return {
       classification,
       matches,

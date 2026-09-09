@@ -3,6 +3,7 @@ import type { CustomerEvidenceBundle } from '../context/customer-evidence-bundle
 import type { StructuredCategoryFact } from '../context/structured-category-resolver';
 import type { SemanticContextBundle } from '../semantic/contracts';
 import { getOpenAIConfig } from './openai-config';
+import { getCustomerObjective, CANONICAL_CUSTOMER_OBJECTIVES } from '../context/customer-objective-catalog';
 
 export type GroundedComposerMode = 'GROUNDED_GENERATIVE' | 'DETERMINISTIC_FALLBACK';
 
@@ -126,14 +127,6 @@ class OpenAIGroundedProvider implements GroundedInformationProvider {
   async synthesize(input: GroundedSynthesisInput): Promise<GroundedSynthesisOutput> {
     if (!this.client) throw new Error('GROUNDED_PROVIDER_UNAVAILABLE');
 
-    // Responses API usage conceptual pattern
-    // The latest official SDK uses the `chat.completions.create` with `store: false` or if `responses.create` is available.
-    // The user's instruction explicitly says:
-    // const response = await client.responses.create({ model, store, instructions, input, max_output_tokens })
-    // If the SDK installed supports this, we use it. But typically openai SDK exposes it differently or exactly like that if it's the newest beta.
-    // Let's use exactly what the MIP-004 indicates if it exists, otherwise fall back to chat.completions.
-    
-    // I will use chat.completions as it is the most stable and allows structured outputs / json_object.
     const response = await this.client.chat.completions.create({
       model: this.config.modelPrimary,
       messages: [
@@ -204,31 +197,56 @@ class LocalGroundedComposerProvider implements GroundedInformationProvider {
     }
 
     const claims: GroundedSynthesisClaim[] = [];
-    let composedAnswer = '';
+    const allChunks = input.bundle.sections.flatMap(s => s.chunks);
 
-    for (const section of input.bundle.sections) {
-      const sectionText = section.chunks.map(c => c.content).join(' ');
-      
-      claims.push(...section.chunks.map(chunk => ({
+    for (const chunk of allChunks) {
+      claims.push({
         text: chunk.content,
         evidenceRefs: [chunk.evidenceRef],
         supportingText: chunk.content,
-      })));
+      });
+    }
 
-      if (composedAnswer.length > 0) composedAnswer += '\n\n';
-      composedAnswer += `${section.sectionTitle}\n${sectionText.replace(/[*_>#`]/g, '')}`;
+    // Match canonical objective from catalog
+    const qLower = input.question.toLowerCase().trim();
+    const matchingObjective = getCustomerObjective(input.bundle.classification.intent)
+      ?? CANONICAL_CUSTOMER_OBJECTIVES.find(o =>
+          o.canonicalQuestion.toLowerCase() === qLower
+          || o.aliases.some(a => a.text.toLowerCase() === qLower)
+         );
+
+    let finalAnswer = '';
+
+    if (matchingObjective) {
+      const contract = matchingObjective.answerContract;
+      const facts = contract.requiredFacts.map(fact => `• ${fact}`).join('\n');
+      finalAnswer = facts;
+
+      // Environment state awareness for payments
+      if (matchingObjective.objectiveId === 'renter.payment.methods') {
+        const isBeta = process.env.NODE_ENV !== 'production' || process.env.VERCEL_ENV !== 'production';
+        if (isBeta) {
+          finalAnswer += `\n\n*Current Environment Notice: RENTipid is currently in Private Beta with Mock Payments Active. Real financial transactions are disabled.*`;
+        }
+      }
+    } else {
+      // General grounded fallback
+      const nonTermsSections = input.bundle.sections.filter(s => s.sourceKey !== 'route.terms');
+      const targetSections = nonTermsSections.length > 0 ? nonTermsSections : input.bundle.sections;
+      const sectionParagraphs = targetSections.map(section => {
+        const content = section.chunks.map(c => c.content).join('\n');
+        return content.replace(/[*_>#`]/g, '').trim();
+      });
+      finalAnswer = sectionParagraphs.join('\n\n');
     }
 
     if (input.structuredCategoryFacts && input.structuredCategoryFacts.length > 0) {
       const factsText = input.structuredCategoryFacts.map(f => `${f.entity}: ${f.canonicalCategory || 'Unknown'} - ${f.status}`).join('\n');
-      composedAnswer += `\n\nCategory Facts\n${factsText}`;
+      finalAnswer += `\n\nCategory Facts:\n${factsText}`;
     }
 
-    // Wrap in a direct answer context
-    const finalAnswer = `Here is the RENTipid information regarding your query:\n\n${composedAnswer}`;
-
     return {
-      answer: finalAnswer,
+      answer: finalAnswer.trim(),
       answeredIntent: input.bundle.classification.intent,
       coveredEntities: [...input.bundle.requestedEntities],
       claims,

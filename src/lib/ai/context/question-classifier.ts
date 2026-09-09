@@ -58,7 +58,7 @@ const BOOKING_PROCESS =
 const REGISTRATION =
   /\b(?:register|registration|sign\s*up|signup|create\s+(?:a|an|my)\s+(?:rentipid\s+)?account|join\s+rentipid)\b/i;
 const CONSEQUENTIAL_ACTION =
-  /^(?:please\s+)?(?:cancel|change|modify|extend|approve|reject|release|send|issue|process|pay|refund|delete)\b|\b(?:do|perform|complete)\s+(?:it|this)\s+(?:now|for\s+me)\b/i;
+  /^(?:please\s+)?(?:cancel|change|modify|extend|approve|reject|release|send|issue|process|pay|refund|delete)\s+(?:my|the|this|booking|payment|order|reservation|transaction|\d)\b|\b(?:do|perform|complete)\s+(?:it|this)\s+(?:now|for\s+me)\b/i;
 
 function providerContextFor(
   prompt: string,

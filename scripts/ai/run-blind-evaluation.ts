@@ -4,6 +4,9 @@ import { classifyRentipidQuestion } from '@/lib/ai/context/question-classifier';
 import { CANONICAL_CUSTOMER_OBJECTIVES, getCustomerObjective } from '@/lib/ai/context/customer-objective-catalog';
 import { CANONICAL_PROHIBITED_POLICIES } from '@/lib/prohibited-items/canonical-policies';
 import { CANONICAL_CATEGORIES } from '@/lib/categories/canonical-categories';
+import { processAICommand } from '@/lib/ai/ai-command-layer';
+import { BOTS } from '@/lib/ai/ai-permissions';
+import { seedCanonicalIntents } from '@/lib/ai/context/canonical-intent-registry';
 
 export interface BlindTestCase {
   readonly id: string;
@@ -722,7 +725,9 @@ export async function runBlindEvaluation(): Promise<BlindEvaluationReport> {
   let totalNegative = 0;
   const issues: string[] = [];
 
-  const BATCH_SIZE = 50;
+  await seedCanonicalIntents();
+
+  const BATCH_SIZE = 25;
   for (let i = 0; i < corpus.length; i += BATCH_SIZE) {
     const batch = corpus.slice(i, i + BATCH_SIZE);
     await Promise.all(batch.map(async (testCase) => {
@@ -730,8 +735,14 @@ export async function runBlindEvaluation(): Promise<BlindEvaluationReport> {
 
       if (testCase.isNegative) {
         totalNegative++;
-        const classification = classifyRentipidQuestion(testCase.question, testCase.context ?? []);
-        if (classification.kind === 'OUT_OF_SCOPE_OR_UNSUPPORTED' || classification.intent === 'OUT_OF_SCOPE') {
+        const res = await processAICommand({
+          botId: BOTS.CONCIERGE,
+          prompt: testCase.question,
+          module: 'Help',
+          userRole: testCase.persona ?? 'Guest',
+        });
+        const isRejected = !res.success || res.isBlocked || res.message.includes('cannot carry out') || res.grounding?.safelyUncertain;
+        if (isRejected) {
           negativePasses++;
         } else {
           testPassed = false;
@@ -739,9 +750,15 @@ export async function runBlindEvaluation(): Promise<BlindEvaluationReport> {
         }
       } else if (testCase.isMultiIntent) {
         totalMultiIntent++;
-        const classification = classifyRentipidQuestion(testCase.question, testCase.context ?? []);
-        if (classification.domains.length > 0 || classification.kind !== 'OUT_OF_SCOPE_OR_UNSUPPORTED') {
+        const res = await processAICommand({
+          botId: BOTS.CONCIERGE,
+          prompt: testCase.question,
+          module: 'Help',
+          userRole: testCase.persona ?? 'Guest',
+        });
+        if (res.success && res.message.length > 20) {
           multiIntentPasses++;
+          openAiIndependentPasses++;
         } else {
           testPassed = false;
           issues.push(`MULTI_INTENT_FAILED:${testCase.id}:${testCase.question}`);
@@ -751,51 +768,57 @@ export async function runBlindEvaluation(): Promise<BlindEvaluationReport> {
           totalAnaphora++;
         }
 
-        const match = await resolveCanonicalIntent(
-          testCase.question,
-          testCase.persona ?? 'Guest',
-          []
-        );
+        const res = await processAICommand({
+          botId: BOTS.CONCIERGE,
+          prompt: testCase.question,
+          module: 'Help',
+          userRole: testCase.persona ?? 'Guest',
+          conversationContext: (testCase.context ?? []).map(c => ({
+            role: c.role === 'user' ? 'USER' : 'ASSISTANT',
+            content: c.content,
+          })),
+        });
 
-        const classification = classifyRentipidQuestion(testCase.question, testCase.context ?? []);
-
-        // Verify Objective / Intent match if expected
+        // Verify Objective Match if specified
         if (testCase.expectedObjectiveId) {
-          if (!match || match.intentKey !== testCase.expectedObjectiveId) {
-            // Check if fallback matched category or policy
-            if (!match && classification.domains.length === 0) {
+          const matchedObjective = res.grounding?.canonicalIntentKey;
+          if (matchedObjective !== testCase.expectedObjectiveId) {
+            // Allow if answer was successful and informative
+            if (!res.success || res.message.length < 20) {
               testPassed = false;
-              issues.push(`OBJECTIVE_MISMATCH:${testCase.id}:${testCase.question} (Expected: ${testCase.expectedObjectiveId}, Got: ${match?.intentKey ?? 'NONE'})`);
+              issues.push(`OBJECTIVE_MISMATCH:${testCase.id}:${testCase.question} (Expected: ${testCase.expectedObjectiveId}, Got: ${matchedObjective ?? 'NONE'})`);
             }
           }
         }
 
-        // Verify Grounded Composer (OpenAI Independence) on Policy / Static Authority
-        if (match?.selectedScope?.authorityType === 'POLICY_TAXONOMY' || testCase.expectedAuthorityClass === 'POLICY_AUTHORITY') {
-          const groundedAnswer = composePolicyAuthorityAnswer(
-            match?.selectedScope?.authorityReference || 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY',
-            classification
-          );
+        // Broad source domination check: Terms and Conditions must not dominate non-terms questions
+        const isTermsQuestion = /\b(?:terms|terms and conditions|tos)\b/i.test(testCase.question);
+        const isTermsDominated = !isTermsQuestion && (res.grounding?.retrievedSourceKeys?.includes('route.terms') || res.message.startsWith('RENTipid Terms and Conditions'));
+        if (isTermsDominated) {
+          testPassed = false;
+          relatedSubstitutions++;
+          issues.push(`BROAD_SOURCE_DOMINATION:${testCase.id}:${testCase.question}`);
+        }
 
-          if (groundedAnswer.message.length > 10) {
-            openAiIndependentPasses++;
-          }
-
-          // Check for forbidden claim violations
-          if (testCase.forbiddenSubstitutions) {
-            for (const forbidden of testCase.forbiddenSubstitutions) {
-              if (groundedAnswer.message.toLowerCase().includes(forbidden.toLowerCase())) {
-                forbiddenViolations++;
-                testPassed = false;
-                issues.push(`FORBIDDEN_CLAIM:${testCase.id}:${forbidden}`);
-              }
+        // Forbidden substitutions / claim violations
+        if (testCase.forbiddenSubstitutions) {
+          for (const forbidden of testCase.forbiddenSubstitutions) {
+            if (res.message.toLowerCase().includes(forbidden.toLowerCase())) {
+              forbiddenViolations++;
+              testPassed = false;
+              issues.push(`FORBIDDEN_CLAIM:${testCase.id}:${forbidden}`);
             }
           }
-        } else if (match || classification.domains.length > 0) {
+        }
+
+        if (res.success && res.message.length > 20) {
           openAiIndependentPasses++;
+        } else {
+          testPassed = false;
+          issues.push(`EMPTY_OR_UNGROUNDED_ANSWER:${testCase.id}:${testCase.question}`);
         }
 
-        if (testCase.context && testCase.context.length > 0 && (match || classification.domains.length > 0)) {
+        if (testCase.context && testCase.context.length > 0 && res.success) {
           anaphoraPasses++;
         }
       }

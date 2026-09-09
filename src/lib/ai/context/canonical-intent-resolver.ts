@@ -52,11 +52,14 @@ function compatibilityIntent(intentKey: string, feature: string): string | undef
     coverage_scope: 'support_info',
     claims_intake: 'support_info',
     modifications_extensions: 'support_info',
+    damage_incidents: 'support_info',
+    profile_privacy: 'support_info',
   };
   if (byFeature[normFeature]) return byFeature[normFeature];
   if (intentKey.startsWith('listing.item.') || intentKey.startsWith('category.')) return 'support_info';
-  if (intentKey.startsWith('insurance.')) return 'support_info';
-  if (intentKey.startsWith('renter.payment.') || intentKey.startsWith('renter.deposit.')) return 'support_info';
+  if (intentKey.startsWith('insurance.') || intentKey.startsWith('rental.damage.')) return 'support_info';
+  if (intentKey.startsWith('renter.payment.') || intentKey.startsWith('renter.deposit.') || intentKey.startsWith('renter.refund.')) return 'support_info';
+  if (intentKey.startsWith('provider.profile.')) return 'support_info';
   if (intentKey.startsWith('knowledge.')) return 'support_info';
   return 'support_info';
 }
@@ -301,13 +304,21 @@ function resolveInMemoryObjective(
     const normalizedCanonical = normalizeQuestionText(objective.canonicalQuestion);
 
     let isSemanticMatch = false;
-    if (objective.objectiveId === 'insurance.coverage.scope' && (/\b(?:insurance|insured|insurer|perils?|coverage|wear and tear|rental protection)\b/i.test(q) && !/\b(?:claim|damage|broken|sira)\b/i.test(q))) {
+    if (objective.objectiveId === 'insurance.coverage.scope' && (/\b(?:insurance|insured|insurer|perils?|coverage|wear and tear|rental protection)\b/i.test(q) && !/\b(?:claim|claims|file.*claim|how.*claim|paano.*claim|mag-claim)\b/i.test(q))) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'insurance.claim.filing' && /\b(?:claim|claims|damage claim|broken|masira|nasira|break|incident)\b/i.test(q)) {
+    } else if (objective.objectiveId === 'insurance.claim.filing' && (/\b(?:file.*claim|submit.*claim|damage claim|how.*claim|paano.*claim|mag-claim)\b/i.test(q) || (/\b(?:claim|claims)\b/i.test(q) && /\b(?:damage|broken|loss|incident|deduction)\b/i.test(q)))) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'renter.refund.status' && /\b(?:refund|refunded|money back)\b/i.test(q)) {
+    } else if (objective.objectiveId === 'rental.damage.general' && (/\b(?:damage|damaged|broken|break|sira|masira|nasira|wreck|defect|incident)\b/i.test(q) && !/\b(?:claim|claims|file.*claim|submit.*claim)\b/i.test(q))) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'renter.deposit.release' && /\b(?:deposit|security deposit)\b/i.test(q) && !/\b(?:how much deposit)\b/i.test(q)) {
+    } else if (objective.objectiveId === 'renter.refund.status' && (/\b(?:refund|refunded)\b/i.test(q) && (/\b(?:status|where|saan|timeline|how long|track|check|take|pending|reflect|did.*go through)\b/i.test(q) || /\b(?:refund.*cancel|cancel.*refund)\b/i.test(q)))) {
+      isSemanticMatch = true;
+    } else if (objective.objectiveId === 'renter.refund.request_how_to' && (/\b(?:refund|refunded)\b/i.test(q) && (/\b(?:how|request|ask|process|paano|humingi|filing|apply|want a refund)\b/i.test(q)))) {
+      isSemanticMatch = true;
+    } else if (objective.objectiveId === 'renter.payment.methods' && (/\b(?:how.*pay|payment method|payment option|pay for|gcash|maya|credit card|debit card|paymongo|pambayad|paano magbayad|payment works|settle.*rental)\b/i.test(q) && !/\b(?:failed|decline|error|authorized|payout|earnings|refund|deposit)\b/i.test(q))) {
+      isSemanticMatch = true;
+    } else if (objective.objectiveId === 'provider.profile.public_vs_private' && (/\b(?:provider|owner|may-ari|host)\b.{0,40}\b(?:account|bank|profile|details|identity|information|contact|see|view|know|alamin|makikita)\b/i.test(q) || /\b(?:bank account|may i know the account|can i see the account|provider account)\b/i.test(q))) {
+      isSemanticMatch = true;
+    } else if (objective.objectiveId === 'renter.deposit.release' && /\b(?:deposit|security deposit)\b/i.test(q) && !/\b(?:how much deposit|refund)\b/i.test(q)) {
       isSemanticMatch = true;
     } else if (objective.objectiveId === 'provider.payout.status' && /\b(?:payout|earnings)\b.{0,30}\b(?:pending|hold|delayed|status|where|saan|bakit)\b/i.test(q)) {
       isSemanticMatch = true;
@@ -315,7 +326,7 @@ function resolveInMemoryObjective(
       isSemanticMatch = true;
     } else if (objective.objectiveId === 'booking.extension.process' && /\b(?:extend|extension|dagdag.*araw|more days)\b/i.test(q)) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'booking.cancel.process' && /\b(?:cancel|cancellation|kansela)\b/i.test(q)) {
+    } else if (objective.objectiveId === 'booking.cancel.process' && (/\b(?:cancel|cancellation|kansela)\b/i.test(q) && !/\b(?:refund|deposit|payout|earnings)\b/i.test(q))) {
       isSemanticMatch = true;
     } else if (objective.objectiveId === 'account.kyc.verification' && /\b(?:kyc|verify|id|passport|umid|license|selfie)\b/i.test(q) && !/\b(?:password)\b/i.test(q)) {
       isSemanticMatch = true;
@@ -325,7 +336,7 @@ function resolveInMemoryObjective(
       isSemanticMatch = true;
     } else if (objective.objectiveId === 'listing.review.reason' && /\b(?:listing)\b.{0,30}\b(?:review|pending|approval|approved|rejected|take)\b/i.test(q)) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'listing.item.restriction' && (/\b(?:bawal|prohibited|restricted|banned|forbidden|not allowed)\b/i.test(q) || /\b(?:drones?|cameras?|electronics|tools|machinery)\b/i.test(q))) {
+    } else if (objective.objectiveId === 'listing.item.restriction' && (/\b(?:bawal|prohibited|restricted|banned|forbidden|not allowed|cannot be listed|listing policy|banned items|what cannot be listed|illegal items)\b/i.test(q) || /\b(?:drones?|cameras?|electronics|tools|machinery|hazardous|chemicals|toxic|waste|alcohol|tobacco|nicotine|vape|human remains|organs|biological|sexual|wildlife|weapons|firearms)\b/i.test(q))) {
       isSemanticMatch = true;
     }
 
