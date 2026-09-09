@@ -50,7 +50,9 @@
     "knowledge:report": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/knowledge/knowledge-runner.ts report",
     "knowledge:bootstrap": "npm run test:db:guard && cross-env NODE_ENV=test ALLOW_KNOWLEDGE_MUTATION=true dotenv -e .env.test.local -e .env.test -- tsx scripts/knowledge/knowledge-runner.ts bootstrap",
     "knowledge:sync": "npm run test:db:guard && cross-env NODE_ENV=test ALLOW_KNOWLEDGE_MUTATION=true dotenv -e .env.test.local -e .env.test -- tsx scripts/knowledge/knowledge-runner.ts sync",
-    "knowledge:question-coverage": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/check-question-coverage.ts"
+    "knowledge:question-coverage": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/check-question-coverage.ts",
+    "knowledge:impact": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/knowledge/check-knowledge-impact.ts",
+    "test:ai:blind": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- tsx scripts/ai/run-blind-evaluation.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

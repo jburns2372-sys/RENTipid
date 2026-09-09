@@ -1,0 +1,579 @@
+/**
+ * RENTipid Master Canonical Customer Objective Catalog & Answer Contracts
+ *
+ * Authoritative definitions for RENTipid Customer Objectives across:
+ * - Full Renter Lifecycle (21 stages)
+ * - Full Provider Lifecycle (23 stages)
+ * - Comprehensive Functional Domains (Account, Listings, Bookings, Payments, Deposits, Payouts, Insurance, Safety, Legal)
+ * - Strict Answer Contracts (requiredFacts, optionalFacts, forbiddenClaims, authorityClass, liveServiceKey, toolKey)
+ * - Specific Entity Handling (medicines, firearms, vehicles, heavy machinery, electronics, condos)
+ */
+
+export type CustomerPersona = 'RENTER' | 'PROVIDER' | 'ALL_CUSTOMERS' | 'GUEST' | 'ADMIN';
+
+export type AuthorityClass =
+  | 'STATIC_KNOWLEDGE'
+  | 'POLICY_AUTHORITY'
+  | 'LIVE_SERVICE'
+  | 'POLICY_PLUS_LIVE'
+  | 'ACTION_TOOL'
+  | 'CLARIFICATION_REQUIRED'
+  | 'UNSUPPORTED_NOT_ACTIVE'
+  | 'MISSING_APPROVED_KNOWLEDGE';
+
+export interface CustomerAnswerContract {
+  readonly requiredFacts: readonly string[];
+  readonly optionalFacts: readonly string[];
+  readonly forbiddenClaims: readonly string[];
+  readonly authorityClass: AuthorityClass;
+  readonly authorityReference: string;
+  readonly knowledgeSourceKey?: string;
+  readonly knowledgeSectionKey?: string;
+  readonly liveServiceKey?: string;
+  readonly toolKey?: string;
+  readonly clarificationPrompt?: string;
+  readonly specificEntity?: string;
+}
+
+export interface CustomerObjectiveDefinition {
+  readonly objectiveId: string;
+  readonly canonicalQuestion: string;
+  readonly domain: string;
+  readonly subdomain: string;
+  readonly lifecycleStage: string;
+  readonly persona: CustomerPersona;
+  readonly answerContract: CustomerAnswerContract;
+  readonly aliases: readonly {
+    readonly text: string;
+    readonly style: 'FORMAL' | 'PLAIN' | 'SHORT' | 'TYPO' | 'TAGLISH' | 'COLLOQUIAL' | 'FRUSTRATED' | 'STATUS_BASED';
+  }[];
+}
+
+export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition[] = [
+  // =========================================================================
+  // 1. TRUST, SAFETY & PROHIBITED/RESTRICTED ITEM POLICIES
+  // =========================================================================
+  {
+    objectiveId: 'listing.item.restriction',
+    canonicalQuestion: 'What items are prohibited or restricted on RENTipid?',
+    domain: 'Trust & Safety',
+    subdomain: 'Prohibited Items',
+    lifecycleStage: 'EVALUATING_OR_LISTING',
+    persona: 'ALL_CUSTOMERS',
+    answerContract: {
+      requiredFacts: [
+        'Illegal Drugs and Controlled Substances',
+        'Medicines, Health Products and Medical Substances',
+        'Firearms, Ammunition, Weapons and Explosives',
+        'Hazardous Chemicals, Toxic Materials and Waste',
+        'Alcohol, Tobacco, Nicotine and Vape Products',
+        'Stolen Property',
+        'Counterfeit, Forged and Fraudulent Items',
+        'Live Animals and Endangered Species',
+        'Human Remains and Organs',
+        'Adult and Pornographic Materials'
+      ],
+      optionalFacts: ['Full catalogue includes 25 active prohibited and restricted categories'],
+      forbiddenClaims: [
+        'Consult the catalogue with no categories listed',
+        'Review the ProhibitedItemPolicy catalogue to find out'
+      ],
+      authorityClass: 'POLICY_AUTHORITY',
+      authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY'
+    },
+    aliases: [
+      { text: 'what are the prohibited items?', style: 'PLAIN' },
+      { text: "What can't I list?", style: 'SHORT' },
+      { text: 'What cant I list', style: 'TYPO' },
+      { text: 'what cant i list on rentipid', style: 'PLAIN' },
+      { text: "Are there things I can't rent out?", style: 'PLAIN' },
+      { text: 'What kinds of things are banned?', style: 'COLLOQUIAL' },
+      { text: 'Which rental items are restricted', style: 'FORMAL' },
+      { text: 'ano ang mga bawal iparenta sa rentipid', style: 'TAGLISH' },
+      { text: 'ano mga bawal iparenta', style: 'TAGLISH' },
+      { text: "Which items aren't allowed", style: 'SHORT' },
+      { text: 'List of banned items on rentipid', style: 'PLAIN' },
+      { text: 'bawal ba mag rent out ng drugs o baril', style: 'TAGLISH' },
+      { text: 'What is not allowed to be listed on RENTipid', style: 'FORMAL' }
+    ]
+  },
+  {
+    objectiveId: 'listing.item.eligibility.medicine',
+    canonicalQuestion: 'Can I list medicine on RENTipid?',
+    domain: 'Trust & Safety',
+    subdomain: 'Item Eligibility',
+    lifecycleStage: 'LISTING_CREATION',
+    persona: 'PROVIDER',
+    answerContract: {
+      requiredFacts: [
+        'Medicines, Health Products and Medical Substances are strictly prohibited',
+        'Prescription drugs, pharmacy-only medicines, vaccines, and unauthorized therapeutic products cannot be listed'
+      ],
+      optionalFacts: ['Enforcement action is immediate listing block'],
+      forbiddenClaims: ['Medicine can be listed with provider KYC', 'Medicine rental is allowed'],
+      authorityClass: 'POLICY_AUTHORITY',
+      authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY',
+      specificEntity: 'medicine'
+    },
+    aliases: [
+      { text: 'Can I rent out medicines?', style: 'PLAIN' },
+      { text: 'Can I list medicine?', style: 'SHORT' },
+      { text: 'Can I list prescription medicine?', style: 'FORMAL' },
+      { text: 'pwede ba magpahiram o magpa-rent ng gamot?', style: 'TAGLISH' },
+      { text: 'pwede ba gamot', style: 'TAGLISH' },
+      { text: 'Are medical substances allowed for rent?', style: 'FORMAL' },
+      { text: 'can i list drugs and supplements', style: 'TYPO' }
+    ]
+  },
+  {
+    objectiveId: 'listing.item.eligibility.firearms',
+    canonicalQuestion: 'Can I list a firearm or gun on RENTipid?',
+    domain: 'Trust & Safety',
+    subdomain: 'Item Eligibility',
+    lifecycleStage: 'LISTING_CREATION',
+    persona: 'PROVIDER',
+    answerContract: {
+      requiredFacts: [
+        'Firearms, Ammunition, Weapons and Explosives are strictly prohibited',
+        'Guns, ammunition, explosives, and unregulated tactical weapons cannot be listed for rent'
+      ],
+      optionalFacts: ['Enforcement action is immediate listing block and security escalation'],
+      forbiddenClaims: ['Guns can be rented with valid license', 'Firearms allowed for security providers'],
+      authorityClass: 'POLICY_AUTHORITY',
+      authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY',
+      specificEntity: 'firearm'
+    },
+    aliases: [
+      { text: 'Can I list a gun?', style: 'SHORT' },
+      { text: 'Can I list a firearm on RENTipid?', style: 'PLAIN' },
+      { text: 'Can I rent out firearms on RENTipid?', style: 'PLAIN' },
+      { text: 'pwede ba magpa-rent ng baril?', style: 'TAGLISH' },
+      { text: 'Are weapons allowed for rent?', style: 'FORMAL' },
+      { text: 'can i list a gun or pistol', style: 'PLAIN' }
+    ]
+  },
+  {
+    objectiveId: 'listing.item.eligibility.vehicles',
+    canonicalQuestion: 'Can I list my motorcycle or car for rent on RENTipid?',
+    domain: 'Marketplace & Listings',
+    subdomain: 'Category Eligibility',
+    lifecycleStage: 'LISTING_CREATION',
+    persona: 'PROVIDER',
+    answerContract: {
+      requiredFacts: [
+        'Cars and Motorcycles is a supported RENTipid rental category',
+        'Listing requires proof of vehicle ownership/OR-CR, valid registration, and standard listing review'
+      ],
+      optionalFacts: ['Comprehensive vehicle insurance and security deposit are required before publication'],
+      forbiddenClaims: ['Vehicles are prohibited', 'No documents required for cars'],
+      authorityClass: 'POLICY_AUTHORITY',
+      authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY',
+      specificEntity: 'vehicles'
+    },
+    aliases: [
+      { text: 'Can I rent out my motorcycle?', style: 'PLAIN' },
+      { text: 'Can I list a car on RENTipid?', style: 'PLAIN' },
+      { text: 'Can I list a car?', style: 'SHORT' },
+      { text: 'pwede ba ipa-rent ang motor ko?', style: 'TAGLISH' },
+      { text: 'pwede ba magpa rent ng sasakyan o kotse', style: 'TAGLISH' },
+      { text: 'Vehicle rental listing requirements', style: 'FORMAL' }
+    ]
+  },
+
+  // =========================================================================
+  // 2. LISTING CREATION, EDITING & APPROVAL WORKFLOW
+  // =========================================================================
+  {
+    objectiveId: 'listing.create.how_to',
+    canonicalQuestion: 'How do I create a listing on RENTipid?',
+    domain: 'Listings',
+    subdomain: 'Creation Workflow',
+    lifecycleStage: 'LISTING_CREATION',
+    persona: 'PROVIDER',
+    answerContract: {
+      requiredFacts: [
+        'Navigate to Provider Dashboard > Listings > Add New Listing',
+        'Provide title, description, category, clear photos, and daily rental rate',
+        'Specify availability calendar, deposit requirement, and pickup/delivery options',
+        'Submit for listing review and verification'
+      ],
+      optionalFacts: ['Listing drafts can be saved before final submission'],
+      forbiddenClaims: [
+        'Click book now to create listing',
+        'Enter renter payment details to create listing'
+      ],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'provider.workflow-status',
+      knowledgeSourceKey: 'provider.workflow-status',
+      knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-listings'
+    },
+    aliases: [
+      { text: 'How do I create a listing?', style: 'SHORT' },
+      { text: 'How do I add an item to rent out?', style: 'PLAIN' },
+      { text: 'How to list an item', style: 'SHORT' },
+      { text: 'paano mag-post ng item for rent?', style: 'TAGLISH' },
+      { text: 'paano mag-create ng listing sa rentipid', style: 'TAGLISH' },
+      { text: 'Where do I create a listing?', style: 'PLAIN' },
+      { text: 'hw do i lst my equipment', style: 'TYPO' },
+      { text: 'I want to list something on RENTipid', style: 'COLLOQUIAL' }
+    ]
+  },
+  {
+    objectiveId: 'listing.review.reason',
+    canonicalQuestion: 'Why is my listing under review or pending approval?',
+    domain: 'Listings',
+    subdomain: 'Listing Status',
+    lifecycleStage: 'LISTING_SUBMISSION',
+    persona: 'PROVIDER',
+    answerContract: {
+      requiredFacts: [
+        'New and modified listings undergo automated screening and compliance review',
+        'Review verifies category accuracy, prohibited item screening, and image quality',
+        'Review is typically completed within 24 hours'
+      ],
+      optionalFacts: ['High-risk categories require permit and document verification'],
+      forbiddenClaims: ['Listings are never reviewed', 'Payment is required for review approval'],
+      authorityClass: 'POLICY_PLUS_LIVE',
+      authorityReference: 'AUTHORIZED_LISTING_PROVIDER_SERVICE',
+      liveServiceKey: 'AUTHORIZED_LISTING_PROVIDER_SERVICE'
+    },
+    aliases: [
+      { text: 'Why is my listing pending?', style: 'SHORT' },
+      { text: 'Why is my listing not active yet?', style: 'PLAIN' },
+      { text: 'bakit pending pa listing ko?', style: 'TAGLISH' },
+      { text: 'bakit under review pa item ko', style: 'TAGLISH' },
+      { text: 'How long does listing approval take?', style: 'PLAIN' }
+    ]
+  },
+
+  // =========================================================================
+  // 3. RENTER PAYMENTS, DEPOSITS & REFUNDS
+  // =========================================================================
+  {
+    objectiveId: 'renter.payment.methods',
+    canonicalQuestion: 'How can I pay for a rental on RENTipid?',
+    domain: 'Payments',
+    subdomain: 'Payment Methods',
+    lifecycleStage: 'BOOKING_PAYMENT',
+    persona: 'RENTER',
+    answerContract: {
+      requiredFacts: [
+        'Supported payment methods include GCash, Maya, Debit/Credit Cards (Visa/Mastercard), and Online Banking via PayMongo',
+        'All payments must be completed through RENTipid secure checkout',
+        'Direct cash payments to providers outside the platform violate terms and void protection'
+      ],
+      optionalFacts: ['All transactions are processed in Philippine Peso (PHP)'],
+      forbiddenClaims: ['Cryptocurrency is accepted', 'Direct bank transfer to provider allowed'],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'provider.payment-status-currency',
+      knowledgeSourceKey: 'provider.payment-status-currency'
+    },
+    aliases: [
+      { text: 'What payment methods are supported?', style: 'FORMAL' },
+      { text: 'How do I pay for a booking?', style: 'PLAIN' },
+      { text: 'Can I pay using GCash or Maya?', style: 'PLAIN' },
+      { text: 'pwede ba gcash o credit card pambayad?', style: 'TAGLISH' },
+      { text: 'paano magbayad ng rental sa rentipid', style: 'TAGLISH' },
+      { text: 'Payment options for renters', style: 'SHORT' }
+    ]
+  },
+  {
+    objectiveId: 'renter.deposit.release',
+    canonicalQuestion: 'When and how do I get my security deposit back?',
+    domain: 'Payments',
+    subdomain: 'Security Deposit',
+    lifecycleStage: 'POST_RETURN',
+    persona: 'RENTER',
+    answerContract: {
+      requiredFacts: [
+        'Security deposits are released after successful post-rental inspection and return confirmation',
+        'If no damage or loss is reported within the inspection window (typically 24–48 hours), the deposit hold is automatically released',
+        'Deposit funds are credited back to the original payment method according to bank processing timelines (1–5 business days)'
+      ],
+      optionalFacts: ['If a damage claim is filed, the deposit is held until claim resolution'],
+      forbiddenClaims: ['Deposit is given to provider in cash', 'Deposit is non-refundable'],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'marketplace.user-marketplace-manual'
+    },
+    aliases: [
+      { text: 'When do I get my deposit back?', style: 'PLAIN' },
+      { text: 'When is my deposit refunded?', style: 'PLAIN' },
+      { text: 'How do I get my deposit back?', style: 'SHORT' },
+      { text: 'kailan maibabalik ang security deposit ko?', style: 'TAGLISH' },
+      { text: 'kailan babalik deposit ko', style: 'TAGLISH' },
+      { text: 'Deposit release timeline', style: 'SHORT' }
+    ]
+  },
+  {
+    objectiveId: 'renter.refund.status',
+    canonicalQuestion: 'What is the status of my refund?',
+    domain: 'Payments',
+    subdomain: 'Refunds',
+    lifecycleStage: 'CANCELLATION_OR_DISPUTE',
+    persona: 'RENTER',
+    answerContract: {
+      requiredFacts: [
+        'Refund eligibility depends on the cancellation policy and timing of cancellation',
+        'Approved refunds are processed to the original payment method within 3–7 business days',
+        'Live refund status can be tracked in Renter Dashboard > Payments & Refunds'
+      ],
+      optionalFacts: ['Full refund applies if provider cancels or item fails initial handover inspection'],
+      forbiddenClaims: ['Refund is instant cash', 'Provider pays refund directly'],
+      authorityClass: 'POLICY_PLUS_LIVE',
+      authorityReference: 'AUTHORIZED_PAYMENT_SERVICE',
+      liveServiceKey: 'AUTHORIZED_PAYMENT_SERVICE'
+    },
+    aliases: [
+      { text: 'Where is my refund?', style: 'SHORT' },
+      { text: 'Did my refund go through?', style: 'PLAIN' },
+      { text: 'bakit wala pa refund ko?', style: 'TAGLISH' },
+      { text: 'saan na refund ko', style: 'TAGLISH' },
+      { text: 'How long for refund processing?', style: 'PLAIN' }
+    ]
+  },
+
+  // =========================================================================
+  // 4. PROVIDER EARNINGS & PAYOUTS
+  // =========================================================================
+  {
+    objectiveId: 'provider.payout.schedule',
+    canonicalQuestion: 'When and how do providers get paid for completed rentals?',
+    domain: 'Payments',
+    subdomain: 'Provider Payouts',
+    lifecycleStage: 'POST_RENTAL_EARNINGS',
+    persona: 'PROVIDER',
+    answerContract: {
+      requiredFacts: [
+        'Rental earnings are credited to the Provider Ledger after the return inspection window closes without disputes',
+        'Payouts are disbursed to the verified bank account or e-wallet linked in Provider Settings',
+        'Standard payout settlement occurs according to the platform disbursement schedule (typically 1–3 business days after completion)'
+      ],
+      optionalFacts: ['Platform service fees and applicable withholding are deducted prior to payout'],
+      forbiddenClaims: ['Provider is paid before handover', 'Renter pays provider in cash'],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'marketplace.user-marketplace-manual'
+    },
+    aliases: [
+      { text: 'When will I get paid for my rental?', style: 'PLAIN' },
+      { text: 'How do provider payouts work?', style: 'FORMAL' },
+      { text: 'kailan papasok ang payout ko?', style: 'TAGLISH' },
+      { text: 'paano makukuha ang kita o earnings sa rentipid', style: 'TAGLISH' },
+      { text: 'How do I withdraw my earnings?', style: 'PLAIN' }
+    ]
+  },
+  {
+    objectiveId: 'provider.payout.status',
+    canonicalQuestion: 'Where is my payout and why is it pending or on hold?',
+    domain: 'Payments',
+    subdomain: 'Provider Payouts',
+    lifecycleStage: 'POST_RENTAL_EARNINGS',
+    persona: 'PROVIDER',
+    answerContract: {
+      requiredFacts: [
+        'Payouts may be on hold due to pending post-rental inspection, open dispute/damage claims, or unverified payout bank account',
+        'Live payout state is available in Provider Dashboard > Payouts',
+        'If bank details are missing or unverified, update KYC and payout destination in settings'
+      ],
+      optionalFacts: ['First-time provider payouts may have a one-time compliance verification hold'],
+      forbiddenClaims: ['Money is lost', 'Renter canceled after rental completion'],
+      authorityClass: 'LIVE_SERVICE',
+      authorityReference: 'AUTHORIZED_PAYOUT_FINANCE_SERVICE',
+      liveServiceKey: 'AUTHORIZED_PAYOUT_FINANCE_SERVICE'
+    },
+    aliases: [
+      { text: 'Where is my payout?', style: 'SHORT' },
+      { text: 'Why is my payout on hold?', style: 'PLAIN' },
+      { text: 'saan na payout ko bakit pending pa?', style: 'TAGLISH' },
+      { text: 'saan na pera ko bilang provider', style: 'TAGLISH' },
+      { text: 'Payout delay reasons', style: 'SHORT' }
+    ]
+  },
+
+  // =========================================================================
+  // 5. INSURANCE & RENTAL PROTECTION
+  // =========================================================================
+  {
+    objectiveId: 'insurance.coverage.scope',
+    canonicalQuestion: 'What does RENTipid insurance and rental protection cover?',
+    domain: 'Insurance',
+    subdomain: 'Coverage Scope',
+    lifecycleStage: 'BOOKING_OR_ACTIVE_RENTAL',
+    persona: 'ALL_CUSTOMERS',
+    answerContract: {
+      requiredFacts: [
+        'Rental protection covers verified accidental damage and total loss occurring during the active rental period',
+        'Coverage begins upon documented handover inspection and ends upon return inspection completion',
+        'Exclusions include intentional damage, normal wear and tear, pre-existing defects, unauthorized subleasing, and prohibited items'
+      ],
+      optionalFacts: ['Coverage tier, deductible, and maximum limits are specified during checkout and on the active policy certificate'],
+      forbiddenClaims: [
+        'RENTipid insurance covers everything unconditionally',
+        'Insurance replaces the security deposit completely',
+        'Wear and tear is covered'
+      ],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'route.terms'
+    },
+    aliases: [
+      { text: 'What does insurance cover?', style: 'SHORT' },
+      { text: 'Does RENTipid have insurance?', style: 'PLAIN' },
+      { text: 'What is covered by rental protection?', style: 'FORMAL' },
+      { text: 'covered ba ito kung masira ng renter?', style: 'TAGLISH' },
+      { text: 'may insurance ba ang rental sa rentipid', style: 'TAGLISH' },
+      { text: 'Is accidental damage covered?', style: 'PLAIN' },
+      { text: 'Insurance coverage details', style: 'SHORT' }
+    ]
+  },
+  {
+    objectiveId: 'insurance.claim.filing',
+    canonicalQuestion: 'How do I file a damage or insurance claim after a rental incident?',
+    domain: 'Insurance',
+    subdomain: 'Claims Intake',
+    lifecycleStage: 'INCIDENT_OR_POST_RETURN',
+    persona: 'ALL_CUSTOMERS',
+    answerContract: {
+      requiredFacts: [
+        'Report the incident and file a claim within the designated reporting window (typically 24–48 hours from incident or return)',
+        'Submit photographic and video evidence, pre-rental and post-rental inspection reports, and repair/replacement cost estimates',
+        'Claims are submitted through Dashboard > Bookings > Report Issue / File Claim',
+        'The claims evaluation team reviews submitted evidence before authorizing payout or deposit deduction'
+      ],
+      optionalFacts: ['For theft or criminal acts, a formal police report is required'],
+      forbiddenClaims: [
+        'Claims are paid out immediately with no evidence',
+        'Claims can be filed months after rental completion'
+      ],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'marketplace.user-marketplace-manual'
+    },
+    aliases: [
+      { text: 'How do I file a claim?', style: 'SHORT' },
+      { text: 'What if the renter breaks my item?', style: 'PLAIN' },
+      { text: 'paano mag-claim kung nasira ang gamit?', style: 'TAGLISH' },
+      { text: 'paano mag-file ng damage claim', style: 'TAGLISH' },
+      { text: 'Damage reporting process', style: 'FORMAL' }
+    ]
+  },
+
+  // =========================================================================
+  // 6. BOOKING LIFECYCLE & CANCELLATIONS
+  // =========================================================================
+  {
+    objectiveId: 'booking.cancel.process',
+    canonicalQuestion: 'How do I cancel my booking and what are the cancellation terms?',
+    domain: 'Bookings',
+    subdomain: 'Cancellations',
+    lifecycleStage: 'PENDING_OR_CONFIRMED_BOOKING',
+    persona: 'ALL_CUSTOMERS',
+    answerContract: {
+      requiredFacts: [
+        'Bookings can be canceled from Dashboard > Bookings > Select Booking > Cancel',
+        'Refund amount depends on cancellation lead time relative to the rental start date and the applicable cancellation policy',
+        'If the provider cancels, the renter receives a 100% full refund including security deposit and service fees'
+      ],
+      optionalFacts: ['Active rentals already in progress cannot be unilaterally canceled without return inspection'],
+      forbiddenClaims: ['Cancellations are never refundable', 'Renters cannot cancel after confirmation'],
+      authorityClass: 'ACTION_TOOL',
+      authorityReference: 'cancelBooking',
+      toolKey: 'cancelBooking'
+    },
+    aliases: [
+      { text: 'How do I cancel a booking?', style: 'SHORT' },
+      { text: 'Can I cancel my rental reservation?', style: 'PLAIN' },
+      { text: 'paano mag-cancel ng booking?', style: 'TAGLISH' },
+      { text: 'paano mag-cancel ng rental reservation', style: 'TAGLISH' },
+      { text: 'What happens if I cancel my booking?', style: 'PLAIN' }
+    ]
+  },
+  {
+    objectiveId: 'booking.extension.process',
+    canonicalQuestion: 'How do I extend an active rental period?',
+    domain: 'Bookings',
+    subdomain: 'Modifications & Extensions',
+    lifecycleStage: 'ACTIVE_RENTAL',
+    persona: 'RENTER',
+    answerContract: {
+      requiredFacts: [
+        'Rental extensions must be requested through Dashboard > Active Bookings > Request Extension prior to the scheduled return time',
+        'Extensions require provider approval and payment authorization for the additional rental days',
+        'Unapproved late returns may incur late return penalties and jeopardize insurance coverage'
+      ],
+      optionalFacts: ['If provider declines extension, the item must be returned at original scheduled time'],
+      forbiddenClaims: ['Extensions are automatic without provider consent', 'Late returns are free'],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'marketplace.user-marketplace-manual'
+    },
+    aliases: [
+      { text: 'Can I extend my rental days?', style: 'PLAIN' },
+      { text: 'How to add more days to my booking?', style: 'PLAIN' },
+      { text: 'pwede ba i-extend ang rental?', style: 'TAGLISH' },
+      { text: 'paano magdagdag ng araw sa rental', style: 'TAGLISH' },
+      { text: 'Rental extension procedure', style: 'SHORT' }
+    ]
+  },
+
+  // =========================================================================
+  // 7. ACCOUNT, KYC & SECURITY
+  // =========================================================================
+  {
+    objectiveId: 'account.kyc.verification',
+    canonicalQuestion: 'How do I verify my identity (KYC) on RENTipid?',
+    domain: 'Account',
+    subdomain: 'Identity & KYC',
+    lifecycleStage: 'ONBOARDING',
+    persona: 'ALL_CUSTOMERS',
+    answerContract: {
+      requiredFacts: [
+        'Navigate to Account Settings > Identity Verification (KYC)',
+        'Upload a valid government-issued ID (Passport, UMID, Driver’s License, National ID) and a clear selfie for facial verification',
+        'Business providers must also submit DTI/SEC registration, BIR Certificate of Registration, and Mayor’s Permit',
+        'Verification is typically completed within 1–24 hours'
+      ],
+      optionalFacts: ['Unverified accounts cannot publish listings or execute high-value bookings'],
+      forbiddenClaims: ['KYC is never required', 'Expired IDs are accepted'],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'core.registration-onboarding',
+      knowledgeSourceKey: 'core.registration-onboarding'
+    },
+    aliases: [
+      { text: 'How do I verify KYC?', style: 'SHORT' },
+      { text: 'How do I complete KYC verification?', style: 'FORMAL' },
+      { text: 'What documents are required to become a provider?', style: 'PLAIN' },
+      { text: 'paano mag-verify ng ID sa rentipid?', style: 'TAGLISH' },
+      { text: 'paano magpa-verify ng account', style: 'TAGLISH' },
+      { text: 'ID verification requirements', style: 'SHORT' }
+    ]
+  },
+  {
+    objectiveId: 'account.password.reset',
+    canonicalQuestion: 'How do I reset my password if I forgot it?',
+    domain: 'Account',
+    subdomain: 'Authentication',
+    lifecycleStage: 'PRE_OR_POST_LOGIN',
+    persona: 'ALL_CUSTOMERS',
+    answerContract: {
+      requiredFacts: [
+        'Go to the Login page and click "Forgot Password?"',
+        'Enter your registered email address to receive a secure password reset link',
+        'Password reset links expire after 1 hour for security',
+        'If MFA is enabled, you may be prompted for your secondary verification factor or recovery code'
+      ],
+      optionalFacts: ['Contact support if you no longer have access to your registered email'],
+      forbiddenClaims: ['Support agents can see your password', 'Password reset links never expire'],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'core.registration-onboarding',
+      knowledgeSourceKey: 'core.registration-onboarding'
+    },
+    aliases: [
+      { text: 'I forgot my password how to reset?', style: 'PLAIN' },
+      { text: 'How do I change my password?', style: 'SHORT' },
+      { text: 'nakalimutan ko password ko paano ma-recover?', style: 'TAGLISH' },
+      { text: 'paano mag-reset ng password', style: 'TAGLISH' },
+      { text: 'Password recovery steps', style: 'SHORT' }
+    ]
+  }
+];
+
+export function getCustomerObjective(objectiveId: string): CustomerObjectiveDefinition | undefined {
+  return CANONICAL_CUSTOMER_OBJECTIVES.find(o => o.objectiveId === objectiveId);
+}

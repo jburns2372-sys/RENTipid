@@ -6,6 +6,7 @@ import type { SeedCanonicalIntent } from './canonical-intent-registry';
 export const LIVE_SERVICE_AUTHORITIES = Object.freeze([
   'AUTHORIZED_LISTING_PROVIDER_SERVICE',
   'AUTHORIZED_PAYOUT_FINANCE_SERVICE',
+  'AUTHORIZED_PAYMENT_SERVICE',
 ] as const);
 
 export const TOOL_AUTHORITIES = Object.freeze([

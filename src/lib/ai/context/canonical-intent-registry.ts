@@ -47,236 +47,7 @@ export function normalizeQuestionText(text: string): string {
 }
 
 export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
-  // 1. Listings & Creation
-  {
-    intentKey: 'listing.create.how_to',
-    canonicalQuestion: 'How do I create a listing on RENTipid?',
-    domain: 'Listings',
-    feature: 'listing_creation',
-    aliases: [
-      { aliasText: 'How to list an item', aliasType: 'SYNONYM' },
-      { aliasText: 'How can I create a listing', aliasType: 'SYNONYM' },
-      { aliasText: 'Where do I add an item to rent out', aliasType: 'COLLOQUIAL' },
-      { aliasText: 'I want to list something', aliasType: 'COLLOQUIAL' },
-      { aliasText: 'hw do i lst my car', aliasType: 'TYPO' }
-    ],
-    accessScopes: [
-      {
-        audience: 'PROVIDER',
-        role: 'Individual Provider',
-        answerClass: 'INFORMATION',
-        authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'provider.workflow-status',
-        knowledgeSourceKey: 'provider.workflow-status',
-        knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-listings'
-      },
-      {
-        audience: 'PROVIDER',
-        role: 'Business Provider',
-        answerClass: 'INFORMATION',
-        authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'provider.workflow-status',
-        knowledgeSourceKey: 'provider.workflow-status',
-        knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-listings'
-      },
-      {
-        audience: 'RENTER',
-        role: 'Renter',
-        answerClass: 'INFORMATION',
-        authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'provider.workflow-status',
-        knowledgeSourceKey: 'provider.workflow-status',
-        knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-listings'
-      }
-    ]
-  },
-  {
-    intentKey: 'provider.listing.review_reason',
-    canonicalQuestion: 'Why is my listing under review?',
-    domain: 'Listings',
-    feature: 'listing_review',
-    aliases: [
-      { aliasText: 'Why is my listing pending approval', aliasType: 'SYNONYM' },
-      { aliasText: 'Why was my listing held for review', aliasType: 'SYNONYM' },
-      { aliasText: 'My item listing is not published yet why', aliasType: 'COLLOQUIAL' }
-    ],
-    accessScopes: [
-      {
-        audience: 'PROVIDER',
-        role: 'Individual Provider',
-        answerClass: 'PERSONALIZED_READ',
-        authorityType: 'LIVE_SERVICE',
-        authorityReference: 'AUTHORIZED_LISTING_PROVIDER_SERVICE',
-        liveServiceKey: 'AUTHORIZED_LISTING_PROVIDER_SERVICE'
-      },
-      {
-        audience: 'PROVIDER',
-        role: 'Business Provider',
-        answerClass: 'PERSONALIZED_READ',
-        authorityType: 'LIVE_SERVICE',
-        authorityReference: 'AUTHORIZED_LISTING_PROVIDER_SERVICE',
-        liveServiceKey: 'AUTHORIZED_LISTING_PROVIDER_SERVICE'
-      }
-    ]
-  },
-
-  // 2. Account & Passwords
-  {
-    intentKey: 'account.password.change',
-    canonicalQuestion: 'How do I change my account password?',
-    domain: 'Account',
-    feature: 'password_reset',
-    aliases: [
-      { aliasText: 'How can I update my password', aliasType: 'SYNONYM' },
-      { aliasText: 'Where to reset password', aliasType: 'SYNONYM' },
-      { aliasText: 'I forgot my password how to change', aliasType: 'COLLOQUIAL' }
-    ],
-    accessScopes: [
-      {
-        audience: 'RENTER',
-        role: 'Renter',
-        answerClass: 'INFORMATION',
-        authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'core.registration-onboarding',
-        knowledgeSourceKey: 'core.registration-onboarding'
-      },
-      {
-        audience: 'PROVIDER',
-        role: 'Individual Provider',
-        answerClass: 'INFORMATION',
-        authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'core.registration-onboarding',
-        knowledgeSourceKey: 'core.registration-onboarding'
-      },
-      {
-        audience: 'ADMIN',
-        role: 'Admin',
-        answerClass: 'INFORMATION',
-        authorityType: 'KNOWLEDGE_CENTER',
-        authorityReference: 'core.registration-onboarding',
-        knowledgeSourceKey: 'core.registration-onboarding'
-      }
-    ]
-  },
-
-  // 3. Provider Payouts
-  {
-    intentKey: 'provider.payout.location',
-    canonicalQuestion: 'Where is my payout?',
-    domain: 'Payments',
-    feature: 'provider_payout',
-    aliases: [
-      { aliasText: 'How do I cash out my earnings', aliasType: 'COLLOQUIAL' },
-      { aliasText: 'get my earnings', aliasType: 'COLLOQUIAL' },
-      { aliasText: 'withdraw my provider money', aliasType: 'COLLOQUIAL' },
-      { aliasText: 'When will I get paid for my rental', aliasType: 'SYNONYM' }
-    ],
-    accessScopes: [
-      {
-        audience: 'PROVIDER',
-        role: 'Individual Provider',
-        answerClass: 'PERSONALIZED_READ',
-        authorityType: 'LIVE_SERVICE',
-        authorityReference: 'AUTHORIZED_PAYOUT_FINANCE_SERVICE',
-        liveServiceKey: 'AUTHORIZED_PAYOUT_FINANCE_SERVICE'
-      },
-      {
-        audience: 'PROVIDER',
-        role: 'Business Provider',
-        answerClass: 'PERSONALIZED_READ',
-        authorityType: 'LIVE_SERVICE',
-        authorityReference: 'AUTHORIZED_PAYOUT_FINANCE_SERVICE',
-        liveServiceKey: 'AUTHORIZED_PAYOUT_FINANCE_SERVICE'
-      }
-    ]
-  },
-
-  // 4. Booking Cancellation
-  {
-    intentKey: 'booking.cancel.process',
-    canonicalQuestion: 'How do I cancel my booking?',
-    domain: 'Bookings',
-    feature: 'booking_cancellation',
-    aliases: [
-      { aliasText: 'Can I cancel my rental reservation', aliasType: 'SYNONYM' },
-      { aliasText: 'What happens if I cancel my booking now', aliasType: 'SYNONYM' },
-      { aliasText: 'I want to cancel my active booking', aliasType: 'COLLOQUIAL' }
-    ],
-    accessScopes: [
-      {
-        audience: 'RENTER',
-        role: 'Renter',
-        answerClass: 'ACTION',
-        authorityType: 'TOOL_GATEWAY',
-        authorityReference: 'cancelBooking',
-        toolKey: 'cancelBooking'
-      }
-    ]
-  },
-
-  // 5. Category Policy & Eligibility
-  {
-    intentKey: 'category.listing.eligibility',
-    canonicalQuestion: 'Can I list a condominium on RENTipid?',
-    domain: 'Listings',
-    feature: 'prohibited_items',
-    aliases: [
-      { aliasText: 'Can I list condo property', aliasType: 'SYNONYM' },
-      { aliasText: 'Are real estate listings allowed', aliasType: 'SYNONYM' },
-      { aliasText: 'Can I list a condominium', aliasType: 'SYNONYM' },
-      { aliasText: 'Can I list a firearm', aliasType: 'SYNONYM' },
-      { aliasText: 'Can I list medicine', aliasType: 'SYNONYM' },
-    ],
-    accessScopes: [
-      {
-        audience: 'PUBLIC',
-        role: 'Guest',
-        answerClass: 'ELIGIBILITY_POLICY',
-        authorityType: 'POLICY_TAXONOMY',
-        authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY'
-      },
-      {
-        audience: 'PROVIDER',
-        role: 'Individual Provider',
-        answerClass: 'ELIGIBILITY_POLICY',
-        authorityType: 'POLICY_TAXONOMY',
-        authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY'
-      }
-    ]
-  },
-  {
-    intentKey: 'listing.item.restriction',
-    canonicalQuestion: 'What items are prohibited or restricted on RENTipid?',
-    domain: 'Trust & Safety',
-    feature: 'prohibited_items',
-    aliases: [
-      { aliasText: 'What are the prohibited items', aliasType: 'SYNONYM' },
-      { aliasText: 'What items are prohibited', aliasType: 'SYNONYM' },
-      { aliasText: 'What items are prohibited on RENTipid', aliasType: 'SYNONYM' },
-      { aliasText: 'What am I not allowed to list', aliasType: 'SYNONYM' },
-      { aliasText: 'What cant I list', aliasType: 'SYNONYM' },
-      { aliasText: "What can't I list", aliasType: 'SYNONYM' },
-      { aliasText: 'Which rental items are restricted', aliasType: 'SYNONYM' },
-      { aliasText: "Which items aren't allowed", aliasType: 'SYNONYM' },
-      { aliasText: "Which items arent allowed", aliasType: 'SYNONYM' },
-      { aliasText: 'Can I list a firearm on RENTipid', aliasType: 'SYNONYM' },
-      { aliasText: 'What items are restricted on RENTipid', aliasType: 'SYNONYM' },
-      { aliasText: 'What items are restricted', aliasType: 'SYNONYM' },
-      { aliasText: 'What is not allowed to be listed on RENTipid', aliasType: 'COLLOQUIAL' },
-      { aliasText: 'What is not allowed to be listed', aliasType: 'COLLOQUIAL' },
-      { aliasText: 'Are there banned items on RENTipid', aliasType: 'COLLOQUIAL' },
-      { aliasText: 'Are there banned items', aliasType: 'COLLOQUIAL' },
-    ],
-    accessScopes: [{
-      audience: 'PUBLIC',
-      role: 'Guest',
-      answerClass: 'ELIGIBILITY_POLICY',
-      authorityType: 'POLICY_TAXONOMY',
-      authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY',
-    }],
-  },
-
-  // 6. Internal / Developer Questions
+  // Internal / Developer / Admin Management
   {
     intentKey: 'internal.knowledge.validation_process',
     canonicalQuestion: 'How do I validate Knowledge Center integrity?',
@@ -347,6 +118,8 @@ function audienceForRole(role: string): SeedAccessScope['audience'] {
   return 'ADMIN';
 }
 
+import { CANONICAL_CUSTOMER_OBJECTIVES } from './customer-objective-catalog';
+
 function generatedAliases(
   canonicalQuestion: string,
   variants: readonly { question: string; context?: readonly unknown[] }[],
@@ -366,11 +139,77 @@ function generatedAliases(
 
 export async function buildComprehensiveCanonicalIntentCatalog(): Promise<SeedCanonicalIntent[]> {
   const catalog = [...CANONICAL_INTENT_SEED_CATALOG];
-  const answerability = await loadCustomerAnswerabilityCatalog();
+  const seenIntentKeys = new Set(catalog.map(i => i.intentKey));
   const reservedQuestions = new Set(catalog.flatMap(intent => [
     normalizeQuestionText(intent.canonicalQuestion),
     ...intent.aliases.map(alias => normalizeQuestionText(alias.aliasText)),
   ]));
+
+  // Merge Master Canonical Customer Objectives
+  for (const obj of CANONICAL_CUSTOMER_OBJECTIVES) {
+    if (seenIntentKeys.has(obj.objectiveId)) continue;
+    seenIntentKeys.add(obj.objectiveId);
+
+    const roles: string[] = obj.persona === 'ALL_CUSTOMERS'
+      ? ['Guest', 'Renter', 'Individual Provider', 'Business Provider']
+      : obj.persona === 'RENTER'
+      ? ['Renter', 'Guest']
+      : obj.persona === 'PROVIDER'
+      ? ['Individual Provider', 'Business Provider']
+      : obj.persona === 'ADMIN'
+      ? ['Admin', 'Super Admin']
+      : ['Guest'];
+
+    let authorityType: SeedAccessScope['authorityType'] = 'KNOWLEDGE_CENTER';
+    let answerClass: SeedAccessScope['answerClass'] = 'INFORMATION';
+    if (obj.answerContract.authorityClass === 'POLICY_AUTHORITY') {
+      authorityType = 'POLICY_TAXONOMY';
+      answerClass = 'ELIGIBILITY_POLICY';
+    } else if (obj.answerContract.authorityClass === 'LIVE_SERVICE' || obj.answerContract.authorityClass === 'POLICY_PLUS_LIVE') {
+      authorityType = 'LIVE_SERVICE';
+      answerClass = 'PERSONALIZED_READ';
+    } else if (obj.answerContract.authorityClass === 'ACTION_TOOL') {
+      authorityType = 'TOOL_GATEWAY';
+      answerClass = 'ACTION';
+    } else if (obj.answerContract.authorityClass === 'UNSUPPORTED_NOT_ACTIVE' || obj.answerContract.authorityClass === 'MISSING_APPROVED_KNOWLEDGE') {
+      authorityType = 'POLICY_TAXONOMY';
+      answerClass = 'UNSUPPORTED_EXTERNAL';
+    }
+
+    const accessScopes: SeedAccessScope[] = roles.map(role => ({
+      audience: audienceForRole(role),
+      role,
+      answerClass,
+      authorityType,
+      authorityReference: obj.answerContract.authorityReference,
+      knowledgeSourceKey: obj.answerContract.knowledgeSourceKey,
+      knowledgeSectionKey: obj.answerContract.knowledgeSectionKey,
+      liveServiceKey: obj.answerContract.liveServiceKey,
+      toolKey: obj.answerContract.toolKey,
+    }));
+
+    const aliases: SeedAlias[] = obj.aliases.map(a => ({
+      aliasText: a.text,
+      aliasType: a.style === 'TYPO' ? 'TYPO' : a.style === 'TAGLISH' || a.style === 'COLLOQUIAL' ? 'COLLOQUIAL' : 'SYNONYM',
+      confidence: 1.0,
+    }));
+
+    for (const a of aliases) {
+      reservedQuestions.add(normalizeQuestionText(a.aliasText));
+    }
+    reservedQuestions.add(normalizeQuestionText(obj.canonicalQuestion));
+
+    catalog.push({
+      intentKey: obj.objectiveId,
+      canonicalQuestion: obj.canonicalQuestion,
+      domain: obj.domain,
+      feature: obj.subdomain.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, ''),
+      aliases,
+      accessScopes,
+    });
+  }
+
+  const answerability = await loadCustomerAnswerabilityCatalog();
 
   for (const item of answerability.cases) {
     if (item.sourceKey === 'provider.marketplace-taxonomy'
@@ -395,8 +234,12 @@ export async function buildComprehensiveCanonicalIntentCatalog(): Promise<SeedCa
     }));
     if (accessScopes.length === 0) continue;
 
+    const genKey = generatedIntentKey(item.sourceKey, item.sectionKey);
+    if (seenIntentKeys.has(genKey)) continue;
+    seenIntentKeys.add(genKey);
+
     catalog.push({
-      intentKey: generatedIntentKey(item.sourceKey, item.sectionKey),
+      intentKey: genKey,
       canonicalQuestion,
       domain: item.domain,
       feature: item.sectionTitle.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, ''),
@@ -546,14 +389,13 @@ export async function seedCanonicalIntents(): Promise<CanonicalSeedResult> {
     }
   }
 
-  const staleGenerated = await prisma.canonicalQuestionIntent.findMany({
+  const staleIntents = await prisma.canonicalQuestionIntent.findMany({
     where: {
       status: 'ACTIVE',
-      intentKey: { startsWith: 'knowledge.' },
     },
     select: { id: true, intentKey: true },
   });
-  for (const stale of staleGenerated) {
+  for (const stale of staleIntents) {
     if (desiredIntentKeys.has(stale.intentKey)) continue;
     await prisma.$transaction([
       prisma.canonicalQuestionIntent.update({ where: { id: stale.id }, data: { status: 'INACTIVE' } }),

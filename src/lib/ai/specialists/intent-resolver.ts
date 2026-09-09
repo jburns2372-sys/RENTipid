@@ -21,8 +21,17 @@ export function resolveIntent(prompt: string): string | undefined {
   return undefined; // Default/unknown
 }
 
+export const OUT_OF_SCOPE_PATTERNS = [
+  /\b(?:bitcoin|ethereum|dogecoin|crypto|cryptocurrency|forex|stock market|stocks|shares|ticker)\b/i,
+  /\b(?:astronaut|human being|human body|kidney|organs?|homework|permanent house)\b/i,
+  /\b(?:personal\s+phone\s+number|home\s+address)\b/i,
+];
+
 export function resolveDomainIntent(prompt: string): string[] {
   const lowerPrompt = prompt.toLowerCase();
+  if (OUT_OF_SCOPE_PATTERNS.some(p => p.test(lowerPrompt))) {
+    return [];
+  }
   const domains: string[] = [];
   
   if (/\b(legal|laws?|compliance|regulations?|jurisdictions?)\b/.test(lowerPrompt)) {
