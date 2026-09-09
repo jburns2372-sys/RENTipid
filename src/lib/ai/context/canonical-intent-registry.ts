@@ -67,7 +67,8 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
         answerClass: 'INFORMATION',
         authorityType: 'KNOWLEDGE_CENTER',
         authorityReference: 'provider.workflow-status',
-        knowledgeSourceKey: 'provider.workflow-status'
+        knowledgeSourceKey: 'provider.workflow-status',
+        knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-listings'
       },
       {
         audience: 'PROVIDER',
@@ -75,7 +76,8 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
         answerClass: 'INFORMATION',
         authorityType: 'KNOWLEDGE_CENTER',
         authorityReference: 'provider.workflow-status',
-        knowledgeSourceKey: 'provider.workflow-status'
+        knowledgeSourceKey: 'provider.workflow-status',
+        knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-listings'
       },
       {
         audience: 'RENTER',
@@ -83,7 +85,8 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
         answerClass: 'INFORMATION',
         authorityType: 'KNOWLEDGE_CENTER',
         authorityReference: 'provider.workflow-status',
-        knowledgeSourceKey: 'provider.workflow-status'
+        knowledgeSourceKey: 'provider.workflow-status',
+        knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-listings'
       }
     ]
   },
@@ -244,9 +247,13 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
     domain: 'Trust & Safety',
     feature: 'prohibited_items',
     aliases: [
+      { aliasText: 'What items are prohibited on RENTipid', aliasType: 'SYNONYM' },
       { aliasText: 'What am I not allowed to list', aliasType: 'SYNONYM' },
       { aliasText: 'Which rental items are restricted', aliasType: 'SYNONYM' },
       { aliasText: 'Can I list a firearm on RENTipid', aliasType: 'SYNONYM' },
+      { aliasText: 'What items are restricted on RENTipid', aliasType: 'SYNONYM' },
+      { aliasText: 'What is not allowed to be listed on RENTipid', aliasType: 'COLLOQUIAL' },
+      { aliasText: 'Are there banned items on RENTipid', aliasType: 'COLLOQUIAL' },
     ],
     accessScopes: [{
       audience: 'PUBLIC',
