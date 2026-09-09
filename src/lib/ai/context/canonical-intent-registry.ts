@@ -222,7 +222,10 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
     feature: 'prohibited_items',
     aliases: [
       { aliasText: 'Can I list condo property', aliasType: 'SYNONYM' },
-      { aliasText: 'Are real estate listings allowed', aliasType: 'SYNONYM' }
+      { aliasText: 'Are real estate listings allowed', aliasType: 'SYNONYM' },
+      { aliasText: 'Can I list a condominium', aliasType: 'SYNONYM' },
+      { aliasText: 'Can I list a firearm', aliasType: 'SYNONYM' },
+      { aliasText: 'Can I list medicine', aliasType: 'SYNONYM' },
     ],
     accessScopes: [
       {
@@ -247,13 +250,22 @@ export const CANONICAL_INTENT_SEED_CATALOG: SeedCanonicalIntent[] = [
     domain: 'Trust & Safety',
     feature: 'prohibited_items',
     aliases: [
+      { aliasText: 'What are the prohibited items', aliasType: 'SYNONYM' },
+      { aliasText: 'What items are prohibited', aliasType: 'SYNONYM' },
       { aliasText: 'What items are prohibited on RENTipid', aliasType: 'SYNONYM' },
       { aliasText: 'What am I not allowed to list', aliasType: 'SYNONYM' },
+      { aliasText: 'What cant I list', aliasType: 'SYNONYM' },
+      { aliasText: "What can't I list", aliasType: 'SYNONYM' },
       { aliasText: 'Which rental items are restricted', aliasType: 'SYNONYM' },
+      { aliasText: "Which items aren't allowed", aliasType: 'SYNONYM' },
+      { aliasText: "Which items arent allowed", aliasType: 'SYNONYM' },
       { aliasText: 'Can I list a firearm on RENTipid', aliasType: 'SYNONYM' },
       { aliasText: 'What items are restricted on RENTipid', aliasType: 'SYNONYM' },
+      { aliasText: 'What items are restricted', aliasType: 'SYNONYM' },
       { aliasText: 'What is not allowed to be listed on RENTipid', aliasType: 'COLLOQUIAL' },
+      { aliasText: 'What is not allowed to be listed', aliasType: 'COLLOQUIAL' },
       { aliasText: 'Are there banned items on RENTipid', aliasType: 'COLLOQUIAL' },
+      { aliasText: 'Are there banned items', aliasType: 'COLLOQUIAL' },
     ],
     accessScopes: [{
       audience: 'PUBLIC',

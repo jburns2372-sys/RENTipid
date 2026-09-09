@@ -101,7 +101,11 @@ export function composePolicyAuthorityAnswer(
   }
 
   if (classification.requestedCategoryTerms.length === 0) {
-    if (/\b(?:prohibited|restricted|not allowed|cannot list)\b/i.test(classification.effectiveQuestion)) {
+    if (
+      /\b(?:prohibited|restricted|not\s+allowed|aren\s*['’]?\s*t\s+allowed|cannot\s+list|cant\s+list|can\s*['’]?\s*t\s+list|banned|illegal|unsupported)\b/i.test(classification.effectiveQuestion) ||
+      /\bwhat\s+(?:can\s*['’]?\s*t|cant|cannot)\s+i\s+list\b/i.test(classification.effectiveQuestion) ||
+      /\bwhich\s+items\s+aren\s*['’]?\s*t\s+allowed\b/i.test(classification.effectiveQuestion)
+    ) {
       const blocked = CANONICAL_PROHIBITED_POLICIES
         .map(policy => `${policy.name} (${policy.classification.toLowerCase()})`);
       return {

@@ -125,7 +125,61 @@ export async function resolveCanonicalIntent(
     }
   }
 
+  // 3. Level 3: Normalized Brand-Agnostic / Phrase Match
+  const strippedQuery = stripBrandNoise(normalizedQuery);
+  if (strippedQuery && strippedQuery.length >= 3) {
+    const activeAliases = await prisma.canonicalQuestionAlias.findMany({
+      where: { status: 'ACTIVE' },
+      include: {
+        canonicalIntent: {
+          include: {
+            accessScopes: { where: { status: 'ACTIVE' } }
+          }
+        }
+      }
+    });
+
+    for (const alias of activeAliases) {
+      if (!alias.canonicalIntent || alias.canonicalIntent.status !== 'ACTIVE') continue;
+      const strippedAlias = stripBrandNoise(alias.normalizedAliasText);
+      if (!strippedAlias) continue;
+
+      const isExactMatch = strippedQuery === strippedAlias;
+      const isSubMatch = strippedQuery.length >= 6 && strippedAlias.length >= 6 && (
+        strippedQuery.includes(strippedAlias) ||
+        strippedAlias.includes(strippedQuery)
+      );
+
+      if (isExactMatch || isSubMatch) {
+        const intent = alias.canonicalIntent;
+        const scope = filterAccessScope(intent.accessScopes, userRole, userPermissions);
+        if (scope) {
+          return {
+            intentId: intent.id,
+            intentKey: intent.intentKey,
+            canonicalQuestion: intent.canonicalQuestion,
+            normalizedQuestion: intent.normalizedQuestion,
+            domain: intent.domain,
+            feature: intent.feature,
+            matchType: 'NORMALIZED_MATCH',
+            confidence: isExactMatch ? 0.95 : 0.90,
+            matchedText: alias.aliasText,
+            compatibilityIntent: compatibilityIntent(intent.intentKey, intent.feature),
+            selectedScope: scope
+          };
+        }
+      }
+    }
+  }
+
   return null;
+}
+
+function stripBrandNoise(text: string): string {
+  return text
+    .replace(/\b(?:on|in|from|at|for|through|via)?\s*rentipid\b/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function filterAccessScope(

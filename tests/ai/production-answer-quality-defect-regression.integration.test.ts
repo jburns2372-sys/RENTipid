@@ -121,4 +121,100 @@ describe('production answer-quality defect regression', () => {
     expect(canonical).not.toBeNull();
     expect(canonical?.intentKey).toBe('listing.item.restriction');
   });
+
+  // ====================================================================
+  // STEP 6: Natural Language Variations & Specific Item Checks
+  // ====================================================================
+
+  test('Step 6: "what are the prohibited items?" returns actual policy categories in live answer', async () => {
+    const response = await processAICommand({
+      botId: BOTS.CONCIERGE,
+      prompt: 'what are the prohibited items?',
+      module: 'Help',
+      userRole: 'Guest',
+    });
+
+    expect(response.success).toBe(true);
+    expect(response.message).toMatch(/Illegal Drugs/i);
+    expect(response.message).toMatch(/Firearms/i);
+    expect(response.message).toMatch(/prohibited|restricted/i);
+    expect(response.message).not.toMatch(/review that catalogue|review our policies before publishing/i);
+  });
+
+  test('Step 6: "What items are prohibited?" returns actual policy categories', async () => {
+    const response = await processAICommand({
+      botId: BOTS.CONCIERGE,
+      prompt: 'What items are prohibited?',
+      module: 'Help',
+      userRole: 'Guest',
+    });
+
+    expect(response.success).toBe(true);
+    expect(response.message).toMatch(/Illegal Drugs/i);
+    expect(response.message).toMatch(/Firearms/i);
+  });
+
+  test('Step 6: "What can\'t I list?" returns actual policy categories', async () => {
+    const response = await processAICommand({
+      botId: BOTS.CONCIERGE,
+      prompt: "What can't I list?",
+      module: 'Help',
+      userRole: 'Guest',
+    });
+
+    expect(response.success).toBe(true);
+    expect(response.message).toMatch(/Illegal Drugs/i);
+    expect(response.message).toMatch(/Firearms/i);
+  });
+
+  test('Step 6: "Which items aren\'t allowed?" returns actual policy categories', async () => {
+    const response = await processAICommand({
+      botId: BOTS.CONCIERGE,
+      prompt: "Which items aren't allowed?",
+      module: 'Help',
+      userRole: 'Guest',
+    });
+
+    expect(response.success).toBe(true);
+    expect(response.message).toMatch(/Illegal Drugs/i);
+    expect(response.message).toMatch(/Firearms/i);
+  });
+
+  test('Step 6: "Are there banned items?" returns actual policy categories', async () => {
+    const response = await processAICommand({
+      botId: BOTS.CONCIERGE,
+      prompt: 'Are there banned items?',
+      module: 'Help',
+      userRole: 'Guest',
+    });
+
+    expect(response.success).toBe(true);
+    expect(response.message).toMatch(/Illegal Drugs/i);
+    expect(response.message).toMatch(/Firearms/i);
+  });
+
+  test('Step 6: "Can I list a firearm?" confirms firearm is prohibited', async () => {
+    const response = await processAICommand({
+      botId: BOTS.CONCIERGE,
+      prompt: 'Can I list a firearm?',
+      module: 'Help',
+      userRole: 'Guest',
+    });
+
+    expect(response.success).toBe(true);
+    expect(response.message).toMatch(/Firearms.*is prohibited/i);
+  });
+
+  test('Step 6: "Can I list medicine?" confirms medicine is prohibited', async () => {
+    const response = await processAICommand({
+      botId: BOTS.CONCIERGE,
+      prompt: 'Can I list medicine?',
+      module: 'Help',
+      userRole: 'Guest',
+    });
+
+    expect(response.success).toBe(true);
+    expect(response.message).toMatch(/Medicines.*is prohibited/i);
+  });
 });
+

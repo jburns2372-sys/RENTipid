@@ -27,8 +27,36 @@ Users are responsible for ensuring assets are legally owned, rentable, safe, and
     title: 'Prohibited and Restricted Items',
     content: `# Prohibited and Restricted Items
 
-RENTipid prohibits, restricts, or does not support certain items, assets, and services to protect the community. The active ProhibitedItemPolicy catalogue is the authoritative detailed source. Providers should review that catalogue before publishing a listing and contact Support when an item cannot be confidently classified.`,
-    keywords: ['prohibited', 'restricted', 'items', 'listings', 'policy'],
+RENTipid prohibits, restricts, or does not support certain items, assets, and services to protect the community.
+
+## Active Prohibited and Restricted Item Policies
+
+1. Illegal Drugs and Controlled Substances (prohibited)
+2. Medicines, Health Products and Medical Substances (prohibited)
+3. Firearms, Ammunition, Weapons and Explosives (prohibited)
+4. Hazardous Chemicals, Toxic Materials and Waste (prohibited)
+5. Alcohol, Tobacco, Nicotine and Vape Products (prohibited)
+6. Stolen Property and Illegal Acquisitions (prohibited)
+7. Counterfeit, Forged and Fraudulent Items (prohibited)
+8. Fireworks, Pyrotechnics and Explosives (prohibited)
+9. Live Animals, Endangered Species and Animal Products (prohibited)
+10. Human Remains, Organs and Body Parts (prohibited)
+11. Adult, Sexually Oriented and Pornographic Materials (prohibited)
+12. Gambling, Lotteries and Betting Services (prohibited)
+13. Invasive Surveillance and Eavesdropping Devices (prohibited)
+14. Hate Speech, Discriminatory and Extremist Items (prohibited)
+15. Financial Instruments, Securities and Currency (prohibited)
+16. Government, Military and Official Items (prohibited)
+17. Unsafe, Recalled and Non-Compliant Consumer Goods (prohibited)
+18. Expired, Uninspected or Perishable Consumables (prohibited)
+19. Unlicensed Real Estate, Subleases and Unauthorized Spaces (restricted)
+20. Uncertified High-Risk Equipment and Heavy Machinery (restricted)
+21. Illegal, Unauthorized or Regulated Professional Services (prohibited)
+22. Cyber Exploitation Tools and Hacking Devices (prohibited)
+23. Regulated Wildlife and Plant Species (prohibited)
+24. Hazardous Flammables and Combustibles (prohibited)
+25. Unauthorized Key Duplication and Lock Bypass Tools (prohibited)`,
+    keywords: ['prohibited', 'restricted', 'items', 'listings', 'policy', 'banned', 'drugs', 'weapons', 'firearms'],
   },
   'route.privacy': {
     title: 'RENTipid Privacy Policy',

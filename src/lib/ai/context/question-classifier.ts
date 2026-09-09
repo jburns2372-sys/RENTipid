@@ -48,7 +48,7 @@ const EXISTING_PROVIDER =
 const PROVIDER_ONBOARDING =
   /\b(?:become|register|sign\s*up|join|apply)\b.{0,35}\bprovider\b|\bnew\s+provider\b/i;
 const CATEGORY_ELIGIBILITY =
-  /\b(?:categor(?:y|ies)|allowed|eligible|can\s+i\s+(?:list|rent\s*out|offer)|types?\s+of\s+rentals?)\b|\b(?:item|type|rental|category)\b.{0,25}\bsupported\b|\bsupported\b.{0,25}\b(?:item|type|rental|category)\b/i;
+  /\b(?:categor(?:y|ies)|allowed|eligible|prohibited|restricted|banned|not\s+allowed|can(?:not|\s+not|\s*['’]?\s*t)\s+list|can\s+i\s+(?:list|rent\s*out|offer)|types?\s+of\s+rentals?)\b|\b(?:item|type|rental|category)\b.{0,25}\bsupported\b|\bsupported\b.{0,25}\b(?:item|type|rental|category)\b/i;
 const CREATE_LISTING =
   /\b(?:create|add|make|start|publish|list|offer|put)\b.{0,45}\b(?:listing|rental|item|equipment|something|another)\b|\b(?:list|rent\s*out|offer)\s+(?:(?:an?|another|my)\s+)?(?:item|rental|something)\b/i;
 const PROVIDER_PAYMENT =
@@ -77,16 +77,26 @@ function categoryTerms(prompt: string): string[] {
     .replace(/[?.!]/g, '')
     .replace(/\bfor\s+rent\b/gi, '')
     .trim();
-  const match = normalized.match(/\b(?:list|rent\s*out|offer)\s+(.+)$/i);
+
+  // If the question is asking generally about what is allowed/prohibited/restricted/banned (without naming specific items)
+  if (
+    /\b(?:what|which)\s+(?:items?|things?|rentals?|types?|categories|category)?\s*(?:are|is|can|cannot|cant|can\s*['’]?\s*t|aren\s*['’]?\s*t|are\s+not|do\s+not)\b/i.test(normalized) ||
+    /\b(?:what|which)\s+(?:can|cannot|cant|can\s*['’]?\s*t|do|are)\s+(?:i|we|users?|providers?)\s+(?:list|rent|offer|not\s+list)\b/i.test(normalized)
+  ) {
+    return [];
+  }
+
+  const match = normalized.match(/\b(?:list|rent\s*out|offer|allow(?:ed)?|ban(?:ned)?|restrict(?:ed)?|prohibit(?:ed)?)\s+(.+)$/i);
   if (!match) return [];
   return match[1]
     .split(/\s*(?:,|\band\b|\bor\b)\s*/i)
     .map(value => value
       .replace(/^(?:a|an|the|my)\s+/i, '')
       .replace(/\s+(?:on|in|through|via)\s+(?:the\s+)?rentipid(?:\s+(?:app|marketplace|platform))?$/i, '')
+      .replace(/^(?:on|in|through|via)\s+(?:the\s+)?rentipid(?:\s+(?:app|marketplace|platform))?$/i, '')
       .replace(/\s+(?:property|properties|category|categories|item|items|rental|rentals|listing|listings)$/i, '')
       .trim())
-    .filter(value => value.length > 1 && !/^(?:item|something|another\s+item)$/i.test(value));
+    .filter(value => value.length > 1 && !/^(?:item|items|something|another\s+item|prohibited|restricted|banned|not\s+allowed|allowed|rentipid|on\s+rentipid)$/i.test(value));
 }
 
 function customerIntent(prompt: string): CustomerQuestionIntent {
