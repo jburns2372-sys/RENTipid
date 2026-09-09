@@ -29,3 +29,40 @@ RENTipid Unified Autonomous AI Customer Service & Digital Human (v1)
 
 ## ACCEPTANCE
 ACCEPTED = PASS
+
+---
+
+# RENTipid AI Production Module — Answer-Quality Remediation Acceptance
+
+## SCOPE
+- Defect 1: Scoped `listing.create.how_to` strictly to `provider-workflow-status:workflow-status-guidance-listings` to eliminate booking process contamination.
+- Defect 2: Mapped `"What items are prohibited on RENTipid"` and canonical variations to `listing.item.restriction` bound to `POLICY_TAXONOMY` (`RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY`), returning all 25 active policy items.
+- Canonical intent aliases, listing vs booking knowledge isolation, grounding verification, and zero security regressions.
+
+## DEPLOYMENT & ARTIFACT IDENTIFIERS
+- Functional Remediation Commit: `edd5b69dd27b316485cf501e623b4a538f5a3411`
+- Current Production Deployment: `dpl_F21Q2K9kd2or86QmFF8BXfN1LHHK`
+- Production URL: `https://www.rentipid.com.ph`
+- Previous Known-Good Deployment: `dpl_6AeYjKkdJpta2SQLfXaEexMR9Pux`
+- Rollback Target: `dpl_6AeYjKkdJpta2SQLfXaEexMR9Pux`
+
+## STATUS GATES
+- CODE COMPLETE: PASS
+- LOCAL FUNCTIONAL: PASS
+- LOCAL DB MIGRATED: PASS (NOT REQUIRED — VERIFIED)
+- LOCAL REQUIRED DATA SEEDED/SYNCED: PASS
+- LOCAL ACCEPTANCE PASS: PASS
+- PREVIEW MIGRATED: PASS
+- PREVIEW ACCEPTANCE PASS: PASS
+- PRODUCTION-READY: PASS
+- PRODUCTION DEPLOYMENT/VERIFICATION: PASS
+- COMPLETED: PASS
+- OWNER ACCEPTANCE: ACCEPTED
+- CLOSED: PASS
+- VERSION FROZEN: PASS
+
+## OWNER ACCEPTANCE RECORD
+- Status: **ACCEPTED**
+- Authorization: OWNER ACCEPTANCE AUTHORIZED — RENTipid AI Production Module remediation represented by commit `edd5b69dd27b316485cf501e623b4a538f5a3411` is accepted.
+- Acceptance Timestamp: `2026-09-09T13:32:00+08:00`
+

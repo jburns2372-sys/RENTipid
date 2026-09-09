@@ -36,16 +36,26 @@
 [x] PREVIEW MIGRATED                  — PASS
 [x] PREVIEW ACCEPTANCE PASS           — PASS
 [x] PRODUCTION-READY                  — PASS
-[ ] PRODUCTION DEPLOYMENT/VERIFICATION— NOT YET EXECUTED
-[ ] COMPLETED                         — NOT YET EXECUTED
-[ ] ACCEPTED                          — NOT YET EXECUTED
-[ ] CLOSED                            — NOT YET EXECUTED
-[ ] VERSION FROZEN                    — NOT YET EXECUTED
+[x] PRODUCTION DEPLOYMENT/VERIFICATION— PASS
+[x] COMPLETED                         — PASS
+[x] ACCEPTED                          — PASS (OWNER ACCEPTED 2026-09-09T13:32:00+08:00)
+[x] CLOSED                            — PASS
+[x] VERSION FROZEN                    — PASS
 ```
 
 ---
 
-## 3. Quick Verification Commands (After Antigravity Restart)
+## 3. Production Deployment & Rollback Identifiers
+
+- **Current Production Deployment:** `dpl_F21Q2K9kd2or86QmFF8BXfN1LHHK`
+- **Production URL:** `https://www.rentipid.com.ph`
+- **Functional Remediation Commit SHA:** `edd5b69dd27b316485cf501e623b4a538f5a3411`
+- **Previous Known-Good Deployment:** `dpl_6AeYjKkdJpta2SQLfXaEexMR9Pux`
+- **Rollback Target:** `dpl_6AeYjKkdJpta2SQLfXaEexMR9Pux`
+
+---
+
+## 4. Quick Verification Commands (After Antigravity Restart)
 
 To verify the workspace integrity immediately upon restart:
 
@@ -77,7 +87,7 @@ To verify the workspace integrity immediately upon restart:
 
 ---
 
-## 4. Key Changed Files in this Restore Point
+## 5. Key Changed Files in this Remediation Baseline
 
 - `src/lib/ai/context/canonical-intent-registry.ts`
 - `tests/ai/production-answer-quality-defect-regression.integration.test.ts`
@@ -85,6 +95,7 @@ To verify the workspace integrity immediately upon restart:
 
 ---
 
-## 5. Next Permitted Action Upon Resumption
+## 6. Final Status
 
-**NEXT HARD GATE:** `PRODUCTION DEPLOYMENT / VERIFICATION`
+**RENTipid AI Production Module remediation is ACCEPTED, CLOSED, and VERSION FROZEN.**
+

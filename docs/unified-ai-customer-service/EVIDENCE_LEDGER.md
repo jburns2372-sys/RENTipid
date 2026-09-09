@@ -387,3 +387,23 @@ DEFERRED TO P10/G8-G11
 - A-OAT-01: PENDING OWNER
 - G12: PENDING
 - P10: READY FOR OWNER OAT
+
+| UAICS-DH-EV-026 | Production Remediation | AI Production Module Answer Quality Remediation | Listing Creation & Prohibited Item Fix | 2026-09-09 | Production Verification PASS | Owner Acceptance PASS | PASS | N/A |
+
+## Production Answer-Quality Remediation Evidence
+- CONTROLLING SCOPE: RENTipid AI Production Module Answer-Quality Remediation
+- REMEDIATION COMMIT: edd5b69dd27b316485cf501e623b4a538f5a3411
+- CURRENT PRODUCTION DEPLOYMENT: dpl_F21Q2K9kd2or86QmFF8BXfN1LHHK
+- PRODUCTION DOMAIN: https://www.rentipid.com.ph
+- PREVIOUS KNOWN-GOOD DEPLOYMENT: dpl_6AeYjKkdJpta2SQLfXaEexMR9Pux
+- ROLLBACK TARGET: dpl_6AeYjKkdJpta2SQLfXaEexMR9Pux
+- DEFECT 1 ("How do I create a listing on RENTipid?"): Scoped strictly to `provider-workflow-status:workflow-status-guidance-listings`. PASS.
+- DEFECT 2 ("What items are prohibited on RENTipid?"): Mapped aliases to `listing.item.restriction` (`POLICY_TAXONOMY`), enumerating 25 policy items. PASS.
+- REGRESSION SUITE: `tests/ai/production-answer-quality-defect-regression.integration.test.ts` (7/7 PASS).
+- OAT HELP ENDPOINT: `tests/oat/ai-help-endpoint.test.ts` (3/3 PASS).
+- KNOWLEDGE ENGINE: 100% coverage, validation PASS.
+- PREVIEW VERIFICATION: PASS.
+- PRODUCTION VERIFICATION: PASS (0 5xx, 0 AI errors, 0 auth/db errors).
+- OWNER ACCEPTANCE: ACCEPTED (2026-09-09T13:32:00+08:00).
+- STATUS: CLOSED = PASS | VERSION FROZEN = PASS.
+
