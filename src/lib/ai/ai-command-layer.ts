@@ -165,8 +165,8 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
 
   // P4 + Revision 2: resolve intent, exactly-one owner, and compatibility support subdomain.
   const resolvedIntent = canonicalMatch?.compatibilityIntent
-    ?? (canonicalMatch?.selectedScope?.answerClass === 'INFORMATION' ? 'support_info' : undefined)
-    ?? canonicalMatch?.intentKey
+    ?? (canonicalMatch?.selectedScope?.answerClass === 'INFORMATION' || canonicalMatch?.selectedScope?.answerClass === 'ELIGIBILITY_POLICY' ? 'support_info' : undefined)
+    ?? (canonicalMatch ? 'support_info' : undefined)
     ?? resolveIntent(prompt);
 
   const questionClassification = classifyRentipidQuestion(prompt, req.conversationContext ?? []);

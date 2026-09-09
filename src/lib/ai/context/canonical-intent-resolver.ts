@@ -30,17 +30,35 @@ export interface ResolvedCanonicalIntentMatch {
 }
 
 function compatibilityIntent(intentKey: string, feature: string): string | undefined {
+  const normFeature = feature.toLowerCase().replace(/[^a-z0-9]+/g, '_');
   const byFeature: Record<string, string> = {
     listing_creation: 'provider_operational_support',
+    creation_workflow: 'provider_operational_support',
     listing_review: 'listing_status',
+    listing_status: 'listing_status',
     password_reset: 'kyc_account_support',
+    authentication: 'kyc_account_support',
+    identity_kyc: 'kyc_account_support',
     provider_payout: 'payout_status',
+    provider_payouts: 'payout_status',
     booking_cancellation: 'booking_cancel',
-    prohibited_items: 'provider_operational_support',
+    cancellations: 'booking_cancel',
+    prohibited_items: 'support_info',
+    item_eligibility: 'support_info',
+    category_eligibility: 'support_info',
+    payment_methods: 'support_info',
+    security_deposit: 'support_info',
+    refunds: 'support_info',
+    coverage_scope: 'support_info',
+    claims_intake: 'support_info',
+    modifications_extensions: 'support_info',
   };
-  if (byFeature[feature]) return byFeature[feature];
+  if (byFeature[normFeature]) return byFeature[normFeature];
+  if (intentKey.startsWith('listing.item.') || intentKey.startsWith('category.')) return 'support_info';
+  if (intentKey.startsWith('insurance.')) return 'support_info';
+  if (intentKey.startsWith('renter.payment.') || intentKey.startsWith('renter.deposit.')) return 'support_info';
   if (intentKey.startsWith('knowledge.')) return 'support_info';
-  return intentKey.startsWith('internal.') ? undefined : undefined;
+  return 'support_info';
 }
 
 export async function resolveCanonicalIntent(
