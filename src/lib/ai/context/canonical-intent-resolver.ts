@@ -401,24 +401,32 @@ function filterAccessScope(
   const normalizedUserRole = userRole.toUpperCase().trim();
 
   return scopes.find(scope => {
-    const scopeRole = scope.role.toUpperCase().trim();
+    const scopeRole = (scope.role || '').toUpperCase().trim();
+    const scopeAudience = (scope.audience || '').toUpperCase().trim();
 
     // Super Admin / Owner bypass
     if (normalizedUserRole === 'SUPER ADMIN' || normalizedUserRole === 'OWNER') {
       return true;
     }
 
+    // Internal scopes require Admin / Super Admin
+    if (scopeAudience === 'INTERNAL' && normalizedUserRole !== 'ADMIN' && normalizedUserRole !== 'SUPER ADMIN') {
+      return false;
+    }
+
     // Role check
     let roleMatches = false;
-    if (scopeRole === 'PUBLIC' || scope.audience === 'PUBLIC') {
+    if (scopeRole === 'PUBLIC' || scopeAudience === 'PUBLIC') {
       roleMatches = true;
     } else if (scopeRole === normalizedUserRole) {
       roleMatches = true;
-    } else if (normalizedUserRole === 'RENTER' && scopeRole === 'RENTER') {
+    } else if (normalizedUserRole === 'GUEST' && (scopeRole === 'RENTER' || scopeRole === 'PROVIDER' || scopeAudience === 'RENTER' || scopeAudience === 'PROVIDER')) {
+      roleMatches = true;
+    } else if (normalizedUserRole === 'RENTER' && (scopeRole === 'RENTER' || scopeRole === 'PROVIDER')) {
       roleMatches = true;
     } else if (
       (normalizedUserRole === 'PROVIDER' || normalizedUserRole === 'INDIVIDUAL PROVIDER' || normalizedUserRole === 'BUSINESS PROVIDER') &&
-      (scopeRole === 'INDIVIDUAL PROVIDER' || scopeRole === 'BUSINESS PROVIDER' || scopeRole === 'PROVIDER')
+      (scopeRole === 'INDIVIDUAL PROVIDER' || scopeRole === 'BUSINESS PROVIDER' || scopeRole === 'PROVIDER' || scopeRole === 'RENTER')
     ) {
       roleMatches = true;
     } else if (normalizedUserRole === 'ADMIN' && (scopeRole === 'ADMIN' || scopeRole === 'OPERATOR')) {

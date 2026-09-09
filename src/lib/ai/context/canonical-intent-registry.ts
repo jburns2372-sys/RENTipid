@@ -336,6 +336,21 @@ export async function seedCanonicalIntents(): Promise<CanonicalSeedResult> {
       }
     }
 
+    // Clean up stale aliases for this intent
+    const desiredAliasNorms = new Set(item.aliases.map(a => normalizeQuestionText(a.aliasText)));
+    const existingIntentAliases = await prisma.canonicalQuestionAlias.findMany({
+      where: { canonicalIntentId: intentRecord.id, status: 'ACTIVE' }
+    });
+    for (const exAlias of existingIntentAliases) {
+      if (!desiredAliasNorms.has(exAlias.normalizedAliasText)) {
+        await prisma.canonicalQuestionAlias.update({
+          where: { id: exAlias.id },
+          data: { status: 'INACTIVE' }
+        });
+        updatedCount++;
+      }
+    }
+
     // Seed Access Scopes
     for (const scope of item.accessScopes) {
       const existingScope = await prisma.canonicalIntentAccessScope.findFirst({

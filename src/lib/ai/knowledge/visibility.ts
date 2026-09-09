@@ -44,6 +44,12 @@ export function canAccessKnowledge(
   if (normalizedVisibility === 'AUTHENTICATED') return resolvedRole !== 'Guest';
   if (normalizedVisibility === 'SUPER_ADMIN_ONLY') return resolvedRole === 'Super Admin';
   if (resolvedRole === 'Super Admin') return true;
+  if (resolvedRole === 'Guest') {
+    return roles.some(allowed => {
+      const allowedRole = resolveKnowledgeRole(allowed);
+      return allowedRole === 'Renter' || allowedRole === 'Business Provider' || allowedRole === 'Individual Provider';
+    });
+  }
   return roles.some(allowed => resolveKnowledgeRole(allowed) === resolvedRole);
 }
 

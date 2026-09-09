@@ -271,12 +271,22 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
     },
     aliases: [
       { text: 'how can i pay for rented item?', style: 'PLAIN' },
+      { text: 'What payment methods are supported on RENTipid?', style: 'FORMAL' },
       { text: 'What payment methods are supported?', style: 'FORMAL' },
       { text: 'How do I pay for a booking?', style: 'PLAIN' },
       { text: 'Can I pay using GCash or Maya?', style: 'PLAIN' },
+      { text: 'pwede ba gcash pambayad sa rent?', style: 'TAGLISH' },
       { text: 'pwede ba gcash o credit card pambayad?', style: 'TAGLISH' },
+      { text: 'pwede ba magbayad gamit ang GCash sa rentipid?', style: 'TAGLISH' },
+      { text: 'pwede ba debit card or credit card pambayad?', style: 'TAGLISH' },
+      { text: 'How do I complete payment at checkout?', style: 'PLAIN' },
+      { text: 'paano magbayad ng booking sa rentipid?', style: 'TAGLISH' },
       { text: 'paano magbayad ng rental sa rentipid', style: 'TAGLISH' },
-      { text: 'Payment options for renters', style: 'SHORT' }
+      { text: 'Payment options for renters', style: 'SHORT' },
+      { text: 'Can I pay in cash upon delivery or pickup?', style: 'PLAIN' },
+      { text: 'Is cash on delivery allowed on RENTipid?', style: 'PLAIN' },
+      { text: 'Are payments processed securely in PHP?', style: 'PLAIN' },
+      { text: 'How does PayMongo payment checkout work?', style: 'PLAIN' }
     ]
   },
   {
@@ -296,12 +306,16 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       forbiddenClaims: ['Failed payments are kept by RENTipid', 'Cash payment can be arranged after failure'],
       authorityClass: 'STATIC_KNOWLEDGE',
       authorityReference: 'provider.payment-status-currency',
-      knowledgeSourceKey: 'provider.payment-status-currency'
+      knowledgeSourceKey: 'provider.payment-status-currency',
+      knowledgeSectionKey: 'provider-payment-status-currency:payment-and-currency-status'
     },
     aliases: [
       { text: 'Why did my payment fail?', style: 'SHORT' },
+      { text: 'Why did my payment fail during checkout?', style: 'PLAIN' },
+      { text: 'What happens if my GCash payment fails?', style: 'PLAIN' },
       { text: 'Payment was declined how to fix?', style: 'PLAIN' },
       { text: 'bakit na-decline ang payment ko?', style: 'TAGLISH' },
+      { text: 'paano kapag nag-fail ang payment sa checkout?', style: 'TAGLISH' },
       { text: 'failed ang card payment paano mag-retry', style: 'TAGLISH' },
       { text: 'Payment error at checkout', style: 'PLAIN' }
     ]

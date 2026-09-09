@@ -209,11 +209,31 @@ class LocalGroundedComposerProvider implements GroundedInformationProvider {
 
     // Match canonical objective from catalog
     const qLower = input.question.toLowerCase().trim();
-    const matchingObjective = getCustomerObjective(input.bundle.classification.intent)
-      ?? CANONICAL_CUSTOMER_OBJECTIVES.find(o =>
-          o.canonicalQuestion.toLowerCase() === qLower
-          || o.aliases.some(a => a.text.toLowerCase() === qLower)
-         );
+    const qNorm = qLower.replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+
+    let matchingObjective = getCustomerObjective(input.bundle.classification.intent);
+    if (!matchingObjective) {
+      matchingObjective = CANONICAL_CUSTOMER_OBJECTIVES.find(o => {
+        const canonicalNorm = o.canonicalQuestion.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+        if (qNorm === canonicalNorm || qLower === o.canonicalQuestion.toLowerCase()) return true;
+        return o.aliases.some(a => {
+          const aNorm = a.text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+          return qNorm === aNorm || qLower === a.text.toLowerCase() || (qNorm.length >= 8 && aNorm.length >= 8 && (qNorm.includes(aNorm) || aNorm.includes(qNorm)));
+        });
+      });
+    }
+
+    if (!matchingObjective) {
+      const isPaymentMethods = /\b(?:payment methods?|pay for|pambayad|gcash|maya|paymongo|how can i pay|magbayad|payment options?)\b/i.test(qLower) && !/\b(?:payout|withdraw|earnings|kita)\b/i.test(qLower);
+      const isDamage = /\b(?:damage|damaged|sira|nasira|inspection|deposit deduction|accident)\b/i.test(qLower);
+      const isRefund = /\b(?:refund|refunds|ibalik ang pera|request for refund|how to refund)\b/i.test(qLower);
+      const isProviderProfile = /\b(?:account of provider|provider account|bank details of provider|contact provider|provider profile)\b/i.test(qLower);
+
+      if (isPaymentMethods) matchingObjective = getCustomerObjective('renter.payment.methods');
+      else if (isDamage) matchingObjective = getCustomerObjective('rental.damage.general');
+      else if (isRefund) matchingObjective = getCustomerObjective('renter.refund.request_how_to');
+      else if (isProviderProfile) matchingObjective = getCustomerObjective('provider.profile.public_vs_private');
+    }
 
     let finalAnswer = '';
 
@@ -231,7 +251,20 @@ class LocalGroundedComposerProvider implements GroundedInformationProvider {
       }
     } else {
       // General grounded fallback
-      const nonTermsSections = input.bundle.sections.filter(s => s.sourceKey !== 'route.terms');
+      const isPayoutQuestion = /\b(?:payout|withdraw|earnings|kita)\b/i.test(qLower);
+      const nonTermsSections = input.bundle.sections
+        .filter(s => s.sourceKey !== 'route.terms')
+        .map(s => {
+          if (!isPayoutQuestion && s.sourceKey === 'provider.payment-status-currency') {
+            return {
+              ...s,
+              chunks: s.chunks.filter(c => !c.chunkKey.includes('provider-payout'))
+            };
+          }
+          return s;
+        })
+        .filter(s => s.chunks.length > 0);
+
       const targetSections = nonTermsSections.length > 0 ? nonTermsSections : input.bundle.sections;
       const sectionParagraphs = targetSections.map(section => {
         const content = section.chunks.map(c => c.content).join('\n');
