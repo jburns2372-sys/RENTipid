@@ -400,8 +400,10 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       ],
       optionalFacts: ['Review the specific cancellation terms agreed upon during booking checkout'],
       forbiddenClaims: ['All cancellations receive 100% refund regardless of timing', 'Providers set arbitrary refund amounts after booking'],
-      authorityClass: 'POLICY_AUTHORITY',
-      authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY'
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'route.terms',
+      knowledgeSourceKey: 'route.terms',
+      knowledgeSectionKey: 'route-terms:rentipid-terms-and-conditions-booking-and-payments'
     },
     aliases: [
       { text: 'Why is my refund partial?', style: 'SHORT' },
@@ -427,7 +429,8 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       optionalFacts: ['Dispute evidence including rental agreements and handover signatures will be submitted to the card network'],
       forbiddenClaims: ['Chargebacks are processed without bank review', 'Chargebacks result in immediate cash payouts'],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'marketplace.user-marketplace-manual'
+      authorityReference: 'marketplace.user-marketplace-manual',
+      knowledgeSourceKey: 'marketplace.user-marketplace-manual'
     },
     aliases: [
       { text: 'What is this chargeback?', style: 'SHORT' },
@@ -452,12 +455,13 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       requiredFacts: [
         'Rental earnings are credited to the Provider Ledger after the return inspection window closes without disputes',
         'Payouts are disbursed to the verified bank account or e-wallet linked in Provider Settings',
-        'Standard payout settlement occurs according to the platform disbursement schedule (typically 1–3 business days after completion)'
+        'Standard payout settlement occurs according to the platform disbursement schedule and bank processing timelines'
       ],
       optionalFacts: ['Platform service fees and applicable withholding are deducted prior to payout'],
       forbiddenClaims: ['Provider is paid before handover', 'Renter pays provider in cash'],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'marketplace.user-marketplace-manual'
+      authorityReference: 'marketplace.user-marketplace-manual',
+      knowledgeSourceKey: 'marketplace.user-marketplace-manual'
     },
     aliases: [
       { text: 'When will I get paid for my rental?', style: 'PLAIN' },
@@ -510,7 +514,8 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       optionalFacts: ['Exportable monthly earnings statements are available in the provider financial reports section'],
       forbiddenClaims: ['Platform takes 100% of earnings', 'Security deposits are credited to provider revenue'],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'marketplace.user-marketplace-manual'
+      authorityReference: 'marketplace.user-marketplace-manual',
+      knowledgeSourceKey: 'marketplace.user-marketplace-manual'
     },
     aliases: [
       { text: 'How much did I earn?', style: 'SHORT' },
@@ -536,7 +541,9 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       optionalFacts: ['Providers remain responsible for filing their regular annual income tax and VAT/percentage tax returns'],
       forbiddenClaims: ['RENTipid pays personal income taxes for providers', 'Tax compliance is completely optional'],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'marketplace.user-marketplace-manual'
+      authorityReference: 'compliance.global-legal-register',
+      knowledgeSourceKey: 'compliance.global-legal-register',
+      knowledgeSectionKey: 'compliance-global-legal-register:rentipid-global-legal-compliance-register-in-app-positioning-blueprint-v1-0-3-philippine-baselin'
     },
     aliases: [
       { text: 'What withholding was applied?', style: 'SHORT' },
@@ -559,18 +566,21 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
     persona: 'ALL_CUSTOMERS',
     answerContract: {
       requiredFacts: [
-        'Rental protection covers verified accidental damage and total loss occurring during the active rental period',
-        'Coverage begins upon documented handover inspection and ends upon return inspection completion',
-        'Exclusions include intentional damage, normal wear and tear, pre-existing defects, unauthorized subleasing, and prohibited items'
+        'RENTipid provides platform rental protection and escrow deposit holding for verified rentals during the active rental window',
+        'Commercial third-party insurance underwriting and carrier policy certificates are not currently active on the platform',
+        'Rental protection covers verified accidental damage and total loss during rental, while normal wear and tear, intentional damage, and prohibited items are excluded'
       ],
-      optionalFacts: ['Full commercial underwriting policy details are subject to the active platform terms and agreed damage thresholds'],
+      optionalFacts: ['Damage compensation is mediated through post-rental return inspections and security deposit adjustments'],
       forbiddenClaims: [
-        'RENTipid insurance covers everything unconditionally',
-        'Insurance replaces the security deposit completely',
+        'RENTipid offers active third-party commercial insurance policies',
+        'Download commercial insurance certificate',
+        'Specific commercial underwriter provides automatic cash payouts',
         'Wear and tear is covered'
       ],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'route.terms'
+      authorityReference: 'route.terms',
+      knowledgeSourceKey: 'route.terms',
+      knowledgeSectionKey: 'route-terms:rentipid-terms-and-conditions'
     },
     aliases: [
       { text: 'What does insurance cover?', style: 'SHORT' },
@@ -591,7 +601,7 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
     persona: 'ALL_CUSTOMERS',
     answerContract: {
       requiredFacts: [
-        'Report the incident and file a claim within the designated reporting window (typically 24–48 hours from incident or return)',
+        'Report the incident and file a claim promptly through the platform following return inspection',
         'Submit photographic and video evidence, pre-rental and post-rental inspection reports, and repair/replacement cost estimates',
         'Claims are submitted through Dashboard > Bookings > Report Issue / File Claim',
         'The claims evaluation team reviews submitted evidence before authorizing payout or deposit deduction'
@@ -602,7 +612,8 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
         'Claims can be filed months after rental completion'
       ],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'marketplace.user-marketplace-manual'
+      authorityReference: 'marketplace.user-marketplace-manual',
+      knowledgeSourceKey: 'marketplace.user-marketplace-manual'
     },
     aliases: [
       { text: 'How do I file a claim?', style: 'SHORT' },
@@ -803,8 +814,10 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       ],
       optionalFacts: ['Drafts can be saved at any time during manual listing creation'],
       forbiddenClaims: ['ListingBridge is still active', 'External sync is supported'],
-      authorityClass: 'UNSUPPORTED_NOT_ACTIVE',
-      authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY'
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'provider.workflow-status',
+      knowledgeSourceKey: 'provider.workflow-status',
+      knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-listings'
     },
     aliases: [
       { text: 'Can I use ListingBridge?', style: 'SHORT' },
