@@ -278,6 +278,60 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
     ]
   },
   {
+    objectiveId: 'renter.payment.failure',
+    canonicalQuestion: 'Why did my payment fail and how do I retry?',
+    domain: 'Payments',
+    subdomain: 'Payment Failure',
+    lifecycleStage: 'BOOKING_PAYMENT',
+    persona: 'RENTER',
+    answerContract: {
+      requiredFacts: [
+        'Payment failures typically occur due to insufficient funds, 3D Secure authentication timeouts, or card issuer risk blocks',
+        'Verify your account balance and ensure OTP/3DS verification is completed within the payment gateway window',
+        'You can retry payment with an alternative method (GCash, Maya, or another Debit/Credit card) from the checkout screen'
+      ],
+      optionalFacts: ['If your card was charged but the booking is unpaid, the temporary hold is automatically reversed within 24–48 hours'],
+      forbiddenClaims: ['Failed payments are kept by RENTipid', 'Cash payment can be arranged after failure'],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'provider.payment-status-currency',
+      knowledgeSourceKey: 'provider.payment-status-currency'
+    },
+    aliases: [
+      { text: 'Why did my payment fail?', style: 'SHORT' },
+      { text: 'Payment was declined how to fix?', style: 'PLAIN' },
+      { text: 'bakit na-decline ang payment ko?', style: 'TAGLISH' },
+      { text: 'failed ang card payment paano mag-retry', style: 'TAGLISH' },
+      { text: 'Payment error at checkout', style: 'PLAIN' }
+    ]
+  },
+  {
+    objectiveId: 'renter.payment.authorization',
+    canonicalQuestion: 'Was my payment authorized and confirmed for this booking?',
+    domain: 'Payments',
+    subdomain: 'Payment Authorization',
+    lifecycleStage: 'BOOKING_PAYMENT',
+    persona: 'RENTER',
+    answerContract: {
+      requiredFacts: [
+        'Payment authorization is confirmed upon successful transaction capture via PayMongo',
+        'A confirmation email and booking receipt are immediately sent to your registered email address',
+        'Live payment authorization state is visible in Renter Dashboard > Bookings'
+      ],
+      optionalFacts: ['If payment is authorized, booking state transitions from PENDING_PAYMENT to CONFIRMED'],
+      forbiddenClaims: ['Payment authorization takes weeks', 'PayMongo does not notify users'],
+      authorityClass: 'LIVE_SERVICE',
+      authorityReference: 'AUTHORIZED_PAYMENT_SERVICE',
+      liveServiceKey: 'AUTHORIZED_PAYMENT_SERVICE'
+    },
+    aliases: [
+      { text: 'Was my payment authorized?', style: 'SHORT' },
+      { text: 'Did my booking payment go through?', style: 'PLAIN' },
+      { text: 'pumasok ba ang bayad ko?', style: 'TAGLISH' },
+      { text: 'authorized na ba payment ko sa booking', style: 'TAGLISH' },
+      { text: 'Check booking payment status', style: 'FORMAL' }
+    ]
+  },
+  {
     objectiveId: 'renter.deposit.release',
     canonicalQuestion: 'When and how do I get my security deposit back?',
     domain: 'Payments',
@@ -329,6 +383,58 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       { text: 'bakit wala pa refund ko?', style: 'TAGLISH' },
       { text: 'saan na refund ko', style: 'TAGLISH' },
       { text: 'How long for refund processing?', style: 'PLAIN' }
+    ]
+  },
+  {
+    objectiveId: 'renter.refund.partial',
+    canonicalQuestion: 'Why did I receive a partial refund for my canceled booking?',
+    domain: 'Payments',
+    subdomain: 'Refunds',
+    lifecycleStage: 'CANCELLATION_OR_DISPUTE',
+    persona: 'RENTER',
+    answerContract: {
+      requiredFacts: [
+        'Partial refunds occur when cancellations are made outside the full-refund window according to the listing’s cancellation policy',
+        'The security deposit is always refunded in full if the rental was canceled prior to item handover',
+        'Platform service fees may be non-refundable for renter-initiated late cancellations'
+      ],
+      optionalFacts: ['Review the specific cancellation terms agreed upon during booking checkout'],
+      forbiddenClaims: ['All cancellations receive 100% refund regardless of timing', 'Providers set arbitrary refund amounts after booking'],
+      authorityClass: 'POLICY_AUTHORITY',
+      authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY'
+    },
+    aliases: [
+      { text: 'Why is my refund partial?', style: 'SHORT' },
+      { text: 'Why did I only get part of my money back?', style: 'PLAIN' },
+      { text: 'bakit bawas ang refund ko?', style: 'TAGLISH' },
+      { text: 'bakit kalahati lang refund sa na-cancel na booking', style: 'TAGLISH' },
+      { text: 'Partial refund explanation', style: 'FORMAL' }
+    ]
+  },
+  {
+    objectiveId: 'renter.chargeback.dispute',
+    canonicalQuestion: 'What happens if a chargeback or payment reversal is filed?',
+    domain: 'Payments',
+    subdomain: 'Chargebacks & Reversals',
+    lifecycleStage: 'POST_RENTAL_OR_DISPUTE',
+    persona: 'ALL_CUSTOMERS',
+    answerContract: {
+      requiredFacts: [
+        'Chargebacks initiated through your credit card issuer or bank trigger an immediate transaction hold and compliance review',
+        'Users should report billing issues directly through RENTipid Help Center before filing a bank dispute',
+        'Fraudulent chargebacks violate platform terms and may lead to account suspension'
+      ],
+      optionalFacts: ['Dispute evidence including rental agreements and handover signatures will be submitted to the card network'],
+      forbiddenClaims: ['Chargebacks are processed without bank review', 'Chargebacks result in immediate cash payouts'],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'marketplace.user-marketplace-manual'
+    },
+    aliases: [
+      { text: 'What is this chargeback?', style: 'SHORT' },
+      { text: 'How do chargebacks work on RENTipid?', style: 'PLAIN' },
+      { text: 'paano ang chargeback o payment reversal?', style: 'TAGLISH' },
+      { text: 'binaligtad ng bangko ang bayad ano mangyayari', style: 'TAGLISH' },
+      { text: 'Payment reversal procedure', style: 'FORMAL' }
     ]
   },
 
@@ -388,6 +494,58 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       { text: 'Payout delay reasons', style: 'SHORT' }
     ]
   },
+  {
+    objectiveId: 'provider.earnings.breakdown',
+    canonicalQuestion: 'How much did I earn from my rentals and what fees were deducted?',
+    domain: 'Payments',
+    subdomain: 'Provider Earnings',
+    lifecycleStage: 'POST_RENTAL_EARNINGS',
+    persona: 'PROVIDER',
+    answerContract: {
+      requiredFacts: [
+        'Net earnings equal total rental fees minus the standard platform service fee and any applicable withholding taxes',
+        'A detailed financial ledger breakdown for every transaction is accessible under Provider Dashboard > Earnings & Analytics',
+        'Security deposits are held in escrow for the renter and are not included in provider gross earnings'
+      ],
+      optionalFacts: ['Exportable monthly earnings statements are available in the provider financial reports section'],
+      forbiddenClaims: ['Platform takes 100% of earnings', 'Security deposits are credited to provider revenue'],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'marketplace.user-marketplace-manual'
+    },
+    aliases: [
+      { text: 'How much did I earn?', style: 'SHORT' },
+      { text: 'What fees were deducted from my earnings?', style: 'PLAIN' },
+      { text: 'magkano ang kinita ko sa rentals?', style: 'TAGLISH' },
+      { text: 'magkano ang bawas na platform fee sa payout', style: 'TAGLISH' },
+      { text: 'Earnings and fee breakdown', style: 'FORMAL' }
+    ]
+  },
+  {
+    objectiveId: 'provider.tax_withholding',
+    canonicalQuestion: 'What tax withholding and BIR guidelines apply to provider earnings?',
+    domain: 'Payments',
+    subdomain: 'Taxes & Withholding',
+    lifecycleStage: 'POST_RENTAL_EARNINGS',
+    persona: 'PROVIDER',
+    answerContract: {
+      requiredFacts: [
+        'RENTipid complies with Philippine Bureau of Internal Revenue (BIR) regulations regarding digital marketplace operators',
+        'Business and high-volume individual providers must provide registered TIN and BIR Certificate of Registration (Form 2303)',
+        'Applicable withholding tax certificates (BIR Form 2307) are issued periodically for qualifying registered merchants'
+      ],
+      optionalFacts: ['Providers remain responsible for filing their regular annual income tax and VAT/percentage tax returns'],
+      forbiddenClaims: ['RENTipid pays personal income taxes for providers', 'Tax compliance is completely optional'],
+      authorityClass: 'STATIC_KNOWLEDGE',
+      authorityReference: 'marketplace.user-marketplace-manual'
+    },
+    aliases: [
+      { text: 'What withholding was applied?', style: 'SHORT' },
+      { text: 'Are provider earnings subject to BIR tax?', style: 'PLAIN' },
+      { text: 'may kaltas ba na withholding tax sa kita ko?', style: 'TAGLISH' },
+      { text: 'paano ang BIR tax sa rentipid earnings', style: 'TAGLISH' },
+      { text: 'Tax requirements for providers', style: 'FORMAL' }
+    ]
+  },
 
   // =========================================================================
   // 5. INSURANCE & RENTAL PROTECTION
@@ -405,7 +563,7 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
         'Coverage begins upon documented handover inspection and ends upon return inspection completion',
         'Exclusions include intentional damage, normal wear and tear, pre-existing defects, unauthorized subleasing, and prohibited items'
       ],
-      optionalFacts: ['Coverage tier, deductible, and maximum limits are specified during checkout and on the active policy certificate'],
+      optionalFacts: ['Full commercial underwriting policy details are subject to the active platform terms and agreed damage thresholds'],
       forbiddenClaims: [
         'RENTipid insurance covers everything unconditionally',
         'Insurance replaces the security deposit completely',
@@ -452,6 +610,33 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       { text: 'paano mag-claim kung nasira ang gamit?', style: 'TAGLISH' },
       { text: 'paano mag-file ng damage claim', style: 'TAGLISH' },
       { text: 'Damage reporting process', style: 'FORMAL' }
+    ]
+  },
+  {
+    objectiveId: 'insurance.claim.status',
+    canonicalQuestion: 'What is the status of my active damage or insurance claim?',
+    domain: 'Insurance',
+    subdomain: 'Claims Status',
+    lifecycleStage: 'DISPUTE_OR_CLAIM_REVIEW',
+    persona: 'ALL_CUSTOMERS',
+    answerContract: {
+      requiredFacts: [
+        'Active claim status, submitted evidence, and adjuster evaluation notes are tracked in the Claims Management Center',
+        'Claims progress through SUBMITTED, UNDER_REVIEW, EVIDENCE_REQUESTED, and RESOLVED states',
+        'Final determinations specify approved repair deductions or deposit release'
+      ],
+      optionalFacts: ['You will receive an in-app notification when an adjuster requests additional evidence'],
+      forbiddenClaims: ['Payment service arbitrates damage claims', 'Claim status is unavailable'],
+      authorityClass: 'LIVE_SERVICE',
+      authorityReference: 'AUTHORIZED_CLAIM_CASE_SERVICE',
+      liveServiceKey: 'AUTHORIZED_CLAIM_CASE_SERVICE'
+    },
+    aliases: [
+      { text: 'What is my claim status?', style: 'SHORT' },
+      { text: 'Where is my damage claim update?', style: 'PLAIN' },
+      { text: 'kumusta na ang damage claim ko?', style: 'TAGLISH' },
+      { text: 'ano na status ng claim ko sa nasirang gamit', style: 'TAGLISH' },
+      { text: 'Check damage claim progress', style: 'FORMAL' }
     ]
   },
 
@@ -571,9 +756,66 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       { text: 'paano mag-reset ng password', style: 'TAGLISH' },
       { text: 'Password recovery steps', style: 'SHORT' }
     ]
+  },
+
+  // =========================================================================
+  // 8. CLARIFICATION & DEPRECATED / UNSUPPORTED FEATURES
+  // =========================================================================
+  {
+    objectiveId: 'query.clarification.ambiguous_funds',
+    canonicalQuestion: 'Where is my money or payment?',
+    domain: 'Help & Support',
+    subdomain: 'Clarification',
+    lifecycleStage: 'ANY_POST_TRANSACTION',
+    persona: 'ALL_CUSTOMERS',
+    answerContract: {
+      requiredFacts: [
+        'Please clarify if you are asking about a Renter Security Deposit Refund, Renter Booking Refund, or Provider Rental Earnings Payout',
+        'Specify your Booking Reference or transaction date so we can assist you accurately'
+      ],
+      optionalFacts: ['You can view active refunds under Payments & Refunds and provider earnings under Payouts'],
+      forbiddenClaims: ['Funds are lost', 'All balances are zero'],
+      authorityClass: 'CLARIFICATION_REQUIRED',
+      authorityReference: 'marketplace.user-marketplace-manual',
+      knowledgeSourceKey: 'marketplace.user-marketplace-manual',
+      clarificationPrompt: 'Please specify whether you are asking about a security deposit return, a booking refund, or provider payout earnings.'
+    },
+    aliases: [
+      { text: 'Where is my money?', style: 'SHORT' },
+      { text: 'What happened to my money?', style: 'PLAIN' },
+      { text: 'nasaan ang pera ko?', style: 'TAGLISH' },
+      { text: 'saan na pera ko', style: 'TAGLISH' },
+      { text: 'Where is the cash', style: 'SHORT' }
+    ]
+  },
+  {
+    objectiveId: 'feature.deprecated.listingbridge',
+    canonicalQuestion: 'Can I import listings automatically using ListingBridge?',
+    domain: 'Listings',
+    subdomain: 'Import & Integrations',
+    lifecycleStage: 'LISTING_CREATION',
+    persona: 'PROVIDER',
+    answerContract: {
+      requiredFacts: [
+        'ListingBridge external listing import has been retired',
+        'All listings on RENTipid are created and managed directly through the Manual Listing Creation workflow in Provider Dashboard',
+        'Direct manual creation ensures accurate compliance screening, verified photos, and standard deposit configurations'
+      ],
+      optionalFacts: ['Drafts can be saved at any time during manual listing creation'],
+      forbiddenClaims: ['ListingBridge is still active', 'External sync is supported'],
+      authorityClass: 'UNSUPPORTED_NOT_ACTIVE',
+      authorityReference: 'RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY'
+    },
+    aliases: [
+      { text: 'Can I use ListingBridge?', style: 'SHORT' },
+      { text: 'How to import listings from external sites?', style: 'PLAIN' },
+      { text: 'pwede ba automatic listing sync?', style: 'TAGLISH' },
+      { text: 'ListingBridge sync status', style: 'FORMAL' }
+    ]
   }
 ];
 
 export function getCustomerObjective(objectiveId: string): CustomerObjectiveDefinition | undefined {
   return CANONICAL_CUSTOMER_OBJECTIVES.find(o => o.objectiveId === objectiveId);
 }
+
