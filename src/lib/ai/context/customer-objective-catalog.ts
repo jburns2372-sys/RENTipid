@@ -270,7 +270,6 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       knowledgeSectionKey: 'provider-payment-status-currency:payment-and-currency-status'
     },
     aliases: [
-      { text: 'how can i pay for rented item?', style: 'PLAIN' },
       { text: 'What payment methods are supported on RENTipid?', style: 'FORMAL' },
       { text: 'What payment methods are supported?', style: 'FORMAL' },
       { text: 'How do I pay for a booking?', style: 'PLAIN' },
@@ -286,7 +285,10 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       { text: 'Can I pay in cash upon delivery or pickup?', style: 'PLAIN' },
       { text: 'Is cash on delivery allowed on RENTipid?', style: 'PLAIN' },
       { text: 'Are payments processed securely in PHP?', style: 'PLAIN' },
-      { text: 'How does PayMongo payment checkout work?', style: 'PLAIN' }
+      { text: 'How does PayMongo payment checkout work?', style: 'PLAIN' },
+      { text: 'Why did my payment fail during checkout?', style: 'PLAIN' },
+      { text: 'What happens if my GCash payment fails?', style: 'PLAIN' },
+      { text: 'paano kapag nag-fail ang payment sa checkout?', style: 'TAGLISH' }
     ]
   },
   {
@@ -311,11 +313,8 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
     },
     aliases: [
       { text: 'Why did my payment fail?', style: 'SHORT' },
-      { text: 'Why did my payment fail during checkout?', style: 'PLAIN' },
-      { text: 'What happens if my GCash payment fails?', style: 'PLAIN' },
       { text: 'Payment was declined how to fix?', style: 'PLAIN' },
       { text: 'bakit na-decline ang payment ko?', style: 'TAGLISH' },
-      { text: 'paano kapag nag-fail ang payment sa checkout?', style: 'TAGLISH' },
       { text: 'failed ang card payment paano mag-retry', style: 'TAGLISH' },
       { text: 'Payment error at checkout', style: 'PLAIN' }
     ]
@@ -397,7 +396,6 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-claims-and-disputes'
     },
     aliases: [
-      { text: 'how can i request for refund?', style: 'PLAIN' },
       { text: 'How do I ask for a refund?', style: 'PLAIN' },
       { text: 'Where do I request a refund?', style: 'SHORT' },
       { text: 'paano mag-request ng refund?', style: 'TAGLISH' },
@@ -451,9 +449,9 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       optionalFacts: ['Review the specific cancellation terms agreed upon during booking checkout'],
       forbiddenClaims: ['All cancellations receive 100% refund regardless of timing', 'Providers set arbitrary refund amounts after booking'],
       authorityClass: 'STATIC_KNOWLEDGE',
-      authorityReference: 'route.terms',
-      knowledgeSourceKey: 'route.terms',
-      knowledgeSectionKey: 'route-terms:rentipid-terms-and-conditions-booking-and-payments'
+      authorityReference: 'provider.workflow-status',
+      knowledgeSourceKey: 'provider.workflow-status',
+      knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-claims-and-disputes'
     },
     aliases: [
       { text: 'Why is my refund partial?', style: 'SHORT' },
@@ -537,7 +535,7 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       ],
       optionalFacts: ['First-time provider payouts may have a one-time compliance verification hold'],
       forbiddenClaims: ['Money is lost', 'Renter canceled after rental completion'],
-      authorityClass: 'LIVE_SERVICE',
+      authorityClass: 'POLICY_PLUS_LIVE',
       authorityReference: 'AUTHORIZED_PAYOUT_FINANCE_SERVICE',
       liveServiceKey: 'AUTHORIZED_PAYOUT_FINANCE_SERVICE',
       knowledgeSourceKey: 'provider.payment-status-currency',
@@ -637,7 +635,6 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       knowledgeSectionKey: 'provider-workflow-status:workflow-status-guidance-claims-and-disputes'
     },
     aliases: [
-      { text: 'what happens if the item rented is damaged?', style: 'PLAIN' },
       { text: 'What happens if I damage the item?', style: 'PLAIN' },
       { text: 'What if the item breaks during rental?', style: 'PLAIN' },
       { text: 'paano kung masira ang gamit na nirentahan?', style: 'TAGLISH' },
@@ -764,7 +761,6 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       toolKey: 'cancelBooking'
     },
     aliases: [
-      { text: 'how can i cancel rental booking?', style: 'PLAIN' },
       { text: 'How do I cancel a booking?', style: 'SHORT' },
       { text: 'Can I cancel my rental reservation?', style: 'PLAIN' },
       { text: 'paano mag-cancel ng booking?', style: 'TAGLISH' },
@@ -853,7 +849,7 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       authorityClass: 'STATIC_KNOWLEDGE',
       authorityReference: 'core.registration-onboarding',
       knowledgeSourceKey: 'core.registration-onboarding',
-      knowledgeSectionKey: 'core-registration-onboarding:rentipid-account-registration-provider-onboarding'
+      knowledgeSectionKey: 'core-registration-onboarding:rentipid-account-registration-provider-onboarding-profile-and-account-information'
     },
     aliases: [
       { text: 'I forgot my password how to reset?', style: 'PLAIN' },
@@ -888,7 +884,6 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
       knowledgeSectionKey: 'core-registration-onboarding:rentipid-account-registration-provider-onboarding'
     },
     aliases: [
-      { text: 'may i know the account of provider when i rent his property?', style: 'PLAIN' },
       { text: 'Can I see the provider\'s account details?', style: 'PLAIN' },
       { text: 'Can I get the provider\'s bank account to pay?', style: 'PLAIN' },
       { text: 'makikita ko ba account ng provider kapag nag-rent?', style: 'TAGLISH' },
@@ -960,5 +955,4 @@ export const CANONICAL_CUSTOMER_OBJECTIVES: readonly CustomerObjectiveDefinition
 export function getCustomerObjective(objectiveId: string): CustomerObjectiveDefinition | undefined {
   return CANONICAL_CUSTOMER_OBJECTIVES.find(o => o.objectiveId === objectiveId);
 }
-
 

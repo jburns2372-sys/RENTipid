@@ -26,9 +26,13 @@ import { DetectionEvaluator } from '../security/detection/evaluator';
 import { parseSemanticContext } from './semantic/normalizer';
 import type { SemanticContextBundle } from './semantic/contracts';
 import { processAdaptiveLearningEvent } from './semantic/adaptive-learning';
-import { resolveCanonicalIntent } from './context/canonical-intent-resolver';
+import {
+  resolveCanonicalIntent,
+  type ResolvedCanonicalIntentMatch,
+} from './context/canonical-intent-resolver';
 import { buildCustomerEvidenceBundle } from './context/customer-evidence-bundle';
 import { processMockAIRequest } from './mock-ai';
+import { getCustomerObjective } from './context/customer-objective-catalog';
 
 
 export interface AIGroundingTrace {
@@ -57,6 +61,10 @@ export interface AIGroundingTrace {
   usedConversationContext: boolean;
   safelyUncertain: boolean;
   adequacyPassed: boolean;
+  contractVerified: boolean;
+  contractSafeHold: boolean;
+  contractMissingRequiredFacts: readonly string[];
+  contractForbiddenClaims: readonly string[];
   semanticLexiconVersion: string;
   semanticMatchedCanonicalIds: readonly string[];
   semanticMatchTypes: readonly string[];
@@ -77,6 +85,93 @@ export interface AIRequest {
   locale?: string;
   traceId?: string;
   conversationContext?: readonly ConversationContextMessage[];
+  /** Internal recursion guard for independently governed compound objectives. */
+  disableCompoundResolution?: boolean;
+}
+
+interface ResolvedCompoundObjective {
+  prompt: string;
+  match: ResolvedCanonicalIntentMatch;
+}
+
+function compoundSegments(prompt: string): string[] {
+  if (!/(?:\?+\s*\w|[,;]\s*(?:how|when|what|where|why|can|is|are|will|do|does|check|paano|kailan|ano|saan|bakit|pwede\s+ba)\b|\s+\b(?:and|at)\s+(?:how|when|what|where|why|can|is|are|will|do|does|check|paano|kailan|ano|saan|bakit|pwede\s+ba)\b)/i.test(prompt)) {
+    return [];
+  }
+  return prompt
+    .split(/\s*(?:\?+\s*|[,;]\s*(?=(?:how|when|what|where|why|can|is|are|will|do|does|check|paano|kailan|ano|saan|bakit|pwede\s+ba)\b)|\s+\b(?:and|at)\s+(?=(?:how|when|what|where|why|can|is|are|will|do|does|check|paano|kailan|ano|saan|bakit|pwede\s+ba)\b))\s*/i)
+    .map(segment => segment.trim().replace(/^[?.!]+|[?.!]+$/g, ''))
+    .filter(segment => segment.split(/\s+/).length >= 2);
+}
+
+async function resolveCompoundObjectives(
+  prompt: string,
+  userRole: string,
+): Promise<ResolvedCompoundObjective[]> {
+  const resolved: ResolvedCompoundObjective[] = [];
+  for (const segment of compoundSegments(prompt)) {
+    const match = await resolveCanonicalIntent(segment, userRole);
+    if (!match || resolved.some(item => item.match.intentKey === match.intentKey)) continue;
+    resolved.push({ prompt: segment, match });
+  }
+  return resolved;
+}
+
+function combineCompoundResponses(
+  objectives: readonly ResolvedCompoundObjective[],
+  responses: readonly AIResponse[],
+): AIResponse {
+  const firstGrounding = responses.find(response => response.grounding)?.grounding;
+  const groundings = responses.flatMap(response => response.grounding ? [response.grounding] : []);
+  const failed = responses.find(response => !response.success || response.isBlocked);
+  if (failed || !firstGrounding || groundings.length !== objectives.length) {
+    return failed ?? {
+      success: false,
+      message: 'I could not safely resolve every part of that RENTipid question. Please ask each part separately.',
+      isBlocked: true,
+    };
+  }
+  const unique = (values: readonly string[]) => Object.freeze([...new Set(values)]);
+  return {
+    success: true,
+    message: responses.map((response, index) =>
+      `${objectives[index].match.canonicalQuestion}\n${response.message}`).join('\n\n'),
+    grounding: Object.freeze({
+      ...firstGrounding,
+      canonicalIntentKey: objectives.map(item => item.match.intentKey).join('+'),
+      bindingAnswerClass: 'MULTIPLE',
+      authorityType: 'MULTIPLE',
+      authorityReference: 'MULTIPLE_OBJECTIVE_AUTHORITIES',
+      domains: unique(groundings.flatMap(grounding => grounding.domains)),
+      requestedEntities: unique(groundings.flatMap(grounding => grounding.requestedEntities)),
+      retrievedSourceKeys: unique(groundings.flatMap(grounding => grounding.retrievedSourceKeys)),
+      retrievedSectionKeys: unique(groundings.flatMap(grounding => grounding.retrievedSectionKeys)),
+      chunkCount: groundings.reduce((sum, grounding) => sum + grounding.chunkCount, 0),
+      customerVisibleChunkCount: groundings.reduce((sum, grounding) => sum + grounding.customerVisibleChunkCount, 0),
+      evidenceBundleSize: groundings.reduce((sum, grounding) => sum + grounding.evidenceBundleSize, 0),
+      verifierPassed: groundings.every(grounding => grounding.verifierPassed),
+      retryUsed: groundings.some(grounding => grounding.retryUsed),
+      finalFallbackReason: groundings.find(grounding => grounding.finalFallbackReason)?.finalFallbackReason ?? null,
+      evidenceRefs: unique(groundings.flatMap(grounding => grounding.evidenceRefs)),
+      materialClaimCount: groundings.reduce((sum, grounding) => sum + grounding.materialClaimCount, 0),
+      retrievalAttempts: Math.max(...groundings.map(grounding => grounding.retrievalAttempts)) as 0 | 1 | 2,
+      usedConversationContext: groundings.some(grounding => grounding.usedConversationContext),
+      safelyUncertain: groundings.some(grounding => grounding.safelyUncertain),
+      adequacyPassed: groundings.every(grounding => grounding.adequacyPassed),
+      contractVerified: groundings.every(grounding => grounding.contractVerified),
+      contractSafeHold: groundings.some(grounding => grounding.contractSafeHold),
+      contractMissingRequiredFacts: unique(groundings.flatMap(grounding => grounding.contractMissingRequiredFacts)),
+      contractForbiddenClaims: unique(groundings.flatMap(grounding => grounding.contractForbiddenClaims)),
+      semanticMatchedCanonicalIds: unique(groundings.flatMap(grounding => grounding.semanticMatchedCanonicalIds)),
+      semanticMatchTypes: unique(groundings.flatMap(grounding => grounding.semanticMatchTypes)),
+      semanticAmbiguityCount: groundings.reduce((sum, grounding) => sum + grounding.semanticAmbiguityCount, 0),
+      semanticExpansionCount: groundings.reduce((sum, grounding) => sum + grounding.semanticExpansionCount, 0),
+      semanticResolutionOutcome: groundings.every(grounding => grounding.semanticResolutionOutcome === 'RESOLVED')
+        ? 'RESOLVED'
+        : 'PARTIAL',
+    }),
+    trace: responses[0].trace,
+  };
 }
 
 export interface AIResponse {
@@ -161,7 +256,26 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     fuzzyMatchEnabled: settings.semanticFuzzyMatchEnabled,
   });
 
-  const canonicalMatch = await resolveCanonicalIntent(prompt, userRole);
+  const questionClassification = classifyRentipidQuestion(prompt, req.conversationContext ?? []);
+  const canonicalMatch = await resolveCanonicalIntent(questionClassification.effectiveQuestion, userRole);
+  const customerObjective = canonicalMatch
+    ? getCustomerObjective(canonicalMatch.intentKey)
+    : undefined;
+
+  if (!req.disableCompoundResolution) {
+    const compoundObjectives = await resolveCompoundObjectives(
+      questionClassification.effectiveQuestion,
+      userRole ?? 'Guest',
+    );
+    if (compoundObjectives.length >= 2) {
+      const responses = await Promise.all(compoundObjectives.map(objective => processAICommand({
+        ...req,
+        prompt: objective.prompt,
+        disableCompoundResolution: true,
+      })));
+      return combineCompoundResponses(compoundObjectives, responses);
+    }
+  }
 
   // P4 + Revision 2: resolve intent, exactly-one owner, and compatibility support subdomain.
   const resolvedIntent = canonicalMatch?.compatibilityIntent
@@ -169,7 +283,6 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     ?? (canonicalMatch ? 'support_info' : undefined)
     ?? resolveIntent(prompt);
 
-  const questionClassification = classifyRentipidQuestion(prompt, req.conversationContext ?? []);
   // Existing explicit test-tool syntax remains a request only; it grants no authority.
   const toolMatch = prompt.match(/execute tool:\s*([a-zA-Z0-9_]+)/i);
   const requestedTool = toolMatch ? toolMatch[1] : undefined;
@@ -189,7 +302,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
   const entityHint = userId ? resolveAiEntityHint(module, recordId, userId) : undefined;
   const isRecordScoped = Boolean(userId && entityHint);
   const isConsequentialAction = Boolean(requestedTool)
-    || (!canonicalMatch && questionClassification.kind === 'CONSEQUENTIAL_ACTION');
+    || questionClassification.kind === 'CONSEQUENTIAL_ACTION';
   const answerClass: SpecialistAnswerClass = isConsequentialAction
     ? 'ACTION'
     : isRecordScoped
@@ -291,6 +404,7 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     questionAnalysis: effectiveClassification,
     evidenceBundle,
     semanticContext: semanticContextBundle,
+    customerObjective,
     bindingAuthority: canonicalMatch?.selectedScope,
   } as const;
   const groundingTrace = (answer: GroundedAnswerResult): AIGroundingTrace => Object.freeze({
@@ -319,6 +433,10 @@ export async function processAICommand(req: AIRequest): Promise<AIResponse> {
     usedConversationContext: retrieval.classification.usedConversationContext,
     safelyUncertain: answer.safelyUncertain,
     adequacyPassed: answer.adequacyPassed === true,
+    contractVerified: customerObjective ? answer.contractVerified === true : true,
+    contractSafeHold: answer.contractSafeHold === true,
+    contractMissingRequiredFacts: Object.freeze([...(answer.contractMissingRequiredFacts ?? [])]),
+    contractForbiddenClaims: Object.freeze([...(answer.contractForbiddenClaims ?? [])]),
     semanticLexiconVersion: semanticContextBundle.lexiconVersion,
     semanticMatchedCanonicalIds: Object.freeze([...new Set([
       ...semanticContextBundle.intentHints,

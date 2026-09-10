@@ -14,6 +14,11 @@ import {
 import { AiCircuitBreaker } from '../resilience/AiCircuitBreaker';
 import { composePolicyAuthorityAnswer } from './policy-authority';
 import { composeToolAuthorityExplanation } from './tool-authority';
+import {
+  composeCustomerContractAnswer,
+  verifyCustomerAnswerContract,
+  type CustomerAnswerContractVerification,
+} from './customer-answer-contract';
 
 function internalKnowledgeAnswer(input: GroundedAnswerInput): GroundedAnswerResult {
   const matches = input.evidence.filter(match => match.audience === 'INTERNAL');
@@ -76,6 +81,79 @@ function decorateFallback(draft: GroundedAnswerResult, input: GroundedAnswerInpu
   };
 }
 
+function contractDiagnostics(
+  verification: CustomerAnswerContractVerification,
+): Pick<GroundedAnswerResult,
+  'contractVerified' | 'contractSafeHold' | 'contractMissingRequiredFacts' | 'contractForbiddenClaims'> {
+  return {
+    contractVerified: verification.pass,
+    contractSafeHold: verification.safeHold,
+    contractMissingRequiredFacts: verification.missingRequiredFacts,
+    contractForbiddenClaims: verification.forbiddenClaims,
+  };
+}
+
+function protectSpecialAuthorityAnswer(
+  input: GroundedAnswerInput,
+  draft: GroundedAnswerResult,
+): GroundedAnswerResult {
+  const objective = input.customerObjective;
+  const bundle = input.evidenceBundle
+    ?? buildCustomerEvidenceBundle(
+      input.question,
+      input.questionAnalysis ?? classifyFallback(input),
+      input.evidence,
+    );
+  if (!objective) return draft;
+  const authorityRefs = draft.evidenceRefs.filter(ref => ref.startsWith('policy:') || ref.startsWith('tool:') || ref.startsWith('live:'));
+  if (authorityRefs.length === 0 && objective.answerContract.authorityReference) {
+    if (objective.answerContract.authorityClass === 'POLICY_AUTHORITY') {
+      authorityRefs.push(`policy:${objective.answerContract.authorityReference}:${objective.answerContract.specificEntity ?? 'catalog'}`);
+    } else if (objective.answerContract.authorityClass === 'ACTION_TOOL') {
+      authorityRefs.push(`tool:${objective.answerContract.toolKey ?? objective.answerContract.authorityReference}`);
+    }
+  }
+  const contracted = composeCustomerContractAnswer(objective, authorityRefs);
+  const message = draft.message && !draft.safelyUncertain && draft.coveredEntities && draft.coveredEntities.length > 0
+    ? `${draft.message}\n\n${contracted.message}`
+    : contracted.message;
+  const candidate: GroundedAnswerResult = {
+    ...draft,
+    ...contracted,
+    message,
+    evidenceRefs: Object.freeze([...new Set([...draft.evidenceRefs, ...contracted.evidenceRefs, ...authorityRefs])]),
+    materialClaims: [...draft.materialClaims, ...contracted.materialClaims],
+    answeredIntent: objective.objectiveId,
+    safelyUncertain: false,
+    adequacyPassed: true,
+  };
+  const verification = verifyCustomerAnswerContract({
+    objective,
+    authority: input.bindingAuthority,
+    bundle,
+    answer: candidate,
+    authorizedLiveEvidenceRef: input.liveEvidenceRef,
+  });
+  if (!verification.pass) {
+    return {
+      ...uncertainty(input, verification.evidencePassed, 1, verification.reasons, 'ANSWER_CONTRACT_FAILED'),
+      ...contractDiagnostics(verification),
+    };
+  }
+  return {
+    ...candidate,
+    adequacyPassed: true,
+    evidenceSufficient: verification.evidencePassed,
+    verifierReasons: [],
+    ...contractDiagnostics(verification),
+  };
+}
+
+function classifyFallback(input: GroundedAnswerInput) {
+  if (!input.questionAnalysis) throw new Error('QUESTION_ANALYSIS_REQUIRED');
+  return input.questionAnalysis;
+}
+
 function uncertainty(
   input: GroundedAnswerInput,
   evidenceSufficient: boolean,
@@ -109,35 +187,74 @@ export async function composeCanonicalInformationAnswer(
 ): Promise<GroundedAnswerResult> {
   if (input.bindingAuthority?.authorityType === 'POLICY_TAXONOMY') {
     if (!input.questionAnalysis) throw new Error('QUESTION_ANALYSIS_REQUIRED');
-    return composePolicyAuthorityAnswer(
+    return protectSpecialAuthorityAnswer(input, composePolicyAuthorityAnswer(
       input.bindingAuthority.authorityReference,
       input.questionAnalysis,
-    );
+    ));
   }
   if (input.bindingAuthority?.authorityType === 'TOOL_GATEWAY') {
     if (!input.questionAnalysis) throw new Error('QUESTION_ANALYSIS_REQUIRED');
-    return composeToolAuthorityExplanation(
+    return protectSpecialAuthorityAnswer(input, composeToolAuthorityExplanation(
       input.bindingAuthority.toolKey ?? input.bindingAuthority.authorityReference,
       input.questionAnalysis,
-    );
+    ));
   }
   if (input.bindingAuthority?.audience === 'INTERNAL') {
     return internalKnowledgeAnswer(input);
   }
-  if (input.classification !== 'STATIC_RENTIPID_KNOWLEDGE') {
-    return decorateFallback(composeGroundedDraft(input), input);
-  }
   const analysis = input.questionAnalysis;
-  if (!analysis) throw new Error('QUESTION_ANALYSIS_REQUIRED');
-  const bundle = input.evidenceBundle ?? buildCustomerEvidenceBundle(input.question, analysis, input.evidence);
+  const bundle = input.evidenceBundle ?? (analysis
+    ? buildCustomerEvidenceBundle(input.question, analysis, input.evidence)
+    : buildCustomerEvidenceBundle(input.question, classifyFallback(input), input.evidence));
   const groundedInput = { ...input, evidenceBundle: bundle };
-  const categoryFacts = analysis.intent === 'CATEGORY_ELIGIBILITY'
+
+  if (input.classification !== 'STATIC_RENTIPID_KNOWLEDGE' || (input.customerObjective && bundle.sections.length === 0)) {
+    const draft = decorateFallback(composeGroundedDraft(groundedInput), groundedInput);
+    if (!input.customerObjective) return draft;
+    const contractRefs = input.liveEvidenceRef
+      ? [input.liveEvidenceRef]
+      : (input.customerObjective.answerContract.knowledgeSourceKey
+          ? [`knowledge:${input.customerObjective.answerContract.knowledgeSourceKey}`]
+          : [`knowledge:${input.customerObjective.objectiveId}`]);
+    const contractAnswer = composeCustomerContractAnswer(input.customerObjective, contractRefs);
+    const combined: GroundedAnswerResult = {
+      ...draft,
+      message: draft.message && !draft.safelyUncertain
+        ? `${draft.message}\n\n${contractAnswer.message}`
+        : contractAnswer.message,
+      evidenceRefs: [...new Set([...draft.evidenceRefs, ...contractAnswer.evidenceRefs])],
+      materialClaims: [...draft.materialClaims, ...contractAnswer.materialClaims],
+      safelyUncertain: false,
+    };
+    const verification = verifyCustomerAnswerContract({
+      objective: input.customerObjective,
+      authority: input.bindingAuthority,
+      bundle,
+      answer: combined,
+      authorizedLiveEvidenceRef: input.liveEvidenceRef,
+    });
+    if (!verification.pass) {
+      return {
+        ...uncertainty(groundedInput, verification.evidencePassed, 1, verification.reasons, 'ANSWER_CONTRACT_FAILED'),
+        ...contractDiagnostics(verification),
+      };
+    }
+    return {
+      ...combined,
+      adequacyPassed: true,
+      evidenceSufficient: true,
+      verifierReasons: [],
+      ...contractDiagnostics(verification),
+    };
+  }
+
+  const categoryFacts = analysis?.intent === 'CATEGORY_ELIGIBILITY'
     ? resolveStructuredCategories(bundle)
     : [];
   const provider = options.provider === undefined
     ? resolveGroundedInformationProvider(options.providerMode)
     : options.provider;
-    
+
   const breaker = AiCircuitBreaker.getInstance();
   const providerName = provider?.name ?? 'unknown';
   const circuitOpen = breaker.isCircuitOpen(providerName);
@@ -158,10 +275,18 @@ export async function composeCanonicalInformationAnswer(
           bundle,
           structuredCategoryFacts: categoryFacts,
           semanticContext: input.semanticContext,
+          customerObjective: input.customerObjective,
           attempt,
         });
         const candidate = generatedResult(output, groundedInput);
-        const verification = verifyGroundedAnswer({ bundle, answer: candidate, structuredCategoryFacts: categoryFacts });
+        const verification = verifyGroundedAnswer({
+          bundle,
+          answer: candidate,
+          structuredCategoryFacts: categoryFacts,
+          customerObjective: input.customerObjective,
+          bindingAuthority: input.bindingAuthority,
+          authorizedLiveEvidenceRef: input.liveEvidenceRef,
+        });
         if (verification.pass) {
           return {
             ...candidate,
@@ -171,6 +296,7 @@ export async function composeCanonicalInformationAnswer(
             composerMode: 'GROUNDED_GENERATIVE',
             composerProvider: provider.name,
             verifierReasons: [],
+            ...(verification.customerContract ? contractDiagnostics(verification.customerContract) : {}),
             retryUsed: attempt === 2,
           };
         }
@@ -194,10 +320,18 @@ export async function composeCanonicalInformationAnswer(
         bundle,
         structuredCategoryFacts: categoryFacts,
         semanticContext: input.semanticContext,
+        customerObjective: input.customerObjective,
         attempt: 1,
       });
       const candidate = generatedResult(output, groundedInput);
-      const verification = verifyGroundedAnswer({ bundle, answer: candidate, structuredCategoryFacts: categoryFacts });
+      const verification = verifyGroundedAnswer({
+        bundle,
+        answer: candidate,
+        structuredCategoryFacts: categoryFacts,
+        customerObjective: input.customerObjective,
+        bindingAuthority: input.bindingAuthority,
+        authorizedLiveEvidenceRef: input.liveEvidenceRef,
+      });
       if (verification.pass) {
         return {
           ...candidate,
@@ -207,6 +341,7 @@ export async function composeCanonicalInformationAnswer(
           composerMode: 'DETERMINISTIC_FALLBACK',
           composerProvider: localProvider.name,
           verifierReasons: [],
+          ...(verification.customerContract ? contractDiagnostics(verification.customerContract) : {}),
           retryUsed: false,
           fallbackReason, // preserve the reason why we fell back
         };
@@ -217,7 +352,14 @@ export async function composeCanonicalInformationAnswer(
   }
 
   const fallback = decorateFallback(composeGroundedDraft(groundedInput), groundedInput);
-  const verification = verifyGroundedAnswer({ bundle, answer: fallback, structuredCategoryFacts: categoryFacts });
+  const verification = verifyGroundedAnswer({
+    bundle,
+    answer: fallback,
+    structuredCategoryFacts: categoryFacts,
+    customerObjective: input.customerObjective,
+    bindingAuthority: input.bindingAuthority,
+    authorizedLiveEvidenceRef: input.liveEvidenceRef,
+  });
   if (!verification.pass) {
     return uncertainty(
       groundedInput,
@@ -233,6 +375,7 @@ export async function composeCanonicalInformationAnswer(
     evidenceSufficient: bundle.sections.length > 0,
     compositionAttempts: 1,
     verifierReasons: [],
+    ...(verification.customerContract ? contractDiagnostics(verification.customerContract) : {}),
     fallbackReason,
   };
 }

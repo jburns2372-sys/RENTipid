@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma';
 import { normalizeQuestionText } from './canonical-intent-registry';
 import { CANONICAL_CUSTOMER_OBJECTIVES, type CustomerObjectiveDefinition } from './customer-objective-catalog';
+import { CANONICAL_PROHIBITED_POLICIES } from '@/lib/prohibited-items/canonical-policies';
+import { CANONICAL_CATEGORIES } from '@/lib/categories/canonical-categories';
 
 export interface ResolvedCanonicalIntentMatch {
   intentId: string;
@@ -175,6 +177,9 @@ export async function resolveCanonicalIntent(
 
         if (isExactMatch || isSubMatch) {
           const intent = alias.canonicalIntent;
+          if (intent.intentKey === 'listing.item.restriction' && /\b(?:covered by insurance|insurance cover|insurance coverage)\b/i.test(strippedQuery)) {
+            continue;
+          }
           const scope = filterAccessScope(intent.accessScopes, userRole, userPermissions);
           if (scope) {
             return {
@@ -269,15 +274,15 @@ function resolveInMemoryObjective(
     if (objective.answerContract.specificEntity) {
       const entity = objective.answerContract.specificEntity.toLowerCase();
       const entityKeywords: Record<string, RegExp> = {
-        medicine: /\b(?:medicine|medicines|drug|drugs|gamot|pharmaceutical|vaccine|vitamins|supplements)\b/i,
-        medicines: /\b(?:medicine|medicines|drug|drugs|gamot|pharmaceutical|vaccine|vitamins|supplements)\b/i,
+        medicine: /(?<!illegal[\s_-]*)\b(?:medicine|medicines|drugs?|gamot|pharmaceutical|vaccine|vitamins|supplements)\b/i,
+        medicines: /(?<!illegal[\s_-]*)\b(?:medicine|medicines|drugs?|gamot|pharmaceutical|vaccine|vitamins|supplements)\b/i,
         firearm: /\b(?:firearm|firearms|gun|guns|baril|weapon|weapons|pistol|rifle|airsoft|ammunition|explosives)\b/i,
         firearms: /\b(?:firearm|firearms|gun|guns|baril|weapon|weapons|pistol|rifle|airsoft|ammunition|explosives)\b/i,
         vehicle: /\b(?:vehicle|vehicles|car|cars|motorcycle|motorcycles|motor|kotse|van|scooter|auto)\b/i,
         vehicles: /\b(?:vehicle|vehicles|car|cars|motorcycle|motorcycles|motor|kotse|van|scooter|auto)\b/i,
       };
       const entityPattern = entityKeywords[entity];
-      if (entityPattern && entityPattern.test(userQuery)) {
+      if (entityPattern && entityPattern.test(userQuery) && !/\b(?:how|paano|where|saan|step|edit|update|save|draft|submit|hw do i lst)\b/i.test(userQuery)) {
         const scope = objectiveToScope(objective, userRole);
         if (scope) {
           return {
@@ -298,45 +303,179 @@ function resolveInMemoryObjective(
     }
   }
 
+  // Level 3.5: Canonical Prohibited Policy Matching
+  const cleanQuery = userQuery.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  for (const policy of CANONICAL_PROHIBITED_POLICIES) {
+    const cleanSlug = policy.slug.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    const cleanName = policy.name.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    if (cleanQuery.includes(cleanSlug) || cleanQuery.includes(cleanName)) {
+      const targetObjectiveId = (policy.slug === 'medicines-health-products' || policy.slug === 'medical-devices')
+        ? 'listing.item.eligibility.medicine'
+        : (policy.slug === 'firearms-weapons' || policy.slug === 'weapons-firearms')
+          ? 'listing.item.eligibility.firearms'
+          : 'listing.item.restriction';
+      const targetObj = CANONICAL_CUSTOMER_OBJECTIVES.find(o => o.objectiveId === targetObjectiveId);
+      if (targetObj) {
+        const scope = objectiveToScope(targetObj, userRole);
+        if (scope) {
+          return {
+            intentId: `obj:${targetObj.objectiveId}`,
+            intentKey: targetObj.objectiveId,
+            canonicalQuestion: targetObj.canonicalQuestion,
+            normalizedQuestion: normalizeQuestionText(targetObj.canonicalQuestion),
+            domain: targetObj.domain,
+            feature: targetObj.subdomain,
+            matchType: 'NORMALIZED_MATCH',
+            confidence: 0.93,
+            matchedText: policy.name,
+            compatibilityIntent: compatibilityIntent(targetObj.objectiveId, targetObj.subdomain),
+            selectedScope: scope,
+          };
+        }
+      }
+    }
+  }
+
+  // Level 3.6: Canonical Category & Item Eligibility Inquiry Matching
+  const categoryKeywords: Record<string, string[]> = {
+    'cameras-and-gadgets': ['laptop', 'laptops', 'gadget', 'gadgets', 'camera', 'cameras', 'dslr', 'lenses', 'drone', 'drones', 'tablet', 'tablets', 'projector', 'projectors', 'playstation', 'gaming console', 'sound equipment', 'sound equipment and projectors', 'electronics'],
+    'construction-equipment': ['heavy equipment', 'generator', 'generators', 'welding', 'drill', 'drills', 'scaffolding', 'scaffoldings', 'ladder', 'ladders', 'contractors', 'construction equipment', 'power tool', 'power tools'],
+    'heavy-equipment': ['heavy equipment', 'heavy machinery'],
+    'tools': ['power tool', 'power tools', 'tool', 'tools'],
+    'condominiums': ['condo', 'condos', 'condominium', 'condominiums', 'apartment', 'apartments', 'real estate', 'house', 'room', 'rooms', 'condo property'],
+  };
+
+  const isEligibilityInquiry = /\b(?:list|rent|pwede|iparenta|allowed|supported|guidelines?|rules?|requirements?|policy|can i|contractors?)\b/i.test(userQuery);
+
+  if (isEligibilityInquiry && !/\b(?:how|paano|where|saan|step|edit|update|save|draft|submit|hw do i lst)\b/i.test(userQuery)) {
+    for (const [catSlug, keywords] of Object.entries(categoryKeywords)) {
+      if (keywords.some(kw => cleanQuery.includes(kw))) {
+        const targetObj = CANONICAL_CUSTOMER_OBJECTIVES.find(o => o.objectiveId === 'listing.item.restriction');
+        if (targetObj) {
+          const scope = objectiveToScope(targetObj, userRole);
+          if (scope) {
+            return {
+              intentId: `obj:${targetObj.objectiveId}`,
+              intentKey: targetObj.objectiveId,
+              canonicalQuestion: targetObj.canonicalQuestion,
+              normalizedQuestion: normalizeQuestionText(targetObj.canonicalQuestion),
+              domain: targetObj.domain,
+              feature: targetObj.subdomain,
+              matchType: 'NORMALIZED_MATCH',
+              confidence: 0.92,
+              matchedText: catSlug,
+              compatibilityIntent: compatibilityIntent(targetObj.objectiveId, targetObj.subdomain),
+              selectedScope: scope,
+            };
+          }
+        }
+      }
+    }
+  }
+
   // Level 4: Domain & Lifecycle Semantic Classification Match
   for (const objective of CANONICAL_CUSTOMER_OBJECTIVES) {
     const q = userQuery.toLowerCase();
     const normalizedCanonical = normalizeQuestionText(objective.canonicalQuestion);
 
     let isSemanticMatch = false;
-    if (objective.objectiveId === 'insurance.coverage.scope' && (/\b(?:insurance|insured|insurer|perils?|coverage|wear and tear|rental protection)\b/i.test(q) && !/\b(?:claim|claims|file.*claim|how.*claim|paano.*claim|mag-claim)\b/i.test(q))) {
+    if (objective.objectiveId === 'insurance.claim.filing' && (
+      /\b(?:claim|claims|inspection photos?|report damage|damage deadline)\b/i.test(q)
+      && !/\b(?:insurance coverage|what is covered|rental protection cover|does.*insurance cover|insurance active|insurance replace)\b/i.test(q)
+    )) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'insurance.claim.filing' && (/\b(?:file.*claim|submit.*claim|damage claim|how.*claim|paano.*claim|mag-claim)\b/i.test(q) || (/\b(?:claim|claims)\b/i.test(q) && /\b(?:damage|broken|loss|incident|deduction)\b/i.test(q)))) {
+    } else if (objective.objectiveId === 'insurance.coverage.scope' && (
+      (/\b(?:insurance|insured|insurer|perils?|coverage|wear and tear|(?:platform\s+)?rental protection|platform protection|covered by insurance|does.*insurance cover)\b/i.test(q)
+        || (/\b(?:cover|coverage|covered)\b/i.test(q) && /\b(?:protection|insurance)\b/i.test(q)))
+      && !/\b(?:claim|claims|file.*claim|filing.*claim|submit.*claim|how.*claim|paano.*claim|mag-claim|inspection photos?)\b/i.test(q)
+    )) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'rental.damage.general' && (/\b(?:damage|damaged|broken|break|sira|masira|nasira|wreck|defect|incident)\b/i.test(q) && !/\b(?:claim|claims|file.*claim|submit.*claim)\b/i.test(q))) {
+    } else if (objective.objectiveId === 'rental.damage.general' && (
+      /\b(?:damage|damaged|broken|break|sira|masira|nasira|wreck|defect|incident)\b/i.test(q)
+      && !/\b(?:claim|claims|file.*claim|filing.*claim|submit.*claim|inspection photos?|report damage)\b/i.test(q)
+      && !(/\b(?:cover|covered|coverage|scope)\b/i.test(q) && /\b(?:insurance|protection)\b/i.test(q))
+    )) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'renter.refund.status' && (/\b(?:refund|refunded)\b/i.test(q) && (/\b(?:status|where|saan|timeline|how long|track|check|take|pending|reflect|did.*go through)\b/i.test(q) || /\b(?:refund.*cancel|cancel.*refund)\b/i.test(q)))) {
+    } else if (objective.objectiveId === 'renter.refund.partial' && (
+      /\b(?:partial refund|refund.*partial|refund.*bawas|bawas.*refund|refund.*kalahati|part of.*refund|why was my refund amount partial)\b/i.test(q)
+      || (/\brefund\b/i.test(q) && /\b(?:partial|kalahati|bawas|deducted|less than full)\b/i.test(q))
+    )) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'renter.refund.request_how_to' && (/\b(?:refund|refunded)\b/i.test(q) && (/\b(?:how|request|ask|process|paano|humingi|filing|apply|want a refund)\b/i.test(q)))) {
+    } else if (objective.objectiveId === 'renter.refund.status' && (
+      /\b(?:refund|refunded)\b/i.test(q)
+      && !/\b(?:partial|kalahati|bawas|deduct)\b/i.test(q)
+      && !/\b(?:how to (?:request|ask|get|apply)|paano (?:humingi|mag-request|mag-apply)|want a refund|steps to refund)\b/i.test(q)
+      && (/\b(?:status|where|saan|timeline|how long|track|check|take|pending|reflect|issue|progress|did.*|wala pa|processing|cancell?ed?|dumarating|refund rules|cancellation policy refund)\b/i.test(q) || /\b(?:refund.*cancell?ed?|cancell?ed?.*refund)\b/i.test(q))
+    )) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'renter.payment.methods' && (/\b(?:how.*pay|payment method|payment option|pay for|gcash|maya|credit card|debit card|paymongo|pambayad|paano magbayad|payment works|settle.*rental)\b/i.test(q) && !/\b(?:failed|decline|error|authorized|payout|earnings|refund|deposit)\b/i.test(q))) {
+    } else if (objective.objectiveId === 'renter.refund.request_how_to' && (
+      /\b(?:refund|refunded)\b/i.test(q)
+      && !/\b(?:cancell?ed)\b/i.test(q)
+      && !/\b(?:status|where|saan|timeline|how long|track|check|take|pending|reflect|did.*|wala pa|dumarating)\b/i.test(q)
+      && (/\b(?:how|request|ask|paano|humingi|filing|apply|want a refund)\b/i.test(q))
+    )) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'provider.profile.public_vs_private' && (/\b(?:provider|owner|may-ari|host)\b.{0,40}\b(?:account|bank|profile|details|identity|information|contact|see|view|know|alamin|makikita)\b/i.test(q) || /\b(?:bank account|may i know the account|can i see the account|provider account)\b/i.test(q))) {
+    } else if (objective.objectiveId === 'renter.payment.methods' && (
+      /\b(?:how.*pay|payment method|payment option|pay for|gcash|maya|credit card|debit card|paymongo|pambayad|paano magbayad|payment works|settle.*rental|payment fail|gcash.*fail|pay.*fail)\b/i.test(q)
+      && !/\b(?:payouts?|earnings?|refunds?|refunded|security deposit|deposit|extended rental|extension)\b/i.test(q)
+    )) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'renter.deposit.release' && /\b(?:deposit|security deposit)\b/i.test(q) && !/\b(?:how much deposit|refund)\b/i.test(q)) {
+    } else if (objective.objectiveId === 'provider.profile.public_vs_private' && (
+      /\b(?:provider|owner|may-ari|host)\b.{0,50}\b(?:account|bank|profile|details|identity|information|contact|see|view|know|alamin|makikita)\b/i.test(q)
+      || /\b(?:account|bank|profile|details|identity|information|contact|see|view|know|alamin|makikita)\b.{0,50}\b(?:provider|owner|may-ari|host)\b/i.test(q)
+    )) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'provider.payout.status' && /\b(?:payout|earnings)\b.{0,30}\b(?:pending|hold|delayed|status|where|saan|bakit)\b/i.test(q)) {
+    } else if (objective.objectiveId === 'renter.deposit.release' && (
+      /\b(?:deposit|security deposit)\b/i.test(q)
+      && !/\b(?:how much deposit|refund|does insurance replace)\b/i.test(q)
+    )) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'provider.payout.schedule' && /\b(?:payout|earnings|kita)\b/i.test(q) && !/\b(?:hold|pending|status)\b/i.test(q)) {
+    } else if (objective.objectiveId === 'provider.payout.status' && (
+      /\b(?:payouts?|earnings?|paid|get paid)\b[\s\S]{0,60}\b(?:pending|hold|delayed?|status|where|saan|bakit|blocked|not arrived|delay|processing|approved|track)\b/i.test(q)
+      || /\b(?:pending|hold|naka-hold|delayed?|status|where|saan|bakit|blocked|not arrived|delay|processing|approved|track)\b[\s\S]{0,60}\b(?:payouts?|earnings?|paid|pera.*bilang provider)\b/i.test(q)
+    )) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'booking.extension.process' && /\b(?:extend|extension|dagdag.*araw|more days)\b/i.test(q)) {
+    } else if (objective.objectiveId === 'provider.payout.schedule' && (
+      /\b(?:payouts?|earnings?|kita|paid|get paid|settlement|disbursement)\b/i.test(q)
+      && !/\b(?:hold|pending|status|delayed?|delay|blocked|processing|not arrived|approved)\b/i.test(q)
+      && !/\b(?:refund|deposit)\b/i.test(q)
+    )) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'booking.cancel.process' && (/\b(?:cancel|cancellation|kansela)\b/i.test(q) && !/\b(?:refund|deposit|payout|earnings)\b/i.test(q))) {
+    } else if (objective.objectiveId === 'booking.extension.process' && /\b(?:extend(?:ed|ing|s)?|extension|magdagdag.*araw|dagdag.*araw|more days|extra days|late.*without extension|late return)\b/i.test(q)) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'account.kyc.verification' && /\b(?:kyc|verify|id|passport|umid|license|selfie)\b/i.test(q) && !/\b(?:password)\b/i.test(q)) {
+    } else if (objective.objectiveId === 'booking.cancel.process' && (/\b(?:cancel|cancellation|kansela)\b/i.test(q) && !/\b(?:refund|deposit|payout|earnings|extension)\b/i.test(q))) {
+      isSemanticMatch = true;
+    } else if (objective.objectiveId === 'account.kyc.verification' && /\b(?:kyc|verify|verified|ids?|passport|umid|license|selfie|identity verification|verification documents?)\b/i.test(q) && !/\b(?:password)\b/i.test(q)) {
       isSemanticMatch = true;
     } else if (objective.objectiveId === 'account.password.reset' && /\b(?:password|reset password|forgot password|nakalimutan.*password|mfa|two factor)\b/i.test(q)) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'listing.create.how_to' && (/\b(?:how.*list|create.*listing|add.*item|post.*item|mag-post|lst my car)\b/i.test(q) && !/\b(?:review|pending|approved)\b/i.test(q))) {
+    } else if (objective.objectiveId === 'listing.create.how_to' && (
+      /\b(?:how.*list|creat(?:e|ing).*listing|listing draft|add.*item|post.*item|mag-post|lst my car|submit.*listing|step.*create.*listing|publish.*listing|save.*draft|edit.*listing|mag-edit|update.*listing|set.*deposit|configure.*pickup|step by step to create|listing verification turnaround time)\b/i.test(q)
+      && !/\b(?:review|pending|approval|approved|rejected)\b/i.test(q)
+    )) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'listing.review.reason' && /\b(?:listing)\b.{0,30}\b(?:review|pending|approval|approved|rejected|take)\b/i.test(q)) {
+    } else if (objective.objectiveId === 'listing.review.reason' && (
+      (/\b(?:listing|item)\b.{0,40}\b(?:review|pending|approval|approved|rejected|held|take)\b/i.test(q)
+      || /\b(?:review|pending|approval|approved|rejected|held)\b.{0,40}\b(?:listing|item)\b/i.test(q))
+      && !/\b(?:extension|extend)\b/i.test(q)
+    )) {
       isSemanticMatch = true;
-    } else if (objective.objectiveId === 'listing.item.restriction' && (/\b(?:bawal|prohibited|restricted|banned|forbidden|not allowed|cannot be listed|listing policy|banned items|what cannot be listed|illegal items)\b/i.test(q) || /\b(?:drones?|cameras?|electronics|tools|machinery|hazardous|chemicals|toxic|waste|alcohol|tobacco|nicotine|vape|human remains|organs|biological|sexual|wildlife|weapons|firearms)\b/i.test(q))) {
+    } else if (objective.objectiveId === 'listing.item.eligibility.medicine' && /\b(?:medicine|medicines|gamot|drugs?|medical devices?)\b/i.test(q)) {
+      isSemanticMatch = true;
+    } else if (objective.objectiveId === 'listing.item.eligibility.firearms' && /\b(?:firearms?|baril|weapons?|ammo|ammunition)\b/i.test(q)) {
+      isSemanticMatch = true;
+    } else if (objective.objectiveId === 'listing.item.eligibility.vehicles' && (
+      /\b(?:car|cars|motorcycle|motorcycles|vehicles?|sasakyan)\b/i.test(q)
+      && !/\b(?:how.*list|hw do i lst|creat(?:e|ing).*listing|add.*item|mag-post)\b/i.test(q)
+    )) {
+      isSemanticMatch = true;
+    } else if (objective.objectiveId === 'listing.item.restriction' && (
+      /\b(?:bawal|prohibited|restrict(?:ed|ions?)?|banned|forbidden|not allowed|cannot be listed|listing policy|banned items|what cannot be listed|illegal items|illegal[\s_-]*drugs?|controlled substances|kung[\s_-]*ano[\s_-]*ano)\b/i.test(q)
+      || /\b(?:list|summary|overview)\b.{0,30}\b(?:prohibited|banned|restricted|restrictions|forbidden)\b/i.test(q)
+      || /\b(?:prohibited|banned|restricted|restrictions|forbidden)\b.{0,30}\b(?:list|summary|overview)\b/i.test(q)
+      || /\b(?:drones?|cameras?|electronics|tools|machinery|hazardous|chemicals|toxic|waste|alcohol|tobacco|nicotine|vape|human remains|organs|biological|sexual|wildlife)\b/i.test(q)
+      || /\b(?:what (?:am i not allowed|can i not|cannot be)|ano (?:ang )?mga bawal)\b/i.test(q)
+    ) && !/\b(?:baril|weapons?|firearms?|medicine|gamot|cars?|motorcycles?|vehicles?|insurance|rental protection|covered by insurance)\b/i.test(q)) {
       isSemanticMatch = true;
     }
 
@@ -420,7 +559,17 @@ function filterAccessScope(
       roleMatches = true;
     } else if (scopeRole === normalizedUserRole) {
       roleMatches = true;
-    } else if (normalizedUserRole === 'GUEST' && (scopeRole === 'RENTER' || scopeRole === 'PROVIDER' || scopeAudience === 'RENTER' || scopeAudience === 'PROVIDER')) {
+    } else if (normalizedUserRole === 'GUEST' && (
+      scopeRole === 'RENTER' ||
+      scopeRole === 'PROVIDER' ||
+      scopeRole.includes('PROVIDER') ||
+      scopeRole.includes('RENTER') ||
+      scopeAudience === 'RENTER' ||
+      scopeAudience === 'PROVIDER' ||
+      scopeAudience.includes('PROVIDER') ||
+      scopeAudience.includes('RENTER') ||
+      scopeAudience !== 'INTERNAL'
+    )) {
       roleMatches = true;
     } else if (normalizedUserRole === 'RENTER' && (scopeRole === 'RENTER' || scopeRole === 'PROVIDER')) {
       roleMatches = true;

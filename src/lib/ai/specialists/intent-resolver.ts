@@ -12,7 +12,7 @@ export function resolveIntent(prompt: string): string | undefined {
   if (/\b(?:book|booking|reserve|reservation)\b/.test(lowerPrompt)) return 'booking_help';
   if (lowerPrompt.includes('damage') || lowerPrompt.includes('dispute')) return 'damage_report';
   if (lowerPrompt.includes('extend rental')) return 'rental_extend';
-  if (lowerPrompt.includes('insurance')) return 'insurance_info';
+  if (lowerPrompt.includes('insurance') || lowerPrompt.includes('rental protection') || lowerPrompt.includes('platform protection')) return 'insurance_info';
   if (/\b(?:is|was|check|status)\b.{0,25}\b(?:kyc|identity verification)\b/.test(lowerPrompt)) return 'kyc_status';
   if (lowerPrompt.includes('kyc') || lowerPrompt.includes('verify identity')) return 'kyc_account_support';
   if (/\b(?:listing|list an item|add another rental|provider account)\b/.test(lowerPrompt)) return 'provider_operational_support';
@@ -46,7 +46,7 @@ export function resolveDomainIntent(prompt: string): string[] {
   if (/\b(pay|paid|payment|payments|refund|refunds|deposit|deposits|payout|payouts)\b/.test(lowerPrompt)) {
     domains.push('Payments', 'Finance');
   }
-  if (/\b(claim|claims|dispute|disputes|mediation|mediated|damage|insurance)\b/.test(lowerPrompt)) {
+  if (/\b(claim|claims|dispute|disputes|mediation|mediated|damage|insurance|protection|protect)\b/.test(lowerPrompt)) {
     domains.push('Insurance', 'Trust & Safety');
   }
   if (/\b(prohibited|restricted|firearms?|weapons?|unsafe)\b/.test(lowerPrompt)) {

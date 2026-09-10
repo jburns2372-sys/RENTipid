@@ -1,4 +1,6 @@
 import { resolveDomainIntent } from '@/lib/ai/specialists/intent-resolver';
+import { CANONICAL_PROHIBITED_POLICIES } from '@/lib/prohibited-items/canonical-policies';
+import { CANONICAL_CATEGORIES } from '@/lib/categories/canonical-categories';
 
 export type RentipidQuestionClass =
   | 'STATIC_RENTIPID_KNOWLEDGE'
@@ -80,12 +82,50 @@ function categoryTerms(prompt: string): string[] {
 
   // If the question is asking generally about what is allowed/prohibited/restricted/banned (without naming specific items)
   if (
-    /\b(?:what|which)\s+(?:items?|things?|rentals?|types?|categories|category)?\s*(?:are|is|can|cannot|cant|can\s*['’]?\s*t|aren\s*['’]?\s*t|are\s+not|do\s+not)\b/i.test(normalized) ||
-    /\b(?:what|which)\s+(?:can|cannot|cant|can\s*['’]?\s*t|do|are)\s+(?:i|we|users?|providers?)\s+(?:list|rent|offer|not\s+list)\b/i.test(normalized) ||
-    /^(?:ano\s+)?(?:mga\s+)?bawal\s+(?:iparenta|i-list|ilist)/i.test(prompt) ||
-    /strictly\s+forbidden/i.test(prompt)
+    /\b(?:list|summary|show|tell|all|overview|catalogue|catalog)\b.{0,30}\b(?:prohibited|restricted|banned|forbidden|not\s+allowed)\b/i.test(normalized) ||
+    /\b(?:prohibited|restricted|banned|forbidden|not\s+allowed)\b.{0,30}\b(?:list|summary|overview|catalogue|catalog|full\s+summary|items?)\b/i.test(normalized) ||
+    /\b(?:what|which)\s+(?:items?|things?|rentals?|types?|categories|category)?\s*(?:are|is|can|cannot|cant|can\s*['’]?\s*t|aren\s*['’]?\s*t|are\s+not|do\s+not|am\s+i\s+not)\b/i.test(normalized) ||
+    /\b(?:what|which)\s+(?:can|cannot|cant|can\s*['’]?\s*t|do|are|am\s+i)\s+(?:i|we|users?|providers?|not)\s+(?:list|rent|offer|not\s+list|allowed\s+to\s+rent)\b/i.test(normalized) ||
+    /\bwhat\s+(?:am\s+i\s+not|cannot\s+be|is\s+banned|is\s+not\s+allowed)\b/i.test(normalized) ||
+    /^(?:ano\s+(?:ang\s+)?)?(?:mga\s+)?bawal(?:\s+na)?\s+(?:item|items|gamit|bagay|iparenta|i-list|ilist)/i.test(prompt) ||
+    /strictly\s+forbidden/i.test(prompt) ||
+    /kung[\s_-]*ano[\s_-]*ano/i.test(prompt)
   ) {
     return [];
+  }
+
+  // Check known canonical prohibited policies & canonical categories first
+  const qLower = prompt.toLowerCase();
+  for (const policy of CANONICAL_PROHIBITED_POLICIES) {
+    const slugNorm = policy.slug.replace(/[-_]+/g, ' ').toLowerCase();
+    const nameNorm = policy.name.toLowerCase();
+    if (qLower.includes(policy.slug) || qLower.includes(slugNorm) || qLower.includes(nameNorm)) {
+      return [policy.slug];
+    }
+  }
+
+  for (const category of CANONICAL_CATEGORIES) {
+    const slugNorm = category.slug.replace(/[-_]+/g, ' ').toLowerCase();
+    const nameNorm = category.name.toLowerCase();
+    if (qLower.includes(category.slug) || qLower.includes(slugNorm) || qLower.includes(nameNorm)) {
+      return [category.name];
+    }
+  }
+
+  if (/\b(?:laptop|laptops|gadget|gadgets|camera|cameras|dslr|lenses|drone|drones|tablet|tablets|projector|projectors|playstation|gaming console|sound equipment|electronics)\b/i.test(qLower)) {
+    return ['Cameras and Gadgets'];
+  }
+  if (/\b(?:heavy equipment|heavy machinery)\b/i.test(qLower)) {
+    return ['Heavy Equipment'];
+  }
+  if (/\b(?:generator|generators|welding|drill|drills|scaffolding|scaffoldings|ladder|ladders|contractors|construction equipment)\b/i.test(qLower)) {
+    return ['Construction Equipment'];
+  }
+  if (/\b(?:power tool|power tools|tool|tools)\b/i.test(qLower)) {
+    return ['Tools'];
+  }
+  if (/\b(?:condo|condos|condominium|condominiums|apartment|apartments|real estate|house|room|rooms)\b/i.test(qLower)) {
+    return ['Condominiums'];
   }
 
   const match = normalized.match(/\b(?:list|rent\s*out|offer|allow(?:ed)?|ban(?:ned)?|restrict(?:ed)?|prohibit(?:ed)?|forbidden)\s+(.+)$/i);
@@ -99,12 +139,12 @@ function categoryTerms(prompt: string): string[] {
   return match[1]
     .split(/\s*(?:,|\band\b|\bor\b)\s*/i)
     .map(value => value
-      .replace(/^(?:a|an|the|my)\s+/i, '')
+      .replace(/^(?:a|an|the|my|of)\s+/i, '')
       .replace(/\s+(?:on|in|through|via)\s+(?:the\s+)?rentipid(?:\s+(?:app|marketplace|platform))?$/i, '')
       .replace(/^(?:on|in|through|via)\s+(?:the\s+)?rentipid(?:\s+(?:app|marketplace|platform))?$/i, '')
       .replace(/\s+(?:property|properties|category|categories|item|items|rental|rentals|listing|listings)$/i, '')
       .trim())
-    .filter(value => value.length > 1 && !/^(?:item|items|something|another\s+item|prohibited|restricted|banned|forbidden|not\s+allowed|allowed|rentipid|on\s+rentipid)$/i.test(value));
+    .filter(value => value.length > 1 && !/^(?:item|items|something|another\s+item|prohibited|restricted|banned|forbidden|not\s+allowed|allowed|rentipid|on\s+rentipid|prohibited\s+items?|banned\s+items?)$/i.test(value));
 }
 
 function customerIntent(prompt: string): CustomerQuestionIntent {

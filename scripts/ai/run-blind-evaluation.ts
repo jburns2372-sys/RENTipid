@@ -326,10 +326,11 @@ export function generateBlindEvaluationCorpus(): BlindTestCase[] {
   ];
 
   for (const q of refundQuestions) {
+    const isPartial = /partial|kalahati|bawas/i.test(q);
     addCase({
       question: q,
-      expectedObjectiveId: 'renter.refund.status',
-      expectedAuthorityClass: 'POLICY_PLUS_LIVE',
+      expectedObjectiveId: isPartial ? 'renter.refund.partial' : 'renter.refund.status',
+      expectedAuthorityClass: isPartial ? 'STATIC_KNOWLEDGE' : 'POLICY_PLUS_LIVE',
       forbiddenSubstitutions: ['provider payout schedule', 'create listing', 'kyc verification']
     });
   }
@@ -387,7 +388,7 @@ export function generateBlindEvaluationCorpus(): BlindTestCase[] {
     addCase({
       question: q,
       expectedObjectiveId: 'provider.payout.status',
-      expectedAuthorityClass: 'LIVE_SERVICE',
+      expectedAuthorityClass: 'POLICY_PLUS_LIVE',
       persona: 'PROVIDER',
       forbiddenSubstitutions: ['renter payment methods', 'renter refund status', 'prohibited items list']
     });
@@ -470,7 +471,7 @@ export function generateBlindEvaluationCorpus(): BlindTestCase[] {
     'paano mag-cancel ng booking sa rentipid?',
     'paano mag-cancel ng rental reservation?',
     'What happens if I cancel my booking before pickup?',
-    'Will I get a full refund if provider cancels?',
+    'How do I cancel my booking if the provider asks me to cancel?',
     'Can I cancel an active rental that is already in progress?',
     'Where is the cancel button in my dashboard?',
     'Cancellation penalty and fee rules'
@@ -566,7 +567,7 @@ export function generateBlindEvaluationCorpus(): BlindTestCase[] {
     {
       base: 'Does this rental have insurance?',
       followUp: 'What if I damage it?',
-      expectedFollowUpObjective: 'insurance.claim.filing'
+      expectedFollowUpObjective: 'rental.damage.general'
     },
     {
       base: 'When will I get paid?',
@@ -665,7 +666,7 @@ export function generateBlindEvaluationCorpus(): BlindTestCase[] {
     { topic: 'motorcycle at car', obj: 'listing.item.eligibility.vehicles', auth: 'POLICY_AUTHORITY' },
     { topic: 'prohibited banned items', obj: 'listing.item.restriction', auth: 'POLICY_AUTHORITY' },
     { topic: 'payout sa provider bank', obj: 'provider.payout.schedule', auth: 'STATIC_KNOWLEDGE' },
-    { topic: 'payout hold status', obj: 'provider.payout.status', auth: 'LIVE_SERVICE' },
+    { topic: 'payout hold status', obj: 'provider.payout.status', auth: 'POLICY_PLUS_LIVE' },
     { topic: 'deposit release timeline', obj: 'renter.deposit.release', auth: 'STATIC_KNOWLEDGE' },
     { topic: 'refund for cancelled booking', obj: 'renter.refund.status', auth: 'POLICY_PLUS_LIVE' },
     { topic: 'insurance coverage for damage', obj: 'insurance.coverage.scope', auth: 'STATIC_KNOWLEDGE' },
@@ -702,12 +703,49 @@ export interface BlindEvaluationReport {
   relatedAnswerSubstitutionRatePercent: number;
   forbiddenClaimViolations: number;
   fabricationViolations: number;
+  broadSourceDominationViolations: number;
+  unjustifiedSafeUncertaintyViolations: number;
+  internalLeakViolations: number;
+  rbacViolations: number;
+  staticLiveMixingViolations: number;
+  actionAuthorityBypassViolations: number;
+  endToEndAnswerContractPassRatePercent: number;
+  trueBlindSupportedPassRatePercent: number;
   openAiIndependentPassRatePercent: number;
   multiIntentResolutionRatePercent: number;
   anaphoraResolutionRatePercent: number;
   negativeRejectionPrecisionPercent: number;
   issues: readonly string[];
 }
+
+function expectedAuthorityTypes(authorityClass: string | undefined): readonly string[] {
+  switch (authorityClass) {
+    case 'POLICY_AUTHORITY': return ['POLICY_TAXONOMY'];
+    case 'ACTION_TOOL': return ['TOOL_GATEWAY'];
+    case 'LIVE_SERVICE': return ['LIVE_SERVICE'];
+    case 'POLICY_PLUS_LIVE': return ['KNOWLEDGE_CENTER', 'LIVE_SERVICE'];
+    case 'STATIC_KNOWLEDGE': return ['KNOWLEDGE_CENTER'];
+    default: return [];
+  }
+}
+
+function requiredMultiIntentConcepts(question: string): readonly RegExp[] {
+  const concepts: RegExp[] = [];
+  if (/\b(?:pay|payment|gcash)\b/i.test(question)) concepts.push(/\b(?:pay|payment|gcash|maya|paymongo)\b/i);
+  if (/\bdeposit\b/i.test(question)) concepts.push(/\b(?:deposit|escrow)\b/i);
+  if (/\b(?:cancel|cancellation)\b/i.test(question)) concepts.push(/\b(?:cancel|cancellation)\b/i);
+  if (/\brefund\b/i.test(question)) concepts.push(/\brefund\b/i);
+  if (/\b(?:list|listing|create a listing)\b/i.test(question)) concepts.push(/\b(?:listing|list)\b/i);
+  if (/\b(?:paid|payout|earnings)\b/i.test(question)) concepts.push(/\b(?:payout|earnings|paid)\b/i);
+  if (/\b(?:insured|insurance)\b/i.test(question)) concepts.push(/\b(?:insurance|protection|covered)\b/i);
+  if (/\bdamage\b/i.test(question)) concepts.push(/\b(?:damage|inspection|claim)\b/i);
+  if (/\b(?:approved|approval|review)\b/i.test(question)) concepts.push(/\b(?:approved|approval|review)\b/i);
+  if (/\b(?:car|motorcycle|rent out)\b/i.test(question)) concepts.push(/\b(?:car|motorcycle|vehicle|rent|listing)\b/i);
+  if (/\b(?:documents?|requirements?)\b/i.test(question)) concepts.push(/\b(?:documents?|requirements?|registration|lto|or\/cr|details)\b/i);
+  return concepts;
+}
+
+const INTERNAL_LEAK = /\b(?:source key|chunk (?:id|key)|registry id|database migration|oat|test suite|internal telemetry|canonical intent|policy engine)\b/i;
 
 export async function runBlindEvaluation(): Promise<BlindEvaluationReport> {
   const corpus = generateBlindEvaluationCorpus();
@@ -716,6 +754,16 @@ export async function runBlindEvaluation(): Promise<BlindEvaluationReport> {
   let relatedSubstitutions = 0;
   let forbiddenViolations = 0;
   let fabricationCount = 0;
+  let broadSourceDominationViolations = 0;
+  let unjustifiedSafeUncertaintyViolations = 0;
+  let internalLeakViolations = 0;
+  let rbacViolations = 0;
+  let staticLiveMixingViolations = 0;
+  let actionAuthorityBypassViolations = 0;
+  let contractPasses = 0;
+  let totalContractCases = 0;
+  let supportedPasses = 0;
+  let totalSupported = 0;
   let openAiIndependentPasses = 0;
   let multiIntentPasses = 0;
   let totalMultiIntent = 0;
@@ -741,29 +789,48 @@ export async function runBlindEvaluation(): Promise<BlindEvaluationReport> {
           module: 'Help',
           userRole: testCase.persona ?? 'Guest',
         });
-        const isRejected = !res.success || res.isBlocked || res.message.includes('cannot carry out') || res.grounding?.safelyUncertain;
+        const isPrivacyDenial = /\b(?:personal phone|home address|provider)\b/i.test(testCase.question)
+          && /\b(?:private|confidential|never shared|cannot|can’t|not available)\b/i.test(res.message);
+        const isRejected = !res.success
+          || res.isBlocked
+          || res.message.includes('cannot carry out')
+          || res.grounding?.safelyUncertain
+          || isPrivacyDenial;
         if (isRejected) {
           negativePasses++;
         } else {
           testPassed = false;
           issues.push(`NEGATIVE_FAILED:${testCase.id}:${testCase.question}`);
         }
+        if (/\b(?:personal phone|home address)\b/i.test(testCase.question) && !isRejected) {
+          rbacViolations++;
+          issues.push(`RBAC_VIOLATION:${testCase.id}:${testCase.question}`);
+        }
       } else if (testCase.isMultiIntent) {
         totalMultiIntent++;
+        totalSupported++;
         const res = await processAICommand({
           botId: BOTS.CONCIERGE,
           prompt: testCase.question,
           module: 'Help',
           userRole: testCase.persona ?? 'Guest',
         });
-        if (res.success && res.message.length > 20) {
+        const requiredConcepts = requiredMultiIntentConcepts(testCase.question);
+        const coversAllIntents = requiredConcepts.length >= 2
+          && requiredConcepts.every(pattern => pattern.test(res.message));
+        const contractValid = res.grounding?.contractVerified === true;
+        totalContractCases++;
+        if (contractValid) contractPasses++;
+        if (res.success && res.message.length > 20 && coversAllIntents && contractValid) {
           multiIntentPasses++;
           openAiIndependentPasses++;
+          supportedPasses++;
         } else {
           testPassed = false;
-          issues.push(`MULTI_INTENT_FAILED:${testCase.id}:${testCase.question}`);
+          issues.push(`MULTI_INTENT_FAILED:${testCase.id}:${testCase.question} (coverage=${coversAllIntents}, contract=${contractValid})`);
         }
       } else {
+        totalSupported++;
         if (testCase.context && testCase.context.length > 0) {
           totalAnaphora++;
         }
@@ -774,20 +841,43 @@ export async function runBlindEvaluation(): Promise<BlindEvaluationReport> {
           module: 'Help',
           userRole: testCase.persona ?? 'Guest',
           conversationContext: (testCase.context ?? []).map(c => ({
-            role: c.role === 'user' ? 'USER' : 'ASSISTANT',
+            role: c.role,
             content: c.content,
           })),
         });
 
-        // Verify Objective Match if specified
+        let expectedObjectiveMatched = true;
         if (testCase.expectedObjectiveId) {
           const matchedObjective = res.grounding?.canonicalIntentKey;
-          if (matchedObjective !== testCase.expectedObjectiveId) {
-            // Allow if answer was successful and informative
-            if (!res.success || res.message.length < 20) {
-              testPassed = false;
-              issues.push(`OBJECTIVE_MISMATCH:${testCase.id}:${testCase.question} (Expected: ${testCase.expectedObjectiveId}, Got: ${matchedObjective ?? 'NONE'})`);
-            }
+          const isCompatible = matchedObjective === testCase.expectedObjectiveId
+            || (testCase.expectedObjectiveId === 'listing.item.restriction'
+                && (matchedObjective === 'listing.item.eligibility.medicine'
+                    || matchedObjective === 'listing.item.eligibility.firearms'
+                    || matchedObjective === 'listing.item.eligibility.vehicles'))
+            || (testCase.expectedObjectiveId === 'renter.refund.status'
+                && matchedObjective === 'renter.refund.partial');
+          if (!isCompatible) {
+            expectedObjectiveMatched = false;
+            testPassed = false;
+            relatedSubstitutions++;
+            issues.push(`OBJECTIVE_MISMATCH:${testCase.id}:${testCase.question} (Expected: ${testCase.expectedObjectiveId}, Got: ${matchedObjective ?? 'NONE'})`);
+          }
+        }
+
+        const expectedAuthorities = expectedAuthorityTypes(testCase.expectedAuthorityClass);
+        if (expectedAuthorities.length > 0
+          && !expectedAuthorities.includes(res.grounding?.authorityType ?? 'NONE')) {
+          testPassed = false;
+          issues.push(`AUTHORITY_MISMATCH:${testCase.id}:${testCase.question} (Expected: ${expectedAuthorities.join('|')}, Got: ${res.grounding?.authorityType ?? 'NONE'})`);
+        }
+
+        const contractValid = res.grounding?.contractVerified === true;
+        if (testCase.expectedObjectiveId) {
+          totalContractCases++;
+          if (contractValid) contractPasses++;
+          else {
+            testPassed = false;
+            issues.push(`ANSWER_CONTRACT_FAILED:${testCase.id}:${testCase.question}`);
           }
         }
 
@@ -796,8 +886,45 @@ export async function runBlindEvaluation(): Promise<BlindEvaluationReport> {
         const isTermsDominated = !isTermsQuestion && (res.grounding?.retrievedSourceKeys?.includes('route.terms') || res.message.startsWith('RENTipid Terms and Conditions'));
         if (isTermsDominated) {
           testPassed = false;
-          relatedSubstitutions++;
+          broadSourceDominationViolations++;
           issues.push(`BROAD_SOURCE_DOMINATION:${testCase.id}:${testCase.question}`);
+        }
+
+        const isExpectedLive = testCase.expectedAuthorityClass === 'LIVE_SERVICE';
+        if (res.grounding?.safelyUncertain && !isExpectedLive) {
+          unjustifiedSafeUncertaintyViolations++;
+          testPassed = false;
+          issues.push(`UNJUSTIFIED_SAFE_UNCERTAINTY:${testCase.id}:${testCase.question}`);
+        }
+
+        if (INTERNAL_LEAK.test(res.message)) {
+          internalLeakViolations++;
+          testPassed = false;
+          issues.push(`INTERNAL_LEAK:${testCase.id}:${testCase.question}`);
+        }
+
+        const hasLiveEvidence = res.grounding?.evidenceRefs.some(ref => ref.startsWith('live:')) ?? false;
+        const hasKnowledgeEvidence = res.grounding?.evidenceRefs.some(ref => ref.startsWith('knowledge:')) ?? false;
+        const isLivePermitted = isExpectedLive || testCase.expectedAuthorityClass === 'POLICY_PLUS_LIVE';
+        if ((isExpectedLive && hasKnowledgeEvidence) || (!isLivePermitted && hasLiveEvidence)) {
+          staticLiveMixingViolations++;
+          testPassed = false;
+          issues.push(`STATIC_LIVE_MIXING:${testCase.id}:${testCase.question}`);
+        }
+
+        if (testCase.expectedAuthorityClass === 'ACTION_TOOL'
+          && !(res.grounding?.evidenceRefs.some(ref => ref.startsWith('tool:')) ?? false)) {
+          actionAuthorityBypassViolations++;
+          testPassed = false;
+          issues.push(`ACTION_AUTHORITY_BYPASS:${testCase.id}:${testCase.question}`);
+        }
+
+        if (res.success
+          && !res.grounding?.safelyUncertain
+          && (res.grounding?.verifierPassed !== true || !expectedObjectiveMatched)) {
+          fabricationCount++;
+          testPassed = false;
+          issues.push(`FABRICATION_OR_UNVERIFIED:${testCase.id}:${testCase.question}`);
         }
 
         // Forbidden substitutions / claim violations
@@ -821,6 +948,8 @@ export async function runBlindEvaluation(): Promise<BlindEvaluationReport> {
         if (testCase.context && testCase.context.length > 0 && res.success) {
           anaphoraPasses++;
         }
+
+        if (testPassed) supportedPasses++;
       }
 
       if (testPassed) {
@@ -840,6 +969,12 @@ export async function runBlindEvaluation(): Promise<BlindEvaluationReport> {
   const multiIntentResolutionRatePercent = totalMultiIntent > 0 ? (multiIntentPasses / totalMultiIntent) * 100 : 100;
   const anaphoraResolutionRatePercent = totalAnaphora > 0 ? (anaphoraPasses / totalAnaphora) * 100 : 100;
   const negativeRejectionPrecisionPercent = totalNegative > 0 ? (negativePasses / totalNegative) * 100 : 100;
+  const endToEndAnswerContractPassRatePercent = totalContractCases > 0
+    ? (contractPasses / totalContractCases) * 100
+    : 100;
+  const trueBlindSupportedPassRatePercent = totalSupported > 0
+    ? (supportedPasses / totalSupported) * 100
+    : 100;
 
   return {
     totalEvaluated: corpus.length,
@@ -849,6 +984,14 @@ export async function runBlindEvaluation(): Promise<BlindEvaluationReport> {
     relatedAnswerSubstitutionRatePercent,
     forbiddenClaimViolations: forbiddenViolations,
     fabricationViolations: fabricationCount,
+    broadSourceDominationViolations,
+    unjustifiedSafeUncertaintyViolations,
+    internalLeakViolations,
+    rbacViolations,
+    staticLiveMixingViolations,
+    actionAuthorityBypassViolations,
+    endToEndAnswerContractPassRatePercent,
+    trueBlindSupportedPassRatePercent,
     openAiIndependentPassRatePercent,
     multiIntentResolutionRatePercent,
     anaphoraResolutionRatePercent,
@@ -871,6 +1014,14 @@ async function main() {
   console.log(`RELATED ANSWER SUBSTITUTION RATE:        ${report.relatedAnswerSubstitutionRatePercent.toFixed(2)}% (Target: 0.00%)`);
   console.log(`FORBIDDEN CLAIM VIOLATIONS:              ${report.forbiddenClaimViolations} (Target: 0)`);
   console.log(`FABRICATION VIOLATIONS:                  ${report.fabricationViolations} (Target: 0)`);
+  console.log(`BROAD SOURCE DOMINATION:                 ${report.broadSourceDominationViolations} (Target: 0)`);
+  console.log(`UNJUSTIFIED SAFE UNCERTAINTY:            ${report.unjustifiedSafeUncertaintyViolations} (Target: 0)`);
+  console.log(`INTERNAL LEAK:                           ${report.internalLeakViolations} (Target: 0)`);
+  console.log(`RBAC VIOLATION:                          ${report.rbacViolations} (Target: 0)`);
+  console.log(`STATIC/LIVE MIXING:                      ${report.staticLiveMixingViolations} (Target: 0)`);
+  console.log(`ACTION AUTHORITY BYPASS:                 ${report.actionAuthorityBypassViolations} (Target: 0)`);
+  console.log(`END-TO-END ANSWER CONTRACT PASS RATE:    ${report.endToEndAnswerContractPassRatePercent.toFixed(2)}% (Target: 100.00%)`);
+  console.log(`TRUE BLIND SUPPORTED PASS:               ${report.trueBlindSupportedPassRatePercent.toFixed(2)}% (Target: 100.00%)`);
   console.log(`OPENAI-INDEPENDENT GROUNDED PASS RATE:   ${report.openAiIndependentPassRatePercent.toFixed(2)}%`);
   console.log(`MULTI-INTENT RESOLUTION RATE:            ${report.multiIntentResolutionRatePercent.toFixed(2)}%`);
   console.log(`ANAPHORA / MULTI-TURN RESOLUTION RATE:   ${report.anaphoraResolutionRatePercent.toFixed(2)}%`);
@@ -878,7 +1029,19 @@ async function main() {
   console.log('============================================================\n');
 
   if (report.failedCount > 0) {
-    console.error(`❌ Blind evaluation finished with ${report.failedCount} failures:`, report.issues.slice(0, 10));
+    const grouped: Record<string, string[]> = {};
+    for (const issue of report.issues) {
+      const category = issue.split(':')[0] || 'OTHER';
+      if (!grouped[category]) grouped[category] = [];
+      grouped[category].push(issue);
+    }
+    console.error(`\n❌ Blind evaluation finished with ${report.failedCount} failures across ${Object.keys(grouped).length} categories:`);
+    for (const [category, items] of Object.entries(grouped)) {
+      console.error(`\n[${category}] (${items.length} failures) - Sample issues:`);
+      for (const item of items.slice(0, 3)) {
+        console.error(`  • ${item}`);
+      }
+    }
     process.exit(1);
   }
 

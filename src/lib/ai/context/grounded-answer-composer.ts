@@ -10,6 +10,7 @@ import {
 import type { CustomerEvidenceBundle } from './customer-evidence-bundle';
 import type { GroundedComposerMode } from '../providers/grounded-information-provider';
 import type { SemanticContextBundle } from '../semantic/contracts';
+import type { CustomerObjectiveDefinition } from './customer-objective-catalog';
 
 export interface GroundedAnswerDiagnostic {
   classification: RentipidQuestionClass;
@@ -43,6 +44,7 @@ export interface GroundedAnswerInput {
   questionAnalysis?: RentipidQuestionClassification;
   evidenceBundle?: CustomerEvidenceBundle;
   semanticContext?: SemanticContextBundle;
+  customerObjective?: CustomerObjectiveDefinition;
   bindingAuthority?: {
     audience: string;
     answerClass: string;
@@ -66,6 +68,10 @@ export interface GroundedAnswerResult {
   composerMode?: GroundedComposerMode;
   composerProvider?: string;
   verifierReasons?: readonly string[];
+  contractVerified?: boolean;
+  contractSafeHold?: boolean;
+  contractMissingRequiredFacts?: readonly string[];
+  contractForbiddenClaims?: readonly string[];
   retryUsed?: boolean;
   fallbackReason?: string;
 }
@@ -158,7 +164,6 @@ function extractSteps(match: RetrievedKnowledgeMatch, questionTokens: readonly s
     })
     .filter((claim): claim is CandidateClaim => claim !== null);
   
-  if (steps.length > 0) console.log('DEBUG extractSteps: Found steps for chunk:', match.chunkKey, steps.map(s => s.text));
   return steps;
 }
 

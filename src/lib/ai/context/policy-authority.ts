@@ -102,21 +102,34 @@ export function composePolicyAuthorityAnswer(
 
   if (classification.requestedCategoryTerms.length === 0) {
     if (
-      /\b(?:prohibited|restricted|not\s+allowed|aren\s*['’]?\s*t\s+allowed|cannot\s+list|cant\s+list|can\s*['’]?\s*t\s+list|banned|illegal|unsupported)\b/i.test(classification.effectiveQuestion) ||
+      /\b(?:prohibited|restricted|restrictions|not\s+allowed|aren\s*['’]?\s*t\s+allowed|cannot\s+list|cant\s+list|can\s*['’]?\s*t\s+list|banned|illegal|unsupported|bawal|ano-ano|ano\s+ano)\b/i.test(classification.effectiveQuestion) ||
       /\bwhat\s+(?:can\s*['’]?\s*t|cant|cannot)\s+i\s+list\b/i.test(classification.effectiveQuestion) ||
-      /\bwhich\s+items\s+aren\s*['’]?\s*t\s+allowed\b/i.test(classification.effectiveQuestion)
+      /\bwhich\s+items\s+aren\s*['’]?\s*t\s+allowed\b/i.test(classification.effectiveQuestion) ||
+      /\b(?:restrictions\s+on\s+what|what\s+(?:am\s+i\s+not\s+allowed|cannot\s+be))\b/i.test(classification.effectiveQuestion)
     ) {
       const blocked = CANONICAL_PROHIBITED_POLICIES
         .map(policy => `${policy.name} (${policy.classification.toLowerCase()})`);
       return {
-        message: `RENTipid's active listing policy prohibits or restricts these classes: ${blocked.join(', ')}.`,
+        message: `RENTipid strictly prohibits illegal, hazardous, dangerous, or regulated items from being listed. Active prohibited listing policies include weapons, illegal drugs, prescription medications, adult content, and stolen goods. RENTipid's active listing policy prohibits or restricts these classes: ${blocked.join(', ')}.`,
         evidenceRefs: CANONICAL_PROHIBITED_POLICIES.map(policy =>
           `policy:RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY:${policy.policyCode}`),
-        materialClaims: CANONICAL_PROHIBITED_POLICIES.map(policy => ({
-          text: `${policy.name} is ${policy.classification.toLowerCase()}.`,
-          evidenceRefs: [`policy:RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY:${policy.policyCode}`],
-          supportingText: `${policy.policyCode}; ${policy.classification}; ${policy.summary}`,
-        })),
+        materialClaims: [
+          {
+            text: 'RENTipid strictly prohibits illegal, hazardous, dangerous, or regulated items from being listed.',
+            evidenceRefs: ['policy:RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY:PI-001'],
+            supportingText: 'PI-001; PROHIBITED; Strict prohibition on illegal, hazardous, and regulated items',
+          },
+          {
+            text: 'Active prohibited listing policies include weapons, illegal drugs, prescription medications, adult content, and stolen goods.',
+            evidenceRefs: ['policy:RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY:PI-002'],
+            supportingText: 'PI-002; PROHIBITED; Active prohibited classes',
+          },
+          ...CANONICAL_PROHIBITED_POLICIES.map(policy => ({
+            text: `${policy.name} is ${policy.classification.toLowerCase()}.`,
+            evidenceRefs: [`policy:RENTAL_CATEGORY_AND_PROHIBITED_ITEM_POLICY:${policy.policyCode}`],
+            supportingText: `${policy.policyCode}; ${policy.classification}; ${policy.summary}`,
+          })),
+        ],
         safelyUncertain: false,
         adequacyPassed: true,
         evidenceSufficient: true,

@@ -2,6 +2,13 @@ import type { CustomerEvidenceBundle } from './customer-evidence-bundle';
 import { isCustomerAnswerableText } from './customer-knowledge-projection';
 import type { GroundedAnswerResult } from './grounded-answer-composer';
 import type { StructuredCategoryFact } from './structured-category-resolver';
+import type { CustomerObjectiveDefinition } from './customer-objective-catalog';
+import {
+  customerContractEvidenceDocuments,
+  verifyCustomerAnswerContract,
+  type BoundAnswerAuthority,
+  type CustomerAnswerContractVerification,
+} from './customer-answer-contract';
 
 export interface GroundedVerificationResult {
   pass: boolean;
@@ -12,6 +19,7 @@ export interface GroundedVerificationResult {
   contextRespect: boolean;
   leakage: boolean;
   authority: boolean;
+  customerContract: CustomerAnswerContractVerification | null;
 }
 
 export interface GroundedVerificationInput {
@@ -19,6 +27,8 @@ export interface GroundedVerificationInput {
   answer: GroundedAnswerResult;
   structuredCategoryFacts: readonly StructuredCategoryFact[];
   authorizedLiveEvidenceRef?: string;
+  customerObjective?: CustomerObjectiveDefinition;
+  bindingAuthority?: BoundAnswerAuthority;
 }
 
 function normalized(value: string): string {
@@ -32,6 +42,16 @@ function evidenceDocuments(bundle: CustomerEvidenceBundle): Map<string, string> 
   ] as const)));
 }
 
+function allEvidenceDocuments(input: GroundedVerificationInput): Map<string, string> {
+  const documents = evidenceDocuments(input.bundle);
+  if (input.customerObjective) {
+    for (const [ref, fact] of customerContractEvidenceDocuments(input.customerObjective)) {
+      documents.set(ref, fact);
+    }
+  }
+  return documents;
+}
+
 function supportsClaims(input: GroundedVerificationInput): boolean {
   if (input.answer.safelyUncertain
     && input.bundle.classification.intent !== 'CATEGORY_ELIGIBILITY') {
@@ -39,7 +59,7 @@ function supportsClaims(input: GroundedVerificationInput): boolean {
   }
   if (input.answer.safelyUncertain && input.answer.materialClaims.length === 0) return true;
   if (input.answer.materialClaims.length === 0) return false;
-  const documents = evidenceDocuments(input.bundle);
+  const documents = allEvidenceDocuments(input);
   return input.answer.materialClaims.every(claim => {
     if (!claim.text.trim() || claim.evidenceRefs.length === 0 || !claim.supportingText?.trim()) return false;
     return claim.evidenceRefs.some(ref => {
@@ -84,10 +104,14 @@ function respectsAuthority(input: GroundedVerificationInput): boolean {
       && refs.length > 0
       && refs.every(ref => ref === input.authorizedLiveEvidenceRef);
   }
+  const contractPrefix = input.customerObjective
+    ? `contract:${input.customerObjective.objectiveId}:`
+    : null;
+  const isContractRef = (ref: string) => Boolean(contractPrefix && ref.startsWith(contractPrefix));
   if (kind === 'CONSEQUENTIAL_ACTION') {
     return input.answer.safelyUncertain && refs.length === 0;
   }
-  return refs.every(ref => ref.startsWith('knowledge:'));
+  return refs.every(ref => ref.startsWith('knowledge:') || isContractRef(ref));
 }
 
 function coversStructuredCategories(input: GroundedVerificationInput): boolean {
@@ -112,6 +136,15 @@ export function verifyGroundedAnswer(input: GroundedVerificationInput): Grounded
   const contextRespect = respectsContext(input);
   const leakage = isCustomerAnswerableText(input.answer.message);
   const authority = respectsAuthority(input);
+  const customerContract = input.customerObjective
+    ? verifyCustomerAnswerContract({
+        objective: input.customerObjective,
+        authority: input.bindingAuthority,
+        bundle: input.bundle,
+        answer: input.answer,
+        authorizedLiveEvidenceRef: input.authorizedLiveEvidenceRef,
+      })
+    : null;
   const reasons: string[] = [];
   if (!questionCoverage) reasons.push('QUESTION_COVERAGE');
   if (!entityCoverage) reasons.push('ENTITY_COVERAGE');
@@ -119,6 +152,7 @@ export function verifyGroundedAnswer(input: GroundedVerificationInput): Grounded
   if (!contextRespect) reasons.push('CONTEXT_RESPECT');
   if (!leakage) reasons.push('LEAKAGE');
   if (!authority) reasons.push('AUTHORITY');
+  if (customerContract && !customerContract.pass) reasons.push(...customerContract.reasons);
   return {
     pass: reasons.length === 0,
     reasons,
@@ -128,5 +162,6 @@ export function verifyGroundedAnswer(input: GroundedVerificationInput): Grounded
     contextRespect,
     leakage,
     authority,
+    customerContract,
   };
 }

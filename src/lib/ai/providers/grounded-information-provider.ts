@@ -3,7 +3,8 @@ import type { CustomerEvidenceBundle } from '../context/customer-evidence-bundle
 import type { StructuredCategoryFact } from '../context/structured-category-resolver';
 import type { SemanticContextBundle } from '../semantic/contracts';
 import { getOpenAIConfig } from './openai-config';
-import { getCustomerObjective, CANONICAL_CUSTOMER_OBJECTIVES } from '../context/customer-objective-catalog';
+import type { CustomerObjectiveDefinition } from '../context/customer-objective-catalog';
+import { composeCustomerContractAnswer } from '../context/customer-answer-contract';
 
 export type GroundedComposerMode = 'GROUNDED_GENERATIVE' | 'DETERMINISTIC_FALLBACK';
 
@@ -26,6 +27,7 @@ export interface GroundedSynthesisInput {
   systemPrompt: string;
   bundle: CustomerEvidenceBundle;
   structuredCategoryFacts: readonly StructuredCategoryFact[];
+  customerObjective?: CustomerObjectiveDefinition;
   semanticContext?: SemanticContextBundle;
   attempt: 1 | 2;
 }
@@ -69,6 +71,14 @@ function synthesisPrompt(input: GroundedSynthesisInput): string {
     `SAFE_CONVERSATION_CONTEXT: ${input.conversationContext}`,
     input.semanticContext ? `SEMANTIC_HINTS: Intents=${JSON.stringify(input.semanticContext.intentHints.map(i => i.canonicalTerm))}, Entities=${JSON.stringify(input.semanticContext.entities.map(e => e.canonicalTerm))}` : '',
     `STRUCTURED_CATEGORY_FACTS: ${JSON.stringify(input.structuredCategoryFacts)}`,
+    input.customerObjective
+      ? `CUSTOMER_ANSWER_CONTRACT: ${JSON.stringify({
+          objectiveId: input.customerObjective.objectiveId,
+          requiredFacts: input.customerObjective.answerContract.requiredFacts,
+          forbiddenClaims: input.customerObjective.answerContract.forbiddenClaims,
+          authorityClass: input.customerObjective.answerContract.authorityClass,
+        })}`
+      : '',
     `APPROVED_CUSTOMER_EVIDENCE: ${JSON.stringify(evidencePayload(input.bundle))}`,
   ].filter(Boolean).join('\n');
 }
@@ -196,60 +206,29 @@ class LocalGroundedComposerProvider implements GroundedInformationProvider {
       throw new Error('INSUFFICIENT_CUSTOMER_EVIDENCE');
     }
 
-    const claims: GroundedSynthesisClaim[] = [];
-    const allChunks = input.bundle.sections.flatMap(s => s.chunks);
+    const objective = input.customerObjective;
+    let finalAnswer = '';
+    let claims: GroundedSynthesisClaim[] = [];
 
-    for (const chunk of allChunks) {
-      claims.push({
+    if (objective) {
+      const contractAnswer = composeCustomerContractAnswer(
+        objective,
+        input.bundle.evidenceRefs,
+      );
+      finalAnswer = contractAnswer.message;
+      claims = contractAnswer.materialClaims.map(claim => ({
+        text: claim.text,
+        evidenceRefs: claim.evidenceRefs,
+        supportingText: claim.supportingText ?? claim.text,
+      }));
+    } else {
+      const qLower = input.question.toLowerCase().trim();
+      const allChunks = input.bundle.sections.flatMap(section => section.chunks);
+      claims = allChunks.map(chunk => ({
         text: chunk.content,
         evidenceRefs: [chunk.evidenceRef],
         supportingText: chunk.content,
-      });
-    }
-
-    // Match canonical objective from catalog
-    const qLower = input.question.toLowerCase().trim();
-    const qNorm = qLower.replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
-
-    let matchingObjective = getCustomerObjective(input.bundle.classification.intent);
-    if (!matchingObjective) {
-      matchingObjective = CANONICAL_CUSTOMER_OBJECTIVES.find(o => {
-        const canonicalNorm = o.canonicalQuestion.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
-        if (qNorm === canonicalNorm || qLower === o.canonicalQuestion.toLowerCase()) return true;
-        return o.aliases.some(a => {
-          const aNorm = a.text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
-          return qNorm === aNorm || qLower === a.text.toLowerCase() || (qNorm.length >= 8 && aNorm.length >= 8 && (qNorm.includes(aNorm) || aNorm.includes(qNorm)));
-        });
-      });
-    }
-
-    if (!matchingObjective) {
-      const isPaymentMethods = /\b(?:payment methods?|pay for|pambayad|gcash|maya|paymongo|how can i pay|magbayad|payment options?)\b/i.test(qLower) && !/\b(?:payout|withdraw|earnings|kita)\b/i.test(qLower);
-      const isDamage = /\b(?:damage|damaged|sira|nasira|inspection|deposit deduction|accident)\b/i.test(qLower);
-      const isRefund = /\b(?:refund|refunds|ibalik ang pera|request for refund|how to refund)\b/i.test(qLower);
-      const isProviderProfile = /\b(?:account of provider|provider account|bank details of provider|contact provider|provider profile)\b/i.test(qLower);
-
-      if (isPaymentMethods) matchingObjective = getCustomerObjective('renter.payment.methods');
-      else if (isDamage) matchingObjective = getCustomerObjective('rental.damage.general');
-      else if (isRefund) matchingObjective = getCustomerObjective('renter.refund.request_how_to');
-      else if (isProviderProfile) matchingObjective = getCustomerObjective('provider.profile.public_vs_private');
-    }
-
-    let finalAnswer = '';
-
-    if (matchingObjective) {
-      const contract = matchingObjective.answerContract;
-      const facts = contract.requiredFacts.map(fact => `• ${fact}`).join('\n');
-      finalAnswer = facts;
-
-      // Environment state awareness for payments
-      if (matchingObjective.objectiveId === 'renter.payment.methods') {
-        const isBeta = process.env.NODE_ENV !== 'production' || process.env.VERCEL_ENV !== 'production';
-        if (isBeta) {
-          finalAnswer += `\n\n*Current Environment Notice: RENTipid is currently in Private Beta with Mock Payments Active. Real financial transactions are disabled.*`;
-        }
-      }
-    } else {
+      }));
       // General grounded fallback
       const isPayoutQuestion = /\b(?:payout|withdraw|earnings|kita)\b/i.test(qLower);
       const nonTermsSections = input.bundle.sections
@@ -280,7 +259,7 @@ class LocalGroundedComposerProvider implements GroundedInformationProvider {
 
     return {
       answer: finalAnswer.trim(),
-      answeredIntent: input.bundle.classification.intent,
+      answeredIntent: objective?.objectiveId ?? input.bundle.classification.intent,
       coveredEntities: [...input.bundle.requestedEntities],
       claims,
     };
