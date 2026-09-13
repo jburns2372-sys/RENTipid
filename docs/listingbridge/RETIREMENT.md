@@ -1,9 +1,12 @@
 # RENTipid ListingBridge — Product Retirement & Manual Listing Consolidation
 
-**Status:** RETIRED / NOT OWNER-ACCEPTED  
-**Date:** September 7, 2026  
+**Status:** RETIRED / OWNER-ACCEPTED / CLOSED / VERSION FROZEN  
+**Date:** September 13, 2026  
 **Decision Authority:** RENTipid Product Owner  
-**Branch:** `chore/retire-listingbridge-focus-manual-listing`
+**Branch:** `chore/retire-listingbridge-focus-manual-listing`  
+**Accepted Production SHA:** `d19f0cb63391a652f9a9a4fb22d9688ffac753b0`  
+**Accepted Production Deployment:** `dpl_A2gAH3ZHDtW6Gbo2479ToqbLhQsu`  
+**Freeze Tag:** `listingbridge-retirement-v1.0.0-frozen`  
 
 ---
 
@@ -29,14 +32,17 @@ Concentrate 100% of listing creation on a fast, reliable, native **MANUAL LISTIN
 
 ---
 
-## 2. Historical Lifecycle Classification
+## 2. Governed Lifecycle Classification
 
 To maintain truthfulness and audit integrity across the RENTipid Promotion Standard:
 
-- **LISTINGBRIDGE_G1-G10:** `PASS_TECHNICAL` (Historical engineering milestones completed and verified at source and infrastructure level).
-- **LISTINGBRIDGE_G11:** `NOT_ACCEPTED` (Owner acceptance rejected the core product value proposition).
-- **FINAL LIFECYCLE STATUS:** `RETIRED / NOT OWNER-ACCEPTED`.
-- **HISTORICAL EVIDENCE:** Fully preserved in `docs/listingbridge/evidence/` and repository history.
+- **LISTINGBRIDGE G1-G10:** `PASS` (Full local, preview, and production deployment & verification completed).
+- **LISTINGBRIDGE G11:** `COMPLETED` (Technical completion achieved).
+- **LISTINGBRIDGE G12:** `OWNER-ACCEPTED` (Owner granted formal acceptance on September 13, 2026: *"I accept the ListingBridge retirement, proceed to CLOSED → VERSION FROZEN."*).
+- **LISTINGBRIDGE G13:** `CLOSED` (Module declared formally closed).
+- **LISTINGBRIDGE G14:** `VERSION FROZEN` (Annotated tag `listingbridge-retirement-v1.0.0-frozen` on SHA `d19f0cb63391a652f9a9a4fb22d9688ffac753b0`).
+- **FINAL LIFECYCLE STATUS:** `RETIRED / OWNER-ACCEPTED / CLOSED / VERSION FROZEN`.
+- **HISTORICAL EVIDENCE:** Fully preserved in `docs/listingbridge/evidence/` and `docs/listingbridge/EVIDENCE_LEDGER_LISTINGBRIDGE_RETIREMENT.md`.
 
 ---
 
