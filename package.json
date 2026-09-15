@@ -22,6 +22,8 @@
     "test:db:reset": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- prisma migrate reset --force",
     "test:soc:integration": "npm run test:db:guard && cross-env NODE_ENV=test SECURITY_TELEMETRY_HMAC_KEY=0123456789abcdef0123456789abcdef SOC_CORRELATION_HMAC_KEY=0123456789abcdef0123456789abcdef dotenv -e .env.test.local -e .env.test -- jest --runInBand",
     "test:oat": "npm run test:db:guard && cross-env NODE_ENV=test dotenv -e .env.test.local -e .env.test -- jest --runInBand tests/oat",
+    "db:install": "tsx scripts/db/db-install.ts",
+    "ai:local:seed": "tsx scripts/ai/seed-canonical-ai.ts",
     "address:local:bootstrap": "tsx scripts/address-local-bootstrap.ts",
     "app:local:bootstrap": "tsx scripts/address-local-bootstrap.ts",
     "app:verify:local": "tsx scripts/app-verify.ts local",

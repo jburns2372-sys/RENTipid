@@ -15,6 +15,7 @@ export class LocalStorageAdapter implements StorageAdapter {
     await mkdir(parentDir, { recursive: true });
 
     const filePath = path.join(parentDir, fileName);
+    await mkdir(path.dirname(filePath), { recursive: true });
     await writeFile(filePath, buffer);
     
     return {
@@ -32,7 +33,8 @@ export class LocalStorageAdapter implements StorageAdapter {
     }
   }
 
-  async getSignedUrl(filePath: string, expiresInSeconds: number): Promise<string> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async getSignedUrl(filePath: string, _expiresInSeconds?: number): Promise<string> {
     // In local dev, we might just return the proxy API endpoint
     // In production this would generate a signed JWT
     const fileName = path.basename(filePath);

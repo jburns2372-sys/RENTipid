@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { runMarketplaceSampleSeed } from '../src/lib/marketplace/seed-reconciler';
 import { seedListingBridgeSystemSettings } from '../src/lib/listingbridge';
 import { CANONICAL_CATEGORIES } from '../src/lib/categories/canonical-categories';
+import { upsertSeededEmailPasswordUser } from '../src/lib/auth/seed/upsert-seeded-user';
 const prisma = new PrismaClient();
 
 async function main() {
@@ -46,32 +47,32 @@ async function main() {
   console.log('Seeding ListingBridge System Settings...');
   await seedListingBridgeSystemSettings(prisma);
 
-  console.log('Seeding Development Accounts...');
-  
-  // Basic bcrypt hash for "password123"
-  const password_hash = "$2a$10$wT/X200D8J8eC2dK4X0aZe5H.Jj7Ew1B6Gz9X9u6wZ1E8Q8J2B6G.";
+  console.log('Seeding Development Accounts via canonical auth seeder...');
+  const plainPassword = process.env.SEED_DEFAULT_PASSWORD || 'password123';
 
-  const users = [
+  const users: Array<{
+    email: string;
+    full_name: string;
+    account_type: 'Individual' | 'Business';
+    role: string;
+    status: 'Pending' | 'Verified';
+  }> = [
     { email: "superadmin@rentipid.local", full_name: "Super Admin User", account_type: "Individual", role: "Super Admin", status: "Verified" },
     { email: "admin@rentipid.local", full_name: "Compliance Admin", account_type: "Individual", role: "Compliance Admin", status: "Verified" },
     { email: "finance@rentipid.local", full_name: "Finance Admin", account_type: "Individual", role: "Finance Admin", status: "Verified" },
-    { email: "renter@rentipid.local", full_name: "Sample Renter", account_type: "Individual", role: "Renter", status: "Pending" },
-    { email: "provider@rentipid.local", full_name: "Sample Provider", account_type: "Individual", role: "Individual Provider", status: "Pending" },
-    { email: "business@rentipid.local", full_name: "Sample Business", account_type: "Business", role: "Business Provider", status: "Pending" },
+    { email: "renter@rentipid.local", full_name: "Sample Renter", account_type: "Individual", role: "Renter", status: "Verified" },
+    { email: "provider@rentipid.local", full_name: "Sample Provider", account_type: "Individual", role: "Individual Provider", status: "Verified" },
+    { email: "business@rentipid.local", full_name: "Sample Business", account_type: "Business", role: "Business Provider", status: "Verified" },
   ];
 
   for (const user of users) {
-    await prisma.user.upsert({
-      where: { email: user.email },
-      update: {},
-      create: {
-        email: user.email,
-        full_name: user.full_name,
-        account_type: user.account_type,
-        role: user.role,
-        status: user.status,
-        password_hash,
-      },
+    await upsertSeededEmailPasswordUser(prisma, {
+      email: user.email,
+      fullName: user.full_name,
+      accountType: user.account_type,
+      role: user.role,
+      status: user.status,
+      plainPassword,
     });
   }
 

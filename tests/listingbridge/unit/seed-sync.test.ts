@@ -18,21 +18,19 @@ describe('ListingBridge Seed & Sync Authority (G1 Reopen)', () => {
       LISTINGBRIDGE_DEFAULT_SYSTEM_SETTINGS.map((s) => [s.setting_key, s.setting_value]),
     );
 
-    // Rollout-sensitive & external capabilities must default to safe/off
+    // In retirement posture, all capabilities must default to disabled ('false')
     expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.GLOBAL)).toBe('false');
     expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.URL_IMPORT)).toBe('false');
     expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.API_CONNECTORS)).toBe('false');
     expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.AVAILABILITY_IMPORT)).toBe('false');
-
-    // Subordinate internal capabilities are ready when global switch is enabled
-    expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.FILE_IMPORT)).toBe('true');
-    expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.MEDIA_IMPORT)).toBe('true');
-    expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.AI_MAPPING)).toBe('true');
+    expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.FILE_IMPORT)).toBe('false');
+    expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.MEDIA_IMPORT)).toBe('false');
+    expect(defaultsMap.get(LISTINGBRIDGE_FEATURE_FLAGS.AI_MAPPING)).toBe('false');
 
     for (const setting of LISTINGBRIDGE_DEFAULT_SYSTEM_SETTINGS) {
       expect(typeof setting.setting_key).toBe('string');
       expect(setting.setting_key.startsWith('LISTINGBRIDGE_')).toBe(true);
-      expect(['true', 'false']).toContain(setting.setting_value);
+      expect(setting.setting_value).toBe('false');
       expect(typeof setting.description).toBe('string');
       expect(setting.description.length).toBeGreaterThan(5);
     }
@@ -50,6 +48,7 @@ describe('ListingBridge Seed & Sync Authority (G1 Reopen)', () => {
             const updated = {
               ...existing,
               description: args.update.description ?? existing.description,
+              setting_value: args.update.setting_value ?? existing.setting_value,
             };
             databaseMap.set(key, updated);
             return updated;
@@ -74,22 +73,23 @@ describe('ListingBridge Seed & Sync Authority (G1 Reopen)', () => {
     // Initial safe values verified
     expect(databaseMap.get(LISTINGBRIDGE_FEATURE_FLAGS.GLOBAL)?.setting_value).toBe('false');
     expect(databaseMap.get(LISTINGBRIDGE_FEATURE_FLAGS.URL_IMPORT)?.setting_value).toBe('false');
+    expect(databaseMap.get(LISTINGBRIDGE_FEATURE_FLAGS.FILE_IMPORT)?.setting_value).toBe('false');
 
-    // Simulate administrator manually enabling GLOBAL in an environment
+    // Simulate pre-existing legacy row with 'true'
     databaseMap.set(LISTINGBRIDGE_FEATURE_FLAGS.GLOBAL, {
       setting_key: LISTINGBRIDGE_FEATURE_FLAGS.GLOBAL,
       setting_value: 'true',
-      description: 'Master kill-switch enabled by operator',
+      description: 'Legacy active setting',
     });
 
-    // Second execution (repeat run / sync): must be idempotent and preserve operator override
+    // Second execution (repeat run / sync): must be idempotent and normalize retired default
     const secondResult = await seedListingBridgeSystemSettings(mockDb);
     expect(secondResult).toHaveLength(7);
     expect(databaseMap.size).toBe(7);
     expect(mockDb.systemSetting.upsert).toHaveBeenCalledTimes(14);
 
-    // Verify operator override was preserved
+    // Verify retired default was enforced
     const globalSetting = databaseMap.get(LISTINGBRIDGE_FEATURE_FLAGS.GLOBAL);
-    expect(globalSetting?.setting_value).toBe('true');
+    expect(globalSetting?.setting_value).toBe('false');
   });
 });
