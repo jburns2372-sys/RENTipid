@@ -14,6 +14,7 @@ export const GENERIC_AUTH_MESSAGE = 'If the details are valid, you can continue.
 
 export type UnifiedAuthErrorCode =
   | 'ACCOUNT_DISABLED'
+  | 'ACCOUNT_LINK_REQUIRED'
   | 'CONSENT_REQUIRED'
   | 'EMAIL_NOT_VERIFIED'
   | 'IDENTITY_IN_USE'
@@ -111,6 +112,7 @@ export interface UnifiedAuthRepository {
   updateUserEmailAndPassword(userId: string, email: string, passwordHash: string): Promise<UnifiedUserRecord>;
 
   findProviderIdentity(provider: OAuthAuthMethod, providerSubject: string): Promise<AuthProviderIdentityRecord | null>;
+  findProviderIdentityByEmail(email: string): Promise<AuthProviderIdentityRecord | null>;
   findProviderIdentitiesByUser(userId: string): Promise<AuthProviderIdentityRecord[]>;
   createProviderIdentity(input: Omit<AuthProviderIdentityRecord, 'id'> & { display_name?: string | null; avatar_url?: string | null }): Promise<AuthProviderIdentityRecord>;
   touchProviderIdentity(identityId: string): Promise<void>;
@@ -393,6 +395,22 @@ export class UnifiedAuthenticationService {
       await this.repo.touchProviderIdentity(existing.id);
       await this.auditEvent({ eventCode: 'AUTH_OAUTH_LOGIN_SUCCEEDED', outcome: 'SUCCESS', userId: user.id, metadata: { provider: input.provider } });
       return user;
+    }
+
+    if (normalized.email) {
+      const existingUserByEmail = await this.repo.findUserByEmail(normalized.email);
+      const existingProviderByEmail = await this.repo.findProviderIdentityByEmail(normalized.email);
+      if (existingUserByEmail || existingProviderByEmail) {
+        await this.auditEvent({
+          eventCode: 'AUTH_ACCOUNT_LINK_REQUIRED',
+          outcome: 'DENIED',
+          metadata: {
+            provider: normalized.provider,
+            reason: 'ACCOUNT_LINK_REQUIRED',
+          },
+        });
+        throw new UnifiedAuthError('ACCOUNT_LINK_REQUIRED');
+      }
     }
 
     const versions = requireConsent(this.config, input.consent);

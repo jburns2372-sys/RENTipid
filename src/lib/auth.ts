@@ -15,6 +15,7 @@ import { MFA_SESSION_ASSURANCE_LEVEL_AAL2 } from "./security/auth/mfa-session-as
 import type { OAuthAuthMethod } from "./auth/unified/config";
 import { getUnifiedAuthConfig, isPublicAuthMethodEnabled } from "./auth/unified/config";
 import { readOAuthConsent } from "./auth/unified/oauth-consent";
+import { readOAuthLinkIntent, clearOAuthLinkIntentCookie } from "./auth/unified/oauth-link-intent";
 import { createPhoneOtpAuthenticationService, createUnifiedAuthenticationService } from "./auth/unified/factory";
 import { UnifiedAuthError } from "./auth/unified/services";
 
@@ -282,10 +283,13 @@ export const authOptions: NextAuthOptions = {
 
       try {
         const authService = createUnifiedAuthenticationService();
-        const linkContext = await resolveCurrentOAuthLinkContext();
+        const linkIntent = await readOAuthLinkIntent(provider);
+        const linkContext = linkIntent
+          ? { userId: linkIntent.userId, isExplicitIntent: true }
+          : await resolveCurrentOAuthLinkContext();
 
         if (linkContext) {
-          if (!linkContext.hasAal2) {
+          if (!linkIntent && 'hasAal2' in linkContext && !linkContext.hasAal2) {
             await logAuthenticationEvent({
               event_code: "AUTH_IDENTITY_LINK_BLOCKED",
               outcome: "Failure",
@@ -302,6 +306,11 @@ export const authOptions: NextAuthOptions = {
             profile: profile as Record<string, unknown> | null,
             recentAuthentication: true,
           });
+
+          if (linkIntent) {
+            await clearOAuthLinkIntentCookie();
+          }
+
           const linkedUser = await prisma.user.findUnique({
             where: { id: linkContext.userId },
             select: { id: true, email: true, full_name: true, role: true, status: true },
@@ -330,6 +339,31 @@ export const authOptions: NextAuthOptions = {
       } catch (error) {
         const reason = error instanceof UnifiedAuthError ? error.code : "oauth_signin_failed";
         console.warn(`[AUTH] OAuth signIn rejected: provider=${provider}, reason=${reason}`);
+
+        if (error instanceof UnifiedAuthError && error.code === "ACCOUNT_LINK_REQUIRED") {
+          await logAuthenticationEvent({
+            event_code: "AUTH_ACCOUNT_LINK_REQUIRED",
+            outcome: "Failure",
+            sanitized_metadata: {
+              provider,
+              reason: "ACCOUNT_LINK_REQUIRED",
+            },
+          });
+          return "/login?error=AccountLinkRequired";
+        }
+
+        if (error instanceof UnifiedAuthError && error.code === "IDENTITY_IN_USE") {
+          await logAuthenticationEvent({
+            event_code: "AUTH_IDENTITY_LINK_BLOCKED",
+            outcome: "Failure",
+            sanitized_metadata: {
+              provider,
+              reason: "IDENTITY_IN_USE",
+            },
+          });
+          return "/dashboard/profile?tab=security&error=IdentityInUse";
+        }
+
         await logAuthenticationEvent({
           event_code: error instanceof UnifiedAuthError && error.code === "ACCOUNT_DISABLED"
             ? "AUTH_ACCOUNT_STATUS_DENIED"

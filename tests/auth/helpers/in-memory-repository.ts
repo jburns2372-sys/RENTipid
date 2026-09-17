@@ -118,6 +118,13 @@ export class InMemoryUnifiedAuthRepository implements UnifiedAuthRepository {
     ) ?? null;
   }
 
+  async findProviderIdentityByEmail(email: string): Promise<AuthProviderIdentityRecord | null> {
+    const normalized = canonicalizeEmail(email);
+    return this.store.providerIdentities.find(
+      (p) => p.email && canonicalizeEmail(p.email) === normalized,
+    ) ?? null;
+  }
+
   async findProviderIdentitiesByUser(userId: string): Promise<AuthProviderIdentityRecord[]> {
     return this.store.providerIdentities.filter((p) => p.user_id === userId);
   }

@@ -410,6 +410,8 @@ function UnifiedGateway() {
   const { isEnabled, loaded } = useAuthMethods();
   const [showWhatsApp, setShowWhatsApp] = useState(false);
 
+  const error = searchParams.get('error');
+
   const googleEnabled = isEnabled('google');
   const facebookEnabled = isEnabled('facebook');
   const appleEnabled = isEnabled('apple');
@@ -423,6 +425,28 @@ function UnifiedGateway() {
 
   return (
     <div className="space-y-6">
+      {error === 'AccountLinkRequired' && (
+        <div className="bg-amber-50 border border-amber-200 text-amber-900 p-4 rounded-xl text-sm leading-relaxed mb-4 flex items-start gap-3" id="account-link-required-banner">
+          <div className="p-1 bg-amber-100 rounded-lg mt-0.5">
+            <svg className="w-4 h-4 text-amber-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <div>
+            <p className="font-semibold text-amber-950">Sign-in method not connected</p>
+            <p className="mt-1 text-amber-800">
+              That sign-in method is not connected to this RENTipid account yet. Sign in using one of your existing methods, then connect the new method from Account Security.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {error === 'AccessDenied' && (
+        <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-xl text-sm mb-4">
+          Access denied. Please check your credentials or try another sign-in method.
+        </div>
+      )}
+
       {/* Social / OAuth Buttons */}
       {hasSocial && (
         <div className="space-y-3" id="social-auth-section">

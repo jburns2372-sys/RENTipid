@@ -250,6 +250,14 @@ export class PrismaUnifiedAuthRepository implements UnifiedAuthRepository {
     }));
   }
 
+  async findProviderIdentityByEmail(email: string): Promise<AuthProviderIdentityRecord | null> {
+    const normalizedEmail = canonicalizeEmail(email);
+    const rows = await db.authProviderIdentity.findMany({
+      where: { email: normalizedEmail },
+    });
+    return rows[0] ? toProviderIdentityRecord(rows[0]) : null;
+  }
+
   async findProviderIdentitiesByUser(userId: string): Promise<AuthProviderIdentityRecord[]> {
     const rows = await db.authProviderIdentity.findMany({ where: { user_id: userId } });
     return rows.map(toProviderIdentityRecord).filter((row): row is AuthProviderIdentityRecord => Boolean(row));

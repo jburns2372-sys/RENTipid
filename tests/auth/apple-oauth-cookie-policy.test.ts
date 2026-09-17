@@ -237,18 +237,18 @@ describe('Apple OAuth Cookie Policy Regression Suite', () => {
         mobile_number: null,
       });
 
-      // Apple sign-in with same email
-      const appleUser = await service.resolveOAuthSignIn({
-        provider: 'apple',
-        providerSubject: 'apple-user-collision',
-        profile: { sub: 'apple-user-collision', email: 'shared@example.com', email_verified: true },
-        consent,
-      });
+      // Apple sign-in with same email must refuse auto-link and throw ACCOUNT_LINK_REQUIRED
+      await expect(
+        service.resolveOAuthSignIn({
+          provider: 'apple',
+          providerSubject: 'apple-user-collision',
+          profile: { sub: 'apple-user-collision', email: 'shared@example.com', email_verified: true },
+          consent,
+        })
+      ).rejects.toMatchObject({ code: 'ACCOUNT_LINK_REQUIRED' });
 
-      // Must be a separate isolated user, not merged into store.users[0]
-      expect(store.users.length).toBe(2);
-      expect(appleUser.id).not.toBe(store.users[0].id);
-      expect(appleUser.email).toContain('@identity.rentipid.invalid');
+      // No duplicate user created! Exactly 1 user remains.
+      expect(store.users.length).toBe(1);
     });
 
     it('denies inactive/suspended users on Apple sign-in', async () => {

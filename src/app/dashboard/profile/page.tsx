@@ -6,6 +6,7 @@ import { prisma } from '@/lib/prisma';
 import ProfileFormClient, { ExtendedUserProfile, ExtendedBusinessProfile } from '@/components/profile/ProfileFormClient';
 import { AddressService } from '@/lib/address/AddressService';
 import { isSyntheticIdentityEmail, resolveProfileDisplayEmail } from '@/lib/auth/unified/display-email';
+import ConnectedLoginMethods from '@/components/profile/ConnectedLoginMethods';
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
@@ -80,6 +81,8 @@ export default async function ProfilePage() {
           </a>
         </div>
       </div>
+
+      <ConnectedLoginMethods />
 
       <ProfileFormClient 
         user={user as unknown as Partial<import('@prisma/client').User>} 
