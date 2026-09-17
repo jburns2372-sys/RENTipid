@@ -328,6 +328,8 @@ export const authOptions: NextAuthOptions = {
         (user as { status?: string }).status = resolved.status;
         return true;
       } catch (error) {
+        const reason = error instanceof UnifiedAuthError ? error.code : "oauth_signin_failed";
+        console.warn(`[AUTH] OAuth signIn rejected: provider=${provider}, reason=${reason}`);
         await logAuthenticationEvent({
           event_code: error instanceof UnifiedAuthError && error.code === "ACCOUNT_DISABLED"
             ? "AUTH_ACCOUNT_STATUS_DENIED"
@@ -335,7 +337,7 @@ export const authOptions: NextAuthOptions = {
           outcome: "Failure",
           sanitized_metadata: {
             provider,
-            reason: error instanceof UnifiedAuthError ? error.code : "oauth_signin_failed",
+            reason,
           },
         });
         return false;

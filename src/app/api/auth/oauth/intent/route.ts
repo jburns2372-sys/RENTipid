@@ -22,13 +22,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: GENERIC_AUTH_MESSAGE }, { status: 200 });
   }
 
+  const useSecureCookies = Boolean(
+    process.env.NEXTAUTH_URL?.startsWith('https://') ||
+    process.env.NODE_ENV === 'production'
+  );
+
   const response = NextResponse.json({ message: GENERIC_AUTH_MESSAGE }, { status: 200 });
   response.cookies.set({
     name: OAUTH_CONSENT_COOKIE,
     value: createOAuthConsentToken(provider),
     httpOnly: true,
-    sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production',
+    sameSite: useSecureCookies ? 'none' : 'lax',
+    secure: useSecureCookies,
     path: '/',
     maxAge: 10 * 60,
   });
