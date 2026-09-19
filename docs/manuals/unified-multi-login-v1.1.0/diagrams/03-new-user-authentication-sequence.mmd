@@ -1,0 +1,18 @@
+sequenceDiagram
+  actor Person
+  participant UI as RENTipid sign-in
+  participant Provider as External provider
+  participant Auth as UnifiedAuthService
+  participant DB as PostgreSQL
+  Person->>UI: Choose enabled method and accept terms
+  UI->>Provider: Authenticate
+  Provider-->>UI: Verified provider identity
+  UI->>Auth: provider + subject + profile metadata
+  Auth->>DB: Find provider identity
+  DB-->>Auth: Not found
+  Auth->>DB: Check possible canonical email match
+  DB-->>Auth: No existing account
+  Auth->>DB: Create User and AuthProviderIdentity
+  Auth-->>UI: Canonical User
+  UI->>DB: Register UserSession
+  UI-->>Person: Continue to RENTipid

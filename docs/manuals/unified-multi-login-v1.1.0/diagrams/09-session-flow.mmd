@@ -1,0 +1,11 @@
+sequenceDiagram
+  participant Auth as Successful authentication
+  participant JWT as NextAuth JWT
+  participant Registry as UserSession registry
+  participant Request as Protected request
+  Auth->>JWT: Set User id, role, status and opaque session id
+  Auth->>Registry: Store hash of session id with expiry
+  JWT-->>Request: HttpOnly session cookie
+  Request->>Registry: Validate active session hash and account status
+  Registry-->>Request: Active, expired or revoked
+  Request-->>Request: Authorize or require sign-in

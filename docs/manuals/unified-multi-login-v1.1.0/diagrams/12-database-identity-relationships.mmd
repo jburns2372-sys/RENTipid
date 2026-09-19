@@ -1,0 +1,29 @@
+erDiagram
+  User ||--o| EmailCredential : has
+  User ||--o{ AuthProviderIdentity : owns
+  User ||--o{ PhoneIdentity : owns
+  User ||--o{ UserSession : has
+  User ||--o| UserProfile : has
+  User ||--o| BusinessProfile : has
+  User ||--o{ AuthConsentReceipt : records
+  User ||--o{ AuthIdentityEvent : audits
+  User ||--o{ AuthenticationSecurityLog : emits
+  User ||--o{ Booking : owns
+  User ||--o{ Payment : owns
+  User ||--o{ LedgerEntry : owns
+  AuthProviderIdentity {
+    string provider
+    string provider_subject
+    string email
+    boolean email_verified
+    boolean is_private_email
+  }
+  EmailCredential {
+    string normalized_email
+    string password_hash
+    boolean is_verified
+  }
+  PhoneIdentity {
+    string phone_e164
+    datetime verified_at
+  }

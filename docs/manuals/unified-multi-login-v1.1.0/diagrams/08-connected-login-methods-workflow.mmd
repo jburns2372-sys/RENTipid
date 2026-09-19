@@ -1,0 +1,12 @@
+flowchart TD
+  Open[Open Dashboard - Account Security] --> Load[GET connected methods]
+  Load --> Connected{Method status}
+  Connected -->|Connected| Disconnect[Offer Disconnect when policy permits]
+  Connected -->|Not connected and enabled| Connect[Offer Connect]
+  Connected -->|Unavailable| Explain[Show unavailable state]
+  Connect --> Intent[Create signed link intent]
+  Intent --> Provider[Authenticate with provider]
+  Provider --> Linked[Link to current User]
+  Disconnect --> Last{Last usable method?}
+  Last -->|Yes| Block[Block LAST_SIGN_IN_METHOD]
+  Last -->|No| Remove[Remove provider identity]

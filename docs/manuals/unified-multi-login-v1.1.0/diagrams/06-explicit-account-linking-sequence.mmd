@@ -1,0 +1,17 @@
+sequenceDiagram
+  actor Person
+  participant Security as Account Security
+  participant Intent as Link-intent API
+  participant Provider
+  participant Auth as Sign-in callback
+  participant DB as PostgreSQL
+  Person->>Security: Connect provider
+  Security->>Intent: Request signed provider-bound intent
+  Intent-->>Person: HttpOnly link-intent cookie
+  Person->>Provider: Authenticate provider identity
+  Provider-->>Auth: provider + subject
+  Auth->>Auth: Validate current session and signed intent
+  Auth->>DB: Confirm identity not owned elsewhere
+  DB-->>Auth: Available or already owned by same User
+  Auth->>DB: Link AuthProviderIdentity to User U123
+  Auth-->>Security: Connected

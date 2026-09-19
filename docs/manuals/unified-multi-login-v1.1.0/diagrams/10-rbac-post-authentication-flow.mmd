@@ -1,0 +1,10 @@
+flowchart LR
+  Identity[Verified login identity] --> User[Resolve permanent User]
+  User --> Status{Account active?}
+  Status -->|No| Deny[Reject access]
+  Status -->|Yes| Session[Issue validated session]
+  Session --> Role[Read User.role from database]
+  Role --> Policy[RENTipid authorization policy]
+  Policy --> Allow[Allow permitted action]
+  Policy --> Deny
+  External[Provider profile claims] -. never assign internal role .-> Deny

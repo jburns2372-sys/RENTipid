@@ -1,0 +1,8 @@
+flowchart LR
+  Local[LOCAL\nLocal configuration\nLocal or test database]
+  Preview[PREVIEW\npreview.rentipid.com.ph\nIndependent deployment\nIndependent Preview database]
+  Production[PRODUCTION\nwww.rentipid.com.ph\nFrozen deployment\nProduction database]
+  Local -->|gated promotion| Preview
+  Preview -->|accepted promotion only| Production
+  Preview -.- Isolation[No live customer database sharing]
+  Production -.- Isolation

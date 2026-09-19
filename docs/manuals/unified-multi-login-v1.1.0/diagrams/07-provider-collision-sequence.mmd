@@ -1,0 +1,11 @@
+sequenceDiagram
+  actor Person
+  participant Auth as UnifiedAuthService
+  participant DB as PostgreSQL
+  participant Audit as Security audit
+  Person->>Auth: Connect provider to User U123
+  Auth->>DB: Find provider + subject
+  DB-->>Auth: Already owned by User U987
+  Auth->>Audit: AUTH_IDENTITY_LINK_BLOCKED / IDENTITY_IN_USE
+  Auth-->>Person: Connection blocked
+  Note over Person,Audit: No identity reassignment and no data merge

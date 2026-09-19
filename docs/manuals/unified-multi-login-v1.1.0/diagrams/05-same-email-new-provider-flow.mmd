@@ -1,0 +1,14 @@
+sequenceDiagram
+  actor Person
+  participant Provider
+  participant Auth as UnifiedAuthService
+  participant DB as PostgreSQL
+  Person->>Provider: Authenticate with new provider
+  Provider-->>Auth: New subject and email metadata
+  Auth->>DB: Find provider + subject
+  DB-->>Auth: Not found
+  Auth->>DB: Find canonicalized email
+  DB-->>Auth: Existing User U123 found
+  Auth->>DB: Record AUTH_ACCOUNT_LINK_REQUIRED
+  Auth-->>Person: ACCOUNT_LINK_REQUIRED
+  Note over Person,Auth: No automatic merge and no new duplicate User

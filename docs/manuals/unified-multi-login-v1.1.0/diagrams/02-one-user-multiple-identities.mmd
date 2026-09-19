@@ -1,0 +1,11 @@
+flowchart TB
+  User[User U123 - permanent RENTipid identity]
+  Google[google + provider subject] --> User
+  Apple[apple + provider subject] --> User
+  Facebook[facebook + provider subject] --> User
+  Email[EmailCredential + normalized email] --> User
+  Phone[PhoneIdentity + E.164 phone] --> User
+  User --> Profile[Profile and business profile]
+  User --> Access[Role and permissions]
+  User --> Trust[KYC and verification state]
+  User --> Records[Listings, bookings, payments, ledger, reviews, history]

@@ -1,0 +1,11 @@
+sequenceDiagram
+  actor Person
+  participant Provider
+  participant Auth as UnifiedAuthService
+  participant DB as PostgreSQL
+  Person->>Provider: Authenticate
+  Provider-->>Auth: provider + subject
+  Auth->>DB: Find AuthProviderIdentity
+  DB-->>Auth: Identity linked to User U123
+  Auth->>DB: Verify account status
+  Auth-->>Person: Session for User U123

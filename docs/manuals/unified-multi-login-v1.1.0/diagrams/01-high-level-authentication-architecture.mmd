@@ -1,0 +1,14 @@
+flowchart LR
+  Browser[Browser or PWA] --> Gateway[RENTipid sign-in gateway]
+  Gateway --> Email[Email and password]
+  Gateway --> Phone[WhatsApp OTP]
+  Gateway --> OAuth[Google / Facebook / Apple]
+  Email --> Auth[Unified authentication services]
+  Phone --> Auth
+  OAuth --> NextAuth[NextAuth provider callbacks]
+  NextAuth --> Auth
+  Auth --> Identity[(AuthProviderIdentity / PhoneIdentity / EmailCredential)]
+  Identity --> User[(Permanent User)]
+  User --> Session[JWT plus UserSession registry]
+  Session --> RBAC[RENTipid RBAC and account status checks]
+  RBAC --> Marketplace[Marketplace application]
