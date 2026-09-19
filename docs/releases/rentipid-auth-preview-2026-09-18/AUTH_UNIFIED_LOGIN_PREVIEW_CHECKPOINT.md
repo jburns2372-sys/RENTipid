@@ -54,7 +54,9 @@ Read-only checks returned HTTP 200 on 2026-09-18 UTC / 2026-09-19 Asia/Shanghai:
 - Five-provider Preview target: active in the provider registry
 - Facebook source support: implemented
 - Facebook Preview runtime provider: active
-- Facebook OAuth redirect acceptance: BLOCKED — Meta Client OAuth whitelist registration for `https://preview.rentipid.com.ph/api/auth/callback/facebook` is still required and the end-to-end redirect was not retested by this checkpoint.
+- Facebook OAuth redirect acceptance: completed
+- Facebook identity collision reconciliation: COMPLETED (Owner-authorized atomic reassignment of single Facebook AuthProviderIdentity row from historical Class 1 empty auth shell to canonical user owning Google and Apple)
+- Three-provider unified identity mapping on canonical user: Google (connected), Apple (connected), Facebook (connected)
 
 ## Production non-interference
 
