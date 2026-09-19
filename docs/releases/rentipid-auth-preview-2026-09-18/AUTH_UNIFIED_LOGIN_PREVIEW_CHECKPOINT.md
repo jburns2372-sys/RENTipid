@@ -40,10 +40,10 @@ All listed commits are ancestors of the reviewed source HEAD. None was rewritten
   - `tests/auth/ancillary-email-password-flows.test.ts`
   - `tests/auth/profile-display-email.test.ts`
   - `tests/auth/unified-auth-routes.test.ts`
-- Canonical build: FAIL before Next.js compilation. Two `npm run build` attempts reached `prisma generate` and failed with Windows `EPERM` while replacing the generated Prisma query-engine DLL. Existing unrelated Node processes were not terminated and generated files were not deleted.
+- Canonical build: PASS (`npm run build`)
+  - Original build blocker: Windows Prisma generated-engine EPERM file lock (`query_engine-windows.dll.node`)
+  - Resolution: Stale local RENTipid Next.js dev server process tree (PID 38212) holding the Prisma engine DLL handle was identified and terminated; stale temporary engine artifacts were cleared from `node_modules/.prisma/client`; Prisma client was regenerated cleanly (`prisma generate`); full canonical Next.js production build succeeded (`npm run build`).
 - Uncommitted-change secret scan before checkpoint creation: no leakage found.
-
-No PASS is claimed for the canonical build.
 
 ## Preview runtime observation
 
