@@ -302,7 +302,7 @@ Yes. The module release evidence records Production completion, owner acceptance
 
 ## 15. Contact and next steps
 
-**Future contact placeholder:** Insert the approved RENTipid partnerships, enterprise sales or marketplace-provider onboarding contact before external distribution.
+For partnership, enterprise, or business inquiries, use the official contact channels published by RENTipid through its website or application.
 
 Recommended next steps for a prospective partner:
 

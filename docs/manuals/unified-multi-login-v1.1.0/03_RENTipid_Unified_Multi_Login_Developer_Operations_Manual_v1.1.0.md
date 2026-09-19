@@ -154,7 +154,7 @@ erDiagram
   User ||--o| BusinessProfile : has
   User ||--o{ Booking : owns
   User ||--o{ Payment : owns
-  User ||--o{ LedgerEntry : owns
+  User ||--o{ FinanceLedger : owns
 ```
 
 ### 5.2 `User`
@@ -417,7 +417,7 @@ Tests cover new/returning Facebook, missing email, same-user resolution, provide
 
 ### 14.1 Configuration
 
-Variable names: `AUTH_APPLE_ENABLED`, `AUTH_APPLE_DEFERRED`, `APPLE_CLIENT_ID`, `APPLE_CLIENT_SECRET`. The web client ID represents the Apple Services ID. `AUTH_APPLE_DEFERRED` hides the method even when credentials exist.
+Variable names: `AUTH_APPLE_ENABLED`, `AUTH_APPLE_DEFERRED`, `APPLE_CLIENT_ID`, `APPLE_CLIENT_SECRET`. The web client ID represents the Apple Services ID. By implementation design in `src/lib/auth/unified/config.ts`, `isAppleLoginDeferred()` defaults to `true` (`isFeatureFlagEnabled(env, APPLE_LOGIN_DEFERRED_ENV, true)`). Therefore, when `AUTH_APPLE_DEFERRED` is absent or unconfigured, Apple defaults to HIDDEN / DEFERRED on the public login gateway. To make Apple publicly visible on the login gateway, `AUTH_APPLE_DEFERRED` must be explicitly set to `false` (or `0`, `off`, `disabled`, `no`).
 
 ### 14.2 Provider contract
 
@@ -589,7 +589,7 @@ The following table lists variable names only.
 | `FACEBOOK_CLIENT_ID` | Meta app/client ID | Env-specific | Preview registration | Production registration | No/public identifier | Required for Facebook | Exact callback |
 | `FACEBOOK_CLIENT_SECRET` | Meta app secret | Env-specific | Secret store | Secret store | Yes | Required for Facebook | Never commit |
 | `AUTH_APPLE_ENABLED` | Apple feature flag | As needed | `true` | `true` | No | No | Credentials still required |
-| `AUTH_APPLE_DEFERRED` | Explicitly hide/defer Apple | Optional | `false`/absent accepted | `false`/absent accepted | No | No | Truthy value hides Apple |
+| `AUTH_APPLE_DEFERRED` | Controls public visibility of Apple login | Optional (`false` to show) | `false` (explicitly enabled) | `false` (explicitly enabled) | No | No | Defaults to `true` (HIDDEN/DEFERRED) when absent or empty; must be explicitly set to `false` (or `0`, `off`, `disabled`, `no`) to expose Apple on public gateway |
 | `APPLE_CLIENT_ID` | Apple Services ID | Env-specific | Preview-capable registration | Production registration | No/public identifier | Required for Apple | Web Services ID concept |
 | `APPLE_CLIENT_SECRET` | Apple generated client secret/JWT | Env-specific | Secret store | Secret store | Yes | Required for Apple | Never store `.p8` or JWT in repo |
 | `AUTH_EMAIL_ENABLED` | Email/password flag | As needed | `true` | `true` | No | No | Credential provider still needs email delivery for verification/recovery |
@@ -609,7 +609,9 @@ The following table lists variable names only.
 | `RENTIPID_PRIVACY_VERSION` | Privacy document version | Current | Current | Current accepted | No | No | Default `unified-multi-login-v1.1` |
 | `DATABASE_URL` | Runtime database connection | Isolated local/test | Preview database | Production database | Yes | Yes | Never share Preview/Production |
 | `DIRECT_URL` | Direct migration connection where used | Isolated | Preview migration target | Production migration target | Yes | Workflow-dependent | Never document value |
-| `MFA_ENCRYPTION_KEY` | Protect MFA secrets | Strong value | Secret store | Secret store | Yes | MFA operations | Rotate only with reviewed procedure |
+| `MFA_ENCRYPTION_KEY_ID` | Identifier for active field encryption key | Test key ID (`local-key-1`) | Configured key ID | Configured key ID | No | Yes (for MFA) | Key ID/version metadata; referenced by `EnvironmentKeyProvider` (`process.env.MFA_ENCRYPTION_KEY_ID`); pairs with `MFA_ENCRYPTION_KEY` |
+| `MFA_ENCRYPTION_KEY` | Protect MFA secrets (TOTP secrets, recovery codes) | 32-byte hex string | Secret store | Secret store | Yes | Yes (for MFA) | Exactly 32 bytes (64 hex characters) AES key; paired with active `MFA_ENCRYPTION_KEY_ID` |
+| `RETIRED_FIELD_ENCRYPTION_KEYS` | Historical key decryption map for rotation | Optional / empty | Secret store | Secret store | Yes | No | JSON map (`{"keyId": "hexKey"}`) supporting decryption during key rotation |
 | `NODE_ENV` | Runtime behavior/cookie security context | `development`/`test` | `production` build/runtime | `production` | No | Framework | HTTPS also drives secure cookie behavior |
 
 Other security/SOC variables may exist in the wider application but are outside this module's configuration reference.

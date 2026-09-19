@@ -120,13 +120,15 @@ Conceptual response:
 **Success:** `202 Accepted` with a generic response for known and unknown accounts  
 **Controls:** per-identity and network rate limits, one-minute cooldown, token hash storage, 24-hour verification-token lifetime.
 
-### 4.4 `GET /api/auth/email-verification/verify`
+### 4.4 `POST /api/auth/email-verification/verify`
 
-**Authentication:** possession of the one-time token  
-**Input:** `token` query parameter  
-**Success:** `200 OK`  
-**Errors:** `400` invalid, expired or consumed token; `503` controlled dependency failure  
-**Security:** Raw tokens are not stored and cannot be replayed after successful consumption.
+**Authentication:** Public / possession of the one-time token  
+**Method:** `POST`  
+**Headers:** `Content-Type: application/json`  
+**Input:** JSON body `{ "token": "<verification_token>" }` (string, 32-256 characters)  
+**Success:** `200 OK` with `{ "message": "Email address verified successfully." }`  
+**Errors:** `400` invalid, expired or consumed token (`{ "message": "This verification link is invalid or expired." }`); `503` controlled dependency failure (`{ "message": "Email verification is temporarily unavailable." }`)  
+**Security:** Raw tokens are not stored and cannot be replayed after successful consumption. Verification is executed via SHA-256 hash comparison against the stored token hash in database transactions. Note: The user-facing web landing page (`/verify-email?token=...`) extracts the URL token parameter and dispatches this client-side `POST` request to `/api/auth/email-verification/verify`.
 
 ### 4.5 `POST /api/auth/password-recovery`
 

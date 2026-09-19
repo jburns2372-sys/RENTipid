@@ -56,7 +56,7 @@ It does not replace source control, the frozen tag, provider-console configurati
 
 ## How to Use This Manual
 
-Start with Part I for the product model. Users can go directly to Part II. Business readers should use Part III. Developers and reviewers use Part IV and the Architecture/API/Security companion references. Operators use Part V. QA uses Part VI. Troubleshooting and governance are in Parts VII-IX. Appendices provide matrices and lookup material.
+Start with Part I for the product model. Users can go directly to Part II. Business readers should use Part III. Developers and reviewers use Part IV and the Architecture/API/Security companion references. Operators use Part V. QA uses Part VI. Troubleshooting is in Part VII. API reference is in Part VIII. Security is in Part IX. Business, governance and release management are in Part X. Appendices are in Part XI, and the authoritative evidence register is in Part XII.
 
 ## Document Conventions
 
@@ -96,7 +96,7 @@ Email address similarity alone does not authorize identity linking. Same-email a
 9. [High-level architecture](#9-high-level-architecture)
 10. [Marketplace relationship](#10-marketplace-relationship)
 
-### Part II - User Manual
+### Part II - User Guide
 
 11. [Getting started and signing in](#11-getting-started-and-signing-in)
 12. [Provider instructions](#12-provider-instructions)
@@ -106,14 +106,14 @@ Email address similarity alone does not authorize identity linking. Same-email a
 16. [Recovery, logout and sessions](#16-recovery-logout-and-sessions)
 17. [User privacy and safety](#17-user-privacy-and-safety)
 
-### Part III - Business Prospect Guide
+### Part III - Business Owner / Prospect Guide
 
 18. [Business overview](#18-business-overview)
 19. [Business benefit matrix](#19-business-benefit-matrix)
 20. [Account continuity and provider independence](#20-account-continuity-and-provider-independence)
 21. [Enterprise and marketplace readiness](#21-enterprise-and-marketplace-readiness)
 
-### Part IV - Developer and Security Manual
+### Part IV - Developer Reference
 
 22. [Implementation architecture](#22-implementation-architecture)
 23. [Identity data model](#23-identity-data-model)
@@ -122,40 +122,45 @@ Email address similarity alone does not authorize identity linking. Same-email a
 26. [Linking, collision and duplicate prevention](#26-linking-collision-and-duplicate-prevention)
 27. [Sessions, RBAC and KYC](#27-sessions-rbac-and-kyc)
 28. [Configuration](#28-configuration)
-29. [Security model](#29-security-model)
-30. [Audit events and logging hygiene](#30-audit-events-and-logging-hygiene)
 
-### Part V - Operations Manual
+### Part V - Operations
 
-31. [Environment topology](#31-environment-topology)
-32. [Health and provider verification](#32-health-and-provider-verification)
-33. [Monitoring and support](#33-monitoring-and-support)
-34. [Incident response](#34-incident-response)
-35. [Rollback and reconciliation](#35-rollback-and-reconciliation)
+29. [Environment topology](#29-environment-topology)
+30. [Health and provider verification](#30-health-and-provider-verification)
+31. [Monitoring and support](#31-monitoring-and-support)
+32. [Incident response](#32-incident-response)
+33. [Rollback and reconciliation](#33-rollback-and-reconciliation)
 
-### Part VI - Testing and Quality Assurance
+### Part VI - Testing & QA
 
-36. [Accepted verification evidence](#36-accepted-verification-evidence)
-37. [Test strategy and matrix](#37-test-strategy-and-matrix)
-38. [Manual acceptance](#38-manual-acceptance)
+34. [Accepted verification evidence](#34-accepted-verification-evidence)
+35. [Test strategy and matrix](#35-test-strategy-and-matrix)
+36. [Manual acceptance](#36-manual-acceptance)
 
 ### Part VII - Troubleshooting
 
-39. [Diagnostic matrix](#39-diagnostic-matrix)
-40. [Provider-specific diagnostics](#40-provider-specific-diagnostics)
+37. [Diagnostic matrix](#37-diagnostic-matrix)
+38. [Provider-specific diagnostics](#38-provider-specific-diagnostics)
 
 ### Part VIII - API Reference
 
-41. [API inventory](#41-api-inventory)
-42. [API security expectations](#42-api-security-expectations)
+39. [API inventory](#39-api-inventory)
+40. [API security expectations](#40-api-security-expectations)
 
-### Part IX - Business and Governance
+### Part IX - Security
 
-43. [Ownership and change control](#43-ownership-and-change-control)
-44. [Release lifecycle](#44-release-lifecycle)
-45. [Evidence retention and successor releases](#45-evidence-retention-and-successor-releases)
+41. [Security model and threat analysis](#41-security-model-and-threat-analysis)
+42. [Cryptographic controls and key management](#42-cryptographic-controls-and-key-management)
+43. [Multi-Factor Authentication (MFA) and session assurance](#43-multi-factor-authentication-mfa-and-session-assurance)
+44. [Audit events and logging hygiene](#44-audit-events-and-logging-hygiene)
 
-### Appendices
+### Part X - Business / Governance / Release Management
+
+45. [Ownership and change control](#45-ownership-and-change-control)
+46. [Mandatory release lifecycle](#46-mandatory-release-lifecycle)
+47. [Evidence retention and successor releases](#47-evidence-retention-and-successor-releases)
+
+### Part XI - Appendices
 
 - [Appendix A - Glossary](#appendix-a---glossary)
 - [Appendix B - Acronyms](#appendix-b---acronyms)
@@ -183,7 +188,13 @@ Email address similarity alone does not authorize identity linking. Same-email a
 - [Appendix X - Frozen Release Manifest](#appendix-x---frozen-release-manifest)
 - [Appendix Y - Architecture Diagrams](#appendix-y---architecture-diagrams)
 - [Appendix Z - Document Change Log](#appendix-z---document-change-log)
-- [Source and Evidence Register](#source-and-evidence-register)
+
+### Part XII - Source & Evidence Register
+
+- [Source paths](#source-paths)
+- [Release documents](#release-documents)
+- [Relevant commits](#relevant-commits)
+- [Fact-classification summary](#fact-classification-summary)
 
 ## List of Figures
 
@@ -330,7 +341,7 @@ Authentication resolves a user; the marketplace authorizes that user. Renters re
 
 An external provider can be a sign-in mechanism for a privileged user, but its profile cannot create that privilege.
 
-# Part II - User Manual
+# Part II - User Guide
 
 ## 11. Getting started and signing in
 
@@ -399,7 +410,7 @@ Log out through RENTipid rather than only closing the browser. Review active ses
 - Report unexpected linking/unlinking immediately.
 - Understand that Apple relay email and absent Facebook email are normal supported states.
 
-# Part III - Business Prospect Guide
+# Part III - Business Owner / Prospect Guide
 
 ## 18. Business overview
 
@@ -432,13 +443,13 @@ Durable IDs, explicit linking, structured events, isolated environments and a ga
 
 Geographic/language expansion still requires local legal, delivery, provider, localization and support review. No unsupported scale, availability or ROI figure is claimed.
 
-# Part IV - Developer and Security Manual
+# Part IV - Developer Reference
 
 ## 22. Implementation architecture
 
-The module uses Next.js 16 App Router, NextAuth 4.24.15, Prisma/PostgreSQL and a `UnifiedAuthService` with repository abstraction. Provider callbacks enter through the catch-all route and are resolved to an internal user by service rules.
+The module uses Next.js 16 App Router, NextAuth 4.24.15, Prisma/PostgreSQL and a `UnifiedAuthService` with repository abstraction. Provider callbacks enter through the catch-all route (`/api/auth/[...nextauth]`) and are resolved to an internal user by service rules.
 
-Key files are `src/lib/auth.ts`, `src/lib/auth/unified/services.ts`, `repository.ts`, intent utilities, session registry, auth/account routes, login UI, ConnectedLoginMethods and Prisma schema/migrations.
+Key source files include `src/lib/auth.ts`, `src/lib/auth/unified/services.ts`, `repository.ts`, `identifiers.ts`, `oauth-consent.ts`, `oauth-link-intent.ts`, `session-registry.ts`, auth/account API routes, login UI, ConnectedLoginMethods and Prisma schema/migrations.
 
 ## 23. Identity data model
 
@@ -454,77 +465,65 @@ erDiagram
   User ||--o| BusinessProfile : has
 ```
 
-`AuthProviderIdentity` has a unique provider/subject pair. `EmailCredential.normalized_email` and `PhoneIdentity.phone_e164` are unique. Challenges and rate limits support OTP controls. Consent/events/session records provide governance and revocation.
+`AuthProviderIdentity` enforces a unique compound constraint on `(provider, provider_subject)`. `EmailCredential.normalized_email` and `PhoneIdentity.phone_e164` are unique. Challenges and rate limits support OTP controls. Consent, audit events, and session records provide governance, telemetry and revocation.
 
 ## 24. Authentication algorithms
 
 ### Case 1 - linked provider
 
-Resolve provider+subject, load owner, verify active status, register session and continue.
+Resolve provider + subject, load canonical owner `User`, verify active account status, register session and complete sign-in.
 
 ### Case 2 - new person
 
-Validate profile/consent, confirm no existing provider identity or same-email account, create default user and identity in controlled persistence, then create a session.
+Validate profile and consent, confirm no existing provider identity or same-email account exists, create default canonical user and provider identity within a database transaction, then create a session.
 
 ### Case 3 - same-email new provider
 
-Do not link and do not create a duplicate. Emit `AUTH_ACCOUNT_LINK_REQUIRED`; require existing-account authentication and explicit connect.
+Do not link and do not create a duplicate account. Emit `AUTH_ACCOUNT_LINK_REQUIRED`; require existing-account authentication followed by explicit connect via Account Security.
 
 ### Case 4 - identity owned elsewhere
 
-Block, emit `AUTH_IDENTITY_LINK_BLOCKED` with `IDENTITY_IN_USE`, preserve ownership and escalate.
+Block linking, emit `AUTH_IDENTITY_LINK_BLOCKED` with reason `IDENTITY_IN_USE`, preserve ownership integrity and escalate.
 
 ## 25. Provider implementations
 
-Google: scope `openid email profile`; checks PKCE/state/nonce; subject durable; issuer/audience/expiry/verified-email validation where claims exist.
+Google: scope `openid email profile`; validates PKCE, state and nonce; provider subject is durable; validates issuer, audience, expiry and verified-email claims when present.
 
-Facebook: state; subject durable; email optional; Meta callback registration per environment.
+Facebook: state validation; durable subject; email optional; Meta callback registration strictly isolated per environment.
 
-Apple: `name email`; `response_mode=form_post`; PKCE/state/nonce; secure `SameSite=None` transient cookies on HTTPS; subject durable; private relay metadata.
+Apple: scope `name email`; `response_mode=form_post`; validates PKCE, state and nonce; secure `SameSite=None` transient cookies over HTTPS; durable subject; supports Apple private relay email metadata.
 
-Email: normalized credential, bcrypt, required verification, generic recovery, hash-only expiring tokens.
+Email: normalized credential, bcrypt hashing, mandatory verification token flow via `POST`, generic recovery contract, hash-only expiring tokens.
 
-WhatsApp: Twilio Verify, E.164 normalization, five-minute default expiry, five attempts, persisted limits and atomic consumption. No SMS fallback.
+WhatsApp: Twilio Verify integration, E.164 normalization, five-minute default expiry, five maximum attempts, persisted limits and atomic consumption. No SMS fallback.
 
 ## 26. Linking, collision and duplicate prevention
 
-OAuth link intent is signed, ten minutes, HttpOnly, current-user-bound and provider-bound. Callback consumption distinguishes a Connect action from ordinary sign-in.
+OAuth link intent is signed, valid for ten minutes, stored in an HttpOnly cookie, current-user-bound and provider-bound. Callback consumption distinguishes an explicit Connect action from an ordinary sign-in.
 
-Database uniqueness and service checks enforce one owner. Same-owner linking is idempotent. Different-owner linking is denied. Unlink checks viable methods.
+Database uniqueness and repository checks enforce single ownership. Same-owner linking is idempotent. Different-owner linking is strictly denied (`IDENTITY_IN_USE`). Unlinking verifies that at least one viable alternative login method remains.
 
-Generic email/phone link/unlink APIs require AAL2. Current OAuth Account Security actions use session plus signed intent/ownership safeguards; v1.1.0 does not claim AAL2 on every OAuth UI action.
+Generic email/phone link and unlink APIs require AAL2 step-up assurance. Current OAuth Account Security actions use session plus signed intent and ownership safeguards; v1.1.0 does not claim AAL2 on every OAuth UI action.
 
 ## 27. Sessions, RBAC and KYC
 
-JWT sessions carry user ID, role, status and opaque session identifier. `UserSession` stores only a hash and supports 30-day maximum age, last-seen tracking and revocation.
+JWT sessions carry user ID, role, status and an opaque session identifier. `UserSession` stores only a hash of the session ID and supports 30-day maximum lifetime, last-seen tracking and revocation.
 
-TOTP/recovery-code MFA can grant four-hour AAL2 bound to the current session. OAuth/phone login does not grant AAL2 automatically.
+TOTP/recovery-code MFA can grant four-hour AAL2 step-up assurance bound to the active session. OAuth/phone login does not grant AAL2 automatically.
 
-RBAC reads `User.role`; inactive account status fails closed. KYC/profile/business/booking/payment/ledger relationships remain with `User.id`.
+RBAC reads `User.role`; inactive account status fails closed. KYC, profile, business, booking, payment, and `FinanceLedger` relationships remain permanently bound to canonical `User.id`.
 
 ## 28. Configuration
 
-Primary names are `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, `AUTH_REFERENCE_HASH_SECRET`; provider feature flags/IDs/secrets; email/SMTP settings; WhatsApp/Twilio Verify settings; terms/privacy versions; database URLs and MFA encryption key.
+Primary configuration variables are `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, `AUTH_REFERENCE_HASH_SECRET`; provider feature flags, client IDs, and secrets; email/SMTP settings; WhatsApp/Twilio Verify settings; consent versions; database connection URLs; and MFA encryption key variables (`MFA_ENCRYPTION_KEY_ID`, `MFA_ENCRYPTION_KEY`, `RETIRED_FIELD_ENCRYPTION_KEYS`).
 
-Only names and purpose belong in documentation. Values live in environment-specific secret management. See Appendix F and the companion Developer Manual for the full table.
+By source implementation design in `src/lib/auth/unified/config.ts`, `isAppleLoginDeferred()` defaults to `true` when `AUTH_APPLE_DEFERRED` is absent or empty. Therefore, Apple defaults to HIDDEN / DEFERRED on the public login gateway unless `AUTH_APPLE_DEFERRED` is explicitly configured to `false` (or `0`, `off`, `disabled`, `no`).
 
-## 29. Security model
+Only configuration names and purposes belong in documentation. Secret values reside exclusively in environment-specific secret management stores. See Appendix F and the companion Developer Manual for the complete table.
 
-Threats include same-email takeover, provider collision, OAuth CSRF/code interception, OTP guessing/replay/flooding, credential stuffing, account enumeration, session theft, provider role escalation, secret leakage and environment crossover.
+# Part V - Operations
 
-Implemented responses include explicit linking, unique provider ownership, state/PKCE/nonce, short-lived cookies, verified profile claims, bcrypt, hash-only tokens, rate limits, challenge consumption, registry revocation, database RBAC and sanitized events.
-
-Registration returns conflict for an existing email; therefore the release does not claim uniform account-enumeration protection across every public route.
-
-## 30. Audit events and logging hygiene
-
-Literal event families cover login, OAuth user creation, account-link-required, identity-link-blocked, OTP lifecycle/rate/provider failures, email verification/password reset, MFA and sessions. Identity events record create/link/block/unlink.
-
-Never log raw passwords/hashes, OTPs, OAuth codes/tokens, Apple ID tokens, cookies, private keys, secrets or database credentials. Use masked phones and derived reference hashes.
-
-# Part V - Operations Manual
-
-## 31. Environment topology
+## 29. Environment topology
 
 ```mermaid
 flowchart LR
@@ -535,11 +534,11 @@ flowchart LR
   Preview -->|accepted promotion| Production
 ```
 
-Current Preview and Production must not share live customer data. The post-freeze restoration evidence records the corrected Preview isolation without changing the frozen Production runtime.
+Preview and Production must never share database instances, credentials, or live customer data. Post-freeze restoration evidence records independent Preview isolation without modifying the frozen Production runtime.
 
-## 32. Health and provider verification
+## 30. Health and provider verification
 
-Read-only endpoints:
+Read-only verification endpoints:
 
 ```text
 GET /api/health
@@ -547,57 +546,55 @@ GET /api/auth/providers
 GET /api/auth/methods
 ```
 
-At preparation time, both public environments returned HTTP 200 ready/database connected and exact provider IDs `credentials`, `phone-otp`, `google`, `facebook`, `apple`.
+In accepted environments, `/api/health` returns HTTP 200 with database connectivity healthy, and `/api/auth/providers` reports the five accepted provider IDs: `credentials`, `phone-otp`, `google`, `facebook`, and `apple`.
 
-Provider presence does not prove full OAuth acceptance. Use designated accounts and an approved acceptance plan for end-to-end verification.
+Provider registration does not prove end-to-end OAuth completion. Use designated test accounts and an approved acceptance runbook for end-to-end verification.
 
-## 33. Monitoring and support
+## 31. Monitoring and support
 
-Monitor health/database state, provider registry changes, auth failures, account-status denials, link-required/collision events, OTP rate/replay/provider failures, recovery failures, MFA failures and session revocations.
+Monitor application health, database connectivity, provider registry changes, authentication failure rates, account-status denials, link-required and collision events, OTP rate-limit and replay failures, password recovery failures, MFA verification failures and session revocations.
 
-Support collects environment, provider, time, browser/device and user-visible error plus safe event reference. It does not collect credentials or tokens.
+Support telemetry collects environment, provider, timestamp, user agent/device, safe event references, and error codes. Support procedures must never collect passwords, OTPs, cookies, or session tokens.
 
-## 34. Incident response
+## 32. Incident response
 
-Unauthorized linking: preserve evidence, revoke sessions, secure remaining methods and verify durable subject ownership.
+Unauthorized linking: preserve audit evidence, revoke active sessions, secure remaining methods, and verify durable subject ownership.
 
-Secret exposure: contain, rotate, invalidate affected sessions/tokens, inspect propagation and document.
+Secret exposure: contain exposure immediately, rotate secret in cloud vault, invalidate affected sessions/tokens, inspect logs for unauthorized usage, and document remediation.
 
-Provider outage: keep unaffected methods available, confirm provider/config state and never disable validation to restore service.
+Provider outage: keep alternative login methods available, confirm provider status and configuration, and never weaken or bypass authentication validation to restore access.
 
-Environment crossover: stop promotion, preserve Production, compare safe alias/deployment/database branch identifiers, correct through controlled change and reverify.
+Environment crossover: halt promotion pipeline, preserve Production database, compare deployment IDs and database branch identifiers, correct configuration through controlled change, and reverify isolation.
 
-## 35. Rollback and reconciliation
+## 33. Rollback and reconciliation
 
-Application rollback uses a known-good immutable deployment under incident authority. Database identity rollback favors reviewed forward repair or proven restore—not casual reversal of ownership constraints. Provider configuration rollback restores last-known-good environment values without exposing them.
+Application rollback deploys a known-good immutable deployment under documented incident authority. Database identity rollback favors forward repair or verified point-in-time recovery rather than manual deletion of identity constraints.
 
-Identity reconciliation must be evidence-backed, auditable and reversible. It must preserve KYC/business/transaction ownership and never reassign a provider subject from email similarity alone.
+Identity reconciliation must be evidence-backed, auditable and reversible. It must preserve KYC, business profile, booking, payment, and `FinanceLedger` relationships, and never reassign an identity based on email similarity alone.
 
-# Part VI - Testing and Quality Assurance
+# Part VI - Testing & QA
 
-## 36. Accepted verification evidence
+## 34. Accepted verification evidence
 
-The Production completion report records typecheck PASS, targeted auth regression PASS (8 suites, 85 tests) and canonical Production build PASS with Turbopack. Owner acceptance confirmed Google/Apple/Facebook same-user linking, duplicate prevention and role/profile/KYC integrity.
+The Production completion report records typecheck PASS, targeted authentication regression PASS (8 suites, 85 tests) and canonical Production build PASS with Turbopack. Owner acceptance confirmed Google, Apple, and Facebook same-user linking, duplicate account prevention, and role/profile/KYC continuity.
 
-The repository contains a broader current auth test inventory, including legacy compatibility and post-acceptance regression files. Counts from source inventory must not be substituted for the recorded accepted execution without running them.
+The repository contains a broader current auth test inventory including legacy compatibility and post-acceptance regression files. Counts from source inventory must not be substituted for recorded accepted execution without active execution.
 
-## 37. Test strategy and matrix
+## 35. Test strategy and matrix
 
-Testing covers service algorithms, route contracts, UI visibility, cookie policy, display-email safety, ancillary email flows and WhatsApp stall/telemetry containment.
+Testing covers service algorithms, route contracts, UI visibility, cookie security policies, display-email safety, ancillary email flows, and WhatsApp error containment.
 
-Minimum scenarios include new/returning provider users, missing/relay email, Apple form POST, cross-provider same-email sequences, explicit linking, collisions, unlink and last-method protection, credentials/verification/reset, OTP expiry/replay/limits, provider outage, RBAC/KYC/profile/marketplace continuity, logout/revocation and duplicate prevention.
+Minimum mandatory scenarios include new/returning provider users, missing/private relay emails, Apple form POST handling, cross-provider same-email reconciliation, explicit linking, collision prevention, unlinking and last-method protection, credentials verification/reset, OTP expiration/replay/rate limits, provider outage tolerance, RBAC/KYC/marketplace continuity, logout/session revocation, and duplicate account prevention.
 
-See Appendix O for the matrix and the Developer Manual Section 26 for extended cases.
+## 36. Manual acceptance
 
-## 38. Manual acceptance
+Use designated test accounts and non-production data in Preview. Record internal user continuity before and after connecting providers. Verify Account Security statuses and the absence of duplicate users. Never retain PII, tokens, cookies, or provider subjects in screenshots or test notes.
 
-Use designated accounts and non-production data in Preview. Record internal user continuity before/after connecting providers. Verify Account Security statuses and absence of duplicate users. Do not retain PII, tokens, cookies or provider subjects in screenshots.
-
-Production verification after deployment should be minimal, controlled and evidence-based. Never use an acceptance exercise to invent or alter live customer identity data.
+Production verification after deployment must be minimal, read-only, controlled, and evidence-based. Never use an acceptance exercise to create or alter live customer identity data.
 
 # Part VII - Troubleshooting
 
-## 39. Diagnostic matrix
+## 37. Diagnostic matrix
 
 | Symptom | Likely cause | Safe action | Escalation |
 |---|---|---|---|
@@ -613,68 +610,134 @@ Production verification after deployment should be minimal, controlled and evide
 | Session returns to login | Expired/revoked/status/registry | Reauthenticate and inspect | L2/L3 |
 | Database unavailable | Health not ready | Restore dependency; no bypass | L3 |
 
-## 40. Provider-specific diagnostics
+## 38. Provider-specific diagnostics
 
-Google: verify exact callback, provider registry, PKCE/state/nonce and claim validation. Facebook: verify Meta callback, tolerate missing email and escalate collision. Apple: verify Services ID, form POST and transient-cookie policy. WhatsApp: verify Twilio Verify configuration, channel, challenges and limits. Email: verify credential state, SMTP delivery and token lifetimes.
+Google: verify exact registered callback URI, provider registry status, PKCE/state/nonce validation, and OpenID claim integrity.
 
-See the companion [Troubleshooting Guide](06_RENTipid_Unified_Multi_Login_Troubleshooting_Guide_v1.1.0.md).
+Facebook: verify Meta app callback configuration, accommodate absent email metadata, and escalate identity collision.
+
+Apple: verify Services ID, form POST handling, and `SameSite=None` secure cookie behavior.
+
+WhatsApp: verify Twilio Verify configuration, channel settings, challenge status, and rate limits.
+
+Email: verify credential state, SMTP delivery health, and token lifetimes.
+
+See the companion [Troubleshooting Guide](06_RENTipid_Unified_Multi_Login_Troubleshooting_Guide_v1.1.0.md) for full runbooks.
 
 # Part VIII - API Reference
 
-## 41. API inventory
+## 39. API inventory
 
-Framework-managed endpoints include providers, session, CSRF, sign-in, callbacks and sign-out under `/api/auth/*`.
+Framework-managed endpoints under `/api/auth/*` include providers, session, CSRF, sign-in, callbacks, and sign-out.
 
-Application endpoints include:
+Application-level authentication endpoints include:
 
-- `/api/auth/methods`
-- `/api/auth/register`
-- `/api/auth/otp`
-- `/api/auth/oauth/intent`
-- `/api/auth/oauth/link-intent`
-- `/api/auth/link`
-- `/api/auth/unlink`
-- `/api/auth/logout`
-- `/api/auth/email-verification/resend`
-- `/api/auth/email-verification/verify`
-- `/api/auth/password-recovery`
-- `/api/auth/password-reset`
-- `/api/auth/mfa/enroll`, `/activate`, `/verify`
-- `/api/account/connected-methods`
-- `/api/account/sessions`
-- `/api/account/sessions/{sessionId}`
-- `/api/account/sessions/logout-others`
-- `/api/health`
+- `/api/auth/methods` (GET) — Public authentication method discovery
+- `/api/auth/register` (POST) — Email/password account creation
+- `/api/auth/otp` (POST) — WhatsApp OTP challenge start
+- `/api/auth/oauth/intent` (POST) — Public OAuth consent token issuance
+- `/api/auth/oauth/link-intent` (POST) — Authenticated OAuth linking intent issuance
+- `/api/auth/link` (POST) — Credential/phone linking (Session + AAL2)
+- `/api/auth/unlink` (POST) — Credential/phone unlinking (Session + AAL2)
+- `/api/auth/logout` (POST) — Registry-aware session revocation
+- `/api/auth/email-verification/resend` (POST) — Resend verification email
+- `/api/auth/email-verification/verify` (POST) — Verify email address with one-time token
+- `/api/auth/password-recovery` (POST) — Request password reset token
+- `/api/auth/password-reset` (POST) — Execute password reset and revoke sessions
+- `/api/auth/mfa/enroll` (POST) — Begin TOTP MFA enrollment
+- `/api/auth/mfa/activate` (POST) — Complete TOTP MFA activation
+- `/api/auth/mfa/verify` (POST) — Step-up verification for AAL2 assurance
+- `/api/account/connected-methods` (GET, DELETE) — Manage OAuth provider identities
+- `/api/account/sessions` (GET) — List active sessions
+- `/api/account/sessions/{sessionId}` (DELETE) — Revoke specific session
+- `/api/account/sessions/logout-others` (POST) — Revoke all other active sessions
+- `/api/health` (GET) — Application and database readiness check
 
-See the [API Reference](08_RENTipid_Unified_Multi_Login_API_Reference_v1.1.0.md) for methods, inputs, outputs, statuses and security.
+See the [API Reference](08_RENTipid_Unified_Multi_Login_API_Reference_v1.1.0.md) for full request/response schemas, error structures, and security expectations.
 
-## 42. API security expectations
+## 40. API security expectations
 
-Use same-origin HTTPS, framework CSRF protections, authenticated session scope, AAL2 where implemented, no-store responses, validated inputs, generic sensitive error responses and environment-correct callbacks. Do not send authentication secrets in URL query strings except one-time link tokens in their implemented verification routes, and never log those values.
+All APIs require same-origin HTTPS, framework CSRF protection, validated request payloads, and `Cache-Control: no-store` on sensitive responses. Email verification (`/api/auth/email-verification/verify`) is implemented strictly via `POST` accepting a JSON body `{ "token": "..." }` to avoid logging secrets in HTTP access logs. Sensitive error messages fail generic to prevent account enumeration.
 
-# Part IX - Business and Governance
+# Part IX - Security
 
-## 43. Ownership and change control
+## 41. Security model and threat analysis
 
-RENTipid owns internal identity, role policy, release evidence and operational configuration. External providers own their authentication services and user recovery. Users own/control their connected external accounts subject to provider terms.
+Unified Multi-Login v1.1.0 operates under an explicit zero-trust identity boundary:
 
-Changes require approved successor work. Frozen commits/tags are not amended. Secrets and provider-console settings are controlled separately from source documentation.
+1. **Same-Email Account Takeover Defense:** Automatic linking based on email matching is disabled (`allowDangerousEmailAccountLinking: false`). When an incoming OAuth provider returns an email address associated with an existing account, the system halts authentication and emits `AUTH_ACCOUNT_LINK_REQUIRED`. Linking requires authenticating through an existing method and explicitly connecting the new provider.
+2. **Provider Collision Protection:** Compound uniqueness on `(provider, provider_subject)` ensures an external identity can belong to at most one RENTipid user. Reassignment attempts trigger `AUTH_IDENTITY_LINK_BLOCKED` with reason `IDENTITY_IN_USE`.
+3. **OAuth CSRF and Code Interception Defense:** State parameters and PKCE (Proof Key for Code Exchange) are enforced for Google and Apple. Nonce validation protects OpenID tokens.
+4. **Cross-Site Callback Resilience:** Apple form POST callbacks utilize transient cookies configured with `SameSite=None; Secure` on HTTPS origins to prevent state loss across cross-site POST boundaries.
+5. **OTP Abuse Defense:** WhatsApp OTP challenges enforce strict rate-limiting buckets (`AuthRateLimit`), 5-minute expiry windows, maximum 5 attempts, and atomic single-use consumption. SMS fallback is retired and blocked.
 
-## 44. Release lifecycle
+## 42. Cryptographic controls and key management
 
-The mandatory lifecycle is:
+Cryptographic protections are managed centrally via `EnvironmentKeyProvider` (`src/lib/security/crypto/key-provider.ts`):
 
-CODE COMPLETE → LOCAL FUNCTIONAL → LOCAL DATABASE MIGRATED → LOCAL REQUIRED DATA SEEDED/SYNCED → LOCAL ACCEPTANCE PASS → PREVIEW MIGRATED → PREVIEW ACCEPTANCE PASS → PRODUCTION-READY → PRODUCTION DEPLOYMENT/VERIFICATION → COMPLETED → ACCEPTED → CLOSED → VERSION FROZEN.
+- **Field Encryption:** Sensitive user security assets (MFA TOTP secrets, recovery codes) are encrypted at rest using AES-256-GCM. The active encryption key is identified by `MFA_ENCRYPTION_KEY_ID` and loaded from `MFA_ENCRYPTION_KEY` (32-byte hex).
+- **Key Rotation:** Zero-downtime key rotation is supported through `RETIRED_FIELD_ENCRYPTION_KEYS`, allowing historical ciphertext to be decrypted during rotation before re-encryption under the active key.
+- **Reference Hashing:** User identifiers and provider subjects are pseudonymized in audit logs using HMAC-SHA256 reference hashes keyed by `AUTH_REFERENCE_HASH_SECRET` (falling back to `NEXTAUTH_SECRET`).
+- **Token Hashing:** Email verification tokens and password reset tokens are stored exclusively as SHA-256 hashes in database tables. Raw token values are never stored at rest.
+- **Password Hashing:** Passwords are encrypted using Bcrypt (cost factor 10 on registration route, cost factor 12 via `BcryptPasswordHasher`).
 
-Each gate establishes evidence needed by the next. Skipping local/database/Preview gates can put customer identity at risk. Skipping acceptance/closure/freeze makes it unclear which behavior is authoritative.
+## 43. Multi-Factor Authentication (MFA) and session assurance
 
-## 45. Evidence retention and successor releases
+RENTipid enforces a tiered session assurance model:
 
-Retain source SHAs, immutable tag, deployment ID, migration identity, test/build evidence, provider IDs, acceptance/closure reports and incident/isolation records. Do not retain secret values in evidence.
+- **AAL1 (Standard Assurance):** Granted upon primary authentication via any supported login method.
+- **AAL2 (Step-Up Assurance):** Required for privileged identity management actions (such as `/api/auth/link` and `/api/auth/unlink`). AAL2 is granted upon successful TOTP verification or recovery code submission via `POST /api/auth/mfa/verify`.
+- **Assurance Binding & Expiry:** AAL2 assurance is recorded in `MfaSessionAssurance`, bound to the active session ID, and expires automatically after 4 hours (`MFA_SESSION_ASSURANCE_TTL_MS = 14400000`).
+- **Assurance Invalidation:** Logging out, resetting passwords, or revoking sessions immediately clears associated AAL2 assurance records.
 
-Successor releases must identify deltas from v1.1.0 and rerun affected threat, schema, provider, linking, session and acceptance tests. Post-freeze infrastructure corrections must explicitly state whether the frozen runtime changed.
+## 44. Audit events and logging hygiene
 
-# Appendices
+All authentication actions emit structured audit records with sanitized metadata. Literal event families include:
+
+- Lifecycle: `AUTH_LOGIN_SUCCEEDED`, `AUTH_LOGIN_FAILED`, `AUTH_ACCOUNT_STATUS_DENIED`, `AUTH_OAUTH_LOGIN_SUCCEEDED`, `AUTH_OAUTH_LOGIN_FAILED`, `AUTH_OAUTH_USER_CREATED`
+- Linking: `AUTH_ACCOUNT_LINK_REQUIRED`, `AUTH_IDENTITY_LINK_BLOCKED` (reason `IDENTITY_IN_USE`)
+- Phone OTP: `AUTH_PHONE_OTP_STARTED`, `AUTH_PHONE_OTP_VERIFIED`, `AUTH_PHONE_OTP_EXPIRED`, `AUTH_PHONE_OTP_REPLAY_DENIED`, `AUTH_PHONE_OTP_ATTEMPT_LIMITED`, `AUTH_PHONE_OTP_RATE_LIMITED`, `AUTH_PHONE_LOGIN_SUCCEEDED`, `AUTH_PHONE_USER_CREATED`
+- Credentials: `AUTH_EMAIL_VERIFIED`, `AUTH_PASSWORD_RESET_COMPLETED`
+- Sessions: `SESSION_CREATED`, `SESSION_REVOKED`, `SESSION_REVOKED_BY_USER`, `OTHER_SESSIONS_REVOKED`
+
+**Zero-Secret Logging Policy:** Logging raw passwords, password hashes, OTP codes, OAuth codes, access/refresh tokens, Apple ID tokens, session cookies, client secrets, Twilio tokens, private keys, database connection strings, or full provider subjects is strictly prohibited across all loggers, telemetry, error handlers, and support tools.
+
+# Part X - Business, Governance and Release Management
+
+## 45. Ownership and change control
+
+RENTipid retains exclusive ownership of internal canonical user identities, role definitions, permission models, release evidence, and operational infrastructure. External providers own their authentication platforms and consumer recovery workflows. Users control their connected external accounts subject to provider terms.
+
+Any modification to authentication architecture, schema, or runtime behavior requires approved successor work. Frozen release tags (`rentipid-unified-auth-v1.1.0-frozen`) and release commits are immutable and must never be amended or force-pushed. Secrets and provider console configurations are governed separately through secure cloud secret management.
+
+## 46. Mandatory release lifecycle
+
+The RENTipid engineering policy enforces a strict 14-gate promotion pipeline that must be traversed sequentially for all releases:
+
+1. **CODE COMPLETE** — All code, tests, schemas, and documentation implemented.
+2. **LOCAL FUNCTIONAL** — Feature runs locally without blocking runtime errors.
+3. **LOCAL DATABASE MIGRATED** — Migrations applied and client synchronized.
+4. **LOCAL REQUIRED DATA SEEDED/SYNCED** — System records, lookup values, and rules seeded.
+5. **LOCAL ACCEPTANCE PASS** — Complete functional acceptance proven locally.
+6. **PREVIEW MIGRATED** — Preview database migrated safely without affecting Production.
+7. **PREVIEW ACCEPTANCE PASS** — Feature verified on deployed Preview environment.
+8. **PRODUCTION-READY** — Security, database safety, rollback procedures, and documentation verified.
+9. **PRODUCTION DEPLOYMENT** — Deployment to production infrastructure completed.
+10. **PRODUCTION VERIFICATION** — Controlled, non-destructive health and provider verification.
+11. **COMPLETED** — Module scope fully delivered and operational.
+12. **OWNER ACCEPTED** — Formal sign-off and acceptance by module owner.
+13. **CLOSED** — Engineering milestones sealed with closure report.
+14. **VERSION FROZEN** — Release baseline immutable, tagged, and recorded in version frozen manifest.
+
+Skipping any promotion gate is prohibited by policy.
+
+## 47. Evidence retention and successor releases
+
+Authoritative release evidence must be permanently retained: source commit SHAs, immutable tags, deployment IDs, migration timestamps, automated test results, build logs, provider client identifiers, acceptance reports, and environment isolation records. Credentials and sensitive secrets must never be included in retained evidence.
+
+Successor releases must document deltas relative to baseline v1.1.0 (`rentipid-unified-auth-v1.1.0-frozen`, SHA `c0254631ea55030fd8e6c21ee73bc7a4563173ff`) and rerun all affected threat, schema, provider, linking, session, and regression suites.
+
+# Part XI - Appendices
 
 ## Appendix A - Glossary
 
@@ -740,11 +803,50 @@ Successor releases must identify deltas from v1.1.0 and rerun affected threat, s
 | Core auth | `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, `AUTH_REFERENCE_HASH_SECRET` | URLs no; secrets yes | Strong isolated secrets required outside local |
 | Google | `AUTH_GOOGLE_ENABLED`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Secret is sensitive | Exact callback per environment |
 | Facebook | `AUTH_FACEBOOK_ENABLED`, `FACEBOOK_CLIENT_ID`, `FACEBOOK_CLIENT_SECRET` | Secret is sensitive | Meta registration per environment |
-| Apple | `AUTH_APPLE_ENABLED`, `AUTH_APPLE_DEFERRED`, `APPLE_CLIENT_ID`, `APPLE_CLIENT_SECRET` | Secret is sensitive | Never commit `.p8`/generated secret |
+| Apple | `AUTH_APPLE_ENABLED`, `AUTH_APPLE_DEFERRED`, `APPLE_CLIENT_ID`, `APPLE_CLIENT_SECRET` | Secret is sensitive | `AUTH_APPLE_DEFERRED` defaults to `true` (hidden); set `false` to expose |
 | Email | `AUTH_EMAIL_ENABLED`, `EMAIL_PROVIDER`, `EMAIL_FROM`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_SECURE` | Credentials sensitive | Frozen adapter is SMTP |
 | Phone | `AUTH_WHATSAPP_OTP_ENABLED`, `AUTH_SMS_OTP_ENABLED`, `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_VERIFY_SERVICE_SID` | Twilio values sensitive | SMS false; Verify service used |
 | Consent | `RENTIPID_TERMS_VERSION`, `RENTIPID_PRIVACY_VERSION` | No | Defaults identify unified v1.1 terms/privacy |
-| Data/security | `DATABASE_URL`, `DIRECT_URL`, `MFA_ENCRYPTION_KEY` | Yes | Environment isolation mandatory |
+| Data/security | `DATABASE_URL`, `DIRECT_URL`, `MFA_ENCRYPTION_KEY_ID`, `MFA_ENCRYPTION_KEY`, `RETIRED_FIELD_ENCRYPTION_KEYS` | Keys/URLs sensitive | Environment isolation mandatory; AES-256 field encryption for MFA |
+
+### Canonical Configuration Specification
+
+| Variable Name | Purpose | Secret? | Local | Preview | Production | Required? | Notes |
+|---|---|---|---|---|---|---|---|
+| `NEXTAUTH_URL` | Canonical application origin | No | `http://localhost:3000` | `https://preview.rentipid.com.ph` | `https://www.rentipid.com.ph` | Yes | Exact environment origin |
+| `NEXTAUTH_SECRET` | JWT session signature & encryption | Yes | Local secret | Cloud Secret Store | Cloud Secret Store | Yes | Minimum 32-char high-entropy string |
+| `AUTH_REFERENCE_HASH_SECRET` | HMAC reference hash key for audit logs | Yes | Local secret | Cloud Secret Store | Cloud Secret Store | Yes | Falls back to `NEXTAUTH_SECRET` if unset |
+| `AUTH_GOOGLE_ENABLED` | Google OAuth feature flag | No | `true` | `true` | `true` | No | Defaults to `true` |
+| `GOOGLE_CLIENT_ID` | Google OAuth client ID | No | Dev client ID | Preview client ID | Production client ID | Yes (for Google) | Exact callback registered in Google Cloud Console |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret | Yes | Dev secret | Cloud Secret Store | Cloud Secret Store | Yes (for Google) | Never commit |
+| `AUTH_FACEBOOK_ENABLED` | Facebook OAuth feature flag | No | `true` | `true` | `true` | No | Defaults to `true` |
+| `FACEBOOK_CLIENT_ID` | Meta application ID | No | Dev App ID | Preview App ID | Production App ID | Yes (for Facebook) | Exact callback registered in Meta Developers |
+| `FACEBOOK_CLIENT_SECRET` | Meta application secret | Yes | Dev secret | Cloud Secret Store | Cloud Secret Store | Yes (for Facebook) | Never commit |
+| `AUTH_APPLE_ENABLED` | Apple OAuth feature flag | No | `true` | `true` | `true` | No | Defaults to `true` |
+| `AUTH_APPLE_DEFERRED` | Controls public visibility of Apple login | No | `false` (to expose) | `false` (to expose) | `false` (to expose) | No | Defaults to `true` (HIDDEN/DEFERRED) when absent/empty; must be explicitly set to `false` to expose Apple |
+| `APPLE_CLIENT_ID` | Apple Services ID | No | Dev Services ID | Preview Services ID | Production Services ID | Yes (for Apple) | Exact Services ID registered in Apple Developer |
+| `APPLE_CLIENT_SECRET` | Apple generated ES256 client secret JWT | Yes | Dev JWT | Cloud Secret Store | Cloud Secret Store | Yes (for Apple) | Generated from `.p8` private key; never commit |
+| `AUTH_EMAIL_ENABLED` | Email/password feature flag | No | `true` | `true` | `true` | No | Defaults to `true` |
+| `EMAIL_PROVIDER` | Email delivery provider | No | `smtp` | `smtp` | `smtp` | No | Frozen adapter is SMTP |
+| `EMAIL_FROM` | Transactional email sender address | No | Dev sender | Preview sender | Approved Production sender | Yes (for email) | Must be verified with mail provider |
+| `SMTP_HOST` | SMTP server hostname | Sensitive | Dev SMTP host | Cloud Secret Store | Cloud Secret Store | Yes (for email) | Operational transport |
+| `SMTP_PORT` | SMTP port | No | `587` / `465` | `587` / `465` | `587` / `465` | Yes (for email) | Parsed integer |
+| `SMTP_USER` | SMTP authentication username | Sensitive | Dev user | Cloud Secret Store | Cloud Secret Store | Yes (for email) | Never commit |
+| `SMTP_PASSWORD` | SMTP authentication password | Yes | Dev password | Cloud Secret Store | Cloud Secret Store | Yes (for email) | Never commit |
+| `SMTP_SECURE` | SMTP TLS boolean | No | `false` / `true` | `false` / `true` | `false` / `true` | No | Boolean string |
+| `AUTH_WHATSAPP_OTP_ENABLED` | WhatsApp OTP feature flag | No | `true` | `true` | `true` | No | Requires Twilio Verify configuration |
+| `AUTH_SMS_OTP_ENABLED` | Legacy SMS feature flag | No | `false` | `false` | `false` | No | Retired; fails closed |
+| `TWILIO_ACCOUNT_SID` | Twilio account identifier | Sensitive | Dev SID | Cloud Secret Store | Cloud Secret Store | Yes (for WhatsApp) | Account identifier |
+| `TWILIO_AUTH_TOKEN` | Twilio API authentication token | Yes | Dev token | Cloud Secret Store | Cloud Secret Store | Yes (for WhatsApp) | Never commit |
+| `TWILIO_VERIFY_SERVICE_SID` | Twilio Verify service identifier | Sensitive | Dev Verify SID | Cloud Secret Store | Cloud Secret Store | Yes (for WhatsApp) | Verify service container ID |
+| `RENTIPID_TERMS_VERSION` | Terms document version string | No | `unified-multi-login-v1.1` | `unified-multi-login-v1.1` | `unified-multi-login-v1.1` | No | Default: `unified-multi-login-v1.1` |
+| `RENTIPID_PRIVACY_VERSION` | Privacy policy version string | No | `unified-multi-login-v1.1` | `unified-multi-login-v1.1` | `unified-multi-login-v1.1` | No | Default: `unified-multi-login-v1.1` |
+| `DATABASE_URL` | Runtime PostgreSQL connection string | Yes | Isolated dev DB | Independent Preview DB | Production DB | Yes | Connection pooling string; never cross environments |
+| `DIRECT_URL` | Direct PostgreSQL migration connection | Yes | Isolated dev DB | Independent Preview DB | Production DB | Yes | Direct connection for Prisma migrations |
+| `MFA_ENCRYPTION_KEY_ID` | Identifier for active field encryption key | No | `local-key-1` | Cloud Config / Store | Cloud Config / Store | Yes (for MFA) | Key ID/version metadata loaded via `EnvironmentKeyProvider` (`process.env.MFA_ENCRYPTION_KEY_ID`) |
+| `MFA_ENCRYPTION_KEY` | AES-256 field encryption key for MFA secrets | Yes | 32-byte hex string | Cloud Secret Store | Cloud Secret Store | Yes (for MFA) | Exactly 32 bytes (64 hex characters) paired with active `MFA_ENCRYPTION_KEY_ID` |
+| `RETIRED_FIELD_ENCRYPTION_KEYS` | Historical key decryption map for rotation | Yes | Optional / empty | Cloud Secret Store | Cloud Secret Store | No | JSON map (`{"keyId": "hexKey"}`) for decrypting historical MFA secrets during key rotation |
+| `NODE_ENV` | Runtime environment mode | No | `development` / `test` | `production` | `production` | Yes | Controls cookies and build optimizations |
 
 ## Appendix G - Database Entity Reference
 
@@ -777,6 +879,13 @@ Successor releases must identify deltas from v1.1.0 and rerun affected threat, s
 | POST | `/api/auth/link` | Session + AAL2 | Generic credential/phone link |
 | POST | `/api/auth/unlink` | Session + AAL2 | Generic unlink |
 | POST | `/api/auth/logout` | Session | Registry-aware logout |
+| POST | `/api/auth/email-verification/resend` | Public | Resend email verification token |
+| POST | `/api/auth/email-verification/verify` | Public | Verify email address with one-time token |
+| POST | `/api/auth/password-recovery` | Public | Request password reset token |
+| POST | `/api/auth/password-reset` | Public | Reset password and revoke active sessions |
+| POST | `/api/auth/mfa/enroll` | Session | Begin TOTP MFA enrollment |
+| POST | `/api/auth/mfa/activate` | Session | Complete TOTP MFA activation |
+| POST | `/api/auth/mfa/verify` | Session | Step-up verification for AAL2 assurance |
 | GET | `/api/account/sessions` | Session | List sessions |
 | DELETE | `/api/account/sessions/{sessionId}` | Session | Revoke another session |
 | POST | `/api/account/sessions/logout-others` | Session | Revoke all other sessions |
@@ -979,7 +1088,7 @@ The 12 Mermaid sources in [`diagrams/`](diagrams/README.md) cover high-level arc
 |---|---|---|
 | 1.0 | Initial complete manual suite for frozen v1.1.0 | None; documentation only |
 
-# Source and Evidence Register
+# Part XII - Source & Evidence Register
 
 ## Source paths
 

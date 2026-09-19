@@ -116,7 +116,7 @@ erDiagram
   User ||--o{ AuthIdentityEvent : audits
   User ||--o{ Booking : owns
   User ||--o{ Payment : owns
-  User ||--o{ LedgerEntry : owns
+  User ||--o{ FinanceLedger : owns
 ```
 
 ### 4.2 `User`
