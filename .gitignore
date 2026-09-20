@@ -48,5 +48,6 @@ private-uploads
 uploads-temp
 *.key
 logs
+quarantine_incident_20260920/
 .terraform/
 /.address-local-state.json

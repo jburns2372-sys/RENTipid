@@ -630,16 +630,15 @@ describe('FR-09: No Unsafe Email Auto-Merge', () => {
     const { authService, store } = createTestServices();
     // User A registers with email
     await authService.registerEmailPassword({ email: 'shared@test.com', password: 'P1', fullName: 'EmailUser', consent: CONSENT });
-    // Google sign-in with same email but different identity creates NEW user
-    const googleUser = await authService.resolveOAuthSignIn({
+    // Google sign-in with same email but different identity is rejected with ACCOUNT_LINK_REQUIRED (auto-merge disabled)
+    await expect(authService.resolveOAuthSignIn({
       provider: 'google',
       providerSubject: 'g-separate-sub',
       profile: { sub: 'g-separate-sub', email: 'shared@test.com', email_verified: true },
       consent: CONSENT,
-    });
-    // Must be a DIFFERENT user
-    expect(store.users.length).toBe(2);
-    expect(googleUser.id).not.toBe(store.users[0].id);
+    })).rejects.toMatchObject({ code: 'ACCOUNT_LINK_REQUIRED' });
+    // No duplicate user created, no auto-merge
+    expect(store.users.length).toBe(1);
   });
 
   test('synthetic email is used for OAuth users, not the provider email', async () => {
