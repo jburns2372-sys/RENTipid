@@ -1,0 +1,75 @@
+{
+  "workPackage": "GLCC-P3C",
+  "name": "Public Marketplace & Renter Static Copy Migration",
+  "generatedAt": "2026-09-25T18:48:00+08:00",
+  "baselineCommit": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "gitBranch": "successor/rc-candidate",
+  "files": [
+    {
+      "path": "src/lib/glcc/i18n/contracts.ts",
+      "sizeBytes": 10002,
+      "sha256": "E191081439F6ACE38AE81A020A4EBF8FBA4CB627C2B19FAB6AEFDB59F26CA2F7",
+      "description": "Expanded canonical translation keys for marketplace, listings, bookings, renter management, and pluralization"
+    },
+    {
+      "path": "src/lib/glcc/i18n/locales/en-PH.ts",
+      "sizeBytes": 16310,
+      "sha256": "557E64A95A516DDAB87267D52DB620AD9CADDAF1FD4129089474E82EBCE63830",
+      "description": "Canonical English (en-PH) translation bundle containing complete message definitions for all 71 P3C keys"
+    },
+    {
+      "path": "src/lib/glcc/i18n/locales/fil-PH.ts",
+      "sizeBytes": 18133,
+      "sha256": "16F26B02353EDCE4062207252593DA7194E84D791D7FF40FF260751E2893B0E8",
+      "description": "Test fixture Filipino (fil-PH) bundle mirroring all 71 keys with 100% placeholder parity"
+    },
+    {
+      "path": "src/lib/glcc/i18n/formatters.ts",
+      "sizeBytes": 6315,
+      "sha256": "D38AC1C01D61E0F7341E770421CF28AD9EFB21355F2C42CC38D5DAB561B6F693",
+      "description": "Standards-based duration formatting helper (formatPluralDuration) using Intl.PluralRules"
+    },
+    {
+      "path": "src/app/page.tsx",
+      "sizeBytes": 11321,
+      "sha256": "FE9781D1150C7857DA94B73A3AD23CF335C6C2095BF1836FB0334FC5E4608021",
+      "description": "Public marketplace landing page migrated to canonical t() keys with accessibility labels"
+    },
+    {
+      "path": "src/app/browse/page.tsx",
+      "sizeBytes": 6024,
+      "sha256": "2AFC5DAB6F4778809A9586EE07785518780C09372C8B0AA50190DC78ECBCB0D5",
+      "description": "Marketplace browse/search page migrated to canonical t() keys; structured filter parameters preserved"
+    },
+    {
+      "path": "src/app/listing/[id]/page.tsx",
+      "sizeBytes": 4511,
+      "sha256": "50CF8098297CAC9992A6FEEC8273A34634E9212DB96FC174516E8524E6A96EAF",
+      "description": "Listing detail presentation shell migrated to canonical t() keys; provider content untouched"
+    },
+    {
+      "path": "src/components/bookings/BookingRequestForm.tsx",
+      "sizeBytes": 10433,
+      "sha256": "2D4AFF328EB0B77A08419EEA8B09C45C412987F825D5005140395E0BC2049890",
+      "description": "Renter reservation presentation shell migrated to canonical t() keys and formatPluralDuration"
+    },
+    {
+      "path": "src/app/dashboard/renter/bookings/[id]/page.tsx",
+      "sizeBytes": 13766,
+      "sha256": "41DBC7C53AFCEE37CCED39CA4B363A701EB6F90AA9C0879BD232A1C27DC921C3",
+      "description": "Renter booking detail view presentation chrome migrated to canonical t() keys"
+    },
+    {
+      "path": "src/app/dashboard/renter/bookings/page.tsx",
+      "sizeBytes": 5632,
+      "sha256": "6F715C6943C0E3E9D34C4264048499D850E0F0B1EC81FC2A364BFFF91081C91F",
+      "description": "Renter bookings overview table migrated to canonical t() keys; raw IDs and dates preserved"
+    },
+    {
+      "path": "tests/glcc/p3c-marketplace-migration.test.tsx",
+      "sizeBytes": 20976,
+      "sha256": "DAAF2935DF58B9920041BEB11F4033E3C251070C7C526E279B86A091E229EDCF",
+      "description": "Comprehensive P3C test suite covering marketplace, listing shell, booking form, pluralization, and invariants"
+    }
+  ]
+}

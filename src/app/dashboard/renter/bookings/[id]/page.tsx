@@ -5,14 +5,15 @@ import { authOptions } from "@/lib/auth";
 import { PrismaClient } from '@prisma/client';
 import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
-import { MediationCard } from '@/components/ai/MediationCard';
+import { MediationCard, type MediationRequestData } from '@/components/ai/MediationCard';
+import { t, formatPluralDuration } from '@/lib/glcc/i18n';
 
 const prisma = new PrismaClient();
 
 export default async function RenterBookingDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const session = await getServerSession(authOptions);
-  const user = session?.user as any;
+  const user = session?.user as { id: string; role?: string; name?: string } | undefined;
 
   if (user?.role !== 'Renter' && user?.role !== 'Individual Provider' && user?.role !== 'Business Provider' && user?.role !== 'Super Admin') {
     redirect('/unauthorized');
@@ -43,13 +44,13 @@ export default async function RenterBookingDetailPage({ params }: { params: Prom
     <div className="container mx-auto py-12 px-4 max-w-5xl">
       <div className="mb-6">
         <Link href="/dashboard/renter/bookings" className="text-blue-600 hover:underline text-sm font-medium">
-          &larr; Back to My Bookings
+          {t('renter.bookingDetail.back')}
         </Link>
       </div>
 
       <div className="flex justify-between items-start mb-8 border-b pb-6">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Booking #{booking.id.slice(-8).toUpperCase()}</h1>
+          <h1 className="text-3xl font-bold mb-2">{t('renter.bookingDetail.bookingId', { id: booking.id.slice(-8).toUpperCase() })}</h1>
           <div className="flex items-center space-x-3">
             <span className={`px-3 py-1 rounded-full text-sm font-bold
               ${booking.status === 'Pending Provider Approval' ? 'bg-yellow-100 text-yellow-800' :
@@ -60,7 +61,7 @@ export default async function RenterBookingDetailPage({ params }: { params: Prom
               }`}>
               {booking.status}
             </span>
-            <span className="text-gray-500 text-sm font-medium">Payment: {booking.payment_status}</span>
+            <span className="text-gray-500 text-sm font-medium">{t('renter.bookingDetail.paymentStatus', { status: booking.payment_status })}</span>
           </div>
         </div>
 
@@ -69,7 +70,7 @@ export default async function RenterBookingDetailPage({ params }: { params: Prom
            <form action={`/api/bookings/${booking.id}/status`} method="POST">
              <input type="hidden" name="action" value="CANCEL_BY_RENTER" />
              <button type="submit" className="bg-red-50 text-red-600 border border-red-200 px-4 py-2 rounded font-bold hover:bg-red-100 transition text-sm">
-               Cancel Booking Request
+               {t('renter.bookingDetail.cancelRequest')}
              </button>
            </form>
         )}
@@ -80,36 +81,36 @@ export default async function RenterBookingDetailPage({ params }: { params: Prom
         {/* Left Col: Listing & Costs */}
         <div className="md:col-span-2 space-y-6">
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <h2 className="text-xl font-bold mb-4 border-b pb-2">Listing Details</h2>
+            <h2 className="text-xl font-bold mb-4 border-b pb-2">{t('renter.bookingDetail.listingDetails')}</h2>
             <div className="flex items-start space-x-4">
               <div className="w-24 h-24 bg-gray-200 rounded overflow-hidden flex-shrink-0">
                 {booking.listing.photos?.[0] && <img src={booking.listing.photos[0].file_path} alt="cover" className="w-full h-full object-cover" />}
               </div>
               <div>
                 <h3 className="font-bold text-lg text-gray-900">{booking.listing.title}</h3>
-                <p className="text-sm text-gray-500 mb-2">Provider: {providerName}</p>
-                <Link href={`/listing/${booking.listing_id}`} className="text-blue-600 text-sm font-medium hover:underline">View Public Listing</Link>
+                <p className="text-sm text-gray-500 mb-2">{t('renter.bookingDetail.providerLabel', { name: providerName || '' })}</p>
+                <Link href={`/listing/${booking.listing_id}`} className="text-blue-600 text-sm font-medium hover:underline">{t('renter.bookingDetail.viewListing')}</Link>
               </div>
             </div>
           </div>
 
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <h2 className="text-xl font-bold mb-4 border-b pb-2">Booking Information</h2>
+            <h2 className="text-xl font-bold mb-4 border-b pb-2">{t('renter.bookingDetail.bookingInfo')}</h2>
             <div className="grid sm:grid-cols-2 gap-4 text-sm">
               <div>
-                <p className="text-gray-500 mb-1">Start Date</p>
+                <p className="text-gray-500 mb-1">{t('renter.bookingDetail.startDate')}</p>
                 <p className="font-bold">{booking.start_date.toLocaleDateString()}</p>
               </div>
               <div>
-                <p className="text-gray-500 mb-1">End Date</p>
+                <p className="text-gray-500 mb-1">{t('renter.bookingDetail.endDate')}</p>
                 <p className="font-bold">{booking.end_date.toLocaleDateString()}</p>
               </div>
               <div>
-                <p className="text-gray-500 mb-1">Duration</p>
-                <p className="font-bold">{booking.rental_duration} {booking.rental_duration_unit}(s)</p>
+                <p className="text-gray-500 mb-1">{t('renter.bookingDetail.duration')}</p>
+                <p className="font-bold">{formatPluralDuration(booking.rental_duration, booking.rental_duration_unit)}</p>
               </div>
               <div>
-                <p className="text-gray-500 mb-1">Receive Option</p>
+                <p className="text-gray-500 mb-1">{t('booking.receiveOption')}</p>
                 <p className="font-bold">{booking.pickup_option}</p>
                 {booking.delivery_requested && <p className="text-xs text-gray-500 mt-1 truncate">{booking.delivery_address}</p>}
               </div>
@@ -117,19 +118,19 @@ export default async function RenterBookingDetailPage({ params }: { params: Prom
 
             {booking.renter_notes && (
               <div className="mt-4 pt-4 border-t">
-                <p className="text-gray-500 mb-1 text-sm">Your Notes</p>
+                <p className="text-gray-500 mb-1 text-sm">{t('renter.bookingDetail.renterNotes')}</p>
                 <p className="text-sm bg-gray-50 p-3 rounded">{booking.renter_notes}</p>
               </div>
             )}
             {booking.provider_notes && (
               <div className="mt-4 pt-4 border-t">
-                <p className="text-gray-500 mb-1 text-sm">Provider Notes</p>
+                <p className="text-gray-500 mb-1 text-sm">{t('renter.bookingDetail.providerNotes')}</p>
                 <p className="text-sm bg-blue-50 p-3 rounded">{booking.provider_notes}</p>
               </div>
             )}
             {booking.status === 'Rejected' && booking.rejection_reason && (
               <div className="mt-4 pt-4 border-t">
-                <p className="text-red-600 font-bold mb-1 text-sm">Rejection Reason</p>
+                <p className="text-red-600 font-bold mb-1 text-sm">{t('renter.bookingDetail.rejectionReason')}</p>
                 <p className="text-sm bg-red-50 p-3 rounded text-red-800">{booking.rejection_reason}</p>
               </div>
             )}
@@ -139,26 +140,26 @@ export default async function RenterBookingDetailPage({ params }: { params: Prom
         {/* Right Col: Payment & Status History */}
         <div className="space-y-6">
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <h2 className="text-xl font-bold mb-4 border-b pb-2">Payment Summary</h2>
+            <h2 className="text-xl font-bold mb-4 border-b pb-2">{t('renter.bookingDetail.paymentSummary')}</h2>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-600">Base Rental</span>
+                <span className="text-gray-600">{t('renter.bookingDetail.baseRental')}</span>
                 <span className="font-medium">₱{booking.base_rental_amount.toLocaleString()}</span>
               </div>
               {booking.deposit_amount > 0 && (
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Security Deposit</span>
+                  <span className="text-gray-600">{t('listing.securityDeposit').replace(/:$/, '')}</span>
                   <span className="font-medium">₱{booking.deposit_amount.toLocaleString()}</span>
                 </div>
               )}
               {booking.delivery_fee && booking.delivery_fee > 0 ? (
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Delivery Fee</span>
+                  <span className="text-gray-600">{t('booking.deliveryFee')}</span>
                   <span className="font-medium">₱{booking.delivery_fee.toLocaleString()}</span>
                 </div>
               ) : null}
               <div className="flex justify-between border-t pt-3 font-bold text-lg">
-                <span>Estimated Total</span>
+                <span>{t('booking.estimatedTotal')}</span>
                 <span>₱{booking.estimated_total_amount.toLocaleString()}</span>
               </div>
             </div>
@@ -214,9 +215,9 @@ export default async function RenterBookingDetailPage({ params }: { params: Prom
           </div>
 
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <h2 className="text-xl font-bold mb-4 border-b pb-2">Timeline</h2>
+            <h2 className="text-xl font-bold mb-4 border-b pb-2">{t('renter.bookingDetail.timeline')}</h2>
             <div className="space-y-4">
-              {booking.statusHistory.map((history, idx) => (
+              {booking.statusHistory.map((history) => (
                 <div key={history.id} className="relative pl-4 border-l-2 border-gray-200">
                   <span className="absolute -left-1.5 top-1.5 w-2.5 h-2.5 rounded-full bg-blue-600"></span>
                   <p className="font-bold text-sm text-gray-900">{history.new_status}</p>
@@ -232,7 +233,7 @@ export default async function RenterBookingDetailPage({ params }: { params: Prom
 
       {/* Mediation Requests Section */}
       <div className="mt-8 mb-4">
-        {booking.aiMediationRequests && booking.aiMediationRequests.map((req: any) => (
+        {booking.aiMediationRequests && (booking.aiMediationRequests as unknown as MediationRequestData[]).map((req) => (
           <div key={req.id} className="mt-4">
             <MediationCard request={req} role="Renter" />
           </div>

@@ -1,0 +1,18 @@
+================================================================================
+RENTipid GLCC v1.0 — Work Package P3D Prisma Schema Validation Log
+Executed: 2026-09-26T01:31:03+08:00
+Environment: Node v22.22.2 (win32-x64), Prisma CLI 5.22.0
+Command: .\node_modules\.bin\prisma.cmd validate
+Exit Code: 0
+================================================================================
+
+Loaded Prisma config from prisma.config.ts.
+Prisma config detected, skipping environment variable loading.
+Prisma schema loaded from prisma\schema.prisma
+The schema at prisma\schema.prisma is valid 🚀
+
+================================================================================
+DATABASE BOUNDARY VERIFICATION: PASS
+No migrations executed.
+Unapplied migration 20260925000000_add_user_global_preference preserved.
+================================================================================

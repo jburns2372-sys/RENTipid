@@ -1,0 +1,83 @@
+================================================================================
+RENTipid GLCC v1.0 — Work Package P3D Jest Test Execution Log
+Executed: 2026-09-26T01:31:17+08:00
+Environment: Node v22.22.2 (win32-x64), Jest 29.7.0
+Commands:
+  1) .\node_modules\.bin\jest.cmd tests\glcc\p3d-provider-copy.test.tsx
+  2) .\node_modules\.bin\jest.cmd "tests/glcc" --runInBand --no-cache
+================================================================================
+
+--- 1. P3D FOCUSED TEST SUITE EXECUTION ---
+Command: .\node_modules\.bin\jest.cmd tests\glcc\p3d-provider-copy.test.tsx
+Exit Code: 0
+
+TARGET_HOST_CLASSIFICATION: LOCALHOST
+TARGET_DATABASE: rentipid_test_soc
+TARGET_ENVIRONMENT: TEST
+PRODUCTION_TARGET: NO
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+PASS tests/glcc/p3d-provider-copy.test.tsx
+  GLCC-P3D — Provider Operational Static Copy Migration
+    1. Provider Listings Inventory Shell Static Copy
+      √ provides complete canonical en-PH inventory copy (6 ms)
+      √ translates inventory status labels and actions (1 ms)
+      √ correctly maps inventory actions and aria labels with title interpolation (1 ms)
+      √ provides fil-PH fixture parity for inventory shell (2 ms)
+    2. Listing Creation Wizard & Form Shell
+      √ provides canonical wizard steps, headers, labels, and placeholders (3 ms)
+      √ renders ListingWizard with translated labels without altering form field state (166 ms)
+      √ preserves CONTROLLED legal declaration in ListingWizard verbatim (2 ms)
+    3. Listing Edit Form Shell
+      √ provides canonical edit form labels and actions (3 ms)
+      √ renders ListingEditForm with pre-filled provider values preserved (62 ms)
+    4. Provider Listing Manage Shell & Documents
+      √ interpolates title, reason, and risk level into manage shell copy (2 ms)
+      √ translates manage shell in fil-PH fixture with exact placeholder parity (1 ms)
+    5. Media & Document Uploaders
+      √ renders PhotoUploader with localized cover badge, delete button, and upload help (19 ms)
+      √ renders DocumentUploader with localized document types, statuses, and uploaded date (90 ms)
+      √ translates document types and statuses in fil-PH fixture (2 ms)
+    6. Provider Pluralization
+      √ pluralizes listing count correctly using ECMA-402 PluralRules (5 ms)
+      √ pluralizes photo count correctly using ECMA-402 PluralRules (2 ms)
+    7. Dynamic Provider Content & Data Isolation Boundary
+      √ strictly preserves original provider-authored listing titles, descriptions, and addresses (1 ms)
+      √ keeps machine status values invariant across translations (2 ms)
+    8. Financial, RBAC & Authority Invariant
+      √ display formatting does not mutate provider price, deposit, or currency authority (11 ms)
+      √ language selection independence: switching locale never mutates provider role or verified status (3 ms)
+    9. Fallback & Missing-Key Resilience
+      √ falls back to en-PH when key is missing in child locale (1 ms)
+      √ safely handles unknown keys without crashing or returning raw key with brackets (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       22 passed, 22 total
+Snapshots:   0 total
+Time:        5.197 s
+
+--- 2. FULL GLCC REGRESSION SUITE EXECUTION ---
+Command: .\node_modules\.bin\jest.cmd "tests/glcc" --runInBand --no-cache
+Exit Code: 0
+
+PASS tests/glcc/preference-route.test.ts
+PASS tests/glcc/p3c-marketplace-migration.test.tsx
+PASS tests/glcc/p3d-provider-copy.test.tsx
+PASS tests/glcc/preference-resolver.test.ts
+PASS tests/glcc/preference-ui.test.tsx
+PASS tests/glcc/i18n.test.ts
+PASS tests/glcc/p3b-copy-migration.test.tsx
+PASS tests/glcc/preference-p2b.test.tsx
+PASS tests/glcc/guest-route.test.ts
+PASS tests/glcc/server-adapter.test.ts
+PASS tests/glcc/contracts.test.ts
+PASS tests/glcc/preference-reconciler.test.ts
+PASS tests/glcc/preference-service.test.ts
+
+Test Suites: 13 passed, 13 total
+Tests:       210 passed, 210 total
+Snapshots:   0 total
+Time:        12.4 s
+================================================================================
+ALL 13 GLCC TEST SUITES PASSED (210/210 TESTS GREEN, 0 FAILURES, 0 REGRESSIONS)
+================================================================================

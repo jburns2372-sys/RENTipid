@@ -1,0 +1,24 @@
+COMMAND:
+npx tsc --project tsconfig.json --noEmit
+
+EXIT CODE: 0
+TIMESTAMP: 2026-09-25T16:25:49+08:00
+
+OUTPUT:
+(Clean - 0 errors, 0 warnings)
+
+VERIFIED SCOPE:
+- Full repository TypeScript compilation according to tsconfig.json
+- src/components/glcc/glcc-copy.ts
+- src/components/glcc/types.ts
+- src/components/glcc/useGlobalPreferences.ts
+- src/components/glcc/GlobalPreferencesModal.tsx
+- src/components/glcc/GlobalPreferencesTrigger.tsx
+- src/components/glcc/index.ts
+- src/components/profile/RegionalPreferencesCard.tsx
+- src/app/api/preferences/route.ts
+- src/components/layout/Header.tsx
+- src/app/dashboard/profile/page.tsx
+- tests/glcc/preference-p2b.test.tsx
+- tests/glcc/guest-route.test.ts
+- all preceding P1 and P2A files

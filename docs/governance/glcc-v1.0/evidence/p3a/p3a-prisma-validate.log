@@ -1,0 +1,11 @@
+================================================================================
+RENTipid GLCC v1.0 — GLCC-P3A Prisma Schema Validation Log
+Timestamp: 2026-09-25T17:09:59+08:00
+Command: npx prisma validate
+Exit Code: 0
+================================================================================
+
+Loaded Prisma config from prisma.config.ts.
+Prisma config detected, skipping environment variable loading.
+Prisma schema loaded from prisma\schema.prisma
+The schema at prisma\schema.prisma is valid 🚀

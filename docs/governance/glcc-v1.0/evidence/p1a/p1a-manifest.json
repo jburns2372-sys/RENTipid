@@ -1,0 +1,65 @@
+{
+  "module": "GLCC v1.0",
+  "slice": "GLCC-P1A",
+  "title": "Pure Preference & Registry Contracts",
+  "timestamp": "2026-09-25T04:40:20+08:00",
+  "repository": "C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid",
+  "branch": "successor/rc-candidate",
+  "baseCommitHead": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "nodeVersion": "v22.22.2",
+  "npmVersion": "10.9.7",
+  "files": [
+    {
+      "path": "src/lib/glcc/contracts.ts",
+      "sizeBytes": 9039,
+      "sha256": "831232fc7885585d4c187cbdac69fe8a5fa94ee41740c4ccf085dd0bb2face34"
+    },
+    {
+      "path": "src/lib/glcc/preference-resolver.ts",
+      "sizeBytes": 13701,
+      "sha256": "0692050e29553d1f9df3be0aafddbc03dcf4e1b0c600d7ffc4e1f7512577a08a"
+    },
+    {
+      "path": "src/lib/glcc/registry-contracts.ts",
+      "sizeBytes": 7976,
+      "sha256": "93bac32e40d8e030c7118570c392533e09f1e029992fff51073383d117cf536f"
+    },
+    {
+      "path": "tests/glcc/contracts.test.ts",
+      "sizeBytes": 8338,
+      "sha256": "48a1489f8d89c9547f2e41d93261bf51a6b159b021aa5582dbd8081f10412eb6"
+    },
+    {
+      "path": "tests/glcc/preference-resolver.test.ts",
+      "sizeBytes": 19679,
+      "sha256": "88a501594c87c183b939ca409101932c0fc9ef53402a3fb31e6a2d7d0b412c05"
+    }
+  ],
+  "verificationSummary": {
+    "unitTests": {
+      "runner": "jest 30.4.2",
+      "suites": 2,
+      "passed": 32,
+      "failed": 0,
+      "exitCode": 0
+    },
+    "typecheck": {
+      "runner": "typescript 5.x",
+      "errors": 0,
+      "warnings": 0,
+      "exitCode": 0
+    },
+    "linter": {
+      "runner": "eslint 9.x",
+      "errors": 0,
+      "warnings": 0,
+      "exitCode": 0
+    },
+    "importPurity": {
+      "externalDependencies": 0,
+      "prismaImports": 0,
+      "nextRuntimeImports": 0,
+      "databaseSideEffects": 0
+    }
+  }
+}

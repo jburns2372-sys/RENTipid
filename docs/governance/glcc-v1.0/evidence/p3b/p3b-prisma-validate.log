@@ -1,0 +1,6 @@
+Command: prisma validate
+Exit code: 0
+Output:
+The schema at prisma\schema.prisma is valid
+Timestamp: 2026-09-25T18:12:32+08:00
+Invariant: Preserves unapplied UserGlobalPreference migration. No migration deployed, pushed, or reset.

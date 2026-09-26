@@ -1,0 +1,33 @@
+COMMAND:
+.\node_modules\.bin\dotenv.cmd -e .env.test.local -e .env.test -- .\node_modules\.bin\jest.cmd --runInBand --no-cache tests/glcc/contracts.test.ts tests/glcc/preference-resolver.test.ts tests/glcc/server-adapter.test.ts tests/glcc/preference-reconciler.test.ts tests/glcc/preference-service.test.ts tests/glcc/preference-route.test.ts tests/glcc/preference-ui.test.tsx tests/glcc/preference-p2b.test.tsx tests/glcc/guest-route.test.ts
+
+EXIT CODE: 0
+TIMESTAMP: 2026-09-25T16:28:05+08:00
+
+OUTPUT:
+PASS tests/glcc/preference-route.test.ts
+PASS tests/glcc/preference-resolver.test.ts
+PASS tests/glcc/preference-ui.test.tsx
+PASS tests/glcc/preference-p2b.test.tsx
+PASS tests/glcc/guest-route.test.ts
+PASS tests/glcc/server-adapter.test.ts
+PASS tests/glcc/contracts.test.ts
+PASS tests/glcc/preference-reconciler.test.ts
+PASS tests/glcc/preference-service.test.ts
+
+Test Suites: 9 passed, 9 total
+Tests:       124 passed, 124 total
+Snapshots:   0 total
+Time:        4.532 s
+
+SUITE BREAKDOWN:
+- tests/glcc/contracts.test.ts (P1A): 12 passed
+- tests/glcc/preference-resolver.test.ts (P1A): 20 passed
+- tests/glcc/server-adapter.test.ts (P1B): 8 passed
+- tests/glcc/preference-reconciler.test.ts (P1B): 8 passed
+- tests/glcc/preference-service.test.ts (P1B): 10 passed
+- tests/glcc/preference-route.test.ts (P1C): 28 passed
+- tests/glcc/preference-ui.test.tsx (P2A): 19 passed
+- tests/glcc/preference-p2b.test.tsx (P2B): 8 passed
+- tests/glcc/guest-route.test.ts (P2B): 11 passed
+TOTAL: 124 passed, 0 failed.

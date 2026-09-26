@@ -8,7 +8,12 @@ import { gatewayRegistry } from '../../../lib/payments/payment-gateway-registry'
 import { redirect } from 'next/navigation';
 import { resolvePaymentContractCurrency } from '../../../lib/payments/payment-currency-policy';
 
-import { validateCheckoutRequestId, deriveCheckoutIdempotencyKey } from './checkout-helpers';
+import {
+  validateCheckoutRequestId,
+  deriveCheckoutIdempotencyKey,
+  validateCheckoutQuoteContext,
+  buildTransactionFxMetadata,
+} from './checkout-helpers';
 import { processOptionalInsuranceCheckout } from '../../../lib/insurance/transaction/optional-checkout';
 const prisma = new PrismaClient();
 
@@ -21,8 +26,17 @@ export async function processCheckout(formData: FormData) {
   const bookingId = formData.get('booking_id') as string;
   const paymentMode = formData.get('payment_mode') as string;
   const rawIdempotencyKey = formData.get('checkout_request_id');
+  const rawQuoteId = formData.get('fx_quote_id');
+  const rawClientChargeCurrency = formData.get('charge_currency');
+  const rawTargetCurrency = formData.get('fx_target_currency');
+  const rawTargetAmount = formData.get('fx_target_amount');
+  const rawRate = formData.get('fx_rate');
 
   const idempotencyKey = validateCheckoutRequestId(rawIdempotencyKey);
+  const { quoteId } = validateCheckoutQuoteContext({
+    rawQuoteId,
+    clientRequestedChargeCurrency: rawClientChargeCurrency,
+  });
 
   const booking = await prisma.booking.findUnique({
     where: { id: bookingId },
@@ -164,6 +178,12 @@ export async function processCheckout(formData: FormData) {
       }
 
       isNewTransaction = true;
+      const fxMetadataSummary = buildTransactionFxMetadata({
+        quoteId,
+        targetCurrency: typeof rawTargetCurrency === 'string' ? rawTargetCurrency : undefined,
+        targetAmount: typeof rawTargetAmount === 'string' ? rawTargetAmount : undefined,
+        rate: typeof rawRate === 'string' ? rawRate : undefined,
+      });
       const newTx = await tx.gatewayTransaction.create({
         data: {
           booking_id: booking.id,
@@ -174,7 +194,8 @@ export async function processCheckout(formData: FormData) {
           amount: booking.estimated_total_amount,
           currency: resolvePaymentContractCurrency(),
           verification_status: 'Not Verified',
-          reconciliation_status: 'Pending'
+          reconciliation_status: 'Pending',
+          raw_event_summary: fxMetadataSummary ?? null,
         }
       });
 

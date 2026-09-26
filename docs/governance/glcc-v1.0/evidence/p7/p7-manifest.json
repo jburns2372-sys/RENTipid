@@ -1,0 +1,46 @@
+{
+  "workPackage": "GLCC-P7",
+  "name": "Dynamic Content Translation",
+  "timestamp": "2026-09-26T16:10:00+08:00",
+  "branch": "successor/rc-candidate",
+  "commitHead": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "lifecycleStatus": "PRE-G1",
+  "acceptanceTargets": [
+    "TRN-02",
+    "TRN-03",
+    "SEC-02",
+    "REG-01"
+  ],
+  "packageHash": "7A979D4A26547798A851608865E52A755DCB12A9903ACF4E49CEADE43AEEB85A",
+  "files": [
+    {
+      "path": "src/lib/glcc/dynamic-translation-contracts.ts",
+      "sha256": "DF5265A8DDBB5E8F64B6770C4D9870BFDDCE0A6BAFA1ED43523F93DDE50BF9C4"
+    },
+    {
+      "path": "src/lib/glcc/translation-sanitizer.ts",
+      "sha256": "0A24BB70A802E205C67CCBE2FAB7BCABBEB03A84ECAEFCE35374B3595FE04440"
+    },
+    {
+      "path": "src/lib/glcc/legal-translation-gate.ts",
+      "sha256": "C72177B83BBE027B11710FA2510FE46EEBF49565F8F9B7ABF1B1847881BA96B7"
+    },
+    {
+      "path": "src/lib/glcc/dynamic-translation-service.ts",
+      "sha256": "E7FFCBCA5D4C7E4A04F54682FF9069E928184516076AA25FAE8A4713B31A7C6C"
+    },
+    {
+      "path": "tests/glcc/p7-dynamic-translation.test.ts",
+      "sha256": "EF0F8B515E502F99F1703E714430F08EA5432FE610686A234AAD503EB3017A26"
+    }
+  ],
+  "verification": {
+    "jestTotalSuites": 22,
+    "jestPassedSuites": 22,
+    "jestTotalTests": 374,
+    "jestPassedTests": 374,
+    "typecheck": "PASS (0 errors)",
+    "eslint": "PASS (0 errors, 0 warnings)",
+    "prismaValidate": "PASS (valid schema)"
+  }
+}

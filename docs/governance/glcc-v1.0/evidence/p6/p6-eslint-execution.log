@@ -1,0 +1,6 @@
+=== GLCC-P6 ESLINT CHECK ===
+Timestamp: 2026-09-26T16:02:30+08:00
+Command: npx eslint src/lib/glcc/checkout-fx-service.ts src/lib/glcc/finance-authority-guards.ts src/components/glcc/CheckoutFxDisclosure.tsx src/app/checkout/[bookingId]/checkout-helpers.ts src/app/checkout/[bookingId]/actions.ts src/app/checkout/[bookingId]/page.tsx tests/glcc/p6-checkout-payment.test.ts tests/glcc/p6-checkout-ui.test.tsx
+Status: PASS
+Exit Code: 0
+Output: Clean lint check, 0 problems across 8 target files.

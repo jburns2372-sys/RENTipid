@@ -1,0 +1,32 @@
+================================================================================
+RENTipid GLCC v1.0 — Work Package P3D ESLint Targeted Execution Log
+Executed: 2026-09-26T01:30:22+08:00
+Environment: Node v22.22.2 (win32-x64), ESLint 8.57.1
+Command:
+  .\node_modules\.bin\eslint.cmd \
+    src/lib/glcc/i18n/contracts.ts \
+    src/lib/glcc/i18n/locales/en-PH.ts \
+    src/lib/glcc/i18n/locales/fil-PH.ts \
+    src/app/dashboard/provider/listings/page.tsx \
+    src/app/dashboard/provider/listings/new/page.tsx \
+    src/components/listings/ListingWizard.tsx \
+    "src/app/dashboard/provider/listings/[id]/edit/page.tsx" \
+    src/components/listings/ListingEditForm.tsx \
+    "src/app/dashboard/provider/listings/[id]/page.tsx" \
+    src/components/listings/PhotoUploader.tsx \
+    src/components/listings/DocumentUploader.tsx \
+    tests/glcc/p3d-provider-copy.test.tsx
+Exit Code: 0
+================================================================================
+
+[eslint stdout]:
+(clean - 0 errors, 0 warnings across all 12 target files)
+
+[eslint stderr]:
+(clean)
+
+================================================================================
+ESLINT VERIFICATION: PASS (0 ERRORS, 0 WARNINGS ACROSS ALL P3D CHANGED PATHS)
+Note: Pre-existing Next.js <img> warnings in untouched public marketplace/renter
+pages (P3C recorded advisories) remain outside P3D modified paths and were preserved.
+================================================================================

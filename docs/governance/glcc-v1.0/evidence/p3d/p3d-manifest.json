@@ -1,0 +1,81 @@
+{
+  "workPackage": "GLCC-P3D",
+  "name": "Provider Operational Static Copy Migration",
+  "generatedAt": "2026-09-26T01:32:00+08:00",
+  "baselineCommit": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "gitBranch": "successor/rc-candidate",
+  "files": [
+    {
+      "path": "src/lib/glcc/i18n/contracts.ts",
+      "sizeBytes": 15332,
+      "sha256": "58AD1B3939C7040F37A488AA73A2BD6970FA08F88CBFC52AFB1366CFF5ECE5F3",
+      "description": "Expanded canonical translation keys for provider listing inventory, create/edit wizard, management shell, and uploaders"
+    },
+    {
+      "path": "src/lib/glcc/i18n/locales/en-PH.ts",
+      "sizeBytes": 25497,
+      "sha256": "78DFDC7B27D98E74B2A3A2E7B64CB1D4002ECFBE44B2127A6D0CD978F3D51BC6",
+      "description": "Canonical English (en-PH) translation bundle containing complete message definitions for all 75 P3D keys"
+    },
+    {
+      "path": "src/lib/glcc/i18n/locales/fil-PH.ts",
+      "sizeBytes": 28152,
+      "sha256": "0E2C788D237AE6E132A7DE4E9591999A1D0D519D1AA48675BC3B38EACD23A77B",
+      "description": "Test fixture Filipino (fil-PH) bundle mirroring all 75 keys with 100% placeholder parity"
+    },
+    {
+      "path": "src/app/dashboard/provider/listings/page.tsx",
+      "sizeBytes": 7088,
+      "sha256": "2BB4B63EFFF127870D6B85234FA72E3D8F20F316F9DDAB85576E05DAA3FB4EAD",
+      "description": "Provider listing inventory shell migrated to canonical t() keys with status presentation and actions"
+    },
+    {
+      "path": "src/app/dashboard/provider/listings/new/page.tsx",
+      "sizeBytes": 1870,
+      "sha256": "DE08CE3643EF8A86C560468B2C8A8E3C47AEAEDB0FFAE518DD33640285108DED",
+      "description": "Provider create listing page migrated to canonical t() keys and legal compliance link"
+    },
+    {
+      "path": "src/components/listings/ListingWizard.tsx",
+      "sizeBytes": 13011,
+      "sha256": "F5BD7CD57AA335EF5F8333FD0A60935C3FF0333230350E5E267568D0D1E94708",
+      "description": "Listing creation multi-step wizard migrated to canonical t() keys; controlled legal declaration preserved"
+    },
+    {
+      "path": "src/app/dashboard/provider/listings/[id]/edit/page.tsx",
+      "sizeBytes": 2366,
+      "sha256": "D1DA243926CFAFE86FEDAEFE34A212F6D26673437564433447D80546E60E3A94",
+      "description": "Edit listing page header and subtitle migrated to canonical t() keys"
+    },
+    {
+      "path": "src/components/listings/ListingEditForm.tsx",
+      "sizeBytes": 9352,
+      "sha256": "47B048E99F66EDA60075D16E9C00D5734EDFA36D5E15DE749F6FC881C0DDA22B",
+      "description": "Listing edit form migrated to canonical t() keys while preserving form input state and payload"
+    },
+    {
+      "path": "src/app/dashboard/provider/listings/[id]/page.tsx",
+      "sizeBytes": 9065,
+      "sha256": "3A84975FEA4224F9D9EF213EA8DEE0D1ABC5865F92226F335486369CF525AAC0",
+      "description": "Provider listing manage shell migrated to canonical t() keys with status and compliance disclosures"
+    },
+    {
+      "path": "src/components/listings/PhotoUploader.tsx",
+      "sizeBytes": 3618,
+      "sha256": "16DA0A3501009D512B4ADD4DF95312DF049B1841897FC585A224F6A3764FF3DD",
+      "description": "Photo uploader presentation labels and confirmation dialogs migrated to canonical t() keys"
+    },
+    {
+      "path": "src/components/listings/DocumentUploader.tsx",
+      "sizeBytes": 5399,
+      "sha256": "52EA3DB01154CC7CED55831ACFFC5B196E567ED4D986DA470FCC87C3BDE01C9A",
+      "description": "Document uploader types, status labels, and upload buttons migrated to canonical t() keys"
+    },
+    {
+      "path": "tests/glcc/p3d-provider-copy.test.tsx",
+      "sizeBytes": 20586,
+      "sha256": "5F876577B87D19EEB9A3CC726AC7C233880CFE01C8F4006EADB0EE813BAC27C5",
+      "description": "Focused P3D unit and integration test suite covering provider operational static UI localization"
+    }
+  ]
+}

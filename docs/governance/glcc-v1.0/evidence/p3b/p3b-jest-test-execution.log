@@ -1,0 +1,21 @@
+PASS tests/glcc/preference-resolver.test.ts
+PASS tests/glcc/preference-ui.test.tsx
+PASS tests/glcc/i18n.test.ts
+PASS tests/glcc/p3b-copy-migration.test.tsx
+PASS tests/glcc/preference-p2b.test.tsx
+PASS tests/glcc/guest-route.test.ts
+PASS tests/glcc/server-adapter.test.ts
+PASS tests/glcc/contracts.test.ts
+PASS tests/glcc/preference-reconciler.test.ts
+PASS tests/glcc/preference-service.test.ts
+
+Test Suites: 11 passed, 11 total
+Tests:       172 passed, 172 total
+Snapshots:   0 total
+Time:        11.267 s
+Ran all test suites matching tests/glcc/.
+TARGET_HOST_CLASSIFICATION: LOCALHOST
+TARGET_DATABASE: rentipid_test_soc
+TARGET_ENVIRONMENT: TEST
+PRODUCTION_TARGET: NO
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED

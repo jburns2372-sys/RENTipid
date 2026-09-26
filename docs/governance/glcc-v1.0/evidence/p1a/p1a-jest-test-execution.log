@@ -1,0 +1,73 @@
+================================================================================
+RENTipid GLCC v1.0 — CHECK-005: P1A Unit Test Execution Log
+================================================================================
+Timestamp: 2026-09-25T04:39:54+08:00
+Executor: Antigravity
+Command: .\node_modules\.bin\dotenv.cmd -e .env.test.local -e .env.test -- .\node_modules\.bin\jest.cmd --runInBand --no-cache tests/glcc/contracts.test.ts tests/glcc/preference-resolver.test.ts
+Working Directory: C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid
+Runtime: Node v22.22.2 / Jest 30.4.2
+
+TARGET_HOST_CLASSIFICATION: LOCALHOST
+TARGET_DATABASE: rentipid_test_soc (isolated test database)
+TARGET_ENVIRONMENT: TEST
+PRODUCTION_TARGET: NO
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+ PASS  tests/glcc/preference-resolver.test.ts
+  GLCC v1.0 — Preference Resolver
+    5-Level Precedence Hierarchy
+      √ Tier 1: explicitChoice overrides all lower tiers (3 ms)
+      √ Tier 2: accountSaved overrides guest, suggestion, and platform default when explicitChoice is absent (1 ms)
+      √ Tier 3: guestSession overrides suggestion and platform default when explicit and account are absent (1 ms)
+      √ Tier 4: firstRunSuggestion overrides platform default when higher tiers are absent (1 ms)
+      √ Tier 5: platformDefault applies when all higher tiers are empty or absent (1 ms)
+    Independence of Language, Country, Display Currency, and Charge Currency
+      √ changing language tag does not alter country, display currency, or charge currency (1 ms)
+      √ display currency selection never alters charge currency (charge conversion strictly disabled) (1 ms)
+    Country Change Display Currency Policy
+      √ resets manual display override to new country default when country changes under RESET_TO_COUNTRY_DEFAULT policy (1 ms)
+      √ honors explicit display currency specified alongside country change if allowed in new country (1 ms)
+    Sign-in Reconciliation Policy
+      √ EXPLICIT_GUEST_CHOICE_WINS: guest manual override takes precedence over account saved (1 ms)
+      √ ACCOUNT_SAVED_WINS: saved account preferences take precedence over guest session (1 ms)
+    Fail-Closed & Fallback Handling
+      √ skips unsupported country in explicit tier and falls closed to next tier (1 ms)
+      √ skips expired currency in tier and falls closed to country default (1 ms)
+      √ falls back to locale base if specific region is unsupported (1 ms)
+    Immutability and Frozen Return Value
+      √ does not mutate input objects and returns a deep frozen result (1 ms)
+      √ preserves caller-owned objects as unfrozen and isolates result from post-resolution input mutation (1 ms)
+    Partial Explicit Selections & Preserved Context
+      √ display-currency-only explicit choice preserves account-saved country and language (1 ms)
+      √ country-only explicit choice resets display currency to new country default while preserving account language (1 ms)
+    Invalid Platform Default Rejection
+      √ throws error immediately if platform default country is unsupported in registry (1 ms)
+      √ throws error immediately if platform default display currency is unsupported (1 ms)
+
+ PASS  tests/glcc/contracts.test.ts
+  GLCC v1.0 — Registry Contracts & Representation
+    Exponent metadata representation
+      √ accurately represents 0-minor-unit currency (JPY) (1 ms)
+      √ accurately represents 2-minor-unit currencies (PHP, USD) (1 ms)
+      √ accurately represents 3-minor-unit currencies (BHD, KWD) (1 ms)
+    Effective date and active state checks
+      √ rejects inactive currencies (1 ms)
+      √ honors effective date windows (1 ms)
+    Country and locale registry lookup
+      √ returns allowed display currencies for a country (1 ms)
+      √ resolves locale fallbacks to language base (1 ms)
+      √ supports RTL direction metadata for Arabic locale (1 ms)
+    Invariant validation & assertions
+      √ validates a correct preference successfully (1 ms)
+      √ fails when display currency is not allowed for the country (1 ms)
+      √ fails invariant check when charge currency is converted away from platform default (1 ms)
+      √ fails when country or language is unsupported (1 ms)
+
+Test Suites: 2 passed, 2 total
+Tests:       32 passed, 32 total
+Snapshots:   0 total
+Time:        1.668 s
+Exit Code:   0
+================================================================================
+STATUS: PASS
+================================================================================

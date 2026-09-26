@@ -1,9 +1,11 @@
 import React from 'react';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 import Link from 'next/link';
 import { parseMarketplaceCategoryMetadata } from '@/lib/marketplace/category-metadata';
 import { canShowMarketplaceTestData } from '@/lib/marketplace/test-data-visibility';
+import { t } from '@/lib/glcc/i18n';
+import { BrowsePriceEstimate } from '@/components/glcc';
 
 const prisma = new PrismaClient();
 
@@ -14,12 +16,12 @@ export default async function BrowsePage({ searchParams }: { searchParams: Promi
   const locationFilter = resolvedSearchParams.location;
   const showTestData = canShowMarketplaceTestData();
 
-  const whereClause: any = {
+  const whereClause: Prisma.ListingWhereInput = {
     status: 'Published',
     ...(showTestData ? {} : { is_test_data: false }),
   };
 
-  const AND: any[] = [];
+  const AND: Prisma.ListingWhereInput[] = [];
 
   if (categoryFilter) {
     AND.push({ category: { slug: categoryFilter } });
@@ -66,16 +68,16 @@ export default async function BrowsePage({ searchParams }: { searchParams: Promi
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-7xl">
-      <h1 className="text-3xl font-bold mb-8">Browse Rentals</h1>
+      <h1 className="text-3xl font-bold mb-8">{t('marketplace.title')}</h1>
       
       <div className="flex flex-col md:flex-row gap-8">
         <aside className="w-full md:w-64 flex-shrink-0">
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <h2 className="font-bold text-gray-800 mb-4">Categories</h2>
+            <h2 className="font-bold text-gray-800 mb-4">{t('marketplace.categories')}</h2>
             <ul className="space-y-2">
               <li>
                 <Link href="/browse" className={`block py-1 hover:text-blue-600 ${!categoryFilter ? 'font-semibold text-blue-600' : 'text-gray-600'}`}>
-                  All Categories
+                  {t('marketplace.allCategories')}
                 </Link>
               </li>
               {orderedCategories.map((c) => (
@@ -97,7 +99,7 @@ export default async function BrowsePage({ searchParams }: { searchParams: Promi
                   {listing.photos?.[0] ? (
                     <img src={listing.photos[0].file_path} alt={listing.title} className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">No Image</div>
+                    <div className="w-full h-full flex items-center justify-center text-gray-400">{t('listing.noImage')}</div>
                   )}
                   <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-semibold text-gray-800">
                     {listing.category.name}
@@ -107,14 +109,14 @@ export default async function BrowsePage({ searchParams }: { searchParams: Promi
                   <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 flex justify-between">
                     <span>{listing.category.name}</span>
                     {listing.provider.status === 'Verified' && (
-                      <span className="text-blue-600 flex items-center gap-1"><span className="w-2 h-2 bg-blue-500 rounded-full"></span> Verified Provider</span>
+                      <span className="text-blue-600 flex items-center gap-1"><span className="w-2 h-2 bg-blue-500 rounded-full"></span> {t('listing.verifiedProvider')}</span>
                     )}
                   </div>
                   <h3 className="font-semibold text-lg text-gray-900 mb-2 flex-1">{listing.title}</h3>
                   <p className="text-gray-500 text-sm mb-2 truncate">{listing.location}, {listing.city}</p>
                   <div className="flex items-end mt-4">
-                    <span className="text-xl font-bold text-gray-900">₱{listing.daily_rate?.toLocaleString() || 'N/A'}</span>
-                    <span className="text-gray-500 text-sm ml-1 mb-1">/ day</span>
+                    <BrowsePriceEstimate amount={listing.daily_rate || 0} baseCurrency="PHP" unitLabel={t('listing.perDay')} />
+
                   </div>
                 </div>
               </Link>
@@ -123,7 +125,7 @@ export default async function BrowsePage({ searchParams }: { searchParams: Promi
 
           {listings.length === 0 && (
             <div className="text-center py-20 bg-gray-50 rounded-xl border border-dashed">
-              <p className="text-gray-500 text-lg">No rentals found matching your criteria.</p>
+              <p className="text-gray-500 text-lg">{t('marketplace.noResults')}</p>
             </div>
           )}
         </main>

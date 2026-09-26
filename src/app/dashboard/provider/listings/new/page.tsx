@@ -2,6 +2,7 @@ import React from 'react';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import { PrismaClient } from '@prisma/client';
 import ListingWizard from '@/components/listings/ListingWizard';
+import { t } from '@/lib/glcc/i18n';
 
 const prisma = new PrismaClient();
 
@@ -15,9 +16,9 @@ export default async function NewListingPage() {
     <div className="container mx-auto py-12 px-4 max-w-4xl space-y-8">
 
       <div>
-        <h1 className="text-3xl font-bold mb-2 text-gray-900">Create New Listing</h1>
+        <h1 className="text-3xl font-bold mb-2 text-gray-900">{t('providerNewListing.title')}</h1>
         <p className="text-sm text-gray-600 mb-6">
-          Build your rental listing manually step-by-step using our listing wizard below.
+          {t('providerNewListing.subtitle')}
         </p>
         <ListingWizard categories={categories} />
       </div>
@@ -29,12 +30,12 @@ export default async function NewListingPage() {
           </svg>
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-blue-900">Legal & Compliance Requirements</h3>
+          <h3 className="text-sm font-semibold text-blue-900">{t('providerNewListing.legalRequirementsTitle')}</h3>
           <p className="text-sm text-blue-800 mt-1">
-            Depending on your jurisdiction and category, certain legal requirements or permits may apply to this listing.
+            {t('providerNewListing.legalRequirementsBody')}
           </p>
           <a href="/help/trust-safety-legal/global-legal-compliance" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-700 hover:text-blue-900 underline mt-2 inline-block">
-            View Global Legal Compliance Register
+            {t('providerNewListing.viewComplianceRegister')}
           </a>
         </div>
       </div>

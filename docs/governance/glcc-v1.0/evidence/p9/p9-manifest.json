@@ -1,0 +1,42 @@
+{
+  "workPackage": "GLCC-P9",
+  "name": "Notifications & Documents",
+  "timestamp": "2026-09-26T16:18:00+08:00",
+  "branch": "successor/rc-candidate",
+  "commitHead": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "lifecycleStatus": "PRE-G1",
+  "acceptanceTargets": [
+    "TRN-01",
+    "TRN-03",
+    "E2E-01",
+    "REG-01"
+  ],
+  "packageHash": "D17531465DC6736E16F7E8458ABB06CCD6D7E752A5644FC2B0A114E3FDEB1A86",
+  "files": [
+    {
+      "path": "src/lib/glcc/notification-document-contracts.ts",
+      "sha256": "7922194052AE136A586E4950E36C1389FD5A58084A5C02E8052AE8C379A1C631"
+    },
+    {
+      "path": "src/lib/glcc/document-snapshot-service.ts",
+      "sha256": "201C014F807AC349EEF5563916B69041FEA1C3D047728B673BA085C4A730B169"
+    },
+    {
+      "path": "src/lib/glcc/notification-engine.ts",
+      "sha256": "1F2E5A38F590FB17744EF0DFE3724B2B8C0555155569F5A5E6CB08E0509F9002"
+    },
+    {
+      "path": "tests/glcc/p9-notifications-documents.test.ts",
+      "sha256": "2F0DC640F99719DE746B9F78EB0481E2D3FD4DA96278E4205D7DBA2DF52C7120"
+    }
+  ],
+  "verification": {
+    "jestTotalSuites": 24,
+    "jestPassedSuites": 24,
+    "jestTotalTests": 407,
+    "jestPassedTests": 407,
+    "typecheck": "PASS (0 errors)",
+    "eslint": "PASS (0 errors, 0 warnings)",
+    "prismaValidate": "PASS (valid schema)"
+  }
+}

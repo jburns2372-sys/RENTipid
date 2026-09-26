@@ -1,0 +1,29 @@
+{
+  "workPackage": "GLCC-P12",
+  "name": "Full Integration / Evidence / Release Preparation",
+  "timestamp": "2026-09-26T16:34:00+08:00",
+  "branch": "successor/rc-candidate",
+  "commitHead": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "lifecycleStatus": "PRE-G1",
+  "acceptanceTargets": [
+    "E2E-01",
+    "E2E-02",
+    "REG-01"
+  ],
+  "packageHash": "6363045768D465A3AD3CDA56A3F41CC3FB2F497505094AD71A7BC24AC7E689D2",
+  "files": [
+    {
+      "path": "tests/glcc/p12-e2e-integration.test.ts",
+      "sha256": "9B281E8D3384DB6CBD178A79E5612711F309408FC23DB1817162F10AD5F9EBCC"
+    }
+  ],
+  "verification": {
+    "jestTotalSuites": 27,
+    "jestPassedSuites": 27,
+    "jestTotalTests": 436,
+    "jestPassedTests": 436,
+    "typecheck": "PASS (0 errors)",
+    "eslint": "PASS (0 errors, 0 warnings)",
+    "prismaValidate": "PASS (valid schema)"
+  }
+}

@@ -1,0 +1,29 @@
+================================================================================
+GLCC-P4A JEST TEST EXECUTION EVIDENCE
+================================================================================
+Command: .\node_modules\.bin\jest.cmd tests/glcc/ --runInBand
+Executed At: 2026-09-26T02:48:00+08:00
+Exit Code: 0
+Duration: 11.645 s
+Total Suites: 14 passed, 14 total
+Total Tests: 242 passed, 242 total
+
+Suites Breakdown:
+PASS tests/glcc/p4a-country-policy.test.ts (33 tests)
+PASS tests/glcc/p3d-provider-copy.test.tsx (22 tests)
+PASS tests/glcc/p3c-marketplace-migration.test.tsx (23 tests)
+PASS tests/glcc/p3b-copy-migration.test.tsx (14 tests)
+PASS tests/glcc/preference-p2b.test.tsx (12 tests)
+PASS tests/glcc/preference-ui.test.tsx (18 tests)
+PASS tests/glcc/i18n.test.ts (24 tests)
+PASS tests/glcc/guest-route.test.ts (11 tests)
+PASS tests/glcc/preference-resolver.test.ts (24 tests)
+PASS tests/glcc/contracts.test.ts (11 tests)
+PASS tests/glcc/server-adapter.test.ts (10 tests)
+PASS tests/glcc/preference-service.test.ts (12 tests)
+PASS tests/glcc/preference-reconciler.test.ts (10 tests)
+PASS tests/glcc/preference-route.test.ts (18 tests)
+
+Summary:
+100% PASS across all 14 GLCC test suites. Zero regressions.
+================================================================================

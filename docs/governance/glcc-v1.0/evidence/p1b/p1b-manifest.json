@@ -1,0 +1,150 @@
+{
+  "module": "GLCC v1.0",
+  "slice": "GLCC-P1B",
+  "title": "Preference Persistence, Guest Cookie & Reconciler",
+  "timestamp": "2026-09-25T05:05:00+08:00",
+  "repository": "C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid",
+  "branch": "successor/rc-candidate",
+  "baseCommitHead": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "nodeVersion": "v22.22.2",
+  "npmVersion": "10.9.7",
+  "schemaDiff": {
+    "target": "prisma/schema.prisma",
+    "changeType": "ADDITIVE_ONLY",
+    "modelAdded": "UserGlobalPreference",
+    "relationAdded": "User.userGlobalPreference (1:1 optional)",
+    "chargeCurrencyPersisted": false,
+    "userCoreModified": false
+  },
+  "migrationArtifact": {
+    "path": "prisma/migrations/20260925000000_add_user_global_preference/migration.sql",
+    "sizeBytes": 955,
+    "sha256": "6b1b37a125b1e938960fb6a85b6cc969c6304696953b666f27ab401d284a91ba",
+    "status": "GENERATED_INSPECTED_NOT_APPLIED",
+    "isAdditive": true,
+    "dropsExistingData": false
+  },
+  "files": [
+    {
+      "path": "prisma/schema.prisma",
+      "sizeBytes": 132558,
+      "sha256": "5e3dbf137cf07233741026d69df2cd12b4bfeb2057120b995a36c6e14993f5b8",
+      "nature": "MODIFIED_ADDITIVE"
+    },
+    {
+      "path": "prisma/migrations/20260925000000_add_user_global_preference/migration.sql",
+      "sizeBytes": 955,
+      "sha256": "6b1b37a125b1e938960fb6a85b6cc969c6304696953b666f27ab401d284a91ba",
+      "nature": "NEW_ARTIFACT"
+    },
+    {
+      "path": "src/lib/glcc/preference-reconciler.ts",
+      "sizeBytes": 8106,
+      "sha256": "c290e7766ca1c104e1a7d6c93011d4378154cfead6e0f4f0c663c368f760933f",
+      "nature": "NEW_SOURCE"
+    },
+    {
+      "path": "src/lib/glcc/server-adapter.ts",
+      "sizeBytes": 10000,
+      "sha256": "3d83bf8c2c079e87402186154dfbcb88457f29f194c0ff60cecff6f587abe787",
+      "nature": "NEW_SOURCE"
+    },
+    {
+      "path": "src/lib/glcc/preference-service.ts",
+      "sizeBytes": 8502,
+      "sha256": "4141ce9da2895ad0259746ed86dd675c70e4c37c136205c7781a4f2ce2e1fcf4",
+      "nature": "NEW_SOURCE"
+    },
+    {
+      "path": "tests/glcc/server-adapter.test.ts",
+      "sizeBytes": 8849,
+      "sha256": "038dcc8d168a44619b215bd7fc5967db881276e4a1d72ac40d2c9019e39fca5f",
+      "nature": "NEW_TEST"
+    },
+    {
+      "path": "tests/glcc/preference-reconciler.test.ts",
+      "sizeBytes": 7858,
+      "sha256": "7dab59ce28ae73c6e9ada21e7ce7c364efbd5002941920997b31a6aa2fcbabab",
+      "nature": "NEW_TEST"
+    },
+    {
+      "path": "tests/glcc/preference-service.test.ts",
+      "sizeBytes": 7082,
+      "sha256": "e80c0b8115e8d1cf5e00ff6a8d1ea8003ed1a2497d10d82d2b878bfa75dcb9b4",
+      "nature": "NEW_TEST"
+    }
+  ],
+  "regressionFilesP1A": [
+    {
+      "path": "src/lib/glcc/contracts.ts",
+      "sizeBytes": 9039,
+      "sha256": "831232fc7885585d4c187cbdac69fe8a5fa94ee41740c4ccf085dd0bb2face34",
+      "status": "UNTOUCHED_PASSING"
+    },
+    {
+      "path": "src/lib/glcc/registry-contracts.ts",
+      "sizeBytes": 7976,
+      "sha256": "93bac32e40d8e030c7118570c392533e09f1e029992fff51073383d117cf536f",
+      "status": "UNTOUCHED_PASSING"
+    },
+    {
+      "path": "src/lib/glcc/preference-resolver.ts",
+      "sizeBytes": 13701,
+      "sha256": "0692050e29553d1f9df3be0aafddbc03dcf4e1b0c600d7ffc4e1f7512577a08a",
+      "status": "UNTOUCHED_PASSING"
+    },
+    {
+      "path": "tests/glcc/contracts.test.ts",
+      "sizeBytes": 8338,
+      "sha256": "48a1489f8d89c9547f2e41d93261bf51a6b159b021aa5582dbd8081f10412eb6",
+      "status": "UNTOUCHED_PASSING"
+    },
+    {
+      "path": "tests/glcc/preference-resolver.test.ts",
+      "sizeBytes": 19679,
+      "sha256": "88a501594c87c183b939ca409101932c0fc9ef53402a3fb31e6a2d7d0b412c05",
+      "status": "UNTOUCHED_PASSING"
+    }
+  ],
+  "verificationSummary": {
+    "jestTests": {
+      "runner": "jest 30.4.2",
+      "totalSuites": 5,
+      "passedSuites": 5,
+      "failedSuites": 0,
+      "totalTests": 58,
+      "passedTests": 58,
+      "failedTests": 0,
+      "p1aRegressionTests": 32,
+      "p1bNewTests": 26,
+      "exitCode": 0
+    },
+    "typecheck": {
+      "runner": "typescript 5.x",
+      "totalFilesChecked": 11,
+      "errors": 0,
+      "warnings": 0,
+      "exitCode": 0
+    },
+    "linter": {
+      "runner": "eslint 9.x",
+      "directories": ["src/lib/glcc", "tests/glcc"],
+      "errors": 0,
+      "warnings": 0,
+      "exitCode": 0
+    },
+    "securityAndAuthorization": {
+      "actorSessionEnforced": true,
+      "crossUserAccessDenied": true,
+      "cookieSecretIntegrity": true,
+      "prohibitedKeysBlocked": ["user_id", "role", "permissions", "chargeCurrency", "token", "password"],
+      "maxCookieBytes": 256,
+      "optimisticConcurrencyEnforced": true
+    },
+    "financialSafety": {
+      "chargeCurrencyPersisted": false,
+      "fxConversionAttempted": false,
+      "paymentAuthorityAltered": false
+    }
+  }
+}

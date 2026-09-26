@@ -1,0 +1,46 @@
+{
+  "workPackage": "GLCC-P5A",
+  "name": "FX Money Contract, Quote Evidence & Provider Adapter Foundation",
+  "generatedAt": "2026-09-26T13:45:00+08:00",
+  "baselineCommit": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "gitBranch": "successor/rc-candidate",
+  "p4bManifestSha256": "AEDB479B652F176290A94D7352942023B610ADE02F6E49655215AD74168B6797",
+  "files": [
+    {
+      "path": "src/lib/glcc/fx-contracts.ts",
+      "sizeBytes": 8160,
+      "sha256": "C3E8F45BB855A9EB7B8A9ABE862DF26351F2513B721565A88EE8D9E32DEFB59E",
+      "description": "Pure domain contracts for exact money, normalized rates, provider adapter interface, quote evidence, policies, and health"
+    },
+    {
+      "path": "src/lib/glcc/fx-math.ts",
+      "sizeBytes": 7984,
+      "sha256": "8BC053987736BD7C27D9EC51497C03C6D75911A168638E0EFEE95D64F25734C1",
+      "description": "Exact arbitrary-precision decimal arithmetic and rounding engine using Prisma.Decimal; prohibits binary float for money"
+    },
+    {
+      "path": "src/lib/glcc/fx-provider-adapter.ts",
+      "sizeBytes": 11607,
+      "sha256": "1CC375DEF58198B6F54739F3CC5822002F31DF21600C41A5622B777FC01D294A",
+      "description": "Provider-neutral rate normalization (direct & inverse pairs, timestamps) and deterministic fake adapter with health tracking"
+    },
+    {
+      "path": "src/lib/glcc/fx-cache.ts",
+      "sizeBytes": 2843,
+      "sha256": "7141FAACB83D883ACFE7C10937EA598436E9F423A968DFE12915BC027813A0E9",
+      "description": "Strict pair-isolated, TTL-aware in-memory cache for FX rates with baseline retention"
+    },
+    {
+      "path": "src/lib/glcc/fx-quote-service.ts",
+      "sizeBytes": 14369,
+      "sha256": "EE1941FE03C308D9C4FF653E5ADD7114889DC27AAA6944775E4870043BF2C6C6",
+      "description": "Pure domain quote service implementing createFxQuote, freshness validation, outlier protection, canonical browse fallback, and quote evidence builder"
+    },
+    {
+      "path": "tests/glcc/p5a-fx-contracts.test.ts",
+      "sizeBytes": 25691,
+      "sha256": "2FD426BCD3A6DEC9414A2CEF6545CEEF3151388596CDE2DE0913797F1C22C7A5",
+      "description": "Focused P5A test suite covering exact money, rounding, 0/2/3 digits, rate normalization, quote evidence reproducibility, cache isolation, provider failures, outlier protection, and financial boundaries"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+================================================================================
+RENTipid GLCC v1.0 — GLCC-P3A ESLint Execution Log
+Timestamp: 2026-09-25T17:09:46+08:00
+Command: .\node_modules\.bin\eslint.cmd src/lib/glcc/i18n src/components/glcc src/components/profile/RegionalPreferencesCard.tsx tests/glcc/i18n.test.ts
+Exit Code: 0
+================================================================================
+
+Total errors: 0
+Total warnings: 0
+ESLint validation clean.

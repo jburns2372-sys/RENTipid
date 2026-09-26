@@ -1,0 +1,25 @@
+================================================================================
+RENTipid GLCC v1.0 — Work-Package P3C ESLint Execution Log
+================================================================================
+Timestamp: 2026-09-25T18:47:38+08:00
+Command: .\node_modules\.bin\eslint.cmd src/lib/glcc/i18n/contracts.ts src/lib/glcc/i18n/locales/en-PH.ts src/lib/glcc/i18n/locales/fil-PH.ts src/lib/glcc/i18n/formatters.ts src/app/page.tsx src/app/browse/page.tsx src/app/listing/[id]/page.tsx src/components/bookings/BookingRequestForm.tsx src/app/dashboard/renter/bookings/[id]/page.tsx src/app/dashboard/renter/bookings/page.tsx tests/glcc/p3c-marketplace-migration.test.tsx
+Exit Code: 0
+
+Output:
+C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\src\app\browse\page.tsx
+  99:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\src\app\dashboard\renter\bookings\[id]\page.tsx
+  87:49  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\src\app\dashboard\renter\bookings\page.tsx
+  65:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid\src\app\listing\[id]\page.tsx
+  40:16  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+✖ 4 problems (0 errors, 4 warnings)
+
+================================================================================
+STATUS: PASS — 0 ERRORS (4 PRE-EXISTING NEXT/IMAGE ADVISORY WARNINGS ONLY)
+================================================================================

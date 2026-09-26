@@ -1,0 +1,41 @@
+{
+  "workPackage": "GLCC-P8",
+  "name": "AI / Digital Human / Knowledge Localization",
+  "timestamp": "2026-09-26T16:15:00+08:00",
+  "branch": "successor/rc-candidate",
+  "commitHead": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "lifecycleStatus": "PRE-G1",
+  "acceptanceTargets": [
+    "AI-01",
+    "AI-02",
+    "REG-01"
+  ],
+  "packageHash": "1657273D5B9B72839DF3DC593668302477A85AD82201BFBDDCFD015A34E886BD",
+  "files": [
+    {
+      "path": "src/lib/glcc/ai-localization-contracts.ts",
+      "sha256": "55DD19F0B05AC2217C5836D4DBD91DD85DE43185627DB4914627C01F993825C4"
+    },
+    {
+      "path": "src/lib/glcc/multilingual-guardrails.ts",
+      "sha256": "6E30671F5AC0719FFB7B7D80C1458B1B558A3C6E13876855E652579489BC1A96"
+    },
+    {
+      "path": "src/lib/glcc/ai-localization-service.ts",
+      "sha256": "AF893F964B4858EE64E7EB30D84B7AC894B04A8B6CD309E5B3B34E30581A674C"
+    },
+    {
+      "path": "tests/glcc/p8-ai-localization.test.ts",
+      "sha256": "8531C5A75514D2D83666BEB015FAF7C5175AAD1F8438A8604CBD08637D1C8502"
+    }
+  ],
+  "verification": {
+    "jestTotalSuites": 23,
+    "jestPassedSuites": 23,
+    "jestTotalTests": 399,
+    "jestPassedTests": 399,
+    "typecheck": "PASS (0 errors)",
+    "eslint": "PASS (0 errors, 0 warnings)",
+    "prismaValidate": "PASS (valid schema)"
+  }
+}

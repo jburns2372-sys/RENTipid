@@ -1,0 +1,78 @@
+=== GLCC-P5A JEST TEST EXECUTION LOG ===
+Timestamp: 2026-09-26T13:43:19+08:00
+Environment: Node v22.22.2, win32 x64, jest 30.4.2
+Command: .\node_modules\.bin\jest.cmd tests/glcc/p5a-fx-contracts.test.ts --runInBand
+
+Target Local Database Isolation Guard:
+TARGET_HOST_CLASSIFICATION: LOCALHOST
+TARGET_DATABASE: rentipid_test_soc
+TARGET_ENVIRONMENT: TEST
+PRODUCTION_TARGET: NO
+LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+PASS tests/glcc/p5a-fx-contracts.test.ts
+  GLCC-P5A: FX Money Contract, Quote Evidence & Provider Foundation
+    1. Exact Money Representation & Decimal Arithmetic
+      √ creates exact money without floating-point inaccuracies (9 ms)
+      √ proves binary floating-point drift vs exact decimal precision (3 ms)
+      √ handles zero-digit currency (JPY) (2 ms)
+      √ handles two-digit currency (USD/PHP/EUR) (2 ms)
+      √ handles three-digit currency (BHD/KWD) (1 ms)
+      √ handles large exact numbers without precision loss (2 ms)
+      √ handles small exact fractions (1 ms)
+      √ rejects scientific notation for authoritative money (38 ms)
+      √ rejects malformed and non-numeric strings (4 ms)
+    2. Exact Conversion and Rounding Policies
+      √ converts PHP to USD using ROUND_HALF_UP exactly (3 ms)
+      √ supports ROUND_HALF_EVEN (banker rounding) (2 ms)
+      √ supports ROUND_FLOOR and ROUND_CEIL (1 ms)
+      √ reproduces conversion deterministically on repeated calls (2 ms)
+    3. Rate Normalization & Adapter Foundation
+      √ normalizes a direct currency pair with timestamps (4 ms)
+      √ inverts an indirect provider quote accurately (2 ms)
+      √ rejects zero and negative rates strictly (16 ms)
+      √ rejects malformed and non-numeric rate payloads (2 ms)
+      √ records explicit LIVE FX PROVIDER approval status (1 ms)
+    4. Deterministic Fake Provider & Health Tracking
+      √ returns seeded rates and healthy status (3 ms)
+      √ handles identical currency conversion as exact 1.0 (1 ms)
+      √ reports DEGRADED and UNAVAILABLE health on consecutive failures (3 ms)
+      √ maps simulated timeouts deterministically (3 ms)
+    5. Pair-Isolated In-Memory Cache
+      √ stores and retrieves rates with strict pair isolation (2 ms)
+      √ invalidates cache when rate exceeds freshness or TTL (2 ms)
+      √ supports explicit invalidation and clear (1 ms)
+    6. Quote Evidence & Immutability
+      √ creates an immutable quote evidence record preserving all inputs (6 ms)
+      √ reproduces target amount identically when replaying exact quote inputs (2 ms)
+    7. Freshness & Context Boundary (Browse vs Checkout)
+      √ accepts fresh rates in CHECKOUT_QUOTE within checkoutFreshnessMs (2 ms)
+      √ rejects stale rates in CHECKOUT_QUOTE when exceeding checkoutFreshnessMs (2 ms)
+    8. Provider Failure & Canonical Fallback Behavior
+      √ falls back safely to canonical currency on BROWSE failure without fabricating rate (2 ms)
+      √ blocks checkout conversion on provider failure without fake rate (2 ms)
+    9. Outlier Protection Contract
+      √ accepts rates within outlier tolerance (3 ms)
+      √ blocks rates exceeding outlier tolerance and falls back in BROWSE (2 ms)
+    10. Fee and Spread Policy Boundary
+      √ defaults to NONE with zero hidden fee or markup (3 ms)
+      √ supports explicit test spread and fee policy with exact calculation (1 ms)
+    11. Observability Telemetry Events
+      √ dispatches structured observability events without leaking secrets (2 ms)
+    12. Financial Authority Boundary & Isolation
+      √ guarantees FX quote service performs zero financial mutations (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       37 passed, 37 total
+Snapshots:   0 total
+Time:        1.806 s
+Exit Code: 0
+
+=== FULL GLCC REGRESSION SUITE EXECUTION ===
+Command: .\node_modules\.bin\jest.cmd tests/glcc/ --runInBand
+Timestamp: 2026-09-26T13:40:17+08:00
+Test Suites: 16 passed, 16 total
+Tests:       302 passed, 302 total
+Snapshots:   0 total
+Time:        51.853 s
+Exit Code: 0

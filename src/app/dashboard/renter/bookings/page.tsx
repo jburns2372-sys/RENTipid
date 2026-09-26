@@ -5,12 +5,13 @@ import { authOptions } from "@/lib/auth";
 import { PrismaClient } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { t } from '@/lib/glcc/i18n';
 
 const prisma = new PrismaClient();
 
 export default async function RenterBookingsPage() {
   const session = await getServerSession(authOptions);
-  const user = session?.user as any;
+  const user = session?.user as { id: string; role?: string; name?: string } | undefined;
 
   if (user?.role !== 'Renter' && user?.role !== 'Individual Provider' && user?.role !== 'Business Provider') {
     redirect('/unauthorized');
@@ -32,7 +33,7 @@ export default async function RenterBookingsPage() {
   return (
     <div className="container mx-auto py-12 px-4 max-w-6xl">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">My Bookings</h1>
+        <h1 className="text-3xl font-bold">{t('renter.bookings.title')}</h1>
         <AIAssistantButton context="Renter Bookings Dashboard" />
       </div>
 
@@ -41,12 +42,12 @@ export default async function RenterBookingsPage() {
           <table className="w-full text-left text-sm">
             <thead className="bg-gray-50 text-gray-600 border-b">
               <tr>
-                <th className="p-4 font-semibold">Listing</th>
-                <th className="p-4 font-semibold">Provider</th>
-                <th className="p-4 font-semibold">Dates</th>
-                <th className="p-4 font-semibold">Estimated Amount</th>
-                <th className="p-4 font-semibold">Status</th>
-                <th className="p-4 font-semibold text-right">Action</th>
+                <th className="p-4 font-semibold">{t('renter.bookings.colListing')}</th>
+                <th className="p-4 font-semibold">{t('listing.provider')}</th>
+                <th className="p-4 font-semibold">{t('renter.bookings.colDates')}</th>
+                <th className="p-4 font-semibold">{t('renter.bookings.colEstimatedAmount')}</th>
+                <th className="p-4 font-semibold">{t('renter.bookings.colStatus')}</th>
+                <th className="p-4 font-semibold text-right">{t('renter.bookings.colAction')}</th>
               </tr>
             </thead>
             <tbody>
@@ -63,7 +64,7 @@ export default async function RenterBookingsPage() {
                           {booking.listing.photos?.[0] ? (
                             <img src={booking.listing.photos[0].file_path} alt="cover" className="w-full h-full object-cover" />
                           ) : (
-                            <span className="text-[10px] text-gray-400 flex items-center justify-center h-full">No Img</span>
+                            <span className="text-[10px] text-gray-400 flex items-center justify-center h-full">{t('listing.noImage')}</span>
                           )}
                         </div>
                         <span className="font-bold text-gray-900 line-clamp-2">{booking.listing.title}</span>
@@ -72,7 +73,7 @@ export default async function RenterBookingsPage() {
                     <td className="p-4">{providerName}</td>
                     <td className="p-4 text-gray-600">
                       <div>{booking.start_date.toLocaleDateString()}</div>
-                      <div className="text-xs">to {booking.end_date.toLocaleDateString()}</div>
+                      <div className="text-xs">{t('common.to')} {booking.end_date.toLocaleDateString()}</div>
                     </td>
                     <td className="p-4">
                       <div className="font-bold">₱{booking.estimated_total_amount.toLocaleString()}</div>
@@ -91,7 +92,7 @@ export default async function RenterBookingsPage() {
                     </td>
                     <td className="p-4 text-right">
                       <Link href={`/dashboard/renter/bookings/${booking.id}`} className="text-blue-600 font-semibold hover:underline">
-                        View
+                        {t('common.view')}
                       </Link>
                     </td>
                   </tr>
@@ -102,8 +103,8 @@ export default async function RenterBookingsPage() {
         </div>
       ) : (
         <div className="text-center py-20 bg-gray-50 rounded-xl border border-dashed text-gray-500">
-          <p className="text-lg">You have not made any booking requests yet.</p>
-          <Link href="/browse" className="text-blue-600 font-bold mt-2 inline-block hover:underline">Browse Rentals</Link>
+          <p className="text-lg">{t('renter.bookings.noBookings')}</p>
+          <Link href="/browse" className="text-blue-600 font-bold mt-2 inline-block hover:underline">{t('navigation.browseRentals')}</Link>
         </div>
       )}
     </div>

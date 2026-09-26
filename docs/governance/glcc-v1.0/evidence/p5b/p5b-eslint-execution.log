@@ -1,0 +1,5 @@
+Command: .\node_modules\.bin\eslint.cmd src/lib/glcc/currencyapi-adapter.ts src/lib/glcc/fx-policy.ts src/lib/glcc/browse-fx-service.ts src/lib/glcc/feature-flags.ts src/app/api/fx/estimate/route.ts src/components/glcc/BrowsePriceEstimate.tsx tests/glcc/p5b-currencyapi-adapter.test.ts tests/glcc/p5b-fx-integration.test.ts tests/glcc/p5b-browse-ui.test.tsx
+Start:   2026-09-26T14:54:58+08:00
+End:     2026-09-26T14:55:10+08:00
+Exit:    0
+Result:  0 errors, 0 warnings across all 9 target files

@@ -4,27 +4,57 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
+import { t } from '@/lib/glcc/i18n';
 
 const prisma = new PrismaClient();
 
 const editableListingStatuses = new Set(['Draft', 'Rejected']);
 
 function getManageActionLabel(status: string) {
-  return status === 'Rejected' ? 'Manage / Resubmit' : 'Manage / Submit';
+  return status === 'Rejected'
+    ? t('providerListings.actionManageResubmit')
+    : t('providerListings.actionManageSubmit');
+}
+
+function getManageAriaLabel(status: string, title: string) {
+  if (status === 'Rejected') {
+    return t('providerListings.ariaManageResubmit', { title });
+  }
+  if (editableListingStatuses.has(status)) {
+    return t('providerListings.ariaManageSubmit', { title });
+  }
+  return t('providerListings.ariaManage', { title });
+}
+
+function getLocalizedStatus(status: string) {
+  switch (status) {
+    case 'Draft':
+      return t('providerListings.status.draft');
+    case 'Published':
+      return t('providerListings.status.published');
+    case 'Under Review':
+      return t('providerListings.status.underReview');
+    case 'Submitted for Review':
+      return t('providerListings.status.submitted');
+    case 'Rejected':
+      return t('providerListings.status.rejected');
+    default:
+      return status;
+  }
 }
 
 export default async function ProviderListingsPage() {
   const session = await getServerSession(authOptions);
-  const user = session?.user as any;
+  const user = session?.user as { id: string; status?: string } | undefined;
 
   if (user?.status !== 'Verified') {
     return (
       <div className="container mx-auto py-12 px-4 max-w-4xl text-center">
         <div className="bg-yellow-50 border border-yellow-200 p-8 rounded-xl">
-          <h2 className="text-2xl font-bold text-yellow-800 mb-4">Account Verification Required</h2>
-          <p className="text-yellow-700 mb-6">You must complete your provider verification before you can create and manage listings.</p>
+          <h2 className="text-2xl font-bold text-yellow-800 mb-4">{t('providerListings.verificationRequiredTitle')}</h2>
+          <p className="text-yellow-700 mb-6">{t('providerListings.verificationRequiredBody')}</p>
           <Link href="/dashboard/kyc" className="bg-yellow-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-yellow-700 transition">
-            Verify Account Now
+            {t('providerListings.verifyAccountButton')}
           </Link>
         </div>
       </div>
@@ -40,9 +70,9 @@ export default async function ProviderListingsPage() {
   return (
     <div className="container mx-auto py-12 px-4 max-w-6xl">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">My Listings</h1>
+        <h1 className="text-3xl font-bold">{t('providerListings.title')}</h1>
         <Link href="/dashboard/provider/listings/new" className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition">
-          Create New Listing
+          {t('providerListings.createNew')}
         </Link>
       </div>
 
@@ -51,11 +81,11 @@ export default async function ProviderListingsPage() {
           <table className="w-full text-left text-sm">
             <thead className="bg-gray-50 text-gray-600 border-b">
               <tr>
-                <th className="p-4 font-medium">Listing</th>
-                <th className="p-4 font-medium">Category</th>
-                <th className="p-4 font-medium">Status</th>
-                <th className="p-4 font-medium">Daily Rate</th>
-                <th className="p-4 font-medium">Actions</th>
+                <th className="p-4 font-medium">{t('providerListings.colListing')}</th>
+                <th className="p-4 font-medium">{t('providerListings.colCategory')}</th>
+                <th className="p-4 font-medium">{t('providerListings.colStatus')}</th>
+                <th className="p-4 font-medium">{t('providerListings.colDailyRate')}</th>
+                <th className="p-4 font-medium">{t('providerListings.colActions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -75,7 +105,7 @@ export default async function ProviderListingsPage() {
                         listing.status === 'Under Review' || listing.status === 'Submitted for Review' ? 'bg-blue-100 text-blue-800' : 
                         listing.status === 'Rejected' ? 'bg-red-100 text-red-800' :
                         'bg-yellow-100 text-yellow-800'}`}>
-                      {listing.status}
+                      {getLocalizedStatus(listing.status)}
                     </span>
                   </td>
                   <td className="p-4 text-gray-600">
@@ -87,14 +117,14 @@ export default async function ProviderListingsPage() {
                         <>
                           <Link
                             href={`/dashboard/provider/listings/${listing.id}/edit`}
-                            aria-label={`Edit ${listing.title}`}
+                            aria-label={t('providerListings.ariaEdit', { title: listing.title })}
                             className="text-blue-600 hover:underline font-medium"
                           >
-                            Edit
+                            {t('providerListings.actionEdit')}
                           </Link>
                           <Link
                             href={`/dashboard/provider/listings/${listing.id}`}
-                            aria-label={`${getManageActionLabel(listing.status)} ${listing.title}`}
+                            aria-label={getManageAriaLabel(listing.status, listing.title)}
                             className="text-green-600 hover:underline font-medium"
                           >
                             {getManageActionLabel(listing.status)}
@@ -103,10 +133,10 @@ export default async function ProviderListingsPage() {
                       ) : (
                         <Link
                           href={`/dashboard/provider/listings/${listing.id}`}
-                          aria-label={`Manage ${listing.title}`}
+                          aria-label={getManageAriaLabel(listing.status, listing.title)}
                           className="text-blue-600 hover:underline font-medium"
                         >
-                          Manage
+                          {t('providerListings.actionManage')}
                         </Link>
                       )}
                     </div>
@@ -116,7 +146,7 @@ export default async function ProviderListingsPage() {
               {listings.length === 0 && (
                 <tr>
                   <td colSpan={5} className="p-12 text-center text-gray-500">
-                    You haven't created any listings yet.
+                    {t('providerListings.empty')}
                   </td>
                 </tr>
               )}

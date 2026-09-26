@@ -1,0 +1,39 @@
+{
+  "workPackage": "GLCC-P10",
+  "name": "Localization Control Center",
+  "timestamp": "2026-09-26T16:21:00+08:00",
+  "branch": "successor/rc-candidate",
+  "commitHead": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "lifecycleStatus": "PRE-G1",
+  "acceptanceTargets": [
+    "SEC-01",
+    "OPS-01",
+    "OPS-02",
+    "TRN-03",
+    "REG-01"
+  ],
+  "packageHash": "16D8B4EDF788211207EDE65CD80203EDD207192240957B21EE134889224B7678",
+  "files": [
+    {
+      "path": "src/lib/glcc/control-center-contracts.ts",
+      "sha256": "9D0C413CF1DFF0303A3731A190D51F8C1067B93DDFFB56A1BA0BEB6592774945"
+    },
+    {
+      "path": "src/lib/glcc/control-center-service.ts",
+      "sha256": "601BFF866F01680F9E73D1A4B4B6D9F6CE8B50983EA5DF11763C96C0F4844C3C"
+    },
+    {
+      "path": "tests/glcc/p10-control-center.test.ts",
+      "sha256": "5CDC1E491E1BBADF9B30DB86CEA92031A82201F959202C889F2FA77D5C235B51"
+    }
+  ],
+  "verification": {
+    "jestTotalSuites": 25,
+    "jestPassedSuites": 25,
+    "jestTotalTests": 421,
+    "jestPassedTests": 421,
+    "typecheck": "PASS (0 errors)",
+    "eslint": "PASS (0 errors, 0 warnings)",
+    "prismaValidate": "PASS (valid schema)"
+  }
+}

@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useSession } from "next-auth/react";
 import RentipidLogo from '@/components/brand/RentipidLogo';
 import { signOutWithStepUpCleanup } from '@/lib/auth/sign-out';
+import GlobalPreferencesTrigger from '@/components/glcc/GlobalPreferencesTrigger';
+import { t } from '@/lib/glcc/i18n';
 
 export default function Header() {
   const { data: session, status } = useSession();
@@ -31,47 +33,48 @@ export default function Header() {
           <Link href="/" className="flex items-center space-x-2">
             <RentipidLogo variant="full" size="md" />
           </Link>
-          <nav aria-label="Main Navigation" className="hidden md:flex gap-6">
+          <nav aria-label={t('navigation.mainNav')} className="hidden md:flex gap-6">
             <Link href="/browse" className="flex items-center text-sm font-medium text-gray-600 hover:text-blue-600">
-              Browse Rentals
+              {t('navigation.browseRentals')}
             </Link>
             <Link href="/how-it-works" className="flex items-center text-sm font-medium text-gray-600 hover:text-blue-600">
-              How It Works
+              {t('navigation.howItWorks')}
             </Link>
             <Link href="/safety" className="flex items-center text-sm font-medium text-gray-600 hover:text-blue-600">
-              Safety
+              {t('navigation.safety')}
             </Link>
           </nav>
         </div>
-        <div className="flex flex-1 items-center justify-end space-x-4">
-          <nav aria-label="User Actions" className="flex items-center space-x-2">
+        <div className="flex flex-1 items-center justify-end space-x-2 sm:space-x-4">
+          <GlobalPreferencesTrigger isGuest={!session?.user} />
+          <nav aria-label={t('navigation.userActions')} className="flex items-center space-x-2">
             {status === "loading" ? (
-              <span className="text-sm text-gray-500">Loading...</span>
+              <span className="text-sm text-gray-500">{t('common.loading')}</span>
             ) : session?.user ? (
               <>
                 <span className="text-sm font-medium text-gray-800 mr-2">
-                  Hi, {session.user.name}
+                  {t('navigation.greeting', { name: session.user.name || t('common.user') })}
                 </span>
                 <Link href="/dashboard/profile" className="text-sm font-medium text-gray-600 hover:text-blue-600 px-3 py-2">
-                  Profile
+                  {t('navigation.profile')}
                 </Link>
                 <Link href={getDashboardLink()} className="text-sm font-medium text-gray-600 hover:text-blue-600 px-3 py-2">
-                  Dashboard
+                  {t('navigation.dashboard')}
                 </Link>
                 <button onClick={() => void signOutWithStepUpCleanup('/')} className="text-sm font-medium text-red-600 hover:text-red-700 px-3 py-2">
-                  Logout
+                  {t('navigation.logout')}
                 </button>
               </>
             ) : (
               <>
                 <Link href="/register/business" className="hidden md:inline-flex text-sm font-medium text-gray-600 hover:text-blue-600 px-3 py-2">
-                  List Your Item
+                  {t('navigation.listYourItem')}
                 </Link>
                 <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-blue-600 px-3 py-2">
-                  Login
+                  {t('navigation.login')}
                 </Link>
                 <Link href="/register" className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-blue-600 text-white hover:bg-blue-700 h-9 px-4 py-2">
-                  Register
+                  {t('navigation.register')}
                 </Link>
               </>
             )}

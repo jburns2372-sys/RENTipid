@@ -1,0 +1,5 @@
+Command: eslint src/lib/glcc/i18n/contracts.ts src/lib/glcc/i18n/engine.ts src/lib/glcc/i18n/locales/en-PH.ts src/lib/glcc/i18n/locales/fil-PH.ts src/components/layout/Header.tsx src/components/layout/UserNavMenu.tsx src/components/layout/Footer.tsx src/app/login/page.tsx src/app/register/page.tsx src/app/forgot-password/page.tsx src/app/dashboard/profile/page.tsx src/components/profile/RegionalPreferencesCard.tsx tests/glcc/i18n.test.ts tests/glcc/p3b-copy-migration.test.tsx
+Exit code: 0
+Result: 0 errors
+Timestamp: 2026-09-25T18:12:03+08:00
+Scope: All changed and newly authored P3B components, libraries, bundles, and tests.

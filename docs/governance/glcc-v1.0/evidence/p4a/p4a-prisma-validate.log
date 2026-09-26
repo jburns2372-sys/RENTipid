@@ -1,0 +1,18 @@
+================================================================================
+GLCC-P4A PRISMA VALIDATION EVIDENCE
+================================================================================
+Command: .\node_modules\.bin\prisma.cmd validate
+Executed At: 2026-09-26T02:51:10+08:00
+Exit Code: 0
+Output:
+Loaded Prisma config from prisma.config.ts.
+Prisma config detected, skipping environment variable loading.
+Prisma schema loaded from prisma\schema.prisma
+The schema at prisma\schema.prisma is valid 🚀
+
+Database Safety:
+- No migrations executed (prisma migrate deploy / dev / push / reset prohibited).
+- No database seeding executed.
+- G3 remains NOT PROMOTED.
+- G4 remains NOT PROMOTED.
+================================================================================

@@ -1,0 +1,23 @@
+================================================================================
+RENTipid GLCC v1.0 — GLCC-P3A Jest Test Execution Log
+Timestamp: 2026-09-25T17:10:31+08:00
+Command: npx dotenv -e .env.test.local -e .env.test -- jest --runInBand --no-cache tests/glcc/*
+Exit Code: 0
+================================================================================
+
+PASS  tests/glcc/preference-route.test.ts (28 passed)
+PASS  tests/glcc/preference-resolver.test.ts (20 passed)
+PASS  tests/glcc/preference-ui.test.tsx (19 passed)
+PASS  tests/glcc/i18n.test.ts (33 passed)
+PASS  tests/glcc/preference-p2b.test.tsx (8 passed)
+PASS  tests/glcc/guest-route.test.ts (11 passed)
+PASS  tests/glcc/server-adapter.test.ts (8 passed)
+PASS  tests/glcc/contracts.test.ts (12 passed)
+PASS  tests/glcc/preference-reconciler.test.ts (8 passed)
+PASS  tests/glcc/preference-service.test.ts (10 passed)
+
+Test Suites: 10 passed, 10 total
+Tests:       157 passed, 157 total
+Snapshots:   0 total
+Time:        10.706 s
+Ran all test suites matching tests/glcc/*.

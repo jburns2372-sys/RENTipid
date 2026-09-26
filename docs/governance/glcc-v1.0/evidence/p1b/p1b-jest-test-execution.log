@@ -1,0 +1,58 @@
+=== RENTipid GLCC v1.0 — Jest Test Execution Log ===
+Timestamp: 2026-09-25T05:02:16+08:00
+Command: .\node_modules\.bin\dotenv.cmd -e .env.test.local -e .env.test -- .\node_modules\.bin\jest.cmd --runInBand --no-cache tests/glcc/contracts.test.ts tests/glcc/preference-resolver.test.ts tests/glcc/server-adapter.test.ts tests/glcc/preference-reconciler.test.ts tests/glcc/preference-service.test.ts
+Exit Code: 0
+Environment: Node v22.22.2, win32 x64
+Target Database: rentipid_test_soc (Localhost isolated test DB verified safe)
+
+Test Results:
+ PASS  tests/glcc/preference-resolver.test.ts
+  ● Console
+    console.log
+      TARGET_HOST_CLASSIFICATION: LOCALHOST
+      TARGET_DATABASE: rentipid_test_soc
+      TARGET_ENVIRONMENT: TEST
+      PRODUCTION_TARGET: NO
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+ PASS  tests/glcc/server-adapter.test.ts
+  ● Console
+    console.log
+      TARGET_HOST_CLASSIFICATION: LOCALHOST
+      TARGET_DATABASE: rentipid_test_soc
+      TARGET_ENVIRONMENT: TEST
+      PRODUCTION_TARGET: NO
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+ PASS  tests/glcc/contracts.test.ts
+  ● Console
+    console.log
+      TARGET_HOST_CLASSIFICATION: LOCALHOST
+      TARGET_DATABASE: rentipid_test_soc
+      TARGET_ENVIRONMENT: TEST
+      PRODUCTION_TARGET: NO
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+ PASS  tests/glcc/preference-reconciler.test.ts
+  ● Console
+    console.log
+      TARGET_HOST_CLASSIFICATION: LOCALHOST
+      TARGET_DATABASE: rentipid_test_soc
+      TARGET_ENVIRONMENT: TEST
+      PRODUCTION_TARGET: NO
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+ PASS  tests/glcc/preference-service.test.ts
+  ● Console
+    console.log
+      TARGET_HOST_CLASSIFICATION: LOCALHOST
+      TARGET_DATABASE: rentipid_test_soc
+      TARGET_ENVIRONMENT: TEST
+      PRODUCTION_TARGET: NO
+      LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+Test Suites: 5 passed, 5 total
+Tests:       58 passed, 58 total
+Snapshots:   0 total
+Time:        2.775 s
+Ran all test suites matching tests/glcc/contracts.test.ts|tests/glcc/preference-resolver.test.ts|tests/glcc/server-adapter.test.ts|tests/glcc/preference-reconciler.test.ts|tests/glcc/preference-service.test.ts.

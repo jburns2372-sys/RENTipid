@@ -9,6 +9,7 @@ import {
 } from '@/lib/marketplace/category-metadata';
 
 import RentipidLogo from '@/components/brand/RentipidLogo';
+import { t } from '@/lib/glcc/i18n';
 
 export default async function Home() {
   const categoryRows = await prisma.category.findMany({
@@ -36,42 +37,42 @@ export default async function Home() {
             Why Buy? <span className="text-blue-600">RENTipid!</span>
           </h1>
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-            A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.
+            {t('home.heroSubtitle')}
           </p>
 
                     {/* Search Bar */}
           <form action="/browse" method="GET" className="bg-white p-2 rounded-full shadow-lg border max-w-2xl mx-auto flex items-center mb-10">
             <div className="flex-1 px-4 text-left">
-              <label htmlFor="q" className="block text-xs font-semibold text-gray-800 cursor-pointer">What are you looking for?</label>
+              <label htmlFor="q" className="block text-xs font-semibold text-gray-800 cursor-pointer">{t('marketplace.searchPrompt')}</label>
               <input
                 type="text"
                 id="q"
                 name="q"
-                placeholder="Tools, vehicles, venues..."
+                placeholder={t('marketplace.searchPlaceholder')}
                 className="w-full text-sm text-gray-800 placeholder-gray-400 focus:outline-none bg-transparent"
               />
             </div>
             <div className="hidden sm:block border-l px-4 text-left flex-1">
-              <label htmlFor="location" className="block text-xs font-semibold text-gray-800 cursor-pointer">Where?</label>
+              <label htmlFor="location" className="block text-xs font-semibold text-gray-800 cursor-pointer">{t('marketplace.locationPrompt')}</label>
               <input
                 type="text"
                 id="location"
                 name="location"
-                placeholder="City or neighborhood"
+                placeholder={t('marketplace.locationPlaceholder')}
                 className="w-full text-sm text-gray-800 placeholder-gray-400 focus:outline-none bg-transparent"
               />
             </div>
-            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-3 h-12 w-12 flex items-center justify-center flex-shrink-0 transition-colors">
+            <button type="submit" aria-label={t('marketplace.search')} className="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-3 h-12 w-12 flex items-center justify-center flex-shrink-0 transition-colors">
               <Search size={20} />
             </button>
           </form>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/browse" className="bg-gray-900 text-white hover:bg-gray-800 px-8 py-3 rounded-full font-medium transition-colors">
-              Start Renting
+              {t('home.startRenting')}
             </Link>
             <Link href="/register/business" className="bg-white border-2 border-gray-200 text-gray-800 hover:border-gray-300 px-8 py-3 rounded-full font-medium transition-colors">
-              List Your Item
+              {t('navigation.listYourItem')}
             </Link>
           </div>
         </div>
@@ -79,7 +80,7 @@ export default async function Home() {
 {/* Category Preview */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-8 text-center">Popular Categories</h2>
+          <h2 className="text-2xl font-bold mb-8 text-center">{t('marketplace.popularCategories')}</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
             {popularCategories.map(({ category }) => (
               <Link href={`/browse?category=${category.slug}`} key={category.id} className="flex flex-col items-center justify-center p-6 border rounded-xl hover:shadow-md hover:border-blue-200 transition-all cursor-pointer bg-slate-50 hover:bg-white">
@@ -95,8 +96,8 @@ export default async function Home() {
       <section className="py-20 bg-slate-50 border-t border-b">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Rent with Complete Peace of Mind</h2>
-            <p className="text-gray-600">Every transaction is secured, verified, and protected.</p>
+            <h2 className="text-3xl font-bold mb-4">{t('home.trustTitle')}</h2>
+            <p className="text-gray-600">{t('home.trustSubtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -104,7 +105,7 @@ export default async function Home() {
               <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6">
                 <ShieldCheck size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-3">Verified Users</h3>
+              <h3 className="text-xl font-bold mb-3">{t('home.verifiedUsersTitle')}</h3>
               <p className="text-gray-600 leading-relaxed">
                 We verify identities and business permits before they can list or rent high-value items, keeping scams out of the platform.
               </p>
@@ -114,7 +115,7 @@ export default async function Home() {
               <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6">
                 <Zap size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-3">Deposit Protection</h3>
+              <h3 className="text-xl font-bold mb-3">{t('home.depositProtectionTitle')}</h3>
               <p className="text-gray-600 leading-relaxed">
                 Security deposits are held safely in the platform and automatically resolved based on before-and-after photo inspections.
               </p>
@@ -127,7 +128,7 @@ export default async function Home() {
               <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6 relative z-10">
                 <Bot size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-3 relative z-10">AI Assistance</h3>
+              <h3 className="text-xl font-bold mb-3 relative z-10">{t('home.aiAssistanceTitle')}</h3>
               <p className="text-gray-600 leading-relaxed relative z-10">
                 Our AI Concierge helps you find the right items, suggests fair pricing, and guides you through rental agreements and disputes.
               </p>
@@ -141,7 +142,7 @@ export default async function Home() {
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6">For Renters</h2>
+              <h2 className="text-3xl font-bold mb-6">{t('home.forRenters')}</h2>
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <span className="text-green-500 mr-3 mt-1"><ShieldCheck size={20} /></span>
@@ -168,7 +169,7 @@ export default async function Home() {
             </div>
 
             <div className="bg-blue-50 p-8 rounded-3xl">
-              <h2 className="text-3xl font-bold mb-6">For Providers</h2>
+              <h2 className="text-3xl font-bold mb-6">{t('home.forProviders')}</h2>
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-3 mt-1"><ArrowRight size={20} /></span>
@@ -205,11 +206,11 @@ export default async function Home() {
       {/* Call to Action */}
       <section className="bg-blue-600 text-white py-16 text-center">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to join RENTipid?</h2>
-          <p className="text-blue-100 mb-8 max-w-xl mx-auto">Create an account today and start renting securely.</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">{t('home.ctaTitle')}</h2>
+          <p className="text-blue-100 mb-8 max-w-xl mx-auto">{t('home.ctaSubtitle')}</p>
           <div className="flex gap-4 justify-center">
             <Link href="/register" className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-full font-bold transition-colors">
-              Get Started Now
+              {t('home.getStarted')}
             </Link>
           </div>
         </div>

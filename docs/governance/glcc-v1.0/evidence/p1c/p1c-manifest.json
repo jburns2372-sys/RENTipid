@@ -1,0 +1,194 @@
+{
+  "module": "GLCC v1.0",
+  "slice": "GLCC-P1C",
+  "title": "Minimal Feature-Flag & Server Integration",
+  "timestamp": "2026-09-25T05:28:00+08:00",
+  "repository": "C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid",
+  "branch": "successor/rc-candidate",
+  "baseCommitHead": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "nodeVersion": "v22.22.2",
+  "npmVersion": "10.9.7",
+  "prismaClientStatus": {
+    "status": "VERIFIED_PRESENT",
+    "details": "UserGlobalPreference model and delegate verified present in node_modules/.prisma/client/index.d.ts; zero file lock issues encountered",
+    "migrationExecution": "NOT_EXECUTED_SAVED_FOR_G3"
+  },
+  "featureFlagAuthority": {
+    "authority": "SystemSetting (prisma.systemSetting)",
+    "failClosedDefault": true,
+    "flags": [
+      { "key": "glcc_v1_enabled", "default": false, "enforced": true },
+      { "key": "glcc_currency_override_enabled", "default": false, "enforced": true },
+      { "key": "glcc_country_autodetect_enabled", "default": false, "enforced": true }
+    ]
+  },
+  "routeAuthority": {
+    "path": "/api/me/preferences",
+    "methods": ["GET", "PUT", "PATCH"],
+    "authAuthority": "getServerSession(authOptions)",
+    "callerSuppliedUserIdIgnored": true,
+    "securityBoundsPreserved": [
+      "No secrets/tokens/credentials exposed",
+      "No payment authority modified",
+      "chargeCurrency explicitly rejected on mutation"
+    ]
+  },
+  "filesNewInP1C": [
+    {
+      "path": "src/lib/glcc/feature-flags.ts",
+      "sizeBytes": 5370,
+      "sha256": "fe2ae7c71f8454c022954b1a4db5d06beacae2856bfde0d9644ee8ee988366a0",
+      "nature": "NEW_SOURCE"
+    },
+    {
+      "path": "src/lib/glcc/default-registries.ts",
+      "sizeBytes": 3155,
+      "sha256": "a291254c2820e741b95c65623641afb3b1c277c39cbd4d23ee62b5f7bb333786",
+      "nature": "NEW_SOURCE"
+    },
+    {
+      "path": "src/app/api/me/preferences/route.ts",
+      "sizeBytes": 13412,
+      "sha256": "2fbb57dc2a725edff292750af7ee6e0039887e4a24c8e4e1132dfdc4d05eb780",
+      "nature": "NEW_ROUTE"
+    },
+    {
+      "path": "tests/glcc/preference-route.test.ts",
+      "sizeBytes": 25042,
+      "sha256": "c1ec1a5dbc7370f0837626765ef4ea38064180891afaad299dea4ef3748243c6",
+      "nature": "NEW_TEST"
+    }
+  ],
+  "filesModifiedInP1C": [
+    {
+      "path": "src/lib/glcc/preference-service.ts",
+      "sizeBytes": 9986,
+      "sha256": "e5b2f253d7894867b97ecc606b4326041554b4ac20ce53f77096e3f14afdd229",
+      "nature": "MODIFIED_SOURCE_PRISMA_DELEGATE"
+    }
+  ],
+  "preservedFilesP1B": [
+    {
+      "path": "prisma/schema.prisma",
+      "sizeBytes": 132558,
+      "sha256": "5e3dbf137cf07233741026d69df2cd12b4bfeb2057120b995a36c6e14993f5b8",
+      "status": "UNTOUCHED"
+    },
+    {
+      "path": "prisma/migrations/20260925000000_add_user_global_preference/migration.sql",
+      "sizeBytes": 955,
+      "sha256": "6b1b37a125b1e938960fb6a85b6cc969c6304696953b666f27ab401d284a91ba",
+      "status": "UNTOUCHED"
+    },
+    {
+      "path": "src/lib/glcc/preference-reconciler.ts",
+      "sizeBytes": 8106,
+      "sha256": "c290e7766ca1c104e1a7d6c93011d4378154cfead6e0f4f0c663c368f760933f",
+      "status": "UNTOUCHED_PASSING"
+    },
+    {
+      "path": "src/lib/glcc/server-adapter.ts",
+      "sizeBytes": 10000,
+      "sha256": "3d83bf8c2c079e87402186154dfbcb88457f29f194c0ff60cecff6f587abe787",
+      "status": "UNTOUCHED_PASSING"
+    },
+    {
+      "path": "tests/glcc/server-adapter.test.ts",
+      "sizeBytes": 8849,
+      "sha256": "038dcc8d168a44619b215bd7fc5967db881276e4a1d72ac40d2c9019e39fca5f",
+      "status": "UNTOUCHED_PASSING"
+    },
+    {
+      "path": "tests/glcc/preference-reconciler.test.ts",
+      "sizeBytes": 7858,
+      "sha256": "7dab59ce28ae73c6e9ada21e7ce7c364efbd5002941920997b31a6aa2fcbabab",
+      "status": "UNTOUCHED_PASSING"
+    },
+    {
+      "path": "tests/glcc/preference-service.test.ts",
+      "sizeBytes": 7082,
+      "sha256": "e80c0b8115e8d1cf5e00ff6a8d1ea8003ed1a2497d10d82d2b878bfa75dcb9b4",
+      "status": "UNTOUCHED_PASSING"
+    }
+  ],
+  "preservedFilesP1A": [
+    {
+      "path": "src/lib/glcc/contracts.ts",
+      "sizeBytes": 9039,
+      "sha256": "831232fc7885585d4c187cbdac69fe8a5fa94ee41740c4ccf085dd0bb2face34",
+      "status": "UNTOUCHED_PASSING"
+    },
+    {
+      "path": "src/lib/glcc/registry-contracts.ts",
+      "sizeBytes": 7976,
+      "sha256": "93bac32e40d8e030c7118570c392533e09f1e029992fff51073383d117cf536f",
+      "status": "UNTOUCHED_PASSING"
+    },
+    {
+      "path": "src/lib/glcc/preference-resolver.ts",
+      "sizeBytes": 13701,
+      "sha256": "0692050e29553d1f9df3be0aafddbc03dcf4e1b0c600d7ffc4e1f7512577a08a",
+      "status": "UNTOUCHED_PASSING"
+    },
+    {
+      "path": "tests/glcc/contracts.test.ts",
+      "sizeBytes": 8338,
+      "sha256": "48a1489f8d89c9547f2e41d93261bf51a6b159b021aa5582dbd8081f10412eb6",
+      "status": "UNTOUCHED_PASSING"
+    },
+    {
+      "path": "tests/glcc/preference-resolver.test.ts",
+      "sizeBytes": 19679,
+      "sha256": "88a501594c87c183b939ca409101932c0fc9ef53402a3fb31e6a2d7d0b412c05",
+      "status": "UNTOUCHED_PASSING"
+    }
+  ],
+  "verificationSummary": {
+    "jestTests": {
+      "runner": "jest 30.4.2",
+      "totalSuites": 6,
+      "passedSuites": 6,
+      "failedSuites": 0,
+      "totalTests": 86,
+      "passedTests": 86,
+      "failedTests": 0,
+      "p1aRegressionTests": 32,
+      "p1bRegressionTests": 26,
+      "p1cRouteTests": 28,
+      "exitCode": 0
+    },
+    "typecheck": {
+      "runner": "typescript 5.x (tsc --project tsconfig.json --noEmit)",
+      "errors": 0,
+      "warnings": 0,
+      "exitCode": 0
+    },
+    "linter": {
+      "runner": "eslint 9.x",
+      "directories": ["src/lib/glcc", "src/app/api/me/preferences", "tests/glcc"],
+      "errors": 0,
+      "warnings": 0,
+      "exitCode": 0
+    },
+    "prismaValidation": {
+      "command": "prisma validate",
+      "status": "The schema at prisma\\schema.prisma is valid 🚀",
+      "exitCode": 0
+    },
+    "securityAndAuthorization": {
+      "actorSessionEnforced": true,
+      "crossUserAccessDenied": true,
+      "callerSuppliedUserIdIgnored": true,
+      "cookieSecretIntegrity": true,
+      "prohibitedKeysBlocked": ["user_id", "role", "permissions", "chargeCurrency", "token", "password"],
+      "maxCookieBytes": 256,
+      "optimisticConcurrencyEnforced": true,
+      "failClosedFlagsEnforced": true
+    },
+    "financialSafety": {
+      "chargeCurrencyPersisted": false,
+      "fxConversionAttempted": false,
+      "paymentAuthorityAltered": false
+    }
+  }
+}

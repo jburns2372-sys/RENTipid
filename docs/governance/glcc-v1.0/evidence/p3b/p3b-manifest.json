@@ -1,0 +1,72 @@
+[
+  {
+    "path": "src/components/layout/Header.tsx",
+    "sizeBytes": 4177,
+    "sha256": "f67fbbf53b89ffbaa766b8d1a6fbf44e1700a6a7ae272b93f5ac09225dcbe46a"
+  },
+  {
+    "path": "src/components/layout/UserNavMenu.tsx",
+    "sizeBytes": 3487,
+    "sha256": "debbf646d8c951131b9b616143a43d7b8bf5e358720b7b6ac6afd8edf6063413"
+  },
+  {
+    "path": "src/components/layout/Footer.tsx",
+    "sizeBytes": 2977,
+    "sha256": "c74532259570bf8c095b2f52d41305679d2da1213d139a01292f47bafc96d38e"
+  },
+  {
+    "path": "src/app/login/page.tsx",
+    "sizeBytes": 21466,
+    "sha256": "0631d45d79e86b68e6fb164141595518da7fbf1f0b22b225ec4a86a2dab90f54"
+  },
+  {
+    "path": "src/app/register/page.tsx",
+    "sizeBytes": 6612,
+    "sha256": "d3ae6a1ce797048c6d98a52ca6c43ada0fc492625316affea9a61743f124c699"
+  },
+  {
+    "path": "src/app/forgot-password/page.tsx",
+    "sizeBytes": 2032,
+    "sha256": "7c9a6acc96317819e64509110c0357e69de716936febcf30763a2906e17fd662"
+  },
+  {
+    "path": "src/app/dashboard/profile/page.tsx",
+    "sizeBytes": 4767,
+    "sha256": "999493e8823c491459b503ba1466aed9100b85d29d5e50c1d594922ff0f5e5b9"
+  },
+  {
+    "path": "src/components/profile/RegionalPreferencesCard.tsx",
+    "sizeBytes": 7465,
+    "sha256": "9826a13482e1b1c00ca525147487e307cf8b316c3598e422aec3026215632544"
+  },
+  {
+    "path": "src/lib/glcc/i18n/contracts.ts",
+    "sizeBytes": 6315,
+    "sha256": "3236ddb6da2d6012a534e47c5ed2e8e24d90e7ffa6083350d3ed2d536514a723"
+  },
+  {
+    "path": "src/lib/glcc/i18n/engine.ts",
+    "sizeBytes": 6952,
+    "sha256": "d97b8586155e1855420377fedc4ee26895f7b267053e1d2f9d6616d0ed3f947f"
+  },
+  {
+    "path": "src/lib/glcc/i18n/locales/en-PH.ts",
+    "sizeBytes": 9360,
+    "sha256": "9b0fb3f8afb46439d233eac522c15d67cee4ea57b429469964eee947da1e5167"
+  },
+  {
+    "path": "src/lib/glcc/i18n/locales/fil-PH.ts",
+    "sizeBytes": 10478,
+    "sha256": "a623e85dc1873ba1ba264bbbe8c33a4e958c8bd8f6b912de38d6d83accaf76a9"
+  },
+  {
+    "path": "tests/glcc/i18n.test.ts",
+    "sizeBytes": 18688,
+    "sha256": "ba677fe2c625ee6eece4d86d7ef20f0a8c940e4f4cbcddf3f7540d45103b100d"
+  },
+  {
+    "path": "tests/glcc/p3b-copy-migration.test.tsx",
+    "sizeBytes": 11202,
+    "sha256": "dca545adc1d17831458375c52f172bd32fac3073de7b2cf73b0fd96e43162160"
+  }
+]

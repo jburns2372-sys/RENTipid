@@ -1,0 +1,82 @@
+{
+  "workPackage": "GLCC-P6",
+  "name": "Checkout / Payment / Refund / Payout Integration",
+  "generatedAt": "2026-09-26T16:05:00+08:00",
+  "baselineCommit": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "gitBranch": "successor/rc-candidate",
+  "p5bManifestHash": "CD21157662ED976F20D4A62761F152D5013C108BE5713A8DC56AFEB757A29A9D",
+  "files": [
+    {
+      "path": "src/lib/glcc/checkout-fx-service.ts",
+      "sizeBytes": 11047,
+      "sha256": "71E6C590634A7933C88F4B5D091446E9D2835E2302C0AA370C351FCDF2D06162",
+      "description": "Checkout FX quote service enforcing 120s TTL, authoritative price re-read, material divergence detection, and evidence serialization"
+    },
+    {
+      "path": "src/lib/glcc/finance-authority-guards.ts",
+      "sizeBytes": 6208,
+      "sha256": "3AC022B9FECE8F47A0C60066AC32A64688AB5F1081B3AAD2112982025766FA45",
+      "description": "Financial authority invariant guards enforcing PHP settlement, PHP ledger, deterministic PHP refunds, and PHP provider payouts"
+    },
+    {
+      "path": "src/components/glcc/CheckoutFxDisclosure.tsx",
+      "sizeBytes": 9501,
+      "sha256": "605799AD469DB2FB309668699CE962D93B0490C638FDBF8416053E0F3BFC5679",
+      "description": "Renter checkout disclosure UI component displaying authoritative PHP charge, display estimate, 120s countdown, and quote refresh action"
+    },
+    {
+      "path": "src/components/glcc/index.ts",
+      "sizeBytes": 458,
+      "sha256": "C58E3D9704EAFFC9F821EE8AA00AFBE83D7E9F2934D2640122389A285A6E97D6",
+      "description": "GLCC component index re-exporting CheckoutFxDisclosure"
+    },
+    {
+      "path": "src/app/checkout/[bookingId]/checkout-helpers.ts",
+      "sizeBytes": 2884,
+      "sha256": "D8BFFE30A3527CA61DE1B7D76E1078D55C33A3C694A3A98B799FEAF49ABAB7B3",
+      "description": "Checkout helpers updated with quote context validation, charge currency anti-tampering, and transaction FX metadata construction"
+    },
+    {
+      "path": "src/app/checkout/[bookingId]/actions.ts",
+      "sizeBytes": 12044,
+      "sha256": "B86AF8441F75EB47296233651F5DA82884993DDCFCCBEB8BF9CBC8AA3DC4441D",
+      "description": "Checkout server action with quote verification, strict PHP charge currency preservation, and FX quote evidence attachment"
+    },
+    {
+      "path": "src/app/checkout/[bookingId]/page.tsx",
+      "sizeBytes": 12076,
+      "sha256": "A37E8056C532D1795BC95176A9E20089290B6F5E97BFCC644830FCCE87EBA372",
+      "description": "Checkout page rendering CheckoutFxDisclosure and binding preferred currency to checkout flow"
+    },
+    {
+      "path": "src/lib/glcc/i18n/contracts.ts",
+      "sizeBytes": 15847,
+      "sha256": "2A6293DC7090AA16A2EE604EDF910F12A07926282D2B2F9539072A453759C191",
+      "description": "Canonical GLCC translation keys extended with 8 P6 checkout FX disclosure keys"
+    },
+    {
+      "path": "src/lib/glcc/i18n/locales/en-PH.ts",
+      "sizeBytes": 26533,
+      "sha256": "51CF21B7814357F81F9904AB8C468CF34C861A75C8BA046C361358DEAD5F238F",
+      "description": "English (Philippines) bundle updated with 8 P6 checkout FX disclosure keys"
+    },
+    {
+      "path": "src/lib/glcc/i18n/locales/fil-PH.ts",
+      "sizeBytes": 29247,
+      "sha256": "A341E0331BB611AA2A64CCC7C16475EEB7DCB1331E530C5F81F753C3415172C8",
+      "description": "Filipino bundle updated with 8 P6 checkout FX disclosure keys with 100% placeholder parity"
+    },
+    {
+      "path": "tests/glcc/p6-checkout-payment.test.ts",
+      "sizeBytes": 25410,
+      "sha256": "82354D543E0F841976E36450D0DADD30224082A6036A309142582D7E79E3CE55",
+      "description": "Comprehensive P6 test suite verifying 120s TTL, re-read, reconfirmation, charge currency disclosure, idempotency, finance guards, and outlier handling (26 tests)"
+    },
+    {
+      "path": "tests/glcc/p6-checkout-ui.test.tsx",
+      "sizeBytes": 3509,
+      "sha256": "66A70796519FB31FD4109CA75BB3BE5EE13B7C2760CE49CA4D79F06751602587",
+      "description": "P6 UI test suite verifying CheckoutFxDisclosure rendering, PHP notice, USD estimate, 120s countdown, and quote refresh behavior (3 tests)"
+    }
+  ]
+}

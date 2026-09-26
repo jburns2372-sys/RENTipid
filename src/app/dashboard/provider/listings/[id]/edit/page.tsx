@@ -4,13 +4,14 @@ import { authOptions } from "@/lib/auth";
 import { PrismaClient } from '@prisma/client';
 import { notFound, redirect } from 'next/navigation';
 import ListingEditForm from '@/components/listings/ListingEditForm';
+import { t } from '@/lib/glcc/i18n';
 
 const prisma = new PrismaClient();
 
 export default async function EditListingPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const session = await getServerSession(authOptions);
-  const user = session?.user as any;
+  const user = session?.user as { id: string; status?: string } | undefined;
 
   if (user?.status !== 'Verified') {
     redirect('/dashboard/provider/listings');
@@ -38,9 +39,9 @@ export default async function EditListingPage({ params }: { params: Promise<{ id
   return (
     <div className="container mx-auto py-12 px-4 max-w-3xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Edit Listing Details</h1>
+        <h1 className="text-2xl font-bold text-gray-900">{t('providerEditListing.title')}</h1>
         <p className="text-sm text-gray-600 mt-1">
-          Update your listing information, pricing, or category before submitting for review.
+          {t('providerEditListing.subtitle')}
         </p>
       </div>
 

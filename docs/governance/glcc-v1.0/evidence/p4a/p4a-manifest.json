@@ -1,0 +1,33 @@
+{
+  "workPackage": "GLCC-P4A",
+  "name": "Country Profile & Country-to-Currency Policy Foundation",
+  "generatedAt": "2026-09-26T02:50:00+08:00",
+  "baselineCommit": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "gitBranch": "successor/rc-candidate",
+  "files": [
+    {
+      "path": "src/lib/glcc/registry-contracts.ts",
+      "sizeBytes": 10361,
+      "sha256": "EF89C14957910DB428D06A850FCEE72108E1DC5FB47FDFC38E8700E9A87A773E",
+      "description": "Hardened CountryProfile interface supporting allowedChargeCurrencies, unitSystem, configVersion, timezoneDefault, and enabled aliases; added getRaw and listAll to registry context interfaces"
+    },
+    {
+      "path": "src/lib/glcc/default-registries.ts",
+      "sizeBytes": 4112,
+      "sha256": "CB4A4294F0B8E01EC50A628B7B016D22F919E26B8B0897BF8CA85EA43D7F6826",
+      "description": "Populated canonical CountryProfile definitions for PH, US, JP with full P4 metadata; strictly preserved allowedChargeCurrencies as PHP; documented platform fallback separation"
+    },
+    {
+      "path": "src/lib/glcc/country-policy.ts",
+      "sizeBytes": 20514,
+      "sha256": "E641C153E3F42805E7F084782C9EFE3362C35CA3EA1DCDEA0ACDC94E37390ED4",
+      "description": "Authoritative P4A country profile & country-to-currency policy engine implementing effective-dated resolution, default currency assignment, display override rules, retention policy, and auditable provenance"
+    },
+    {
+      "path": "tests/glcc/p4a-country-policy.test.ts",
+      "sizeBytes": 27619,
+      "sha256": "F97E6F48D81EE72D6E38C4D33B1AB622AA082220D5B459E8F654C99A79CFB660",
+      "description": "Dedicated test suite covering effective dates, default currency, display overrides, retention policy, financial boundary, language independence, minor units, and API/UX regression"
+    }
+  ]
+}

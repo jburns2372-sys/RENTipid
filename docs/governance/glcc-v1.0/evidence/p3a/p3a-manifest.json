@@ -1,0 +1,72 @@
+[
+  {
+    "path": "src/lib/glcc/i18n/contracts.ts",
+    "sizeBytes": 3057,
+    "sha256": "1b2a34b6c96900670be60a6a9aedbbe0ae01399db488605e2c4964d063a187db"
+  },
+  {
+    "path": "src/lib/glcc/i18n/formatters.ts",
+    "sizeBytes": 5343,
+    "sha256": "9cfb97912f8d0dc74ef9234f30cbb64474c230143547fff52041e1e054f3d352"
+  },
+  {
+    "path": "src/lib/glcc/i18n/engine.ts",
+    "sizeBytes": 5951,
+    "sha256": "d396efdc3170953ece3fa4870891701f3f3a199962f834f8660c6d24e489820a"
+  },
+  {
+    "path": "src/lib/glcc/i18n/validator.ts",
+    "sizeBytes": 4111,
+    "sha256": "ae14db07ab4c0686424fd9ce2bfa7e2e2aeed77d8d5121fff7beddc55fc781c6"
+  },
+  {
+    "path": "src/lib/glcc/i18n/locales/en-PH.ts",
+    "sizeBytes": 3324,
+    "sha256": "7b2db2a7fba264596d346c636d32202778c104369b760ed8ebef567ad7dacea9"
+  },
+  {
+    "path": "src/lib/glcc/i18n/locales/fil-PH.ts",
+    "sizeBytes": 3831,
+    "sha256": "7882ab16c2c7e323d084be9461b20b48e0e5459d56e091f7ceaf71fb7121d45d"
+  },
+  {
+    "path": "src/lib/glcc/i18n/index.ts",
+    "sizeBytes": 306,
+    "sha256": "6a4f1bfbfdab80ba5bff39e2c146a105473e3f527ae0de59545d5ecbd2be208d"
+  },
+  {
+    "path": "src/components/glcc/glcc-copy.ts",
+    "sizeBytes": 3062,
+    "sha256": "689bf1741a7a3eb62352a865b1ac4af30df6c935181797527bb119c31e71316b"
+  },
+  {
+    "path": "src/components/glcc/useGlobalPreferences.ts",
+    "sizeBytes": 14692,
+    "sha256": "8fa91f23dc0d9faaa10a8861983e1382d60bbfd29955829c3f9a32c6e9377468"
+  },
+  {
+    "path": "src/components/glcc/GlobalPreferencesModal.tsx",
+    "sizeBytes": 22113,
+    "sha256": "0fe3e84321637e147b0f061a1cda2560f874ad768f10ea02115501e9b54f5ad6"
+  },
+  {
+    "path": "src/components/glcc/GlobalPreferencesTrigger.tsx",
+    "sizeBytes": 5968,
+    "sha256": "da8012a14a225a2f5617bea2be3e8730f0d1961b8d0c690a9b366c9484786afc"
+  },
+  {
+    "path": "src/components/profile/RegionalPreferencesCard.tsx",
+    "sizeBytes": 7211,
+    "sha256": "5c3adc687420da6e81659e90e28bb5830a1eaa88fc2ea65a743aeb75cd2718bc"
+  },
+  {
+    "path": "src/components/glcc/index.ts",
+    "sizeBytes": 322,
+    "sha256": "1bfe7d37d2934189bf6a7adaa4df17e37408fa2825d18e460b626694411d4678"
+  },
+  {
+    "path": "tests/glcc/i18n.test.ts",
+    "sizeBytes": 18053,
+    "sha256": "0e8bed5c6309cbe99235dc8018957adbbcc1544e55652fdc66cac4976a22975f"
+  }
+]

@@ -110,6 +110,29 @@ model User {
   listingImportJobs        ListingImportJob[]        @relation("ListingImportJobProvider")
   listingImportResolutions ListingImportResolution[] @relation("ListingImportResolutionResolver")
   listingImportAuditEvents ListingImportAuditEvent[] @relation("ListingImportAuditActor")
+
+  // GLCC v1.0 Global Language, Country & Currency Module
+  userGlobalPreference UserGlobalPreference?
+}
+
+// ============================================================================
+// GLCC v1.0 — Global Language, Country & Currency Module
+// ============================================================================
+
+model UserGlobalPreference {
+  id                         String   @id @default(cuid())
+  user_id                    String   @unique
+  user                       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  language_tag               String   @default("en-PH")
+  country_code               String   @default("PH")
+  display_currency           String   @default("PHP")
+  is_manual_display_override Boolean  @default(false)
+  timezone                   String?
+  version                    Int      @default(1)
+  created_at                 DateTime @default(now())
+  updated_at                 DateTime @updatedAt
+
+  @@index([user_id])
 }
 
 model UserMfa {

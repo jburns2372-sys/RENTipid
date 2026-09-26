@@ -1,0 +1,21 @@
+=== RENTipid GLCC v1.0 — TypeScript Compilation Log ===
+Timestamp: 2026-09-25T05:01:35+08:00
+Command: npx tsc --noEmit src/lib/glcc/contracts.ts src/lib/glcc/registry-contracts.ts src/lib/glcc/preference-resolver.ts src/lib/glcc/preference-reconciler.ts src/lib/glcc/server-adapter.ts src/lib/glcc/preference-service.ts tests/glcc/contracts.test.ts tests/glcc/preference-resolver.test.ts tests/glcc/server-adapter.test.ts tests/glcc/preference-reconciler.test.ts tests/glcc/preference-service.test.ts
+Exit Code: 0
+Environment: Node v22.22.2, win32 x64, TypeScript 5.x
+
+Checked Files:
+- src/lib/glcc/contracts.ts
+- src/lib/glcc/registry-contracts.ts
+- src/lib/glcc/preference-resolver.ts
+- src/lib/glcc/preference-reconciler.ts
+- src/lib/glcc/server-adapter.ts
+- src/lib/glcc/preference-service.ts
+- tests/glcc/contracts.test.ts
+- tests/glcc/preference-resolver.test.ts
+- tests/glcc/server-adapter.test.ts
+- tests/glcc/preference-reconciler.test.ts
+- tests/glcc/preference-service.test.ts
+
+Output:
+PASS — 0 errors, 0 warnings.

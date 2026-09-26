@@ -1,0 +1,52 @@
+{
+  "workPackage": "GLCC-P4B",
+  "name": "Runtime Route Binding & Country-to-Currency Consolidation",
+  "generatedAt": "2026-09-26T10:35:00+08:00",
+  "baselineCommit": "8016ea0f03fad92aad048cd922aaed88927e0387",
+  "gitBranch": "successor/rc-candidate",
+  "p4aManifestSha256": "8B26EE0298B45383FF47BD21515C31344011706D3959EC1154DA0DB99963100D",
+  "files": [
+    {
+      "path": "src/lib/glcc/registry-contracts.ts",
+      "sizeBytes": 10505,
+      "sha256": "B754A93638BB5415B74A95F4C8B6833DF2FB0083CA7B09A3CA90B4FC6431FEB6",
+      "description": "Added isTestFixture boolean to CountryProfile contract and mapped it in createInMemoryRegistryContext"
+    },
+    {
+      "path": "src/lib/glcc/default-registries.ts",
+      "sizeBytes": 4320,
+      "sha256": "BBE74FB08D903E81331E9DBBCCF792714C2CEDA572FE9499F3918735E75AF530",
+      "description": "Distinguished production-configured market profile (PH, isTestFixture: false) from test fixtures (US/JP, isTestFixture: true)"
+    },
+    {
+      "path": "src/lib/glcc/country-policy.ts",
+      "sizeBytes": 24563,
+      "sha256": "2655037AB045887F0582F0857D313B52AA0393571648BCC4D1A677B8D563E1DC",
+      "description": "Exposed validateExplicitCountryRequest and buildAuthoritativeCountryOptions, updated resolveCountryCurrencyPolicy with aliases and currency validation ordering"
+    },
+    {
+      "path": "src/lib/glcc/preference-service.ts",
+      "sizeBytes": 10050,
+      "sha256": "AB19E49D3D5F1176F7B336F7DB7D4E78E4F991F24CEBA7795A4FEA63167C4F67",
+      "description": "Hardened pre-persistence validation in saveAccountPreference to validate effective country profile using resolveEffectiveCountryProfile and evaluate effective dates"
+    },
+    {
+      "path": "src/app/api/me/preferences/route.ts",
+      "sizeBytes": 18938,
+      "sha256": "B1C6D176C9A2AE2BC24ED015D55D583D517504B0490AEE0892ED05FE15B3F158",
+      "description": "Bound authenticated route to P4A CountryProfile policy authority; enforces deterministic rejection on explicit invalid country; enforces RESET_TO_COUNTRY_DEFAULT; filters options metadata"
+    },
+    {
+      "path": "src/app/api/preferences/route.ts",
+      "sizeBytes": 14331,
+      "sha256": "D091F526E7FBA568224AAEBEB22492929E796524EA5B773621B06E0AABCADBC6",
+      "description": "Bound guest route to P4A CountryProfile policy authority; enforces deterministic rejection on explicit invalid country; serializes validated facts to signed cookie; zero DB operations"
+    },
+    {
+      "path": "tests/glcc/p4b-route-binding.test.ts",
+      "sizeBytes": 27011,
+      "sha256": "3B58CA824EC2343109047516A2556EF6B7D744FAE62D29745E24322933E1C3BE",
+      "description": "Focused P4B test suite verifying authenticated route binding, guest route binding, options metadata, explicit rejection semantics, field independence, and financial boundary"
+    }
+  ]
+}

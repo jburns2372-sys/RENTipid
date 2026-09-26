@@ -1,0 +1,26 @@
+COMMAND:
+.\node_modules\.bin\tsc.cmd --project tsconfig.json --noEmit
+
+EXIT CODE: 0
+TIMESTAMP: 2026-09-25T05:24:15+08:00
+
+OUTPUT:
+(Clean - 0 errors, 0 warnings)
+
+VERIFIED SCOPE:
+- Full repository TypeScript compilation according to tsconfig.json
+- src/lib/glcc/contracts.ts
+- src/lib/glcc/registry-contracts.ts
+- src/lib/glcc/preference-resolver.ts
+- src/lib/glcc/preference-reconciler.ts
+- src/lib/glcc/server-adapter.ts
+- src/lib/glcc/preference-service.ts
+- src/lib/glcc/feature-flags.ts
+- src/lib/glcc/default-registries.ts
+- src/app/api/me/preferences/route.ts
+- tests/glcc/contracts.test.ts
+- tests/glcc/preference-resolver.test.ts
+- tests/glcc/server-adapter.test.ts
+- tests/glcc/preference-reconciler.test.ts
+- tests/glcc/preference-service.test.ts
+- tests/glcc/preference-route.test.ts

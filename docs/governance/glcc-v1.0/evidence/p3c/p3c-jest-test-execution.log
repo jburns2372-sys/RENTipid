@@ -1,0 +1,63 @@
+================================================================================
+RENTipid GLCC v1.0 — Work-Package P3C Test Execution Log
+================================================================================
+Timestamp: 2026-09-25T18:48:05+08:00
+Target Environment: TEST (Isolation Guard Accepted)
+Target Database: rentipid_test_soc (Localhost)
+Command: .\node_modules\.bin\jest.cmd tests/glcc/ --runInBand --no-cache
+Exit Code: 0
+
+Console Output:
+  TARGET_HOST_CLASSIFICATION: LOCALHOST
+  TARGET_DATABASE: rentipid_test_soc
+  TARGET_ENVIRONMENT: TEST
+  PRODUCTION_TARGET: NO
+  LOCAL_ISOLATED_TEST_TARGET_ACCEPTED
+
+Test Results:
+ PASS  tests/glcc/p3c-marketplace-migration.test.tsx
+  GLCC-P3C — Public Marketplace & Renter Static Copy Migration
+    1. Marketplace Shell & Browse Static Copy
+      √ provides complete canonical en-PH marketplace strings (9 ms)
+      √ provides corresponding fil-PH test fixture translations (3 ms)
+    2. Listing Card & Detail Presentation Shell
+      √ translates static listing badges, labels, and chrome without altering dynamic data (3 ms)
+    3. Renter Booking Request Form (Client Component)
+      √ renders BookingRequestForm in canonical en-PH with all static labels (278 ms)
+      √ renders BookingRequestForm in fixture fil-PH with localized static labels (55 ms)
+      √ interactively updates duration and financial calculation with pluralized labels (63 ms)
+    4. Pluralization & Duration Presentation Standards
+      √ correctly pluralizes days using standards-based Intl.PluralRules (3 ms)
+      √ correctly pluralizes hours using standards-based Intl.PluralRules (2 ms)
+      √ correctly pluralizes weeks and months (4 ms)
+    5. Renter Dashboard & Booking Management Presentation Shell
+      √ provides localized strings for renter booking management table (2 ms)
+      √ provides localized strings for renter booking detail view (3 ms)
+    6. Financial & Invariant Preservation
+      √ language switching never modifies prices, currencies, or calculations (3 ms)
+      √ language switching never modifies user role or authentication state (1 ms)
+    7. Fallback & Missing-Key Resilience
+      √ never exposes raw dot-notated keys for hypothetical missing marketplace keys (2 ms)
+    8. Canonical Completeness & Placeholder Parity for P3C Keys
+      √ en-PH bundle contains all 71 newly migrated marketplace and renter keys (35 ms)
+      √ fil-PH fixture bundle matches placeholders with 100% parity (5 ms)
+
+ PASS  tests/glcc/p3b-copy-migration.test.tsx
+ PASS  tests/glcc/i18n.test.ts
+ PASS  tests/glcc/contracts.test.ts
+ PASS  tests/glcc/preference-p2b.test.tsx
+ PASS  tests/glcc/preference-ui.test.tsx
+ PASS  tests/glcc/preference-route.test.ts
+ PASS  tests/glcc/guest-route.test.ts
+ PASS  tests/glcc/preference-resolver.test.ts
+ PASS  tests/glcc/preference-service.test.ts
+ PASS  tests/glcc/preference-reconciler.test.ts
+ PASS  tests/glcc/server-adapter.test.ts
+
+Test Suites: 12 passed, 12 total
+Tests:       188 passed, 188 total
+Snapshots:   0 total
+Time:        12.679 s
+================================================================================
+STATUS: PASS — ALL 12 TEST SUITES (188 TESTS) GREEN
+================================================================================

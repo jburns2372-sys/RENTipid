@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { signOutWithStepUpCleanup } from '@/lib/auth/sign-out';
+import { t } from '@/lib/glcc/i18n';
 
 interface UserNavMenuProps {
   user: {
@@ -36,13 +37,13 @@ export default function UserNavMenu({ user, dashboardLink }: UserNavMenuProps) {
         <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold overflow-hidden border border-blue-200">
           {user.image ? (
             /* eslint-disable-next-line @next/next/no-img-element */
-            <img src={user.image} alt={user.name || 'User'} className="h-full w-full object-cover" />
+            <img src={user.image} alt={user.name || t('common.user')} className="h-full w-full object-cover" />
           ) : (
             user.name ? user.name.charAt(0).toUpperCase() : 'U'
           )}
         </div>
         <span className="text-sm font-medium text-gray-800 hidden md:block">
-          {user.name || 'User'}
+          {user.name || t('common.user')}
         </span>
         <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
       </button>
@@ -55,16 +56,16 @@ export default function UserNavMenu({ user, dashboardLink }: UserNavMenuProps) {
           </div>
           
           <Link href="/dashboard/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setIsOpen(false)}>
-            My Profile
+            {t('navigation.myProfile')}
           </Link>
           <Link href={dashboardLink} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setIsOpen(false)}>
-            Dashboard
+            {t('navigation.dashboard')}
           </Link>
           <Link href="/dashboard/profile?tab=security" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setIsOpen(false)}>
-            Security
+            {t('navigation.security')}
           </Link>
           <Link href="/account/sessions" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setIsOpen(false)}>
-            Active Sessions
+            {t('navigation.activeSessions')}
           </Link>
           
           <div className="border-t border-gray-100 mt-1"></div>
@@ -72,7 +73,7 @@ export default function UserNavMenu({ user, dashboardLink }: UserNavMenuProps) {
             onClick={() => { setIsOpen(false); void signOutWithStepUpCleanup('/'); }}
             className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
           >
-            Logout
+            {t('navigation.logout')}
           </button>
         </div>
       )}
