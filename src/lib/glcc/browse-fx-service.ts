@@ -45,8 +45,16 @@ const sharedBrowseFxCache = new InMemoryFxRateCache();
 
 // Shared default provider instance (uses CURRENCYAPI_API_KEY from environment)
 let sharedCurrencyApiProvider: FxRateProvider | null = null;
+let overrideProvider: FxRateProvider | null = null;
+
+export function setOverrideSharedFxProvider(provider: FxRateProvider | null): void {
+  overrideProvider = provider;
+}
 
 function getSharedProvider(): FxRateProvider {
+  if (overrideProvider) {
+    return overrideProvider;
+  }
   if (!sharedCurrencyApiProvider) {
     sharedCurrencyApiProvider = new CurrencyApiRateProvider();
   }
@@ -259,4 +267,5 @@ export async function getBrowseFxEstimate(
  */
 export function resetSharedBrowseFxCache(): void {
   sharedBrowseFxCache.clear();
+  overrideProvider = null;
 }

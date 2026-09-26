@@ -1,0 +1,32 @@
+{
+  "gate": "G2",
+  "name": "Local Functional Verification",
+  "timestamp": "2026-09-26T17:58:00+08:00",
+  "candidateSha": "db2e78695d77fdc64bb428201f3c1eb6fec5a802",
+  "verdict": "G2 LOCAL FUNCTIONAL — PROMOTED",
+  "localhostUrl": "http://localhost:3000",
+  "databaseTarget": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "database": "rentipid_local_dev",
+    "classification": "LOCALHOST / LOCAL DEV",
+    "isProduction": false,
+    "isPreview": false
+  },
+  "verifiedJourneys": {
+    "globalPreferencesModal": "PASS (Interactive modal opened, tab navigation across Region/Language/Currency, live preview updated, applied successfully)",
+    "guestPreferencesCookie": "PASS (Signed rentipid_pref cookie serialized, Set-Cookie returned, reload persistence verified, tampered cookie safely falls back to en-PH)",
+    "failClosedSecurity": "PASS (Absent/disabled flags return 503; prohibited fields like chargeCurrency and userId injection rejected with 400)",
+    "fxBrowsePresentation": "PASS (/api/fx/estimate returns canonical fallback to PHP when CurrencyAPI key unprovisioned; client rate tampering rejected with 400)",
+    "uiLocalizationPages": "PASS (/, /browse, /login, /register, /forgot-password render with 0 raw translation keys; header trigger updates to Filipino labels)",
+    "browserInteractiveExecution": "PASS (Subagent recording: glcc_g2_journey_1790415958888.webp, screenshots captured, console clean with 0 errors)"
+  },
+  "operationalOutstanding": [
+    {
+      "item": "CurrencyAPI Live Provider Network Probe",
+      "status": "NOT RUN — SECRET NOT PROVISIONED",
+      "impact": "None for G2 (canonical PHP fallback verified live on /api/fx/estimate)",
+      "scheduledGate": "G5/G7"
+    }
+  ]
+}

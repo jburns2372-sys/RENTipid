@@ -1,0 +1,71 @@
+{
+  "gate": "G6 PREVIEW MIGRATED",
+  "status": "PASS",
+  "promotedAt": "2026-09-26T11:16:00Z",
+  "candidateCommitSha": "db2e78695d77fdc64bb428201f3c1eb6fec5a802",
+  "deploymentSourceSha": "db2e78695d77fdc64bb428201f3c1eb6fec5a802",
+  "deploymentId": "dpl_AJZqLszoty9oFZwNzxyd3rpjSMDH",
+  "previewDirectUrl": "https://ren-tipid-mb5wz18rc-jburns2372-sys-projects.vercel.app",
+  "previewCanonicalUrl": "https://preview.rentipid.com.ph",
+  "database": {
+    "target": "NEON_PREVIEW_ISOLATED",
+    "host": "ep-cold-dawn-apgmmi53-pooler.c-7.us-east-1.aws.neon.tech",
+    "databaseName": "rentipid_preview",
+    "environment": "preview",
+    "isProduction": false,
+    "isLocal": false,
+    "appliedMigration": "20260925000000_add_user_global_preference",
+    "migrationStatus": "APPLIED_AND_VERIFIED",
+    "table": "UserGlobalPreference",
+    "tableColumnsCount": 10,
+    "uniqueConstraint": "UserGlobalPreference_user_id_key",
+    "foreignKey": "UserGlobalPreference_user_id_fkey_onDelete_Cascade"
+  },
+  "featureFlags": {
+    "glcc_v1_enabled": true,
+    "glcc_currency_override_enabled": true,
+    "glcc_country_autodetect_enabled": false,
+    "glcc_fx_display_enabled": false,
+    "glcc_browse_freshness_ms": 300000,
+    "glcc_checkout_freshness_ms": 120000,
+    "glcc_max_outlier_deviation_pct": 5.0,
+    "glcc_approved_rounding_policy": "ROUND_HALF_UP"
+  },
+  "secretReferences": [
+    "DATABASE_URL",
+    "NEXTAUTH_SECRET",
+    "NEXTAUTH_URL",
+    "SECURITY_TELEMETRY_HMAC_KEY",
+    "CURRENCYAPI_API_KEY"
+  ],
+  "secretsStatus": {
+    "DATABASE_URL": "PROVISIONED_SECURE_PREVIEW",
+    "NEXTAUTH_SECRET": "PROVISIONED_SECURE_PREVIEW",
+    "NEXTAUTH_URL": "PROVISIONED_SECURE_PREVIEW",
+    "SECURITY_TELEMETRY_HMAC_KEY": "PROVISIONED_SECURE_PREVIEW",
+    "CURRENCYAPI_API_KEY": "UNPROVISIONED_IN_PREVIEW_FAIL_CLOSED_VERIFIED"
+  },
+  "supportedMarketMatrix": {
+    "locales": [
+      { "tag": "en-PH", "name": "English (Philippines)", "classification": "PRODUCTION-CONFIGURED", "default": true },
+      { "tag": "fil-PH", "name": "Filipino (Wikang Filipino)", "classification": "PRODUCTION-CONFIGURED", "default": false },
+      { "tag": "en-US", "name": "English (United States)", "classification": "PLATFORM-FALLBACK", "default": false },
+      { "tag": "ja-JP", "name": "Japanese (日本語)", "classification": "TEST-FIXTURE", "default": false }
+    ],
+    "countries": [
+      { "code": "PH", "name": "Philippines", "classification": "PRODUCTION-CONFIGURED", "operational": true, "chargeCurrency": "PHP", "allowedDisplay": ["PHP", "USD"] },
+      { "code": "US", "name": "United States", "classification": "DISABLED / FUTURE CONFIG", "operational": false },
+      { "code": "JP", "name": "Japan", "classification": "DISABLED / FUTURE CONFIG", "operational": false },
+      { "code": "SG", "name": "Singapore", "classification": "DISABLED / FUTURE CONFIG", "operational": false },
+      { "code": "GB", "name": "United Kingdom", "classification": "DISABLED / FUTURE CONFIG", "operational": false },
+      { "code": "CA", "name": "Canada", "classification": "DISABLED / FUTURE CONFIG", "operational": false },
+      { "code": "AU", "name": "Australia", "classification": "DISABLED / FUTURE CONFIG", "operational": false }
+    ],
+    "currencies": [
+      { "code": "PHP", "name": "Philippine Peso", "symbol": "₱", "classification": "PRODUCTION-CONFIGURED", "isChargeCurrency": true, "isDisplayCurrency": true },
+      { "code": "USD", "name": "US Dollar", "symbol": "$", "classification": "PRODUCTION-CONFIGURED", "isChargeCurrency": false, "isDisplayCurrency": true },
+      { "code": "JPY", "name": "Japanese Yen", "symbol": "¥", "classification": "TEST FIXTURE / FUTURE CONFIG", "isChargeCurrency": false, "isDisplayCurrency": false }
+    ]
+  },
+  "healthCheckVerdict": "ALL_PASS"
+}

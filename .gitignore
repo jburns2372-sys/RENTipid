@@ -51,3 +51,5 @@ logs
 quarantine_incident_20260920/
 .terraform/
 /.address-local-state.json
+public/uploads/
+public/uploads/**

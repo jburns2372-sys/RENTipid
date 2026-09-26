@@ -28,7 +28,11 @@
  */
 
 import { NextRequest } from 'next/server';
-import { getBrowseFxEstimate } from '@/lib/glcc/browse-fx-service';
+import {
+  getBrowseFxEstimate,
+  resetSharedBrowseFxCache,
+  setOverrideSharedFxProvider,
+} from '@/lib/glcc/browse-fx-service';
 import { GET as getEstimateRoute } from '@/app/api/fx/estimate/route';
 import { DeterministicFakeFxProvider } from '@/lib/glcc/fx-provider-adapter';
 import { InMemoryFxRateCache } from '@/lib/glcc/fx-cache';
@@ -49,9 +53,10 @@ describe('GLCC-P5B — Browse FX Integration & Policy Enforcement', () => {
 
   afterEach(() => {
     setOverrideSystemSettingReader(null);
+    resetSharedBrowseFxCache();
   });
 
-  function createTestProvider(rates?: Record<string, string>): DeterministicFakeFxProvider {
+  function createTestProvider(rates?: Record<string, string>, observedAt?: Date): DeterministicFakeFxProvider {
     return new DeterministicFakeFxProvider({
       providerId: 'currencyapi',
       rates: rates ?? {
@@ -59,7 +64,7 @@ describe('GLCC-P5B — Browse FX Integration & Policy Enforcement', () => {
         'PHP/JPY': '2.67857142', // 1 PHP = 2.67857142 JPY
         'PHP/BHD': '0.00673400', // 1 PHP = 0.006734 BHD (3 decimal places)
       },
-      fixedObservedAt: EVAL_TIME,
+      fixedObservedAt: observedAt ?? EVAL_TIME,
     });
   }
 
@@ -253,6 +258,7 @@ describe('GLCC-P5B — Browse FX Integration & Policy Enforcement', () => {
         glcc_v1_enabled: 'true',
         glcc_fx_display_enabled: 'true',
       }));
+      setOverrideSharedFxProvider(createTestProvider(undefined, new Date()));
 
       const req = new NextRequest('http://localhost:3000/api/fx/estimate?sourceAmount=1200&sourceCurrency=PHP&targetCurrency=USD');
       const res = await getEstimateRoute(req);

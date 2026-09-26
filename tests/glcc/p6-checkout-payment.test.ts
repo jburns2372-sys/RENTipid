@@ -594,7 +594,7 @@ describe('GLCC-P6 — Checkout / Payment / Refund / Payout Integration', () => {
       // Dedicated outlier cache where get() returns null to trigger provider lookup
       const outlierCache = {
         get: () => null,
-        getLatest: () => cache.get('PHP', 'USD'),
+        getLatest: () => cache.getLatest('PHP', 'USD'),
         set: () => {},
         has: () => false,
         clear: () => {},

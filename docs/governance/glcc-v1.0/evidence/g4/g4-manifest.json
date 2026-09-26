@@ -1,0 +1,88 @@
+{
+  "gate": "G4",
+  "gateName": "LOCAL REQUIRED DATA SEEDED/SYNCED",
+  "candidateSha": "db2e78695d77fdc64bb428201f3c1eb6fec5a802",
+  "evaluatedAt": "2026-09-26T18:05:30+08:00",
+  "databaseEnvironment": "LOCAL (rentipid_local_dev @ 127.0.0.1:5432)",
+  "referenceData": {
+    "canonicalPlatformDefault": {
+      "languageTag": "en-PH",
+      "countryCode": "PH",
+      "displayCurrency": "PHP",
+      "chargeCurrency": "PHP",
+      "timezone": "Asia/Manila"
+    },
+    "supportedCurrencies": [
+      { "code": "PHP", "symbol": "₱", "name": "Philippine Peso", "status": "ACTIVE", "isChargeCurrency": true },
+      { "code": "USD", "symbol": "$", "name": "US Dollar", "status": "ACTIVE", "isChargeCurrency": false },
+      { "code": "JPY", "symbol": "¥", "name": "Japanese Yen", "status": "ACTIVE", "isChargeCurrency": false }
+    ],
+    "supportedCountries": [
+      { "code": "PH", "name": "Philippines", "defaultCurrency": "PHP", "defaultLocale": "en-PH", "status": "ACTIVE" },
+      { "code": "US", "name": "United States", "defaultCurrency": "USD", "defaultLocale": "en-US", "status": "ACTIVE" },
+      { "code": "JP", "name": "Japan", "defaultCurrency": "JPY", "defaultLocale": "ja-JP", "status": "ACTIVE" }
+    ],
+    "supportedLocales": [
+      { "tag": "en-PH", "name": "English (Philippines)", "direction": "ltr", "status": "ACTIVE", "isCanonical": true },
+      { "tag": "fil-PH", "name": "Filipino (Pilipinas)", "direction": "ltr", "status": "ACTIVE", "isFixture": true },
+      { "tag": "en-US", "name": "English (United States)", "direction": "ltr", "status": "ACTIVE", "isFixture": false },
+      { "tag": "ja-JP", "name": "Japanese (Japan)", "direction": "ltr", "status": "ACTIVE", "isFixture": false }
+    ]
+  },
+  "translationBundles": {
+    "canonicalLocale": "en-PH",
+    "fixtureLocale": "fil-PH",
+    "bundleValidation": "PASS",
+    "missingKeys": 0,
+    "placeholderMismatches": 0,
+    "controlledContentBoundariesEnforced": true
+  },
+  "systemSettingsSeeded": [
+    {
+      "setting_key": "glcc_v1_enabled",
+      "setting_value": "true",
+      "description": "Master switch gating GLCC v1.0 resolution and APIs"
+    },
+    {
+      "setting_key": "glcc_currency_override_enabled",
+      "setting_value": "true",
+      "description": "Permits manual display currency selection overriding country default"
+    },
+    {
+      "setting_key": "glcc_country_autodetect_enabled",
+      "setting_value": "false",
+      "description": "Permits coarse request/header country suggestions (First-run only)"
+    },
+    {
+      "setting_key": "glcc_fx_display_enabled",
+      "setting_value": "true",
+      "description": "Enables informational foreign currency browse price estimates"
+    },
+    {
+      "setting_key": "glcc_browse_freshness_ms",
+      "setting_value": "300000",
+      "description": "Approved browse FX rate cache freshness TTL (5 minutes)"
+    },
+    {
+      "setting_key": "glcc_checkout_freshness_ms",
+      "setting_value": "120000",
+      "description": "Approved checkout quote freshness TTL (2 minutes)"
+    },
+    {
+      "setting_key": "glcc_max_outlier_deviation_pct",
+      "setting_value": "5.00",
+      "description": "Approved FX rate max deviation outlier threshold percentage"
+    },
+    {
+      "setting_key": "glcc_approved_rounding_policy",
+      "setting_value": "ROUND_HALF_UP",
+      "description": "Approved commercial rounding policy reference"
+    }
+  ],
+  "idempotencyVerification": {
+    "firstRun": { "totalSettings": 8, "createdOrUpdated": 8 },
+    "secondRun": { "totalSettings": 8, "createdOrUpdated": 0, "duplicates": 0 },
+    "status": "PASS"
+  },
+  "verdict": "PROMOTED"
+}

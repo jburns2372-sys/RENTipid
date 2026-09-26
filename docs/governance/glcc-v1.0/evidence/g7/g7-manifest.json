@@ -1,0 +1,82 @@
+{
+  "gate": "G7 PREVIEW ACCEPTANCE PASS — PREVIEW CHECKPOINT FROZEN",
+  "status": "PASS",
+  "promotedAt": "2026-09-26T11:21:00Z",
+  "checkpointFrozen": true,
+  "candidateCommitSha": "db2e78695d77fdc64bb428201f3c1eb6fec5a802",
+  "deploymentId": "dpl_AJZqLszoty9oFZwNzxyd3rpjSMDH",
+  "previewUrl": "https://preview.rentipid.com.ph",
+  "database": {
+    "host": "ep-cold-dawn-apgmmi53-pooler.c-7.us-east-1.aws.neon.tech",
+    "databaseName": "rentipid_preview",
+    "migration": "20260925000000_add_user_global_preference",
+    "status": "VERIFIED_MIGRATED"
+  },
+  "acceptanceResults": {
+    "totalScenarios": 35,
+    "pass": 35,
+    "fail": 0,
+    "blocked": 0,
+    "catalogue": {
+      "LNG-01": "PASS",
+      "LNG-02": "PASS",
+      "LNG-03": "PASS",
+      "LNG-04": "PASS",
+      "CNT-01": "PASS",
+      "CNT-02": "PASS",
+      "CNT-03": "PASS",
+      "CUR-01": "PASS",
+      "CUR-02": "PASS",
+      "CUR-03": "PASS",
+      "CUR-04": "PASS",
+      "FX-01": "PASS (Provider handled fail-closed)",
+      "FX-02": "PASS",
+      "FX-03": "PASS",
+      "FX-04": "PASS",
+      "FX-05": "PASS",
+      "PAY-01": "PASS",
+      "PAY-02": "PASS",
+      "PAY-03": "PASS",
+      "PAY-04": "PASS",
+      "TRN-01": "PASS",
+      "TRN-02": "PASS",
+      "TRN-03": "PASS",
+      "AI-01": "PASS",
+      "AI-02": "PASS",
+      "A11Y-01": "PASS",
+      "A11Y-02": "PASS",
+      "A11Y-03": "PASS",
+      "SEC-01": "PASS",
+      "SEC-02": "PASS",
+      "OPS-01": "PASS",
+      "OPS-02": "PASS",
+      "REG-01": "PASS",
+      "E2E-01": "PASS",
+      "E2E-02": "PASS"
+    }
+  },
+  "currencyApiIntegration": {
+    "status": "DISABLED_PENDING_SECRET_PROVISIONING",
+    "keyProvisioned": false,
+    "liveProviderCall": "SKIPPED_UNPROVISIONED",
+    "canonicalFallbackVerified": true,
+    "securityBoundaryPreserved": true,
+    "flagState": {
+      "glcc_fx_display_enabled": false
+    }
+  },
+  "browserE2E": {
+    "sessionRecording": "preview_g7_acceptance_1790421512586.webp",
+    "screenshots": [
+      "preview_landing_page.png",
+      "preview_preferences_applied.png"
+    ],
+    "preferencePersistenceVerified": true
+  },
+  "defectLedger": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  }
+}

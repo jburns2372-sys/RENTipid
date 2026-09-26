@@ -1,0 +1,34 @@
+{
+  "gate": "G3",
+  "name": "Local Database Migrated",
+  "timestamp": "2026-09-26T18:02:00+08:00",
+  "candidateSha": "db2e78695d77fdc64bb428201f3c1eb6fec5a802",
+  "verdict": "G3 LOCAL DATABASE MIGRATED — PROMOTED",
+  "databaseTarget": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "database": "rentipid_local_dev",
+    "classification": "LOCALHOST / LOCAL DEV",
+    "isProduction": false,
+    "isPreview": false
+  },
+  "migrationApplied": {
+    "migrationName": "20260925000000_add_user_global_preference",
+    "status": "APPLIED_CLEANLY",
+    "tableCreated": "UserGlobalPreference",
+    "constraintsVerified": [
+      "UserGlobalPreference_pkey (PRIMARY KEY id)",
+      "UserGlobalPreference_user_id_key (UNIQUE user_id)",
+      "UserGlobalPreference_user_id_idx (INDEX user_id)",
+      "UserGlobalPreference_user_id_fkey (FOREIGN KEY user_id REFERENCES User(id) ON DELETE CASCADE)"
+    ]
+  },
+  "rowCounts": {
+    "preMigrationUserCount": 48,
+    "postMigrationUserCount": 48,
+    "preMigrationSettingCount": 12,
+    "postMigrationSettingCount": 12,
+    "userGlobalPreferenceCount": 0
+  },
+  "verificationOutput": "Database schema is up to date! (npx prisma migrate status: 64 migrations applied, exit code 0)"
+}
