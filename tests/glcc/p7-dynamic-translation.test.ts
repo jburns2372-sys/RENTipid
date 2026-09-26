@@ -149,7 +149,7 @@ describe('GLCC-P7: Dynamic Content Translation, Sanitization & Legal Gate', () =
     });
 
     it('redacts live and test API keys', () => {
-      const apiKey = 'sk_live_99887766554433221100aabbccddeeff';
+      const apiKey = 'api_key_test_synthetic_for_redaction_001';
       const raw = `Config error: ${apiKey} invalid`;
       const result = sanitizeForTranslation(raw);
 
