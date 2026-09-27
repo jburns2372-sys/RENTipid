@@ -1,0 +1,33 @@
+{
+  "contractVersion": "1.0.1",
+  "date": "2026-09-28",
+  "architecture": "Modular Domain Contracts under src/lib/glcc/i18n/contracts/ aggregated via src/lib/glcc/i18n/contracts.ts",
+  "preP4CanonicalKeyCount": 445,
+  "newRequiredKeysCount": 1669,
+  "totalCanonicalRequiredKeys": 2114,
+  "requiredDomainsCount": 31,
+  "representedDomainsCount": 31,
+  "unclassifiedRequiredStrings": 0,
+  "approvedExclusionsCount": 8,
+  "enPhCoverage": {
+    "locale": "en-PH",
+    "releaseStatus": "PRODUCTION_READY",
+    "presentKeys": 2114,
+    "missingKeys": 0,
+    "emptyKeys": 0,
+    "coverage": "100%"
+  },
+  "filPhCoverage": {
+    "locale": "fil-PH",
+    "releaseStatus": "QA_REQUIRED",
+    "presentKeys": 445,
+    "missingKeys": 1669,
+    "coverage": "21.05%"
+  },
+  "jaJpCoverage": {
+    "locale": "ja-JP",
+    "releaseStatus": "REGISTERED",
+    "presentKeys": 0,
+    "coverage": "0%"
+  }
+}

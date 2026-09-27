@@ -1,0 +1,211 @@
+{
+  "version": "1.0.1",
+  "date": "2026-09-28",
+  "totalCategories": 9,
+  "categories": [
+    {
+      "category": "BRAND_NAMES",
+      "reason": "Proprietary brand name, trade name, or corporate identity not subject to dictionary localization",
+      "examples": [
+        "RENTipid",
+        "PayMongo",
+        "Google",
+        "Facebook",
+        "Apple",
+        "WhatsApp",
+        "Twilio",
+        "Neon",
+        "AWS",
+        "Vercel",
+        "Next.js",
+        "React",
+        "Prisma"
+      ],
+      "isUserVisible": true,
+      "futureTreatment": "Preserve original brand names in all target locales"
+    },
+    {
+      "category": "CURRENCY_CODES_AND_SYMBOLS",
+      "reason": "ISO 4217 standard 3-letter currency codes and currency glyphs governed by financial CLDR formatting",
+      "examples": [
+        "PHP",
+        "USD",
+        "JPY",
+        "EUR",
+        "GBP",
+        "₱",
+        "$",
+        "¥",
+        "€"
+      ],
+      "isUserVisible": true,
+      "futureTreatment": "Formatted dynamically via Intl.NumberFormat and formatCurrency presentation helpers"
+    },
+    {
+      "category": "TECHNICAL_STANDARDS_AND_ACRONYMS",
+      "reason": "Global standard engineering protocols, security acronyms, and technical abbreviations",
+      "examples": [
+        "KYC",
+        "MFA",
+        "OTP",
+        "SMS",
+        "AI",
+        "LLM",
+        "API",
+        "SOC",
+        "DNS",
+        "HTTPS",
+        "URL",
+        "UUID",
+        "UTC",
+        "GMT",
+        "JSON",
+        "BCP-47"
+      ],
+      "isUserVisible": true,
+      "futureTreatment": "Preserve international technical standard abbreviations across all language packs"
+    },
+    {
+      "category": "LOCALE_AND_COUNTRY_CODES",
+      "reason": "ISO 3166-1 alpha-2 country codes and BCP-47 language tags",
+      "examples": [
+        "en-PH",
+        "fil-PH",
+        "ja-JP",
+        "PH",
+        "US",
+        "JP"
+      ],
+      "isUserVisible": false,
+      "futureTreatment": "Managed by LocaleRegistry and resolveEffectiveLocale policy"
+    },
+    {
+      "category": "UI_DELIMITERS_AND_SYMBOLS",
+      "reason": "Pure visual delimiters, typographic punctuation, bullets, arrows, and glyphs",
+      "examples": [
+        "·",
+        "•",
+        "|",
+        "/",
+        "-",
+        "—",
+        "+",
+        ":",
+        "★",
+        "☆",
+        "→",
+        "←",
+        "✓",
+        "✕"
+      ],
+      "isUserVisible": true,
+      "futureTreatment": "Preserved as visual UI chrome in CSS or component layout"
+    },
+    {
+      "category": "NUMERIC_AND_FORMAT_PATTERNS",
+      "reason": "Standalone numeric quantities, percentages, or format placeholders formatted at runtime by Intl",
+      "examples": [
+        "0",
+        "1",
+        "100",
+        "50%",
+        "0.00"
+      ],
+      "isUserVisible": true,
+      "futureTreatment": "Rendered dynamically using formatNumber, formatPercent, or formatDate"
+    },
+    {
+      "category": "EXTERNAL_ENDPOINTS_AND_URLS",
+      "reason": "Uniform Resource Locators, email destinations, and telephone schemes",
+      "examples": [
+        "https://rentipid.com",
+        "mailto:support@rentipid.com",
+        "tel:+63281234567"
+      ],
+      "isUserVisible": true,
+      "futureTreatment": "Configured via environment variables and site metadata"
+    },
+    {
+      "category": "SAMPLE_USER_INPUT",
+      "reason": "Illustrative mock data, placeholder emails, test phone numbers in documentation",
+      "examples": [
+        "user@example.com",
+        "+639171234567"
+      ],
+      "isUserVisible": true,
+      "futureTreatment": "Mock/fixture fixtures only"
+    },
+    {
+      "category": "CONTROLLED_LEGAL_CONTRACT_PROSE",
+      "reason": "Authoritative statutory legal prose, full Terms of Service clauses, NPC Privacy Policy text, and formal KYC/AML disclosures",
+      "examples": [
+        "Full statutory Terms of Service clauses",
+        "Regulatory compliance notices",
+        "Insurance underwriting terms"
+      ],
+      "isUserVisible": true,
+      "futureTreatment": "Governed as Class B / Class C versioned legal documents with formal legal sign-off, distinct from static UI contract"
+    }
+  ],
+  "identifiedExclusionsCount": 8,
+  "identifiedExclusions": [
+    {
+      "text": "GCash",
+      "category": "BRAND_NAMES",
+      "files": [
+        "src/app/checkout/[bookingId]/page.tsx"
+      ]
+    },
+    {
+      "text": "ID",
+      "category": "TECHNICAL_STANDARDS_AND_ACRONYMS",
+      "files": [
+        "src/app/dashboard/admin/bookings/page.tsx",
+        "src/app/dashboard/admin/compliance/page.tsx",
+        "src/app/dashboard/admin/security/responses/page.tsx"
+      ]
+    },
+    {
+      "text": "Facebook",
+      "category": "BRAND_NAMES",
+      "files": [
+        "src/app/dashboard/social/feedback/page.tsx"
+      ]
+    },
+    {
+      "text": "₱0.00",
+      "category": "UI_DELIMITERS_AND_SYMBOLS",
+      "files": [
+        "src/app/dashboard/super-admin/v1-analytics/page.tsx"
+      ]
+    },
+    {
+      "text": "legal@rentipid.com",
+      "category": "SAMPLE_USER_INPUT",
+      "files": [
+        "src/app/help/intellectual-property/page.tsx"
+      ]
+    },
+    {
+      "text": "RENTipid",
+      "category": "BRAND_NAMES",
+      "files": [
+        "src/app/how-it-works/HowItWorksClient.tsx"
+      ]
+    },
+    {
+      "text": "you@example.com",
+      "category": "SAMPLE_USER_INPUT",
+      "files": [
+        "src/app/login/page.tsx"
+      ]
+    },
+    {
+      "text": "https://...",
+      "category": "EXTERNAL_ENDPOINTS_AND_URLS",
+      "files": [
+        "src/components/listings/listingbridge/ListingBridgeWizard.tsx"
+      ]
+    }
+  ]
+}

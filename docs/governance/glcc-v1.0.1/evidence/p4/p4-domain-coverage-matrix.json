@@ -1,0 +1,224 @@
+{
+  "version": "1.0.1",
+  "date": "2026-09-28",
+  "totalDomains": 31,
+  "domains": [
+    {
+      "domain": "common",
+      "authoritativeNamespace": "common",
+      "keyCount": 85,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 16
+    },
+    {
+      "domain": "navigation",
+      "authoritativeNamespace": "navigation",
+      "keyCount": 30,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 30
+    },
+    {
+      "domain": "auth",
+      "authoritativeNamespace": "auth",
+      "keyCount": 85,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 55
+    },
+    {
+      "domain": "preferences",
+      "authoritativeNamespace": "preferences",
+      "keyCount": 53,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 53
+    },
+    {
+      "domain": "marketplace",
+      "authoritativeNamespace": "marketplace",
+      "keyCount": 34,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 34
+    },
+    {
+      "domain": "listing",
+      "authoritativeNamespace": "listing",
+      "keyCount": 112,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 85
+    },
+    {
+      "domain": "search",
+      "authoritativeNamespace": "search",
+      "keyCount": 1,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "booking",
+      "authoritativeNamespace": "booking",
+      "keyCount": 30,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 30
+    },
+    {
+      "domain": "checkout",
+      "authoritativeNamespace": "checkout",
+      "keyCount": 31,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "payment",
+      "authoritativeNamespace": "payment",
+      "keyCount": 134,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 13
+    },
+    {
+      "domain": "account",
+      "authoritativeNamespace": "account",
+      "keyCount": 23,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 14
+    },
+    {
+      "domain": "profile",
+      "authoritativeNamespace": "profile",
+      "keyCount": 8,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "provider",
+      "authoritativeNamespace": "provider",
+      "keyCount": 181,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 57
+    },
+    {
+      "domain": "renter",
+      "authoritativeNamespace": "renter",
+      "keyCount": 68,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 24
+    },
+    {
+      "domain": "partnerHub",
+      "authoritativeNamespace": "partnerHub",
+      "keyCount": 18,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "messages",
+      "authoritativeNamespace": "messages",
+      "keyCount": 1,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "notifications",
+      "authoritativeNamespace": "notifications",
+      "keyCount": 1,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "reviews",
+      "authoritativeNamespace": "reviews",
+      "keyCount": 1,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "kyc",
+      "authoritativeNamespace": "kyc",
+      "keyCount": 12,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "insurance",
+      "authoritativeNamespace": "insurance",
+      "keyCount": 1,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "support",
+      "authoritativeNamespace": "support",
+      "keyCount": 40,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "helpCenter",
+      "authoritativeNamespace": "helpCenter",
+      "keyCount": 19,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "trustSafety",
+      "authoritativeNamespace": "trustSafety",
+      "keyCount": 14,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "legalCompliance",
+      "authoritativeNamespace": "legalCompliance",
+      "keyCount": 174,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "admin",
+      "authoritativeNamespace": "admin",
+      "keyCount": 386,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "superAdmin",
+      "authoritativeNamespace": "superAdmin",
+      "keyCount": 208,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 18
+    },
+    {
+      "domain": "soc",
+      "authoritativeNamespace": "soc",
+      "keyCount": 345,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "errors",
+      "authoritativeNamespace": "errors",
+      "keyCount": 1,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "validation",
+      "authoritativeNamespace": "validation",
+      "keyCount": 1,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "status",
+      "authoritativeNamespace": "status",
+      "keyCount": 1,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 0
+    },
+    {
+      "domain": "documents",
+      "authoritativeNamespace": "documents",
+      "keyCount": 16,
+      "enPhCoveragePercentage": 100,
+      "filPhPresentKeys": 16
+    }
+  ]
+}

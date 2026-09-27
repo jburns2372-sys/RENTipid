@@ -1,0 +1,38 @@
+{
+  "version": "1.0.1",
+  "date": "2026-09-28",
+  "canonicalSource": {
+    "locale": "en-PH",
+    "releaseStatus": "PRODUCTION_READY",
+    "totalRequiredKeys": 2114,
+    "presentKeys": 2114,
+    "missingKeys": 0,
+    "emptyKeys": 0,
+    "coveragePercentage": 100,
+    "status": "COMPLETE"
+  },
+  "nonProductionLocales": [
+    {
+      "locale": "fil-PH",
+      "releaseStatus": "QA_REQUIRED",
+      "totalRequiredKeys": 2114,
+      "presentKeys": 445,
+      "missingKeys": 1669,
+      "emptyKeys": 0,
+      "coveragePercentage": 21.05,
+      "status": "PARTIAL_TRUTHFUL",
+      "notes": "Maintains 445 pre-P4 translated keys. New P4 keys recorded as missing; completion scheduled for Work Package P6."
+    },
+    {
+      "locale": "ja-JP",
+      "releaseStatus": "REGISTERED",
+      "totalRequiredKeys": 2114,
+      "presentKeys": 0,
+      "missingKeys": 2114,
+      "emptyKeys": 0,
+      "coveragePercentage": 0,
+      "status": "SPECULATIVE_METADATA_ONLY",
+      "notes": "No dictionary created in P4. Content deferred to P12 Global Expansion."
+    }
+  ]
+}
