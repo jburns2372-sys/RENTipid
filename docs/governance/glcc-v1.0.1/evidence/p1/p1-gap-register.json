@@ -1,0 +1,100 @@
+{
+  "manifestVersion": "1.0.0",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "phase": "P1 — LOCALIZATION ARCHITECTURE AUDIT",
+  "generatedAt": "2026-09-27T15:52:00+08:00",
+  "totalGaps": 7,
+  "gaps": [
+    {
+      "id": "ARCH-001",
+      "area": "LOCALE REGISTRY",
+      "title": "Locale Registry lacks lifecycle status states",
+      "description": "LocaleMetadata only defines isActive: boolean and optional fallbackTag. It does not distinguish REGISTERED, TRANSLATION_IN_PROGRESS, QA_REQUIRED, PRODUCTION_READY, and DISABLED. Consequently, locales under development (such as ja-JP or test fixtures) cannot be cleanly filtered out from production user-facing language pickers without ad-hoc component filtering.",
+      "severity": "HIGH",
+      "affectedFiles": [
+        "src/lib/glcc/registry-contracts.ts",
+        "src/lib/glcc/default-registries.ts"
+      ],
+      "responsiblePackage": "P2 — Locale Registry",
+      "recommendedCorrectiveAction": "Add lifecycle enum LocaleStatus ('REGISTERED' | 'TRANSLATION_IN_PROGRESS' | 'QA_REQUIRED' | 'PRODUCTION_READY' | 'DISABLED') to LocaleMetadata and update default-registries.ts so that en-PH and fil-PH are marked PRODUCTION_READY, while ja-JP is marked REGISTERED/TRANSLATION_IN_PROGRESS."
+    },
+    {
+      "id": "ARCH-002",
+      "area": "TRANSLATION CONTRACT",
+      "title": "Major application domain namespaces are absent from canonical contracts",
+      "description": "GLCC_CANONICAL_KEYS contains 445 keys across 11 namespaces (common, navigation, footer, auth, account, marketplace, listing, booking, renter, preferences, superAdmin). However, 14 critical application domains (checkout, kyc, partnerHub, messages, notifications, reviews, insurance, support, trustSafety, legalCompliance, admin, soc, errors, validation) contain 0 canonical keys.",
+      "severity": "HIGH",
+      "affectedFiles": [
+        "src/lib/glcc/i18n/contracts.ts"
+      ],
+      "responsiblePackage": "P4 — Translation Contract",
+      "recommendedCorrectiveAction": "Define and register domain namespaces and canonical key types in contracts.ts for all major application functional areas prior to string migration."
+    },
+    {
+      "id": "ARCH-003",
+      "area": "STRING MIGRATION",
+      "title": "2,129 user-visible UI strings remain hard-coded in English",
+      "description": "Static audit across 287 TSX files reveals that only 398 string instances use t(...) translation keys, while 2,129 user-visible text nodes and attributes remain hard-coded in English. While core target surfaces (Super Admin, Global Preferences Modal, Header, Footer) have strong coverage, full application coverage is approximately 15.7%.",
+      "severity": "HIGH",
+      "affectedFiles": [
+        "src/app/**",
+        "src/components/**"
+      ],
+      "responsiblePackage": "P5 — Hard-coded String Migration",
+      "recommendedCorrectiveAction": "Execute methodical, domain-by-domain string extraction and replacement with t(...) calls, prioritizing booking, checkout, profile, and listings."
+    },
+    {
+      "id": "ARCH-004",
+      "area": "GLOBAL SCALE & PERFORMANCE",
+      "title": "Dictionaries are imported synchronously at boot without lazy loading",
+      "description": "TranslationEngine statically imports EN_PH_BUNDLE and FIL_PH_BUNDLE at module initialization. If 15+ global languages are added with 500-2,000 strings each, bundler treeshaking cannot eliminate unused locales, ballooning client bundle size and initial load times.",
+      "severity": "MEDIUM",
+      "affectedFiles": [
+        "src/lib/glcc/i18n/engine.ts",
+        "src/lib/glcc/i18n/locales/**"
+      ],
+      "responsiblePackage": "P4 — Translation Contract / P12 — Global Expansion Factory",
+      "recommendedCorrectiveAction": "Implement a dynamic asynchronous bundle loader (e.g. registerAsyncBundleLoader or dynamic import()) to load non-default language dictionaries on demand."
+    },
+    {
+      "id": "ARCH-005",
+      "area": "CLIENT RUNTIME",
+      "title": "Direct static t() calls in client components bypass React reactivity",
+      "description": "19 client components directly import static t from '@/lib/glcc/i18n' instead of using const { t } = useTranslation(). Direct static t() calls read from the global engine singleton, which means a client-side locale switch does not cause those components to re-render with updated text unless a full browser page reload occurs.",
+      "severity": "MEDIUM",
+      "affectedFiles": [
+        "src/app/browse/page.tsx",
+        "src/app/page.tsx",
+        "src/app/login/page.tsx",
+        "src/components/layout/Header.tsx",
+        "src/components/layout/Footer.tsx"
+      ],
+      "responsiblePackage": "P8 — SSR/CSR Live Switching",
+      "recommendedCorrectiveAction": "Standardize client components on useTranslation() so that locale state updates propagate reactively without requiring full page reload."
+    },
+    {
+      "id": "ARCH-006",
+      "area": "SERVER RUNTIME",
+      "title": "getServerLocale() does not fall back to database lookup when cookies are missing",
+      "description": "getServerLocale() inspects rentipid_locale and rentipid_pref cookies. For an authenticated user accessing the platform on a fresh browser or where cookies were blocked/cleared, SSR defaults to 'en-PH' even if the user has a saved 'fil-PH' preference in the database, until client hydration occurs.",
+      "severity": "MEDIUM",
+      "affectedFiles": [
+        "src/lib/glcc/i18n/server.ts"
+      ],
+      "responsiblePackage": "P3 — Authoritative Locale Resolver",
+      "recommendedCorrectiveAction": "Optionally inspect getServerSession() within getServerLocale() to resolve authenticated user preference from database when cookies are absent."
+    },
+    {
+      "id": "ARCH-007",
+      "area": "SELECTOR UX",
+      "title": "Language switch relies on window.location.reload() for full hydration",
+      "description": "GlobalPreferencesTrigger calls window.location.reload() after applyPreferences returns. While this guarantees SSR and CSR consistency, it creates a full browser flash rather than a smooth Next.js router.refresh() transition.",
+      "severity": "LOW",
+      "affectedFiles": [
+        "src/components/glcc/GlobalPreferencesTrigger.tsx"
+      ],
+      "responsiblePackage": "P7 — Language Selector UX / P8 — SSR/CSR Live Switching",
+      "recommendedCorrectiveAction": "Transition to router.refresh() combined with React Context state updates once all client components adopt useTranslation()."
+    }
+  ]
+}

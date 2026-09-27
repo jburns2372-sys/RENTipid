@@ -1,0 +1,140 @@
+{
+  "manifestVersion": "1.0.0",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "phase": "P1 — LOCALIZATION ARCHITECTURE AUDIT",
+  "generatedAt": "2026-09-27T15:52:00+08:00",
+  "baseline": {
+    "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+    "p0Commit": "b39908a48b5a3d8f287f32953c5d8b21f1faf3c7",
+    "workingTreeStatus": "CLEAN"
+  },
+  "authoritativeComponents": {
+    "localeRegistry": {
+      "file": "src/lib/glcc/default-registries.ts",
+      "functionOrExport": "getDefaultRegistryContext().locales",
+      "status": "PARTIAL",
+      "notes": "Defines tag, name, nativeName, direction, isActive, fallbackTag, but lacks lifecycle status enum (REGISTERED, TRANSLATION_IN_PROGRESS, QA_REQUIRED, PRODUCTION_READY, DISABLED)."
+    },
+    "localeValidation": {
+      "file": "src/lib/glcc/i18n/validator.ts",
+      "functionOrExport": "validateTranslationBundle / registries.locales.isSupported",
+      "status": "AUTHORITATIVE",
+      "notes": "Validates bundle structural integrity, BCP-47 tag conformance, and key coverage."
+    },
+    "localeResolution": {
+      "file": "src/lib/glcc/preference-resolver.ts",
+      "functionOrExport": "resolveGlobalPreference",
+      "status": "AUTHORITATIVE",
+      "notes": "Strict 5-tier resolution (Explicit Choice -> Account Saved -> Guest Session -> First Run Suggestion -> Platform Default) with deep-frozen provenance."
+    },
+    "serverLocale": {
+      "file": "src/lib/glcc/i18n/server.ts",
+      "functionOrExport": "getServerLocale / getServerTranslation",
+      "status": "PARTIAL",
+      "notes": "Resolves locale from rentipid_locale and rentipid_pref cookies during SSR. Does not query database if cookies are stripped."
+    },
+    "clientLocale": {
+      "file": "src/lib/glcc/i18n/context.tsx",
+      "functionOrExport": "TranslationProvider / useTranslation",
+      "status": "AUTHORITATIVE",
+      "notes": "Client React Context bound to activeLocale state, synchronized with cookies, DOM attributes, and custom events."
+    },
+    "translationKeyContract": {
+      "file": "src/lib/glcc/i18n/contracts.ts",
+      "functionOrExport": "GLCC_CANONICAL_KEYS / GlccCanonicalTranslationKey",
+      "status": "PARTIAL",
+      "notes": "Defines 445 canonical keys across 11 namespaces, but 14 major application domains remain absent."
+    },
+    "translationBundles": {
+      "file": "src/lib/glcc/i18n/locales/en-PH.ts & fil-PH.ts",
+      "functionOrExport": "EN_PH_BUNDLE / FIL_PH_BUNDLE",
+      "status": "PARTIAL",
+      "notes": "Full key parity (445/445), but statically imported into memory at boot time without lazy loading."
+    },
+    "fallback": {
+      "file": "src/lib/glcc/i18n/engine.ts",
+      "functionOrExport": "TranslationEngine.translate / deriveSafeFallback",
+      "status": "AUTHORITATIVE",
+      "notes": "Deterministic 4-step resolution: Exact locale -> Family fallback -> Platform default (en-PH) -> Humanized title-case string (never raw dot keys)."
+    },
+    "preferencePersistence": {
+      "file": "src/lib/glcc/preference-service.ts",
+      "functionOrExport": "saveAccountPreference",
+      "status": "AUTHORITATIVE",
+      "notes": "Prisma-backed atomic upsert on UserGlobalPreference with version-based optimistic concurrency control."
+    },
+    "cookiePersistence": {
+      "file": "src/lib/glcc/server-adapter.ts",
+      "functionOrExport": "serializeGuestPreferenceCookie / parseGuestPreferenceCookie",
+      "status": "AUTHORITATIVE",
+      "notes": "Tamper-evident HMAC-SHA256 cookie bounded under 256 bytes with strict security key prohibitions."
+    },
+    "accountPreference": {
+      "file": "src/lib/glcc/preference-service.ts",
+      "functionOrExport": "readAccountPreference",
+      "status": "AUTHORITATIVE",
+      "notes": "Enforces strict authorization: actor user ID must match target user ID."
+    },
+    "langAttribute": {
+      "file": "src/app/layout.tsx & src/lib/glcc/i18n/context.tsx",
+      "functionOrExport": "<html lang={locale}> / document.documentElement.lang",
+      "status": "AUTHORITATIVE",
+      "notes": "Server-injected on SSR RootLayout and updated dynamically by client context on switch."
+    },
+    "textDirection": {
+      "file": "src/lib/glcc/layout-direction.ts & src/lib/glcc/i18n/engine.ts",
+      "functionOrExport": "getDirection / <html dir={direction}>",
+      "status": "AUTHORITATIVE",
+      "notes": "Pure resolution returning 'ltr' | 'rtl' based on locale metadata and bundle specification."
+    },
+    "globalPreferencesUi": {
+      "file": "src/components/glcc/GlobalPreferencesModal.tsx",
+      "functionOrExport": "GlobalPreferencesModal",
+      "status": "AUTHORITATIVE",
+      "notes": "Accessible dialog with tabbed navigation, live search filters, draft preview formatting, and conflict detection."
+    }
+  },
+  "frameworkSeparation": {
+    "staticUiVsDynamicContent": {
+      "staticEngine": "src/lib/glcc/i18n/engine.ts (TranslationEngine)",
+      "dynamicService": "src/lib/glcc/dynamic-translation-service.ts (DynamicTranslationService)",
+      "classification": "LEGITIMATE SEPARATION",
+      "justification": "Static UI translation handles immutable software strings with dictionary parity; dynamic content service handles user-generated content with SHA-256 hash invalidation and PII sanitization."
+    },
+    "serverVsClientTranslators": {
+      "serverTranslator": "src/lib/glcc/i18n/server.ts (getServerTranslation)",
+      "clientTranslator": "src/lib/glcc/i18n/context.tsx (useTranslation)",
+      "classification": "LEGITIMATE SEPARATION",
+      "justification": "Next.js App Router Server Components cannot access client React context or DOM; server translation bound to cookies is architectural requirement."
+    },
+    "clientSingletonVsContextHook": {
+      "clientSingleton": "import { t } from '@/lib/glcc/i18n'",
+      "contextHook": "const { t } = useTranslation()",
+      "classification": "CONSOLIDATE LATER",
+      "justification": "19 client files directly invoke static singleton t() which does not trigger React re-renders on locale change without a page reload."
+    },
+    "copyProxy": {
+      "proxy": "src/components/glcc/glcc-copy.ts (GLCC_COPY)",
+      "classification": "REUSE / CONSOLIDATE LATER",
+      "justification": "Created for GlobalPreferencesModal convenience; wraps t() calls with getters."
+    }
+  },
+  "keyMetrics": {
+    "canonicalKeyCount": 445,
+    "enPhKeyCount": 445,
+    "filPhKeyCount": 445,
+    "keyParityPercent": 100.0,
+    "totalTsxFiles": 287,
+    "migratedCalls": 398,
+    "hardcodedStringsRemaining": 2129,
+    "approvedExclusions": 5,
+    "fullApplicationCoveragePercent": 15.7
+  },
+  "readiness": {
+    "nLanguageScalability": "PARTIAL",
+    "rtlReadiness": "PASS",
+    "dictionaryLazyLoading": "FAIL",
+    "textExpansionReadiness": "PARTIAL",
+    "localeAwareFormatting": "PASS"
+  }
+}
