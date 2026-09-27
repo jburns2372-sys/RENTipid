@@ -19,29 +19,21 @@ interface LoginMethod {
 export default function ConnectedLoginMethods() {
   const { t } = useTranslation();
   const searchParams = useSearchParams();
+  const errorParam = searchParams.get('error');
+  const linkedParam = searchParams.get('linked');
+  const initialMessage = errorParam === 'IdentityInUse'
+    ? { type: 'error' as const, text: t('auth.connectedMethods.identityInUse') }
+    : linkedParam
+      ? { type: 'success' as const, text: t('auth.connectedMethods.linkedSuccess') }
+      : null;
+
   const [methods, setMethods] = useState<LoginMethod[]>([]);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-
-  useEffect(() => {
-    const errorParam = searchParams.get('error');
-    if (errorParam === 'IdentityInUse') {
-      setMessage({
-        type: 'error',
-        text: t('auth.connectedMethods.identityInUse'),
-      });
-    } else if (searchParams.get('linked')) {
-      setMessage({
-        type: 'success',
-        text: t('auth.connectedMethods.linkedSuccess'),
-      });
-    }
-  }, [searchParams, t]);
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(initialMessage);
 
   const loadMethods = async () => {
     try {
-      setLoading(true);
       const res = await fetch('/api/account/connected-methods');
       if (res.ok) {
         const data = await res.json();
@@ -55,6 +47,7 @@ export default function ConnectedLoginMethods() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadMethods();
   }, []);
 

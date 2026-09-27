@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { ContextualAssistantLauncher } from '@/components/ai/ContextualAssistantLauncher';
 import { getServerSession } from "next-auth/next";

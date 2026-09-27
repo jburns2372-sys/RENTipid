@@ -45,9 +45,11 @@ export default async function RenterRefundRequestPage({ params }: { params: Prom
     const reason = formData.get('reason') as string;
     const amount = formData.get('amount') as string;
     
+    // eslint-disable-next-line react-hooks/purity
+    const refundNumber = `RFD-${Date.now()}`;
     await prisma.refundRequest.create({
       data: {
-        refund_number: `RFD-${Date.now()}`,
+        refund_number: refundNumber,
         booking_id: booking!.id,
         renter_id: user.id,
         provider_id: booking!.provider_id,

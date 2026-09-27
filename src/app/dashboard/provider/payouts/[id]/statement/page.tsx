@@ -13,7 +13,7 @@ export default async function ProviderStatementPage({ params }: { params: Promis
   const { id } = await params;
   const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
-  const user = session?.user as any;
+  const user = session?.user as { id?: string; role?: string; name?: string | null; email?: string | null } | undefined;
   if (!user || (user.role !== 'Individual Provider' && user.role !== 'Business Provider')) redirect('/login');
 
   const ledger = await prisma.financeLedger.findUnique({

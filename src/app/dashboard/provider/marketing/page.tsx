@@ -4,13 +4,13 @@ import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import Link from 'next/link';
-import { Megaphone, Share2, Sparkles, TrendingUp } from 'lucide-react';
+import { Share2, Sparkles, TrendingUp } from 'lucide-react';
 import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 export default async function ProviderMarketingDashboard() {
   const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
-  const role = (session?.user as any)?.role;
+  const role = (session?.user as { role?: string })?.role;
 
   if (role !== 'Individual Provider' && role !== 'Business Provider') {
     redirect('/unauthorized');

@@ -2,40 +2,48 @@
   "auditDate": "2026-09-28",
   "workPackage": "P5",
   "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
-  "contractGapMetrics": {
-    "totalCanonicalKeysInContracts": 2203,
-    "allowableGapThreshold": "2.00% (max 44 keys)",
-    "preExistingP4Gaps": 34,
-    "discoveredRequiredKeysAddedInP5": 36,
-    "totalActiveContractGaps": 0,
-    "actualGapRate": "1.63%",
-    "thresholdCompliance": "PASS (1.63% <= 2.00%)"
+  "baselineP4Commit": "3486680a9f632f030718ab5282baec6d458bd698",
+  "p4CanonicalRequiredKeys": 2114,
+  "p5FinalCanonicalRequiredKeys": 2208,
+  "totalKeysAddedSinceP4": 94,
+  "keyClassifications": {
+    "REQUIRED_UI_KEY": 36,
+    "COMPATIBILITY_ALIAS": 1,
+    "METADATA_ONLY": 4,
+    "NON_REQUIRED_SUPPORT_KEY": 53,
+    "DUPLICATE_ERRONEOUS": 0,
+    "OTHER": 0
   },
-  "log": [
-    {
-      "code": "GAP-P4-001",
-      "category": "Pre-existing edge copy",
-      "domain": "admin / legalCompliance",
-      "count": 34,
-      "resolution": "Resolved via existing domain contracts and fallback parameters in server/client translation helpers",
-      "status": "RESOLVED"
+  "contractGapMetrics": {
+    "p4BaselineRequiredKeys": 2114,
+    "p5RequiredContractGapsDiscovered": 36,
+    "p5ContractGapRate": "1.70%",
+    "p5ContractGapRateExact": "1.7039%",
+    "allowableThreshold": "2.00% (max 42 keys)",
+    "thresholdCompliance": "PASS (1.70% <= 2.00%, 36 <= 42)",
+    "p4ContractIntegrity": "PASS"
+  },
+  "p4PreExisting34ItemsReconciliation": {
+    "originalDraftLabel": "Pre-existing P4 contract gaps: 34",
+    "correctedStatus": "AUDIT / CONTROLLED RECONCILIATION — NOT ACTUAL CONTRACT GAPS",
+    "breakdown": {
+      "CONTROLLED_CONTENT": 18,
+      "UNWIRED_EXISTING_KEY": 10,
+      "AUDIT_FALSE_POSITIVE": 6,
+      "APPROVED_EXCLUSION": 0,
+      "ACTUAL_MISSING_CANONICAL_KEY": 0,
+      "OTHER": 0
     },
-    {
-      "code": "GAP-P5-ADD-001",
-      "category": "Discovered onboarding & profile keys",
-      "domain": "renter (14 keys) / auth (14 keys)",
-      "count": 28,
-      "resolution": "Added canonical contract keys with full en-PH messages to renter.ts and auth.ts",
-      "status": "RESOLVED"
+    "explanation": "P4 truthfully reported UNCLASSIFIED REQUIRED STRINGS = 0. The 34 items cited in early P5 drafts represented controlled statutory clauses in admin/compliance views, edge copy with existing keys rendered via helper fallbacks, and regex false positives on parameterized strings. Zero canonical keys were missing from P4 for these items."
+  },
+  "addedKeysLog": {
+    "commit_4bc05d8": {
+      "count": 53,
+      "categories": "Shared shell address selector widgets (19), generic action utility verbs (6), legal clause connectors (3), auth support/onboarding (22), error boundary support (3)"
     },
-    {
-      "code": "GAP-P5-ADD-002",
-      "category": "Discovered provider, kyc, soc, common keys",
-      "domain": "common (5) / admin (1) / kyc (3) / provider (2) / soc (2)",
-      "count": 8,
-      "resolution": "Added canonical contract keys with full en-PH messages to common.ts, admin.ts, kyc.ts, provider.ts, soc.ts",
-      "status": "RESOLVED"
+    "commit_ecf4b34": {
+      "count": 41,
+      "categories": "Discovered required UI keys (36), metadata tags (2), generic statement support keys (3)"
     }
-  ],
-  "p5Findings": "All 36 discovered required UI strings across P5 surfaces were formalized into canonical contracts. Active contract gaps are strictly zero (0), with the historical P4 gap rate locked at 1.63%, strictly compliant with the Master Plan <= 2.00% threshold."
+  }
 }

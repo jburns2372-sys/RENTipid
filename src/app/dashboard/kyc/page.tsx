@@ -6,10 +6,17 @@ import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import { FileUp, CheckCircle, AlertCircle, Clock } from 'lucide-react';
 import { useTranslation } from '@/lib/glcc/i18n';
 
+interface KycDocument {
+  id: string;
+  document_type: string;
+  status: string;
+  uploaded_at: string;
+}
+
 export default function KYCPage() {
   const { data: session } = useSession();
   const { t } = useTranslation();
-  const [documents, setDocuments] = useState<any[]>([]);
+  const [documents, setDocuments] = useState<KycDocument[]>([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{type: 'success'|'error', text: string} | null>(null);
 
@@ -67,14 +74,14 @@ export default function KYCPage() {
         const data = await res.json();
         setMessage({ type: 'error', text: data.message || 'Upload failed' });
       }
-    } catch (err) {
+    } catch {
       setMessage({ type: 'error', text: 'Network error during upload' });
     } finally {
       setLoading(false);
     }
   };
 
-  const role = (session?.user as any)?.role || 'Renter';
+  const role = (session?.user as { role?: string })?.role || 'Renter';
 
   const getRequiredDocs = () => {
     if (role === 'Renter') return [t('kyc.validGovernmentId'), t('kyc.selfieVerification')];

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import { getServerSession } from "next-auth/next";

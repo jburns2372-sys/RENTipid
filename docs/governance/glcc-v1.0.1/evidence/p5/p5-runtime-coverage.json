@@ -9,24 +9,25 @@
         "status": "PRODUCTION_READY",
         "effectiveResolution": "DEFAULT_PLATFORM_FALLBACK",
         "runtimeTranslationCoverage": "100%",
-        "presentKeys": 2203,
+        "presentKeys": 2208,
         "missingKeys": 0
       },
       "fil-PH": {
         "status": "QA_REQUIRED",
         "effectiveResolution": "RESOLVES_IN_QA_MODE_ONLY",
-        "runtimeTranslationCoverage": "20.20% (direct)",
+        "runtimeTranslationCoverage": "20.15% (direct)",
         "fallbackCoverage": "100% (deterministic fallback to en-PH)",
         "presentKeys": 445,
-        "missingKeys": 1758,
-        "fallbackRate": "79.80%"
+        "missingKeys": 1763,
+        "fallbackKeys": 1763,
+        "fallbackRate": "79.85%"
       },
       "ja-JP": {
         "status": "REGISTERED",
         "effectiveResolution": "BLOCKED_IN_PRODUCTION_AND_QA",
         "runtimeTranslationCoverage": "0%",
         "presentKeys": 0,
-        "missingKeys": 2203
+        "missingKeys": 2208
       }
     }
   },
@@ -34,13 +35,25 @@
     "totalSurfacesAudited": 78,
     "uniqueRoutes": 56,
     "uniqueComponents": 22,
-    "runtimeComponentMigrationCoverage": "100% (78 of 78 files actively wired to GLCC runtime)",
-    "rawTranslationKeyRenderCount": 0
+    "totalFileClassificationEntries": 78,
+    "overlappingDuplicateEntries": 0,
+    "totalUiFilesScanned": 78,
+    "translationRuntimeReferences": 1051,
+    "unapprovedHardcodedUiStrings": 0,
+    "unmigratedRequiredStrings": 0,
+    "rawTranslationKeyRenderCount": 0,
+    "runtimeComponentMigrationCoverage": "100% (78 of 78 files actively wired to GLCC runtime)"
   },
   "qualityGateMetrics": {
     "typecheck": {
       "command": "npm run typecheck",
       "exitCode": 0,
+      "status": "PASS"
+    },
+    "eslint": {
+      "command": "npx eslint ...",
+      "exitCode": 0,
+      "problems": 0,
       "status": "PASS"
     },
     "testSuite": {

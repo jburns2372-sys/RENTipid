@@ -260,7 +260,7 @@ describe('RENTipid GLCC v1.0.1 — Hard-Coded String Guard Test Suite', () => {
           const matches = line.match(/>([^<>{}\n]+)</g);
           if (matches) {
             for (const m of matches) {
-              let text = m.substring(1, m.length - 1).trim();
+              const text = m.substring(1, m.length - 1).trim();
               // Strip trailing punctuation from token
               const cleanToken = text.replace(/[!?,.:;]$/, '').trim();
 

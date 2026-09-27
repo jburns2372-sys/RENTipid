@@ -24,7 +24,7 @@ const ONBOARDING_ITEMS = [
 export default async function RenterOnboardingChecklist() {
   const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
-  const user = session?.user as any;
+  const user = session?.user as { id: string; role: string } | undefined;
 
   if (!user || user.role !== 'Renter') {
     redirect('/unauthorized');
