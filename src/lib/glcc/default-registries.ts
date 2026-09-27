@@ -8,7 +8,7 @@
  * - Fallbacks: fil-PH -> en-PH
  */
 
-import { createInMemoryRegistryContext, type RegistryContext } from './registry-contracts';
+import { createInMemoryRegistryContext, type RegistryContext, type LocaleRegistry } from './registry-contracts';
 import type { PlatformDefaultPreference } from './contracts';
 
 export const DEFAULT_PLATFORM_PREFERENCE: PlatformDefaultPreference = Object.freeze({
@@ -176,4 +176,8 @@ export function getDefaultRegistryContext(): RegistryContext {
   });
 
   return cachedRegistryContext;
+}
+
+export function getDefaultLocaleRegistry(): LocaleRegistry {
+  return getDefaultRegistryContext().locales;
 }

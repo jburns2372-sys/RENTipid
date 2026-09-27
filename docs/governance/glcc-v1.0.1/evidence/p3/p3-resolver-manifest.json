@@ -1,0 +1,91 @@
+{
+  "manifestVersion": "1.0.0",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "phase": "P3 — AUTHORITATIVE LOCALE RESOLVER",
+  "generatedAt": "2026-09-27T18:10:00+08:00",
+  "authoritativeResolver": {
+    "module": "src/lib/glcc/locale-resolver.ts",
+    "primaryFunction": "resolveEffectiveLocale",
+    "helperFunctions": [
+      "isLocaleEligibleForMode",
+      "mapLocaleSourceToPreferenceSource",
+      "mapPreferenceSourceToLocaleSource"
+    ],
+    "reExportedFrom": "src/lib/glcc/preference-resolver.ts"
+  },
+  "contracts": {
+    "inputContract": {
+      "interface": "EffectiveLocaleResolutionInput",
+      "fields": [
+        "explicitLocale",
+        "explicitChoice",
+        "accountLocale",
+        "accountSaved",
+        "guestLocale",
+        "guestSession",
+        "suggestedLocale",
+        "firstRunSuggestion",
+        "platformDefault",
+        "resolverMode",
+        "asOf"
+      ]
+    },
+    "outputContract": {
+      "interface": "EffectiveLocaleResult",
+      "fields": [
+        "effectiveLocale",
+        "source",
+        "preferenceSource",
+        "requestedLocale",
+        "fallbackFrom",
+        "releaseStatus",
+        "direction",
+        "isProductionSelectable",
+        "resolverMode",
+        "reason",
+        "resolvedAt"
+      ],
+      "immutability": "Deeply frozen with Object.freeze",
+      "scope": "Language context only (zero authority over country, currency, payment, or permissions)"
+    }
+  },
+  "precedenceOrder": [
+    { "tier": 1, "source": "EXPLICIT", "preferenceSource": "EXPLICIT_CHOICE", "description": "Explicit current user selection" },
+    { "tier": 2, "source": "ACCOUNT", "preferenceSource": "ACCOUNT_SAVED", "description": "Authenticated account saved preference" },
+    { "tier": 3, "source": "GUEST", "preferenceSource": "GUEST_SESSION", "description": "Signed guest preference cookie (rentipid_pref) or lightweight mirror (rentipid_locale)" },
+    { "tier": 4, "source": "SUGGESTION", "preferenceSource": "FIRST_RUN_SUGGESTION", "description": "Safe HTTP Accept-Language suggestion" },
+    { "tier": 5, "source": "DEFAULT", "preferenceSource": "PLATFORM_DEFAULT", "description": "Canonical platform default ('en-PH')" }
+  ],
+  "governancePolicies": {
+    "productionEligibility": {
+      "mode": "PRODUCTION",
+      "rule": "enabled === true && releaseStatus === 'PRODUCTION_READY'",
+      "currentPermittedLocales": ["en-PH"],
+      "blockedLocales": ["fil-PH", "en-US", "ja-JP"],
+      "failClosedBehavior": "Falls through to next precedence tier or platform default"
+    },
+    "controlledQaPolicy": {
+      "mode": "QA",
+      "rule": "enabled === true && (releaseStatus === 'PRODUCTION_READY' || releaseStatus === 'QA_REQUIRED')",
+      "currentPermittedLocales": ["en-PH", "fil-PH"],
+      "blockedLocales": ["en-US", "ja-JP"],
+      "justification": "Allows fil-PH to be exercised in automated tests and local verification without exposing it as Production-selectable"
+    }
+  },
+  "cookieRoles": {
+    "rentipid_pref": {
+      "role": "Authoritative signed guest preference cookie",
+      "byteLimit": 256,
+      "security": "HMAC-SHA256 signature verified in constant-time; rejects userId, role, chargeCurrency, permissions"
+    },
+    "rentipid_locale": {
+      "role": "Lightweight SSR and edge performance mirror",
+      "authority": "Subordinate to rentipid_pref; validated against BCP-47 syntax, registry presence, and active resolver mode"
+    }
+  },
+  "hydrationParity": {
+    "invariant": "SERVER_EFFECTIVE_LOCALE === CLIENT_INITIAL_EFFECTIVE_LOCALE",
+    "mechanism": "TranslationProvider initializes directly from server-resolved initialLocale prop; zero effect-driven state flashing"
+  },
+  "databaseImpact": "NONE"
+}

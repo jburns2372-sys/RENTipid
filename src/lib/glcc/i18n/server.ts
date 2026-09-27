@@ -1,42 +1,99 @@
-import { cookies } from 'next/headers';
-import { parseGuestPreferenceCookie, GUEST_PREFERENCE_COOKIE_NAME } from '../server-adapter';
+import { cookies, headers } from 'next/headers';
+import {
+  parseGuestPreferenceCookie,
+  GUEST_PREFERENCE_COOKIE_NAME,
+  extractHeaderSuggestions,
+} from '../server-adapter';
 import { defaultTranslationEngine } from './engine';
+import {
+  resolveEffectiveLocale,
+  type ResolverMode,
+} from '../locale-resolver';
+import { getDefaultRegistryContext } from '../default-registries';
 import type { GlccCanonicalTranslationKey, TranslationParams } from './contracts';
 
+export interface GetServerLocaleOptions {
+  readonly resolverMode?: ResolverMode;
+  readonly defaultLocale?: string;
+}
+
 /**
- * Resolves the active request locale on the server during SSR.
- * Checks lightweight 'rentipid_locale' cookie first, then signed 'rentipid_pref'.
- * Defaults safely to 'en-PH'.
+ * Resolves the active request locale on the server during SSR using the authoritative P3 Locale Resolver.
+ *
+ * Precedence & Authority:
+ * 1. Guest tier: Reads signed 'rentipid_pref' (authoritative) and lightweight 'rentipid_locale' (convenience mirror).
+ *    If 'rentipid_pref' is valid and signed, its language takes precedence as the guest candidate.
+ * 2. Suggestion tier: Reads 'accept-language' header.
+ * 3. Default tier: Platform default ('en-PH').
+ *
+ * Mode Governance:
+ * Evaluated under 'PRODUCTION' mode by default. Locales in QA_REQUIRED (such as fil-PH)
+ * or REGISTERED (ja-JP) do NOT resolve in PRODUCTION mode, preventing unauthorized premature activation.
+ * Under controlled QA mode ('QA'), QA_REQUIRED locales are allowed to resolve.
  */
-export async function getServerLocale(): Promise<string> {
+export async function getServerLocale(options?: GetServerLocaleOptions): Promise<string> {
+  let guestCandidate: string | null = null;
+  let suggestedLocale: string | null = null;
+
   try {
     const cookieStore = await cookies();
-    // 1. Check direct lightweight cookie
-    const directLocale = cookieStore.get('rentipid_locale')?.value;
-    if (directLocale && (directLocale === 'fil-PH' || directLocale === 'en-PH')) {
-      return directLocale;
-    }
-    // 2. Check signed guest preference cookie
+
+    // 1. Check signed guest preference cookie (authoritative guest cookie)
     const prefCookie = cookieStore.get(GUEST_PREFERENCE_COOKIE_NAME)?.value;
     if (prefCookie) {
       const parsed = parseGuestPreferenceCookie(prefCookie);
       if (parsed.isValid && parsed.payload?.lng) {
-        if (parsed.payload.lng === 'fil-PH' || parsed.payload.lng === 'en-PH') {
-          return parsed.payload.lng;
+        guestCandidate = parsed.payload.lng;
+      }
+    }
+
+    // 2. If no valid signed preference was found, check direct lightweight cookie
+    if (!guestCandidate) {
+      const directLocale = cookieStore.get('rentipid_locale')?.value;
+      if (directLocale) {
+        guestCandidate = directLocale;
+      }
+    }
+
+    // 3. Check Accept-Language header for suggestion tier
+    try {
+      const headerStore = await headers();
+      const acceptLanguage = headerStore.get('accept-language');
+      if (acceptLanguage) {
+        const suggestions = extractHeaderSuggestions({ acceptLanguage });
+        if (suggestions.languageTag) {
+          suggestedLocale = suggestions.languageTag;
         }
       }
+    } catch {
+      // headers() might not be available in some execution environments
     }
   } catch {
     // cookies() may throw outside request lifecycle (e.g. static generation)
   }
-  return 'en-PH';
+
+  const resolverMode: ResolverMode =
+    options?.resolverMode ??
+    (process.env.GLCC_RESOLVER_MODE === 'QA' ? 'QA' : 'PRODUCTION');
+
+  const resolved = resolveEffectiveLocale(
+    {
+      guestLocale: guestCandidate,
+      suggestedLocale,
+      platformDefault: options?.defaultLocale ?? 'en-PH',
+      resolverMode,
+    },
+    getDefaultRegistryContext().locales
+  );
+
+  return resolved.effectiveLocale;
 }
 
 /**
  * Resolves server-side translation helpers bound to the request's active locale.
  */
-export async function getServerTranslation() {
-  const locale = await getServerLocale();
+export async function getServerTranslation(options?: GetServerLocaleOptions) {
+  const locale = await getServerLocale(options);
   return {
     locale,
     direction: defaultTranslationEngine.getDirection(locale),

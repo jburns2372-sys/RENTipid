@@ -31,6 +31,27 @@ import {
   assertPreferenceInvariants,
 } from './contracts';
 import type { RegistryContext } from './registry-contracts';
+import {
+  resolveEffectiveLocale,
+  isLocaleEligibleForMode,
+  mapLocaleSourceToPreferenceSource,
+  mapPreferenceSourceToLocaleSource,
+  type ResolverMode,
+  type LocaleResolutionSource,
+  type EffectiveLocaleResolutionInput,
+  type EffectiveLocaleResult,
+} from './locale-resolver';
+
+export {
+  resolveEffectiveLocale,
+  isLocaleEligibleForMode,
+  mapLocaleSourceToPreferenceSource,
+  mapPreferenceSourceToLocaleSource,
+  type ResolverMode,
+  type LocaleResolutionSource,
+  type EffectiveLocaleResolutionInput,
+  type EffectiveLocaleResult,
+};
 
 interface CandidateResolution<T> {
   readonly value: T;
@@ -235,40 +256,70 @@ export function resolveGlobalPreference(
   // 3. Resolve Language Tag (Independent of country and currency)
   let resolvedLanguageCandidate: CandidateResolution<string> | null = null;
 
-  for (const { source, tier } of tiers) {
-    if (!tier) continue;
-    const langCandidate = sanitizeString(tier.languageTag);
-    if (!langCandidate) continue;
-
-    if (registries.locales.isSupported(langCandidate, resolvedAt)) {
-      resolvedLanguageCandidate = {
-        value: langCandidate,
-        source,
-        isManualOverride: source === 'EXPLICIT_CHOICE',
-        sourceTimestamp: tier.timestamp,
-      };
-      break;
-    }
-
-    // Try fallback locale if supported
-    const fallback = registries.locales.resolveFallback(langCandidate);
-    if (fallback && registries.locales.isSupported(fallback, resolvedAt)) {
-      resolvedLanguageCandidate = {
-        value: fallback,
-        source,
-        isManualOverride: source === 'EXPLICIT_CHOICE',
-        sourceTimestamp: tier.timestamp,
-      };
-      break;
-    }
-  }
-
-  if (!resolvedLanguageCandidate) {
+  if (policy.resolverMode) {
+    const locRes = resolveEffectiveLocale(
+      {
+        explicitChoice: input.explicitChoice,
+        accountSaved: input.accountSaved,
+        guestSession: input.guestSession,
+        firstRunSuggestion: input.firstRunSuggestion,
+        platformDefault: defaultLang,
+        resolverMode: policy.resolverMode,
+      },
+      registries.locales,
+      { asOf: resolvedAt }
+    );
     resolvedLanguageCandidate = {
-      value: defaultLang,
-      source: 'PLATFORM_DEFAULT',
-      isManualOverride: false,
+      value: locRes.effectiveLocale,
+      source: locRes.preferenceSource,
+      isManualOverride: locRes.source === 'EXPLICIT',
+      sourceTimestamp:
+        locRes.source === 'EXPLICIT'
+          ? input.explicitChoice?.timestamp
+          : locRes.source === 'ACCOUNT'
+          ? input.accountSaved?.timestamp
+          : locRes.source === 'GUEST'
+          ? input.guestSession?.timestamp
+          : locRes.source === 'SUGGESTION'
+          ? input.firstRunSuggestion?.timestamp
+          : undefined,
     };
+  } else {
+    for (const { source, tier } of tiers) {
+      if (!tier) continue;
+      const langCandidate = sanitizeString(tier.languageTag);
+      if (!langCandidate) continue;
+
+      if (registries.locales.isSupported(langCandidate, resolvedAt)) {
+        resolvedLanguageCandidate = {
+          value: langCandidate,
+          source,
+          isManualOverride: source === 'EXPLICIT_CHOICE',
+          sourceTimestamp: tier.timestamp,
+        };
+        break;
+      }
+
+      // Try fallback locale if supported
+      const fallback = registries.locales.resolveFallback(langCandidate);
+      if (fallback && registries.locales.isSupported(fallback, resolvedAt)) {
+        resolvedLanguageCandidate = {
+          value: fallback,
+          source,
+          isManualOverride: source === 'EXPLICIT_CHOICE',
+          sourceTimestamp: tier.timestamp,
+        };
+        break;
+      }
+    }
+
+    if (!resolvedLanguageCandidate) {
+      resolvedLanguageCandidate = {
+        value: defaultLang,
+        source: 'PLATFORM_DEFAULT',
+        isManualOverride: false,
+      };
+    }
   }
 
   // 4. Resolve Charge Currency

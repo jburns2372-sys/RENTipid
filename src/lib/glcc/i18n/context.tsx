@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useTransition } from 'react';
 import { defaultTranslationEngine, t as globalT } from './engine';
+import { validateBcp47LocaleTag } from '../registry-contracts';
 import type { GlccCanonicalTranslationKey, TranslationParams } from './contracts';
 
 export interface TranslationContextValue {
@@ -18,20 +19,23 @@ export interface TranslationProviderProps {
   readonly initialLocale?: string;
 }
 
+/**
+ * Client Translation Provider
+ *
+ * Invariant: Consumes the server-resolved effective locale on initial render
+ * ensuring SERVER_EFFECTIVE_LOCALE === CLIENT_INITIAL_EFFECTIVE_LOCALE without hydration mismatches.
+ */
 export function TranslationProvider({ children, initialLocale = 'en-PH' }: TranslationProviderProps) {
-  const [locale, setLocaleState] = useState<string>(() => {
-    if (typeof document !== 'undefined') {
-      const match = document.cookie.match(/(?:^|;\s*)rentipid_locale=([^;]+)/);
-      if (match && match[1]) {
-        const cookieLoc = decodeURIComponent(match[1]);
-        if (cookieLoc === 'fil-PH' || cookieLoc === 'en-PH') {
-          return cookieLoc;
-        }
-      }
-    }
-    return initialLocale;
-  });
+  // Directly initialize with server-provided initialLocale to guarantee hydration parity
+  const [locale, setLocaleState] = useState<string>(initialLocale);
+  const [prevInitialLocale, setPrevInitialLocale] = useState<string>(initialLocale);
   const [, startTransition] = useTransition();
+
+  // Adjust state during render if initialLocale prop changes across route navigations (react.dev pattern)
+  if (initialLocale !== prevInitialLocale) {
+    setPrevInitialLocale(initialLocale);
+    setLocaleState(initialLocale);
+  }
 
   // Initialize engine and DOM with current locale
   useEffect(() => {
@@ -49,7 +53,7 @@ export function TranslationProvider({ children, initialLocale = 'en-PH' }: Trans
     const handlePreferenceEvent = (e: Event) => {
       const customEvent = e as CustomEvent<{ languageTag?: string }>;
       const newTag = customEvent.detail?.languageTag;
-      if (newTag && (newTag === 'fil-PH' || newTag === 'en-PH')) {
+      if (newTag && validateBcp47LocaleTag(newTag).isValid) {
         setLocaleState(newTag);
       }
     };
@@ -59,6 +63,10 @@ export function TranslationProvider({ children, initialLocale = 'en-PH' }: Trans
   }, []);
 
   const setLocale = useCallback((newLocale: string) => {
+    if (!validateBcp47LocaleTag(newLocale).isValid) {
+      return;
+    }
+
     startTransition(() => {
       setLocaleState(newLocale);
       defaultTranslationEngine.setActiveLocale(newLocale);

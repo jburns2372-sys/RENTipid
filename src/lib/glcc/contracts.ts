@@ -96,6 +96,7 @@ export interface PreferenceResolutionPolicy {
   readonly signInReconciliationPolicy: SignInReconciliationPolicy;
   readonly allowDisplayCurrencyOverride: boolean;
   readonly strictChargeCurrencyFixedToDefault: boolean;
+  readonly resolverMode?: 'PRODUCTION' | 'QA';
 }
 
 /**

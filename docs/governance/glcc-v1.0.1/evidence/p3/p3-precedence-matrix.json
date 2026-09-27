@@ -1,0 +1,156 @@
+{
+  "matrixVersion": "1.0.0",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "phase": "P3 — AUTHORITATIVE LOCALE RESOLVER",
+  "scenarios": [
+    {
+      "scenario": "All tiers provided in Production mode",
+      "explicit": "en-PH",
+      "account": "fil-PH",
+      "guest": "en-US",
+      "suggestion": "ja-JP",
+      "mode": "PRODUCTION",
+      "expectedEffective": "en-PH",
+      "expectedSource": "EXPLICIT",
+      "result": "PASS",
+      "notes": "Explicit valid production-ready locale wins over all lower tiers"
+    },
+    {
+      "scenario": "Explicit absent, Account provided in Production mode",
+      "explicit": null,
+      "account": "en-PH",
+      "guest": "fil-PH",
+      "suggestion": null,
+      "mode": "PRODUCTION",
+      "expectedEffective": "en-PH",
+      "expectedSource": "ACCOUNT",
+      "result": "PASS",
+      "notes": "Account saved preference wins over guest session"
+    },
+    {
+      "scenario": "Explicit and Account absent, valid Guest provided in Production mode",
+      "explicit": null,
+      "account": null,
+      "guest": "en-PH",
+      "suggestion": null,
+      "mode": "PRODUCTION",
+      "expectedEffective": "en-PH",
+      "expectedSource": "GUEST",
+      "result": "PASS",
+      "notes": "Guest session preference wins when higher tiers are absent"
+    },
+    {
+      "scenario": "Higher tiers absent, valid Suggestion provided in Production mode",
+      "explicit": null,
+      "account": null,
+      "guest": null,
+      "suggestion": "en-PH",
+      "mode": "PRODUCTION",
+      "expectedEffective": "en-PH",
+      "expectedSource": "SUGGESTION",
+      "result": "PASS",
+      "notes": "Accept-Language suggestion resolves safely above default"
+    },
+    {
+      "scenario": "Higher tiers absent, unsupported Suggestion provided",
+      "explicit": null,
+      "account": null,
+      "guest": null,
+      "suggestion": "xx-YY",
+      "mode": "PRODUCTION",
+      "expectedEffective": "en-PH",
+      "expectedSource": "DEFAULT",
+      "result": "PASS",
+      "notes": "Unsupported suggestion fails through safely to platform default"
+    },
+    {
+      "scenario": "Tampered guest cookie submitted",
+      "explicit": null,
+      "account": null,
+      "guest": "tampered-hmac-signature",
+      "suggestion": null,
+      "mode": "PRODUCTION",
+      "expectedEffective": "en-PH",
+      "expectedSource": "DEFAULT",
+      "result": "PASS",
+      "notes": "Tampered signature rejected constant-time; fails closed to default without throwing"
+    },
+    {
+      "scenario": "Explicit fil-PH in controlled QA mode",
+      "explicit": "fil-PH",
+      "account": null,
+      "guest": null,
+      "suggestion": null,
+      "mode": "QA",
+      "expectedEffective": "fil-PH",
+      "expectedSource": "EXPLICIT",
+      "result": "PASS",
+      "notes": "Controlled QA mode permits QA_REQUIRED locale to be exercised"
+    },
+    {
+      "scenario": "Explicit fil-PH in normal PRODUCTION mode",
+      "explicit": "fil-PH",
+      "account": null,
+      "guest": null,
+      "suggestion": null,
+      "mode": "PRODUCTION",
+      "expectedEffective": "en-PH",
+      "expectedSource": "DEFAULT",
+      "result": "PASS",
+      "notes": "fil-PH is QA_REQUIRED and is BLOCKED from Production activation"
+    },
+    {
+      "scenario": "Explicit ja-JP in normal PRODUCTION mode",
+      "explicit": "ja-JP",
+      "account": null,
+      "guest": null,
+      "suggestion": null,
+      "mode": "PRODUCTION",
+      "expectedEffective": "en-PH",
+      "expectedSource": "DEFAULT",
+      "result": "PASS",
+      "notes": "ja-JP is REGISTERED and is BLOCKED from Production activation"
+    },
+    {
+      "scenario": "Explicit ja-JP in controlled QA mode",
+      "explicit": "ja-JP",
+      "account": null,
+      "guest": null,
+      "suggestion": null,
+      "mode": "QA",
+      "expectedEffective": "en-PH",
+      "expectedSource": "DEFAULT",
+      "result": "PASS",
+      "notes": "ja-JP is REGISTERED and is BLOCKED even in QA mode (speculative metadata only)"
+    },
+    {
+      "scenario": "Malformed BCP-47 explicit tag submitted",
+      "explicit": "invalid_tag!@#",
+      "account": null,
+      "guest": null,
+      "suggestion": null,
+      "mode": "PRODUCTION",
+      "expectedEffective": "en-PH",
+      "expectedSource": "DEFAULT",
+      "result": "PASS",
+      "notes": "Malformed tag fails closed safely to platform default"
+    },
+    {
+      "scenario": "Ineligible Account preference falls through to valid Guest preference",
+      "explicit": null,
+      "account": "ja-JP",
+      "guest": "en-PH",
+      "suggestion": null,
+      "mode": "PRODUCTION",
+      "expectedEffective": "en-PH",
+      "expectedSource": "GUEST",
+      "result": "PASS",
+      "notes": "Account candidate ja-JP is ineligible in Production, so resolution falls through to Guest candidate en-PH"
+    }
+  ],
+  "summary": {
+    "totalScenarios": 12,
+    "passedScenarios": 12,
+    "failedScenarios": 0
+  }
+}
