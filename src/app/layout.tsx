@@ -6,6 +6,8 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import AuthProvider from "@/components/providers/AuthProvider";
+import { getServerTranslation } from "@/lib/glcc/i18n/server";
+import { TranslationProvider } from "@/lib/glcc/i18n/context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -47,23 +49,27 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { locale, direction, t } = await getServerTranslation();
+
   return (
-    <html lang="en" className="overflow-x-hidden max-w-[100vw]">
+    <html lang={locale} dir={direction} className="overflow-x-hidden max-w-[100vw]">
       <body className={`${inter.className} min-h-screen flex flex-col bg-slate-50 text-slate-900 overflow-x-hidden w-full max-w-[100vw]`}>
         <div role="alert" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold text-center py-1.5 px-4 shadow-sm z-50 relative">
-          RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.
+          {t('common.betaNotice')}
         </div>
         <AuthProvider>
-          <Header />
-          <main className="flex-1 flex flex-col relative">
-            {children}
-          </main>
-          <Footer />
+          <TranslationProvider initialLocale={locale}>
+            <Header />
+            <main className="flex-1 flex flex-col relative">
+              {children}
+            </main>
+            <Footer />
+          </TranslationProvider>
         </AuthProvider>
       </body>
     </html>

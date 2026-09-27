@@ -1,20 +1,17 @@
 /**
- * RENTipid GLCC v1.0 — Test Locale Fixture: fil-PH (Wikang Filipino)
+ * RENTipid GLCC v1.0.1 — Filipino Language Bundle: fil-PH (Wikang Filipino)
  *
- * TEST FIXTURE ONLY — Solely for automated fallback, pluralization, and formatting verification.
- * NOT PRODUCTION-ENABLED.
- *
- * Regulated and legally consequential copy (e.g. previewNotice payment disclosures)
- * is retained in controlled source language per Master Plan Section 7.3 controlled content boundary.
+ * PRODUCTION-ENABLED BUNDLE
+ * Complete natural Filipino translations for the RENTipid rental marketplace.
  */
 
 import type { TranslationBundle } from '../contracts';
 
-export const FIL_PH_FIXTURE_BUNDLE: TranslationBundle = Object.freeze({
+export const FIL_PH_BUNDLE: TranslationBundle = Object.freeze({
   locale: 'fil-PH',
   direction: 'ltr',
-  version: '1.1.0-fixture',
-  isFixture: true,
+  version: '1.0.1',
+  isFixture: false,
   messages: Object.freeze({
     // ── Global Preferences UX (P3A) ──
     'globalPreferences.title': 'Mga Pangkalahatang Kagustuhan',
@@ -462,5 +459,60 @@ export const FIL_PH_FIXTURE_BUNDLE: TranslationBundle = Object.freeze({
     'fx.checkout.quoteExpired': 'Nag-expire ang quote ng exchange rate. Paki-refresh ang rate para kumpirmahin.',
     'fx.checkout.refreshButton': 'I-refresh ang Rate',
     'fx.checkout.rateChangedNotice': 'Na-update ang exchange rate. Pakikumpirma bago magbayad.',
+
+    // ── Common Actions & Banners (v1.0.1) ──
+    'common.cancel': 'Kanselahin',
+    'common.apply': 'Ilapat',
+    'common.save': 'I-save',
+    'common.search': 'Maghanap',
+    'common.edit': 'I-edit',
+    'common.close': 'Isara',
+    'common.status': 'Katayuan',
+    'common.actions': 'Mga Aksyon',
+    'common.betaNotice': 'RENTipid Pribadong Beta | Aktibo ang Mock Payments | Naka-disable ang mga totoong transaksyon sa pananalapi.',
+
+    // ── Canonical Preferences Keys (v1.0.1) ──
+    'preferences.title': 'Mga Pandaigdigang Kagustuhan',
+    'preferences.subtitle': 'Piliin ang iyong nais na rehiyon, wika, at pananalapi sa pagpapakita.',
+    'preferences.region': 'Rehiyon',
+    'preferences.language': 'Wika',
+    'preferences.currency': 'Pananalapi',
+    'preferences.searchLanguages': 'Maghanap ng mga wika...',
+    'preferences.searchCountries': 'Maghanap ng mga bansa o rehiyon...',
+    'preferences.searchCurrencies': 'Maghanap ng mga pananalapi...',
+    'preferences.preview': 'Paunang Silip ng mga Kagustuhan',
+    'preferences.selectedRegion': 'Napiling Rehiyon',
+    'preferences.selectedLanguage': 'Napiling Wika',
+    'preferences.displayCurrency': 'Pananalapi sa Pagpapakita',
+    'preferences.sampleAmount': 'Halimbawang Halaga',
+    'preferences.sampleDate': 'Halimbawang Petsa',
+    'preferences.apply': 'Ilapat ang mga Kagustuhan',
+    'preferences.cancel': 'Kanselahin',
+
+    // ── Super Admin Dashboard (v1.0.1) ──
+    'superAdmin.title': 'Dashboard ng Super Admin',
+    'superAdmin.livePaymentPilot.title': 'Live Payment Pilot',
+    'superAdmin.livePaymentPilot.description': 'I-configure ang mga proteksyon sa pag-checkout gamit ang totoong pera at subaybayan ang live na pagsubok.',
+    'superAdmin.financeApprovals.title': 'Mga Pag-apruba sa Pananalapi',
+    'superAdmin.financeApprovals.description': 'Pamahalaan ang mga pandaigdigang setting para sa awtomatiko laban sa manwal na paglabas ng deposito at mga payout.',
+    'superAdmin.liveWebhooks.title': 'Mga Live Webhook',
+    'superAdmin.liveWebhooks.description': 'Real-time na monitor para sa mga papasok na kaganapan ng PayMongo Live webhook.',
+    'superAdmin.paymongoActivation.title': 'Pag-activate ng PayMongo',
+    'superAdmin.paymongoActivation.description': 'Subaybayan ang panlabas na KYC, kahandaan ng paraan ng pagbabayad, at deployment ng webhook.',
+    'superAdmin.productionDomain.title': 'Production Domain',
+    'superAdmin.productionDomain.description': 'Patunayan ang HTTPS deployment, DNS, at mga path ng URL para sa pinal na release.',
+    'superAdmin.soc.title': 'Security Operations Center',
+    'superAdmin.soc.description': 'Subaybayan ang mga kaganapan sa seguridad, mga panuntunan sa pagtukoy, mga alerto sa payo, ebidensya sa pag-audit at aktibidad ng pagsusuri ng SOC.',
+    'superAdmin.banner.title': 'Yugto 19B-C: Katayuan ng Live Payment Pilot',
+    'superAdmin.banner.blockedPayMongo': 'Nananatiling naka-block ang live na pagbabayad. Nakabinbin ang pag-apruba ng PayMongo.',
+    'superAdmin.banner.blockedHttps': 'Nananatiling naka-block ang live na pagbabayad. Kinakailangan ang Production HTTPS APP_BASE_URL.',
+    'superAdmin.banner.blockedMethod': 'Nananatiling naka-block ang live na pagbabayad. Walang aktibong paraan ng live na pagbabayad ng PayMongo.',
+    'superAdmin.banner.ready': 'Handa para sa isang kontroladong live payment pilot. Nananatiling kailangan ang pagsusuri sa pananalapi at mga kontrol sa emerhensya.',
   }),
 });
+
+// Backward-compatibility alias
+export const FIL_PH_FIXTURE_BUNDLE: TranslationBundle = {
+  ...FIL_PH_BUNDLE,
+  isFixture: true,
+};

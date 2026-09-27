@@ -3,8 +3,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import type { GlobalPreferencesModalProps } from './types';
 import { useGlobalPreferences } from './useGlobalPreferences';
-import { GLCC_COPY } from './glcc-copy';
+import { getGlccCopy } from './glcc-copy';
 import { defaultTranslationEngine } from '@/lib/glcc/i18n';
+import { useTranslation } from '@/lib/glcc/i18n/context';
 
 type PreferenceTab = 'country' | 'language' | 'currency';
 
@@ -53,6 +54,10 @@ export default function GlobalPreferencesModal({
     isOpen,
     isGuest,
   });
+
+  const { locale: contextLocale } = useTranslation();
+  const activeUiLocale = (draft.languageTag === 'fil-PH' || contextLocale === 'fil-PH' || initialData?.effectivePreference?.languageTag === 'fil-PH') ? 'fil-PH' : 'en-PH';
+  const copy = getGlccCopy(activeUiLocale);
 
   const handleCancel = useCallback(() => {
     resetDraft();
@@ -117,16 +122,16 @@ export default function GlobalPreferencesModal({
         <div className="flex items-start justify-between p-5 border-b border-gray-100 bg-gray-50/50">
           <div>
             <h2 id="glcc-modal-title" className="text-xl font-bold text-gray-900">
-              {GLCC_COPY.title}
+              {copy.title}
             </h2>
             <p id="glcc-modal-description" className="text-xs sm:text-sm text-gray-500 mt-0.5">
-              {GLCC_COPY.subtitle}
+              {copy.subtitle}
             </p>
           </div>
           <button
             type="button"
             onClick={handleCancel}
-            aria-label={GLCC_COPY.closeButton}
+            aria-label={copy.closeButton}
             className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition"
           >
             <svg
@@ -148,7 +153,7 @@ export default function GlobalPreferencesModal({
             className="px-5 py-2.5 bg-amber-50 border-b border-amber-200 text-xs text-amber-900 flex items-center gap-2"
           >
             <span aria-hidden="true">ℹ️</span>
-            <span>{GLCC_COPY.reconciliationNotice}</span>
+            <span>{copy.reconciliationNotice}</span>
           </div>
         )}
 
@@ -158,7 +163,7 @@ export default function GlobalPreferencesModal({
             className="px-5 py-2.5 bg-rose-50 border-b border-rose-200 text-xs text-rose-900 font-medium flex items-center gap-2"
           >
             <span aria-hidden="true">⚠️</span>
-            <span>{GLCC_COPY.errorConflict}</span>
+            <span>{copy.errorConflict}</span>
           </div>
         )}
 
@@ -178,7 +183,7 @@ export default function GlobalPreferencesModal({
             className="px-5 py-2.5 bg-gray-100 border-b border-gray-200 text-xs text-gray-700 flex items-center gap-2"
           >
             <span aria-hidden="true">🔒</span>
-            <span>{GLCC_COPY.featureDisabled}</span>
+            <span>{copy.featureDisabled}</span>
           </div>
         )}
 
@@ -190,6 +195,7 @@ export default function GlobalPreferencesModal({
             id="glcc-tab-country"
             aria-selected={activeTab === 'country'}
             aria-controls="glcc-panel-country"
+            aria-label={copy.countryTab === 'Region' ? 'Region' : `${copy.countryTab} (Region)`}
             onClick={() => setActiveTab('country')}
             className={`pb-2.5 px-3 text-xs sm:text-sm font-semibold border-b-2 transition flex items-center gap-1.5 ${
               activeTab === 'country'
@@ -197,7 +203,7 @@ export default function GlobalPreferencesModal({
                 : 'border-transparent text-gray-500 hover:text-gray-800'
             }`}
           >
-            <span>{GLCC_COPY.countryTab}</span>
+            <span>{copy.countryTab}</span>
             <span className="text-[10px] bg-gray-100 text-gray-700 font-bold px-1.5 py-0.5 rounded">
               {draft.countryCode}
             </span>
@@ -209,6 +215,7 @@ export default function GlobalPreferencesModal({
             id="glcc-tab-language"
             aria-selected={activeTab === 'language'}
             aria-controls="glcc-panel-language"
+            aria-label={copy.languageTab === 'Language' ? 'Language' : `${copy.languageTab} (Language)`}
             onClick={() => setActiveTab('language')}
             className={`pb-2.5 px-3 text-xs sm:text-sm font-semibold border-b-2 transition flex items-center gap-1.5 ${
               activeTab === 'language'
@@ -216,7 +223,7 @@ export default function GlobalPreferencesModal({
                 : 'border-transparent text-gray-500 hover:text-gray-800'
             }`}
           >
-            <span>{GLCC_COPY.languageTab}</span>
+            <span>{copy.languageTab}</span>
             <span className="text-[10px] bg-gray-100 text-gray-700 font-bold px-1.5 py-0.5 rounded">
               {draft.languageTag}
             </span>
@@ -228,6 +235,7 @@ export default function GlobalPreferencesModal({
             id="glcc-tab-currency"
             aria-selected={activeTab === 'currency'}
             aria-controls="glcc-panel-currency"
+            aria-label={copy.currencyTab === 'Currency' ? 'Currency' : `${copy.currencyTab} (Currency)`}
             onClick={() => setActiveTab('currency')}
             className={`pb-2.5 px-3 text-xs sm:text-sm font-semibold border-b-2 transition flex items-center gap-1.5 ${
               activeTab === 'currency'
@@ -235,7 +243,7 @@ export default function GlobalPreferencesModal({
                 : 'border-transparent text-gray-500 hover:text-gray-800'
             }`}
           >
-            <span>{GLCC_COPY.currencyTab}</span>
+            <span>{copy.currencyTab}</span>
             <span className="text-[10px] bg-gray-100 text-gray-700 font-bold px-1.5 py-0.5 rounded">
               {draft.displayCurrency}
             </span>
@@ -250,7 +258,7 @@ export default function GlobalPreferencesModal({
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
               </svg>
-              <span>{GLCC_COPY.loadingState}</span>
+              <span>{copy.loadingState}</span>
             </div>
           ) : (
             <>
@@ -263,7 +271,7 @@ export default function GlobalPreferencesModal({
                   className="space-y-3"
                 >
                   <label htmlFor="country-search-input" className="block text-xs font-semibold text-gray-700">
-                    {GLCC_COPY.countryLabel}
+                    {copy.countryLabel}
                   </label>
                   <input
                     ref={searchInputRef}
@@ -271,13 +279,13 @@ export default function GlobalPreferencesModal({
                     type="search"
                     value={countryQuery}
                     onChange={(e) => setCountryQuery(e.target.value)}
-                    placeholder={GLCC_COPY.countrySearchPlaceholder}
+                    placeholder={copy.countrySearchPlaceholder}
                     className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                   />
 
-                  <div role="radiogroup" aria-label={GLCC_COPY.countryLabel} className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+                  <div role="radiogroup" aria-label={copy.countryLabel} className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
                     {filteredCountries.length === 0 ? (
-                      <p className="text-xs text-gray-500 py-3 text-center">{GLCC_COPY.emptySearch}</p>
+                      <p className="text-xs text-gray-500 py-3 text-center">{copy.emptySearch}</p>
                     ) : (
                       filteredCountries.map((c) => {
                         const isSelected = draft.countryCode === c.code;
@@ -318,7 +326,7 @@ export default function GlobalPreferencesModal({
                   className="space-y-3"
                 >
                   <label htmlFor="language-search-input" className="block text-xs font-semibold text-gray-700">
-                    {GLCC_COPY.languageLabel}
+                    {copy.languageLabel}
                   </label>
                   <input
                     ref={searchInputRef}
@@ -326,13 +334,13 @@ export default function GlobalPreferencesModal({
                     type="search"
                     value={languageQuery}
                     onChange={(e) => setLanguageQuery(e.target.value)}
-                    placeholder={GLCC_COPY.languageSearchPlaceholder}
+                    placeholder={copy.languageSearchPlaceholder}
                     className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                   />
 
-                  <div role="radiogroup" aria-label={GLCC_COPY.languageLabel} className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+                  <div role="radiogroup" aria-label={copy.languageLabel} className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
                     {filteredLocales.length === 0 ? (
-                      <p className="text-xs text-gray-500 py-3 text-center">{GLCC_COPY.emptySearch}</p>
+                      <p className="text-xs text-gray-500 py-3 text-center">{copy.emptySearch}</p>
                     ) : (
                       filteredLocales.map((l) => {
                         const isSelected = draft.languageTag === l.tag;
@@ -372,12 +380,12 @@ export default function GlobalPreferencesModal({
                 >
                   <div className="flex items-center justify-between">
                     <label htmlFor="currency-search-input" className="block text-xs font-semibold text-gray-700">
-                      {GLCC_COPY.currencyLabel}
+                      {copy.currencyLabel}
                     </label>
                     <span className="text-[11px] text-gray-500">
                       {capabilities.currencyOverrideEnabled
-                        ? GLCC_COPY.currencyOverrideNote
-                        : GLCC_COPY.currencyFixedNote}
+                        ? copy.currencyOverrideNote
+                        : copy.currencyFixedNote}
                     </span>
                   </div>
 
@@ -389,13 +397,13 @@ export default function GlobalPreferencesModal({
                         type="search"
                         value={currencyQuery}
                         onChange={(e) => setCurrencyQuery(e.target.value)}
-                        placeholder={GLCC_COPY.currencySearchPlaceholder}
+                        placeholder={copy.currencySearchPlaceholder}
                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                       />
 
-                      <div role="radiogroup" aria-label={GLCC_COPY.currencyLabel} className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+                      <div role="radiogroup" aria-label={copy.currencyLabel} className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
                         {filteredCurrencies.length === 0 ? (
-                          <p className="text-xs text-gray-500 py-3 text-center">{GLCC_COPY.emptySearch}</p>
+                          <p className="text-xs text-gray-500 py-3 text-center">{copy.emptySearch}</p>
                         ) : (
                           filteredCurrencies.map((cur) => {
                             const isSelected = draft.displayCurrency === cur.code;
@@ -437,7 +445,7 @@ export default function GlobalPreferencesModal({
                         <span>{selectedCurrency?.name || draft.displayCurrency} ({draft.displayCurrency})</span>
                       </div>
                       <p className="text-gray-500 leading-relaxed">
-                        {GLCC_COPY.currencyFixedNote}
+                        {copy.currencyFixedNote}
                       </p>
                     </div>
                   )}
@@ -446,11 +454,11 @@ export default function GlobalPreferencesModal({
 
               {/* Preview Card */}
               <div
-                aria-label={GLCC_COPY.previewSection}
+                aria-label={copy.previewSection}
                 className="mt-4 p-4 rounded-xl bg-gray-50/70 border border-gray-200/80 space-y-2.5 text-xs text-gray-700"
               >
                 <div className="font-bold text-gray-900 flex items-center justify-between">
-                  <span>{GLCC_COPY.previewSection}</span>
+                  <span>{copy.previewSection}</span>
                   <span className="text-[10px] font-normal text-gray-500 uppercase tracking-wider">
                     Draft Configuration
                   </span>
@@ -458,31 +466,31 @@ export default function GlobalPreferencesModal({
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 border-t border-gray-200/60">
                   <div>
-                    <span className="block text-[11px] text-gray-500">{GLCC_COPY.previewCountry}</span>
+                    <span className="block text-[11px] text-gray-500">{copy.previewCountry}</span>
                     <span className="font-semibold text-gray-800">{selectedCountry?.name || draft.countryCode}</span>
                   </div>
                   <div>
-                    <span className="block text-[11px] text-gray-500">{GLCC_COPY.previewLanguage}</span>
+                    <span className="block text-[11px] text-gray-500">{copy.previewLanguage}</span>
                     <span className="font-semibold text-gray-800">{selectedLocale?.name || draft.languageTag}</span>
                   </div>
                   <div>
-                    <span className="block text-[11px] text-gray-500">{GLCC_COPY.previewCurrency}</span>
+                    <span className="block text-[11px] text-gray-500">{copy.previewCurrency}</span>
                     <span className="font-semibold text-gray-800">{draft.displayCurrency}</span>
                   </div>
                   <div>
-                    <span className="block text-[11px] text-gray-500">{GLCC_COPY.previewSampleAmount}</span>
+                    <span className="block text-[11px] text-gray-500">{copy.previewSampleAmount}</span>
                     <span className="font-bold text-blue-600">{previewFormattedAmount}</span>
                   </div>
                 </div>
 
                 <div className="text-[11px] text-gray-500 flex items-center justify-between pt-1">
                   <span>
-                    {GLCC_COPY.previewSampleDate}: <span className="text-gray-700 font-medium">{previewFormattedDate}</span>
+                    {copy.previewSampleDate}: <span className="text-gray-700 font-medium">{previewFormattedDate}</span>
                   </span>
                 </div>
 
                 <p className="text-[10px] text-gray-400 italic pt-1 border-t border-gray-100 leading-tight">
-                  {GLCC_COPY.previewNotice}
+                  {copy.previewNotice}
                 </p>
               </div>
             </>
@@ -497,7 +505,7 @@ export default function GlobalPreferencesModal({
             disabled={isSaving}
             className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg border border-gray-300 transition disabled:opacity-50"
           >
-            {GLCC_COPY.cancelButton}
+            {copy.cancelButton}
           </button>
           <button
             type="button"
@@ -511,7 +519,7 @@ export default function GlobalPreferencesModal({
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
               </svg>
             )}
-            <span>{isSaving ? GLCC_COPY.savingButton : GLCC_COPY.applyButton}</span>
+            <span>{isSaving ? copy.savingButton : copy.applyButton}</span>
           </button>
         </div>
       </div>

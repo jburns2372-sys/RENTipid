@@ -34,7 +34,9 @@ import {
 import {
   parseGuestPreferenceCookie,
   extractHeaderSuggestions,
+  serializeGuestPreferenceCookie,
   GUEST_PREFERENCE_COOKIE_NAME,
+  COOKIE_EXPIRATION_MS,
 } from '../../../../lib/glcc/server-adapter';
 import {
   reconcilePreferencesOnSignIn,
@@ -287,6 +289,7 @@ export function createPreferencesRouteHandlers(deps: PreferencesRouteDependencie
 
       const registries = getRegistries();
       const db = getDb();
+      const cookieSecret = getSecret();
 
       const languageTag = typeof body.languageTag === 'string' ? body.languageTag.trim() : undefined;
       const countryCode = typeof body.countryCode === 'string' ? body.countryCode.trim().toUpperCase() : undefined;
@@ -477,7 +480,7 @@ export function createPreferencesRouteHandlers(deps: PreferencesRouteDependencie
         registries
       );
 
-      return NextResponse.json({
+      const response = NextResponse.json({
         status: 'SUCCESS',
         savedPreference: savedRecord,
         effectivePreference,
@@ -492,6 +495,41 @@ export function createPreferencesRouteHandlers(deps: PreferencesRouteDependencie
           reason: policyResult.reason,
         },
       });
+
+      // Synchronize lightweight and signed guest cookies with authenticated account preference
+      const isHttps = process.env.NODE_ENV === 'production';
+      response.cookies.set({
+        name: 'rentipid_locale',
+        value: effectivePreference.languageTag,
+        httpOnly: false,
+        secure: isHttps,
+        sameSite: 'lax',
+        path: '/',
+        maxAge: Math.floor(COOKIE_EXPIRATION_MS / 1000),
+      });
+
+      const fullCookie = serializeGuestPreferenceCookie(
+        {
+          languageTag: effectivePreference.languageTag,
+          countryCode: effectivePreference.countryCode,
+          displayCurrency: effectivePreference.displayCurrency,
+          isManualDisplayOverride: savedRecord.isManualDisplayOverride,
+          timezone: effectivePreference.timezone,
+        },
+        cookieSecret
+      );
+
+      response.cookies.set({
+        name: GUEST_PREFERENCE_COOKIE_NAME,
+        value: fullCookie,
+        httpOnly: true,
+        secure: isHttps,
+        sameSite: 'lax',
+        path: '/',
+        maxAge: Math.floor(COOKIE_EXPIRATION_MS / 1000),
+      });
+
+      return response;
     } catch (error) {
       console.error('[GLCC API] Error in PATCH/PUT /api/me/preferences:', error);
       return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

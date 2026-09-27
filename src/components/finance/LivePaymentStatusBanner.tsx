@@ -1,10 +1,13 @@
 import React from 'react';
 import { PrismaClient } from '@prisma/client';
 import { AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 const prisma = new PrismaClient();
 
 export default async function LivePaymentStatusBanner() {
+  const { t } = await getServerTranslation();
+
   const settingsRaw = await prisma.systemSetting.findMany({
     where: {
       setting_key: {
@@ -30,14 +33,14 @@ export default async function LivePaymentStatusBanner() {
   let isReady = false;
 
   if (!isApproved) {
-    bannerMessage = "Live payment remains blocked. PayMongo approval is pending.";
+    bannerMessage = t('superAdmin.banner.blockedPayMongo');
   } else if (!isHttps) {
-    bannerMessage = "Live payment remains blocked. Production HTTPS APP_BASE_URL is required.";
+    bannerMessage = t('superAdmin.banner.blockedHttps');
   } else if (!isMethodActive) {
-    bannerMessage = "Live payment remains blocked. No PayMongo live payment method is active.";
+    bannerMessage = t('superAdmin.banner.blockedMethod');
   } else {
     isReady = true;
-    bannerMessage = "Ready for one controlled live payment pilot. Finance review and emergency controls remain required.";
+    bannerMessage = t('superAdmin.banner.ready');
   }
 
   return (
@@ -47,7 +50,7 @@ export default async function LivePaymentStatusBanner() {
       </div>
       <div>
         <h3 className={`font-bold ${isReady ? 'text-green-800' : 'text-red-800'}`}>
-          Phase 19B-C: Live Payment Pilot Status
+          {t('superAdmin.banner.title')}
         </h3>
         <p className={`text-sm mt-1 ${isReady ? 'text-green-700' : 'text-red-700'}`}>
           {bannerMessage}

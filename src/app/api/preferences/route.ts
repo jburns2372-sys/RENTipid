@@ -371,6 +371,16 @@ export function createGuestPreferencesRouteHandlers(deps: GuestPreferencesRouteD
         secure: process.env.NODE_ENV === 'production',
       });
 
+      response.cookies.set({
+        name: 'rentipid_locale',
+        value: effectivePreference.languageTag,
+        path: '/',
+        maxAge: 30 * 24 * 60 * 60, // 30 days
+        sameSite: 'lax',
+        httpOnly: false,
+        secure: process.env.NODE_ENV === 'production',
+      });
+
       return response;
     } catch (error) {
       console.error('[GLCC API] Error in PATCH/PUT /api/preferences:', error);

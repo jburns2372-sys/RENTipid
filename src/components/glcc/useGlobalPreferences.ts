@@ -14,7 +14,7 @@ import type {
   CurrencyOption,
 } from './types';
 import { GLCC_COPY } from './glcc-copy';
-import { formatCurrency, formatDate } from '@/lib/glcc/i18n';
+import { formatCurrency, formatDate, defaultTranslationEngine } from '@/lib/glcc/i18n';
 
 export interface UseGlobalPreferencesOptions {
   readonly initialData?: GlobalPreferencesApiResponse;
@@ -307,6 +307,13 @@ export function useGlobalPreferences(options: UseGlobalPreferencesOptions = {}) 
       const data: GlobalPreferencesApiResponse = await res.json();
 
       if (res.status === 200 && data.effectivePreference) {
+        const effectiveLng = data.effectivePreference.languageTag;
+        defaultTranslationEngine.setActiveLocale(effectiveLng);
+        if (typeof document !== 'undefined') {
+          document.cookie = `rentipid_locale=${encodeURIComponent(effectiveLng)}; path=/; max-age=2592000; SameSite=Lax`;
+          document.documentElement.lang = effectiveLng;
+          document.documentElement.dir = defaultTranslationEngine.getDirection(effectiveLng);
+        }
         setServerPreference(data.effectivePreference);
         setAccountPreference(data.accountPreference);
         if (data.accountPreference?.version) {

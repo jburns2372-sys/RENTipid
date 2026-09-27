@@ -22,7 +22,7 @@ import type {
   TranslationEngineOptions,
 } from './contracts';
 import { EN_PH_BUNDLE } from './locales/en-PH';
-import { FIL_PH_FIXTURE_BUNDLE } from './locales/fil-PH';
+import { FIL_PH_BUNDLE, FIL_PH_FIXTURE_BUNDLE } from './locales/fil-PH';
 
 /**
  * Derives a clean humanized presentation fallback from a dot-notated key to prevent
@@ -45,6 +45,7 @@ export function deriveSafeFallback(key: string): string {
 export class TranslationEngine {
   private bundles: Map<string, TranslationBundle> = new Map();
   private defaultLocale: string = 'en-PH';
+  private activeLocale?: string;
   private onMissingKey?: (key: string, locale: string) => void;
   private onFallbackUsed?: (key: string, requestedLocale: string, fallbackLocale: string) => void;
 
@@ -57,7 +58,21 @@ export class TranslationEngine {
 
     // Register baseline bundles
     this.registerBundle(EN_PH_BUNDLE);
-    this.registerBundle(FIL_PH_FIXTURE_BUNDLE);
+    this.registerBundle(FIL_PH_BUNDLE || FIL_PH_FIXTURE_BUNDLE);
+  }
+
+  /**
+   * Sets the global active runtime locale (client context synchronization).
+   */
+  public setActiveLocale(locale?: string): void {
+    this.activeLocale = locale ? locale.trim() : undefined;
+  }
+
+  /**
+   * Gets the active runtime locale, falling back to defaultLocale.
+   */
+  public getActiveLocale(): string {
+    return this.activeLocale || this.defaultLocale;
   }
 
   /**
@@ -124,7 +139,7 @@ export class TranslationEngine {
     requestedLocale?: string,
     fallbackText?: string
   ): string {
-    const targetLocale = (requestedLocale || this.defaultLocale).trim();
+    const targetLocale = (requestedLocale || this.activeLocale || this.defaultLocale).trim();
     const normalizedTarget = targetLocale.toLowerCase();
 
     // 1. Exact locale match
@@ -189,6 +204,20 @@ export class TranslationEngine {
 
 // Global singleton instance with default platform configuration
 export const defaultTranslationEngine = new TranslationEngine();
+
+/**
+ * Convenience helper to set the active platform locale.
+ */
+export function setActiveLocale(locale?: string): void {
+  defaultTranslationEngine.setActiveLocale(locale);
+}
+
+/**
+ * Convenience helper to get the active platform locale.
+ */
+export function getActiveLocale(): string {
+  return defaultTranslationEngine.getActiveLocale();
+}
 
 /**
  * Convenience helper to translate using the default engine.
