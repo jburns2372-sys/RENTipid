@@ -140,6 +140,6 @@ Under the RENTipid Universal Promotion & Closure Standard:
 
 - **Branch:** `fix/glcc-v1.0.1-fil-ph-localization`
 - **Base Commit (Frozen GLCC v1.0):** `6ae374cf8558fe32450b8f4d0bc03603a1185006`
-- **G5 Checkpoint Commit SHA:** `1112ff332c4df06a99e97f565865c2cfb482ce35`
+- **G5 Checkpoint Commit SHA:** `9a1e55affb7bbbfead0c380ea340b901d6271b01`
 - **Status:** PASS — LOCAL CHECKPOINT FROZEN (G1–G5 Complete)
 
