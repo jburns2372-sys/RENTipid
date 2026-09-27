@@ -27,6 +27,8 @@
 import {
   resolveEffectiveLocale,
   isLocaleEligibleForMode,
+  isProductionRuntime,
+  resolveEffectiveResolverMode,
   mapLocaleSourceToPreferenceSource,
   mapPreferenceSourceToLocaleSource,
   type EffectiveLocaleResolutionInput,
@@ -652,4 +654,122 @@ describe('RENTipid GLCC v1.0.1 — P3 Authoritative Locale Resolver', () => {
       expect(mapPreferenceSourceToLocaleSource('PLATFORM_DEFAULT')).toBe('DEFAULT');
     });
   });
+
+  describe('12. Production Locale Resolver Firewall & Untrusted Input Negative Tests', () => {
+    it('isProductionRuntime correctly identifies production environments and fails closed', () => {
+      expect(isProductionRuntime({ VERCEL_ENV: 'production' })).toBe(true);
+      expect(isProductionRuntime({ APP_ENV: 'production' })).toBe(true);
+      expect(isProductionRuntime({ APP_ENV: 'prod' })).toBe(true);
+      expect(isProductionRuntime({ NODE_ENV: 'production' })).toBe(true);
+
+      // Non-production runtimes
+      expect(isProductionRuntime({ VERCEL_ENV: 'preview', NODE_ENV: 'production' })).toBe(false);
+      expect(isProductionRuntime({ APP_ENV: 'preview', NODE_ENV: 'production' })).toBe(false);
+      expect(isProductionRuntime({ NODE_ENV: 'test' })).toBe(false);
+      expect(isProductionRuntime({ NODE_ENV: 'development' })).toBe(false);
+    });
+
+    it('resolveEffectiveResolverMode forces PRODUCTION in Production environments regardless of inputs', () => {
+      const prodEnv = { NODE_ENV: 'production', VERCEL_ENV: 'production', GLCC_RESOLVER_MODE: 'QA' };
+
+      // Attempting QA via candidate argument
+      expect(resolveEffectiveResolverMode('QA', { env: prodEnv })).toBe('PRODUCTION');
+      // Attempting QA via undefined/null
+      expect(resolveEffectiveResolverMode(null, { env: prodEnv })).toBe('PRODUCTION');
+      // Attempting QA via environment variable in production
+      expect(resolveEffectiveResolverMode(undefined, { env: prodEnv })).toBe('PRODUCTION');
+    });
+
+    it('A. Production mode + explicit fil-PH (QA_REQUIRED) => fil-PH NOT activated', () => {
+      const prodEnv = { NODE_ENV: 'production', VERCEL_ENV: 'production' };
+      const result = resolveEffectiveLocale(
+        { explicitLocale: 'fil-PH' },
+        defaultRegistry,
+        { env: prodEnv }
+      );
+
+      expect(result.effectiveLocale).toBe('en-PH');
+      expect(result.source).toBe('DEFAULT');
+      expect(result.resolverMode).toBe('PRODUCTION');
+    });
+
+    it('B. Production mode + explicit ja-JP (REGISTERED) => ja-JP NOT activated', () => {
+      const prodEnv = { NODE_ENV: 'production', VERCEL_ENV: 'production' };
+      const result = resolveEffectiveLocale(
+        { explicitLocale: 'ja-JP' },
+        defaultRegistry,
+        { env: prodEnv }
+      );
+
+      expect(result.effectiveLocale).toBe('en-PH');
+      expect(result.source).toBe('DEFAULT');
+      expect(result.resolverMode).toBe('PRODUCTION');
+    });
+
+    it('C. Production request attempting resolverMode=QA => ignored and forced to PRODUCTION', () => {
+      const prodEnv = { NODE_ENV: 'production', VERCEL_ENV: 'production' };
+      const result = resolveEffectiveLocale(
+        {
+          explicitLocale: 'fil-PH',
+          resolverMode: 'QA', // Untrusted caller injection attempt
+        },
+        defaultRegistry,
+        { env: prodEnv }
+      );
+
+      // Firewall forces PRODUCTION mode, blocking fil-PH
+      expect(result.resolverMode).toBe('PRODUCTION');
+      expect(result.effectiveLocale).toBe('en-PH');
+      expect(result.source).toBe('DEFAULT');
+    });
+
+    it('D. Guest cookie attempting to inject resolverMode is rejected by tamper verification', () => {
+      // Craft a signed-like or forged cookie with forbidden key 'resolverMode'
+      const payloadWithForbiddenKey = {
+        v: 1,
+        lng: 'fil-PH',
+        resolverMode: 'QA',
+        ts: Date.now(),
+      };
+      const json = JSON.stringify(payloadWithForbiddenKey);
+      const encoded = Buffer.from(json).toString('base64url');
+      const forgedCookie = `${encoded}.dummySignature`;
+
+      const parsed = parseGuestPreferenceCookie(forgedCookie);
+      // parseGuestPreferenceCookie fails closed
+      expect(parsed.isValid).toBe(false);
+    });
+
+    it('E. Production server helper cannot derive QA mode from untrusted request data', () => {
+      const prodEnv = { NODE_ENV: 'production', VERCEL_ENV: 'production' };
+      const result = resolveEffectiveResolverMode(undefined, { env: prodEnv });
+      expect(result).toBe('PRODUCTION');
+    });
+
+    it('F. QA-required locale can still be used in controlled test / QA environment', () => {
+      const testEnv = { NODE_ENV: 'test' };
+      const result = resolveEffectiveLocale(
+        { explicitLocale: 'fil-PH', resolverMode: 'QA' },
+        defaultRegistry,
+        { env: testEnv }
+      );
+
+      expect(result.resolverMode).toBe('QA');
+      expect(result.effectiveLocale).toBe('fil-PH');
+      expect(result.source).toBe('EXPLICIT');
+      expect(result.releaseStatus).toBe('QA_REQUIRED');
+    });
+
+    it('G. Registry releaseStatus remains strictly unchanged after firewall checks', () => {
+      const rawFil = defaultRegistry.locales.getRaw ? defaultRegistry.locales.getRaw('fil-PH') : null;
+      expect(rawFil?.releaseStatus).toBe('QA_REQUIRED');
+
+      const rawJa = defaultRegistry.locales.getRaw ? defaultRegistry.locales.getRaw('ja-JP') : null;
+      expect(rawJa?.releaseStatus).toBe('REGISTERED');
+
+      const rawEn = defaultRegistry.locales.getRaw ? defaultRegistry.locales.getRaw('en-PH') : null;
+      expect(rawEn?.releaseStatus).toBe('PRODUCTION_READY');
+    });
+  });
 });
+

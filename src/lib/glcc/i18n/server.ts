@@ -7,6 +7,7 @@ import {
 import { defaultTranslationEngine } from './engine';
 import {
   resolveEffectiveLocale,
+  resolveEffectiveResolverMode,
   type ResolverMode,
 } from '../locale-resolver';
 import { getDefaultRegistryContext } from '../default-registries';
@@ -72,9 +73,7 @@ export async function getServerLocale(options?: GetServerLocaleOptions): Promise
     // cookies() may throw outside request lifecycle (e.g. static generation)
   }
 
-  const resolverMode: ResolverMode =
-    options?.resolverMode ??
-    (process.env.GLCC_RESOLVER_MODE === 'QA' ? 'QA' : 'PRODUCTION');
+  const resolverMode: ResolverMode = resolveEffectiveResolverMode(options?.resolverMode);
 
   const resolved = resolveEffectiveLocale(
     {

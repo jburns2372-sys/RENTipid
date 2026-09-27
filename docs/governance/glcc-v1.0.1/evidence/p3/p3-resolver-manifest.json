@@ -1,13 +1,15 @@
 {
-  "manifestVersion": "1.0.0",
+  "manifestVersion": "1.0.1",
   "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
   "phase": "P3 — AUTHORITATIVE LOCALE RESOLVER",
-  "generatedAt": "2026-09-27T18:10:00+08:00",
+  "updatedAt": "2026-09-27T23:50:00+08:00",
   "authoritativeResolver": {
     "module": "src/lib/glcc/locale-resolver.ts",
     "primaryFunction": "resolveEffectiveLocale",
     "helperFunctions": [
       "isLocaleEligibleForMode",
+      "isProductionRuntime",
+      "resolveEffectiveResolverMode",
       "mapLocaleSourceToPreferenceSource",
       "mapPreferenceSourceToLocaleSource"
     ],
@@ -49,6 +51,57 @@
       "scope": "Language context only (zero authority over country, currency, payment, or permissions)"
     }
   },
+  "productionModeFirewall": {
+    "status": "ENFORCED",
+    "rule": "PRODUCTION DEPLOYMENT => resolverMode IMMUTABLY FORCED TO PRODUCTION",
+    "runtimeDetection": {
+      "function": "isProductionRuntime(env)",
+      "signals": [
+        "VERCEL_ENV === 'production'",
+        "APP_ENV === 'production' | 'prod'",
+        "NODE_ENV === 'production' (unless running in explicit Preview or Test)"
+      ],
+      "failClosed": true
+    },
+    "untrustedInputsBlocked": [
+      "Request body JSON field 'resolverMode', 'localeMode', 'qaMode'",
+      "Query parameter 'resolverMode', 'localeMode', 'qaMode'",
+      "Guest cookie 'rentipid_pref' payload injection (constant-time verification rejects forbidden keys)",
+      "Unsigned cookie 'rentipid_locale' (contains only locale tag string)",
+      "Client state / browser localStorage (client components pass string initialLocale only)",
+      "Untrusted HTTP headers"
+    ],
+    "apiGatewayDefense": {
+      "guestPreferencesApi": "PROHIBITED_GUEST_UPDATE_KEYS rejects resolverMode, localeMode, qaMode with HTTP 400",
+      "accountPreferencesApi": "PROHIBITED_UPDATE_KEYS rejects resolverMode, localeMode, qaMode with HTTP 400"
+    }
+  },
+  "qaModeAuthority": {
+    "trustedSources": [
+      {
+        "source": "TEST_ONLY",
+        "environment": "NODE_ENV === 'test'",
+        "mechanism": "Internal test runner harness (Jest) explicitly invoking resolver with controlled options"
+      },
+      {
+        "source": "LOCAL_DEV_ONLY",
+        "environment": "NODE_ENV === 'development'",
+        "mechanism": "Local environment variable GLCC_ENABLE_LOCAL_QA_MODE === 'true' or trusted dev caller"
+      },
+      {
+        "source": "PREVIEW_QA_ONLY",
+        "environment": "VERCEL_ENV === 'preview'",
+        "mechanism": "Trusted deployment environment variable GLCC_PREVIEW_QA_ENABLED === 'true' or internal Preview test harness"
+      }
+    ],
+    "untrustedSourcesAllowed": 0,
+    "productionReachablePaths": 0
+  },
+  "previewQaPolicy": {
+    "policy": "CONTROLLED_DEPLOYMENT_FLAG",
+    "mechanism": "VERCEL_ENV === 'preview' AND GLCC_PREVIEW_QA_ENABLED === 'true'",
+    "nonUniversal": "Ordinary Preview deployments without this flag run in standard PRODUCTION resolver mode. Preview users do not automatically receive QA mode permissions."
+  },
   "precedenceOrder": [
     { "tier": 1, "source": "EXPLICIT", "preferenceSource": "EXPLICIT_CHOICE", "description": "Explicit current user selection" },
     { "tier": 2, "source": "ACCOUNT", "preferenceSource": "ACCOUNT_SAVED", "description": "Authenticated account saved preference" },
@@ -76,7 +129,7 @@
     "rentipid_pref": {
       "role": "Authoritative signed guest preference cookie",
       "byteLimit": 256,
-      "security": "HMAC-SHA256 signature verified in constant-time; rejects userId, role, chargeCurrency, permissions"
+      "security": "HMAC-SHA256 signature verified in constant-time; rejects userId, role, chargeCurrency, permissions, resolverMode, localeMode, qaMode"
     },
     "rentipid_locale": {
       "role": "Lightweight SSR and edge performance mirror",

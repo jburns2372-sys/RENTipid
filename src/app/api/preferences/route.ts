@@ -61,6 +61,12 @@ const PROHIBITED_GUEST_UPDATE_KEYS = Object.freeze([
   'updated_at',
   'email',
   'session',
+  'resolverMode',
+  'resolver_mode',
+  'localeMode',
+  'locale_mode',
+  'qaMode',
+  'qa_mode',
 ]);
 
 export function createGuestPreferencesRouteHandlers(deps: GuestPreferencesRouteDependencies = {}) {

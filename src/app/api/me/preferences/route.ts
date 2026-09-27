@@ -82,6 +82,12 @@ const PROHIBITED_UPDATE_KEYS = Object.freeze([
   'id',
   'created_at',
   'updated_at',
+  'resolverMode',
+  'resolver_mode',
+  'localeMode',
+  'locale_mode',
+  'qaMode',
+  'qa_mode',
 ]);
 
 export function createPreferencesRouteHandlers(deps: PreferencesRouteDependencies = {}) {

@@ -149,23 +149,103 @@ function sanitizeString(val: unknown): string | null {
 }
 
 /**
+ * Resolves whether the current execution context represents a Production deployment.
+ * Enforces strict fail-closed evaluation:
+ * - VERCEL_ENV === 'production' => true
+ * - APP_ENV === 'production' | 'prod' => true
+ * - NODE_ENV === 'production' (unless running in explicit Preview or Test) => true
+ */
+export function isProductionRuntime(env: Record<string, string | undefined> = process.env): boolean {
+  const vercelEnv = env.VERCEL_ENV?.trim().toLowerCase();
+  if (vercelEnv === 'production') return true;
+
+  const appEnv = env.APP_ENV?.trim().toLowerCase();
+  if (appEnv === 'production' || appEnv === 'prod') return true;
+
+  const nodeEnv = env.NODE_ENV?.trim().toLowerCase();
+  if (nodeEnv === 'production' && vercelEnv !== 'preview' && appEnv !== 'preview') {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Authoritatively determines the effective resolverMode enforcing the Production Firewall.
+ *
+ * Invariants:
+ * 1. In a Production deployment, resolverMode is IMMUTABLY FORCED to 'PRODUCTION' — fail closed.
+ *    No user preference, request input, query parameter, body field, cookie, header,
+ *    or accidental environment configuration can switch a Production runtime to QA mode.
+ * 2. In non-Production runtimes:
+ *    - In Jest / CI Test Runner (NODE_ENV === 'test'): trustedCallerMode is honored for unit/integration tests.
+ *    - In Local Development (NODE_ENV === 'development'): QA mode is available if GLCC_ENABLE_LOCAL_QA_MODE === 'true' or trustedCallerMode === 'QA'.
+ *    - In Controlled Preview QA (VERCEL_ENV === 'preview'): QA mode is enabled strictly via trusted deployment configuration GLCC_PREVIEW_QA_ENABLED === 'true'.
+ * 3. Default fallback is always 'PRODUCTION'.
+ */
+export function resolveEffectiveResolverMode(
+  trustedModeCandidate?: ResolverMode | null,
+  options?: {
+    readonly env?: Record<string, string | undefined>;
+  }
+): ResolverMode {
+  const env = options?.env ?? process.env;
+
+  // 1. Production Firewall: fail closed to 'PRODUCTION'
+  if (isProductionRuntime(env)) {
+    return 'PRODUCTION';
+  }
+
+  // 2. Non-Production Environments:
+  const nodeEnv = env.NODE_ENV?.trim().toLowerCase();
+  const vercelEnv = env.VERCEL_ENV?.trim().toLowerCase();
+
+  // Test Runner harness (e.g. Jest unit tests)
+  if (nodeEnv === 'test') {
+    if (trustedModeCandidate === 'QA' || env.GLCC_RESOLVER_MODE === 'QA') {
+      return 'QA';
+    }
+    return 'PRODUCTION';
+  }
+
+  // Controlled Preview QA deployment
+  if (vercelEnv === 'preview') {
+    if (env.GLCC_PREVIEW_QA_ENABLED === 'true' || trustedModeCandidate === 'QA') {
+      return 'QA';
+    }
+    return 'PRODUCTION';
+  }
+
+  // Local Development
+  if (nodeEnv === 'development' || !nodeEnv) {
+    if (env.GLCC_ENABLE_LOCAL_QA_MODE === 'true' || trustedModeCandidate === 'QA') {
+      return 'QA';
+    }
+    return 'PRODUCTION';
+  }
+
+  return 'PRODUCTION';
+}
+
+/**
  * Pure, authoritative function resolving the effective application locale.
  * Strictly adheres to 5-tier precedence and registry governance.
  */
 export function resolveEffectiveLocale(
   input: EffectiveLocaleResolutionInput,
   registries?: RegistryContext | LocaleRegistry,
-  options?: { resolverMode?: ResolverMode; asOf?: Date | string }
+  options?: { resolverMode?: ResolverMode; asOf?: Date | string; env?: Record<string, string | undefined> }
 ): EffectiveLocaleResult {
   const resolvedAt = (options?.asOf || input.asOf
     ? new Date(options?.asOf || input.asOf!)
     : new Date()
   ).toISOString();
 
-  const mode: ResolverMode =
-    input.resolverMode ??
-    options?.resolverMode ??
-    (process.env.GLCC_RESOLVER_MODE === 'QA' ? 'QA' : 'PRODUCTION');
+  // Determine effective mode through Production Firewall authority
+  const trustedCandidate = options?.resolverMode ?? input.resolverMode;
+  const mode: ResolverMode = resolveEffectiveResolverMode(trustedCandidate, {
+    env: options?.env,
+  });
 
   const localeRegistry: LocaleRegistry =
     registries && 'locales' in registries

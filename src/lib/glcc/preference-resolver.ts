@@ -34,6 +34,8 @@ import type { RegistryContext } from './registry-contracts';
 import {
   resolveEffectiveLocale,
   isLocaleEligibleForMode,
+  isProductionRuntime,
+  resolveEffectiveResolverMode,
   mapLocaleSourceToPreferenceSource,
   mapPreferenceSourceToLocaleSource,
   type ResolverMode,
@@ -45,6 +47,8 @@ import {
 export {
   resolveEffectiveLocale,
   isLocaleEligibleForMode,
+  isProductionRuntime,
+  resolveEffectiveResolverMode,
   mapLocaleSourceToPreferenceSource,
   mapPreferenceSourceToLocaleSource,
   type ResolverMode,

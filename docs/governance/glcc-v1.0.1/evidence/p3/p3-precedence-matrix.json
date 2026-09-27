@@ -1,7 +1,8 @@
 {
-  "matrixVersion": "1.0.0",
+  "matrixVersion": "1.0.1",
   "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
   "phase": "P3 — AUTHORITATIVE LOCALE RESOLVER",
+  "updatedAt": "2026-09-27T23:50:00+08:00",
   "scenarios": [
     {
       "scenario": "All tiers provided in Production mode",
@@ -146,11 +147,49 @@
       "expectedSource": "GUEST",
       "result": "PASS",
       "notes": "Account candidate ja-JP is ineligible in Production, so resolution falls through to Guest candidate en-PH"
+    },
+    {
+      "scenario": "Production runtime with untrusted caller injection attempt of resolverMode=QA",
+      "explicit": "fil-PH",
+      "account": null,
+      "guest": null,
+      "suggestion": null,
+      "mode": "QA (injected)",
+      "environment": "PRODUCTION",
+      "expectedEffective": "en-PH",
+      "expectedSource": "DEFAULT",
+      "result": "PASS",
+      "notes": "Production Firewall detects Production runtime and forces mode=PRODUCTION, blocking fil-PH"
+    },
+    {
+      "scenario": "Guest cookie attempting to inject forbidden key resolverMode",
+      "explicit": null,
+      "account": null,
+      "guest": "{ v: 1, lng: 'fil-PH', resolverMode: 'QA' }",
+      "suggestion": null,
+      "mode": "PRODUCTION",
+      "expectedEffective": "en-PH",
+      "expectedSource": "DEFAULT",
+      "result": "PASS",
+      "notes": "parseGuestPreferenceCookie detects forbidden key 'resolverMode' and rejects cookie (isValid=false)"
+    },
+    {
+      "scenario": "Production server helper execution with accidental GLCC_RESOLVER_MODE=QA",
+      "explicit": "fil-PH",
+      "account": null,
+      "guest": null,
+      "suggestion": null,
+      "mode": "PRODUCTION (forced)",
+      "environment": "PRODUCTION",
+      "expectedEffective": "en-PH",
+      "expectedSource": "DEFAULT",
+      "result": "PASS",
+      "notes": "isProductionRuntime forces PRODUCTION mode even if GLCC_RESOLVER_MODE=QA was set in env"
     }
   ],
   "summary": {
-    "totalScenarios": 12,
-    "passedScenarios": 12,
+    "totalScenarios": 15,
+    "passedScenarios": 15,
     "failedScenarios": 0
   }
 }

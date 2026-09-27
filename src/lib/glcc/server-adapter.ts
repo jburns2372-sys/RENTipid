@@ -149,6 +149,7 @@ export function parseGuestPreferenceCookie(
     const forbiddenKeys = [
       'user_id', 'userId', 'role', 'roles', 'chargeCurrency', 'permissions',
       'email', 'id', 'token', 'sub', 'session',
+      'resolverMode', 'resolver_mode', 'localeMode', 'locale_mode', 'qaMode', 'qa_mode',
     ];
     for (const key of forbiddenKeys) {
       if (key in parsed) {
