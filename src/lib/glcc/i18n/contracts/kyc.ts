@@ -14,7 +14,10 @@ export const KYC_KEYS = [
   "kyc.proofOfOwnershipAuthorization",
   "kyc.file",
   "kyc.maxSize5mbFormats",
-  "kyc.myUploadedDocuments"
+  "kyc.myUploadedDocuments",
+  "kyc.requiredDocuments",
+  "kyc.documentType",
+  "kyc.noDocumentsUploadedYet"
 ] as const;
 
 export const KYC_EN_PH: Record<(typeof KYC_KEYS)[number], string> = {
@@ -29,5 +32,8 @@ export const KYC_EN_PH: Record<(typeof KYC_KEYS)[number], string> = {
   "kyc.proofOfOwnershipAuthorization": "Proof of Ownership / Authorization",
   "kyc.file": "File",
   "kyc.maxSize5mbFormats": "Max size: 5MB. Formats: PDF, JPG, PNG, WEBP.",
-  "kyc.myUploadedDocuments": "My Uploaded Documents"
+  "kyc.myUploadedDocuments": "My Uploaded Documents",
+  "kyc.requiredDocuments": "Required Documents",
+  "kyc.documentType": "Document Type",
+  "kyc.noDocumentsUploadedYet": "No documents uploaded yet."
 };

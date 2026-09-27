@@ -347,7 +347,9 @@ export const SOC_KEYS = [
   "soc.deduplication",
   "soc.validation",
   "soc.compatibility",
-  "soc.notAvailableInThis"
+  "soc.notAvailableInThis",
+  "soc.recentlyApproved",
+  "soc.reviewAndApprove"
 ] as const;
 
 export const SOC_EN_PH: Record<(typeof SOC_KEYS)[number], string> = {
@@ -695,5 +697,7 @@ export const SOC_EN_PH: Record<(typeof SOC_KEYS)[number], string> = {
   "soc.deduplication": "Deduplication",
   "soc.validation": "Validation",
   "soc.compatibility": "Compatibility",
-  "soc.notAvailableInThis": "Not available in this milestone"
+  "soc.notAvailableInThis": "Not available in this milestone",
+  "soc.recentlyApproved": "Recently Approved",
+  "soc.reviewAndApprove": "Review & Approve"
 };

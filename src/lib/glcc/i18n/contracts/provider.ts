@@ -183,7 +183,9 @@ export const PROVIDER_KEYS = [
   "provider.confirmCancel",
   "provider.noActionsAvailableAt",
   "provider.pleaseExplainWhy",
-  "provider.pleaseProvideAValid"
+  "provider.pleaseProvideAValid",
+  "provider.quickLinks",
+  "provider.socialAccounts"
 ] as const;
 
 export const PROVIDER_EN_PH: Record<(typeof PROVIDER_KEYS)[number], string> = {
@@ -367,5 +369,7 @@ export const PROVIDER_EN_PH: Record<(typeof PROVIDER_KEYS)[number], string> = {
   "provider.confirmCancel": "Confirm Cancel",
   "provider.noActionsAvailableAt": "No actions available at this stage.",
   "provider.pleaseExplainWhy": "Please explain why...",
-  "provider.pleaseProvideAValid": "Please provide a valid reason..."
+  "provider.pleaseProvideAValid": "Please provide a valid reason...",
+  "provider.quickLinks": "Quick Links",
+  "provider.socialAccounts": "Social Accounts"
 };

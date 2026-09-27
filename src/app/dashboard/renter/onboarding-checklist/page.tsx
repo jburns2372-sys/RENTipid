@@ -5,22 +5,24 @@ import { redirect } from 'next/navigation';
 import { PrismaClient } from '@prisma/client';
 import { ClipboardCheck, CheckCircle2, Circle } from 'lucide-react';
 import { revalidatePath } from 'next/cache';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 const prisma = new PrismaClient();
 
 const ONBOARDING_ITEMS = [
-  { key: 'PROFILE_COMPLETED', label: 'Profile completed' },
-  { key: 'KYC_SUBMITTED', label: 'KYC submitted' },
-  { key: 'KYC_APPROVED', label: 'KYC approved' },
-  { key: 'TERMS_ACCEPTED', label: 'Terms accepted' },
-  { key: 'FIRST_BOOKING_GUIDE_VIEWED', label: 'First booking guide viewed' },
-  { key: 'PAYMENT_MODES_EXPLAINED', label: 'Payment modes explained' },
-  { key: 'REFUND_POLICY_VIEWED', label: 'Refund policy viewed (Refunds remain manual)' },
-  { key: 'SECURITY_DEPOSIT_VIEWED', label: 'Security deposit policy viewed' },
-  { key: 'SUPPORT_CONTACT_AVAILABLE', label: 'Support contact available' }
+  { key: 'PROFILE_COMPLETED', labelKey: 'renter.onboarding.profileCompleted' as const },
+  { key: 'KYC_SUBMITTED', labelKey: 'renter.onboarding.kycSubmitted' as const },
+  { key: 'KYC_APPROVED', labelKey: 'renter.onboarding.kycApproved' as const },
+  { key: 'TERMS_ACCEPTED', labelKey: 'renter.onboarding.termsAccepted' as const },
+  { key: 'FIRST_BOOKING_GUIDE_VIEWED', labelKey: 'renter.onboarding.firstBookingGuide' as const },
+  { key: 'PAYMENT_MODES_EXPLAINED', labelKey: 'renter.onboarding.paymentModes' as const },
+  { key: 'REFUND_POLICY_VIEWED', labelKey: 'renter.onboarding.refundPolicy' as const },
+  { key: 'SECURITY_DEPOSIT_VIEWED', labelKey: 'renter.onboarding.securityDeposit' as const },
+  { key: 'SUPPORT_CONTACT_AVAILABLE', labelKey: 'renter.onboarding.supportContact' as const }
 ];
 
 export default async function RenterOnboardingChecklist() {
+  const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
   const user = session?.user as any;
 
@@ -62,10 +64,10 @@ export default async function RenterOnboardingChecklist() {
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold mb-2 flex items-center justify-center">
           <ClipboardCheck className="w-8 h-8 mr-3 text-emerald-600" />
-          Renter Onboarding Checklist
+          {t('renter.onboarding.title')}
         </h1>
         <p className="text-gray-600">
-          Welcome to RENTipid! Please complete these onboarding steps to fully activate your account for renting.
+          {t('renter.onboarding.subtitle')}
         </p>
       </div>
 
@@ -85,7 +87,7 @@ export default async function RenterOnboardingChecklist() {
                     )}
                   </div>
                   <p className={`font-medium ${isChecked ? 'text-gray-500 line-through' : 'text-gray-900'}`}>
-                    {item.label}
+                    {t(item.labelKey)}
                   </p>
                 </div>
                 
@@ -93,7 +95,7 @@ export default async function RenterOnboardingChecklist() {
                   <input type="hidden" name="key" value={item.key} />
                   <input type="hidden" name="current" value={isChecked.toString()} />
                   <button type="submit" className={`ml-4 px-3 py-1 text-xs font-semibold rounded-full transition ${isChecked ? 'bg-gray-100 text-gray-600' : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'}`}>
-                    {isChecked ? 'Undo' : 'Mark Complete'}
+                    {isChecked ? t('renter.onboarding.undo') : t('renter.onboarding.markComplete')}
                   </button>
                 </form>
               </div>

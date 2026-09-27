@@ -75,7 +75,7 @@ export default function AdminListingActions({
             <CheckCircle2 size={17} aria-hidden="true" />
             {pendingAction === 'approve' ? t('common.loading') : `${t('common.approve')} listing`}
           </button>
-          {!approvalRequirementsPass && <p className="text-xs font-medium text-amber-800">Required documents or listing requirements are not ready.</p>}
+          {!approvalRequirementsPass && <p className="text-xs font-medium text-amber-800">{t('admin.requiredDocumentsNotReady')}</p>}
 
           <div className="border-t border-gray-200 pt-4">
             <label htmlFor="listing-rejection-reason" className="text-sm font-medium text-gray-800">{t('provider.reasonForRejection')}</label>

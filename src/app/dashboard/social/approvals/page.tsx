@@ -43,9 +43,9 @@ export default async function SocialApprovalsQueuePage() {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b bg-gray-50">
-                  <th className="p-4">Platform</th>
+                  <th className="p-4">{t('common.platform')}</th>
                   <th className="p-4">{t('soc.content')}</th>
-                  <th className="p-4">Version</th>
+                  <th className="p-4">{t('common.version')}</th>
                   <th className="p-4">{t('common.actions')}</th>
                 </tr>
               </thead>
@@ -59,7 +59,7 @@ export default async function SocialApprovalsQueuePage() {
                     <td className="p-4">v{post.version}</td>
                     <td className="p-4">
                       <Link href={`/dashboard/social/approvals/${post.id}`} className="text-blue-600 hover:underline font-medium">
-                        Review & Approve
+                        {t('soc.reviewAndApprove')}
                       </Link>
                     </td>
                   </tr>
@@ -71,7 +71,7 @@ export default async function SocialApprovalsQueuePage() {
       </div>
 
       <div className="bg-white rounded-xl shadow border p-6">
-        <h2 className="text-xl font-semibold mb-4 text-green-600">Recently Approved ({approvedPosts.length})</h2>
+        <h2 className="text-xl font-semibold mb-4 text-green-600">{t('soc.recentlyApproved')} ({approvedPosts.length})</h2>
         
         {approvedPosts.length === 0 ? (
           <p className="text-gray-500">{t('soc.noApprovedPosts')}</p>
@@ -80,9 +80,9 @@ export default async function SocialApprovalsQueuePage() {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b bg-gray-50">
-                  <th className="p-4">Platform</th>
+                  <th className="p-4">{t('common.platform')}</th>
                   <th className="p-4">{t('soc.content')}</th>
-                  <th className="p-4">Version</th>
+                  <th className="p-4">{t('common.version')}</th>
                   <th className="p-4">{t('common.status')}</th>
                 </tr>
               </thead>

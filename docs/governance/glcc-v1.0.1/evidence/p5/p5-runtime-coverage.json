@@ -1,5 +1,7 @@
 {
   "auditDate": "2026-09-28",
+  "workPackage": "P5",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
   "runtimeLocaleResolution": {
     "engine": "Authoritative P3 Locale Resolver with server-side cookie/header precedence",
     "supportedLocales": {
@@ -7,25 +9,33 @@
         "status": "PRODUCTION_READY",
         "effectiveResolution": "DEFAULT_PLATFORM_FALLBACK",
         "runtimeTranslationCoverage": "100%",
-        "presentKeys": 2114,
+        "presentKeys": 2203,
         "missingKeys": 0
       },
       "fil-PH": {
         "status": "QA_REQUIRED",
         "effectiveResolution": "RESOLVES_IN_QA_MODE_ONLY",
-        "runtimeTranslationCoverage": "21.05% (direct)",
+        "runtimeTranslationCoverage": "20.20% (direct)",
         "fallbackCoverage": "100% (deterministic fallback to en-PH)",
         "presentKeys": 445,
-        "missingKeys": 1669
+        "missingKeys": 1758,
+        "fallbackRate": "79.80%"
       },
       "ja-JP": {
         "status": "REGISTERED",
         "effectiveResolution": "BLOCKED_IN_PRODUCTION_AND_QA",
         "runtimeTranslationCoverage": "0%",
         "presentKeys": 0,
-        "missingKeys": 2114
+        "missingKeys": 2203
       }
     }
+  },
+  "runtimeSurfaceCoverage": {
+    "totalSurfacesAudited": 78,
+    "uniqueRoutes": 56,
+    "uniqueComponents": 22,
+    "runtimeComponentMigrationCoverage": "100% (78 of 78 files actively wired to GLCC runtime)",
+    "rawTranslationKeyRenderCount": 0
   },
   "qualityGateMetrics": {
     "typecheck": {
@@ -37,8 +47,14 @@
       "command": "npx jest glcc",
       "suitesPassed": 33,
       "suitesTotal": 33,
-      "testsPassed": 546,
-      "testsTotal": 546,
+      "testsPassed": 570,
+      "testsTotal": 570,
+      "status": "PASS"
+    },
+    "hardcodedStringGuard": {
+      "command": "npx jest tests/glcc/hardcoded-string-guard.test.ts",
+      "testsPassed": 34,
+      "testsTotal": 34,
       "status": "PASS"
     },
     "schemaValidation": {

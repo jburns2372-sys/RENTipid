@@ -52,8 +52,8 @@ export default async function ProviderStatementPage({ params }: { params: Promis
         <table className="w-full text-left mb-6">
           <thead>
             <tr className="border-b">
-              <th className="pb-2 text-gray-800">Description</th>
-              <th className="pb-2 text-gray-800 text-right">Amount</th>
+              <th className="pb-2 text-gray-800">{t('common.description')}</th>
+              <th className="pb-2 text-gray-800 text-right">{t('common.amount')}</th>
             </tr>
           </thead>
           <tbody>

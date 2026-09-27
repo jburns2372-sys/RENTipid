@@ -13,7 +13,7 @@ export default async function ProviderDashboard() {
   return (
     <div className="container mx-auto py-12 px-4">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Individual Provider Dashboard</h1>
+        <h1 className="text-3xl font-bold">{t('provider.individualProviderDashboard')}</h1>
         {user?.status === 'Pending' && (
           <span className="bg-yellow-100 text-yellow-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide">
             {t('common.status')}: Pending
@@ -45,7 +45,7 @@ export default async function ProviderDashboard() {
           <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">{t('providerListings.title')}</h2>
           <div className="h-48 flex flex-col items-center justify-center bg-gray-50 rounded border border-dashed p-4 text-center">
             <p className="text-gray-600 text-sm mb-4">
-              Manage your rentals or add new items to the RENTipid marketplace.
+              {t('provider.generateAiMarketingContent')}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Link
@@ -59,7 +59,7 @@ export default async function ProviderDashboard() {
         </div>
         
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-          <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">My Earnings</h2>
+          <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">{t('provider.myEarnings')}</h2>
           <div className="h-48 flex items-center justify-center bg-gray-50 rounded border border-dashed">
             <span className="text-gray-400 text-sm">{t('renter.paymentListPendingPhase')}</span>
           </div>
@@ -67,15 +67,15 @@ export default async function ProviderDashboard() {
       </div>
 
       <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8">
-        <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">Get Help</h2>
+        <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">{t('provider.getHelp')}</h2>
         <div className="grid md:grid-cols-3 gap-4">
           <Link href="/help/trust-safety-legal/global-legal-compliance" className="block p-4 border border-gray-200 rounded hover:border-blue-500 hover:bg-blue-50 transition">
-            <h3 className="font-semibold text-gray-900 mb-1">Legal & Compliance</h3>
-            <p className="text-sm text-gray-600">Market requirements, provider obligations, and compliance standards.</p>
+            <h3 className="font-semibold text-gray-900 mb-1">{t('provider.legalCompliance')}</h3>
+            <p className="text-sm text-gray-600">{t('provider.marketRequirementsProviderObligations')}</p>
           </Link>
           <Link href="/help" className="block p-4 border border-gray-200 rounded hover:border-blue-500 hover:bg-blue-50 transition">
-            <h3 className="font-semibold text-gray-900 mb-1">Provider Support</h3>
-            <p className="text-sm text-gray-600">Chat with our AI assistant for onboarding and operation help.</p>
+            <h3 className="font-semibold text-gray-900 mb-1">{t('provider.providerSupport')}</h3>
+            <p className="text-sm text-gray-600">{t('provider.chatWithOurAi')}</p>
           </Link>
         </div>
       </div>

@@ -110,7 +110,21 @@ export const AUTH_KEYS = [
   "auth.emailVerificationUnavailable",
   "auth.resendVerificationLink",
   "auth.mfa.verifyIdentity",
-  "auth.mfa.scanQrApp"
+  "auth.mfa.scanQrApp",
+  "auth.connectedMethods.title",
+  "auth.connectedMethods.description",
+  "auth.connectedMethods.loading",
+  "auth.connectedMethods.statusConnected",
+  "auth.connectedMethods.statusUnavailable",
+  "auth.connectedMethods.statusNotConnected",
+  "auth.connectedMethods.connect",
+  "auth.connectedMethods.disconnect",
+  "auth.connectedMethods.confirmDisconnect",
+  "auth.connectedMethods.disconnectedSuccess",
+  "auth.connectedMethods.identityInUse",
+  "auth.connectedMethods.linkedSuccess",
+  "auth.mfa.enterVerificationCode",
+  "auth.mfa.verifyIdentityDesc"
 ] as const;
 
 export const AUTH_EN_PH: Record<(typeof AUTH_KEYS)[number], string> = {
@@ -221,5 +235,19 @@ export const AUTH_EN_PH: Record<(typeof AUTH_KEYS)[number], string> = {
   "auth.emailVerificationUnavailable": "Email verification is temporarily unavailable.",
   "auth.resendVerificationLink": "Resend verification link",
   "auth.mfa.verifyIdentity": "Verify Identity",
-  "auth.mfa.scanQrApp": "Scan the QR code with your Authenticator App (Google Authenticator, Microsoft Authenticator, or Authy)."
+  "auth.mfa.scanQrApp": "Scan the QR code with your Authenticator App (Google Authenticator, Microsoft Authenticator, or Authy).",
+  "auth.connectedMethods.title": "Connected Login Methods",
+  "auth.connectedMethods.description": "Connect your sign-in methods to easily access your RENTipid account with any provider.",
+  "auth.connectedMethods.loading": "Loading sign-in methods...",
+  "auth.connectedMethods.statusConnected": "Connected",
+  "auth.connectedMethods.statusUnavailable": "Unavailable in Preview",
+  "auth.connectedMethods.statusNotConnected": "Not connected",
+  "auth.connectedMethods.connect": "Connect",
+  "auth.connectedMethods.disconnect": "Disconnect",
+  "auth.connectedMethods.confirmDisconnect": "Are you sure you want to disconnect {provider}?",
+  "auth.connectedMethods.disconnectedSuccess": "Method disconnected successfully.",
+  "auth.connectedMethods.identityInUse": "This login method is already connected to another RENTipid account.",
+  "auth.connectedMethods.linkedSuccess": "Your login method was successfully connected!",
+  "auth.mfa.enterVerificationCode": "Enter your 6-digit authenticator code or a 12-character recovery code.",
+  "auth.mfa.verifyIdentityDesc": "Please verify your identity to access this secure area."
 };

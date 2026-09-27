@@ -1,5 +1,22 @@
 {
   "workPackage": "P5",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "auditDate": "2026-09-28",
+  "reconciliationSummary": {
+    "totalUniqueFilesClassified": 78,
+    "uniqueRoutes": 56,
+    "uniqueComponents": 22,
+    "overlappingDuplicateEntries": 0,
+    "statutoryLegalPreservedFiles": 4,
+    "slices": {
+      "P5A_Global_Shared_Shell": 9,
+      "P5B_Public_Auth_Marketplace": 13,
+      "P5C_Renter_Transaction_Surfaces": 15,
+      "P5D_Provider_Partner_Surfaces": 24,
+      "P5E_Trust_Support_Communications": 8,
+      "P5F_Administrative_Surfaces": 9
+    }
+  },
   "classifiedFiles": {
     "P5A_Global_Shared_Shell": [
       "src/components/navigation/Header.tsx",
@@ -42,7 +59,7 @@
       "src/app/dashboard/profile/ProfileFormClient.tsx",
       "src/app/dashboard/profile/ProfilePhotoUploadClient.tsx",
       "src/components/settings/RegionalPreferencesCard.tsx",
-      "src/components/auth/ConnectedLoginMethods.tsx"
+      "src/components/profile/ConnectedLoginMethods.tsx"
     ],
     "P5D_Provider_Partner_Surfaces": [
       "src/app/dashboard/provider/page.tsx",

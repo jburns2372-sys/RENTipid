@@ -51,7 +51,7 @@ export default function MfaChallengePage() {
           <ShieldCheck className="w-12 h-12 text-primary mx-auto mb-4" />
           <h2 className="text-2xl font-semibold tracking-tight">{t('auth.securityCheck')}</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-            Please verify your identity to access this secure area.
+            {t('auth.mfa.verifyIdentityDesc')}
           </p>
         </div>
         
@@ -59,7 +59,7 @@ export default function MfaChallengePage() {
           <div className="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-900 rounded-md p-4 flex gap-3">
             <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-500 shrink-0 mt-0.5" />
             <div>
-              <h5 className="font-medium text-red-800 dark:text-red-400">Error</h5>
+              <h5 className="font-medium text-red-800 dark:text-red-400">{t('common.error')}</h5>
               <p className="text-sm text-red-700 dark:text-red-300 mt-1">{error}</p>
             </div>
           </div>
@@ -68,7 +68,7 @@ export default function MfaChallengePage() {
         <form onSubmit={handleVerify} className="space-y-4">
           <div className="space-y-2">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              Enter your 6-digit authenticator code or a 12-character recovery code.
+              {t('auth.mfa.enterVerificationCode')}
             </p>
             <input 
               type="text" 

@@ -114,7 +114,12 @@ export const COMMON_KEYS = [
   "common.noMatchingBarangays",
   "common.noBarangaysAvailable",
   "common.country",
-  "common.becomeAVerifiedProvider"
+  "common.becomeAVerifiedProvider",
+  "common.description",
+  "common.amount",
+  "common.platform",
+  "common.version",
+  "common.error"
 ] as const;
 
 export const COMMON_EN_PH: Record<(typeof COMMON_KEYS)[number], string> = {
@@ -229,5 +234,10 @@ export const COMMON_EN_PH: Record<(typeof COMMON_KEYS)[number], string> = {
   "common.noMatchingBarangays": "No matching barangays",
   "common.noBarangaysAvailable": "No barangays available",
   "common.country": "Country",
-  "common.becomeAVerifiedProvider": "Become a Verified Provider"
+  "common.becomeAVerifiedProvider": "Become a Verified Provider",
+  "common.description": "Description",
+  "common.amount": "Amount",
+  "common.platform": "Platform",
+  "common.version": "Version",
+  "common.error": "Error"
 };

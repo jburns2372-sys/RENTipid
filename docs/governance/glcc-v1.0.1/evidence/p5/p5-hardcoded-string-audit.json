@@ -1,13 +1,23 @@
 {
   "auditDate": "2026-09-28",
-  "auditType": "Post-P5 Migration Hard-Coded String Audit",
+  "auditType": "Post-P5 Migration Hard-Coded String Audit & Reconciled Verification",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P5",
   "scope": "src/**/*.{tsx,ts}",
-  "totalAppSurfacesAudited": 73,
+  "totalAppSurfacesAudited": 78,
+  "reconciliation": {
+    "uniqueRoutesAudited": 56,
+    "uniqueComponentsAudited": 22,
+    "totalUniqueFiles": 78,
+    "overlappingDuplicateEntries": 0,
+    "statutoryExclusionsPreserved": 4
+  },
   "results": {
     "hardcodedUserFacingTextDetected": 0,
     "unwrappedEnglishStringsDetected": 0,
     "statutoryExclusionsPreserved": 4,
-    "runtimeGuardTestsPassed": "33/33 suites, 546/546 tests",
+    "runtimeGuardTestsPassed": "34/34 tests passing (10 baseline invariant suites, 78-file scan, 17-domain raw-key render check, statutory legal boundary preservation)",
+    "totalGlccTestsPassed": "33/33 suites, 570/570 tests passing",
     "status": "PASS"
   },
   "approvedExclusions": [

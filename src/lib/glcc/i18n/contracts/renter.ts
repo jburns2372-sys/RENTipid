@@ -70,7 +70,21 @@ export const RENTER_KEYS = [
   "renter.myReviews",
   "renter.reviewListPendingPhase",
   "renter.paymentReceipt",
-  "renter.billedTo"
+  "renter.billedTo",
+  "renter.onboarding.title",
+  "renter.onboarding.subtitle",
+  "renter.onboarding.undo",
+  "renter.onboarding.markComplete",
+  "renter.onboarding.profileCompleted",
+  "renter.onboarding.kycSubmitted",
+  "renter.onboarding.kycApproved",
+  "renter.onboarding.termsAccepted",
+  "renter.onboarding.firstBookingGuide",
+  "renter.onboarding.paymentModes",
+  "renter.onboarding.refundPolicy",
+  "renter.onboarding.securityDeposit",
+  "renter.onboarding.supportContact",
+  "renter.agreeAndAcceptTerms"
 ] as const;
 
 export const RENTER_EN_PH: Record<(typeof RENTER_KEYS)[number], string> = {
@@ -141,5 +155,19 @@ export const RENTER_EN_PH: Record<(typeof RENTER_KEYS)[number], string> = {
   "renter.myReviews": "My Reviews",
   "renter.reviewListPendingPhase": "Review list pending Phase 3",
   "renter.paymentReceipt": "Payment Receipt",
-  "renter.billedTo": "Billed To"
+  "renter.billedTo": "Billed To",
+  "renter.onboarding.title": "Renter Onboarding Checklist",
+  "renter.onboarding.subtitle": "Welcome to RENTipid! Please complete these onboarding steps to fully activate your account for renting.",
+  "renter.onboarding.undo": "Undo",
+  "renter.onboarding.markComplete": "Mark Complete",
+  "renter.onboarding.profileCompleted": "Profile completed",
+  "renter.onboarding.kycSubmitted": "KYC submitted",
+  "renter.onboarding.kycApproved": "KYC approved",
+  "renter.onboarding.termsAccepted": "Terms accepted",
+  "renter.onboarding.firstBookingGuide": "First booking guide viewed",
+  "renter.onboarding.paymentModes": "Payment modes explained",
+  "renter.onboarding.refundPolicy": "Refund policy viewed (Refunds remain manual)",
+  "renter.onboarding.securityDeposit": "Security deposit policy viewed",
+  "renter.onboarding.supportContact": "Support contact available",
+  "renter.agreeAndAcceptTerms": "I Agree & Accept Terms"
 };

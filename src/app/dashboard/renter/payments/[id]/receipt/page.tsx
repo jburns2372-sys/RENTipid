@@ -38,7 +38,7 @@ export default async function RenterReceiptPage({ params }: { params: Promise<{ 
           </div>
           <div className="text-right flex flex-col items-end">
             <RentipidLogo variant="full" size="sm" showText={false} className="mb-2" />
-            <p className="text-sm text-gray-500">Manila, Philippines</p>
+            <p className="text-sm text-gray-500">{t('provider.manilaPhilippines')}</p>
           </div>
         </div>
 

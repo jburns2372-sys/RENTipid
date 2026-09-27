@@ -388,7 +388,8 @@ export const ADMIN_KEYS = [
   "admin.unverified",
   "admin.mandatoryAdministrativeReason",
   "admin.thisReasonWillBe",
-  "admin.stateTheReasonOr"
+  "admin.stateTheReasonOr",
+  "admin.requiredDocumentsNotReady"
 ] as const;
 
 export const ADMIN_EN_PH: Record<(typeof ADMIN_KEYS)[number], string> = {
@@ -777,5 +778,6 @@ export const ADMIN_EN_PH: Record<(typeof ADMIN_KEYS)[number], string> = {
   "admin.unverified": "Unverified",
   "admin.mandatoryAdministrativeReason": "Mandatory Administrative Reason",
   "admin.thisReasonWillBe": "This reason will be recorded in the immutable audit log.",
-  "admin.stateTheReasonOr": "State the reason or ticket number for this change..."
+  "admin.stateTheReasonOr": "State the reason or ticket number for this change...",
+  "admin.requiredDocumentsNotReady": "Required documents or listing requirements are not ready."
 };

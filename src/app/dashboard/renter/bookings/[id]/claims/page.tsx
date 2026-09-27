@@ -69,18 +69,18 @@ export default async function RenterClaimResponsePage({ params }: { params: Prom
       <div className="grid md:grid-cols-2 gap-8 mb-8">
         <div className="space-y-6">
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <h2 className="text-lg font-bold mb-4 border-b pb-2">Claim Details ({claim.claim_number})</h2>
+            <h2 className="text-lg font-bold mb-4 border-b pb-2">{t('provider.claimDetails')} ({claim.claim_number})</h2>
             <div className="space-y-4 text-sm">
               <div className="flex justify-between border-b pb-2">
                 <span className="text-gray-500 font-bold">{t('common.status')}</span>
                 <span className="font-bold">{claim.claim_type}</span>
               </div>
               <div className="flex justify-between border-b pb-2">
-                <span className="text-gray-500 font-bold">Total Deposit Held</span>
+                <span className="text-gray-500 font-bold">{t('provider.securityDeposit')}</span>
                 <span className="font-bold">₱{claim.deposit_amount.toLocaleString()}</span>
               </div>
               <div className="flex justify-between border-b pb-2">
-                <span className="text-red-600 font-bold">Requested Deduction</span>
+                <span className="text-red-600 font-bold">{t('provider.requestedDeduction')}</span>
                 <span className="text-red-600 font-bold text-lg">₱{claim.requested_deduction_amount.toLocaleString()}</span>
               </div>
               <div>

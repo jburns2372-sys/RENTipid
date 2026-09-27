@@ -98,7 +98,7 @@ export default function KYCPage() {
       <div className="grid md:grid-cols-3 gap-8">
         <div className="md:col-span-1">
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 sticky top-20">
-            <h3 className="font-semibold text-lg mb-4 border-b pb-2">Required Documents</h3>
+            <h3 className="font-semibold text-lg mb-4 border-b pb-2">{t('kyc.requiredDocuments')}</h3>
             <ul className="space-y-3">
               {getRequiredDocs().map((doc, i) => (
                 <li key={i} className="flex items-start">
@@ -120,7 +120,7 @@ export default function KYCPage() {
             <h2 className="text-xl font-semibold mb-6">{t('kyc.uploadDocument')}</h2>
             <form onSubmit={handleUpload} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Document Type</label>
+                <label className="block text-sm font-medium mb-1">{t('kyc.documentType')}</label>
                 <select name="document_type" required className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none bg-white">
                   <option value="">{t('kyc.selectDocumentType')}</option>
                   <option value="ID">{t('kyc.validGovernmentId')}</option>
@@ -160,7 +160,7 @@ export default function KYCPage() {
             
             {documents.length === 0 ? (
               <div className="text-center py-8 text-gray-500">
-                <p>No documents uploaded yet.</p>
+                <p>{t('kyc.noDocumentsUploadedYet')}</p>
               </div>
             ) : (
               <div className="space-y-4">

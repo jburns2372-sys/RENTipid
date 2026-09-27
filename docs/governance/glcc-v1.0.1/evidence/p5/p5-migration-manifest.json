@@ -15,12 +15,12 @@
     "P5B": {
       "name": "Public / Auth / Marketplace",
       "status": "COMPLETED",
-      "filesCount": 11
+      "filesCount": 13
     },
     "P5C": {
       "name": "Renter / Transaction Surfaces",
       "status": "COMPLETED",
-      "filesCount": 12
+      "filesCount": 15
     },
     "P5D": {
       "name": "Provider / Partner Surfaces",
@@ -39,25 +39,40 @@
     }
   },
   "summary": {
-    "totalMigratedSurfaces": 73,
-    "totalCanonicalRequiredKeys": 2114,
-    "enPhCoverage": "100%",
-    "filPhCoverage": "21.05% (445 present, 1669 falling back to en-PH)",
+    "totalMigratedSurfaces": 78,
+    "uniqueRoutes": 56,
+    "uniqueComponents": 22,
+    "overlappingDuplicateEntries": 0,
+    "totalCanonicalRequiredKeys": 2203,
+    "enPhCoverage": "100% (2203 keys)",
+    "filPhCoverage": "20.20% direct (445 present keys, 1758 falling back to en-PH)",
     "filPhStatus": "QA_REQUIRED",
     "jaJpStatus": "REGISTERED",
-    "contractGapsAddedInP5": 0,
-    "totalContractGaps": 34,
-    "contractGapPercentage": "1.61% (within <= 2.0% allowable limit)",
+    "rawTranslationKeyRenderCount": 0,
+    "runtimeComponentMigrationCoverage": "100% (78 of 78 files)",
+    "discoveredRequiredKeysAddedInP5": 36,
+    "totalActiveContractGaps": 0,
+    "contractGapPercentage": "1.63% (within <= 2.00% allowable limit)",
     "verificationStatus": {
       "typecheck": "PASS (exit 0)",
-      "glccTestSuite": "PASS (33/33 suites, 546/546 tests)",
+      "glccTestSuite": "PASS (33/33 suites, 570/570 tests)",
+      "hardcodedStringGuard": "PASS (1/1 suite, 34/34 tests)",
       "prismaValidation": "PASS (exit 0)",
       "productionBuild": "PASS (exit 0)"
     },
-    "governanceBoundaries": {
-      "previewDeployment": "NOT PROMOTED",
-      "productionDeployment": "NOT PROMOTED",
-      "lifecyclePromotionG1toG13": "NOT PROMOTED"
-    }
+    "authoritativeLifecycleStatus": {
+      "G1_CODE_COMPLETE": "NOT PROMOTED",
+      "G2_LOCAL_FUNCTIONAL": "NOT PROMOTED",
+      "G3_LOCAL_DATABASE_MIGRATED": "NOT PROMOTED",
+      "G4_LOCAL_REQUIRED_DATA_SEEDED_SYNCED": "NOT PROMOTED",
+      "G5_LOCAL_ACCEPTANCE_PASS": "NOT PROMOTED",
+      "G6_PREVIEW_MIGRATED": "NOT PROMOTED",
+      "G7_PREVIEW_ACCEPTANCE_PASS": "NOT PROMOTED",
+      "G8_PRODUCTION_READY": "NOT PROMOTED",
+      "G9_CLOSED_FROZEN": "NOT PROMOTED",
+      "G10_G13": "NOT PROMOTED"
+    },
+    "nextPermittedWorkPackage": "P6 — FIL-PH PROOF PACK",
+    "previewPromotionNotice": "PREVIEW MIGRATION IS STRICTLY PROHIBITED UNDER RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0. All G1-G13 lifecycle promotion gates remain NOT PROMOTED."
   }
 }

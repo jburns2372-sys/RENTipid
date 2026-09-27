@@ -87,7 +87,7 @@ export default async function RenterInspectionReviewPage({ params }: { params: P
               </div>
               {report.accessories_checked && (
                 <div>
-                  <span className="block text-gray-500 mb-1">Accessories Included</span>
+                  <span className="block text-gray-500 mb-1">{t('provider.accessoriesIncluded')}</span>
                   <p className="font-medium">{report.accessories_checked}</p>
                 </div>
               )}

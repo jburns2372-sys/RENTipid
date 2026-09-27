@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import { ShieldCheck, AlertCircle, CheckCircle2, Link2, ExternalLink } from 'lucide-react';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 interface LoginMethod {
   id: string;
@@ -16,6 +17,7 @@ interface LoginMethod {
 }
 
 export default function ConnectedLoginMethods() {
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
   const [methods, setMethods] = useState<LoginMethod[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,15 +29,15 @@ export default function ConnectedLoginMethods() {
     if (errorParam === 'IdentityInUse') {
       setMessage({
         type: 'error',
-        text: 'This login method is already connected to another RENTipid account.',
+        text: t('auth.connectedMethods.identityInUse'),
       });
     } else if (searchParams.get('linked')) {
       setMessage({
         type: 'success',
-        text: 'Your login method was successfully connected!',
+        text: t('auth.connectedMethods.linkedSuccess'),
       });
     }
-  }, [searchParams]);
+  }, [searchParams, t]);
 
   const loadMethods = async () => {
     try {
@@ -84,7 +86,7 @@ export default function ConnectedLoginMethods() {
   };
 
   const handleDisconnect = async (providerId: string) => {
-    if (!confirm(`Are you sure you want to disconnect ${providerId}?`)) return;
+    if (!confirm(t('auth.connectedMethods.confirmDisconnect', { provider: providerId }))) return;
 
     try {
       setActionLoading(providerId);
@@ -104,7 +106,7 @@ export default function ConnectedLoginMethods() {
 
       setMessage({
         type: 'success',
-        text: 'Method disconnected successfully.',
+        text: t('auth.connectedMethods.disconnectedSuccess'),
       });
       await loadMethods();
     } catch (err) {
@@ -163,10 +165,10 @@ export default function ConnectedLoginMethods() {
         <div>
           <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
             <ShieldCheck className="w-5 h-5 text-indigo-600" />
-            Connected Login Methods
+            {t('auth.connectedMethods.title')}
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            Connect your sign-in methods to easily access your RENTipid account with any provider.
+            {t('auth.connectedMethods.description')}
           </p>
         </div>
       </div>
@@ -189,7 +191,7 @@ export default function ConnectedLoginMethods() {
       )}
 
       {loading ? (
-        <div className="py-6 text-center text-sm text-gray-400">Loading sign-in methods...</div>
+        <div className="py-6 text-center text-sm text-gray-400">{t('auth.connectedMethods.loading')}</div>
       ) : (
         <div className="divide-y divide-gray-100">
           {methods.map((method) => {
@@ -206,15 +208,15 @@ export default function ConnectedLoginMethods() {
                       <span className="font-medium text-gray-900">{method.name}</span>
                       {method.connected ? (
                         <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                          Connected
+                          {t('auth.connectedMethods.statusConnected')}
                         </span>
                       ) : !method.available ? (
                         <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-500">
-                          Unavailable in Preview
+                          {t('auth.connectedMethods.statusUnavailable')}
                         </span>
                       ) : (
                         <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700">
-                          Not connected
+                          {t('auth.connectedMethods.statusNotConnected')}
                         </span>
                       )}
                     </div>
@@ -232,7 +234,7 @@ export default function ConnectedLoginMethods() {
                       disabled={actionLoading === method.id}
                       className="text-xs font-medium text-red-600 hover:text-red-700 px-3 py-1.5 rounded-lg border border-red-200 hover:bg-red-50 transition-colors disabled:opacity-50"
                     >
-                      {actionLoading === method.id ? 'Disconnecting...' : 'Disconnect'}
+                      {actionLoading === method.id ? t('common.loading') : t('auth.connectedMethods.disconnect')}
                     </button>
                   )}
 
@@ -244,7 +246,7 @@ export default function ConnectedLoginMethods() {
                       className="inline-flex items-center gap-1.5 text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1.5 rounded-lg shadow-sm transition-colors disabled:opacity-50"
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
-                      {actionLoading === method.id ? 'Connecting...' : `Connect ${method.name}`}
+                      {actionLoading === method.id ? t('common.loading') : `${t('auth.connectedMethods.connect')} ${method.name}`}
                     </button>
                   )}
                 </div>

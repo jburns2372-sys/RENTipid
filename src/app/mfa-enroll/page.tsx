@@ -148,7 +148,7 @@ export default function MfaEnrollPage() {
           <div className="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-900 rounded-md p-4 flex gap-3">
             <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-500 shrink-0 mt-0.5" />
             <div>
-              <h5 className="font-medium text-red-800 dark:text-red-400">Error</h5>
+              <h5 className="font-medium text-red-800 dark:text-red-400">{t('common.error')}</h5>
               <p className="text-sm text-red-700 dark:text-red-300 mt-1">{error}</p>
             </div>
           </div>

@@ -42,13 +42,13 @@ export default async function ProviderMarketingDashboard() {
 
         <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
           <div className="border-b px-5 py-4 flex justify-between items-center bg-gray-50">
-            <h2 className="font-semibold text-gray-800">Quick Links</h2>
+            <h2 className="font-semibold text-gray-800">{t('provider.quickLinks')}</h2>
           </div>
           <div className="p-2">
             <Link href="/dashboard/provider/social-accounts" className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition">
               <div className="bg-blue-100 text-blue-600 p-2 rounded-md"><Share2 size={20} /></div>
               <div>
-                <h3 className="font-medium">Social Accounts</h3>
+                <h3 className="font-medium">{t('provider.socialAccounts')}</h3>
                 <p className="text-sm text-gray-500">{t('provider.connectYourBusinessProfiles')}</p>
               </div>
             </Link>

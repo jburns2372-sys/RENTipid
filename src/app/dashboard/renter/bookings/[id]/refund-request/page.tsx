@@ -91,7 +91,7 @@ export default async function RenterRefundRequestPage({ params }: { params: Prom
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Reason for Refund</label>
+            <label className="block text-sm font-medium mb-1">{t('payment.reasonForRefund')}</label>
             <textarea name="reason" required rows={3} className="w-full border p-2 rounded-lg" placeholder={t('renter.pleaseExplainWhyYou')}></textarea>
           </div>
 

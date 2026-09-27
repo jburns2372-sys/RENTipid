@@ -56,7 +56,7 @@ export default function ProviderPreRentalInspectionPage({ params }: { params: Pr
 
       <div className="flex justify-between items-center mb-8 border-b pb-4">
         <div>
-          <h1 className="text-3xl font-bold">Pre-Rental Inspection</h1>
+          <h1 className="text-3xl font-bold">{t('admin.preRentalInspection')}</h1>
           <p className="text-gray-500">{t('provider.documentTheAssetCondition')}</p>
         </div>
         <AIAssistantButton context="Inspection Bot" />

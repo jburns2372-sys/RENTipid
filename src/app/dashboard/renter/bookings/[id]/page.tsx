@@ -170,13 +170,13 @@ export default async function RenterBookingDetailPage({ params }: { params: Prom
             {booking.status === 'Approved' && booking.payment_status === 'Pending Payment' ? (
               booking.rentalAgreement && !booking.rentalAgreement.accepted_by_renter ? (
                 <div className="mt-6 border-t pt-4">
-                  <h3 className="font-bold text-red-600 mb-2">Action Required: Sign Agreement</h3>
+                  <h3 className="font-bold text-red-600 mb-2">{t('renter.actionRequiredSignAgreement')}</h3>
                   <div className="bg-gray-50 border p-4 rounded text-xs whitespace-pre-wrap h-40 overflow-y-auto mb-4">
                     {booking.rentalAgreement.agreement_text}
                   </div>
                   <form action={`/api/bookings/${booking.id}/agreement`} method="POST">
                     <button type="submit" className="w-full bg-blue-600 text-white font-bold py-3 rounded hover:bg-blue-700">
-                      I Agree & Accept Terms
+                      {t('renter.agreeAndAcceptTerms')}
                     </button>
                   </form>
                 </div>
