@@ -1,0 +1,175 @@
+{
+  "manifestVersion": "1.0.0",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "phase": "P0 — GOVERNANCE & BASELINE",
+  "generatedAt": "2026-09-27T15:22:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "frozenV1Baseline": {
+    "productionReleaseSha": "6ae374cf8558fe32450b8f4d0bc03603a1185006",
+    "governanceClosureSha": "5d7537e29e8c88c2ed441abfa62b85f5a65a147c",
+    "tags": {
+      "rentipid-glcc-v1.0.0-frozen": {
+        "targetCommit": "6ae374cf8558fe32450b8f4d0bc03603a1185006",
+        "verification": "VERIFIED_MATCH"
+      },
+      "glcc-v1.0": {
+        "targetCommit": "6ae374cf8558fe32450b8f4d0bc03603a1185006",
+        "verification": "VERIFIED_MATCH"
+      }
+    }
+  },
+  "processDeviation": {
+    "recorded": true,
+    "classification": "UNVALIDATED EARLY IMPLEMENTATION PENDING MASTER-PLAN WORK-PACKAGE RECONCILIATION",
+    "reason": "Prior run exceeded P0-only instruction, performed runtime implementation/tests/commits, and claimed G1-G5 promotion out-of-sequence.",
+    "priorCommitsPreserved": [
+      {
+        "sha": "9a1e55affb7bbbfead0c380ea340b901d6271b01",
+        "summary": "fix(i18n): RENTipid GLCC v1.0.1 Filipino localization corrective release (GLCC-LOC-001)"
+      },
+      {
+        "sha": "6ec3f14775dea878ebd06f693c3a74fdecd10190",
+        "summary": "checkpoint(glcc-v1.0.1): record G5 local acceptance baseline"
+      }
+    ]
+  },
+  "verifiedDefect": {
+    "defectId": "GLCC-LOC-001",
+    "title": "Selected locale persists but actual RENTipid application UI does not consistently render in selected language.",
+    "preferenceStorage": "WORKING",
+    "applicationTranslation": "INCOMPLETE / DEFECTIVE",
+    "severity": "HIGH FUNCTIONAL LOCALIZATION DEFECT",
+    "verifiedBehavior": {
+      "localeSelected": "fil-PH",
+      "preferencePersisted": true,
+      "affectedUiRendered": "English"
+    }
+  },
+  "authoritativeGateStatus": {
+    "G1_CODE_COMPLETE": "NOT PROMOTED",
+    "G2_LOCAL_FUNCTIONAL": "NOT PROMOTED",
+    "G3_LOCAL_DATABASE_MIGRATED": "NOT PROMOTED",
+    "G4_LOCAL_REQUIRED_DATA_SEEDED_SYNCED": "NOT PROMOTED",
+    "G5_LOCAL_ACCEPTANCE_PASS": "NOT PROMOTED",
+    "G6_PREVIEW_MIGRATED": "NOT PROMOTED",
+    "G7_PREVIEW_ACCEPTANCE_PASS": "NOT PROMOTED",
+    "G8_PRODUCTION_READY": "NOT PROMOTED",
+    "G9_PRODUCTION_DEPLOYMENT": "NOT PROMOTED",
+    "G10_COMPLETED": "NOT PROMOTED",
+    "G11_ACCEPTED": "NOT PROMOTED",
+    "G12_CLOSED": "NOT PROMOTED",
+    "G13_VERSION_FROZEN": "NOT PROMOTED"
+  },
+  "workPackageSequence": [
+    { "id": "P0", "name": "Governance & Baseline", "status": "ACTIVE / PASS CRITERIA MET" },
+    { "id": "P1", "name": "Localization Architecture Audit", "status": "PENDING — NEXT PERMITTED" },
+    { "id": "P2", "name": "Locale Registry", "status": "PENDING" },
+    { "id": "P3", "name": "Authoritative Locale Resolver", "status": "PENDING" },
+    { "id": "P4", "name": "Translation Contract", "status": "PENDING" },
+    { "id": "P5", "name": "Hard-coded String Migration", "status": "PENDING" },
+    { "id": "P6", "name": "fil-PH Proof Pack", "status": "PENDING" },
+    { "id": "P7", "name": "Language Selector UX", "status": "PENDING" },
+    { "id": "P8", "name": "SSR/CSR Live Switching", "status": "PENDING" },
+    { "id": "P9", "name": "Testing & CI", "status": "PENDING" },
+    { "id": "P10", "name": "Compliance & Generated Content", "status": "PENDING" },
+    { "id": "P11", "name": "v1.0.1 Preview/Production", "status": "PENDING" },
+    { "id": "P12", "name": "v1.1 Global Expansion Factory", "status": "PENDING" }
+  ],
+  "earlyImplementationInventory": [
+    {
+      "filePath": "src/lib/glcc/i18n/contracts.ts",
+      "candidatePackage": "P4",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/lib/glcc/i18n/engine.ts",
+      "candidatePackage": "P1 / P4",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/lib/glcc/i18n/context.tsx",
+      "candidatePackage": "P3 / P8",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/lib/glcc/i18n/server.ts",
+      "candidatePackage": "P3 / P8",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/lib/glcc/i18n/index.ts",
+      "candidatePackage": "P1 / P4",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/lib/glcc/i18n/locales/en-PH.ts",
+      "candidatePackage": "P4",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/lib/glcc/i18n/locales/fil-PH.ts",
+      "candidatePackage": "P6",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/components/glcc/glcc-copy.ts",
+      "candidatePackage": "P7",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/components/glcc/GlobalPreferencesModal.tsx",
+      "candidatePackage": "P7",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/components/glcc/GlobalPreferencesTrigger.tsx",
+      "candidatePackage": "P7",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/components/glcc/useGlobalPreferences.ts",
+      "candidatePackage": "P7",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/app/layout.tsx",
+      "candidatePackage": "P3 / P8",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/app/api/me/preferences/route.ts",
+      "candidatePackage": "P3",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/app/api/preferences/route.ts",
+      "candidatePackage": "P3",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/app/dashboard/super-admin/page.tsx",
+      "candidatePackage": "P5",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "src/components/finance/LivePaymentStatusBanner.tsx",
+      "candidatePackage": "P5",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "tests/glcc/localization-parity.test.ts",
+      "candidatePackage": "P9",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "tests/glcc/hardcoded-string-guard.test.ts",
+      "candidatePackage": "P9",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    },
+    {
+      "filePath": "tests/glcc/server-client-i18n.test.ts",
+      "candidatePackage": "P9",
+      "status": "IMPLEMENTATION EXISTS — NOT YET MASTER-PLAN VALIDATED"
+    }
+  ]
+}
