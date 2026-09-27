@@ -1,0 +1,35 @@
+{
+  "manifestVersion": "1.0.0",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "phase": "P2 — LOCALE REGISTRY",
+  "generatedAt": "2026-09-27T17:15:00+08:00",
+  "authoritativeRegistry": {
+    "module": "src/lib/glcc/default-registries.ts",
+    "contract": "src/lib/glcc/registry-contracts.ts",
+    "architecturePattern": "Single Authoritative Code-Based Locale Registry with Pure In-Memory Context"
+  },
+  "lifecycleModel": {
+    "allowedStatuses": [
+      "REGISTERED",
+      "TRANSLATION_IN_PROGRESS",
+      "QA_REQUIRED",
+      "PRODUCTION_READY",
+      "DISABLED"
+    ],
+    "productionSelectabilityRule": "enabled === true && releaseStatus === 'PRODUCTION_READY'",
+    "autoPromotionPolicy": "STRICTLY PROHIBITED (Promotion requires full-application rendering and governance sign-off)"
+  },
+  "databaseImpact": "NONE",
+  "invariantsPreserved": {
+    "languageCountrySeparation": "PASS",
+    "languageDisplayCurrencySeparation": "PASS",
+    "languageChargeCurrencySeparation": "PASS (Charge currency locked to PHP)",
+    "languageAuthorizationSeparation": "PASS"
+  },
+  "testEvidence": {
+    "suite": "tests/glcc/p2-locale-registry.test.ts",
+    "totalTests": 22,
+    "passedTests": 22,
+    "status": "PASS"
+  }
+}

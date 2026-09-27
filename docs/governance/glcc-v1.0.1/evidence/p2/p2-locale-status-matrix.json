@@ -1,0 +1,77 @@
+{
+  "manifestVersion": "1.0.0",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "phase": "P2 — LOCALE REGISTRY",
+  "generatedAt": "2026-09-27T17:15:00+08:00",
+  "locales": [
+    {
+      "localeTag": "en-PH",
+      "languageCode": "en",
+      "regionCode": "PH",
+      "nativeName": "English",
+      "englishName": "English (Philippines)",
+      "enabled": true,
+      "releaseStatus": "PRODUCTION_READY",
+      "direction": "ltr",
+      "fallbackLocale": null,
+      "bundleVersion": "1.0.1",
+      "legalTranslationStatus": "APPROVED",
+      "productionSelectable": true,
+      "reason": "Canonical/default Production language already in operation across full platform."
+    },
+    {
+      "localeTag": "fil-PH",
+      "languageCode": "fil",
+      "regionCode": "PH",
+      "nativeName": "Wikang Filipino",
+      "englishName": "Filipino (Philippines)",
+      "enabled": true,
+      "releaseStatus": "QA_REQUIRED",
+      "direction": "ltr",
+      "fallbackLocale": "en-PH",
+      "bundleVersion": "1.0.1",
+      "legalTranslationStatus": "REVIEW_REQUIRED",
+      "productionSelectable": false,
+      "reason": "445 dictionary keys exist and proof surfaces render in Filipino, but full application translation coverage is currently ~15.7% (14 of 25 domains absent). Under MIP-001 page 7, cannot be declared PRODUCTION_READY until full application acceptance."
+    },
+    {
+      "localeTag": "en-US",
+      "languageCode": "en",
+      "regionCode": "US",
+      "nativeName": "English (US)",
+      "englishName": "English (United States)",
+      "enabled": true,
+      "releaseStatus": "TRANSLATION_IN_PROGRESS",
+      "direction": "ltr",
+      "fallbackLocale": "en-PH",
+      "bundleVersion": "1.0.0",
+      "legalTranslationStatus": "NONE",
+      "productionSelectable": false,
+      "reason": "Market variant registered in test contexts; full-application acceptance has not occurred."
+    },
+    {
+      "localeTag": "ja-JP",
+      "languageCode": "ja",
+      "regionCode": "JP",
+      "script": "Jpan",
+      "nativeName": "日本語",
+      "englishName": "Japanese",
+      "enabled": true,
+      "releaseStatus": "REGISTERED",
+      "direction": "ltr",
+      "fallbackLocale": "en-PH",
+      "bundleVersion": "0.1.0-draft",
+      "legalTranslationStatus": "NONE",
+      "productionSelectable": false,
+      "reason": "Future Wave 1 global expansion locale; registered metadata only. Translation content deferred per MIP-001 Section 15 Critical Sequencing Rule."
+    }
+  ],
+  "summary": {
+    "totalRegistered": 4,
+    "productionReadyCount": 1,
+    "qaRequiredCount": 1,
+    "translationInProgressCount": 1,
+    "registeredNotReadyCount": 1,
+    "disabledCount": 0
+  }
+}
