@@ -1,0 +1,97 @@
+{
+  "gate": "G9 PRODUCTION DEPLOYMENT/VERIFICATION",
+  "status": "PASS",
+  "promotedAt": "2026-09-27T02:14:00Z",
+  "authoritativeReleaseSha": "6ae374cf8558fe32450b8f4d0bc03603a1185006",
+  "localSha": "6ae374cf8558fe32450b8f4d0bc03603a1185006",
+  "remoteSha": "6ae374cf8558fe32450b8f4d0bc03603a1185006",
+  "branch": "successor/rc-candidate",
+  "deployment": {
+    "target": "production",
+    "deploymentId": "dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG",
+    "deploymentUrl": "https://ren-tipid-ijmoz966h-jburns2372-sys-projects.vercel.app",
+    "canonicalUrl": "https://www.rentipid.com.ph",
+    "previousDeploymentId": "dpl_Fi2VBPPuKyKMtmyFsKVucm7sMtKa",
+    "rollbackDeploymentId": "dpl_G2mNn7DAEJh4FMerSBcVhfnauZse",
+    "buildDuration": "1m 28s",
+    "buildMachine": "8 cores, 16 GB (Enhanced Build Machine)",
+    "compiler": "Turbopack (Next.js 16.2.12)"
+  },
+  "database": {
+    "environment": "PRODUCTION",
+    "provider": "Neon PostgreSQL",
+    "projectId": "holy-shape-01357429",
+    "branchName": "rentipid-production",
+    "branchId": "br-proud-sunset-ap0ofil2",
+    "endpointHost": "ep-gentle-fog-apwlhnhf.c-7.us-east-1.aws.neon.tech",
+    "poolerHost": "ep-gentle-fog-apwlhnhf-pooler.c-7.us-east-1.aws.neon.tech",
+    "databaseName": "rentipid_production",
+    "databaseIdentityVerdict": "VERIFIED",
+    "nonProductionIsolation": {
+      "rentipid_preview_isolated": true,
+      "rentipid_local_dev_isolated": true
+    },
+    "migration": {
+      "migrationId": "20260925000000_add_user_global_preference",
+      "appliedAt": "2026-09-27T02:07:56.595Z",
+      "status": "APPLIED_AND_VERIFIED",
+      "tableName": "UserGlobalPreference",
+      "columnCount": 10,
+      "primaryKey": "id",
+      "uniqueConstraint": "UserGlobalPreference_user_id_key",
+      "foreignKey": "UserGlobalPreference_user_id_fkey -> User(id) ON DELETE CASCADE ON UPDATE CASCADE",
+      "preMigrationUserCount": 6,
+      "postMigrationUserCount": 6,
+      "preMigrationSystemSettingCount": 7,
+      "postMigrationSystemSettingCount": 15
+    }
+  },
+  "featureFlags": {
+    "glcc_v1_enabled": true,
+    "glcc_currency_override_enabled": true,
+    "glcc_country_autodetect_enabled": false,
+    "glcc_fx_display_enabled": false,
+    "glcc_browse_freshness_ms": 300000,
+    "glcc_checkout_freshness_ms": 120000,
+    "glcc_max_outlier_deviation_pct": 5.0,
+    "glcc_approved_rounding_policy": "ROUND_HALF_UP"
+  },
+  "supportedMarketMatrix": {
+    "languages": ["en-PH", "fil-PH"],
+    "countries": ["PH"],
+    "authoritativeCurrency": "PHP",
+    "fxStatus": "FAIL_CLOSED_DISABLED_PENDING_SECRET"
+  },
+  "smokeResults": {
+    "automatedScenariosTotal": 22,
+    "automatedScenariosPassed": 22,
+    "automatedScenariosFailed": 0,
+    "browserSmoke": {
+      "landingPage": "PASS",
+      "globalPreferencesModal": "PASS",
+      "languageSwitchToFilipino": "PASS",
+      "cookiePersistenceAcrossPages": "PASS",
+      "loginPageRendering": "PASS",
+      "recordings": [
+        "prod_glcc_smoke_1790475188494.webp",
+        "prod_login_check_1790475266776.webp"
+      ]
+    }
+  },
+  "securityResults": {
+    "unauthenticatedAdminBlocked": "PASS",
+    "userIdInjectionRejected": "PASS",
+    "chargeCurrencyInjectionRejected": "PASS",
+    "invalidCountryRejected": "PASS",
+    "invalidCurrencyRejected": "PASS",
+    "tamperedCookieFailsSafe": "PASS",
+    "uploadsNotBundled": "PASS",
+    "noSecretsExposed": "PASS"
+  },
+  "defectLedger": {
+    "criticalDefects": 0,
+    "highDefects": 0,
+    "mediumDefects": 0,
+    "lowDefects": 0
+  }
+}

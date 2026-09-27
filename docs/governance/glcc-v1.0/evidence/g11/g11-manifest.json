@@ -1,0 +1,26 @@
+{
+  "gate": "G11 ACCEPTED",
+  "status": "PASS",
+  "promotedAt": "2026-09-27T02:27:20Z",
+  "module": "RENTipid GLCC v1.0",
+  "ownerBusinessAcceptance": "ACCEPTED",
+  "acceptanceStatement": "I ACCEPT G11",
+  "acceptanceTimestamp": "2026-09-27T10:27:20+08:00",
+  "acceptedProductionSha": "6ae374cf8558fe32450b8f4d0bc03603a1185006",
+  "acceptedProductionDeploymentId": "dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG",
+  "acceptedProductionUrl": "https://www.rentipid.com.ph",
+  "acceptedProductionDatabase": "rentipid_production",
+  "acceptedDatabaseEndpoint": "ep-gentle-fog-apwlhnhf.c-7.us-east-1.aws.neon.tech",
+  "migrationStatus": "20260925000000_add_user_global_preference — APPLIED_AND_VERIFIED",
+  "configBaseline": {
+    "glcc_v1_enabled": true,
+    "glcc_currency_override_enabled": true,
+    "glcc_country_autodetect_enabled": false,
+    "glcc_fx_display_enabled": false,
+    "glcc_browse_freshness_ms": 300000,
+    "glcc_checkout_freshness_ms": 120000,
+    "glcc_max_outlier_deviation_pct": 5.0,
+    "glcc_approved_rounding_policy": "ROUND_HALF_UP"
+  },
+  "verdict": "G11 ACCEPTED — PROMOTED"
+}

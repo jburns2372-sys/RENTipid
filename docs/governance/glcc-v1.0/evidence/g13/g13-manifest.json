@@ -1,0 +1,49 @@
+{
+  "gate": "G13 VERSION FROZEN",
+  "status": "PASS",
+  "promotedAt": "2026-09-27T02:42:00Z",
+  "module": "RENTipid GLCC v1.0",
+  "ownerAuthorizationStatement": "I AUTHORIZE G13 VERSION FROZEN",
+  "authorizationTimestamp": "2026-09-27T10:38:57+08:00",
+  "productionReleaseSha": "6ae374cf8558fe32450b8f4d0bc03603a1185006",
+  "productionDeploymentId": "dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG",
+  "productionUrl": "https://www.rentipid.com.ph",
+  "productionDatabase": "rentipid_production",
+  "databaseEndpoint": "ep-gentle-fog-apwlhnhf.c-7.us-east-1.aws.neon.tech",
+  "migration": "20260925000000_add_user_global_preference",
+  "releaseTags": [
+    "rentipid-glcc-v1.0.0-frozen",
+    "glcc-v1.0"
+  ],
+  "tagTargetSha": "6ae374cf8558fe32450b8f4d0bc03603a1185006",
+  "supportedLanguages": [
+    "en-PH",
+    "fil-PH"
+  ],
+  "supportedCountries": [
+    "PH"
+  ],
+  "authoritativeCurrency": "PHP",
+  "displayOverrideCurrencies": [
+    "PHP",
+    "USD"
+  ],
+  "configBaseline": {
+    "glcc_v1_enabled": true,
+    "glcc_currency_override_enabled": true,
+    "glcc_country_autodetect_enabled": false,
+    "glcc_fx_display_enabled": false,
+    "glcc_browse_freshness_ms": 300000,
+    "glcc_checkout_freshness_ms": 120000,
+    "glcc_max_outlier_deviation_pct": 5.0,
+    "glcc_approved_rounding_policy": "ROUND_HALF_UP"
+  },
+  "fxLimitation": "CurrencyAPI secret not provisioned. glcc_fx_display_enabled = false. /api/fx/estimate fails closed (HTTP 403, isEstimateAvailable: false).",
+  "rollbackTarget": {
+    "deploymentId": "dpl_G2mNn7DAEJh4FMerSBcVhfnauZse",
+    "procedure": "Instant alias cutover to known-good deployment"
+  },
+  "securityClosure": "VERIFIED",
+  "defectStatus": "ZERO RELEASE-BLOCKING CRITICAL/HIGH DEFECTS",
+  "verdict": "G13 VERSION FROZEN — PROMOTED"
+}
