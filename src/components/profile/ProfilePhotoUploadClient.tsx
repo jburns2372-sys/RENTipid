@@ -2,8 +2,10 @@
 
 import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 export default function ProfilePhotoUploadClient({ initialPhotoUrl }: { initialPhotoUrl?: string | null }) {
+  const { t } = useTranslation();
   const router = useRouter();
   const [isUploading, setIsUploading] = useState(false);
   const [photoUrl, setPhotoUrl] = useState<string | null>(initialPhotoUrl || null);
@@ -43,7 +45,7 @@ export default function ProfilePhotoUploadClient({ initialPhotoUrl }: { initialP
       setMessage({ type: 'success', text: 'Photo uploaded successfully' });
       router.refresh();
     } catch (err: unknown) {
-      setMessage({ type: 'error', text: err instanceof Error ? err.message : 'An error occurred' });
+      setMessage({ type: 'error', text: err instanceof Error ? err.message : t('auth.errors.generic') });
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -63,7 +65,7 @@ export default function ProfilePhotoUploadClient({ initialPhotoUrl }: { initialP
       setMessage({ type: 'success', text: 'Photo removed successfully' });
       router.refresh();
     } catch (err: unknown) {
-      setMessage({ type: 'error', text: err instanceof Error ? err.message : 'An error occurred' });
+      setMessage({ type: 'error', text: err instanceof Error ? err.message : t('auth.errors.generic') });
     } finally {
       setIsUploading(false);
     }
@@ -71,7 +73,7 @@ export default function ProfilePhotoUploadClient({ initialPhotoUrl }: { initialP
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
-      <h2 className="text-xl font-semibold mb-6 border-b pb-2">Profile Photo</h2>
+      <h2 className="text-xl font-semibold mb-6 border-b pb-2">{t('profile.profilePhoto')}</h2>
       
       {message.text && (
         <div className={`p-4 mb-4 rounded-md text-sm ${message.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
@@ -92,7 +94,7 @@ export default function ProfilePhotoUploadClient({ initialPhotoUrl }: { initialP
         </div>
         
         <div className="flex flex-col space-y-3">
-          <p className="text-sm text-gray-500">JPG, GIF or PNG. Max size of 5MB.</p>
+          <p className="text-sm text-gray-500">{t('profile.jpgGifOrPng')}</p>
           <div className="flex space-x-3">
             <input 
               type="file" 
@@ -106,15 +108,15 @@ export default function ProfilePhotoUploadClient({ initialPhotoUrl }: { initialP
               disabled={isUploading}
               className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 disabled:opacity-50"
             >
-              {isUploading ? 'Uploading...' : 'Upload Photo'}
+              {isUploading ? t('common.loading') : 'Upload Photo'}
             </button>
             {photoUrl && (
               <button 
-                onClick={handleRemove}
+                onClick={handleRemove} 
                 disabled={isUploading}
                 className="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-50 disabled:opacity-50"
               >
-                Remove
+                {t('common.remove')}
               </button>
             )}
           </div>

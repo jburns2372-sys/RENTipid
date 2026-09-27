@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { signOutWithStepUpCleanup } from '@/lib/auth/sign-out';
-import { t } from '@/lib/glcc/i18n';
+import { useTranslation } from '@/lib/glcc/i18n/context';
 
 interface UserNavMenuProps {
   user: {
@@ -15,6 +15,7 @@ interface UserNavMenuProps {
 }
 
 export default function UserNavMenu({ user, dashboardLink }: UserNavMenuProps) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 

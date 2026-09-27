@@ -5,8 +5,10 @@ import { redirect } from 'next/navigation';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import Link from 'next/link';
 import { Megaphone, Share2, Sparkles, TrendingUp } from 'lucide-react';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 export default async function ProviderMarketingDashboard() {
+  const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
   const role = (session?.user as any)?.role;
 
@@ -18,8 +20,8 @@ export default async function ProviderMarketingDashboard() {
     <div className="p-6 max-w-6xl mx-auto">
       <div className="flex justify-between items-end mb-8">
         <div>
-          <h1 className="text-3xl font-bold">Marketing & Promotions</h1>
-          <p className="text-gray-500 mt-1">Generate AI marketing content and manage promotions for your listings.</p>
+          <h1 className="text-3xl font-bold">{t('provider.marketingPromotions')}</h1>
+          <p className="text-gray-500 mt-1">{t('provider.generateAiMarketingContent')}</p>
         </div>
       </div>
 
@@ -47,14 +49,14 @@ export default async function ProviderMarketingDashboard() {
               <div className="bg-blue-100 text-blue-600 p-2 rounded-md"><Share2 size={20} /></div>
               <div>
                 <h3 className="font-medium">Social Accounts</h3>
-                <p className="text-sm text-gray-500">Connect your business profiles</p>
+                <p className="text-sm text-gray-500">{t('provider.connectYourBusinessProfiles')}</p>
               </div>
             </Link>
             <div className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition opacity-60 cursor-not-allowed">
               <div className="bg-green-100 text-green-600 p-2 rounded-md"><TrendingUp size={20} /></div>
               <div>
-                <h3 className="font-medium">Campaign Analytics</h3>
-                <p className="text-sm text-gray-500">View performance (Coming Soon)</p>
+                <h3 className="font-medium">{t('provider.campaignAnalytics')}</h3>
+                <p className="text-sm text-gray-500">{t('provider.viewPerformanceComingSoon')}</p>
               </div>
             </div>
           </div>

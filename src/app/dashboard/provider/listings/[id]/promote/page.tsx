@@ -6,8 +6,10 @@ import { prisma } from '@/lib/ai/ai-logger';
 import { createProviderPromotionRequest } from '@/app/dashboard/provider/marketing/actions';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import { Sparkles, Send } from 'lucide-react';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 export default async function ProviderListingPromotePage({ params }: { params: Promise<{ id: string }> }) {
+  const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
   const role = (session?.user as any)?.role;
 
@@ -32,7 +34,7 @@ export default async function ProviderListingPromotePage({ params }: { params: P
     return (
       <div className="p-6 max-w-3xl mx-auto">
         <div className="bg-red-50 text-red-700 p-6 rounded-xl border border-red-100 text-center">
-          <h2 className="font-bold text-lg mb-2">Listing Not Published</h2>
+          <h2 className="font-bold text-lg mb-2">{t('provider.listingNotPublished')}</h2>
           <p>You can only generate promotions for actively published listings. This listing is currently: {listing.status}</p>
         </div>
       </div>
@@ -42,7 +44,7 @@ export default async function ProviderListingPromotePage({ params }: { params: P
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-2">Promote: {listing.title}</h1>
-      <p className="text-gray-500 mb-8">Generate AI captions and request platform-wide promotion.</p>
+      <p className="text-gray-500 mb-8">{t('provider.generateAiCaptionsAnd')}</p>
 
       <div className="grid md:grid-cols-2 gap-8">
         <div>
@@ -64,20 +66,20 @@ export default async function ProviderListingPromotePage({ params }: { params: P
             await createProviderPromotionRequest(listing.id, platform, caption);
             redirect('/dashboard/provider/marketing');
           }} className="bg-white border rounded-xl p-6 shadow-sm">
-            <h3 className="font-bold mb-4 border-b pb-2">Submit Promotion Request</h3>
+            <h3 className="font-bold mb-4 border-b pb-2">{t('provider.submitPromotionRequest')}</h3>
             
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Target Platform</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{t('provider.targetPlatform')}</label>
               <select name="platform" className="w-full border rounded-lg px-4 py-2">
-                <option>Facebook Page</option>
-                <option>Instagram Business</option>
-                <option>TikTok</option>
+                <option>{t('provider.facebookPage')}</option>
+                <option>{t('provider.instagramBusiness')}</option>
+                <option>{t('provider.tiktok')}</option>
               </select>
             </div>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Caption & Content</label>
-              <textarea name="caption" rows={6} required placeholder="Paste your AI generated caption here..." className="w-full border rounded-lg px-4 py-2"></textarea>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{t('provider.captionContent')}</label>
+              <textarea name="caption" rows={6} required placeholder={t('provider.pasteYourAiGenerated')} className="w-full border rounded-lg px-4 py-2"></textarea>
             </div>
 
             <button type="submit" className="w-full bg-blue-600 text-white font-medium py-2 rounded-lg hover:bg-blue-700 transition flex justify-center items-center gap-2">

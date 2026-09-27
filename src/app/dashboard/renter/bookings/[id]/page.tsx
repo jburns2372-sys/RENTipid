@@ -6,12 +6,14 @@ import { PrismaClient } from '@prisma/client';
 import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import { MediationCard, type MediationRequestData } from '@/components/ai/MediationCard';
-import { t, formatPluralDuration } from '@/lib/glcc/i18n';
+import { formatPluralDuration } from '@/lib/glcc/i18n';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 const prisma = new PrismaClient();
 
 export default async function RenterBookingDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
   const user = session?.user as { id: string; role?: string; name?: string } | undefined;
 

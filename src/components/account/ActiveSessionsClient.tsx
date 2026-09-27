@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { LogOut, Monitor, RefreshCw } from 'lucide-react';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 type SessionView = { id: string; isCurrent: boolean; created_at: string; last_seen_at: string; expires_at: string };
 const formatDate = (value: string) => new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
 
 export default function ActiveSessionsClient() {
+  const { t } = useTranslation();
   const [sessions, setSessions] = useState<SessionView[]>([]);
   const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
@@ -57,13 +59,13 @@ export default function ActiveSessionsClient() {
     <main className="mx-auto max-w-3xl p-6 sm:p-8">
       <div className="flex items-start justify-between gap-4 border-b border-gray-200 pb-5">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Active sessions</h1>
-          <p className="mt-1 text-sm text-gray-600">Review where your account is signed in.</p>
+          <h1 className="text-2xl font-semibold text-gray-900">{t('account.activeSessions')}</h1>
+          <p className="mt-1 text-sm text-gray-600">{t('account.reviewWhereYourAccount')}</p>
         </div>
         <button
           type="button"
           onClick={() => void load()}
-          title="Refresh sessions"
+          title={t('account.refreshSessions')}
           className="rounded-md border border-gray-300 p-2 text-gray-600 hover:bg-gray-50"
         >
           <RefreshCw className="h-4 w-4" />
@@ -93,7 +95,7 @@ export default function ActiveSessionsClient() {
             )}
           </div>
         ))}
-        {!sessions.length && <p className="py-6 text-sm text-gray-600">No active sessions found.</p>}
+        {!sessions.length && <p className="py-6 text-sm text-gray-600">{t('account.noActiveSessionsFound')}</p>}
       </div>
       <button
         type="button"

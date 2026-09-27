@@ -7,6 +7,7 @@ import {
   getAdminListingReviewDetail,
   requireAdminListingReviewer,
 } from '@/lib/listings/admin-review-service';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 export const dynamic = 'force-dynamic';
 
@@ -32,17 +33,19 @@ export default async function AdminListingReviewDetailPage({ params }: { params:
   const isBlockingRisk = listing.category.risk_level === 'High' || listing.category.risk_level === 'Regulated';
   const approvalRequirementsPass = listing.provider.status === 'Verified' && listing.photos.length > 0 && documentReadiness.ready;
 
+  const { t } = await getServerTranslation();
+
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
       <Link href="/dashboard/admin/listings" className="mb-5 inline-flex items-center gap-2 text-sm font-medium text-blue-700 hover:text-blue-900">
-        <ArrowLeft size={16} aria-hidden="true" /> Back to review queue
+        <ArrowLeft size={16} aria-hidden="true" /> {t('admin.backToReviewQueue', undefined, 'Back to review queue')}
       </Link>
 
       <header className="mb-6 flex flex-wrap items-start justify-between gap-4 border-b border-gray-200 pb-5">
         <div>
           <p className="text-sm font-medium text-gray-500">{listing.category.name}</p>
           <h1 className="mt-1 text-2xl font-semibold text-gray-950">{listing.title}</h1>
-          <p className="mt-2 max-w-3xl text-sm text-gray-600">{listing.description || 'No description provided.'}</p>
+          <p className="mt-2 max-w-3xl text-sm text-gray-600">{listing.description || t('admin.noDescriptionProvided', undefined, 'No description provided.')}</p>
         </div>
         <span className="border border-gray-300 bg-gray-50 px-3 py-1.5 text-sm font-semibold text-gray-800">{listing.status}</span>
       </header>
@@ -51,8 +54,8 @@ export default async function AdminListingReviewDetailPage({ params }: { params:
         <div className="mb-6 flex gap-3 border border-red-200 bg-red-50 p-4 text-red-900">
           <AlertTriangle className="mt-0.5 shrink-0" size={20} aria-hidden="true" />
           <div>
-            <p className="font-semibold">{listing.category.risk_level} compliance review required</p>
-            <p className="mt-1 text-sm">Required documents must be explicitly approved before this listing can be approved.</p>
+            <p className="font-semibold">{listing.category.risk_level} {t('admin.complianceReviewRequired', undefined, 'compliance review required')}</p>
+            <p className="mt-1 text-sm">{t('admin.requiredDocumentsMustBe')}</p>
           </div>
         </div>
       )}
@@ -61,7 +64,7 @@ export default async function AdminListingReviewDetailPage({ params }: { params:
         <div className="space-y-6">
           <section className="border border-gray-200 bg-white p-5">
             <div className="mb-4 flex items-center justify-between gap-3">
-              <h2 className="flex items-center gap-2 text-base font-semibold text-gray-950"><ImageIcon size={18} /> Listing photos</h2>
+              <h2 className="flex items-center gap-2 text-base font-semibold text-gray-950"><ImageIcon size={18} /> {t('admin.listingPhotos')}</h2>
               <span className="text-sm text-gray-500">{listing.photos.length} total</span>
             </div>
             {listing.photos.length > 0 ? (
@@ -71,17 +74,17 @@ export default async function AdminListingReviewDetailPage({ params }: { params:
                     {/* Existing listing media can come from multiple configured storage hosts. */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={photo.file_path} alt={`${listing.title}${photo.is_cover ? ' cover' : ''}`} className="h-full w-full object-cover" />
-                    {photo.is_cover && <figcaption className="absolute left-2 top-2 bg-gray-950 px-2 py-1 text-xs font-semibold text-white">Cover</figcaption>}
+                    {photo.is_cover && <figcaption className="absolute left-2 top-2 bg-gray-950 px-2 py-1 text-xs font-semibold text-white">{t('admin.cover')}</figcaption>}
                   </figure>
                 ))}
               </div>
-            ) : <p className="text-sm font-medium text-red-700">No listing photos uploaded.</p>}
+            ) : <p className="text-sm font-medium text-red-700">{t('admin.noListingPhotosUploaded')}</p>}
           </section>
 
           <section className="border border-gray-200 bg-white p-5">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-              <h2 className="flex items-center gap-2 text-base font-semibold text-gray-950"><FileText size={18} /> Required listing documents</h2>
-              <span className={`text-sm font-semibold ${documentReadiness.ready ? 'text-emerald-700' : 'text-amber-800'}`}>{documentReadiness.ready ? 'Requirements verified' : 'Verification incomplete'}</span>
+              <h2 className="flex items-center gap-2 text-base font-semibold text-gray-950"><FileText size={18} /> {t('admin.requiredListingDocuments')}</h2>
+              <span className={`text-sm font-semibold ${documentReadiness.ready ? 'text-emerald-700' : 'text-amber-800'}`}>{documentReadiness.ready ? t('admin.requirementsVerified', undefined, 'Requirements verified') : t('admin.verificationIncomplete', undefined, 'Verification incomplete')}</span>
             </div>
             {documentReadiness.requiredTypes.length > 0 && (
               <p className="mb-4 text-sm text-gray-600">Required: {documentReadiness.requiredTypes.join(', ')}</p>
@@ -93,19 +96,19 @@ export default async function AdminListingReviewDetailPage({ params }: { params:
                     <div>
                       <p className="font-semibold text-gray-950">{document.document_type}</p>
                       <p className="mt-1 text-xs text-gray-500">{document.file_type} · Uploaded {dateTime(document.uploaded_at)}</p>
-                      <p className="mt-1 text-sm text-gray-700">Status: <span className="font-semibold">{document.status}</span></p>
+                      <p className="mt-1 text-sm text-gray-700">{t('admin.status')} <span className="font-semibold">{document.status}</span></p>
                       {document.reviewed_at && <p className="mt-1 text-xs text-gray-500">Reviewed {dateTime(document.reviewed_at)} by {document.reviewed_by || 'unknown reviewer'}</p>}
-                      <a href={`/api/documents/${document.id}`} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-blue-700 hover:text-blue-900">View secure document <ExternalLink size={14} /></a>
+                      <a href={`/api/documents/${document.id}`} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-blue-700 hover:text-blue-900">{t('admin.viewSecureDocument')} <ExternalLink size={14} /></a>
                     </div>
                     <AdminDocumentActions documentId={document.id} currentStatus={document.status} rejectionReason={document.rejection_reason} reviewEnabled={isPendingReview} />
                   </div>
                 ))}
               </div>
-            ) : <p className="text-sm font-medium text-red-700">No compliance documents uploaded.</p>}
+            ) : <p className="text-sm font-medium text-red-700">{t('admin.noComplianceDocumentsUploaded')}</p>}
           </section>
 
           <section className="border border-gray-200 bg-white p-5">
-            <h2 className="text-base font-semibold text-gray-950">Review history</h2>
+            <h2 className="text-base font-semibold text-gray-950">{t('admin.reviewHistory')}</h2>
             {auditEvents.length > 0 ? (
               <ol className="mt-4 divide-y divide-gray-200 border-y border-gray-200">
                 {auditEvents.map((event) => (
@@ -115,7 +118,7 @@ export default async function AdminListingReviewDetailPage({ params }: { params:
                   </li>
                 ))}
               </ol>
-            ) : <p className="mt-3 text-sm text-gray-500">No listing review events recorded.</p>}
+            ) : <p className="mt-3 text-sm text-gray-500">{t('admin.noListingReviewEvents')}</p>}
           </section>
         </div>
 
@@ -123,17 +126,17 @@ export default async function AdminListingReviewDetailPage({ params }: { params:
           <AdminListingActions listingId={listing.id} currentStatus={listing.status} approvalRequirementsPass={approvalRequirementsPass} />
 
           <section className="border border-gray-200 bg-white p-5">
-            <h2 className="text-base font-semibold text-gray-950">Listing facts</h2>
+            <h2 className="text-base font-semibold text-gray-950">{t('admin.listingFacts')}</h2>
             <dl className="mt-4 space-y-3 text-sm">
-              <div><dt className="text-gray-500">Provider</dt><dd className="font-medium text-gray-900">{listing.provider.full_name}</dd><dd className="text-xs text-gray-500">{listing.provider.email} · {listing.provider.id}</dd></div>
-              <div><dt className="text-gray-500">Provider status</dt><dd className="font-medium text-gray-900">{listing.provider.status}</dd></div>
-              <div><dt className="text-gray-500">Risk level</dt><dd className="font-medium text-gray-900">{listing.category.risk_level}</dd></div>
-              <div><dt className="text-gray-500">Rental type</dt><dd className="font-medium text-gray-900">{listing.rental_type}</dd></div>
-              <div><dt className="text-gray-500">Daily rate</dt><dd className="font-medium text-gray-900">{money(listing.daily_rate)}</dd></div>
-              <div><dt className="text-gray-500">Security deposit</dt><dd className="font-medium text-gray-900">{money(listing.security_deposit)}</dd></div>
-              <div><dt className="text-gray-500">Location</dt><dd className="font-medium text-gray-900">{[listing.location, listing.city, listing.province, listing.country].filter(Boolean).join(', ') || 'Not set'}</dd></div>
-              <div><dt className="text-gray-500">Published at</dt><dd className="font-medium text-gray-900">{dateTime(listing.published_at)}</dd></div>
-              {listing.rejection_reason && <div><dt className="text-gray-500">Rejection reason</dt><dd className="font-medium text-red-700">{listing.rejection_reason}</dd></div>}
+              <div><dt className="text-gray-500">{t('admin.colProvider', undefined, 'Provider')}</dt><dd className="font-medium text-gray-900">{listing.provider.full_name}</dd><dd className="text-xs text-gray-500">{listing.provider.email} · {listing.provider.id}</dd></div>
+              <div><dt className="text-gray-500">{t('admin.providerStatus')}</dt><dd className="font-medium text-gray-900">{listing.provider.status}</dd></div>
+              <div><dt className="text-gray-500">{t('admin.page.riskLevel')}</dt><dd className="font-medium text-gray-900">{listing.category.risk_level}</dd></div>
+              <div><dt className="text-gray-500">{t('admin.rentalType')}</dt><dd className="font-medium text-gray-900">{listing.rental_type}</dd></div>
+              <div><dt className="text-gray-500">{t('admin.dailyRate')}</dt><dd className="font-medium text-gray-900">{money(listing.daily_rate)}</dd></div>
+              <div><dt className="text-gray-500">{t('admin.securityDeposit')}</dt><dd className="font-medium text-gray-900">{money(listing.security_deposit)}</dd></div>
+              <div><dt className="text-gray-500">{t('admin.colLocation', undefined, 'Location')}</dt><dd className="font-medium text-gray-900">{[listing.location, listing.city, listing.province, listing.country].filter(Boolean).join(', ') || 'Not set'}</dd></div>
+              <div><dt className="text-gray-500">{t('admin.publishedAt')}</dt><dd className="font-medium text-gray-900">{dateTime(listing.published_at)}</dd></div>
+              {listing.rejection_reason && <div><dt className="text-gray-500">{t('provider.reasonForRejection', undefined, 'Rejection reason')}</dt><dd className="font-medium text-red-700">{listing.rejection_reason}</dd></div>}
             </dl>
           </section>
         </aside>

@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 export default function ChangePasswordClient() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     currentPassword: '',
     newPassword: '',
@@ -21,7 +23,7 @@ export default function ChangePasswordClient() {
     setMessage({ type: '', text: '' });
 
     if (formData.newPassword !== formData.confirmPassword) {
-      setMessage({ type: 'error', text: 'Passwords do not match' });
+      setMessage({ type: 'error', text: t('auth.errors.passwordMismatch') });
       setIsLoading(false);
       return;
     }
@@ -48,13 +50,13 @@ export default function ChangePasswordClient() {
             }
             throw new Error(errText);
         }
-        throw new Error(data.error || 'Failed to change password');
+        throw new Error(data.error || t('auth.errors.generic'));
       }
 
       setMessage({ type: 'success', text: 'Password changed successfully' });
       setFormData({ currentPassword: '', newPassword: '', confirmPassword: '' });
     } catch (err: unknown) {
-      setMessage({ type: 'error', text: err instanceof Error ? err.message : 'An error occurred' });
+      setMessage({ type: 'error', text: err instanceof Error ? err.message : t('auth.errors.generic') });
     } finally {
       setIsLoading(false);
     }
@@ -62,7 +64,7 @@ export default function ChangePasswordClient() {
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mt-8 mb-8">
-      <h2 className="text-xl font-semibold mb-6 border-b pb-2">Change Password</h2>
+      <h2 className="text-xl font-semibold mb-6 border-b pb-2">{t('auth.changePassword')}</h2>
       
       {message.text && (
         <div className={`p-4 mb-6 rounded-md ${message.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
@@ -72,7 +74,7 @@ export default function ChangePasswordClient() {
 
       <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">{t('auth.currentPassword')}</label>
           <input
             type="password"
             name="currentPassword"
@@ -83,7 +85,7 @@ export default function ChangePasswordClient() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">{t('auth.changepasswordclient.newPassword')}</label>
           <input
             type="password"
             name="newPassword"
@@ -94,7 +96,7 @@ export default function ChangePasswordClient() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">{t('auth.changepasswordclient.confirmNewPassword')}</label>
           <input
             type="password"
             name="confirmPassword"
@@ -111,7 +113,7 @@ export default function ChangePasswordClient() {
             disabled={isLoading}
             className="bg-blue-600 text-white px-4 py-2 rounded font-medium hover:bg-blue-700 disabled:opacity-50"
           >
-            {isLoading ? 'Updating...' : 'Update Password'}
+            {isLoading ? t('common.loading') : t('auth.changePassword')}
           </button>
         </div>
       </form>

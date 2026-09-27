@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Bot } from 'lucide-react';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 interface ContextualAssistantLauncherProps {
   route: string;
@@ -18,9 +19,11 @@ export function ContextualAssistantLauncher({
   lifecycle,
   entityId,
   entityType,
-  label = 'Ask AI Support',
+  label,
   className = ''
 }: ContextualAssistantLauncherProps) {
+  const { t } = useTranslation();
+  const displayLabel = label ?? t('common.askRentipidAi', undefined, 'Ask AI Support');
   
   // Construct the secure context URL. 
   // We pass entityId and route, but server will independently verify ownership in /api/ai/chat.
@@ -38,7 +41,7 @@ export function ContextualAssistantLauncher({
       className={`inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full hover:bg-blue-100 transition-colors shadow-sm font-medium text-sm border border-blue-200 ${className}`}
     >
       <Bot className="w-4 h-4 text-blue-600" />
-      {label}
+      {displayLabel}
     </Link>
   );
 }

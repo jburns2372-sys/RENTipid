@@ -4,12 +4,13 @@ import { PrismaClient, Prisma } from '@prisma/client';
 import Link from 'next/link';
 import { parseMarketplaceCategoryMetadata } from '@/lib/marketplace/category-metadata';
 import { canShowMarketplaceTestData } from '@/lib/marketplace/test-data-visibility';
-import { t } from '@/lib/glcc/i18n';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 import { BrowsePriceEstimate } from '@/components/glcc';
 
 const prisma = new PrismaClient();
 
 export default async function BrowsePage({ searchParams }: { searchParams: Promise<{ category?: string, q?: string, location?: string }> }) {
+  const { t } = await getServerTranslation();
   const resolvedSearchParams = await searchParams;
   const categoryFilter = resolvedSearchParams.category;
   const queryFilter = resolvedSearchParams.q;

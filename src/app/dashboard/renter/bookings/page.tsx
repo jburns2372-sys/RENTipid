@@ -5,11 +5,12 @@ import { authOptions } from "@/lib/auth";
 import { PrismaClient } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { t } from '@/lib/glcc/i18n';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 const prisma = new PrismaClient();
 
 export default async function RenterBookingsPage() {
+  const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
   const user = session?.user as { id: string; role?: string; name?: string } | undefined;
 

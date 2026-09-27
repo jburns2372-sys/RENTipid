@@ -3,8 +3,10 @@ import { ContextualAssistantLauncher } from '@/components/ai/ContextualAssistant
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import Link from 'next/link';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 export default async function ProviderDashboard() {
+  const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
   const user = session?.user as { name?: string | null; status?: string | null; role?: string | null } | undefined;
 
@@ -14,33 +16,33 @@ export default async function ProviderDashboard() {
         <h1 className="text-3xl font-bold">Individual Provider Dashboard</h1>
         {user?.status === 'Pending' && (
           <span className="bg-yellow-100 text-yellow-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide">
-            Pending Verification
+            {t('common.status')}: Pending
           </span>
         )}
         {user?.status === 'Verified' && (
           <span className="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide">
-            Verified Provider
+            {t('listing.verifiedProvider')}
           </span>
         )}
       </div>
       
-      <p className="text-gray-600 mb-8 text-lg">Welcome back, {user?.name || 'Provider'}!</p>
+      <p className="text-gray-600 mb-8 text-lg">Welcome back, {user?.name || t('common.user')}!</p>
 
       {user?.status === 'Pending' && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8 flex flex-col md:flex-row md:items-center justify-between">
           <div>
-            <h3 className="font-semibold text-blue-900 mb-1">Complete your provider verification</h3>
-            <p className="text-blue-700 text-sm">You need to submit your ID and proof of address before you can list items.</p>
+            <h3 className="font-semibold text-blue-900 mb-1">{t('providerListings.verificationRequiredTitle')}</h3>
+            <p className="text-blue-700 text-sm">{t('providerListings.verificationRequiredBody')}</p>
           </div>
           <Link href="/dashboard/kyc" className="mt-4 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded transition whitespace-nowrap">
-            Submit Documents
+            {t('providerListings.verifyAccountButton')}
           </Link>
         </div>
       )}
       
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-          <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">My Listings</h2>
+          <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">{t('providerListings.title')}</h2>
           <div className="h-48 flex flex-col items-center justify-center bg-gray-50 rounded border border-dashed p-4 text-center">
             <p className="text-gray-600 text-sm mb-4">
               Manage your rentals or add new items to the RENTipid marketplace.
@@ -50,7 +52,7 @@ export default async function ProviderDashboard() {
                 href="/dashboard/provider/listings/new"
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition shadow-sm"
               >
-                + Create New Listing
+                + {t('providerListings.createNew')}
               </Link>
             </div>
           </div>
@@ -59,7 +61,7 @@ export default async function ProviderDashboard() {
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
           <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">My Earnings</h2>
           <div className="h-48 flex items-center justify-center bg-gray-50 rounded border border-dashed">
-            <span className="text-gray-400 text-sm">Earnings dashboard pending Phase 3</span>
+            <span className="text-gray-400 text-sm">{t('renter.paymentListPendingPhase')}</span>
           </div>
         </div>
       </div>

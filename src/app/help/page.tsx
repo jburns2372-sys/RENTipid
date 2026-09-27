@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, AlertTriangle, FileText, CheckCircle, RefreshCcw, MessageSquare, History, Video, ChevronRight } from 'lucide-react';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 interface Message {
   id: string;
@@ -38,6 +39,7 @@ const useSuggestions = () => {
 };
 
 export default function HelpPage() {
+  const { t } = useTranslation();
   const [messages, setMessages] = useState<Message[]>([]);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [requestContext, setRequestContext] = useState<{ module: string; recordId?: string }>({ module: 'Help' });
@@ -153,7 +155,7 @@ export default function HelpPage() {
           <h1 className="text-3xl font-bold flex items-center gap-2 text-gray-900">
             <Bot className="text-blue-600" size={32} /> RENTipid Support
           </h1>
-          <p className="text-gray-600 mt-1">Select a question, choose a topic, or tell me exactly what you need.</p>
+          <p className="text-gray-600 mt-1">{t('helpCenter.selectAQuestionChoose')}</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition shadow-sm">
@@ -179,12 +181,12 @@ export default function HelpPage() {
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-blue-600 mb-4 shadow-inner">
                   <Bot size={32} />
                 </div>
-                <h2 className="text-2xl font-bold text-gray-800">How can I help you today?</h2>
+                <h2 className="text-2xl font-bold text-gray-800">{t('helpCenter.howCanIHelp')}</h2>
               </div>
 
               {/* Topic Chips */}
               <div className="w-full mb-8">
-                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3 px-2">Topics</h3>
+                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3 px-2">{t('helpCenter.topics')}</h3>
                 <div className="flex flex-wrap gap-2 justify-center">
                   {topicChips.map(topic => (
                     <button 
@@ -200,7 +202,7 @@ export default function HelpPage() {
 
               {/* Recommended Questions */}
               <div className="w-full">
-                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3 px-2">Recommended</h3>
+                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3 px-2">{t('helpCenter.recommended')}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
                   {recommendedQuestions.map(q => (
                     <button 
@@ -282,7 +284,7 @@ export default function HelpPage() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask a question or describe an issue..."
+                placeholder={t('helpCenter.askAQuestionOr')}
                 className="flex-1 bg-gray-50 border border-gray-300 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 rounded-xl py-4 pl-5 pr-14 text-base transition-all shadow-inner outline-none"
                 disabled={isLoading || sessionState !== 'active'}
               />
@@ -295,7 +297,7 @@ export default function HelpPage() {
               </button>
             </div>
             <div className="text-center">
-              <span className="text-xs text-gray-400">RENTipid AI Support handles inquiries automatically. Use the History button to check existing cases.</span>
+              <span className="text-xs text-gray-400">{t('helpCenter.rentipidAiSupportHandles')}</span>
             </div>
           </div>
         </div>

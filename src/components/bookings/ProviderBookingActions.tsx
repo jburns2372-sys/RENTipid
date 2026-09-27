@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 export default function ProviderBookingActions({ 
   bookingId, 
@@ -17,6 +18,7 @@ export default function ProviderBookingActions({
   releaseTurnoverStatus?: string | null,
   postRentalInspectionStatus?: string | null
 }) {
+  const { t } = useTranslation();
   const [rejectReason, setRejectReason] = useState('');
   const [cancelReason, setCancelReason] = useState('');
   const [showRejectForm, setShowRejectForm] = useState(false);
@@ -31,21 +33,21 @@ export default function ProviderBookingActions({
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-      <h2 className="text-xl font-bold mb-4 border-b pb-2">Actions</h2>
+      <h2 className="text-xl font-bold mb-4 border-b pb-2">{t('common.actions')}</h2>
       
       {isPending && !showRejectForm && (
         <div className="space-y-3">
           <form action={`/api/bookings/${bookingId}/status`} method="POST">
             <input type="hidden" name="action" value="APPROVE" />
             <button type="submit" className="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition">
-              Approve Booking
+              {t('common.approve')}
             </button>
           </form>
           <button 
             onClick={() => setShowRejectForm(true)} 
             className="w-full bg-white border border-red-200 text-red-600 font-bold py-2 rounded hover:bg-red-50 transition"
           >
-            Reject Booking
+            {t('common.reject')}
           </button>
         </div>
       )}
@@ -53,7 +55,7 @@ export default function ProviderBookingActions({
       {showRejectForm && (
         <form action={`/api/bookings/${bookingId}/status`} method="POST" className="space-y-3 bg-red-50 p-4 rounded border border-red-100">
           <input type="hidden" name="action" value="REJECT" />
-          <label className="block text-xs font-bold text-red-800 mb-1">Reason for Rejection</label>
+          <label className="block text-xs font-bold text-red-800 mb-1">{t('provider.reasonForRejection')}</label>
           <textarea 
             name="reason" 
             required 
@@ -61,11 +63,11 @@ export default function ProviderBookingActions({
             value={rejectReason}
             onChange={e => setRejectReason(e.target.value)}
             className="w-full border p-2 rounded outline-none focus:border-red-400 text-sm"
-            placeholder="Please explain why..."
+            placeholder={t('provider.pleaseExplainWhy')}
           ></textarea>
           <div className="flex space-x-2">
-            <button type="button" onClick={() => setShowRejectForm(false)} className="flex-1 bg-white border border-gray-300 text-gray-600 font-bold py-2 rounded hover:bg-gray-50 text-sm">Cancel</button>
-            <button type="submit" className="flex-1 bg-red-600 text-white font-bold py-2 rounded hover:bg-red-700 text-sm">Confirm Reject</button>
+            <button type="button" onClick={() => setShowRejectForm(false)} className="flex-1 bg-white border border-gray-300 text-gray-600 font-bold py-2 rounded hover:bg-gray-50 text-sm">{t('common.cancel')}</button>
+            <button type="submit" className="flex-1 bg-red-600 text-white font-bold py-2 rounded hover:bg-red-700 text-sm">{t('provider.confirmReject')}</button>
           </div>
         </form>
       )}
@@ -166,7 +168,7 @@ export default function ProviderBookingActions({
       {showCancelForm && (
         <form action={`/api/bookings/${bookingId}/status`} method="POST" className="space-y-3 bg-red-50 p-4 rounded border border-red-100">
           <input type="hidden" name="action" value="CANCEL_BY_PROVIDER" />
-          <label className="block text-xs font-bold text-red-800 mb-1">Reason for Cancellation</label>
+          <label className="block text-xs font-bold text-red-800 mb-1">{t('provider.reasonForCancellation')}</label>
           <textarea 
             name="reason" 
             required 
@@ -174,18 +176,18 @@ export default function ProviderBookingActions({
             value={cancelReason}
             onChange={e => setCancelReason(e.target.value)}
             className="w-full border p-2 rounded outline-none focus:border-red-400 text-sm"
-            placeholder="Please provide a valid reason..."
+            placeholder={t('provider.pleaseProvideAValid')}
           ></textarea>
           <div className="flex space-x-2">
-            <button type="button" onClick={() => setShowCancelForm(false)} className="flex-1 bg-white border border-gray-300 text-gray-600 font-bold py-2 rounded hover:bg-gray-50 text-sm">Go Back</button>
-            <button type="submit" className="flex-1 bg-red-600 text-white font-bold py-2 rounded hover:bg-red-700 text-sm">Confirm Cancel</button>
+            <button type="button" onClick={() => setShowCancelForm(false)} className="flex-1 bg-white border border-gray-300 text-gray-600 font-bold py-2 rounded hover:bg-gray-50 text-sm">{t('provider.goBack')}</button>
+            <button type="submit" className="flex-1 bg-red-600 text-white font-bold py-2 rounded hover:bg-red-700 text-sm">{t('provider.confirmCancel')}</button>
           </div>
         </form>
       )}
 
       {!isPending && !isApprovedOrPayment && !isConfirmed && !isOngoing && !isReturned && (
          <div className="text-center py-4">
-           <span className="text-gray-500 font-medium">No actions available at this stage.</span>
+           <span className="text-gray-500 font-medium">{t('provider.noActionsAvailableAt')}</span>
          </div>
       )}
     </div>

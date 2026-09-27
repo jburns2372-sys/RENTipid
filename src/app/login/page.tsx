@@ -5,7 +5,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import RentipidLogo from '@/components/brand/RentipidLogo';
-import { t } from '@/lib/glcc/i18n';
+import { useTranslation } from '@/lib/glcc/i18n/context';
 
 export function normalizeLoginCallbackUrl(
   callbackUrl: string | null | undefined,
@@ -112,6 +112,7 @@ function SocialButton({
 type WhatsAppStep = 'input' | 'verify';
 
 function WhatsAppOtpForm({ callbackUrl }: { callbackUrl: string }) {
+  const { t } = useTranslation();
   const router = useRouter();
   const [step, setStep] = useState<WhatsAppStep>('input');
   const [phone, setPhone] = useState('');
@@ -283,6 +284,7 @@ function WhatsAppOtpForm({ callbackUrl }: { callbackUrl: string }) {
 /* ── Email / Password ───────────────────────────── */
 
 function EmailPasswordForm({ callbackUrl }: { callbackUrl: string }) {
+  const { t } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [mode, setMode] = useState<'email-entry' | 'login'>('email-entry');
@@ -403,6 +405,7 @@ function EmailPasswordForm({ callbackUrl }: { callbackUrl: string }) {
 /* ── Unified Gateway ────────────────────────────── */
 
 function UnifiedGateway() {
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
   const callbackUrl = normalizeLoginCallbackUrl(
     searchParams.get('callbackUrl'),
@@ -529,9 +532,9 @@ function UnifiedGateway() {
 
       {/* Terms */}
       <p className="text-xs text-gray-400 text-center leading-relaxed">
-        By continuing, you agree to RENTipid&apos;s{' '}
-        <Link href="/terms" className="underline hover:text-gray-600">Terms of Service</Link> and{' '}
-        <Link href="/privacy" className="underline hover:text-gray-600">Privacy Policy</Link>.
+        {t('auth.byContinuingYouAgree')}{' '}
+        <Link href="/terms" className="underline hover:text-gray-600">{t('auth.termsOfService')}</Link> {t('auth.and')}{' '}
+        <Link href="/privacy" className="underline hover:text-gray-600">{t('auth.privacyPolicy')}</Link>.
       </p>
     </div>
   );
@@ -540,6 +543,7 @@ function UnifiedGateway() {
 /* ── Page ────────────────────────────────────────── */
 
 export default function Login() {
+  const { t } = useTranslation();
   return (
     <div className="container mx-auto py-20 px-4 flex justify-center">
       <div className="bg-white p-8 rounded-xl shadow-sm border max-w-md w-full">

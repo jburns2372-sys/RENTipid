@@ -3,9 +3,10 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { t } from '@/lib/glcc/i18n';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 export default function RegisterRenter() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -117,7 +118,14 @@ export default function RegisterRenter() {
           <div className="pt-4 flex items-start">
             <input type="checkbox" required className="mt-1 mr-2" />
             <span className="text-sm text-gray-600">
-              I agree to the <Link href="/terms" className="text-blue-600 hover:underline">Terms and Conditions</Link> and <Link href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link>.
+              {t('auth.iAgreeToThe')}{' '}
+              <Link href="/terms" className="text-blue-600 hover:underline">
+                {t('auth.termsOfService')}
+              </Link>{' '}
+              {t('auth.and')}{' '}
+              <Link href="/privacy" className="text-blue-600 hover:underline">
+                {t('auth.privacyPolicy')}
+              </Link>.
             </span>
           </div>
 

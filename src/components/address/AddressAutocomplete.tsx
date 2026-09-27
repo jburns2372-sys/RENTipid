@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useId } from 'react';
+import { useTranslation } from '@/lib/glcc/i18n/context';
 import { AddressSuggestion } from '@/lib/address/types';
 
 interface AddressAutocompleteProps {
@@ -12,6 +13,7 @@ function generateSessionToken() {
 }
 
 export const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({ countryCode, onSelect, disabled }) => {
+  const { t } = useTranslation();
   const currentRequestRef = useRef<string | null>(null);
   const [input, setInput] = useState('');
   const [suggestions, setSuggestions] = useState<AddressSuggestion[]>([]);
@@ -139,7 +141,7 @@ export const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({ countr
   return (
     <div className="mb-4 relative" ref={wrapperRef}>
       <label htmlFor={inputId} id={labelId} className="block text-sm font-medium text-gray-700 mb-1">
-        Find your address *
+        {t('common.findYourAddress')}
       </label>
       <input
         id={inputId}
@@ -148,7 +150,7 @@ export const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({ countr
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
         disabled={disabled || !countryCode}
-        placeholder={countryCode ? "Start typing your address..." : "Select a country first"}
+        placeholder={countryCode ? t('common.startTypingYourAddress') : t('common.selectCountryFirst')}
         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
         autoComplete="off"
         role="combobox"
@@ -160,10 +162,10 @@ export const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({ countr
       />
       
       <div aria-live="assertive" className="sr-only">
-        {loading ? 'Searching for address...' : 
+        {loading ? t('common.searchingForAddress') : 
          error ? error : 
-         (!loading && !error && suggestions.length === 0 && input.length >= 3) ? 'No matching address found. Try entering manually.' :
-         (isOpen && suggestions.length > 0) ? `${suggestions.length} suggestions available. Use up and down arrows to navigate.` : ''}
+         (!loading && !error && suggestions.length === 0 && input.length >= 3) ? t('common.noMatchingAddressFound') :
+         (isOpen && suggestions.length > 0) ? t('common.suggestionsAvailable', { count: suggestions.length }) : ''}
       </div>
       
       {isOpen && (
@@ -172,10 +174,10 @@ export const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({ countr
           role="listbox"
           className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto"
         >
-          {loading && <li className="px-4 py-2 text-gray-500 text-sm" role="option" aria-selected="false">Searching...</li>}
+          {loading && <li className="px-4 py-2 text-gray-500 text-sm" role="option" aria-selected="false">{t('common.searching')}</li>}
           {error && <li className="px-4 py-2 text-red-500 text-sm" role="option" aria-selected="false">{error}</li>}
           {!loading && !error && suggestions.length === 0 && input.length >= 3 && (
-            <li className="px-4 py-2 text-gray-500 text-sm" role="option" aria-selected="false">No matching address found. Try entering manually.</li>
+            <li className="px-4 py-2 text-gray-500 text-sm" role="option" aria-selected="false">{t('common.noMatchingAddressFound')}</li>
           )}
           {suggestions.map((suggestion, index) => (
             <li 

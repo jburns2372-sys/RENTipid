@@ -1,0 +1,55 @@
+{
+  "auditDate": "2026-09-28",
+  "runtimeLocaleResolution": {
+    "engine": "Authoritative P3 Locale Resolver with server-side cookie/header precedence",
+    "supportedLocales": {
+      "en-PH": {
+        "status": "PRODUCTION_READY",
+        "effectiveResolution": "DEFAULT_PLATFORM_FALLBACK",
+        "runtimeTranslationCoverage": "100%",
+        "presentKeys": 2114,
+        "missingKeys": 0
+      },
+      "fil-PH": {
+        "status": "QA_REQUIRED",
+        "effectiveResolution": "RESOLVES_IN_QA_MODE_ONLY",
+        "runtimeTranslationCoverage": "21.05% (direct)",
+        "fallbackCoverage": "100% (deterministic fallback to en-PH)",
+        "presentKeys": 445,
+        "missingKeys": 1669
+      },
+      "ja-JP": {
+        "status": "REGISTERED",
+        "effectiveResolution": "BLOCKED_IN_PRODUCTION_AND_QA",
+        "runtimeTranslationCoverage": "0%",
+        "presentKeys": 0,
+        "missingKeys": 2114
+      }
+    }
+  },
+  "qualityGateMetrics": {
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "status": "PASS"
+    },
+    "testSuite": {
+      "command": "npx jest glcc",
+      "suitesPassed": 33,
+      "suitesTotal": 33,
+      "testsPassed": 546,
+      "testsTotal": 546,
+      "status": "PASS"
+    },
+    "schemaValidation": {
+      "command": "npx prisma validate",
+      "exitCode": 0,
+      "status": "PASS"
+    },
+    "compilation": {
+      "command": "next build",
+      "exitCode": 0,
+      "status": "PASS"
+    }
+  }
+}

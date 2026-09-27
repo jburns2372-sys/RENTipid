@@ -5,8 +5,10 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import RentipidLogo from '@/components/brand/RentipidLogo';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 export default function RegisterIndividualProvider() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,7 +23,7 @@ export default function RegisterIndividualProvider() {
     const confirm = formData.get('confirm_password') as string;
 
     if (password !== confirm) {
-      setError("Passwords do not match");
+      setError(t('auth.errors.passwordMismatch'));
       setLoading(false);
       return;
     }
@@ -50,10 +52,10 @@ export default function RegisterIndividualProvider() {
         router.push('/login?registered=true');
       } else {
         const data = await res.json();
-        setError(data.message || 'Registration failed');
+        setError(data.message || t('auth.errors.registrationFailed'));
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      setError(t('auth.errors.generic'));
     } finally {
       setLoading(false);
     }
@@ -63,53 +65,53 @@ export default function RegisterIndividualProvider() {
     <div className="container mx-auto py-12 px-4 max-w-lg">
       <div className="bg-white p-8 rounded-xl shadow-sm border">
         <RentipidLogo variant="full" size="lg" showText={true} className="mb-6" />
-        <h1 className="text-2xl font-bold mb-2 text-center text-gray-800">Become a Provider</h1>
-        <p className="text-gray-600 mb-8 text-center">Turn your idle assets into income.</p>
+        <h1 className="text-2xl font-bold mb-2 text-center text-gray-800">{t('auth.becomeAProvider')}</h1>
+        <p className="text-gray-600 mb-8 text-center">{t('auth.turnYourIdleAssets')}</p>
 
         {error && <div className="bg-red-50 text-red-600 p-3 rounded mb-6 text-sm">{error}</div>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Full Name *</label>
+            <label className="block text-sm font-medium mb-1">{t('auth.register.fullName')}</label>
             <input name="full_name" required className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none" />
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1">Email *</label>
+              <label className="block text-sm font-medium mb-1">{t('auth.register.email')}</label>
               <input type="email" name="email" required className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none" />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Mobile Number *</label>
+              <label className="block text-sm font-medium mb-1">{t('auth.register.mobileNumber')}</label>
               <input type="tel" name="mobile_number" required className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none" />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1">Password *</label>
+              <label className="block text-sm font-medium mb-1">{t('auth.register.password')}</label>
               <input type="password" name="password" required className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none" />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Confirm Password *</label>
+              <label className="block text-sm font-medium mb-1">{t('auth.register.confirmPassword')}</label>
               <input type="password" name="confirm_password" required className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none" />
             </div>
           </div>
 
           <div className="pt-4">
-            <h3 className="font-semibold text-gray-800 border-b pb-2 mb-4">Location Details</h3>
+            <h3 className="font-semibold text-gray-800 border-b pb-2 mb-4">{t('auth.register.locationDetails')}</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Address *</label>
+                <label className="block text-sm font-medium mb-1">{t('auth.address')}</label>
                 <input name="address" required className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">City *</label>
+                  <label className="block text-sm font-medium mb-1">{t('auth.register.city')}</label>
                   <input name="city" required className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">Province *</label>
+                  <label className="block text-sm font-medium mb-1">{t('auth.register.province')}</label>
                   <input name="province" required className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none" />
                 </div>
               </div>
@@ -120,7 +122,14 @@ export default function RegisterIndividualProvider() {
             <div className="flex items-start">
               <input type="checkbox" required className="mt-1 mr-2" />
               <span className="text-sm text-gray-600">
-                I agree to the <Link href="/terms" className="text-blue-600 hover:underline">Terms and Conditions</Link> and <Link href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link>.
+                {t('auth.iAgreeToThe')}{' '}
+                <Link href="/terms" className="text-blue-600 hover:underline">
+                  {t('auth.termsOfService')}
+                </Link>{' '}
+                {t('auth.and')}{' '}
+                <Link href="/privacy" className="text-blue-600 hover:underline">
+                  {t('auth.privacyPolicy')}
+                </Link>.
               </span>
             </div>
             <div className="flex items-start">
@@ -136,12 +145,15 @@ export default function RegisterIndividualProvider() {
             disabled={loading}
             className="w-full bg-blue-600 text-white font-bold py-3 rounded hover:bg-blue-700 transition disabled:opacity-50 mt-6"
           >
-            {loading ? 'Creating Account...' : 'Register as Provider'}
+            {loading ? t('auth.register.submitting') : t('auth.register.asProvider')}
           </button>
         </form>
 
         <div className="mt-6 text-center text-sm text-gray-600">
-          Already have an account? <Link href="/login" className="text-blue-600 hover:underline font-medium">Log in</Link>
+          {t('auth.register.alreadyHaveAccount')}{' '}
+          <Link href="/login" className="text-blue-600 hover:underline font-medium">
+            {t('auth.register.loginLink')}
+          </Link>
         </div>
       </div>
     </div>

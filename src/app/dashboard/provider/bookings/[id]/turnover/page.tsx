@@ -4,9 +4,11 @@ import React, { useState, useEffect, Suspense } from 'react';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 function TurnoverForm({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
   const typeParam = searchParams.get('type') || 'release'; // 'release' or 'return'
   
@@ -49,20 +51,20 @@ function TurnoverForm({ params }: { params: Promise<{ id: string }> }) {
     }
   };
 
-  if (!bookingId) return <div className="p-10 text-center">Loading...</div>;
+  if (!bookingId) return <div className="p-10 text-center">{t('common.loading')}</div>;
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-3xl">
       <div className="mb-6">
         <Link href={`/dashboard/provider/bookings/${bookingId}`} className="text-blue-600 hover:underline text-sm font-medium">
-          &larr; Back to Booking
+          &larr; {t('provider.backToBooking')}
         </Link>
       </div>
 
       <div className="flex justify-between items-center mb-8 border-b pb-4">
         <div>
           <h1 className="text-3xl font-bold">{title}</h1>
-          <p className="text-gray-500">Record the exact time and location of the asset handover.</p>
+          <p className="text-gray-500">{t('provider.recordTheExactTime')}</p>
         </div>
         <AIAssistantButton context="Turnover Verification Bot" />
       </div>
@@ -71,33 +73,33 @@ function TurnoverForm({ params }: { params: Promise<{ id: string }> }) {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-1">Method *</label>
+            <label className="block text-sm font-bold text-gray-700 mb-1">{t('provider.method')}</label>
             <select name="pickup_or_delivery" required className="w-full border p-2 rounded text-sm">
-              <option value="Pickup">Pickup</option>
-              <option value="Delivery">Delivery</option>
+              <option value="Pickup">{t('provider.pickup')}</option>
+              <option value="Delivery">{t('provider.delivery')}</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-1">Location *</label>
-            <input type="text" name="turnover_location" required placeholder="e.g. Main Lobby, 123 Main St" className="w-full border p-2 rounded text-sm" />
+            <label className="block text-sm font-bold text-gray-700 mb-1">{t('provider.location')}</label>
+            <input type="text" name="turnover_location" required placeholder={t('provider.eGMainLobby')} className="w-full border p-2 rounded text-sm" />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">{isRelease ? 'Handed Over By' : 'Received By'} *</label>
-            <input type="text" name="person_name" required placeholder="e.g. John Doe (Provider)" className="w-full border p-2 rounded text-sm" />
+            <input type="text" name="person_name" required placeholder={t('provider.eGJohnDoe')} className="w-full border p-2 rounded text-sm" />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1">Confirmation Notes (Optional)</label>
-          <textarea name="confirmation_notes" placeholder="Any final remarks about the handover..." className="w-full border p-3 rounded text-sm h-20"></textarea>
+          <label className="block text-sm font-bold text-gray-700 mb-1">{t('provider.confirmationNotesOptional')}</label>
+          <textarea name="confirmation_notes" placeholder={t('provider.anyFinalRemarksAbout')} className="w-full border p-3 rounded text-sm h-20"></textarea>
         </div>
 
         <div className="pt-4 border-t">
           <button type="submit" disabled={loading} className={`w-full text-white font-bold py-3 px-8 rounded-xl transition disabled:opacity-50 ${isRelease ? 'bg-purple-600 hover:bg-purple-700' : 'bg-teal-600 hover:bg-teal-700'}`}>
-            {loading ? 'Processing...' : isRelease ? 'Confirm Release to Renter' : 'Confirm Return to Provider'}
+            {loading ? t('common.loading') : isRelease ? 'Confirm Release to Renter' : 'Confirm Return to Provider'}
           </button>
         </div>
       </form>
@@ -106,8 +108,9 @@ function TurnoverForm({ params }: { params: Promise<{ id: string }> }) {
 }
 
 export default function ProviderTurnoverPage({ params }: { params: Promise<{ id: string }> }) {
+  const { t } = useTranslation();
   return (
-    <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
+    <Suspense fallback={<div className="p-10 text-center">{t('common.loading')}</div>}>
       <TurnoverForm params={params} />
     </Suspense>
   );

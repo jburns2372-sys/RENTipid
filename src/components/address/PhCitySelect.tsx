@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useId, useCallback } from 'react';
+import { useTranslation } from '@/lib/glcc/i18n/context';
 
 interface CityOption {
   psgcCode: string;
@@ -21,6 +22,7 @@ export const PhCitySelect: React.FC<PhCitySelectProps> = ({
   onChange,
   disabled,
 }) => {
+  const { t } = useTranslation();
   const [cityResults, setCityResults] = useState<{
     query: string;
     items: CityOption[];
@@ -132,7 +134,7 @@ export const PhCitySelect: React.FC<PhCitySelectProps> = ({
   return (
     <div ref={containerRef} className="relative">
       <label htmlFor={selectId} className="block text-sm font-medium text-gray-700 mb-1">
-        City / Municipality <span className="text-red-500">*</span>
+        {t('common.cityMunicipality')} <span className="text-red-500">*</span>
       </label>
 
       {value && selectedName ? (
@@ -143,9 +145,9 @@ export const PhCitySelect: React.FC<PhCitySelectProps> = ({
               type="button"
               onClick={handleClear}
               className="text-green-600 hover:text-green-800 text-xs font-medium ml-2"
-              aria-label="Change city"
+              aria-label={t('common.changeCity')}
             >
-              Change
+              {t('common.change')}
             </button>
           )}
         </div>
@@ -165,7 +167,7 @@ export const PhCitySelect: React.FC<PhCitySelectProps> = ({
             onKeyDown={handleKeyDown}
             disabled={disabled}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
-            placeholder="Type to search city or municipality…"
+            placeholder={t('common.typeToSearchCity')}
             role="combobox"
             aria-expanded={isOpen}
             aria-controls={listboxId}
@@ -186,10 +188,10 @@ export const PhCitySelect: React.FC<PhCitySelectProps> = ({
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
-                  Searching…
+                  {t('common.searching')}
                 </li>
               ) : cities.length === 0 ? (
-                <li className="px-3 py-2 text-sm text-gray-400">No matching cities</li>
+                <li className="px-3 py-2 text-sm text-gray-400">{t('common.noMatchingCities')}</li>
               ) : (
                 cities.map((city, idx) => (
                   <li

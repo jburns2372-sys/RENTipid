@@ -1,10 +1,13 @@
 import React from 'react';
 import { PrismaClient } from '@prisma/client';
 import { SocialAnalyticsService } from '../../../../lib/social/social-analytics-service';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 const prisma = new PrismaClient();
 
 export default async function AnalyticsDashboardPage() {
+  const { t } = await getServerTranslation();
+
   // Fetch active campaigns for selection
   const campaigns = await prisma.marketingCampaign.findMany({
     orderBy: { created_at: 'desc' }
@@ -22,7 +25,7 @@ export default async function AnalyticsDashboardPage() {
 
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-bold mb-8 text-gray-800">Social Analytics & Attribution</h1>
+      <h1 className="text-3xl font-bold mb-8 text-gray-800">{t('soc.socialAnalyticsAttribution')}</h1>
       
       <div className="space-y-8">
         {roiDataList.map(({ campaign, analytics }) => (
@@ -34,14 +37,14 @@ export default async function AnalyticsDashboardPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Social Metrics */}
                 <div className="bg-blue-50 p-4 rounded-md border border-blue-100">
-                  <h3 className="font-semibold text-blue-800 mb-3">Top of Funnel</h3>
+                  <h3 className="font-semibold text-blue-800 mb-3">{t('soc.topOfFunnel')}</h3>
                   <div className="space-y-2 text-sm text-blue-900">
                     <div className="flex justify-between">
-                      <span>Impressions:</span>
+                      <span>{t('soc.impressions')}</span>
                       <span className="font-mono">{analytics.metrics.impressions.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Clicks:</span>
+                      <span>{t('soc.clicks')}</span>
                       <span className="font-mono">{analytics.metrics.clicks.toLocaleString()}</span>
                     </div>
                   </div>
@@ -49,19 +52,19 @@ export default async function AnalyticsDashboardPage() {
 
                 {/* Business Outcomes */}
                 <div className="bg-green-50 p-4 rounded-md border border-green-100">
-                  <h3 className="font-semibold text-green-800 mb-3">Confirmed Conversions</h3>
+                  <h3 className="font-semibold text-green-800 mb-3">{t('soc.confirmedConversions')}</h3>
                   <div className="space-y-2 text-sm text-green-900">
                     <div className="flex justify-between">
-                      <span>Registrations:</span>
+                      <span>{t('soc.registrations')}</span>
                       <span className="font-mono">{analytics.conversions.confirmed_registrations}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Bookings:</span>
+                      <span>{t('soc.bookings')}</span>
                       <span className="font-mono">{analytics.conversions.confirmed_bookings}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Revenue:</span>
-                      <span className="font-mono">${analytics.conversions.confirmed_revenue.toFixed(2)}</span>
+                      <span>{t('soc.revenue')}</span>
+                      <span className="font-mono">₱{analytics.conversions.confirmed_revenue.toFixed(2)}</span>
                     </div>
                   </div>
                   {analytics.conversions.uncertain_count > 0 && (
@@ -73,18 +76,18 @@ export default async function AnalyticsDashboardPage() {
 
                 {/* ROI */}
                 <div className="bg-purple-50 p-4 rounded-md border border-purple-100">
-                  <h3 className="font-semibold text-purple-800 mb-3">Financial ROI</h3>
+                  <h3 className="font-semibold text-purple-800 mb-3">{t('soc.financialRoi')}</h3>
                   <div className="space-y-2 text-sm text-purple-900">
                     <div className="flex justify-between">
-                      <span>Cost:</span>
+                      <span>{t('soc.cost')}</span>
                       <span className="font-mono">
                         {analytics.financials.cost === 'UNAVAILABLE' 
                           ? 'UNAVAILABLE' 
-                          : `$${Number(analytics.financials.cost).toFixed(2)}`}
+                          : `₱${Number(analytics.financials.cost).toFixed(2)}`}
                       </span>
                     </div>
                     <div className="flex justify-between font-bold">
-                      <span>ROI:</span>
+                      <span>{t('soc.roi')}</span>
                       <span className="font-mono">
                         {analytics.financials.roi === 'UNAVAILABLE'
                           ? 'UNAVAILABLE'
@@ -95,7 +98,7 @@ export default async function AnalyticsDashboardPage() {
                 </div>
               </div>
             ) : (
-              <div className="text-gray-500 italic">Analytics currently unavailable for this campaign.</div>
+              <div className="text-gray-500 italic">{t('soc.analyticsCurrentlyUnavailableFor')}</div>
             )}
           </div>
         ))}

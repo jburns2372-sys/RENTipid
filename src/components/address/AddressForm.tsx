@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useId, useCallback } from 'react';
+import { useTranslation } from '@/lib/glcc/i18n/context';
 import { CountrySelect } from './CountrySelect';
 import { AddressAutocomplete } from './AddressAutocomplete';
 import { BarangaySelect } from './BarangaySelect';
@@ -36,6 +37,7 @@ const emptyAddress: NormalizedAddress = {
 };
 
 export const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onAddressChange, disabled }) => {
+  const { t } = useTranslation();
   const [address, setAddress] = useState<NormalizedAddress>(initialAddress || emptyAddress);
   const [manualMode, setManualMode] = useState(initialAddress?.addressLine1 ? !initialAddress.providerPlaceId : false);
   
@@ -205,7 +207,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onAddr
 
   return (
     <div className="border border-gray-200 rounded-lg p-5 bg-gray-50">
-      <h3 className="text-lg font-medium text-gray-900 mb-4">Address Information</h3>
+      <h3 className="text-lg font-medium text-gray-900 mb-4">{t('common.addressInformation')}</h3>
       
       <CountrySelect 
         value={address.countryCode} 
@@ -232,14 +234,14 @@ export const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onAddr
       {address.validationStatus === 'AUTOCOMPLETE_SELECTED' && !manualMode && (
         <div className="mb-4 text-sm font-medium text-green-700 bg-green-50 p-2 rounded flex items-center">
           <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-          Address selected
+          {t('common.addressSelected')}
         </div>
       )}
 
       {(address.validationStatus === 'MANUAL' || address.validationStatus === 'UNVERIFIED') && address.addressLine1 && (
         <div className="mb-4 text-sm font-medium text-yellow-700 bg-yellow-50 p-2 rounded flex items-center">
           <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
-          Manually entered
+          {t('common.manuallyEntered')}
         </div>
       )}
 
@@ -250,13 +252,13 @@ export const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onAddr
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
           </svg>
-          Resolving Philippine city…
+          {t('common.resolvingPhilippineCity')}
         </div>
       )}
 
       <div className="grid md:grid-cols-2 gap-4">
         <div className="md:col-span-2">
-          <label htmlFor={idLine1} className="block text-sm font-medium text-gray-700 mb-1">Address Line 1 *</label>
+          <label htmlFor={idLine1} className="block text-sm font-medium text-gray-700 mb-1">{t('common.addressLine1')}</label>
           <input 
             id={idLine1}
             type="text" 
@@ -264,12 +266,12 @@ export const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onAddr
             onChange={e => handleFieldChange('addressLine1', e.target.value)}
             disabled={disabled}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
-            placeholder="Street address, building, house number"
+            placeholder={t('common.streetAddressBuildingHouse')}
           />
         </div>
         
         <div className="md:col-span-2">
-          <label htmlFor={idLine2} className="block text-sm font-medium text-gray-700 mb-1">Address Line 2 (Optional)</label>
+          <label htmlFor={idLine2} className="block text-sm font-medium text-gray-700 mb-1">{t('common.addressLine2Optional')}</label>
           <input 
             id={idLine2}
             type="text" 
@@ -277,7 +279,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onAddr
             onChange={e => handleFieldChange('addressLine2', e.target.value)}
             disabled={disabled}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
-            placeholder="Apartment, unit, suite, or floor"
+            placeholder={t('common.apartmentUnitSuiteOr')}
           />
         </div>
 
@@ -296,7 +298,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onAddr
         ) : (
           <div>
             <label htmlFor={idSubloc} className="block text-sm font-medium text-gray-700 mb-1">
-              District / Sublocality
+              {t('common.districtSublocality')}
             </label>
             <input 
               id={idSubloc}
@@ -321,7 +323,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onAddr
           </div>
         ) : (
           <div>
-            <label htmlFor={idLoc} className="block text-sm font-medium text-gray-700 mb-1">City / Municipality</label>
+            <label htmlFor={idLoc} className="block text-sm font-medium text-gray-700 mb-1">{t('common.cityMunicipality')}</label>
             <input 
               id={idLoc}
               type="text" 
@@ -335,7 +337,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onAddr
 
         <div>
           <label htmlFor={idAdmin} className="block text-sm font-medium text-gray-700 mb-1">
-            {isPH ? 'Province / Region' : 'State / Province / Region'}
+            {isPH ? t('common.provinceRegion') : t('common.stateProvinceRegion')}
           </label>
           <input 
             id={idAdmin}
@@ -348,7 +350,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onAddr
         </div>
 
         <div>
-          <label htmlFor={idPostal} className="block text-sm font-medium text-gray-700 mb-1">ZIP / Postal Code</label>
+          <label htmlFor={idPostal} className="block text-sm font-medium text-gray-700 mb-1">{t('common.zipPostalCode')}</label>
           <input 
             id={idPostal}
             type="text" 
@@ -368,7 +370,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onAddr
             onClick={() => setManualMode(true)}
             disabled={disabled}
           >
-            Enter address manually
+            {t('common.enterAddressManually')}
           </button>
         </div>
       )}
@@ -380,7 +382,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onAddr
             onClick={() => setManualMode(false)}
             disabled={disabled}
           >
-            Search address instead
+            {t('common.searchAddressInstead')}
           </button>
         </div>
       )}

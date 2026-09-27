@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Bot, X, Send, Trash2, AlertTriangle, CheckCircle2, Mic, MicOff, VolumeX, Volume2, VideoOff, MessageSquare, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { BotId, BOTS } from '@/lib/ai/ai-permissions';
 import RentipidLogo from '@/components/brand/RentipidLogo';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 interface Message {
   id: string;
@@ -21,6 +22,7 @@ interface RentipidAIAssistantProps {
 }
 
 function AssistantMessageBubble({ msg, conversationId }: { msg: Message, conversationId: string | null }) {
+  const { t } = useTranslation();
   const [feedback, setFeedback] = useState<'THUMBS_UP' | 'THUMBS_DOWN' | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -67,7 +69,7 @@ function AssistantMessageBubble({ msg, conversationId }: { msg: Message, convers
             disabled={loading}
             onClick={() => handleFeedback('THUMBS_UP')}
             className={`p-1 rounded hover:bg-gray-100 transition-colors ${feedback === 'THUMBS_UP' ? 'text-green-600 bg-green-50' : 'text-gray-400'}`}
-            aria-label="Helpful"
+            aria-label={t('common.helpful')}
           >
             <ThumbsUp size={14} className={feedback === 'THUMBS_UP' ? 'fill-current' : ''} />
           </button>
@@ -75,7 +77,7 @@ function AssistantMessageBubble({ msg, conversationId }: { msg: Message, convers
             disabled={loading}
             onClick={() => handleFeedback('THUMBS_DOWN')}
             className={`p-1 rounded hover:bg-gray-100 transition-colors ${feedback === 'THUMBS_DOWN' ? 'text-red-600 bg-red-50' : 'text-gray-400'}`}
-            aria-label="Not helpful"
+            aria-label={t('common.notHelpful')}
           >
             <ThumbsDown size={14} className={feedback === 'THUMBS_DOWN' ? 'fill-current' : ''} />
           </button>
@@ -86,6 +88,7 @@ function AssistantMessageBubble({ msg, conversationId }: { msg: Message, convers
 }
 
 export default function RentipidAIAssistant({ module, recordId, userRole, allowedBots, disclaimerText }: RentipidAIAssistantProps) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [conversationId, setConversationId] = useState<string | null>(null);
@@ -222,7 +225,7 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
       <button
         onClick={() => setIsOpen(true)}
         className="fixed bottom-6 right-6 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors z-50 flex items-center justify-center group"
-        aria-label="Ask RENTipid AI"
+        aria-label={t('common.askRentipidAi')}
       >
         <Bot size={24} className="group-hover:animate-pulse" />
       </button>
@@ -239,11 +242,11 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
               </div>
               <div className="flex items-center space-x-3">
                 {mode === 'text' ? (
-                  <button onClick={startDigitalHuman} className="text-white hover:text-gray-200" title="Start Digital Human">
+                  <button onClick={startDigitalHuman} className="text-white hover:text-gray-200" title={t('common.startDigitalHuman')}>
                     <VideoOff size={18} />
                   </button>
                 ) : (
-                  <button onClick={fallbackToText} className="text-white hover:text-gray-200" title="Switch to Text">
+                  <button onClick={fallbackToText} className="text-white hover:text-gray-200" title={t('common.switchToText')}>
                     <MessageSquare size={18} />
                   </button>
                 )}
@@ -277,12 +280,12 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
             {/* Digital Human Area */}
             {mode === 'digital_human' && (
               <div className="bg-slate-900 h-48 relative flex items-center justify-center border-b">
-                {dhStatus === 'initializing' && <div className="text-white animate-pulse">Connecting to Provider...</div>}
+                {dhStatus === 'initializing' && <div className="text-white animate-pulse">{t('common.connectingToProvider')}</div>}
                 {dhStatus === 'failed' && (
                   <div className="text-red-400 text-center">
                     <AlertTriangle className="mx-auto mb-2" />
                     Provider failed. Falling back to text.
-                    <button onClick={fallbackToText} className="block mx-auto mt-2 text-sm underline text-blue-400">Continue in Text</button>
+                    <button onClick={fallbackToText} className="block mx-auto mt-2 text-sm underline text-blue-400">{t('common.continueInText')}</button>
                   </div>
                 )}
                 {dhStatus === 'active' && (
@@ -351,7 +354,7 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
             {/* Input Area (Shared between text and DH for typed input) */}
             <div className="bg-white border-t p-3">
               <div className="flex items-center gap-2">
-                <button onClick={handleClear} className="text-gray-400 hover:text-red-500 p-2 rounded-full transition" title="Clear chat">
+                <button onClick={handleClear} className="text-gray-400 hover:text-red-500 p-2 rounded-full transition" title={t('common.clearChat')}>
                   <Trash2 size={18} />
                 </button>
                 <div className="flex-1 relative">
@@ -360,7 +363,7 @@ export default function RentipidAIAssistant({ module, recordId, userRole, allowe
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder="Ask a question..."
+                    placeholder={t('common.askAQuestion')}
                     className="w-full bg-gray-100 border-transparent focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-full py-2 pl-4 pr-10 text-sm transition-all"
                     disabled={isLoading}
                   />

@@ -4,9 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import { FileUp, CheckCircle, AlertCircle, Clock } from 'lucide-react';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 export default function KYCPage() {
   const { data: session } = useSession();
+  const { t } = useTranslation();
   const [documents, setDocuments] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{type: 'success'|'error', text: string} | null>(null);
@@ -75,16 +77,16 @@ export default function KYCPage() {
   const role = (session?.user as any)?.role || 'Renter';
 
   const getRequiredDocs = () => {
-    if (role === 'Renter') return ['Valid Government ID', 'Selfie Verification'];
-    if (role === 'Individual Provider') return ['Valid Government ID', 'Selfie Verification', 'Proof of Address', 'Proof of Ownership (Optional)'];
-    if (role === 'Business Provider') return ['Business Registration (DTI/SEC)', 'Business Permit', 'Authorized Rep ID', 'Proof of Business Address'];
+    if (role === 'Renter') return [t('kyc.validGovernmentId'), t('kyc.selfieVerification')];
+    if (role === 'Individual Provider') return [t('kyc.validGovernmentId'), t('kyc.selfieVerification'), t('kyc.proofOfAddress'), t('kyc.proofOfOwnershipAuthorization')];
+    if (role === 'Business Provider') return [t('kyc.businessPermitRegistration'), t('kyc.validGovernmentId'), t('kyc.proofOfAddress')];
     return [];
   };
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-4xl">
-      <h1 className="text-3xl font-bold mb-2">Account Verification (KYC)</h1>
-      <p className="text-gray-600 mb-8">Submit required documents to unlock full platform features.</p>
+      <h1 className="text-3xl font-bold mb-2">{t('kyc.accountVerificationKyc')}</h1>
+      <p className="text-gray-600 mb-8">{t('kyc.submitRequiredDocumentsTo')}</p>
 
       {message && (
         <div className={`p-4 rounded-lg mb-8 flex items-center ${message.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
@@ -115,22 +117,22 @@ export default function KYCPage() {
 
         <div className="md:col-span-2 space-y-6">
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <h2 className="text-xl font-semibold mb-6">Upload Document</h2>
+            <h2 className="text-xl font-semibold mb-6">{t('kyc.uploadDocument')}</h2>
             <form onSubmit={handleUpload} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-1">Document Type</label>
                 <select name="document_type" required className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none bg-white">
-                  <option value="">Select document type...</option>
-                  <option value="ID">Valid Government ID</option>
-                  <option value="Selfie">Selfie Verification</option>
-                  <option value="ProofOfAddress">Proof of Address</option>
-                  <option value="BusinessPermit">Business Permit / Registration</option>
-                  <option value="ProofOfOwnership">Proof of Ownership / Authorization</option>
+                  <option value="">{t('kyc.selectDocumentType')}</option>
+                  <option value="ID">{t('kyc.validGovernmentId')}</option>
+                  <option value="Selfie">{t('kyc.selfieVerification')}</option>
+                  <option value="ProofOfAddress">{t('kyc.proofOfAddress')}</option>
+                  <option value="BusinessPermit">{t('kyc.businessPermitRegistration')}</option>
+                  <option value="ProofOfOwnership">{t('kyc.proofOfOwnershipAuthorization')}</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">File</label>
+                <label className="block text-sm font-medium mb-1">{t('kyc.file')}</label>
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 transition cursor-pointer">
                   <input 
                     type="file" 
@@ -139,7 +141,7 @@ export default function KYCPage() {
                     required 
                     className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                   />
-                  <p className="mt-2 text-xs text-gray-500">Max size: 5MB. Formats: PDF, JPG, PNG, WEBP.</p>
+                  <p className="mt-2 text-xs text-gray-500">{t('kyc.maxSize5mbFormats')}</p>
                 </div>
               </div>
 
@@ -148,13 +150,13 @@ export default function KYCPage() {
                 disabled={loading}
                 className="bg-blue-600 text-white font-medium py-2 px-6 rounded hover:bg-blue-700 transition disabled:opacity-50 flex items-center"
               >
-                {loading ? 'Uploading...' : <><FileUp size={18} className="mr-2" /> Upload Document</>}
+                {loading ? t('common.loading') : <><FileUp size={18} className="mr-2" /> {t('kyc.uploadDocument')}</>}
               </button>
             </form>
           </div>
 
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <h2 className="text-xl font-semibold mb-6 border-b pb-2">My Uploaded Documents</h2>
+            <h2 className="text-xl font-semibold mb-6 border-b pb-2">{t('kyc.myUploadedDocuments')}</h2>
             
             {documents.length === 0 ? (
               <div className="text-center py-8 text-gray-500">

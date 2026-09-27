@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { CheckCircle2, Send, Undo2, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 type ListingAction = 'approve' | 'reject' | 'publish' | 'unpublish';
 
@@ -16,6 +17,7 @@ export default function AdminListingActions({
   approvalRequirementsPass: boolean;
 }) {
   const router = useRouter();
+  const { t } = useTranslation();
   const [pendingAction, setPendingAction] = useState<ListingAction | null>(null);
   const [reason, setReason] = useState('');
   const [error, setError] = useState('');
@@ -50,7 +52,7 @@ export default function AdminListingActions({
 
   return (
     <section className="border border-gray-200 bg-white p-5 shadow-sm">
-      <h2 className="text-base font-semibold text-gray-950">Review decision</h2>
+      <h2 className="text-base font-semibold text-gray-950">{t('admin.adminReview')}</h2>
       <p className="mt-1 text-sm text-gray-600">
         {isPendingReview && 'Approve for publication eligibility or return the listing to the provider.'}
         {currentStatus === 'Approved' && 'Approval is complete. Publish separately when the listing is ready for the marketplace.'}
@@ -71,12 +73,12 @@ export default function AdminListingActions({
             className="flex h-10 w-full items-center justify-center gap-2 bg-emerald-700 px-4 text-sm font-semibold text-white hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-gray-300"
           >
             <CheckCircle2 size={17} aria-hidden="true" />
-            {pendingAction === 'approve' ? 'Approving...' : 'Approve listing'}
+            {pendingAction === 'approve' ? t('common.loading') : `${t('common.approve')} listing`}
           </button>
           {!approvalRequirementsPass && <p className="text-xs font-medium text-amber-800">Required documents or listing requirements are not ready.</p>}
 
           <div className="border-t border-gray-200 pt-4">
-            <label htmlFor="listing-rejection-reason" className="text-sm font-medium text-gray-800">Rejection reason</label>
+            <label htmlFor="listing-rejection-reason" className="text-sm font-medium text-gray-800">{t('provider.reasonForRejection')}</label>
             <textarea
               id="listing-rejection-reason"
               rows={3}
@@ -92,7 +94,7 @@ export default function AdminListingActions({
               className="mt-3 flex h-10 w-full items-center justify-center gap-2 border border-red-700 px-4 text-sm font-semibold text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <XCircle size={17} aria-hidden="true" />
-              {pendingAction === 'reject' ? 'Rejecting...' : 'Reject listing'}
+              {pendingAction === 'reject' ? t('common.loading') : `${t('common.reject')} listing`}
             </button>
           </div>
         </div>

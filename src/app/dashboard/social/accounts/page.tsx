@@ -1,34 +1,36 @@
 import React from 'react';
 import { PrismaClient } from '@prisma/client';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 const prisma = new PrismaClient();
 
 export default async function SocialAccountsPage() {
+  const { t } = await getServerTranslation();
   const accounts = await prisma.socialAccount.findMany({
     orderBy: { updated_at: 'desc' }
   });
 
   return (
     <div className="p-8 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8">Social Accounts & Providers</h1>
+      <h1 className="text-3xl font-bold mb-8">{t('soc.socialAccountsProviders')}</h1>
       
       <div className="bg-white rounded-xl shadow border p-6">
-        <h2 className="text-xl font-semibold mb-4">Connected Providers</h2>
+        <h2 className="text-xl font-semibold mb-4">{t('soc.connectedProviders')}</h2>
         
         {accounts.length === 0 ? (
-          <p className="text-gray-500">No social accounts configured.</p>
+          <p className="text-gray-500">{t('soc.noSocialAccountsConfigured')}</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b bg-gray-50">
-                  <th className="p-4">Provider</th>
-                  <th className="p-4">Account Identifier</th>
-                  <th className="p-4">Maturity Status</th>
-                  <th className="p-4">Health</th>
-                  <th className="p-4">Capabilities</th>
-                  <th className="p-4">Last Sync</th>
-                  <th className="p-4">Actions</th>
+                  <th className="p-4">{t('admin.colProvider', undefined, 'Provider')}</th>
+                  <th className="p-4">{t('soc.accountIdentifier')}</th>
+                  <th className="p-4">{t('soc.maturityStatus')}</th>
+                  <th className="p-4">{t('soc.health')}</th>
+                  <th className="p-4">{t('soc.capabilities')}</th>
+                  <th className="p-4">{t('soc.lastSync')}</th>
+                  <th className="p-4">{t('common.actions')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -72,9 +74,9 @@ export default async function SocialAccountsPage() {
                       </td>
                       <td className="p-4">
                         <div className="flex gap-2">
-                          <button className="text-blue-600 hover:underline text-sm">Configure</button>
-                          <button className="text-blue-600 hover:underline text-sm">Validate</button>
-                          <button className="text-red-600 hover:underline text-sm">Disable</button>
+                          <button className="text-blue-600 hover:underline text-sm">{t('soc.configure')}</button>
+                          <button className="text-blue-600 hover:underline text-sm">{t('soc.validate')}</button>
+                          <button className="text-red-600 hover:underline text-sm">{t('soc.disable')}</button>
                         </div>
                       </td>
                     </tr>
@@ -87,7 +89,7 @@ export default async function SocialAccountsPage() {
       </div>
 
       <div className="mt-8 bg-gray-50 rounded-xl border p-6">
-        <h2 className="text-lg font-semibold mb-2">Provider Integrations Available</h2>
+        <h2 className="text-lg font-semibold mb-2">{t('soc.providerIntegrationsAvailable')}</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
           {['Meta', 'Instagram', 'TikTok', 'Google', 'WhatsApp', 'Viber', 'MockSocialAdapter'].map(p => (
             <div key={p} className="bg-white border rounded p-4 text-center">

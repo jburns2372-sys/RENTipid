@@ -5,6 +5,7 @@ import {
   getAdminReviewQueue,
   requireAdminListingReviewer,
 } from '@/lib/listings/admin-review-service';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,30 +18,31 @@ export default async function AdminListingReviewQueuePage() {
   if (!reviewer) redirect('/unauthorized');
 
   const listings = await getAdminReviewQueue();
+  const { t } = await getServerTranslation();
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
       <header className="mb-6 flex flex-wrap items-end justify-between gap-3 border-b border-gray-200 pb-5">
         <div>
-          <p className="text-sm font-medium text-blue-700">Admin review</p>
-          <h1 className="mt-1 text-2xl font-semibold text-gray-950">Listing Review Queue</h1>
+          <p className="text-sm font-medium text-blue-700">{t('admin.adminReview')}</p>
+          <h1 className="mt-1 text-2xl font-semibold text-gray-950">{t('admin.listingReviewQueue')}</h1>
         </div>
-        <p className="text-sm text-gray-600">{listings.length} pending</p>
+        <p className="text-sm text-gray-600">{t('admin.pendingCount', { count: listings.length }, `${listings.length} pending`)}</p>
       </header>
 
       <div className="overflow-x-auto border border-gray-200 bg-white">
         <table className="w-full min-w-[1050px] text-left text-sm">
           <thead className="border-b border-gray-200 bg-gray-50 text-xs font-semibold uppercase text-gray-600">
             <tr>
-              <th className="px-4 py-3">Listing</th>
-              <th className="px-4 py-3">Provider</th>
-              <th className="px-4 py-3">Category / risk</th>
-              <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">Photos</th>
-              <th className="px-4 py-3">Documents</th>
-              <th className="px-4 py-3">Daily rate</th>
-              <th className="px-4 py-3">Location</th>
-              <th className="px-4 py-3"><span className="sr-only">Action</span></th>
+              <th className="px-4 py-3">{t('admin.colListing', undefined, 'Listing')}</th>
+              <th className="px-4 py-3">{t('admin.colProvider', undefined, 'Provider')}</th>
+              <th className="px-4 py-3">{t('admin.categoryRisk')}</th>
+              <th className="px-4 py-3">{t('common.status')}</th>
+              <th className="px-4 py-3">{t('admin.colPhotos', undefined, 'Photos')}</th>
+              <th className="px-4 py-3">{t('admin.documents')}</th>
+              <th className="px-4 py-3">{t('admin.dailyRate')}</th>
+              <th className="px-4 py-3">{t('admin.colLocation', undefined, 'Location')}</th>
+              <th className="px-4 py-3"><span className="sr-only">{t('common.actions')}</span></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -59,26 +61,26 @@ export default async function AdminListingReviewQueuePage() {
                 </td>
                 <td className="px-4 py-4 text-gray-700">
                   <span className="block font-medium">{listing.status}</span>
-                  <span className="block text-xs text-gray-500">Updated {new Date(listing.updated_at).toLocaleDateString('en-PH')}</span>
+                  <span className="block text-xs text-gray-500">{t('admin.updatedDate', { date: new Date(listing.updated_at).toLocaleDateString('en-PH') }, `Updated ${new Date(listing.updated_at).toLocaleDateString('en-PH')}`)}</span>
                 </td>
                 <td className="px-4 py-4 text-gray-700">{listing.photos.length}</td>
                 <td className="px-4 py-4">
                   <span className={`inline-flex items-center gap-1 font-medium ${listing.documentReadiness.ready ? 'text-emerald-700' : 'text-amber-800'}`}>
                     <FileCheck2 size={15} aria-hidden="true" />
-                    {listing.documentReadiness.ready ? 'Ready' : 'Review required'}
+                    {listing.documentReadiness.ready ? t('admin.ready', undefined, 'Ready') : t('admin.reviewRequired', undefined, 'Review required')}
                   </span>
                 </td>
                 <td className="px-4 py-4 text-gray-700">{money(listing.daily_rate)}</td>
                 <td className="max-w-48 px-4 py-4 text-gray-700">{[listing.location, listing.city, listing.province].filter(Boolean).join(', ') || 'Not set'}</td>
                 <td className="px-4 py-4 text-right">
                   <Link href={`/dashboard/admin/listings/${listing.id}`} className="inline-flex h-9 items-center gap-2 bg-blue-700 px-3 font-semibold text-white hover:bg-blue-800">
-                    <ClipboardCheck size={16} aria-hidden="true" /> Review
+                    <ClipboardCheck size={16} aria-hidden="true" /> {t('admin.reviewAction', undefined, 'Review')}
                   </Link>
                 </td>
               </tr>
             ))}
             {listings.length === 0 && (
-              <tr><td colSpan={9} className="px-4 py-14 text-center text-gray-500">No listings are awaiting admin review.</td></tr>
+              <tr><td colSpan={9} className="px-4 py-14 text-center text-gray-500">{t('admin.noListingsAreAwaiting')}</td></tr>
             )}
           </tbody>
         </table>

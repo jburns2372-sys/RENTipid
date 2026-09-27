@@ -1,10 +1,13 @@
 import React from 'react';
 import { ShieldAlert } from 'lucide-react';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
-export default function SafetyPage() {
+export default async function SafetyPage() {
+  const { t } = await getServerTranslation();
+
   return (
     <div className="max-w-4xl mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-6">Trust & Safety Center</h1>
+      <h1 className="text-3xl font-bold mb-6">{t('trustSafety.trustSafetyCenter')}</h1>
       
       <div className="bg-blue-50 border border-blue-200 text-blue-900 p-6 rounded-xl mb-8">
         <h2 className="text-lg font-bold flex items-center gap-2 mb-2">
@@ -16,11 +19,11 @@ export default function SafetyPage() {
       </div>
 
       <div className="prose max-w-none text-gray-700">
-        <h2>Identity Verification (KYC)</h2>
-        <p>All users must verify their identity before transacting on the platform.</p>
+        <h2>{t('trustSafety.identityVerificationKyc')}</h2>
+        <p>{t('trustSafety.allUsersMustVerify')}</p>
 
-        <h2>Secure Payments</h2>
-        <p>Never pay outside the RENTipid platform. All transactions are protected by our Escrow system.</p>
+        <h2>{t('trustSafety.securePayments')}</h2>
+        <p>{t('trustSafety.neverPayOutsideThe')}</p>
       </div>
     </div>
   );

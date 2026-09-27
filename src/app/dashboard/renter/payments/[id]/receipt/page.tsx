@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
@@ -5,11 +6,13 @@ import { PrismaClient } from '@prisma/client';
 import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import RentipidLogo from '@/components/brand/RentipidLogo';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 const prisma = new PrismaClient();
 
 export default async function RenterReceiptPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
   const user = session?.user as any;
   if (!user || user.role !== 'Renter') redirect('/login');
@@ -23,12 +26,14 @@ export default async function RenterReceiptPage({ params }: { params: Promise<{ 
 
   return (
     <div className="container mx-auto p-6 max-w-3xl py-12">
-      <Link href="/dashboard/renter/bookings" className="text-blue-600 hover:underline text-sm mb-6 inline-block">&larr; Back to Bookings</Link>
+      <Link href="/dashboard/renter/bookings" className="text-blue-600 hover:underline text-sm mb-6 inline-block">
+        &larr; {t('renter.bookingDetail.back')}
+      </Link>
       
       <div className="bg-white rounded-xl border p-8 shadow-sm">
         <div className="flex justify-between items-start border-b pb-6 mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Payment Receipt</h1>
+            <h1 className="text-3xl font-bold text-gray-900">{t('renter.paymentReceipt')}</h1>
             <p className="text-gray-500">Ref: {transaction.gateway_reference || transaction.id.substring(0,8).toUpperCase()}</p>
           </div>
           <div className="text-right flex flex-col items-end">
@@ -42,7 +47,7 @@ export default async function RenterReceiptPage({ params }: { params: Promise<{ 
         </div>
 
         <div className="mb-6">
-          <h3 className="font-bold text-gray-800 mb-2">Billed To</h3>
+          <h3 className="font-bold text-gray-800 mb-2">{t('renter.billedTo')}</h3>
           <p className="text-gray-600">{user.name}</p>
           <p className="text-gray-600">{user.email}</p>
         </div>
@@ -50,20 +55,20 @@ export default async function RenterReceiptPage({ params }: { params: Promise<{ 
         <table className="w-full text-left mb-6">
           <thead>
             <tr className="border-b">
-              <th className="pb-2 text-gray-800">Description</th>
-              <th className="pb-2 text-gray-800 text-right">Amount</th>
+              <th className="pb-2 text-gray-800">{t('listing.description')}</th>
+              <th className="pb-2 text-gray-800 text-right">{t('renter.requestedAmount').replace(/\s*\(₱\)/, '')}</th>
             </tr>
           </thead>
           <tbody>
             <tr className="border-b">
-              <td className="py-3 text-gray-600">Booking: {transaction.booking.listing.title}</td>
+              <td className="py-3 text-gray-600">{transaction.booking.listing.title}</td>
               <td className="py-3 text-gray-900 text-right">₱ {transaction.amount.toLocaleString()}</td>
             </tr>
           </tbody>
         </table>
 
         <div className="flex justify-end text-xl font-bold text-gray-900">
-          <span>Total Paid: ₱ {transaction.amount.toLocaleString()}</span>
+          <span>{t('checkout.total')}: ₱ {transaction.amount.toLocaleString()}</span>
         </div>
         
         <div className="mt-8 text-sm text-gray-400 text-center">

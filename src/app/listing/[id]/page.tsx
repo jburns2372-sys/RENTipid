@@ -4,11 +4,13 @@ import { PrismaClient } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import BookingRequestForm from '@/components/bookings/BookingRequestForm';
 import { canShowMarketplaceTestData } from '@/lib/marketplace/test-data-visibility';
-import { t, formatPluralDuration } from '@/lib/glcc/i18n';
+import { formatPluralDuration } from '@/lib/glcc/i18n';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 const prisma = new PrismaClient();
 
 export default async function ListingDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { t } = await getServerTranslation();
   const { id } = await params;
   
   const listing = await prisma.listing.findUnique({

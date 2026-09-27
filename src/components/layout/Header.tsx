@@ -6,9 +6,10 @@ import { useSession } from "next-auth/react";
 import RentipidLogo from '@/components/brand/RentipidLogo';
 import { signOutWithStepUpCleanup } from '@/lib/auth/sign-out';
 import GlobalPreferencesTrigger from '@/components/glcc/GlobalPreferencesTrigger';
-import { t } from '@/lib/glcc/i18n';
+import { useTranslation } from '@/lib/glcc/i18n/context';
 
 export default function Header() {
+  const { t } = useTranslation();
   const { data: session, status } = useSession();
 
   const getDashboardLink = () => {

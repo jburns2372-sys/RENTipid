@@ -1,0 +1,63 @@
+{
+  "workPackage": "P5",
+  "name": "Hard-Coded String Migration",
+  "version": "1.0.1",
+  "status": "PASS",
+  "date": "2026-09-28",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "scope": {
+    "P5A": {
+      "name": "Global / Shared Shell",
+      "status": "COMPLETED",
+      "filesCount": 9
+    },
+    "P5B": {
+      "name": "Public / Auth / Marketplace",
+      "status": "COMPLETED",
+      "filesCount": 11
+    },
+    "P5C": {
+      "name": "Renter / Transaction Surfaces",
+      "status": "COMPLETED",
+      "filesCount": 12
+    },
+    "P5D": {
+      "name": "Provider / Partner Surfaces",
+      "status": "COMPLETED",
+      "filesCount": 24
+    },
+    "P5E": {
+      "name": "Trust / Support / Communications",
+      "status": "COMPLETED",
+      "filesCount": 8
+    },
+    "P5F": {
+      "name": "Administrative Surfaces",
+      "status": "COMPLETED",
+      "filesCount": 9
+    }
+  },
+  "summary": {
+    "totalMigratedSurfaces": 73,
+    "totalCanonicalRequiredKeys": 2114,
+    "enPhCoverage": "100%",
+    "filPhCoverage": "21.05% (445 present, 1669 falling back to en-PH)",
+    "filPhStatus": "QA_REQUIRED",
+    "jaJpStatus": "REGISTERED",
+    "contractGapsAddedInP5": 0,
+    "totalContractGaps": 34,
+    "contractGapPercentage": "1.61% (within <= 2.0% allowable limit)",
+    "verificationStatus": {
+      "typecheck": "PASS (exit 0)",
+      "glccTestSuite": "PASS (33/33 suites, 546/546 tests)",
+      "prismaValidation": "PASS (exit 0)",
+      "productionBuild": "PASS (exit 0)"
+    },
+    "governanceBoundaries": {
+      "previewDeployment": "NOT PROMOTED",
+      "productionDeployment": "NOT PROMOTED",
+      "lifecyclePromotionG1toG13": "NOT PROMOTED"
+    }
+  }
+}

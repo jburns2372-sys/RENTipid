@@ -4,8 +4,10 @@ import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import SocialAccountManager from '@/components/social/SocialAccountManager';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 export default async function ProviderSocialAccountsPage() {
+  const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
   const role = (session?.user as any)?.role;
 
@@ -16,8 +18,8 @@ export default async function ProviderSocialAccountsPage() {
   return (
     <div className="p-6 max-w-5xl">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold">Your Social Accounts</h1>
-        <p className="text-gray-500">Connect your business social profiles to easily share generated promotions for your listings.</p>
+        <h1 className="text-2xl font-bold">{t('soc.yourSocialAccounts')}</h1>
+        <p className="text-gray-500">{t('provider.connectYourBusinessProfiles')}</p>
       </div>
 
       <SocialAccountManager isAdmin={false} />

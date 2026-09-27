@@ -9,9 +9,11 @@ import {
 } from '@/lib/marketplace/category-metadata';
 
 import RentipidLogo from '@/components/brand/RentipidLogo';
-import { t } from '@/lib/glcc/i18n';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 export default async function Home() {
+  const { t } = await getServerTranslation();
+
   const categoryRows = await prisma.category.findMany({
     where: {
       is_active: true,
@@ -40,7 +42,7 @@ export default async function Home() {
             {t('home.heroSubtitle')}
           </p>
 
-                    {/* Search Bar */}
+          {/* Search Bar */}
           <form action="/browse" method="GET" className="bg-white p-2 rounded-full shadow-lg border max-w-2xl mx-auto flex items-center mb-10">
             <div className="flex-1 px-4 text-left">
               <label htmlFor="q" className="block text-xs font-semibold text-gray-800 cursor-pointer">{t('marketplace.searchPrompt')}</label>
@@ -77,7 +79,8 @@ export default async function Home() {
           </div>
         </div>
       </section>
-{/* Category Preview */}
+
+      {/* Category Preview */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold mb-8 text-center">{t('marketplace.popularCategories')}</h2>
@@ -107,7 +110,7 @@ export default async function Home() {
               </div>
               <h3 className="text-xl font-bold mb-3">{t('home.verifiedUsersTitle')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                We verify identities and business permits before they can list or rent high-value items, keeping scams out of the platform.
+                {t('home.verifiedUsersDesc')}
               </p>
             </div>
 
@@ -117,7 +120,7 @@ export default async function Home() {
               </div>
               <h3 className="text-xl font-bold mb-3">{t('home.depositProtectionTitle')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Security deposits are held safely in the platform and automatically resolved based on before-and-after photo inspections.
+                {t('home.depositProtectionDesc')}
               </p>
             </div>
 
@@ -130,7 +133,7 @@ export default async function Home() {
               </div>
               <h3 className="text-xl font-bold mb-3 relative z-10">{t('home.aiAssistanceTitle')}</h3>
               <p className="text-gray-600 leading-relaxed relative z-10">
-                Our AI Concierge helps you find the right items, suggests fair pricing, and guides you through rental agreements and disputes.
+                {t('home.aiAssistanceDesc')}
               </p>
             </div>
           </div>
@@ -147,22 +150,22 @@ export default async function Home() {
                 <li className="flex items-start">
                   <span className="text-green-500 mr-3 mt-1"><ShieldCheck size={20} /></span>
                   <div>
-                    <h4 className="font-semibold">Save money and space</h4>
-                    <p className="text-gray-600 text-sm">Don&apos;t buy a drill for one hole. Rent it for a day.</p>
+                    <h4 className="font-semibold">{t('common.saveMoneyAndSpace')}</h4>
+                    <p className="text-gray-600 text-sm">{t('common.donAposTBuy')}</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-500 mr-3 mt-1"><ShieldCheck size={20} /></span>
                   <div>
-                    <h4 className="font-semibold">Standardized Agreements</h4>
-                    <p className="text-gray-600 text-sm">Every booking automatically generates a clear, fair contract.</p>
+                    <h4 className="font-semibold">{t('common.standardizedAgreements')}</h4>
+                    <p className="text-gray-600 text-sm">{t('common.everyBookingAutomaticallyGenerates')}</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-500 mr-3 mt-1"><ShieldCheck size={20} /></span>
                   <div>
-                    <h4 className="font-semibold">Fair Dispute Resolution</h4>
-                    <p className="text-gray-600 text-sm">Our admin team and AI helpers ensure objective damage reviews.</p>
+                    <h4 className="font-semibold">{t('common.fairDisputeResolution')}</h4>
+                    <p className="text-gray-600 text-sm">{t('common.ourAdminTeamAnd')}</p>
                   </div>
                 </li>
               </ul>
@@ -174,28 +177,28 @@ export default async function Home() {
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-3 mt-1"><ArrowRight size={20} /></span>
                   <div>
-                    <h4 className="font-semibold">Turn idle assets into income</h4>
-                    <p className="text-gray-600 text-sm">List your unused gear, properties, and vehicles safely.</p>
+                    <h4 className="font-semibold">{t('common.turnIdleAssetsInto')}</h4>
+                    <p className="text-gray-600 text-sm">{t('common.listYourUnusedGear')}</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-3 mt-1"><ArrowRight size={20} /></span>
                   <div>
-                    <h4 className="font-semibold">Verified Renters Only</h4>
-                    <p className="text-gray-600 text-sm">You control who can rent your items. Require IDs and deposits.</p>
+                    <h4 className="font-semibold">{t('common.verifiedRentersOnly')}</h4>
+                    <p className="text-gray-600 text-sm">{t('common.youControlWhoCan')}</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-3 mt-1"><ArrowRight size={20} /></span>
                   <div>
-                    <h4 className="font-semibold">AI Social Promotion</h4>
-                    <p className="text-gray-600 text-sm">Let our AI generate marketing campaigns to promote your listings worldwide.</p>
+                    <h4 className="font-semibold">{t('common.aiSocialPromotion')}</h4>
+                    <p className="text-gray-600 text-sm">{t('common.letOurAiGenerate')}</p>
                   </div>
                 </li>
               </ul>
               <div className="mt-8">
                 <Link href="/register/business" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors text-sm">
-                  Become a Verified Provider
+                  {t('common.becomeAVerifiedProvider')}
                 </Link>
               </div>
             </div>

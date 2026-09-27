@@ -4,8 +4,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ShieldCheck, AlertCircle } from "lucide-react";
 import { getSafeInternalRedirect } from "@/lib/security/auth/safe-redirect";
+import { useTranslation } from "@/lib/glcc/i18n";
 
 export default function MfaChallengePage() {
+  const { t } = useTranslation();
   const [token, setToken] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [verifying, setVerifying] = useState(false);
@@ -47,7 +49,7 @@ export default function MfaChallengePage() {
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-6">
         <div className="mb-6 text-center">
           <ShieldCheck className="w-12 h-12 text-primary mx-auto mb-4" />
-          <h2 className="text-2xl font-semibold tracking-tight">Security Check</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">{t('auth.securityCheck')}</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
             Please verify your identity to access this secure area.
           </p>
@@ -81,7 +83,7 @@ export default function MfaChallengePage() {
           </div>
           
           <Button type="submit" className="w-full" disabled={verifying || token.length < 6}>
-            {verifying ? "Verifying..." : "Verify Identity"}
+            {verifying ? t('auth.whatsapp.verifying') : t('auth.mfa.verifyIdentity')}
           </Button>
         </form>
       </div>

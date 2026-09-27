@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { t } from '@/lib/glcc/i18n';
+import { useTranslation } from '@/lib/glcc/i18n/context';
 
 export default function ForgotPasswordPage() {
+  const { t } = useTranslation();
   const [message, setMessage] = useState('');
   const [pending, setPending] = useState(false);
 

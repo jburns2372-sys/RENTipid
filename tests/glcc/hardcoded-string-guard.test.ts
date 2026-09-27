@@ -77,4 +77,68 @@ describe('RENTipid GLCC v1.0.1 — Hard-Coded String Guard Test Suite', () => {
     expect(content).toContain('copy.applyButton');
     expect(content).toContain('copy.cancelButton');
   });
+
+  it('Provider Booking Detail Page uses GLCC canonical translations', () => {
+    const file = path.join(rootDir, 'src/app/dashboard/provider/bookings/[id]/page.tsx');
+    const content = fs.readFileSync(file, 'utf-8');
+
+    expect(content).not.toContain('<h1 className="text-3xl font-bold mb-2">Booking #');
+    expect(content).toContain("t('renter.bookingDetail.bookingId'");
+    expect(content).toContain("t('renter.bookingDetail.startDate'");
+    expect(content).toContain("t('renter.bookingDetail.endDate'");
+  });
+
+  it('Provider Claim Status Page uses GLCC canonical translations', () => {
+    const file = path.join(rootDir, 'src/app/dashboard/provider/bookings/[id]/claims/page.tsx');
+    const content = fs.readFileSync(file, 'utf-8');
+
+    expect(content).not.toContain('<h1 className="text-3xl font-bold text-red-600">Damage Claim Status</h1>');
+    expect(content).toContain("t('provider.damageClaimStatus')");
+    expect(content).toContain("t('provider.trackTheResolutionOf')");
+  });
+
+  it('KYC Verification Page uses GLCC canonical translations', () => {
+    const file = path.join(rootDir, 'src/app/dashboard/kyc/page.tsx');
+    const content = fs.readFileSync(file, 'utf-8');
+
+    expect(content).not.toContain('<h1 className="text-3xl font-bold mb-2">Account Verification (KYC)</h1>');
+    expect(content).toContain("t('kyc.accountVerificationKyc')");
+    expect(content).toContain("t('kyc.submitRequiredDocumentsTo')");
+  });
+
+  it('Help Center Page uses GLCC canonical translations', () => {
+    const file = path.join(rootDir, 'src/app/help/page.tsx');
+    const content = fs.readFileSync(file, 'utf-8');
+
+    expect(content).not.toContain('<h1 className="text-3xl font-bold mb-2">How can I help you today?</h1>');
+    expect(content).toContain("t('helpCenter.howCanIHelp')");
+    expect(content).toContain("t('helpCenter.selectAQuestionChoose')");
+  });
+
+  it('Support Tickets Page uses GLCC canonical translations', () => {
+    const file = path.join(rootDir, 'src/app/support/page.tsx');
+    const content = fs.readFileSync(file, 'utf-8');
+
+    expect(content).not.toContain('<h1 className="text-3xl font-bold">Support Tickets</h1>');
+    expect(content).toContain("t('support.supportTickets')");
+    expect(content).toContain("t('support.needHelpOpenA')");
+  });
+
+  it('Admin Finance Page uses GLCC canonical translations', () => {
+    const file = path.join(rootDir, 'src/app/dashboard/finance/page.tsx');
+    const content = fs.readFileSync(file, 'utf-8');
+
+    expect(content).not.toContain('<h1 className="text-3xl font-bold">Finance Overview</h1>');
+    expect(content).toContain("t('payment.financeOverview')");
+    expect(content).toContain("t('payment.totalPlatformRevenue')");
+  });
+
+  it('Admin Dashboard Page uses GLCC canonical translations', () => {
+    const file = path.join(rootDir, 'src/app/dashboard/admin/page.tsx');
+    const content = fs.readFileSync(file, 'utf-8');
+
+    expect(content).not.toContain('<h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>');
+    expect(content).toContain("t('admin.adminDashboard')");
+    expect(content).toContain("t('admin.listingReviewQueue')");
+  });
 });

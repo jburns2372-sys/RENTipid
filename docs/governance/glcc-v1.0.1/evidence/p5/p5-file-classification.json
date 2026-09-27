@@ -1,0 +1,101 @@
+{
+  "workPackage": "P5",
+  "classifiedFiles": {
+    "P5A_Global_Shared_Shell": [
+      "src/components/navigation/Header.tsx",
+      "src/components/navigation/UserNavMenu.tsx",
+      "src/components/layout/Footer.tsx",
+      "src/app/loading.tsx",
+      "src/app/unauthorized/page.tsx",
+      "src/app/install-app/page.tsx",
+      "src/components/address/CountrySelector.tsx",
+      "src/components/address/CitySelector.tsx",
+      "src/components/address/BarangaySelector.tsx"
+    ],
+    "P5B_Public_Auth_Marketplace": [
+      "src/app/page.tsx",
+      "src/app/browse/page.tsx",
+      "src/app/listing/[id]/page.tsx",
+      "src/components/bookings/BookingRequestForm.tsx",
+      "src/app/login/page.tsx",
+      "src/app/register/page.tsx",
+      "src/app/register/individual/page.tsx",
+      "src/app/register/business/page.tsx",
+      "src/app/forgot-password/page.tsx",
+      "src/app/reset-password/page.tsx",
+      "src/app/verify-email/page.tsx",
+      "src/app/mfa-challenge/page.tsx",
+      "src/app/mfa-enroll/page.tsx"
+    ],
+    "P5C_Renter_Transaction_Surfaces": [
+      "src/app/checkout/[bookingId]/page.tsx",
+      "src/app/dashboard/renter/bookings/page.tsx",
+      "src/app/dashboard/renter/bookings/[id]/page.tsx",
+      "src/app/dashboard/renter/bookings/[id]/claims/page.tsx",
+      "src/app/dashboard/renter/bookings/[id]/inspection/page.tsx",
+      "src/app/dashboard/renter/bookings/[id]/refund-request/page.tsx",
+      "src/app/dashboard/renter/payments/[id]/receipt/page.tsx",
+      "src/app/dashboard/renter/onboarding-checklist/page.tsx",
+      "src/app/account/delete/page.tsx",
+      "src/app/dashboard/security/ActiveSessionsClient.tsx",
+      "src/app/dashboard/security/ChangePasswordClient.tsx",
+      "src/app/dashboard/profile/ProfileFormClient.tsx",
+      "src/app/dashboard/profile/ProfilePhotoUploadClient.tsx",
+      "src/components/settings/RegionalPreferencesCard.tsx",
+      "src/components/auth/ConnectedLoginMethods.tsx"
+    ],
+    "P5D_Provider_Partner_Surfaces": [
+      "src/app/dashboard/provider/page.tsx",
+      "src/app/dashboard/provider/listings/page.tsx",
+      "src/app/dashboard/provider/listings/new/page.tsx",
+      "src/app/dashboard/provider/listings/[id]/edit/page.tsx",
+      "src/app/dashboard/provider/listings/[id]/page.tsx",
+      "src/app/dashboard/provider/listings/[id]/promote/page.tsx",
+      "src/app/dashboard/provider/bookings/page.tsx",
+      "src/app/dashboard/provider/bookings/[id]/page.tsx",
+      "src/components/bookings/ProviderBookingActions.tsx",
+      "src/app/dashboard/provider/bookings/[id]/claims/page.tsx",
+      "src/app/dashboard/provider/bookings/[id]/claims/new/page.tsx",
+      "src/app/dashboard/provider/bookings/[id]/inspection/page.tsx",
+      "src/app/dashboard/provider/bookings/[id]/return-inspection/page.tsx",
+      "src/app/dashboard/provider/bookings/[id]/turnover/page.tsx",
+      "src/app/dashboard/provider/ledger/page.tsx",
+      "src/app/dashboard/provider/payouts/page.tsx",
+      "src/app/dashboard/provider/payouts/[id]/statement/page.tsx",
+      "src/app/dashboard/provider/marketing/page.tsx",
+      "src/app/dashboard/provider/social-accounts/page.tsx",
+      "src/app/dashboard/business/page.tsx",
+      "src/components/listings/AdminListingActions.tsx",
+      "src/components/listings/PhotoUploader.tsx",
+      "src/components/listings/DocumentUploader.tsx",
+      "src/components/listings/ListingWizard.tsx"
+    ],
+    "P5E_Trust_Support_Communications": [
+      "src/app/dashboard/kyc/page.tsx",
+      "src/app/help/page.tsx",
+      "src/app/safety/page.tsx",
+      "src/app/support/page.tsx",
+      "src/app/how-it-works/HowItWorksClient.tsx",
+      "src/components/ai/RentipidAIAssistant.tsx",
+      "src/components/ai/ContextualAssistantLauncher.tsx",
+      "src/components/ai/MediationCard.tsx"
+    ],
+    "P5F_Administrative_Surfaces": [
+      "src/app/dashboard/admin/page.tsx",
+      "src/app/dashboard/admin/listings/page.tsx",
+      "src/app/dashboard/admin/listings/[id]/page.tsx",
+      "src/app/dashboard/super-admin/page.tsx",
+      "src/app/dashboard/compliance/page.tsx",
+      "src/app/dashboard/finance/page.tsx",
+      "src/app/dashboard/social/accounts/page.tsx",
+      "src/app/dashboard/social/analytics/page.tsx",
+      "src/app/dashboard/social/approvals/page.tsx"
+    ]
+  },
+  "legalBoundaryPreservedFiles": [
+    "src/app/safety/page.tsx (Statutory consumer safety notice preserved verbatim)",
+    "src/app/terms/page.tsx (Master terms of service legal text preserved verbatim)",
+    "src/app/privacy/page.tsx (Statutory data privacy notice preserved verbatim)",
+    "src/app/dashboard/provider/payouts/[id]/statement/page.tsx (Statutory tax and withholding disclaimer preserved verbatim)"
+  ]
+}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
@@ -6,11 +7,13 @@ import { PrismaClient } from '@prisma/client';
 import { ArrowLeft, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 import { revalidatePath } from 'next/cache';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 const prisma = new PrismaClient();
 
 export default async function RenterRefundRequestPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
   const user = session?.user as any;
 
@@ -62,46 +65,46 @@ export default async function RenterRefundRequestPage({ params }: { params: Prom
   return (
     <div className="p-6 max-w-3xl mx-auto space-y-6">
       <Link href={`/dashboard/renter/bookings/${id}`} className="text-blue-600 hover:underline flex items-center gap-2 mb-4">
-        <ArrowLeft size={16} /> Back to Booking
+        <ArrowLeft size={16} /> {t('renter.bookingDetail.back')}
       </Link>
 
-      <h1 className="text-2xl font-bold">Request Refund</h1>
+      <h1 className="text-2xl font-bold">{t('renter.requestRefund')}</h1>
       
       {existingRefund ? (
         <div className="bg-blue-50 border border-blue-200 p-6 rounded-xl">
-          <h2 className="font-semibold text-blue-800 text-lg">Refund Request Submitted</h2>
+          <h2 className="font-semibold text-blue-800 text-lg">{t('renter.refundRequestSubmitted')}</h2>
           <p className="text-blue-700 mt-2">Your refund request for ₱{existingRefund.requested_amount.toFixed(2)} is currently: <strong>{existingRefund.refund_status}</strong>.</p>
           <p className="text-sm text-blue-600 mt-4">Refund Number: {existingRefund.refund_number}</p>
         </div>
       ) : isEligible ? (
         <form action={submitRefund} className="bg-white border rounded-xl p-6 shadow-sm space-y-6">
           <div>
-            <h3 className="font-semibold mb-2">Booking Details</h3>
-            <p className="text-gray-600 text-sm">Listing: {booking.listing.title}</p>
-            <p className="text-gray-600 text-sm">Total Paid: ₱{booking.estimated_total_amount.toFixed(2)}</p>
+            <h3 className="font-semibold mb-2">{t('renter.bookingDetails')}</h3>
+            <p className="text-gray-600 text-sm">{t('renter.bookings.colListing')}: {booking.listing.title}</p>
+            <p className="text-gray-600 text-sm">{t('checkout.total')}: ₱{booking.estimated_total_amount.toFixed(2)}</p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Requested Amount (₱)</label>
+            <label className="block text-sm font-medium mb-1">{t('renter.requestedAmount')}</label>
             <input type="number" name="amount" required max={booking.estimated_total_amount} defaultValue={booking.estimated_total_amount} step="0.01" className="w-full border p-2 rounded-lg" />
-            <p className="text-xs text-gray-500 mt-1">Cannot exceed total paid amount.</p>
+            <p className="text-xs text-gray-500 mt-1">{t('renter.cannotExceedTotalPaid')}</p>
           </div>
 
           <div>
             <label className="block text-sm font-medium mb-1">Reason for Refund</label>
-            <textarea name="reason" required rows={3} className="w-full border p-2 rounded-lg" placeholder="Please explain why you are requesting a refund..."></textarea>
+            <textarea name="reason" required rows={3} className="w-full border p-2 rounded-lg" placeholder={t('renter.pleaseExplainWhyYou')}></textarea>
           </div>
 
           <button type="submit" className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition">
-            Submit Request to Finance
+            {t('common.save')}
           </button>
         </form>
       ) : (
         <div className="bg-amber-50 border border-amber-200 p-6 rounded-xl flex items-start gap-3">
           <AlertTriangle className="text-amber-500 shrink-0" />
           <div>
-            <h2 className="font-semibold text-amber-800">Not Eligible for Automated Refund</h2>
-            <p className="text-amber-700 text-sm mt-1">This booking is not currently eligible for an automated refund request. If you believe this is an error, please open a dispute or contact support.</p>
+            <h2 className="font-semibold text-amber-800">{t('renter.notEligibleForAutomated')}</h2>
+            <p className="text-amber-700 text-sm mt-1">{t('renter.thisBookingIsNot')}</p>
           </div>
         </div>
       )}

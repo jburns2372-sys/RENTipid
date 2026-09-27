@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Search, CalendarCheck, ShieldCheck, Truck, PlusCircle, CheckCircle, Wallet, ArrowRight, UserCheck, Lock, HeadphonesIcon } from 'lucide-react';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 export default function HowItWorksClient() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'renter' | 'provider'>('renter');
 
   const renterSteps = [
@@ -59,7 +61,7 @@ export default function HowItWorksClient() {
       <section className="bg-white border-b pt-20 pb-16">
         <div className="container mx-auto px-4 text-center max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
-            How <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-500">RENTipid</span> Works
+            {t('navigation.howItWorks', undefined, 'How RENTipid Works')}
           </h1>
           <p className="text-xl text-gray-600 mb-10 leading-relaxed">
             The safest and smartest way to rent equipment. Whether you need tools for a day or want to earn money from your idle assets, we've got you covered.
@@ -75,7 +77,7 @@ export default function HowItWorksClient() {
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              For Renters
+              {t('home.forRenters')}
             </button>
             <button
               onClick={() => setActiveTab('provider')}
@@ -85,7 +87,7 @@ export default function HowItWorksClient() {
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              For Providers
+              {t('home.forProviders')}
             </button>
           </div>
         </div>
@@ -117,8 +119,8 @@ export default function HowItWorksClient() {
       <section className="bg-slate-900 text-white py-20">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Built on Trust & Safety</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">We take security seriously. Every transaction is protected by our comprehensive safety framework.</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('trustSafety.builtOnTrustSafety')}</h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">{t('trustSafety.weTakeSecuritySeriously')}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-10">
@@ -126,24 +128,24 @@ export default function HowItWorksClient() {
               <div className="w-16 h-16 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-6">
                 <UserCheck className="w-8 h-8 text-blue-400" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Verified Community</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Every user undergoes thorough identity verification (KYC) before they can transact on the platform.</p>
+              <h3 className="text-xl font-bold mb-3">{t('trustSafety.verifiedCommunity')}</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">{t('trustSafety.everyUserUndergoesThorough')}</p>
             </div>
             
             <div className="text-center">
               <div className="w-16 h-16 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-6">
                 <Lock className="w-8 h-8 text-emerald-400" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Secure Escrow</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Payments are held securely in escrow and only released when the rental is successfully completed.</p>
+              <h3 className="text-xl font-bold mb-3">{t('trustSafety.secureEscrow')}</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">{t('trustSafety.paymentsAreHeldSecurely')}</p>
             </div>
 
             <div className="text-center">
               <div className="w-16 h-16 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-6">
                 <HeadphonesIcon className="w-8 h-8 text-purple-400" />
               </div>
-              <h3 className="text-xl font-bold mb-3">24/7 Support</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Our dedicated resolution center and support team are always ready to help mediate any disputes.</p>
+              <h3 className="text-xl font-bold mb-3">{t('trustSafety.247Support')}</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">{t('trustSafety.ourDedicatedResolutionCenter')}</p>
             </div>
           </div>
         </div>
@@ -152,19 +154,19 @@ export default function HowItWorksClient() {
       {/* CTA Section */}
       <section className="py-24 bg-white text-center">
         <div className="container mx-auto px-4 max-w-3xl">
-          <h2 className="text-4xl font-bold mb-8">Ready to get started?</h2>
+          <h2 className="text-4xl font-bold mb-8">{t('trustSafety.readyToGetStarted')}</h2>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <Link 
               href="/browse" 
               className="px-8 py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-lg hover:shadow-blue-600/30 w-full sm:w-auto"
             >
-              Browse Rentals
+              {t('marketplace.title', undefined, 'Browse Rentals')}
             </Link>
             <Link 
               href="/dashboard/provider/listings/new" 
               className="px-8 py-4 bg-white border-2 border-emerald-600 text-emerald-600 font-bold rounded-xl hover:bg-emerald-50 transition shadow-lg w-full sm:w-auto"
             >
-              List Equipment
+              {t('providerListings.actionListGear', undefined, 'List Equipment')}
             </Link>
           </div>
         </div>

@@ -1,9 +1,11 @@
+"use client";
 import React from 'react';
 import Link from 'next/link';
 import RentipidLogo from '@/components/brand/RentipidLogo';
-import { t } from '@/lib/glcc/i18n';
+import { useTranslation } from '@/lib/glcc/i18n/context';
 
 export default function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="bg-gray-50 border-t py-12 px-4">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
