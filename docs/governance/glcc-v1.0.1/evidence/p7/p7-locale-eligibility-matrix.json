@@ -1,0 +1,99 @@
+{
+  "workPackage": "P7 — LANGUAGE SELECTOR UX",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "generatedDate": "2026-09-28T17:00:00.000Z",
+  "matrixTitle": "Authoritative Locale Eligibility & Release Matrix",
+  "locales": [
+    {
+      "tag": "en-PH",
+      "nativeName": "English",
+      "englishName": "English (Philippines)",
+      "direction": "ltr",
+      "releaseStatus": "PRODUCTION_READY",
+      "registryEnabled": true,
+      "productionMode": {
+        "selectable": true,
+        "ariaDisabled": "false",
+        "badge": "Active / Selected Language"
+      },
+      "controlledQaMode": {
+        "selectable": true,
+        "ariaDisabled": "false",
+        "badge": "Active / Selected Language"
+      },
+      "governanceNotes": "Platform default locale. Full canonical completeness (2,208 keys). Fully eligible in both modes."
+    },
+    {
+      "tag": "fil-PH",
+      "nativeName": "Wikang Filipino",
+      "englishName": "Filipino (Philippines)",
+      "direction": "ltr",
+      "releaseStatus": "QA_REQUIRED",
+      "registryEnabled": true,
+      "productionMode": {
+        "selectable": false,
+        "ariaDisabled": "true",
+        "badge": "Coming Soon",
+        "blockedReason": "Production promotion prohibited until P11. Production firewall enforces releaseStatus === PRODUCTION_READY."
+      },
+      "controlledQaMode": {
+        "selectable": true,
+        "ariaDisabled": "false",
+        "badge": "Active / Candidate",
+        "qaReason": "P6 proof pack validated 100% dictionary completeness (2,208 keys, 0 missing, 0 empty). Permitted in QA_REQUIRED mode."
+      },
+      "governanceNotes": "Target localized locale. Dictionary 100% complete. Selectable only in authorized local QA mode. Production activation blocked."
+    },
+    {
+      "tag": "ja-JP",
+      "nativeName": "日本語",
+      "englishName": "Japanese",
+      "direction": "ltr",
+      "releaseStatus": "REGISTERED",
+      "registryEnabled": false,
+      "productionMode": {
+        "selectable": false,
+        "ariaDisabled": "true",
+        "badge": "Coming Soon",
+        "blockedReason": "Release status REGISTERED, enabled false. 0 translation keys. Strictly blocked in production."
+      },
+      "controlledQaMode": {
+        "selectable": false,
+        "ariaDisabled": "true",
+        "badge": "Coming Soon",
+        "blockedReason": "Japanese translation not authorized in P7. Strictly blocked in QA mode."
+      },
+      "governanceNotes": "Registered only. 0 translation keys. Expansion strictly prohibited in P7."
+    },
+    {
+      "tag": "en-US",
+      "nativeName": "English (US)",
+      "englishName": "English (United States)",
+      "direction": "ltr",
+      "releaseStatus": "REGISTERED",
+      "registryEnabled": false,
+      "productionMode": {
+        "selectable": false,
+        "ariaDisabled": "true",
+        "badge": "Coming Soon",
+        "blockedReason": "Release status REGISTERED, enabled false. Strictly blocked in production."
+      },
+      "controlledQaMode": {
+        "selectable": false,
+        "ariaDisabled": "true",
+        "badge": "Coming Soon",
+        "blockedReason": "Strictly blocked in QA mode."
+      },
+      "governanceNotes": "Registered only. Preserves en-PH as authoritative English base."
+    }
+  ],
+  "firewallSummary": {
+    "productionEligibleCount": 1,
+    "productionEligibleLocales": ["en-PH"],
+    "controlledQaEligibleCount": 2,
+    "controlledQaEligibleLocales": ["en-PH", "fil-PH"],
+    "strictlyBlockedCount": 2,
+    "strictlyBlockedLocales": ["ja-JP", "en-US"]
+  },
+  "overallStatus": "PASS"
+}

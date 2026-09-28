@@ -5,5 +5,6 @@ export { CheckoutFxDisclosure } from './CheckoutFxDisclosure';
 export { useGlobalPreferences } from './useGlobalPreferences';
 export { GLCC_COPY } from './glcc-copy';
 export * from './types';
+export { LanguageSelector } from './LanguageSelector';
+export { default as LanguageSelectorDefault } from './LanguageSelector';
 export * from '@/lib/glcc/i18n';
-

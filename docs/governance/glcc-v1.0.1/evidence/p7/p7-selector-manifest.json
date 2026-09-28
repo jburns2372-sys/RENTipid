@@ -1,0 +1,66 @@
+{
+  "workPackage": "P7 — LANGUAGE SELECTOR UX",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "generatedDate": "2026-09-28T17:00:00.000Z",
+  "componentManifest": {
+    "primaryComponent": {
+      "path": "src/components/glcc/LanguageSelector.tsx",
+      "exportName": "LanguageSelector",
+      "description": "Governed, accessible, searchable language selector component consuming the authoritative locale registry",
+      "designPrinciples": [
+        "Searchable with instant live filtering across native names, English names, and locale tags",
+        "Clear visual distinction between currently applied language (emerald badge) and candidate pending selection (blue checkmark / ring)",
+        "Bounded scroll container (max-h 340px desktop, 380px mobile) with overflow scrolling",
+        "Dual ARIA semantics: radiogroup with radio buttons, or listbox with options",
+        "Full keyboard navigation: ArrowUp, ArrowDown, Enter, Space, Escape",
+        "Touch friendly with minimum 48px target height and touch-manipulation CSS",
+        "Strict production firewall enforcement: only PRODUCTION_READY locales selectable in production"
+      ],
+      "propsInterface": {
+        "currentLocale": "string (optional, defaults to active context or en-PH)",
+        "selectedLocale": "string (optional, pending candidate)",
+        "onSelect": "(localeTag: string) => void (selection callback)",
+        "onApply": "(localeTag: string) => void (apply callback)",
+        "onCancel": "() => void (cancel callback)",
+        "resolverMode": "'PRODUCTION' | 'QA' (optional mode override)",
+        "showActions": "boolean (default: true)",
+        "autoFocusSearch": "boolean (default: true)",
+        "semanticsRole": "'listbox' | 'radiogroup' (default: 'listbox')",
+        "locales": "readonly LocaleDefinition[] (optional custom registry)"
+      }
+    },
+    "hostIntegration": {
+      "modalPath": "src/components/glcc/GlobalPreferencesModal.tsx",
+      "tab": "language",
+      "semanticsRole": "radiogroup",
+      "actionDelegation": "Modal-level Apply / Cancel lifecycle"
+    },
+    "barrelExport": {
+      "path": "src/components/glcc/index.ts",
+      "exportedSymbols": [
+        "GlobalPreferencesModal",
+        "GlobalPreferencesTrigger",
+        "LanguageSelector",
+        "useGlobalPreferences"
+      ]
+    },
+    "testManifest": {
+      "p7Suite": {
+        "path": "tests/glcc/p7-language-selector.test.tsx",
+        "tests": 27,
+        "status": "PASS"
+      },
+      "preferenceUiSuite": {
+        "path": "tests/glcc/preference-ui.test.tsx",
+        "tests": 19,
+        "status": "PASS"
+      },
+      "glccAllSuites": {
+        "suites": 35,
+        "tests": 625,
+        "status": "PASS"
+      }
+    }
+  },
+  "overallStatus": "PASS"
+}

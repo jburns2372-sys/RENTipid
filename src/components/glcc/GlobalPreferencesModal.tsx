@@ -6,6 +6,7 @@ import { useGlobalPreferences } from './useGlobalPreferences';
 import { getGlccCopy } from './glcc-copy';
 import { defaultTranslationEngine } from '@/lib/glcc/i18n';
 import { useTranslation } from '@/lib/glcc/i18n/context';
+import { LanguageSelector } from './LanguageSelector';
 
 type PreferenceTab = 'country' | 'language' | 'currency';
 
@@ -29,6 +30,7 @@ export default function GlobalPreferencesModal({
     capabilities,
     reconciliation,
     draft,
+    serverPreference,
     selectedCountry,
     selectedLocale,
     selectedCurrency,
@@ -325,48 +327,18 @@ export default function GlobalPreferencesModal({
                   aria-labelledby="glcc-tab-language"
                   className="space-y-3"
                 >
-                  <label htmlFor="language-search-input" className="block text-xs font-semibold text-gray-700">
-                    {copy.languageLabel}
-                  </label>
-                  <input
-                    ref={searchInputRef}
-                    id="language-search-input"
-                    type="search"
-                    value={languageQuery}
-                    onChange={(e) => setLanguageQuery(e.target.value)}
-                    placeholder={copy.languageSearchPlaceholder}
-                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  <LanguageSelector
+                    id="glcc-language-selector"
+                    currentLocale={serverPreference?.languageTag || 'en-PH'}
+                    selectedLocale={draft.languageTag}
+                    onSelect={(tag) => setLanguage(tag)}
+                    onApply={handleApply}
+                    onCancel={handleCancel}
+                    showActions={false}
+                    autoFocusSearch={true}
+                    semanticsRole="radiogroup"
+                    resolverMode={process.env.NODE_ENV === 'test' || process.env.GLCC_ENABLE_LOCAL_QA_MODE === 'true' ? 'QA' : undefined}
                   />
-
-                  <div role="radiogroup" aria-label={copy.languageLabel} className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
-                    {filteredLocales.length === 0 ? (
-                      <p className="text-xs text-gray-500 py-3 text-center">{copy.emptySearch}</p>
-                    ) : (
-                      filteredLocales.map((l) => {
-                        const isSelected = draft.languageTag === l.tag;
-                        return (
-                          <button
-                            key={l.tag}
-                            type="button"
-                            role="radio"
-                            aria-checked={isSelected}
-                            onClick={() => setLanguage(l.tag)}
-                            className={`w-full text-left px-3 py-2.5 rounded-lg border text-sm flex items-center justify-between transition ${
-                              isSelected
-                                ? 'bg-blue-50/70 border-blue-500 text-blue-900 font-semibold'
-                                : 'bg-white border-gray-200 text-gray-800 hover:bg-gray-50'
-                            }`}
-                          >
-                            <div>
-                              <span>{l.name}</span>
-                              <span className="ml-2 text-xs text-gray-500">({l.nativeName})</span>
-                            </div>
-                            <span className="text-xs font-mono text-gray-400">{l.tag}</span>
-                          </button>
-                        );
-                      })
-                    )}
-                  </div>
                 </div>
               )}
 
@@ -500,6 +472,7 @@ export default function GlobalPreferencesModal({
         {/* Footer Actions */}
         <div className="flex items-center justify-end gap-3 p-4 border-t border-gray-200 bg-gray-50/50">
           <button
+            id="glcc-preferences-cancel"
             type="button"
             onClick={handleCancel}
             disabled={isSaving}
@@ -508,6 +481,7 @@ export default function GlobalPreferencesModal({
             {copy.cancelButton}
           </button>
           <button
+            id="glcc-preferences-apply"
             type="button"
             onClick={handleApply}
             disabled={isSaving || !capabilities.v1Enabled || isLoading}

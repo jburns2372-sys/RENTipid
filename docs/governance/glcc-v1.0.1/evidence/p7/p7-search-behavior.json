@@ -1,0 +1,89 @@
+{
+  "workPackage": "P7 — LANGUAGE SELECTOR UX",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "generatedDate": "2026-09-28T17:00:00.000Z",
+  "searchTestSuite": "Language Selector Search Filtering & Result Governance",
+  "testCases": [
+    {
+      "query": "fil",
+      "searchTarget": "English Name ('Filipino (Philippines)') and Tag ('fil-PH')",
+      "expectedMatches": ["fil-PH"],
+      "expectedExclusions": ["en-PH", "ja-JP", "en-US"],
+      "emptyStateTriggered": false,
+      "status": "PASS"
+    },
+    {
+      "query": "wikang",
+      "searchTarget": "Native Name ('Wikang Filipino')",
+      "expectedMatches": ["fil-PH"],
+      "expectedExclusions": ["en-PH", "ja-JP", "en-US"],
+      "emptyStateTriggered": false,
+      "status": "PASS"
+    },
+    {
+      "query": "english",
+      "searchTarget": "Native Name & English Name ('English')",
+      "expectedMatches": ["en-PH", "en-US"],
+      "expectedExclusions": ["fil-PH", "ja-JP"],
+      "emptyStateTriggered": false,
+      "status": "PASS"
+    },
+    {
+      "query": "ph",
+      "searchTarget": "Locale Tag ('en-PH', 'fil-PH')",
+      "expectedMatches": ["en-PH", "fil-PH"],
+      "expectedExclusions": ["ja-JP", "en-US"],
+      "emptyStateTriggered": false,
+      "status": "PASS"
+    },
+    {
+      "query": "ja",
+      "searchTarget": "Locale Tag ('ja-JP')",
+      "expectedMatches": ["ja-JP"],
+      "expectedExclusions": ["en-PH", "fil-PH", "en-US"],
+      "emptyStateTriggered": false,
+      "status": "PASS"
+    },
+    {
+      "query": "日本語",
+      "searchTarget": "Native Name ('日本語')",
+      "expectedMatches": ["ja-JP"],
+      "expectedExclusions": ["en-PH", "fil-PH", "en-US"],
+      "emptyStateTriggered": false,
+      "status": "PASS"
+    },
+    {
+      "query": "xyznonexistent123",
+      "searchTarget": "Non-matching synthetic query",
+      "expectedMatches": [],
+      "expectedExclusions": ["en-PH", "fil-PH", "ja-JP", "en-US"],
+      "emptyStateTriggered": true,
+      "emptyStateRole": "status",
+      "emptyStateTextCanonicalKey": "globalPreferences.emptySearch",
+      "status": "PASS"
+    }
+  ],
+  "firewallTamperResistanceDuringSearch": [
+    {
+      "mode": "PRODUCTION",
+      "query": "fil",
+      "matchedLocale": "fil-PH",
+      "expectedSelectable": false,
+      "actualSelectable": false,
+      "disabledAttr": true,
+      "ariaDisabledAttr": "true",
+      "status": "PASS"
+    },
+    {
+      "mode": "QA",
+      "query": "ja",
+      "matchedLocale": "ja-JP",
+      "expectedSelectable": false,
+      "actualSelectable": false,
+      "disabledAttr": true,
+      "ariaDisabledAttr": "true",
+      "status": "PASS"
+    }
+  ],
+  "overallStatus": "PASS"
+}

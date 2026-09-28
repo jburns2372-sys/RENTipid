@@ -1,0 +1,54 @@
+{
+  "workPackage": "P7 — LANGUAGE SELECTOR UX",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "generatedDate": "2026-09-28T17:00:00.000Z",
+  "censusTitle": "Canonical Contract Key Delta & Dictionary Completeness Census",
+  "canonicalKeyMetrics": {
+    "baselineCanonicalKeys": 2208,
+    "currentCanonicalKeys": 2208,
+    "deltaCanonicalKeys": 0,
+    "newCanonicalKeysAdded": [],
+    "deletedCanonicalKeys": []
+  },
+  "translationCompleteness": {
+    "en-PH": {
+      "totalPresent": 2208,
+      "totalRequired": 2208,
+      "missingCount": 0,
+      "emptyCount": 0,
+      "coveragePercent": "100.00%",
+      "status": "PASS"
+    },
+    "fil-PH": {
+      "totalPresent": 2208,
+      "totalRequired": 2208,
+      "missingCount": 0,
+      "emptyCount": 0,
+      "placeholderParityMismatches": 0,
+      "requiredFallbackCount": 0,
+      "coveragePercent": "100.00%",
+      "status": "PASS"
+    },
+    "ja-JP": {
+      "releaseStatus": "REGISTERED",
+      "totalPresent": 0,
+      "totalRequired": 0,
+      "status": "BLOCKED_BY_POLICY (0 keys authorized)"
+    }
+  },
+  "reusedExistingKeys": [
+    "preferences.language",
+    "preferences.searchLanguages",
+    "preferences.selectedLanguage",
+    "globalPreferences.emptySearch",
+    "preferences.apply",
+    "preferences.cancel",
+    "common.close"
+  ],
+  "governanceInvariantCheck": {
+    "contractKeyBaselinePreserved": true,
+    "filipinoDictionaryCompletenessPreserved": true,
+    "zeroJapaneseKeysEnforced": true
+  },
+  "overallStatus": "PASS"
+}

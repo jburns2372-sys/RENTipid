@@ -1,0 +1,51 @@
+{
+  "workPackage": "P7 — LANGUAGE SELECTOR UX",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "generatedDate": "2026-09-28T17:00:00.000Z",
+  "suiteTitle": "Language Selector Security, Firewall & Tamper-Resistance Suite",
+  "securityAssertions": [
+    {
+      "assertion": "Production Runtime Immutability (Fail-Closed)",
+      "description": "resolveEffectiveResolverMode strictly enforces 'PRODUCTION' whenever VERCEL_ENV, APP_ENV, or NODE_ENV equals 'production', regardless of requested mode",
+      "testResult": "PASS",
+      "evidence": "tests/glcc/p7-language-selector.test.tsx: test 6.1"
+    },
+    {
+      "assertion": "Production Mode Locale Resolution Firewall",
+      "description": "resolveEffectiveLocale in PRODUCTION mode rejects fil-PH and ja-JP, falling back safely to platform default 'en-PH'",
+      "testResult": "PASS",
+      "evidence": "tests/glcc/p7-language-selector.test.tsx: test 6.2"
+    },
+    {
+      "assertion": "Controlled QA Scope Isolation",
+      "description": "In QA mode, fil-PH is permitted for authorized testing, but ja-JP and en-US remain strictly rejected and fall back to 'en-PH'",
+      "testResult": "PASS",
+      "evidence": "tests/glcc/p7-language-selector.test.tsx: test 6.3"
+    },
+    {
+      "assertion": "Zero Financial Authority (Financial Isolation Invariant)",
+      "description": "Language selection interface and payloads have zero authority over countryCode, displayCurrency, chargeCurrency, payment provider, or settlement ledger",
+      "testResult": "PASS",
+      "evidence": "tests/glcc/p7-language-selector.test.tsx: test 7.1; preference-ui.test.tsx: test 2.1"
+    },
+    {
+      "assertion": "Zero RBAC Authority (Authorization Isolation Invariant)",
+      "description": "Language selector props and state have zero authority over user roles, permissions, session tokens, or account identity",
+      "testResult": "PASS",
+      "evidence": "tests/glcc/p7-language-selector.test.tsx: test 7.1"
+    },
+    {
+      "assertion": "Search Input Sanitization & ReDoS Resistance",
+      "description": "Search input handles regex metacharacters (*, +, ?, (, ), [, ], {, }, ^, $, |, \\) safely using plain case-insensitive string inclusion without regex execution",
+      "testResult": "PASS",
+      "evidence": "src/components/glcc/LanguageSelector.tsx: locale.name.toLowerCase().includes(normQuery)"
+    }
+  ],
+  "firewallAudit": {
+    "productionFirewallEnforced": true,
+    "unauthorizedLanguageBypassPrevented": true,
+    "financialIsolationPreserved": true,
+    "rbacIsolationPreserved": true
+  },
+  "overallStatus": "PASS"
+}

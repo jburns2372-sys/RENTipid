@@ -1,0 +1,135 @@
+{
+  "workPackage": "P7 — LANGUAGE SELECTOR UX",
+  "verificationDate": "2026-09-28T16:52:06.564Z",
+  "targetHost": "http://localhost:3000",
+  "suite": "Browser Acceptance & Visual Proof",
+  "scenarios": [
+    {
+      "scenario": "desktop_selector_closed_production",
+      "viewport": "1280x800",
+      "status": "PASS",
+      "triggerFound": true,
+      "triggerLabel": "PH · PHP"
+    },
+    {
+      "scenario": "production_mode_selector_eligibility",
+      "viewport": "1280x800",
+      "expected": {
+        "en-PH": true,
+        "fil-PH": false,
+        "ja-JP": false,
+        "en-US": false
+      },
+      "actual": {
+        "en-PH": {
+          "disabled": false,
+          "ariaDisabled": "false",
+          "selectable": true
+        },
+        "fil-PH": {
+          "disabled": true,
+          "ariaDisabled": "true",
+          "selectable": false
+        },
+        "en-US": {
+          "disabled": true,
+          "ariaDisabled": "true",
+          "selectable": false
+        },
+        "ja-JP": {
+          "disabled": true,
+          "ariaDisabled": "true",
+          "selectable": false
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "scenario": "controlled_qa_selector_eligibility",
+      "viewport": "1280x800",
+      "expected": {
+        "en-PH": true,
+        "fil-PH": true,
+        "ja-JP": false,
+        "en-US": false
+      },
+      "actual": {
+        "en-PH": {
+          "disabled": false,
+          "ariaDisabled": "false",
+          "selectable": true
+        },
+        "fil-PH": {
+          "disabled": false,
+          "ariaDisabled": "false",
+          "selectable": true
+        },
+        "en-US": {
+          "disabled": true,
+          "ariaDisabled": "true",
+          "selectable": false
+        },
+        "ja-JP": {
+          "disabled": true,
+          "ariaDisabled": "true",
+          "selectable": false
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "scenario": "search_filipino_controlled_qa",
+      "viewport": "1280x800",
+      "query": "fil",
+      "status": "PASS",
+      "resultCount": 1,
+      "visibleTags": [
+        "fil-PH"
+      ]
+    },
+    {
+      "scenario": "filipino_selected_pending_state",
+      "viewport": "1280x800",
+      "selectedTag": "fil-PH",
+      "ariaChecked": true,
+      "status": "PASS"
+    },
+    {
+      "scenario": "cancel_behavior",
+      "viewport": "1280x800",
+      "modalClosed": true,
+      "status": "PASS"
+    },
+    {
+      "scenario": "no_result_search",
+      "viewport": "1280x800",
+      "query": "xyznonexistent123",
+      "emptyStatusFound": true,
+      "message": "No matching options found.",
+      "status": "PASS"
+    },
+    {
+      "scenario": "apply_behavior",
+      "viewport": "1280x800",
+      "modalClosedAfterApply": true,
+      "status": "PASS"
+    },
+    {
+      "scenario": "keyboard_interaction_escape",
+      "viewport": "1280x800",
+      "key": "Escape",
+      "modalDismissed": true,
+      "status": "PASS"
+    },
+    {
+      "scenario": "mobile_selector_open",
+      "viewport": "375x667",
+      "modalOpened": true,
+      "optionsCount": 4,
+      "touchTargetCompliant": true,
+      "minHeightPx": 48,
+      "status": "PASS"
+    }
+  ],
+  "overallStatus": "PASS"
+}

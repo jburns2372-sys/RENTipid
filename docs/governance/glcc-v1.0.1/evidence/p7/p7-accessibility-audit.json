@@ -1,0 +1,70 @@
+{
+  "workPackage": "P7 — LANGUAGE SELECTOR UX",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "generatedDate": "2026-09-28T17:00:00.000Z",
+  "auditTitle": "Language Selector Accessibility (a11y) & WAI-ARIA Audit",
+  "wcagStandard": "WCAG 2.1 AA",
+  "evaluationResults": [
+    {
+      "criterion": "WAI-ARIA Landmark & Region Semantics",
+      "implementation": "Container exposes role='region' with localized aria-label ('Language')",
+      "wcagSuccessCriterion": "1.3.1 Info and Relationships (Level A), 4.1.2 Name, Role, Value (Level A)",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Searchbox Accessibility",
+      "implementation": "Search input has role='searchbox', type='search', associated sr-only label, and explicit aria-label",
+      "wcagSuccessCriterion": "1.3.1 Info and Relationships (Level A), 4.1.2 Name, Role, Value (Level A)",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Listbox / Option vs Radiogroup / Radio Dual Semantics",
+      "implementation": "Supports both WAI-ARIA listbox/option (with aria-selected) and radiogroup/radio (with aria-checked)",
+      "wcagSuccessCriterion": "4.1.2 Name, Role, Value (Level A)",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Disabled Item Semantics",
+      "implementation": "Unavailable locales have disabled attribute, aria-disabled='true', and 'Coming Soon' indicator",
+      "wcagSuccessCriterion": "4.1.2 Name, Role, Value (Level A)",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Selected vs Pending Indication",
+      "implementation": "Current applied language has dedicated 'Selected Language' badge; pending candidate has aria-selected/aria-checked='true' with high-contrast ring",
+      "wcagSuccessCriterion": "1.4.1 Use of Color (Level A), 4.1.2 Name, Role, Value (Level A)",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Keyboard Navigation (ArrowUp, ArrowDown, Enter, Space, Escape)",
+      "implementation": "Arrow keys navigate selectable items with boundary wrapping, Enter/Space selects candidate, Escape cancels",
+      "wcagSuccessCriterion": "2.1.1 Keyboard (Level A), 2.1.2 No Keyboard Trap (Level A)",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Visible Focus Indicators",
+      "implementation": "Keyboard focused items render high-contrast focus rings (ring-2 ring-blue-400 / ring-1 ring-blue-500)",
+      "wcagSuccessCriterion": "2.4.7 Focus Visible (Level AA)",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Touch Target Sizing",
+      "implementation": "All option items enforce min-height 48px (min-h-[48px]) and touch-manipulation CSS class for mobile tap targets",
+      "wcagSuccessCriterion": "2.5.5 Target Size (Level AAA / Enhanced AA)",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Dynamic Search Status Announcement",
+      "implementation": "Empty search result container exposes role='status' with accessible live announcement text",
+      "wcagSuccessCriterion": "4.1.3 Status Messages (Level AA)",
+      "status": "PASS"
+    }
+  ],
+  "auditSummary": {
+    "totalCriteria": 9,
+    "passedCriteria": 9,
+    "failedCriteria": 0,
+    "conformance": "100% PASS"
+  },
+  "overallStatus": "PASS"
+}
