@@ -16,6 +16,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import type { FxQuoteEvidence } from '@/lib/glcc/fx-contracts';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 interface CheckoutFxDisclosureProps {
   readonly authoritativeAmountPhp: number;
@@ -32,6 +33,7 @@ export function CheckoutFxDisclosure({
   onQuoteChange,
   className = '',
 }: CheckoutFxDisclosureProps) {
+  const { t } = useTranslation();
   const isBaseCurrency = !targetCurrency || targetCurrency.toUpperCase() === 'PHP';
 
   const [quote, setQuote] = useState<FxQuoteEvidence | null>(initialQuote ?? null);
@@ -127,10 +129,10 @@ export function CheckoutFxDisclosure({
           <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
           </svg>
-          <span>Authoritative Payment Currency</span>
+          <span>{t('checkout.authoritativePaymentCurrency')}</span>
         </div>
         <p className="text-emerald-800">
-          Your card or payment method will be charged in <strong>PHP (Philippine Peso)</strong>. Final amount: <strong>₱{authoritativeAmountPhp.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>.
+          Your card or payment method will be charged in <strong>{t('checkout.phpPhilippinePeso')}</strong>{t('checkout.finalAmount')} <strong>₱{authoritativeAmountPhp.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>.
         </p>
       </div>
     );
@@ -168,18 +170,18 @@ export function CheckoutFxDisclosure({
       {/* Charge Notice & Disclosed Final PHP Amount */}
       <div className="space-y-1">
         <p className="text-amber-900">
-          <strong>Important:</strong> Your payment method will strictly be charged in{' '}
-          <strong className="underline text-emerald-800">PHP (Philippine Peso)</strong>.
+          <strong>{t('checkout.important')}</strong> Your payment method will strictly be charged in{' '}
+          <strong className="underline text-emerald-800">{t('checkout.phpPhilippinePeso')}</strong>.
         </p>
         <div className="flex justify-between items-baseline pt-1">
-          <span className="text-gray-700">Authoritative Charge:</span>
+          <span className="text-gray-700">{t('checkout.authoritativeCharge')}</span>
           <span className="text-base font-bold text-gray-900">
             ₱{authoritativeAmountPhp.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} PHP
           </span>
         </div>
         {quote && (
           <div className="flex justify-between items-baseline text-xs text-gray-600">
-            <span>Estimated in your preferred currency:</span>
+            <span>{t('checkout.estimatedInYourPreferred')}</span>
             <span className="font-semibold text-gray-800">
               ≈ {quote.targetCurrency} {parseFloat(quote.targetAmount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
@@ -190,7 +192,7 @@ export function CheckoutFxDisclosure({
       {/* Rate Changed Warning */}
       {rateChangedNotice && (
         <div className="p-2.5 bg-blue-50 border border-blue-200 text-blue-900 rounded-lg text-xs">
-          <strong>Notice:</strong> The exchange rate was updated. Please review the updated estimate above before proceeding.
+          <strong>{t('checkout.notice')}</strong> The exchange rate was updated. Please review the updated estimate above before proceeding.
         </div>
       )}
 
@@ -198,7 +200,7 @@ export function CheckoutFxDisclosure({
       {isExpired && (
         <div className="p-3 bg-red-50 border border-red-200 text-red-900 rounded-lg text-xs space-y-2">
           <p>
-            <strong>Quote Expired:</strong> To ensure accurate pricing estimates, please refresh the exchange rate quote before paying.
+            <strong>{t('checkout.quoteExpired')}</strong> To ensure accurate pricing estimates, please refresh the exchange rate quote before paying.
           </p>
           <button
             type="button"

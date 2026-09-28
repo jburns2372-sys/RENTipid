@@ -1,0 +1,229 @@
+{
+  "auditDate": "2026-09-28",
+  "workPackage": "P6",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "totalSurfaceGroups": 8,
+  "testedSurfaceGroups": 8,
+  "passedSurfaceGroups": 8,
+  "failedSurfaceGroups": 0,
+  "ordinaryEnglishFallbackOnTestedSurfaces": 0,
+  "groups": [
+    {
+      "group": "PUBLIC",
+      "surfacesCount": 10,
+      "surfaces": [
+        "Landing (/)",
+        "Header/Navigation (Global)",
+        "Footer (Global)",
+        "Browse (/browse)",
+        "Search/Filter (/browse)",
+        "Listing Detail (/listing/[id])",
+        "How It Works (/how-it-works)",
+        "Safety (/safety)",
+        "Support (/support)",
+        "Help Center (/help)"
+      ],
+      "sampleFilipinoAssertions": [
+        "Mag-browse ng mga Paupahan",
+        "Paano Ito Gumagana",
+        "Kaligtasan",
+        "Ilista ang Iyong Gamit",
+        "Plataporma",
+        "Tiwala at Legal",
+        "Suporta",
+        "Sentro ng Tulong"
+      ],
+      "absentEnglishEquivalents": [
+        "Browse Rentals",
+        "How It Works",
+        "List Your Gear",
+        "Platform",
+        "Trust & Legal",
+        "Support"
+      ],
+      "status": "PASS",
+      "ordinaryEnglishFallbackCount": 0
+    },
+    {
+      "group": "IDENTITY",
+      "surfacesCount": 6,
+      "surfaces": [
+        "Login (/login)",
+        "Registration (/register, /register/business, /register/individual)",
+        "Password Recovery/Reset (/forgot-password, /reset-password)",
+        "Email Verification (/verify-email)",
+        "MFA Challenge (/mfa-challenge)",
+        "MFA Enrollment (/mfa-enroll)"
+      ],
+      "sampleFilipinoAssertions": [
+        "Mag-sign In sa RENTipid",
+        "Lumikha ng Account",
+        "Nakalimutan ang Password",
+        "I-verify ang Email",
+        "Pagpapatotoo gamit ang Maraming Salik"
+      ],
+      "absentEnglishEquivalents": [
+        "Sign In to RENTipid",
+        "Create Account",
+        "Forgot Password"
+      ],
+      "status": "PASS",
+      "ordinaryEnglishFallbackCount": 0
+    },
+    {
+      "group": "RENTER",
+      "surfacesCount": 9,
+      "surfaces": [
+        "Renter Dashboard (/dashboard/renter)",
+        "Account/Profile (/dashboard/profile)",
+        "Booking List (/dashboard/renter/bookings)",
+        "Booking Detail (/dashboard/renter/bookings/[id])",
+        "Inspection (/dashboard/renter/bookings/[id]/inspection)",
+        "Claims/Refund (/dashboard/renter/bookings/[id]/refund-request)",
+        "Checkout (/checkout/[bookingId])",
+        "Payment Presentation (CheckoutFxDisclosure)",
+        "Receipt/Document Shell (/dashboard/renter/payments/[id]/receipt)"
+      ],
+      "sampleFilipinoAssertions": [
+        "May Kapangyarihang Pananalapi sa Pagbabayad",
+        "Aking mga Upa",
+        "Mga Aktibong Upa",
+        "Katayuan ng Booking",
+        "Kahilingan sa Refund"
+      ],
+      "absentEnglishEquivalents": [
+        "Authoritative Payment Currency",
+        "My Rentals",
+        "Active Rentals"
+      ],
+      "status": "PASS",
+      "ordinaryEnglishFallbackCount": 0
+    },
+    {
+      "group": "PROVIDER",
+      "surfacesCount": 10,
+      "surfaces": [
+        "Provider Dashboard (/dashboard/provider)",
+        "Listings (/dashboard/provider/listings)",
+        "Create Listing (/dashboard/provider/listings/new)",
+        "Edit Listing (/dashboard/provider/listings/[id]/edit)",
+        "Inventory/Availability (/dashboard/provider/listings/[id])",
+        "Booking Management (/dashboard/provider/bookings)",
+        "Inspection (/dashboard/provider/bookings/[id]/inspection)",
+        "Claims (/dashboard/provider/bookings/[id]/claims)",
+        "Ledger/Payout Shell (/dashboard/provider/ledger)",
+        "Partner/Business Hub (/dashboard/business)"
+      ],
+      "sampleFilipinoAssertions": [
+        "Dashboard ng Nagpapaupa",
+        "Aking mga Listahan",
+        "Lumikha ng Bagong Listahan",
+        "Pamamahala ng Booking",
+        "Talaan ng Transaksyon"
+      ],
+      "absentEnglishEquivalents": [
+        "Provider Dashboard",
+        "My Listings",
+        "Create New Listing"
+      ],
+      "status": "PASS",
+      "ordinaryEnglishFallbackCount": 0
+    },
+    {
+      "group": "COMMUNICATION",
+      "surfacesCount": 4,
+      "surfaces": [
+        "Messages Shell",
+        "Notifications Shell",
+        "Reviews Shell",
+        "AI Assistant Shell"
+      ],
+      "sampleFilipinoAssertions": [
+        "Mga Mensahe",
+        "Mga Abiso",
+        "Markahan Lahat bilang Nabasa",
+        "Mga Pagsusuri at Rating",
+        "Tulong mula sa AI"
+      ],
+      "absentEnglishEquivalents": [
+        "Messages",
+        "Notifications",
+        "Mark All as Read"
+      ],
+      "status": "PASS",
+      "ordinaryEnglishFallbackCount": 0
+    },
+    {
+      "group": "TRUST",
+      "surfacesCount": 4,
+      "surfaces": [
+        "KYC Shell",
+        "Insurance Shell",
+        "Trust & Safety Shell",
+        "Global Legal Compliance Shell"
+      ],
+      "sampleFilipinoAssertions": [
+        "Pag-verify ng Pagkakakilanlan",
+        "Proteksyon sa Seguro",
+        "Tiwala at Kaligtasan",
+        "Pandaigdigang Pagsunod sa Batas"
+      ],
+      "absentEnglishEquivalents": [
+        "Identity Verification",
+        "Insurance Protection",
+        "Trust & Safety"
+      ],
+      "status": "PASS",
+      "ordinaryEnglishFallbackCount": 0
+    },
+    {
+      "group": "ADMIN",
+      "surfacesCount": 7,
+      "surfaces": [
+        "Admin Dashboard (/dashboard/admin)",
+        "Listing Review (/dashboard/admin/listings)",
+        "Compliance (/dashboard/admin/compliance)",
+        "Finance (/dashboard/finance)",
+        "Social Administration (/dashboard/admin/social-accounts)",
+        "Super Admin (/dashboard/super-admin)",
+        "SOC (/dashboard/admin/security)"
+      ],
+      "sampleFilipinoAssertions": [
+        "Dashboard ng Tagapangasiwa",
+        "Pagsusuri ng Listahan",
+        "Pagsunod sa Regulasyon",
+        "Pamamahala sa Pananalapi",
+        "Dashboard ng Super Admin",
+        "Sentro ng mga Operasyong Panseguridad"
+      ],
+      "absentEnglishEquivalents": [
+        "Admin Dashboard",
+        "Super Admin Dashboard",
+        "Security Operations Center"
+      ],
+      "status": "PASS",
+      "ordinaryEnglishFallbackCount": 0
+    },
+    {
+      "group": "GLOBAL",
+      "surfacesCount": 1,
+      "surfaces": [
+        "Global Preferences Modal"
+      ],
+      "sampleFilipinoAssertions": [
+        "Mga Pangkalahatang Kagustuhan",
+        "Rehiyon",
+        "Wika",
+        "Pananalapi sa Pagpapakita",
+        "Ilapat ang mga Kagustuhan",
+        "Kanselahin"
+      ],
+      "absentEnglishEquivalents": [
+        "Global Preferences",
+        "Apply Preferences"
+      ],
+      "status": "PASS",
+      "ordinaryEnglishFallbackCount": 0
+    }
+  ]
+}

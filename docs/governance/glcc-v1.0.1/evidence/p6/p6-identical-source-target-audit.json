@@ -1,0 +1,5163 @@
+{
+  "auditDate": "2026-09-28",
+  "workPackage": "P6",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "totalCanonicalKeys": 2208,
+  "identicalValuesCount": 735,
+  "classificationCounts": {
+    "APPROVED_INVARIANT": 38,
+    "PROPER_NOUN": 3,
+    "TECHNICAL_TERM": 45,
+    "COMMON_PH_USAGE": 649,
+    "REQUIRES_TRANSLATION": 0
+  },
+  "requiresTranslationCount": 0,
+  "auditResult": "PASS",
+  "identicalValues": [
+    {
+      "key": "common.safari",
+      "domain": "common",
+      "value": "Safari",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Safari'"
+    },
+    {
+      "key": "common.chrome",
+      "domain": "common",
+      "value": "Chrome",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Chrome'"
+    },
+    {
+      "key": "common.menu",
+      "domain": "common",
+      "value": "Menu",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Menu'"
+    },
+    {
+      "key": "common.rentipid",
+      "domain": "common",
+      "value": "RENTipid!",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'RENTipid!'"
+    },
+    {
+      "key": "common.voidPromise",
+      "domain": "common",
+      "value": "void | Promise",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'void | Promise'"
+    },
+    {
+      "key": "common.0Activeindex",
+      "domain": "common",
+      "value": "= 0 && activeIndex",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '= 0 && activeIndex'"
+    },
+    {
+      "key": "common.zipPostalCode",
+      "domain": "common",
+      "value": "ZIP / Postal Code",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'ZIP / Postal Code'"
+    },
+    {
+      "key": "common.0Highlightindex",
+      "domain": "common",
+      "value": "= 0 && highlightIndex",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '= 0 && highlightIndex'"
+    },
+    {
+      "key": "common.text",
+      "domain": "common",
+      "value": "ℹ️",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'ℹ️'"
+    },
+    {
+      "key": "common.globalpreferencesmodal.text",
+      "domain": "common",
+      "value": "⚠️",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '⚠️'"
+    },
+    {
+      "key": "common.globalpreferencesmodal.text2",
+      "domain": "common",
+      "value": "🔒",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '🔒'"
+    },
+    {
+      "key": "common.error",
+      "domain": "common",
+      "value": "Error",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Error'"
+    },
+    {
+      "key": "navigation.profile",
+      "domain": "navigation",
+      "value": "Profile",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Standard contemporary Philippine vocabulary / loanword: 'Profile'"
+    },
+    {
+      "key": "navigation.dashboard",
+      "domain": "navigation",
+      "value": "Dashboard",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Standard contemporary Philippine vocabulary / loanword: 'Dashboard'"
+    },
+    {
+      "key": "footer.socialMedia",
+      "domain": "footer",
+      "value": "Social Media",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Social Media'"
+    },
+    {
+      "key": "auth.fields.email",
+      "domain": "auth",
+      "value": "Email",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Standard contemporary Philippine vocabulary / loanword: 'Email'"
+    },
+    {
+      "key": "auth.fields.password",
+      "domain": "auth",
+      "value": "Password",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Standard contemporary Philippine vocabulary / loanword: 'Password'"
+    },
+    {
+      "key": "auth.register.email",
+      "domain": "auth",
+      "value": "Email *",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Email *'"
+    },
+    {
+      "key": "auth.register.password",
+      "domain": "auth",
+      "value": "Password *",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Password *'"
+    },
+    {
+      "key": "auth.forgotPassword.emailLabel",
+      "domain": "auth",
+      "value": "Email address",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Email address'"
+    },
+    {
+      "key": "auth.639xxXxxXxxx",
+      "domain": "auth",
+      "value": "+63 9XX XXX XXXX",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '+63 9XX XXX XXXX'"
+    },
+    {
+      "key": "auth.twoFactorAuthentication",
+      "domain": "auth",
+      "value": "Two-Factor Authentication",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Two-Factor Authentication'"
+    },
+    {
+      "key": "auth.timeBasedTotpBull",
+      "domain": "auth",
+      "value": "Time-Based (TOTP) &bull; RENTipid",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'Time-Based (TOTP) &bull; RENTipid'"
+    },
+    {
+      "key": "auth.accountSuperAdminRentipid",
+      "domain": "auth",
+      "value": "Account: Super Admin (RENTipid)",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'Account: Super Admin (RENTipid)'"
+    },
+    {
+      "key": "auth.mfaQrCode",
+      "domain": "auth",
+      "value": "MFA QR Code",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'MFA QR Code'"
+    },
+    {
+      "key": "auth.address",
+      "domain": "auth",
+      "value": "Address *",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Address *'"
+    },
+    {
+      "key": "globalPreferences.previewNotice",
+      "domain": "globalPreferences",
+      "value": "Preview formatting only. Display currency may differ from the currency used for payment. The exact charge amount and currency will be shown before confirmation.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Preview formatting only. Display currency may differ from the currency used for payment. The exact charge amount and currency will be shown before confirmation.'"
+    },
+    {
+      "key": "listing.provider",
+      "domain": "listing",
+      "value": "Provider",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Provider'"
+    },
+    {
+      "key": "listingWizard.declarationBody",
+      "domain": "listingWizard",
+      "value": "I declare that I legally own this asset or am legally authorized to offer it for rent. I agree that this listing must comply with RENTipid policies, applicable laws, safety rules, and category requirements.",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'I declare that I legally own this asset or am legally authorized to offer it for rent. I agree that this listing must comply with RENTipid policies, applicable laws, safety rules, and category requirements.'"
+    },
+    {
+      "key": "listing.draftcreated",
+      "domain": "listing",
+      "value": "DRAFT_CREATED",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'DRAFT_CREATED'"
+    },
+    {
+      "key": "booking.durationRateCalculation",
+      "domain": "booking",
+      "value": "₱{rate} x {duration}",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: '₱{rate} x {duration}'"
+    },
+    {
+      "key": "checkout.searchparamsPromise",
+      "domain": "checkout",
+      "value": ", searchParams: Promise",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: ', searchParams: Promise'"
+    },
+    {
+      "key": "checkout.creditCard",
+      "domain": "checkout",
+      "value": "Credit Card",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Standard contemporary Philippine vocabulary / loanword: 'Credit Card'"
+    },
+    {
+      "key": "checkout.phpPhilippinePeso",
+      "domain": "checkout",
+      "value": "PHP (Philippine Peso)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'PHP (Philippine Peso)'"
+    },
+    {
+      "key": "payment.providerMode",
+      "domain": "payment",
+      "value": "Provider / Mode",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Provider / Mode'"
+    },
+    {
+      "key": "payment.liveWebhookMonitor",
+      "domain": "payment",
+      "value": "Live Webhook Monitor",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Live Webhook Monitor'"
+    },
+    {
+      "key": "payment.mode",
+      "domain": "payment",
+      "value": "Mode",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Mode'"
+    },
+    {
+      "key": "account.profile.emailLabel",
+      "domain": "account",
+      "value": "Email Address",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Email Address'"
+    },
+    {
+      "key": "providerListings.status.draft",
+      "domain": "providerListings",
+      "value": "Draft",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Draft'"
+    },
+    {
+      "key": "provider.instagramBusiness",
+      "domain": "provider",
+      "value": "Instagram Business",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Instagram Business'"
+    },
+    {
+      "key": "provider.tiktok",
+      "domain": "provider",
+      "value": "TikTok",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'TikTok'"
+    },
+    {
+      "key": "renter.bookings.colListing",
+      "domain": "renter",
+      "value": "Listing",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Listing'"
+    },
+    {
+      "key": "renter.bookingDetail.bookingId",
+      "domain": "renter",
+      "value": "Booking #{id}",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Booking #{id}'"
+    },
+    {
+      "key": "renter.bookingDetail.providerLabel",
+      "domain": "renter",
+      "value": "Provider: {name}",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Provider: {name}'"
+    },
+    {
+      "key": "renter.bookingDetail.timeline",
+      "domain": "renter",
+      "value": "Timeline",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Timeline'"
+    },
+    {
+      "key": "renter.meterOdometer",
+      "domain": "renter",
+      "value": "Meter / Odometer",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Meter / Odometer'"
+    },
+    {
+      "key": "kyc.file",
+      "domain": "kyc",
+      "value": "File",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'File'"
+    },
+    {
+      "key": "support.aiAssistant",
+      "domain": "support",
+      "value": "AI Assistant",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'AI Assistant'"
+    },
+    {
+      "key": "legalCompliance.warning",
+      "domain": "legalCompliance",
+      "value": "WARNING",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'WARNING'"
+    },
+    {
+      "key": "legalCompliance.takedown",
+      "domain": "legalCompliance",
+      "value": "TAKEDOWN",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'TAKEDOWN'"
+    },
+    {
+      "key": "legalCompliance.accountsuspension",
+      "domain": "legalCompliance",
+      "value": "ACCOUNT_SUSPENSION",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'ACCOUNT_SUSPENSION'"
+    },
+    {
+      "key": "legalCompliance.accountban",
+      "domain": "legalCompliance",
+      "value": "ACCOUNT_BAN",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'ACCOUNT_BAN'"
+    },
+    {
+      "key": "legalCompliance.internalNotes",
+      "domain": "legalCompliance",
+      "value": "Internal Notes",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Internal Notes'"
+    },
+    {
+      "key": "legalCompliance.userNoticeMessage",
+      "domain": "legalCompliance",
+      "value": "User Notice Message",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'User Notice Message'"
+    },
+    {
+      "key": "legalCompliance.auditTrailNotesNot",
+      "domain": "legalCompliance",
+      "value": "Audit trail notes... (not visible to user)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Audit trail notes... (not visible to user)'"
+    },
+    {
+      "key": "legalCompliance.messageSentToListing",
+      "domain": "legalCompliance",
+      "value": "Message sent to listing owner if applicable...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Message sent to listing owner if applicable...'"
+    },
+    {
+      "key": "legalCompliance.prohibitedItemsModule",
+      "domain": "legalCompliance",
+      "value": "Prohibited Items Module",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Prohibited Items Module'"
+    },
+    {
+      "key": "legalCompliance.complianceEnforcement",
+      "domain": "legalCompliance",
+      "value": "Compliance & Enforcement",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Compliance & Enforcement'"
+    },
+    {
+      "key": "legalCompliance.totalEnforcementCases",
+      "domain": "legalCompliance",
+      "value": "Total Enforcement Cases",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Total Enforcement Cases'"
+    },
+    {
+      "key": "legalCompliance.viewAllCasesRarr",
+      "domain": "legalCompliance",
+      "value": "View all cases &rarr;",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'View all cases &rarr;'"
+    },
+    {
+      "key": "legalCompliance.openCasesActionNeeded",
+      "domain": "legalCompliance",
+      "value": "Open Cases (Action Needed)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Open Cases (Action Needed)'"
+    },
+    {
+      "key": "legalCompliance.reviewOpenCasesRarr",
+      "domain": "legalCompliance",
+      "value": "Review open cases &rarr;",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Review open cases &rarr;'"
+    },
+    {
+      "key": "legalCompliance.manageAppealsRarr",
+      "domain": "legalCompliance",
+      "value": "Manage appeals &rarr;",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Manage appeals &rarr;'"
+    },
+    {
+      "key": "legalCompliance.activePolicies",
+      "domain": "legalCompliance",
+      "value": "Active Policies",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Active Policies'"
+    },
+    {
+      "key": "legalCompliance.managePoliciesRarr",
+      "domain": "legalCompliance",
+      "value": "Manage policies &rarr;",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Manage policies &rarr;'"
+    },
+    {
+      "key": "legalCompliance.recentEnforcementActions",
+      "domain": "legalCompliance",
+      "value": "Recent Enforcement Actions",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Recent Enforcement Actions'"
+    },
+    {
+      "key": "legalCompliance.viewQueue",
+      "domain": "legalCompliance",
+      "value": "View Queue",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'View Queue'"
+    },
+    {
+      "key": "legalCompliance.noRecentEnforcementCases",
+      "domain": "legalCompliance",
+      "value": "No recent enforcement cases found.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No recent enforcement cases found.'"
+    },
+    {
+      "key": "legalCompliance.policyCatalogue",
+      "domain": "legalCompliance",
+      "value": "Policy Catalogue",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Policy Catalogue'"
+    },
+    {
+      "key": "legalCompliance.manageProhibitedAndRestricted",
+      "domain": "legalCompliance",
+      "value": "Manage prohibited and restricted item policies.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Manage prohibited and restricted item policies.'"
+    },
+    {
+      "key": "legalCompliance.code",
+      "domain": "legalCompliance",
+      "value": "Code",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Standard contemporary Philippine vocabulary / loanword: 'Code'"
+    },
+    {
+      "key": "legalCompliance.classification",
+      "domain": "legalCompliance",
+      "value": "Classification",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Classification'"
+    },
+    {
+      "key": "legalCompliance.summary",
+      "domain": "legalCompliance",
+      "value": "Summary",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Summary'"
+    },
+    {
+      "key": "legalCompliance.noPoliciesFoundIn",
+      "domain": "legalCompliance",
+      "value": "No policies found in the catalogue.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No policies found in the catalogue.'"
+    },
+    {
+      "key": "legalCompliance.policyCode",
+      "domain": "legalCompliance",
+      "value": "Policy Code",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Policy Code'"
+    },
+    {
+      "key": "legalCompliance.policyName",
+      "domain": "legalCompliance",
+      "value": "Policy Name",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Policy Name'"
+    },
+    {
+      "key": "legalCompliance.prohibitedStrictBan",
+      "domain": "legalCompliance",
+      "value": "PROHIBITED (Strict ban)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'PROHIBITED (Strict ban)'"
+    },
+    {
+      "key": "legalCompliance.restrictedAllowedWithLimits",
+      "domain": "legalCompliance",
+      "value": "RESTRICTED (Allowed with limits)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'RESTRICTED (Allowed with limits)'"
+    },
+    {
+      "key": "legalCompliance.unsupportedPlatformLimitation",
+      "domain": "legalCompliance",
+      "value": "UNSUPPORTED (Platform limitation)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'UNSUPPORTED (Platform limitation)'"
+    },
+    {
+      "key": "legalCompliance.allowedSafeList",
+      "domain": "legalCompliance",
+      "value": "ALLOWED (Safe list)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'ALLOWED (Safe list)'"
+    },
+    {
+      "key": "legalCompliance.criticalImmediateTakedownBan",
+      "domain": "legalCompliance",
+      "value": "CRITICAL (Immediate Takedown & Ban)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'CRITICAL (Immediate Takedown & Ban)'"
+    },
+    {
+      "key": "legalCompliance.highTakedownWarning",
+      "domain": "legalCompliance",
+      "value": "HIGH (Takedown & Warning)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'HIGH (Takedown & Warning)'"
+    },
+    {
+      "key": "legalCompliance.mediumShadowbanPendingReview",
+      "domain": "legalCompliance",
+      "value": "MEDIUM (Shadowban / Pending Review)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'MEDIUM (Shadowban / Pending Review)'"
+    },
+    {
+      "key": "legalCompliance.lowInformational",
+      "domain": "legalCompliance",
+      "value": "LOW (Informational)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'LOW (Informational)'"
+    },
+    {
+      "key": "legalCompliance.fullDescription",
+      "domain": "legalCompliance",
+      "value": "Full Description",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Full Description'"
+    },
+    {
+      "key": "legalCompliance.examples",
+      "domain": "legalCompliance",
+      "value": "Examples",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Examples'"
+    },
+    {
+      "key": "legalCompliance.prohibitedKeywordsCommaSeparated",
+      "domain": "legalCompliance",
+      "value": "Prohibited Keywords (Comma separated)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Prohibited Keywords (Comma separated)'"
+    },
+    {
+      "key": "legalCompliance.reviewKeywordsCommaSeparated",
+      "domain": "legalCompliance",
+      "value": "Review Keywords (Comma separated)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Review Keywords (Comma separated)'"
+    },
+    {
+      "key": "legalCompliance.exclusions",
+      "domain": "legalCompliance",
+      "value": "Exclusions",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Exclusions'"
+    },
+    {
+      "key": "legalCompliance.regulatorOptional",
+      "domain": "legalCompliance",
+      "value": "Regulator (Optional)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Regulator (Optional)'"
+    },
+    {
+      "key": "legalCompliance.legalReferenceOptional",
+      "domain": "legalCompliance",
+      "value": "Legal Reference (Optional)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Legal Reference (Optional)'"
+    },
+    {
+      "key": "legalCompliance.eGPi001",
+      "domain": "legalCompliance",
+      "value": "e.g. PI-001",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'e.g. PI-001'"
+    },
+    {
+      "key": "legalCompliance.eGFirearmsAmmunition",
+      "domain": "legalCompliance",
+      "value": "e.g. Firearms & Ammunition",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'e.g. Firearms & Ammunition'"
+    },
+    {
+      "key": "legalCompliance.briefDescriptionOfThe",
+      "domain": "legalCompliance",
+      "value": "Brief description of the policy",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Brief description of the policy'"
+    },
+    {
+      "key": "legalCompliance.detailedPolicyGuidelines",
+      "domain": "legalCompliance",
+      "value": "Detailed policy guidelines...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Detailed policy guidelines...'"
+    },
+    {
+      "key": "legalCompliance.eGHandgunsRifles",
+      "domain": "legalCompliance",
+      "value": "e.g. Handguns, rifles, bullets",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'e.g. Handguns, rifles, bullets'"
+    },
+    {
+      "key": "legalCompliance.pistolGunRifle",
+      "domain": "legalCompliance",
+      "value": "pistol, gun, rifle",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'pistol, gun, rifle'"
+    },
+    {
+      "key": "legalCompliance.weaponTactical",
+      "domain": "legalCompliance",
+      "value": "weapon, tactical",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'weapon, tactical'"
+    },
+    {
+      "key": "legalCompliance.eGToyGuns",
+      "domain": "legalCompliance",
+      "value": "e.g. Toy guns clearly marked with orange tips",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'e.g. Toy guns clearly marked with orange tips'"
+    },
+    {
+      "key": "legalCompliance.eGTakedown",
+      "domain": "legalCompliance",
+      "value": "e.g. TAKEDOWN",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'e.g. TAKEDOWN'"
+    },
+    {
+      "key": "legalCompliance.eGPnpFeo",
+      "domain": "legalCompliance",
+      "value": "e.g. PNP-FEO",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'e.g. PNP-FEO'"
+    },
+    {
+      "key": "legalCompliance.eGRa10591",
+      "domain": "legalCompliance",
+      "value": "e.g. RA 10591",
+      "classification": "PROPER_NOUN",
+      "justification": "Statutory, agency or brand proper noun: 'e.g. RA 10591'"
+    },
+    {
+      "key": "legalCompliance.unauthorized",
+      "domain": "legalCompliance",
+      "value": "Unauthorized",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Unauthorized'"
+    },
+    {
+      "key": "legalCompliance.myPrivacySettings",
+      "domain": "legalCompliance",
+      "value": "My Privacy Settings",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'My Privacy Settings'"
+    },
+    {
+      "key": "legalCompliance.trackYourPastRequests",
+      "domain": "legalCompliance",
+      "value": "Track your past requests to access, correct, or delete your personal data.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Track your past requests to access, correct, or delete your personal data.'"
+    },
+    {
+      "key": "legalCompliance.noPrivacyRequestsFound",
+      "domain": "legalCompliance",
+      "value": "No privacy requests found.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No privacy requests found.'"
+    },
+    {
+      "key": "legalCompliance.cookieTrackingPreferences",
+      "domain": "legalCompliance",
+      "value": "Cookie & Tracking Preferences",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Cookie & Tracking Preferences'"
+    },
+    {
+      "key": "legalCompliance.manageHowWeUse",
+      "domain": "legalCompliance",
+      "value": "Manage how we use cookies and tracking technologies when you browse RENTipid.",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'Manage how we use cookies and tracking technologies when you browse RENTipid.'"
+    },
+    {
+      "key": "legalCompliance.necessary",
+      "domain": "legalCompliance",
+      "value": "Necessary",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Necessary'"
+    },
+    {
+      "key": "legalCompliance.alwaysActive",
+      "domain": "legalCompliance",
+      "value": "Always Active",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Always Active'"
+    },
+    {
+      "key": "legalCompliance.functional",
+      "domain": "legalCompliance",
+      "value": "Functional",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Functional'"
+    },
+    {
+      "key": "legalCompliance.analytics",
+      "domain": "legalCompliance",
+      "value": "Analytics",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Analytics'"
+    },
+    {
+      "key": "legalCompliance.marketing",
+      "domain": "legalCompliance",
+      "value": "Marketing",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Marketing'"
+    },
+    {
+      "key": "legalCompliance.noSavedCookiePreferences",
+      "domain": "legalCompliance",
+      "value": "No saved cookie preferences found.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No saved cookie preferences found.'"
+    },
+    {
+      "key": "legalCompliance.readPrivacyPolicy",
+      "domain": "legalCompliance",
+      "value": "Read Privacy Policy",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Read Privacy Policy'"
+    },
+    {
+      "key": "legalCompliance.plainLanguageSummary",
+      "domain": "legalCompliance",
+      "value": "Plain-Language Summary",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Plain-Language Summary'"
+    },
+    {
+      "key": "legalCompliance.deleteMyAccount",
+      "domain": "legalCompliance",
+      "value": "Delete My Account",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Delete My Account'"
+    },
+    {
+      "key": "legalCompliance.complianceReady",
+      "domain": "legalCompliance",
+      "value": "Compliance Ready",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Compliance Ready'"
+    },
+    {
+      "key": "legalCompliance.validationRequired",
+      "domain": "legalCompliance",
+      "value": "Validation Required",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Validation Required'"
+    },
+    {
+      "key": "legalCompliance.help",
+      "domain": "legalCompliance",
+      "value": "Help",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Help'"
+    },
+    {
+      "key": "legalCompliance.trustSafetyLegal",
+      "domain": "legalCompliance",
+      "value": "Trust, Safety & Legal",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Trust, Safety & Legal'"
+    },
+    {
+      "key": "legalCompliance.ra11967",
+      "domain": "legalCompliance",
+      "value": "RA 11967",
+      "classification": "PROPER_NOUN",
+      "justification": "Statutory, agency or brand proper noun: 'RA 11967'"
+    },
+    {
+      "key": "legalCompliance.noRecordsFound",
+      "domain": "legalCompliance",
+      "value": "No records found",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No records found'"
+    },
+    {
+      "key": "legalCompliance.tryAdjustingYourSearch",
+      "domain": "legalCompliance",
+      "value": "Try adjusting your search terms.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Try adjusting your search terms.'"
+    },
+    {
+      "key": "legalCompliance.informationProvidedInThis",
+      "domain": "legalCompliance",
+      "value": "Information provided in this Compliance Center is intended to explain RENTipid's platform compliance framework and is not individual legal advice.",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'Information provided in this Compliance Center is intended to explain RENTipid's platform compliance framework and is not individual legal advice.'"
+    },
+    {
+      "key": "legalCompliance.searchLawsJurisdictionsTopics",
+      "domain": "legalCompliance",
+      "value": "Search laws, jurisdictions, topics (e.g. RA 11967, GDPR, privacy, refund)...",
+      "classification": "PROPER_NOUN",
+      "justification": "Statutory, agency or brand proper noun: 'Search laws, jurisdictions, topics (e.g. RA 11967, GDPR, privacy, refund)...'"
+    },
+    {
+      "key": "legalCompliance.cookiePreferences",
+      "domain": "legalCompliance",
+      "value": "Cookie Preferences",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Cookie Preferences'"
+    },
+    {
+      "key": "legalCompliance.strictlyNecessaryCookies",
+      "domain": "legalCompliance",
+      "value": "Strictly Necessary Cookies",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Strictly Necessary Cookies'"
+    },
+    {
+      "key": "legalCompliance.functionalCookies",
+      "domain": "legalCompliance",
+      "value": "Functional Cookies",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Functional Cookies'"
+    },
+    {
+      "key": "legalCompliance.analyticsCookies",
+      "domain": "legalCompliance",
+      "value": "Analytics Cookies",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Analytics Cookies'"
+    },
+    {
+      "key": "legalCompliance.marketingCookies",
+      "domain": "legalCompliance",
+      "value": "Marketing Cookies",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Marketing Cookies'"
+    },
+    {
+      "key": "legalCompliance.version100",
+      "domain": "legalCompliance",
+      "value": "Version: 1.0.0",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Version: 1.0.0'"
+    },
+    {
+      "key": "legalCompliance.effectiveDate202608",
+      "domain": "legalCompliance",
+      "value": "Effective Date: 2026-08-05",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Effective Date: 2026-08-05'"
+    },
+    {
+      "key": "legalCompliance.controllerOnesystemsIntegrationPhilippines",
+      "domain": "legalCompliance",
+      "value": "Controller: OneSystems Integration Philippines Inc.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Controller: OneSystems Integration Philippines Inc.'"
+    },
+    {
+      "key": "legalCompliance.dataProtectionOfficerMaveric",
+      "domain": "legalCompliance",
+      "value": "Data Protection Officer: MAVERIC SIDNEY DE MESA",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Data Protection Officer: MAVERIC SIDNEY DE MESA'"
+    },
+    {
+      "key": "legalCompliance.emailDpoOnesystemsphilippinesCom",
+      "domain": "legalCompliance",
+      "value": "Email: dpo@onesystemsphilippines.com",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Email: dpo@onesystemsphilippines.com'"
+    },
+    {
+      "key": "legalCompliance.submitRequest",
+      "domain": "legalCompliance",
+      "value": "Submit Request",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Submit Request'"
+    },
+    {
+      "key": "legalCompliance.requestSubmittedSuccessfully",
+      "domain": "legalCompliance",
+      "value": "Request Submitted Successfully",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Request Submitted Successfully'"
+    },
+    {
+      "key": "legalCompliance.yourPrivacyRequestHas",
+      "domain": "legalCompliance",
+      "value": "Your privacy request has been received. Please keep the following reference number for your records:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Your privacy request has been received. Please keep the following reference number for your records:'"
+    },
+    {
+      "key": "legalCompliance.weWillProcessYour",
+      "domain": "legalCompliance",
+      "value": "We will process your request in accordance with our Privacy Policy and applicable data protection laws. You will receive an email shortly with instructions on how to track the status of your request.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'We will process your request in accordance with our Privacy Policy and applicable data protection laws. You will receive an email shortly with instructions on how to track the status of your request.'"
+    },
+    {
+      "key": "legalCompliance.returnToPrivacyCenter",
+      "domain": "legalCompliance",
+      "value": "Return to Privacy Center",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Return to Privacy Center'"
+    },
+    {
+      "key": "legalCompliance.submitAPrivacyRequest",
+      "domain": "legalCompliance",
+      "value": "Submit a Privacy Request",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Submit a Privacy Request'"
+    },
+    {
+      "key": "legalCompliance.accessToMyData",
+      "domain": "legalCompliance",
+      "value": "Access to my data",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Access to my data'"
+    },
+    {
+      "key": "legalCompliance.correctionOfMyData",
+      "domain": "legalCompliance",
+      "value": "Correction of my data",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Correction of my data'"
+    },
+    {
+      "key": "legalCompliance.erasureOrBlockingOf",
+      "domain": "legalCompliance",
+      "value": "Erasure or blocking of my data",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Erasure or blocking of my data'"
+    },
+    {
+      "key": "legalCompliance.dataPortability",
+      "domain": "legalCompliance",
+      "value": "Data Portability",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Data Portability'"
+    },
+    {
+      "key": "legalCompliance.objectToProcessing",
+      "domain": "legalCompliance",
+      "value": "Object to processing",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Object to processing'"
+    },
+    {
+      "key": "legalCompliance.withdrawConsent",
+      "domain": "legalCompliance",
+      "value": "Withdraw consent",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Withdraw consent'"
+    },
+    {
+      "key": "legalCompliance.detailsOptional",
+      "domain": "legalCompliance",
+      "value": "Details (Optional)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Details (Optional)'"
+    },
+    {
+      "key": "legalCompliance.enterTheEmailAssociated",
+      "domain": "legalCompliance",
+      "value": "Enter the email associated with your account",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Enter the email associated with your account'"
+    },
+    {
+      "key": "legalCompliance.provideAnyAdditionalDetails",
+      "domain": "legalCompliance",
+      "value": "Provide any additional details that will help us process your request...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Provide any additional details that will help us process your request...'"
+    },
+    {
+      "key": "legalCompliance.allPolicies",
+      "domain": "legalCompliance",
+      "value": "All Policies",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'All Policies'"
+    },
+    {
+      "key": "legalCompliance.prohibited",
+      "domain": "legalCompliance",
+      "value": "Prohibited",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Prohibited'"
+    },
+    {
+      "key": "legalCompliance.unsupported",
+      "domain": "legalCompliance",
+      "value": "Unsupported",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Unsupported'"
+    },
+    {
+      "key": "legalCompliance.noMatchingPoliciesFound",
+      "domain": "legalCompliance",
+      "value": "No matching policies found",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No matching policies found'"
+    },
+    {
+      "key": "legalCompliance.clientsearch.tryAdjustingYourSearch",
+      "domain": "legalCompliance",
+      "value": "Try adjusting your search query or filter.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Try adjusting your search query or filter.'"
+    },
+    {
+      "key": "legalCompliance.publicGuidance",
+      "domain": "legalCompliance",
+      "value": "Public Guidance",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Public Guidance'"
+    },
+    {
+      "key": "legalCompliance.searchProhibitedItemsKeywords",
+      "domain": "legalCompliance",
+      "value": "Search prohibited items, keywords, or policies...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Search prohibited items, keywords, or policies...'"
+    },
+    {
+      "key": "legalCompliance.ifYouHaveQuestions",
+      "domain": "legalCompliance",
+      "value": "If you have questions about whether an item is allowed, please contact Support or use the AI Assistant below.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'If you have questions about whether an item is allowed, please contact Support or use the AI Assistant below.'"
+    },
+    {
+      "key": "legalCompliance.1AcceptanceOfTerms",
+      "domain": "legalCompliance",
+      "value": "1. Acceptance of Terms",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '1. Acceptance of Terms'"
+    },
+    {
+      "key": "legalCompliance.byAccessingOrUsing",
+      "domain": "legalCompliance",
+      "value": "By accessing or using RENTipid, you agree to be bound by these Terms and Conditions.",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'By accessing or using RENTipid, you agree to be bound by these Terms and Conditions.'"
+    },
+    {
+      "key": "legalCompliance.2UserAccounts",
+      "domain": "legalCompliance",
+      "value": "2. User Accounts",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '2. User Accounts'"
+    },
+    {
+      "key": "legalCompliance.youMustProvideAccurate",
+      "domain": "legalCompliance",
+      "value": "You must provide accurate KYC information. Business providers must hold valid permits.",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'You must provide accurate KYC information. Business providers must hold valid permits.'"
+    },
+    {
+      "key": "legalCompliance.3ListingRules",
+      "domain": "legalCompliance",
+      "value": "3. Listing Rules",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '3. Listing Rules'"
+    },
+    {
+      "key": "legalCompliance.prohibitedItemsIncludeWeapons",
+      "domain": "legalCompliance",
+      "value": "Prohibited items include weapons, illegal substances, and hazardous materials.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Prohibited items include weapons, illegal substances, and hazardous materials.'"
+    },
+    {
+      "key": "legalCompliance.4BookingAndEscrow",
+      "domain": "legalCompliance",
+      "value": "4. Booking and Escrow",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '4. Booking and Escrow'"
+    },
+    {
+      "key": "legalCompliance.paymentsAreHeldIn",
+      "domain": "legalCompliance",
+      "value": "Payments are held in escrow until the asset is returned and inspections are cleared.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Payments are held in escrow until the asset is returned and inspections are cleared.'"
+    },
+    {
+      "key": "admin.traceIdentifier",
+      "domain": "admin",
+      "value": "Trace identifier",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Trace identifier'"
+    },
+    {
+      "key": "admin.trace",
+      "domain": "admin",
+      "value": "Trace",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Trace'"
+    },
+    {
+      "key": "admin.intent",
+      "domain": "admin",
+      "value": "Intent",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Intent'"
+    },
+    {
+      "key": "admin.supervisor",
+      "domain": "admin",
+      "value": "Supervisor",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Supervisor'"
+    },
+    {
+      "key": "admin.result",
+      "domain": "admin",
+      "value": "Result",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Result'"
+    },
+    {
+      "key": "admin.consultations",
+      "domain": "admin",
+      "value": "Consultations",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Consultations'"
+    },
+    {
+      "key": "admin.release",
+      "domain": "admin",
+      "value": "Release",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Release'"
+    },
+    {
+      "key": "admin.crossUserDenials",
+      "domain": "admin",
+      "value": "Cross-User Denials",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Cross-User Denials'"
+    },
+    {
+      "key": "admin.prohibitedToolAttempts",
+      "domain": "admin",
+      "value": "Prohibited Tool Attempts",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Prohibited Tool Attempts'"
+    },
+    {
+      "key": "admin.toolRbacDenials",
+      "domain": "admin",
+      "value": "Tool RBAC Denials",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Tool RBAC Denials'"
+    },
+    {
+      "key": "admin.knowledgeMissingNoMatch",
+      "domain": "admin",
+      "value": "Knowledge Missing/No Match",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Knowledge Missing/No Match'"
+    },
+    {
+      "key": "admin.staleKnowledgeUses",
+      "domain": "admin",
+      "value": "Stale Knowledge Uses",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Stale Knowledge Uses'"
+    },
+    {
+      "key": "admin.suggestionClicks",
+      "domain": "admin",
+      "value": "Suggestion Clicks",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Suggestion Clicks'"
+    },
+    {
+      "key": "admin.freeText",
+      "domain": "admin",
+      "value": "Free Text",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Free Text'"
+    },
+    {
+      "key": "admin.contextualProactive",
+      "domain": "admin",
+      "value": "Contextual / Proactive",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Contextual / Proactive'"
+    },
+    {
+      "key": "admin.timestamp",
+      "domain": "admin",
+      "value": "Timestamp",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Timestamp'"
+    },
+    {
+      "key": "admin.prompt",
+      "domain": "admin",
+      "value": "Prompt",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Prompt'"
+    },
+    {
+      "key": "admin.enableOrDisableAll",
+      "domain": "admin",
+      "value": "Enable or disable all AI Assistant features across the platform.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Enable or disable all AI Assistant features across the platform.'"
+    },
+    {
+      "key": "admin.mockModePlaceholder",
+      "domain": "admin",
+      "value": "Mock Mode (Placeholder)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Mock Mode (Placeholder)'"
+    },
+    {
+      "key": "admin.openaiReady",
+      "domain": "admin",
+      "value": "OpenAI-ready",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'OpenAI-ready'"
+    },
+    {
+      "key": "admin.geminiReady",
+      "domain": "admin",
+      "value": "Gemini-ready",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Gemini-ready'"
+    },
+    {
+      "key": "admin.level1AnswerQuestions",
+      "domain": "admin",
+      "value": "Level 1 - Answer questions only",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Level 1 - Answer questions only'"
+    },
+    {
+      "key": "admin.level3PrepareDraft",
+      "domain": "admin",
+      "value": "Level 3 - Prepare draft",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Level 3 - Prepare draft'"
+    },
+    {
+      "key": "admin.level4ExecuteAfter",
+      "domain": "admin",
+      "value": "Level 4 - Execute after user approval (Locked in Phase 7)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Level 4 - Execute after user approval (Locked in Phase 7)'"
+    },
+    {
+      "key": "admin.level5AdminOnly",
+      "domain": "admin",
+      "value": "Level 5 - Admin-only execution (Locked in Phase 7)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Level 5 - Admin-only execution (Locked in Phase 7)'"
+    },
+    {
+      "key": "admin.globalAiDisclaimerText",
+      "domain": "admin",
+      "value": "Global AI Disclaimer Text",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Global AI Disclaimer Text'"
+    },
+    {
+      "key": "admin.moduleActivation",
+      "domain": "admin",
+      "value": "Module Activation",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Module Activation'"
+    },
+    {
+      "key": "admin.botAvailability",
+      "domain": "admin",
+      "value": "Bot Availability",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Bot Availability'"
+    },
+    {
+      "key": "admin.aiGuardrailMonitor",
+      "domain": "admin",
+      "value": "AI Guardrail Monitor",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'AI Guardrail Monitor'"
+    },
+    {
+      "key": "admin.ensureAiRemainsConstrained",
+      "domain": "admin",
+      "value": "Ensure AI remains constrained to Level 3 permissions for V1 Launch.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Ensure AI remains constrained to Level 3 permissions for V1 Launch.'"
+    },
+    {
+      "key": "admin.currentAiProfile",
+      "domain": "admin",
+      "value": "Current AI Profile",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Current AI Profile'"
+    },
+    {
+      "key": "admin.enabledGuidanceOnly",
+      "domain": "admin",
+      "value": "Enabled (Guidance Only)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Enabled (Guidance Only)'"
+    },
+    {
+      "key": "admin.maxPermissionLevel",
+      "domain": "admin",
+      "value": "Max Permission Level",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Max Permission Level'"
+    },
+    {
+      "key": "admin.level3",
+      "domain": "admin",
+      "value": "Level 3",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Level 3'"
+    },
+    {
+      "key": "admin.directExecution",
+      "domain": "admin",
+      "value": "Direct Execution",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Direct Execution'"
+    },
+    {
+      "key": "admin.strictlyDisabled",
+      "domain": "admin",
+      "value": "Strictly Disabled",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Strictly Disabled'"
+    },
+    {
+      "key": "admin.cannotPublishListings",
+      "domain": "admin",
+      "value": "Cannot Publish Listings",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Cannot Publish Listings'"
+    },
+    {
+      "key": "admin.cannotReleaseEscrowDeposits",
+      "domain": "admin",
+      "value": "Cannot Release Escrow Deposits",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Cannot Release Escrow Deposits'"
+    },
+    {
+      "key": "admin.cannotSuspendUsers",
+      "domain": "admin",
+      "value": "Cannot Suspend Users",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Cannot Suspend Users'"
+    },
+    {
+      "key": "admin.noRecentBlockedAttempts",
+      "domain": "admin",
+      "value": "No recent blocked attempts.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No recent blocked attempts.'"
+    },
+    {
+      "key": "admin.betaTesters",
+      "domain": "admin",
+      "value": "Beta Testers",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Beta Testers'"
+    },
+    {
+      "key": "admin.manageUsers",
+      "domain": "admin",
+      "value": "Manage Users",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Manage Users'"
+    },
+    {
+      "key": "admin.uatProgress",
+      "domain": "admin",
+      "value": "UAT Progress",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'UAT Progress'"
+    },
+    {
+      "key": "admin.openIssues",
+      "domain": "admin",
+      "value": "Open Issues",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Open Issues'"
+    },
+    {
+      "key": "admin.0CriticalPriority",
+      "domain": "admin",
+      "value": "0 Critical Priority",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '0 Critical Priority'"
+    },
+    {
+      "key": "admin.manageInviteCodesFor",
+      "domain": "admin",
+      "value": "Manage invite codes for restricted beta registration.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Manage invite codes for restricted beta registration.'"
+    },
+    {
+      "key": "admin.inviteeEmail",
+      "domain": "admin",
+      "value": "Invitee Email",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Invitee Email'"
+    },
+    {
+      "key": "admin.intendedRole",
+      "domain": "admin",
+      "value": "Intended Role",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Intended Role'"
+    },
+    {
+      "key": "admin.inviteCode",
+      "domain": "admin",
+      "value": "Invite Code",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Invite Code'"
+    },
+    {
+      "key": "admin.expires",
+      "domain": "admin",
+      "value": "Expires",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Expires'"
+    },
+    {
+      "key": "admin.systemIsReadyFor",
+      "domain": "admin",
+      "value": "System is Ready for Private Beta",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'System is Ready for Private Beta'"
+    },
+    {
+      "key": "admin.allCriticalSafetyLocks",
+      "domain": "admin",
+      "value": "All critical safety locks are engaged. Real payments and unrestricted public access are blocked.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'All critical safety locks are engaged. Real payments and unrestricted public access are blocked.'"
+    },
+    {
+      "key": "admin.systemNotReady",
+      "domain": "admin",
+      "value": "System NOT Ready",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'System NOT Ready'"
+    },
+    {
+      "key": "admin.criticalSafetyLocksAre",
+      "domain": "admin",
+      "value": "Critical safety locks are missing. Do not invite external testers until resolved.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Critical safety locks are missing. Do not invite external testers until resolved.'"
+    },
+    {
+      "key": "admin.requiredConfigurations",
+      "domain": "admin",
+      "value": "Required Configurations",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Required Configurations'"
+    },
+    {
+      "key": "admin.publicRegistrationLocked",
+      "domain": "admin",
+      "value": "Public Registration Locked",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Public Registration Locked'"
+    },
+    {
+      "key": "admin.guestsCannotSignUp",
+      "domain": "admin",
+      "value": "Guests cannot sign up freely.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Guests cannot sign up freely.'"
+    },
+    {
+      "key": "admin.pass",
+      "domain": "admin",
+      "value": "PASS",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'PASS'"
+    },
+    {
+      "key": "admin.fail",
+      "domain": "admin",
+      "value": "FAIL",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'FAIL'"
+    },
+    {
+      "key": "admin.inviteOnlyModeActive",
+      "domain": "admin",
+      "value": "Invite-Only Mode Active",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Invite-Only Mode Active'"
+    },
+    {
+      "key": "admin.registrationRequiresAValid",
+      "domain": "admin",
+      "value": "Registration requires a valid code.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Registration requires a valid code.'"
+    },
+    {
+      "key": "admin.mockPaymentActive",
+      "domain": "admin",
+      "value": "Mock Payment Active",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Mock Payment Active'"
+    },
+    {
+      "key": "admin.adminApprovalForListings",
+      "domain": "admin",
+      "value": "Admin Approval for Listings",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Admin Approval for Listings'"
+    },
+    {
+      "key": "admin.listingsDoNotAuto",
+      "domain": "admin",
+      "value": "Listings do not auto-publish.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Listings do not auto-publish.'"
+    },
+    {
+      "key": "admin.warn",
+      "domain": "admin",
+      "value": "WARN",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'WARN'"
+    },
+    {
+      "key": "admin.labelAndTrackInternal",
+      "domain": "admin",
+      "value": "Label and track internal testers and beta participants.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Label and track internal testers and beta participants.'"
+    },
+    {
+      "key": "admin.betaLabel",
+      "domain": "admin",
+      "value": "Beta Label",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Beta Label'"
+    },
+    {
+      "key": "admin.registered",
+      "domain": "admin",
+      "value": "Registered",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Registered'"
+    },
+    {
+      "key": "admin.realUser",
+      "domain": "admin",
+      "value": "Real User",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Real User'"
+    },
+    {
+      "key": "admin.bookingMonitor",
+      "domain": "admin",
+      "value": "Booking Monitor",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Booking Monitor'"
+    },
+    {
+      "key": "admin.providerRenter",
+      "domain": "admin",
+      "value": "Provider & Renter",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Provider & Renter'"
+    },
+    {
+      "key": "admin.amount",
+      "domain": "admin",
+      "value": "Amount",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Amount'"
+    },
+    {
+      "key": "admin.p",
+      "domain": "admin",
+      "value": "P:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'P:'"
+    },
+    {
+      "key": "admin.r",
+      "domain": "admin",
+      "value": "R:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'R:'"
+    },
+    {
+      "key": "admin.categoryRulesManagement",
+      "domain": "admin",
+      "value": "Category Rules Management",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Category Rules Management'"
+    },
+    {
+      "key": "admin.categoryName",
+      "domain": "admin",
+      "value": "Category Name",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Category Name'"
+    },
+    {
+      "key": "admin.riskLevel",
+      "domain": "admin",
+      "value": "Risk Level",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Risk Level'"
+    },
+    {
+      "key": "admin.requiresApproval",
+      "domain": "admin",
+      "value": "Requires Approval",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Requires Approval'"
+    },
+    {
+      "key": "admin.requiresDeposit",
+      "domain": "admin",
+      "value": "Requires Deposit",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Requires Deposit'"
+    },
+    {
+      "key": "admin.requiresPermit",
+      "domain": "admin",
+      "value": "Requires Permit",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Requires Permit'"
+    },
+    {
+      "key": "admin.ready",
+      "domain": "admin",
+      "value": "Ready",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Ready'"
+    },
+    {
+      "key": "admin.validationReq",
+      "domain": "admin",
+      "value": "Validation Req.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Validation Req.'"
+    },
+    {
+      "key": "admin.restricted",
+      "domain": "admin",
+      "value": "Restricted",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Restricted'"
+    },
+    {
+      "key": "admin.restrictedBlocked",
+      "domain": "admin",
+      "value": "Restricted/Blocked",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Restricted/Blocked'"
+    },
+    {
+      "key": "admin.jurisdiction",
+      "domain": "admin",
+      "value": "Jurisdiction",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Jurisdiction'"
+    },
+    {
+      "key": "admin.officialLawRegulation",
+      "domain": "admin",
+      "value": "Official Law / Regulation",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Official Law / Regulation'"
+    },
+    {
+      "key": "admin.effective",
+      "domain": "admin",
+      "value": "Effective",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Effective'"
+    },
+    {
+      "key": "admin.core",
+      "domain": "admin",
+      "value": "Core",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Core'"
+    },
+    {
+      "key": "admin.disputeId",
+      "domain": "admin",
+      "value": "Dispute ID",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Dispute ID'"
+    },
+    {
+      "key": "admin.typeClaim",
+      "domain": "admin",
+      "value": "Type / Claim",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Type / Claim'"
+    },
+    {
+      "key": "admin.parties",
+      "domain": "admin",
+      "value": "Parties",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Parties'"
+    },
+    {
+      "key": "admin.dateOpened",
+      "domain": "admin",
+      "value": "Date Opened",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Date Opened'"
+    },
+    {
+      "key": "admin.statements",
+      "domain": "admin",
+      "value": "Statements",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Statements'"
+    },
+    {
+      "key": "admin.providerSClaim",
+      "domain": "admin",
+      "value": "Provider's Claim",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Provider's Claim'"
+    },
+    {
+      "key": "admin.renterSResponse",
+      "domain": "admin",
+      "value": "Renter's Response",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Renter's Response'"
+    },
+    {
+      "key": "admin.claimEvidence",
+      "domain": "admin",
+      "value": "Claim Evidence",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Claim Evidence'"
+    },
+    {
+      "key": "admin.noSpecificClaimEvidence",
+      "domain": "admin",
+      "value": "No specific claim evidence uploaded.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No specific claim evidence uploaded.'"
+    },
+    {
+      "key": "admin.preRentalInspection",
+      "domain": "admin",
+      "value": "Pre-Rental Inspection",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Pre-Rental Inspection'"
+    },
+    {
+      "key": "admin.notFound",
+      "domain": "admin",
+      "value": "Not found",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Not found'"
+    },
+    {
+      "key": "admin.postRentalInspection",
+      "domain": "admin",
+      "value": "Post-Rental Inspection",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Post-Rental Inspection'"
+    },
+    {
+      "key": "admin.financials",
+      "domain": "admin",
+      "value": "Financials",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Financials'"
+    },
+    {
+      "key": "admin.totalDepositHeld",
+      "domain": "admin",
+      "value": "Total Deposit Held",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Total Deposit Held'"
+    },
+    {
+      "key": "admin.requestedDeduction",
+      "domain": "admin",
+      "value": "Requested Deduction",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Requested Deduction'"
+    },
+    {
+      "key": "admin.finalDecision",
+      "domain": "admin",
+      "value": "Final Decision",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Final Decision'"
+    },
+    {
+      "key": "admin.adminNotesInternal",
+      "domain": "admin",
+      "value": "Admin Notes (Internal)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Admin Notes (Internal)'"
+    },
+    {
+      "key": "admin.partialAmount",
+      "domain": "admin",
+      "value": "Partial Amount (₱)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Partial Amount (₱)'"
+    },
+    {
+      "key": "admin.disputeResolved",
+      "domain": "admin",
+      "value": "Dispute Resolved",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Dispute Resolved'"
+    },
+    {
+      "key": "admin.adminNotes",
+      "domain": "admin",
+      "value": "Admin Notes:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Admin Notes:'"
+    },
+    {
+      "key": "admin.evidence",
+      "domain": "admin",
+      "value": "Evidence",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Evidence'"
+    },
+    {
+      "key": "admin.justifyTheDecision",
+      "domain": "admin",
+      "value": "Justify the decision...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Justify the decision...'"
+    },
+    {
+      "key": "admin.eG500",
+      "domain": "admin",
+      "value": "e.g. 500",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'e.g. 500'"
+    },
+    {
+      "key": "admin.typeModule",
+      "domain": "admin",
+      "value": "Type & Module",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Type & Module'"
+    },
+    {
+      "key": "admin.message",
+      "domain": "admin",
+      "value": "Message",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Message'"
+    },
+    {
+      "key": "admin.date",
+      "domain": "admin",
+      "value": "Date",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Date'"
+    },
+    {
+      "key": "admin.relatedModule",
+      "domain": "admin",
+      "value": "Related Module",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Related Module'"
+    },
+    {
+      "key": "admin.userMessage",
+      "domain": "admin",
+      "value": "User Message",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'User Message'"
+    },
+    {
+      "key": "admin.adminResponse",
+      "domain": "admin",
+      "value": "Admin Response",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Admin Response'"
+    },
+    {
+      "key": "admin.relatedEntities",
+      "domain": "admin",
+      "value": "Related Entities",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Related Entities'"
+    },
+    {
+      "key": "admin.investigating",
+      "domain": "admin",
+      "value": "Investigating",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Investigating'"
+    },
+    {
+      "key": "admin.low",
+      "domain": "admin",
+      "value": "Low",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Low'"
+    },
+    {
+      "key": "admin.medium",
+      "domain": "admin",
+      "value": "Medium",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Medium'"
+    },
+    {
+      "key": "admin.high",
+      "domain": "admin",
+      "value": "High",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'High'"
+    },
+    {
+      "key": "admin.paymentId",
+      "domain": "admin",
+      "value": "Payment ID",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Payment ID'"
+    },
+    {
+      "key": "admin.providerId",
+      "domain": "admin",
+      "value": "Provider ID",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Provider ID'"
+    },
+    {
+      "key": "admin.issue",
+      "domain": "admin",
+      "value": "Issue",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Issue'"
+    },
+    {
+      "key": "admin.source",
+      "domain": "admin",
+      "value": "Source",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Source'"
+    },
+    {
+      "key": "admin.severity",
+      "domain": "admin",
+      "value": "Severity",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Severity'"
+    },
+    {
+      "key": "admin.draftAndPrepareOfficial",
+      "domain": "admin",
+      "value": "Draft and prepare official communications for V1 rollout.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Draft and prepare official communications for V1 rollout.'"
+    },
+    {
+      "key": "admin.publishOffline",
+      "domain": "admin",
+      "value": "Publish Offline",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Publish Offline'"
+    },
+    {
+      "key": "admin.communicationRules",
+      "domain": "admin",
+      "value": "Communication Rules",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Communication Rules'"
+    },
+    {
+      "key": "admin.clearlyStateThisIs",
+      "domain": "admin",
+      "value": "Clearly state this is a V1 controlled launch.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Clearly state this is a V1 controlled launch.'"
+    },
+    {
+      "key": "admin.aiCanGenerateDrafts",
+      "domain": "admin",
+      "value": "AI can generate drafts but cannot publish them automatically.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'AI can generate drafts but cannot publish them automatically.'"
+    },
+    {
+      "key": "admin.categoryRisk",
+      "domain": "admin",
+      "value": "Category / risk",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Category / risk'"
+    },
+    {
+      "key": "admin.documents",
+      "domain": "admin",
+      "value": "Documents",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Documents'"
+    },
+    {
+      "key": "admin.dailyRate",
+      "domain": "admin",
+      "value": "Daily rate",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Daily rate'"
+    },
+    {
+      "key": "admin.listingPhotos",
+      "domain": "admin",
+      "value": "Listing photos",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Listing photos'"
+    },
+    {
+      "key": "admin.cover",
+      "domain": "admin",
+      "value": "Cover",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Cover'"
+    },
+    {
+      "key": "admin.noListingPhotosUploaded",
+      "domain": "admin",
+      "value": "No listing photos uploaded.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No listing photos uploaded.'"
+    },
+    {
+      "key": "admin.requiredListingDocuments",
+      "domain": "admin",
+      "value": "Required listing documents",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Required listing documents'"
+    },
+    {
+      "key": "admin.listingFacts",
+      "domain": "admin",
+      "value": "Listing facts",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Listing facts'"
+    },
+    {
+      "key": "admin.page.riskLevel",
+      "domain": "admin",
+      "value": "Risk level",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Risk level'"
+    },
+    {
+      "key": "admin.rentalType",
+      "domain": "admin",
+      "value": "Rental type",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Rental type'"
+    },
+    {
+      "key": "admin.publishedAt",
+      "domain": "admin",
+      "value": "Published at",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Published at'"
+    },
+    {
+      "key": "admin.createNewCampaign",
+      "domain": "admin",
+      "value": "Create New Campaign",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Create New Campaign'"
+    },
+    {
+      "key": "admin.campaignName",
+      "domain": "admin",
+      "value": "Campaign Name",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Campaign Name'"
+    },
+    {
+      "key": "admin.campaignType",
+      "domain": "admin",
+      "value": "Campaign Type",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Campaign Type'"
+    },
+    {
+      "key": "admin.platformAwareness",
+      "domain": "admin",
+      "value": "Platform Awareness",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Platform Awareness'"
+    },
+    {
+      "key": "admin.listingPromotion",
+      "domain": "admin",
+      "value": "Listing Promotion",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Listing Promotion'"
+    },
+    {
+      "key": "admin.categoryPromotion",
+      "domain": "admin",
+      "value": "Category Promotion",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Category Promotion'"
+    },
+    {
+      "key": "admin.seasonalCampaign",
+      "domain": "admin",
+      "value": "Seasonal Campaign",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Seasonal Campaign'"
+    },
+    {
+      "key": "admin.campaignGoal",
+      "domain": "admin",
+      "value": "Campaign Goal",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Campaign Goal'"
+    },
+    {
+      "key": "admin.brandAwareness",
+      "domain": "admin",
+      "value": "Brand Awareness",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Brand Awareness'"
+    },
+    {
+      "key": "admin.bookingRequests",
+      "domain": "admin",
+      "value": "Booking Requests",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Booking Requests'"
+    },
+    {
+      "key": "admin.providerSignups",
+      "domain": "admin",
+      "value": "Provider Signups",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Provider Signups'"
+    },
+    {
+      "key": "admin.eGSummerRentals",
+      "domain": "admin",
+      "value": "e.g. Summer Rentals Promo",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'e.g. Summer Rentals Promo'"
+    },
+    {
+      "key": "admin.campaignPostsApprovalQueue",
+      "domain": "admin",
+      "value": "Campaign Posts & Approval Queue",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Campaign Posts & Approval Queue'"
+    },
+    {
+      "key": "admin.guardrailBlock",
+      "domain": "admin",
+      "value": "Guardrail Block:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Guardrail Block:'"
+    },
+    {
+      "key": "admin.marketingCenter",
+      "domain": "admin",
+      "value": "Marketing Center",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Marketing Center'"
+    },
+    {
+      "key": "admin.quickLinks",
+      "domain": "admin",
+      "value": "Quick Links",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Quick Links'"
+    },
+    {
+      "key": "admin.socialAccounts",
+      "domain": "admin",
+      "value": "Social Accounts",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Social Accounts'"
+    },
+    {
+      "key": "admin.manageConnectedPlatforms",
+      "domain": "admin",
+      "value": "Manage connected platforms",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Manage connected platforms'"
+    },
+    {
+      "key": "admin.allCampaigns",
+      "domain": "admin",
+      "value": "All Campaigns",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'All Campaigns'"
+    },
+    {
+      "key": "admin.approvalQueue",
+      "domain": "admin",
+      "value": "Approval Queue",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Approval Queue'"
+    },
+    {
+      "key": "admin.phase8ApprovalQueue",
+      "domain": "admin",
+      "value": "Phase 8: Approval Queue Placeholder.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Phase 8: Approval Queue Placeholder.'"
+    },
+    {
+      "key": "admin.mobileAnalytics",
+      "domain": "admin",
+      "value": "Mobile Analytics",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Mobile Analytics'"
+    },
+    {
+      "key": "admin.pwaCapacitorNativeWrapper",
+      "domain": "admin",
+      "value": "PWA & Capacitor native wrapper telemtry data.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'PWA & Capacitor native wrapper telemtry data.'"
+    },
+    {
+      "key": "admin.totalPwaInstalls",
+      "domain": "admin",
+      "value": "Total PWA Installs",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Total PWA Installs'"
+    },
+    {
+      "key": "admin.androidSessions",
+      "domain": "admin",
+      "value": "Android Sessions",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Android Sessions'"
+    },
+    {
+      "key": "admin.iosSessions",
+      "domain": "admin",
+      "value": "iOS Sessions",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'iOS Sessions'"
+    },
+    {
+      "key": "admin.adminDashboard",
+      "domain": "admin",
+      "value": "Admin Dashboard",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Admin Dashboard'"
+    },
+    {
+      "key": "admin.operations",
+      "domain": "admin",
+      "value": "Operations",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Operations'"
+    },
+    {
+      "key": "admin.consentReceipts",
+      "domain": "admin",
+      "value": "Consent Receipts",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Consent Receipts'"
+    },
+    {
+      "key": "admin.ipAddress",
+      "domain": "admin",
+      "value": "IP Address",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'IP Address'"
+    },
+    {
+      "key": "admin.preferences",
+      "domain": "admin",
+      "value": "Preferences",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Preferences'"
+    },
+    {
+      "key": "admin.privacyOperationsCenter",
+      "domain": "admin",
+      "value": "Privacy Operations Center",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Privacy Operations Center'"
+    },
+    {
+      "key": "admin.dataSubjectRequests",
+      "domain": "admin",
+      "value": "Data Subject Requests",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Data Subject Requests'"
+    },
+    {
+      "key": "admin.policyManagement",
+      "domain": "admin",
+      "value": "Policy Management",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Policy Management'"
+    },
+    {
+      "key": "admin.privacyRegistriesMatrices",
+      "domain": "admin",
+      "value": "Privacy Registries & Matrices",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Privacy Registries & Matrices'"
+    },
+    {
+      "key": "admin.personalDataInventory",
+      "domain": "admin",
+      "value": "Personal Data Inventory",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Personal Data Inventory'"
+    },
+    {
+      "key": "admin.comprehensiveMappingOfAll",
+      "domain": "admin",
+      "value": "Comprehensive mapping of all collected personal data",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Comprehensive mapping of all collected personal data'"
+    },
+    {
+      "key": "admin.verified",
+      "domain": "admin",
+      "value": "Verified",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Verified'"
+    },
+    {
+      "key": "admin.dataProcessingActivityRegistry",
+      "domain": "admin",
+      "value": "Data Processing Activity Registry (RoPA)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Data Processing Activity Registry (RoPA)'"
+    },
+    {
+      "key": "admin.logOfProcessingActivities",
+      "domain": "admin",
+      "value": "Log of processing activities per legal requirements",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Log of processing activities per legal requirements'"
+    },
+    {
+      "key": "admin.retentionDisposalMatrix",
+      "domain": "admin",
+      "value": "Retention & Disposal Matrix",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Retention & Disposal Matrix'"
+    },
+    {
+      "key": "admin.rulesGoverningDataRetention",
+      "domain": "admin",
+      "value": "Rules governing data retention and deletion triggers",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Rules governing data retention and deletion triggers'"
+    },
+    {
+      "key": "admin.privacyPolicyManagement",
+      "domain": "admin",
+      "value": "Privacy Policy Management",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Privacy Policy Management'"
+    },
+    {
+      "key": "admin.version",
+      "domain": "admin",
+      "value": "Version",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Version'"
+    },
+    {
+      "key": "admin.effectiveDate",
+      "domain": "admin",
+      "value": "Effective Date",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Effective Date'"
+    },
+    {
+      "key": "admin.created",
+      "domain": "admin",
+      "value": "Created",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Created'"
+    },
+    {
+      "key": "admin.manageAndResolveUser",
+      "domain": "admin",
+      "value": "Manage and resolve user privacy requests",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Manage and resolve user privacy requests'"
+    },
+    {
+      "key": "admin.ref",
+      "domain": "admin",
+      "value": "Ref",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Ref'"
+    },
+    {
+      "key": "admin.type",
+      "domain": "admin",
+      "value": "Type",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Type'"
+    },
+    {
+      "key": "admin.due",
+      "domain": "admin",
+      "value": "Due",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Due'"
+    },
+    {
+      "key": "admin.requestType",
+      "domain": "admin",
+      "value": "Request Type",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Request Type'"
+    },
+    {
+      "key": "admin.dueDate",
+      "domain": "admin",
+      "value": "Due Date",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Due Date'"
+    },
+    {
+      "key": "admin.requesterEmail",
+      "domain": "admin",
+      "value": "Requester Email",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Requester Email'"
+    },
+    {
+      "key": "admin.requesterMessage",
+      "domain": "admin",
+      "value": "Requester Message",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Requester Message'"
+    },
+    {
+      "key": "admin.administrativeReasonRequired",
+      "domain": "admin",
+      "value": "Administrative Reason (Required)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Administrative Reason (Required)'"
+    },
+    {
+      "key": "admin.auditTrail",
+      "domain": "admin",
+      "value": "Audit Trail",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Audit Trail'"
+    },
+    {
+      "key": "admin.12",
+      "domain": "admin",
+      "value": "+12%",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '+12%'"
+    },
+    {
+      "key": "admin.totalUsers",
+      "domain": "admin",
+      "value": "Total Users",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Total Users'"
+    },
+    {
+      "key": "admin.8",
+      "domain": "admin",
+      "value": "+8%",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '+8%'"
+    },
+    {
+      "key": "admin.totalListings",
+      "domain": "admin",
+      "value": "Total Listings",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Total Listings'"
+    },
+    {
+      "key": "admin.24",
+      "domain": "admin",
+      "value": "+24%",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '+24%'"
+    },
+    {
+      "key": "admin.totalBookings",
+      "domain": "admin",
+      "value": "Total Bookings",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Total Bookings'"
+    },
+    {
+      "key": "admin.platformFeesMock",
+      "domain": "admin",
+      "value": "Platform Fees (Mock)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Platform Fees (Mock)'"
+    },
+    {
+      "key": "admin.fromCompletedRentals",
+      "domain": "admin",
+      "value": "From completed rentals",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'From completed rentals'"
+    },
+    {
+      "key": "admin.marketingAiPerformance",
+      "domain": "admin",
+      "value": "Marketing & AI Performance",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Marketing & AI Performance'"
+    },
+    {
+      "key": "admin.totalCampaignsGenerated",
+      "domain": "admin",
+      "value": "Total Campaigns Generated",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Total Campaigns Generated'"
+    },
+    {
+      "key": "admin.aiPromptExecutions",
+      "domain": "admin",
+      "value": "AI Prompt Executions",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'AI Prompt Executions'"
+    },
+    {
+      "key": "admin.placeholder",
+      "domain": "admin",
+      "value": "-- (Placeholder)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '-- (Placeholder)'"
+    },
+    {
+      "key": "admin.strictGuidelinesForPlatform",
+      "domain": "admin",
+      "value": "Strict guidelines for platform administration during Beta.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Strict guidelines for platform administration during Beta.'"
+    },
+    {
+      "key": "admin.1EligibilityCheck",
+      "domain": "admin",
+      "value": "1. Eligibility Check",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '1. Eligibility Check'"
+    },
+    {
+      "key": "admin.anyRefundRequestExceeding",
+      "domain": "admin",
+      "value": "Any refund request exceeding the `FINANCE_REFUND_APPROVAL_THRESHOLD` requires escalation to Super Admin. Do not process refunds over this amount without explicit written approval logged in the notes.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Any refund request exceeding the `FINANCE_REFUND_APPROVAL_THRESHOLD` requires escalation to Super Admin. Do not process refunds over this amount without explicit written approval logged in the notes.'"
+    },
+    {
+      "key": "admin.3ManualBankTransfer",
+      "domain": "admin",
+      "value": "3. Manual Bank Transfer",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '3. Manual Bank Transfer'"
+    },
+    {
+      "key": "admin.logIntoTheCorporate",
+      "domain": "admin",
+      "value": "Log into the corporate banking portal.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Log into the corporate banking portal.'"
+    },
+    {
+      "key": "admin.useTheRefundNumber",
+      "domain": "admin",
+      "value": "Use the Refund Number (e.g., `RFD-123456`) as the transfer reference.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Use the Refund Number (e.g., `RFD-123456`) as the transfer reference.'"
+    },
+    {
+      "key": "admin.4FinalizingInPlatform",
+      "domain": "admin",
+      "value": "4. Finalizing in Platform",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '4. Finalizing in Platform'"
+    },
+    {
+      "key": "admin.page.manageAndResolveUser",
+      "domain": "admin",
+      "value": "Manage and resolve user support inquiries.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Manage and resolve user support inquiries.'"
+    },
+    {
+      "key": "admin.ticket",
+      "domain": "admin",
+      "value": "Ticket #",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Ticket #'"
+    },
+    {
+      "key": "admin.subject",
+      "domain": "admin",
+      "value": "Subject",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Subject'"
+    },
+    {
+      "key": "admin.respond",
+      "domain": "admin",
+      "value": "Respond",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Respond'"
+    },
+    {
+      "key": "admin.supportTicketNotFound",
+      "domain": "admin",
+      "value": "Support Ticket not found.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Support Ticket not found.'"
+    },
+    {
+      "key": "admin.priority",
+      "domain": "admin",
+      "value": "Priority",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Priority'"
+    },
+    {
+      "key": "admin.replyToUser",
+      "domain": "admin",
+      "value": "Reply to User",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Reply to User'"
+    },
+    {
+      "key": "admin.typeYourResponseHere",
+      "domain": "admin",
+      "value": "Type your response here...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Type your response here...'"
+    },
+    {
+      "key": "admin.infrastructureChecklist",
+      "domain": "admin",
+      "value": "Infrastructure Checklist",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Infrastructure Checklist'"
+    },
+    {
+      "key": "admin.requiredSupportTags",
+      "domain": "admin",
+      "value": "Required Support Tags",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Required Support Tags'"
+    },
+    {
+      "key": "admin.ensureTheseTagsExist",
+      "domain": "admin",
+      "value": "Ensure these tags exist in the ticketing system:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Ensure these tags exist in the ticketing system:'"
+    },
+    {
+      "key": "admin.module",
+      "domain": "admin",
+      "value": "Module",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Module'"
+    },
+    {
+      "key": "admin.errorMessage",
+      "domain": "admin",
+      "value": "Error Message",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Error Message'"
+    },
+    {
+      "key": "admin.testFlow",
+      "domain": "admin",
+      "value": "Test Flow",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Test Flow'"
+    },
+    {
+      "key": "admin.assignedTo",
+      "domain": "admin",
+      "value": "Assigned To",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Assigned To'"
+    },
+    {
+      "key": "admin.roleTested",
+      "domain": "admin",
+      "value": "Role Tested",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Role Tested'"
+    },
+    {
+      "key": "admin.passed",
+      "domain": "admin",
+      "value": "Passed",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Passed'"
+    },
+    {
+      "key": "admin.failed",
+      "domain": "admin",
+      "value": "Failed",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Failed'"
+    },
+    {
+      "key": "admin.uatFlowNotFound",
+      "domain": "admin",
+      "value": "UAT Flow not found.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'UAT Flow not found.'"
+    },
+    {
+      "key": "admin.uatExecutionRecord",
+      "domain": "admin",
+      "value": "UAT Execution Record",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'UAT Execution Record'"
+    },
+    {
+      "key": "admin.assignedTester",
+      "domain": "admin",
+      "value": "Assigned Tester",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Assigned Tester'"
+    },
+    {
+      "key": "admin.executionDates",
+      "domain": "admin",
+      "value": "Execution Dates",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Execution Dates'"
+    },
+    {
+      "key": "admin.issuesFoundDuringTesting",
+      "domain": "admin",
+      "value": "Issues Found during Testing",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Issues Found during Testing'"
+    },
+    {
+      "key": "admin.noIssuesDocumented",
+      "domain": "admin",
+      "value": "No issues documented.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No issues documented.'"
+    },
+    {
+      "key": "admin.testerNotes",
+      "domain": "admin",
+      "value": "Tester Notes",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Tester Notes'"
+    },
+    {
+      "key": "admin.userDirectory",
+      "domain": "admin",
+      "value": "User Directory",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'User Directory'"
+    },
+    {
+      "key": "admin.allRoles",
+      "domain": "admin",
+      "value": "All Roles",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'All Roles'"
+    },
+    {
+      "key": "admin.renter",
+      "domain": "admin",
+      "value": "Renter",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Renter'"
+    },
+    {
+      "key": "admin.individualProvider",
+      "domain": "admin",
+      "value": "Individual Provider",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Individual Provider'"
+    },
+    {
+      "key": "admin.businessProvider",
+      "domain": "admin",
+      "value": "Business Provider",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Business Provider'"
+    },
+    {
+      "key": "admin.admin",
+      "domain": "admin",
+      "value": "Admin",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Standard contemporary Philippine vocabulary / loanword: 'Admin'"
+    },
+    {
+      "key": "admin.suspended",
+      "domain": "admin",
+      "value": "Suspended",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Suspended'"
+    },
+    {
+      "key": "admin.role",
+      "domain": "admin",
+      "value": "Role",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Role'"
+    },
+    {
+      "key": "admin.systemId",
+      "domain": "admin",
+      "value": "System ID",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'System ID'"
+    },
+    {
+      "key": "admin.accountCreated",
+      "domain": "admin",
+      "value": "Account Created",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Account Created'"
+    },
+    {
+      "key": "admin.privacyAdministrationDashboard",
+      "domain": "admin",
+      "value": "Privacy Administration Dashboard",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Privacy Administration Dashboard'"
+    },
+    {
+      "key": "admin.secureDsrManagementAnd",
+      "domain": "admin",
+      "value": "Secure DSR management and legal holds.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Secure DSR management and legal holds.'"
+    },
+    {
+      "key": "admin.firstName",
+      "domain": "admin",
+      "value": "First Name",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'First Name'"
+    },
+    {
+      "key": "admin.lastName",
+      "domain": "admin",
+      "value": "Last Name",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Last Name'"
+    },
+    {
+      "key": "admin.unverified",
+      "domain": "admin",
+      "value": "Unverified",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Unverified'"
+    },
+    {
+      "key": "admin.mandatoryAdministrativeReason",
+      "domain": "admin",
+      "value": "Mandatory Administrative Reason",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Mandatory Administrative Reason'"
+    },
+    {
+      "key": "admin.stateTheReasonOr",
+      "domain": "admin",
+      "value": "State the reason or ticket number for this change...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'State the reason or ticket number for this change...'"
+    },
+    {
+      "key": "admin.requiredDocumentsNotReady",
+      "domain": "admin",
+      "value": "Required documents or listing requirements are not ready.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Required documents or listing requirements are not ready.'"
+    },
+    {
+      "key": "superAdmin.livePaymentPilot.title",
+      "domain": "superAdmin",
+      "value": "Live Payment Pilot",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Live Payment Pilot'"
+    },
+    {
+      "key": "superAdmin.productionDomain.title",
+      "domain": "superAdmin",
+      "value": "Production Domain",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Production Domain'"
+    },
+    {
+      "key": "superAdmin.soc.title",
+      "domain": "superAdmin",
+      "value": "Security Operations Center",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Security Operations Center'"
+    },
+    {
+      "key": "superAdmin.baseUrl",
+      "domain": "superAdmin",
+      "value": "Base URL",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Base URL'"
+    },
+    {
+      "key": "superAdmin.safelyRestrictHighlyRegulated",
+      "domain": "superAdmin",
+      "value": "Safely restrict highly regulated categories during Beta Launch.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Safely restrict highly regulated categories during Beta Launch.'"
+    },
+    {
+      "key": "superAdmin.controlledCategoryRollout",
+      "domain": "superAdmin",
+      "value": "Controlled Category Rollout",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Controlled Category Rollout'"
+    },
+    {
+      "key": "superAdmin.requiresAdminApproval",
+      "domain": "superAdmin",
+      "value": "• Requires Admin Approval",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '• Requires Admin Approval'"
+    },
+    {
+      "key": "superAdmin.superAdminUtilityTo",
+      "domain": "superAdmin",
+      "value": "Super Admin utility to dynamically toggle platform features.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Super Admin utility to dynamically toggle platform features.'"
+    },
+    {
+      "key": "superAdmin.page.superAdminUtilityTo",
+      "domain": "superAdmin",
+      "value": "Super Admin utility to purge labeled test data before public launch.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Super Admin utility to purge labeled test data before public launch.'"
+    },
+    {
+      "key": "superAdmin.hold",
+      "domain": "superAdmin",
+      "value": "Hold:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Hold:'"
+    },
+    {
+      "key": "superAdmin.depositIsAuthorizedCollected",
+      "domain": "superAdmin",
+      "value": "Deposit is authorized/collected at the time of Live Pilot booking checkout.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Deposit is authorized/collected at the time of Live Pilot booking checkout.'"
+    },
+    {
+      "key": "superAdmin.release",
+      "domain": "superAdmin",
+      "value": "Release:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Release:'"
+    },
+    {
+      "key": "superAdmin.automaticallyTransitionedToA",
+      "domain": "superAdmin",
+      "value": "Automatically transitioned to a \"Release Partial/Full\" ledger state upon successful mutual sign-off of the Return Inspection report.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Automatically transitioned to a \"Release Partial/Full\" ledger state upon successful mutual sign-off of the Return Inspection report.'"
+    },
+    {
+      "key": "superAdmin.disputeHold",
+      "domain": "superAdmin",
+      "value": "Dispute Hold:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Dispute Hold:'"
+    },
+    {
+      "key": "superAdmin.manualFinanceProcessing",
+      "domain": "superAdmin",
+      "value": "Manual Finance Processing:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Manual Finance Processing:'"
+    },
+    {
+      "key": "superAdmin.providerPayoutSuperAdmin",
+      "domain": "superAdmin",
+      "value": "Provider Payout Super Admin Approval Threshold (₱)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Provider Payout Super Admin Approval Threshold (₱)'"
+    },
+    {
+      "key": "superAdmin.anyPayoutAboveThis",
+      "domain": "superAdmin",
+      "value": "Any payout above this amount requires Super Admin approval before Finance can process it.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Any payout above this amount requires Super Admin approval before Finance can process it.'"
+    },
+    {
+      "key": "superAdmin.refundSuperAdminApproval",
+      "domain": "superAdmin",
+      "value": "Refund Super Admin Approval Threshold (₱)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Refund Super Admin Approval Threshold (₱)'"
+    },
+    {
+      "key": "superAdmin.anyRefundAboveThis",
+      "domain": "superAdmin",
+      "value": "Any refund above this amount requires Super Admin approval before Finance can process it.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Any refund above this amount requires Super Admin approval before Finance can process it.'"
+    },
+    {
+      "key": "superAdmin.globalFinanceFreezeEmergency",
+      "domain": "superAdmin",
+      "value": "Global Finance Freeze (Emergency Stop)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Global Finance Freeze (Emergency Stop)'"
+    },
+    {
+      "key": "superAdmin.ifEnabledAllManual",
+      "domain": "superAdmin",
+      "value": "If enabled, ALL manual refunds and payouts are blocked. Finance cannot process any settlements.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'If enabled, ALL manual refunds and payouts are blocked. Finance cannot process any settlements.'"
+    },
+    {
+      "key": "superAdmin.determineWhichAssetCategories",
+      "domain": "superAdmin",
+      "value": "Determine which asset categories are publicly available during V1.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Determine which asset categories are publicly available during V1.'"
+    },
+    {
+      "key": "superAdmin.requiresApproval",
+      "domain": "superAdmin",
+      "value": "• Requires Approval",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '• Requires Approval'"
+    },
+    {
+      "key": "superAdmin.phase16LimitedLive",
+      "domain": "superAdmin",
+      "value": "Phase 16 - Limited Live Pilot Pre-flight Checklist",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Phase 16 - Limited Live Pilot Pre-flight Checklist'"
+    },
+    {
+      "key": "superAdmin.rentipidPaymentRolePlatform",
+      "domain": "superAdmin",
+      "value": "RENTipid Payment Role & Platform Fees",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'RENTipid Payment Role & Platform Fees'"
+    },
+    {
+      "key": "superAdmin.financeOperationsManualIntervention",
+      "domain": "superAdmin",
+      "value": "Finance operations manual intervention workflow.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Finance operations manual intervention workflow.'"
+    },
+    {
+      "key": "superAdmin.clarifyTheManualRefund",
+      "domain": "superAdmin",
+      "value": "Clarify the manual refund and payout processes.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Clarify the manual refund and payout processes.'"
+    },
+    {
+      "key": "superAdmin.clarifyThatHighRisk",
+      "domain": "superAdmin",
+      "value": "Clarify that high-risk categories remain restricted.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Clarify that high-risk categories remain restricted.'"
+    },
+    {
+      "key": "superAdmin.clarifyThatRentipidMay",
+      "domain": "superAdmin",
+      "value": "Clarify that RENTipid may require KYC and listing approval.",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'Clarify that RENTipid may require KYC and listing approval.'"
+    },
+    {
+      "key": "superAdmin.policy",
+      "domain": "superAdmin",
+      "value": "Policy",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Policy'"
+    },
+    {
+      "key": "superAdmin.needsRevision",
+      "domain": "superAdmin",
+      "value": "Needs Revision",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Needs Revision'"
+    },
+    {
+      "key": "superAdmin.temporaryTunnelTestActive",
+      "domain": "superAdmin",
+      "value": "Temporary Tunnel Test Active",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Temporary Tunnel Test Active'"
+    },
+    {
+      "key": "superAdmin.present",
+      "domain": "superAdmin",
+      "value": "Present",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Present'"
+    },
+    {
+      "key": "superAdmin.missing",
+      "domain": "superAdmin",
+      "value": "Missing",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Missing'"
+    },
+    {
+      "key": "superAdmin.productionHttpsUrl",
+      "domain": "superAdmin",
+      "value": "Production HTTPS URL",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Production HTTPS URL'"
+    },
+    {
+      "key": "superAdmin.on",
+      "domain": "superAdmin",
+      "value": "ON",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'ON'"
+    },
+    {
+      "key": "superAdmin.off",
+      "domain": "superAdmin",
+      "value": "OFF",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'OFF'"
+    },
+    {
+      "key": "superAdmin.opsDashboardRefundAccess",
+      "domain": "superAdmin",
+      "value": "Ops Dashboard Refund Access (P19-008)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Ops Dashboard Refund Access (P19-008)'"
+    },
+    {
+      "key": "superAdmin.verifyManually",
+      "domain": "superAdmin",
+      "value": "Verify Manually",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Verify Manually'"
+    },
+    {
+      "key": "superAdmin.allowsThePilotCheckout",
+      "domain": "superAdmin",
+      "value": "Allows the pilot checkout option to appear for the selected renter/listing below.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Allows the pilot checkout option to appear for the selected renter/listing below.'"
+    },
+    {
+      "key": "superAdmin.theLivePilotWill",
+      "domain": "superAdmin",
+      "value": "The Live Pilot will ONLY be visible when these exact conditions are met during checkout.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'The Live Pilot will ONLY be visible when these exact conditions are met during checkout.'"
+    },
+    {
+      "key": "superAdmin.cuid",
+      "domain": "superAdmin",
+      "value": "cuid...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'cuid...'"
+    },
+    {
+      "key": "superAdmin.phase16FinalExecution",
+      "domain": "superAdmin",
+      "value": "Phase 16 - Final Execution Validation Checklist",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Phase 16 - Final Execution Validation Checklist'"
+    },
+    {
+      "key": "superAdmin.liveOptionExplicitlyHidden",
+      "domain": "superAdmin",
+      "value": "Live option explicitly hidden for non-pilot user",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Live option explicitly hidden for non-pilot user'"
+    },
+    {
+      "key": "superAdmin.liveOptionHiddenIf",
+      "domain": "superAdmin",
+      "value": "Live option hidden if amount above limit",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Live option hidden if amount above limit'"
+    },
+    {
+      "key": "superAdmin.liveCheckoutSessionCreates",
+      "domain": "superAdmin",
+      "value": "Live checkout session creates in controlled mode",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Live checkout session creates in controlled mode'"
+    },
+    {
+      "key": "superAdmin.liveWebhookValidatesLive",
+      "domain": "superAdmin",
+      "value": "Live webhook validates live signature",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Live webhook validates live signature'"
+    },
+    {
+      "key": "superAdmin.sandboxWebhookFailsIf",
+      "domain": "superAdmin",
+      "value": "Sandbox webhook fails if sent to live mode",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Sandbox webhook fails if sent to live mode'"
+    },
+    {
+      "key": "superAdmin.checkTheseBoxesManually",
+      "domain": "superAdmin",
+      "value": "Check these boxes manually during the final phase test before public release.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Check these boxes manually during the final phase test before public release.'"
+    },
+    {
+      "key": "superAdmin.roadmapForTransitioningFrom",
+      "domain": "superAdmin",
+      "value": "Roadmap for transitioning from Web Application to App Store distribution (Phase 15).",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Roadmap for transitioning from Web Application to App Store distribution (Phase 15).'"
+    },
+    {
+      "key": "superAdmin.readTheDocumentation",
+      "domain": "superAdmin",
+      "value": "Read the Documentation",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Read the Documentation'"
+    },
+    {
+      "key": "superAdmin.controlTheFinancialProcessing",
+      "domain": "superAdmin",
+      "value": "Control the financial processing environment for V1 Launch.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Control the financial processing environment for V1 Launch.'"
+    },
+    {
+      "key": "superAdmin.liveApiKeysObtained",
+      "domain": "superAdmin",
+      "value": "Live API keys obtained",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Live API keys obtained'"
+    },
+    {
+      "key": "superAdmin.webhookUrlRegistered",
+      "domain": "superAdmin",
+      "value": "Webhook URL registered",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Webhook URL registered'"
+    },
+    {
+      "key": "superAdmin.webhookSigningSecretConfigured",
+      "domain": "superAdmin",
+      "value": "Webhook signing secret configured",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Webhook signing secret configured'"
+    },
+    {
+      "key": "superAdmin.settlementBankAccountVerified",
+      "domain": "superAdmin",
+      "value": "Settlement bank account verified",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Settlement bank account verified'"
+    },
+    {
+      "key": "superAdmin.page.roadmapForTransitioningFrom",
+      "domain": "superAdmin",
+      "value": "Roadmap for transitioning from Mock Escrow to Real Financial Processing (Phase 14).",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Roadmap for transitioning from Mock Escrow to Real Financial Processing (Phase 14).'"
+    },
+    {
+      "key": "superAdmin.allThirdPartyKyc",
+      "domain": "superAdmin",
+      "value": "All third-party KYC, HTTPS production webhooks, and safety guardrails have successfully passed.",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'All third-party KYC, HTTPS production webhooks, and safety guardrails have successfully passed.'"
+    },
+    {
+      "key": "superAdmin.allUatFlowsHave",
+      "domain": "superAdmin",
+      "value": "All UAT flows have passed and zero critical issues are open. The application may proceed to public launch.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'All UAT flows have passed and zero critical issues are open. The application may proceed to public launch.'"
+    },
+    {
+      "key": "superAdmin.outstandingCriticalIssuesOr",
+      "domain": "superAdmin",
+      "value": "Outstanding critical issues or pending UAT flows must be resolved.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Outstanding critical issues or pending UAT flows must be resolved.'"
+    },
+    {
+      "key": "superAdmin.phase11ExitCriteria",
+      "domain": "superAdmin",
+      "value": "Phase 11 Exit Criteria",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Phase 11 Exit Criteria'"
+    },
+    {
+      "key": "superAdmin.controlExternalMarketingApi",
+      "domain": "superAdmin",
+      "value": "Control external marketing API behavior for V1 Launch.",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Control external marketing API behavior for V1 Launch.'"
+    },
+    {
+      "key": "superAdmin.page.roadmapForTransitioningFrom2",
+      "domain": "superAdmin",
+      "value": "Roadmap for transitioning from Mock Posts to Real API Publishing.",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Roadmap for transitioning from Mock Posts to Real API Publishing.'"
+    },
+    {
+      "key": "superAdmin.superAdminUtilityFor",
+      "domain": "superAdmin",
+      "value": "Super Admin utility for data durability operations.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Super Admin utility for data durability operations.'"
+    },
+    {
+      "key": "superAdmin.sqliteLocalPostgresqlProd",
+      "domain": "superAdmin",
+      "value": "SQLite (Local) / PostgreSQL (Prod)",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'SQLite (Local) / PostgreSQL (Prod)'"
+    },
+    {
+      "key": "superAdmin.today0200Am",
+      "domain": "superAdmin",
+      "value": "Today, 02:00 AM (Placeholder)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Today, 02:00 AM (Placeholder)'"
+    },
+    {
+      "key": "superAdmin.30Days",
+      "domain": "superAdmin",
+      "value": "30 Days",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '30 Days'"
+    },
+    {
+      "key": "superAdmin.localDiskDevDefault",
+      "domain": "superAdmin",
+      "value": "Local Disk (Dev Default)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Local Disk (Dev Default)'"
+    },
+    {
+      "key": "superAdmin.productionMetricsExcludingBeta",
+      "domain": "superAdmin",
+      "value": "Production metrics excluding beta/test data.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Production metrics excluding beta/test data.'"
+    },
+    {
+      "key": "superAdmin.chartRenderingPlaceholderIntegration",
+      "domain": "superAdmin",
+      "value": "Chart rendering placeholder (Integration required for live traffic)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Chart rendering placeholder (Integration required for live traffic)'"
+    },
+    {
+      "key": "superAdmin.pendingItemsMustBe",
+      "domain": "superAdmin",
+      "value": "Pending items must be completed before V1 Launch authorization unlocks.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Pending items must be completed before V1 Launch authorization unlocks.'"
+    },
+    {
+      "key": "superAdmin.manualExecutionTrackingFor",
+      "domain": "superAdmin",
+      "value": "Manual execution tracking for the absolute final end-to-end check before unlocking Public Registration.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Manual execution tracking for the absolute final end-to-end check before unlocking Public Registration.'"
+    },
+    {
+      "key": "soc.securityContextUnavailable",
+      "domain": "soc",
+      "value": "Security Context Unavailable",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Security Context Unavailable'"
+    },
+    {
+      "key": "soc.lifecycle",
+      "domain": "soc",
+      "value": "Lifecycle",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Lifecycle'"
+    },
+    {
+      "key": "soc.limitMax50",
+      "domain": "soc",
+      "value": "Limit (max 50)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Limit (max 50)'"
+    },
+    {
+      "key": "soc.error",
+      "domain": "soc",
+      "value": "Error",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Error'"
+    },
+    {
+      "key": "soc.generatedAt",
+      "domain": "soc",
+      "value": "Generated At",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Generated At'"
+    },
+    {
+      "key": "soc.generated",
+      "domain": "soc",
+      "value": "Generated",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Generated'"
+    },
+    {
+      "key": "soc.scoreBand",
+      "domain": "soc",
+      "value": "Score / Band",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Score / Band'"
+    },
+    {
+      "key": "soc.code",
+      "domain": "soc",
+      "value": "Code:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Code:'"
+    },
+    {
+      "key": "soc.rawWt",
+      "domain": "soc",
+      "value": "Raw Wt:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Raw Wt:'"
+    },
+    {
+      "key": "soc.effWt",
+      "domain": "soc",
+      "value": "Eff. Wt:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Eff. Wt:'"
+    },
+    {
+      "key": "soc.page.allSeverities",
+      "domain": "soc",
+      "value": "All severities",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'All severities'"
+    },
+    {
+      "key": "soc.page.allSources",
+      "domain": "soc",
+      "value": "All sources",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'All sources'"
+    },
+    {
+      "key": "soc.allEnvironments",
+      "domain": "soc",
+      "value": "All environments",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'All environments'"
+    },
+    {
+      "key": "soc.clear",
+      "domain": "soc",
+      "value": "Clear",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Clear'"
+    },
+    {
+      "key": "soc.datesUseUtcDetail",
+      "domain": "soc",
+      "value": "Dates use UTC. Detail tables are capped at 100 authoritative records.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Dates use UTC. Detail tables are capped at 100 authoritative records.'"
+    },
+    {
+      "key": "soc.simulationReport",
+      "domain": "soc",
+      "value": "Simulation Report",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Simulation Report'"
+    },
+    {
+      "key": "soc.lifecycleMarkedSimulationEvents",
+      "domain": "soc",
+      "value": "Lifecycle-marked simulation events are separated from operational event totals.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Lifecycle-marked simulation events are separated from operational event totals.'"
+    },
+    {
+      "key": "soc.exampleAuthenticationfailed",
+      "domain": "soc",
+      "value": "Example: AUTHENTICATION_FAILED",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Example: AUTHENTICATION_FAILED'"
+    },
+    {
+      "key": "soc.securityEventReport",
+      "domain": "soc",
+      "value": "Security Event Report",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Security Event Report'"
+    },
+    {
+      "key": "soc.responsePlaybookReport",
+      "domain": "soc",
+      "value": "Response / Playbook Report",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Response / Playbook Report'"
+    },
+    {
+      "key": "soc.approvalReport",
+      "domain": "soc",
+      "value": "Approval Report",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Approval Report'"
+    },
+    {
+      "key": "soc.behavioralRiskReport",
+      "domain": "soc",
+      "value": "Behavioral Risk Report",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Behavioral Risk Report'"
+    },
+    {
+      "key": "soc.target",
+      "domain": "soc",
+      "value": "Target",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Target'"
+    },
+    {
+      "key": "soc.simulationDataIsUnavailable",
+      "domain": "soc",
+      "value": "Simulation data is unavailable",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Simulation data is unavailable'"
+    },
+    {
+      "key": "soc.tryAgain",
+      "domain": "soc",
+      "value": "Try again",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Try again'"
+    },
+    {
+      "key": "soc.loadingSocSimulations",
+      "domain": "soc",
+      "value": "Loading SOC simulations",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Loading SOC simulations'"
+    },
+    {
+      "key": "soc.socSimulations",
+      "domain": "soc",
+      "value": "SOC Simulations",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'SOC Simulations'"
+    },
+    {
+      "key": "soc.simulationOnlySafetyBoundary",
+      "domain": "soc",
+      "value": "Simulation-only safety boundary",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Simulation-only safety boundary'"
+    },
+    {
+      "key": "soc.simulationCatalog",
+      "domain": "soc",
+      "value": "Simulation Catalog",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Simulation Catalog'"
+    },
+    {
+      "key": "soc.existingSocPath",
+      "domain": "soc",
+      "value": "Existing SOC path",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Existing SOC path'"
+    },
+    {
+      "key": "soc.expectedOutcome",
+      "domain": "soc",
+      "value": "Expected outcome",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Expected outcome'"
+    },
+    {
+      "key": "soc.latest25VerifiedSimulation",
+      "domain": "soc",
+      "value": "Latest 25 verified, simulation-marked audit outcomes.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Latest 25 verified, simulation-marked audit outcomes.'"
+    },
+    {
+      "key": "soc.noSimulationExecutionsAre",
+      "domain": "soc",
+      "value": "No simulation executions are recorded.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No simulation executions are recorded.'"
+    },
+    {
+      "key": "soc.apiAuthorizationProbe",
+      "domain": "soc",
+      "value": "API authorization probe",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'API authorization probe'"
+    },
+    {
+      "key": "soc.latestResult",
+      "domain": "soc",
+      "value": "Latest result",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Latest result'"
+    },
+    {
+      "key": "soc.simulationReference",
+      "domain": "soc",
+      "value": "Simulation reference",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Simulation reference'"
+    },
+    {
+      "key": "soc.isolatedEventReference",
+      "domain": "soc",
+      "value": "Isolated event reference",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Isolated event reference'"
+    },
+    {
+      "key": "soc.expected",
+      "domain": "soc",
+      "value": "Expected",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Expected'"
+    },
+    {
+      "key": "soc.actual",
+      "domain": "soc",
+      "value": "Actual",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Actual'"
+    },
+    {
+      "key": "soc.response",
+      "domain": "soc",
+      "value": "Response",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Response'"
+    },
+    {
+      "key": "soc.notExecutedSimulationSafety",
+      "domain": "soc",
+      "value": "Not executed — simulation safety boundary",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Not executed — simulation safety boundary'"
+    },
+    {
+      "key": "soc.platformSocialAccounts",
+      "domain": "soc",
+      "value": "Platform Social Accounts",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Platform Social Accounts'"
+    },
+    {
+      "key": "soc.manageTheOfficialRentipid",
+      "domain": "soc",
+      "value": "Manage the official RENTipid social media connections used for platform-wide campaigns.",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'Manage the official RENTipid social media connections used for platform-wide campaigns.'"
+    },
+    {
+      "key": "soc.yourSocialAccounts",
+      "domain": "soc",
+      "value": "Your Social Accounts",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Your Social Accounts'"
+    },
+    {
+      "key": "soc.connectYourBusinessSocial",
+      "domain": "soc",
+      "value": "Connect your business social profiles to easily share generated promotions for your listings.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Connect your business social profiles to easily share generated promotions for your listings.'"
+    },
+    {
+      "key": "soc.accountSecurity",
+      "domain": "soc",
+      "value": "Account Security",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Account Security'"
+    },
+    {
+      "key": "soc.multiFactorAuthentication",
+      "domain": "soc",
+      "value": "Multi-Factor Authentication",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Multi-Factor Authentication'"
+    },
+    {
+      "key": "soc.socialAccountsProviders",
+      "domain": "soc",
+      "value": "Social Accounts & Providers",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Social Accounts & Providers'"
+    },
+    {
+      "key": "soc.connectedProviders",
+      "domain": "soc",
+      "value": "Connected Providers",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Connected Providers'"
+    },
+    {
+      "key": "soc.noSocialAccountsConfigured",
+      "domain": "soc",
+      "value": "No social accounts configured.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No social accounts configured.'"
+    },
+    {
+      "key": "soc.capabilities",
+      "domain": "soc",
+      "value": "Capabilities",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Capabilities'"
+    },
+    {
+      "key": "soc.lastSync",
+      "domain": "soc",
+      "value": "Last Sync",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Last Sync'"
+    },
+    {
+      "key": "soc.configure",
+      "domain": "soc",
+      "value": "Configure",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Configure'"
+    },
+    {
+      "key": "soc.validate",
+      "domain": "soc",
+      "value": "Validate",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Validate'"
+    },
+    {
+      "key": "soc.disable",
+      "domain": "soc",
+      "value": "Disable",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Disable'"
+    },
+    {
+      "key": "soc.providerIntegrationsAvailable",
+      "domain": "soc",
+      "value": "Provider Integrations Available",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Provider Integrations Available'"
+    },
+    {
+      "key": "soc.socialAnalyticsAttribution",
+      "domain": "soc",
+      "value": "Social Analytics & Attribution",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Social Analytics & Attribution'"
+    },
+    {
+      "key": "soc.topOfFunnel",
+      "domain": "soc",
+      "value": "Top of Funnel",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Top of Funnel'"
+    },
+    {
+      "key": "soc.impressions",
+      "domain": "soc",
+      "value": "Impressions:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Impressions:'"
+    },
+    {
+      "key": "soc.clicks",
+      "domain": "soc",
+      "value": "Clicks:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Clicks:'"
+    },
+    {
+      "key": "soc.registrations",
+      "domain": "soc",
+      "value": "Registrations:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Registrations:'"
+    },
+    {
+      "key": "soc.bookings",
+      "domain": "soc",
+      "value": "Bookings:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Bookings:'"
+    },
+    {
+      "key": "soc.revenue",
+      "domain": "soc",
+      "value": "Revenue:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Revenue:'"
+    },
+    {
+      "key": "soc.financialRoi",
+      "domain": "soc",
+      "value": "Financial ROI",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Financial ROI'"
+    },
+    {
+      "key": "soc.cost",
+      "domain": "soc",
+      "value": "Cost:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Cost:'"
+    },
+    {
+      "key": "soc.roi",
+      "domain": "soc",
+      "value": "ROI:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'ROI:'"
+    },
+    {
+      "key": "soc.analyticsCurrentlyUnavailableFor",
+      "domain": "soc",
+      "value": "Analytics currently unavailable for this campaign.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Analytics currently unavailable for this campaign.'"
+    },
+    {
+      "key": "soc.contentApprovalQueue",
+      "domain": "soc",
+      "value": "Content Approval Queue",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Content Approval Queue'"
+    },
+    {
+      "key": "soc.noPostsPendingApproval",
+      "domain": "soc",
+      "value": "No posts pending approval.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No posts pending approval.'"
+    },
+    {
+      "key": "soc.content",
+      "domain": "soc",
+      "value": "Content",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Content'"
+    },
+    {
+      "key": "soc.mediaOnly",
+      "domain": "soc",
+      "value": "Media only",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Media only'"
+    },
+    {
+      "key": "soc.contentSnapshot",
+      "domain": "soc",
+      "value": "Content Snapshot",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Content Snapshot'"
+    },
+    {
+      "key": "soc.postType",
+      "domain": "soc",
+      "value": "Post Type",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Post Type'"
+    },
+    {
+      "key": "soc.noCaptionProvided",
+      "domain": "soc",
+      "value": "No caption provided",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No caption provided'"
+    },
+    {
+      "key": "soc.superadminOverrideReasonOptional",
+      "domain": "soc",
+      "value": "SuperAdmin Override Reason (Optional)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'SuperAdmin Override Reason (Optional)'"
+    },
+    {
+      "key": "soc.createNewDraft",
+      "domain": "soc",
+      "value": "Create New Draft",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Create New Draft'"
+    },
+    {
+      "key": "soc.targetAccount",
+      "domain": "soc",
+      "value": "Target Account",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Target Account'"
+    },
+    {
+      "key": "soc.selectAccount",
+      "domain": "soc",
+      "value": "Select Account",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Select Account'"
+    },
+    {
+      "key": "soc.platformIfNoSpecific",
+      "domain": "soc",
+      "value": "Platform (if no specific account)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Platform (if no specific account)'"
+    },
+    {
+      "key": "soc.mockSocialNetwork",
+      "domain": "soc",
+      "value": "Mock Social Network",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Mock Social Network'"
+    },
+    {
+      "key": "soc.metaFacebook",
+      "domain": "soc",
+      "value": "Meta / Facebook",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Meta / Facebook'"
+    },
+    {
+      "key": "soc.instagram",
+      "domain": "soc",
+      "value": "Instagram",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Instagram'"
+    },
+    {
+      "key": "soc.campaign",
+      "domain": "soc",
+      "value": "Campaign",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Campaign'"
+    },
+    {
+      "key": "soc.selectCampaign",
+      "domain": "soc",
+      "value": "Select Campaign",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Select Campaign'"
+    },
+    {
+      "key": "soc.associatedListingOptional",
+      "domain": "soc",
+      "value": "Associated Listing (Optional)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Associated Listing (Optional)'"
+    },
+    {
+      "key": "soc.postTitleInternal",
+      "domain": "soc",
+      "value": "Post Title (Internal)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Post Title (Internal)'"
+    },
+    {
+      "key": "soc.mediaReferenceUrlOr",
+      "domain": "soc",
+      "value": "Media Reference (URL or Object Key)",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Media Reference (URL or Object Key)'"
+    },
+    {
+      "key": "soc.mustBelongToAuthorized",
+      "domain": "soc",
+      "value": "Must belong to authorized RENTipid storage namespace.",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'Must belong to authorized RENTipid storage namespace.'"
+    },
+    {
+      "key": "soc.createDraft",
+      "domain": "soc",
+      "value": "Create Draft",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Create Draft'"
+    },
+    {
+      "key": "soc.myPromoPost",
+      "domain": "soc",
+      "value": "My Promo Post",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'My Promo Post'"
+    },
+    {
+      "key": "soc.uploadsImageJpg",
+      "domain": "soc",
+      "value": "/uploads/image.jpg",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '/uploads/image.jpg'"
+    },
+    {
+      "key": "soc.writeYourSocialPost",
+      "domain": "soc",
+      "value": "Write your social post...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Write your social post...'"
+    },
+    {
+      "key": "soc.socialContentStudio",
+      "domain": "soc",
+      "value": "Social Content Studio",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Social Content Studio'"
+    },
+    {
+      "key": "soc.contentLibrary",
+      "domain": "soc",
+      "value": "Content Library",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Content Library'"
+    },
+    {
+      "key": "soc.approval",
+      "domain": "soc",
+      "value": "Approval",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Approval'"
+    },
+    {
+      "key": "soc.locked",
+      "domain": "soc",
+      "value": "Locked",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Locked'"
+    },
+    {
+      "key": "soc.selectAccountOrPlatform",
+      "domain": "soc",
+      "value": "Select Account (or Platform default)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Select Account (or Platform default)'"
+    },
+    {
+      "key": "soc.myBrandName",
+      "domain": "soc",
+      "value": "My Brand Name",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'My Brand Name'"
+    },
+    {
+      "key": "soc.like",
+      "domain": "soc",
+      "value": "👍 Like",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '👍 Like'"
+    },
+    {
+      "key": "soc.comment",
+      "domain": "soc",
+      "value": "💬 Comment",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '💬 Comment'"
+    },
+    {
+      "key": "soc.share",
+      "domain": "soc",
+      "value": "🔗 Share",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: '🔗 Share'"
+    },
+    {
+      "key": "soc.anySentiment",
+      "domain": "soc",
+      "value": "Any Sentiment",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Any Sentiment'"
+    },
+    {
+      "key": "soc.negative",
+      "domain": "soc",
+      "value": "Negative",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Negative'"
+    },
+    {
+      "key": "soc.positive",
+      "domain": "soc",
+      "value": "Positive",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Positive'"
+    },
+    {
+      "key": "soc.anySeverity",
+      "domain": "soc",
+      "value": "Any Severity",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Any Severity'"
+    },
+    {
+      "key": "soc.critical",
+      "domain": "soc",
+      "value": "CRITICAL",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'CRITICAL'"
+    },
+    {
+      "key": "soc.high",
+      "domain": "soc",
+      "value": "HIGH",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'HIGH'"
+    },
+    {
+      "key": "soc.sentiment",
+      "domain": "soc",
+      "value": "Sentiment",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Sentiment'"
+    },
+    {
+      "key": "soc.new",
+      "domain": "soc",
+      "value": "NEW",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'NEW'"
+    },
+    {
+      "key": "soc.originalContent",
+      "domain": "soc",
+      "value": "Original Content",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Original Content'"
+    },
+    {
+      "key": "soc.sourceProvider",
+      "domain": "soc",
+      "value": "Source Provider",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Source Provider'"
+    },
+    {
+      "key": "soc.mockEventIdFbmock123",
+      "domain": "soc",
+      "value": "MOCK (Event ID: fb_mock_123)",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'MOCK (Event ID: fb_mock_123)'"
+    },
+    {
+      "key": "soc.receivedAt",
+      "domain": "soc",
+      "value": "Received At",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Received At'"
+    },
+    {
+      "key": "soc.aug13202610",
+      "domain": "soc",
+      "value": "Aug 13, 2026, 10:45 AM",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Aug 13, 2026, 10:45 AM'"
+    },
+    {
+      "key": "soc.page.negative",
+      "domain": "soc",
+      "value": "NEGATIVE",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'NEGATIVE'"
+    },
+    {
+      "key": "soc.neutral",
+      "domain": "soc",
+      "value": "NEUTRAL",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'NEUTRAL'"
+    },
+    {
+      "key": "soc.page.positive",
+      "domain": "soc",
+      "value": "POSITIVE",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'POSITIVE'"
+    },
+    {
+      "key": "soc.medium",
+      "domain": "soc",
+      "value": "MEDIUM",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'MEDIUM'"
+    },
+    {
+      "key": "soc.low",
+      "domain": "soc",
+      "value": "LOW",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'LOW'"
+    },
+    {
+      "key": "soc.detectedTopic",
+      "domain": "soc",
+      "value": "Detected Topic",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Detected Topic'"
+    },
+    {
+      "key": "soc.caseLinkage",
+      "domain": "soc",
+      "value": "Case Linkage",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Case Linkage'"
+    },
+    {
+      "key": "soc.noCaseCurrentlyLinked",
+      "domain": "soc",
+      "value": "No case currently linked.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No case currently linked.'"
+    },
+    {
+      "key": "soc.responseDraft",
+      "domain": "soc",
+      "value": "Response Draft",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Response Draft'"
+    },
+    {
+      "key": "soc.schedulingEngine",
+      "domain": "soc",
+      "value": "Scheduling Engine",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Scheduling Engine'"
+    },
+    {
+      "key": "soc.page.selectAccount",
+      "domain": "soc",
+      "value": "Select account...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Select account...'"
+    },
+    {
+      "key": "soc.time",
+      "domain": "soc",
+      "value": "Time",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Time'"
+    },
+    {
+      "key": "soc.upcomingScheduledPosts",
+      "domain": "soc",
+      "value": "Upcoming Scheduled Posts",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Upcoming Scheduled Posts'"
+    },
+    {
+      "key": "soc.queueIsEmpty",
+      "domain": "soc",
+      "value": "Queue is empty.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Queue is empty.'"
+    },
+    {
+      "key": "soc.requester",
+      "domain": "soc",
+      "value": "Requester:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Requester:'"
+    },
+    {
+      "key": "soc.playbook",
+      "domain": "soc",
+      "value": "Playbook:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Playbook:'"
+    },
+    {
+      "key": "soc.justification",
+      "domain": "soc",
+      "value": "Justification:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Justification:'"
+    },
+    {
+      "key": "soc.requestedAt",
+      "domain": "soc",
+      "value": "Requested At:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Requested At:'"
+    },
+    {
+      "key": "soc.decisions",
+      "domain": "soc",
+      "value": "Decisions",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Decisions'"
+    },
+    {
+      "key": "soc.noDecisionsRecorded",
+      "domain": "soc",
+      "value": "No decisions recorded.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No decisions recorded.'"
+    },
+    {
+      "key": "soc.grants",
+      "domain": "soc",
+      "value": "Grants",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Grants'"
+    },
+    {
+      "key": "soc.noGrantsIssued",
+      "domain": "soc",
+      "value": "No grants issued.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No grants issued.'"
+    },
+    {
+      "key": "soc.executeControl",
+      "domain": "soc",
+      "value": "Execute Control",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Execute Control'"
+    },
+    {
+      "key": "soc.securityApprovals",
+      "domain": "soc",
+      "value": "Security Approvals",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Security Approvals'"
+    },
+    {
+      "key": "soc.manageSecurityResponseApproval",
+      "domain": "soc",
+      "value": "Manage security response approval requests.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Manage security response approval requests.'"
+    },
+    {
+      "key": "soc.loadingApprovals",
+      "domain": "soc",
+      "value": "Loading approvals...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Loading approvals...'"
+    },
+    {
+      "key": "soc.requestId",
+      "domain": "soc",
+      "value": "Request ID",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Request ID'"
+    },
+    {
+      "key": "soc.caseId",
+      "domain": "soc",
+      "value": "Case ID",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Case ID'"
+    },
+    {
+      "key": "soc.approvallistclient.requester",
+      "domain": "soc",
+      "value": "Requester",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Requester'"
+    },
+    {
+      "key": "soc.requested",
+      "domain": "soc",
+      "value": "Requested",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Requested'"
+    },
+    {
+      "key": "soc.previous",
+      "domain": "soc",
+      "value": "Previous",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Previous'"
+    },
+    {
+      "key": "soc.next",
+      "domain": "soc",
+      "value": "Next",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Next'"
+    },
+    {
+      "key": "soc.lifecycleReasonOptional",
+      "domain": "soc",
+      "value": "Lifecycle reason (optional)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Lifecycle reason (optional)'"
+    },
+    {
+      "key": "soc.selectAnAuthorizedAssignee",
+      "domain": "soc",
+      "value": "Select an authorized assignee",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Select an authorized assignee'"
+    },
+    {
+      "key": "soc.assignmentReasonOptional",
+      "domain": "soc",
+      "value": "Assignment reason (optional)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Assignment reason (optional)'"
+    },
+    {
+      "key": "soc.noAuthorizedNotesRecorded",
+      "domain": "soc",
+      "value": "No authorized notes recorded.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No authorized notes recorded.'"
+    },
+    {
+      "key": "soc.noteType",
+      "domain": "soc",
+      "value": "Note type",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Note type'"
+    },
+    {
+      "key": "soc.note",
+      "domain": "soc",
+      "value": "Note",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Note'"
+    },
+    {
+      "key": "soc.noEvidenceReferencesRecorded",
+      "domain": "soc",
+      "value": "No evidence references recorded.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No evidence references recorded.'"
+    },
+    {
+      "key": "soc.integrityHash",
+      "domain": "soc",
+      "value": "Integrity hash",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Integrity hash'"
+    },
+    {
+      "key": "soc.collected",
+      "domain": "soc",
+      "value": "Collected",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Collected'"
+    },
+    {
+      "key": "soc.contentType",
+      "domain": "soc",
+      "value": "Content type",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Content type'"
+    },
+    {
+      "key": "soc.size",
+      "domain": "soc",
+      "value": "Size",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Size'"
+    },
+    {
+      "key": "soc.addedBy",
+      "domain": "soc",
+      "value": "Added by",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Added by'"
+    },
+    {
+      "key": "soc.evidenceType",
+      "domain": "soc",
+      "value": "Evidence type",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Evidence type'"
+    },
+    {
+      "key": "soc.evidenceSource",
+      "domain": "soc",
+      "value": "Evidence source",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Evidence source'"
+    },
+    {
+      "key": "soc.sha256IntegrityHash",
+      "domain": "soc",
+      "value": "SHA-256 integrity hash",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'SHA-256 integrity hash'"
+    },
+    {
+      "key": "soc.collectedAt",
+      "domain": "soc",
+      "value": "Collected at",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Collected at'"
+    },
+    {
+      "key": "soc.contentTypeOptional",
+      "domain": "soc",
+      "value": "Content type (optional)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Content type (optional)'"
+    },
+    {
+      "key": "soc.sizeInBytesOptional",
+      "domain": "soc",
+      "value": "Size in bytes (optional)",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Size in bytes (optional)'"
+    },
+    {
+      "key": "soc.caseAssignment",
+      "domain": "soc",
+      "value": "Case assignment",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Case assignment'"
+    },
+    {
+      "key": "soc.addCaseNote",
+      "domain": "soc",
+      "value": "Add case note",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Add case note'"
+    },
+    {
+      "key": "soc.addEvidenceReference",
+      "domain": "soc",
+      "value": "Add evidence reference",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Add evidence reference'"
+    },
+    {
+      "key": "soc.applicationJson",
+      "domain": "soc",
+      "value": "application/json",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'application/json'"
+    },
+    {
+      "key": "soc.title",
+      "domain": "soc",
+      "value": "Title",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Title'"
+    },
+    {
+      "key": "soc.origin",
+      "domain": "soc",
+      "value": "Origin",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Origin'"
+    },
+    {
+      "key": "soc.existingSecurityeventReference",
+      "domain": "soc",
+      "value": "Existing SecurityEvent reference",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Existing SecurityEvent reference'"
+    },
+    {
+      "key": "soc.allOrigins",
+      "domain": "soc",
+      "value": "All origins",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'All origins'"
+    },
+    {
+      "key": "soc.assignee",
+      "domain": "soc",
+      "value": "Assignee",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Assignee'"
+    },
+    {
+      "key": "soc.allAssignees",
+      "domain": "soc",
+      "value": "All assignees",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'All assignees'"
+    },
+    {
+      "key": "soc.linkedSecurityevent",
+      "domain": "soc",
+      "value": "Linked SecurityEvent",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Linked SecurityEvent'"
+    },
+    {
+      "key": "soc.case",
+      "domain": "soc",
+      "value": "Case",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical syntax or delimiter: 'Case'"
+    },
+    {
+      "key": "soc.event",
+      "domain": "soc",
+      "value": "Event",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Event'"
+    },
+    {
+      "key": "soc.securityevent",
+      "domain": "soc",
+      "value": "SecurityEvent",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'SecurityEvent'"
+    },
+    {
+      "key": "soc.upTo25Cases",
+      "domain": "soc",
+      "value": "Up to 25 cases per page",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Up to 25 cases per page'"
+    },
+    {
+      "key": "soc.exactAuthorizedReference",
+      "domain": "soc",
+      "value": "Exact authorized reference",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Exact authorized reference'"
+    },
+    {
+      "key": "soc.caseResultPages",
+      "domain": "soc",
+      "value": "Case result pages",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Case result pages'"
+    },
+    {
+      "key": "soc.loadingResponses",
+      "domain": "soc",
+      "value": "Loading responses...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Loading responses...'"
+    },
+    {
+      "key": "soc.errorLoadingDashboard",
+      "domain": "soc",
+      "value": "Error Loading Dashboard:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Error Loading Dashboard:'"
+    },
+    {
+      "key": "soc.soccommandcenterheader.allEnvironments",
+      "domain": "soc",
+      "value": "All Environments",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'All Environments'"
+    },
+    {
+      "key": "soc.production",
+      "domain": "soc",
+      "value": "PRODUCTION",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'PRODUCTION'"
+    },
+    {
+      "key": "soc.staging",
+      "domain": "soc",
+      "value": "STAGING",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'STAGING'"
+    },
+    {
+      "key": "soc.uat",
+      "domain": "soc",
+      "value": "UAT",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'UAT'"
+    },
+    {
+      "key": "soc.test",
+      "domain": "soc",
+      "value": "TEST",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'TEST'"
+    },
+    {
+      "key": "soc.development",
+      "domain": "soc",
+      "value": "DEVELOPMENT",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'DEVELOPMENT'"
+    },
+    {
+      "key": "soc.allLifecycles",
+      "domain": "soc",
+      "value": "All Lifecycles",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'All Lifecycles'"
+    },
+    {
+      "key": "soc.live",
+      "domain": "soc",
+      "value": "LIVE",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'LIVE'"
+    },
+    {
+      "key": "soc.simulation",
+      "domain": "soc",
+      "value": "SIMULATION",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'SIMULATION'"
+    },
+    {
+      "key": "soc.eventsToday",
+      "domain": "soc",
+      "value": "EVENTS TODAY",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'EVENTS TODAY'"
+    },
+    {
+      "key": "soc.blockedAttempts",
+      "domain": "soc",
+      "value": "BLOCKED ATTEMPTS",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'BLOCKED ATTEMPTS'"
+    },
+    {
+      "key": "soc.criticalFindings",
+      "domain": "soc",
+      "value": "CRITICAL FINDINGS",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'CRITICAL FINDINGS'"
+    },
+    {
+      "key": "soc.authenticationEvents",
+      "domain": "soc",
+      "value": "AUTHENTICATION EVENTS",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'AUTHENTICATION EVENTS'"
+    },
+    {
+      "key": "soc.loadingEvents",
+      "domain": "soc",
+      "value": "Loading events...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Loading events...'"
+    },
+    {
+      "key": "soc.simulated",
+      "domain": "soc",
+      "value": "SIMULATED",
+      "classification": "APPROVED_INVARIANT",
+      "justification": "Approved financial or platform invariant: 'SIMULATED'"
+    },
+    {
+      "key": "soc.locationUnknown",
+      "domain": "soc",
+      "value": "LOCATION UNKNOWN",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'LOCATION UNKNOWN'"
+    },
+    {
+      "key": "soc.controlledSocSimulations",
+      "domain": "soc",
+      "value": "CONTROLLED SOC SIMULATIONS",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'CONTROLLED SOC SIMULATIONS'"
+    },
+    {
+      "key": "soc.geolocatedEvents",
+      "domain": "soc",
+      "value": "Geolocated Events",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Geolocated Events'"
+    },
+    {
+      "key": "soc.countries",
+      "domain": "soc",
+      "value": "Countries",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Countries'"
+    },
+    {
+      "key": "soc.criticalHigh",
+      "domain": "soc",
+      "value": "Critical / High",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Critical / High'"
+    },
+    {
+      "key": "soc.unauthorizedAccess",
+      "domain": "soc",
+      "value": "Unauthorized Access",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Unauthorized Access'"
+    },
+    {
+      "key": "soc.mapUnavailable",
+      "domain": "soc",
+      "value": "Map Unavailable",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Map Unavailable'"
+    },
+    {
+      "key": "soc.unableToLoadThreat",
+      "domain": "soc",
+      "value": "Unable to load threat data. Please try again later.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Unable to load threat data. Please try again later.'"
+    },
+    {
+      "key": "soc.noGeolocatedSecurityEvents",
+      "domain": "soc",
+      "value": "No geolocated security events are available for the selected period.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No geolocated security events are available for the selected period.'"
+    },
+    {
+      "key": "soc.geolocationEnrichmentIsDisabled",
+      "domain": "soc",
+      "value": "Geolocation enrichment is disabled in this environment.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Geolocation enrichment is disabled in this environment.'"
+    },
+    {
+      "key": "soc.approximateIpDerivedLocation",
+      "domain": "soc",
+      "value": "Approximate IP-derived location",
+      "classification": "TECHNICAL_TERM",
+      "justification": "Technical industry acronym or format: 'Approximate IP-derived location'"
+    },
+    {
+      "key": "soc.events",
+      "domain": "soc",
+      "value": "Events",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Events'"
+    },
+    {
+      "key": "soc.domainsInvolved",
+      "domain": "soc",
+      "value": "Domains Involved",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Domains Involved'"
+    },
+    {
+      "key": "soc.latestActivity",
+      "domain": "soc",
+      "value": "Latest Activity",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Latest Activity'"
+    },
+    {
+      "key": "soc.zoomIn",
+      "domain": "soc",
+      "value": "Zoom In",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Zoom In'"
+    },
+    {
+      "key": "soc.zoomOut",
+      "domain": "soc",
+      "value": "Zoom Out",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Zoom Out'"
+    },
+    {
+      "key": "soc.steps",
+      "domain": "soc",
+      "value": "Steps",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Steps'"
+    },
+    {
+      "key": "soc.noStepsDefined",
+      "domain": "soc",
+      "value": "No steps defined.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'No steps defined.'"
+    },
+    {
+      "key": "soc.securityPlaybooks",
+      "domain": "soc",
+      "value": "Security Playbooks",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Security Playbooks'"
+    },
+    {
+      "key": "soc.createNewDraftPlaybook",
+      "domain": "soc",
+      "value": "Create new draft playbook",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Create new draft playbook'"
+    },
+    {
+      "key": "soc.loadingPlaybooks",
+      "domain": "soc",
+      "value": "Loading playbooks...",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Loading playbooks...'"
+    },
+    {
+      "key": "soc.playbooklistclient.playbook",
+      "domain": "soc",
+      "value": "Playbook",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Playbook'"
+    },
+    {
+      "key": "soc.allNewSecurityResponse",
+      "domain": "soc",
+      "value": "All new security response executions are currently blocked by system policy.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'All new security response executions are currently blocked by system policy.'"
+    },
+    {
+      "key": "soc.responseType",
+      "domain": "soc",
+      "value": "Response Type:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Response Type:'"
+    },
+    {
+      "key": "soc.responsedetailclient.target",
+      "domain": "soc",
+      "value": "Target:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Target:'"
+    },
+    {
+      "key": "soc.startedAt",
+      "domain": "soc",
+      "value": "Started At:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Started At:'"
+    },
+    {
+      "key": "soc.completedAt",
+      "domain": "soc",
+      "value": "Completed At:",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Completed At:'"
+    },
+    {
+      "key": "soc.ruleInitialization",
+      "domain": "soc",
+      "value": "Rule Initialization",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Rule Initialization'"
+    },
+    {
+      "key": "soc.clickTheButtonAbove",
+      "domain": "soc",
+      "value": "Click the button above to initialize the baseline DRAFT rules.",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Click the button above to initialize the baseline DRAFT rules.'"
+    },
+    {
+      "key": "soc.domain",
+      "domain": "soc",
+      "value": "Domain",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Domain'"
+    },
+    {
+      "key": "soc.thresholdWindow",
+      "domain": "soc",
+      "value": "Threshold / Window",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Threshold / Window'"
+    },
+    {
+      "key": "soc.cooldown",
+      "domain": "soc",
+      "value": "Cooldown",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Cooldown'"
+    },
+    {
+      "key": "soc.correlation",
+      "domain": "soc",
+      "value": "Correlation",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Correlation'"
+    },
+    {
+      "key": "soc.deduplication",
+      "domain": "soc",
+      "value": "Deduplication",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Deduplication'"
+    },
+    {
+      "key": "soc.validation",
+      "domain": "soc",
+      "value": "Validation",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Validation'"
+    },
+    {
+      "key": "soc.compatibility",
+      "domain": "soc",
+      "value": "Compatibility",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Compatibility'"
+    },
+    {
+      "key": "soc.notAvailableInThis",
+      "domain": "soc",
+      "value": "Not available in this milestone",
+      "classification": "COMMON_PH_USAGE",
+      "justification": "Natural Philippine e-commerce loanword: 'Not available in this milestone'"
+    }
+  ]
+}

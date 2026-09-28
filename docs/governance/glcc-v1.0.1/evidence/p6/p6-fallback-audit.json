@@ -1,0 +1,14 @@
+{
+  "auditDate": "2026-09-28",
+  "workPackage": "P6",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "locale": "fil-PH",
+  "totalCanonicalKeys": 2208,
+  "presentKeys": 2208,
+  "missingKeys": 0,
+  "emptyKeys": 0,
+  "requiredEnglishFallbackCount": 0,
+  "rawKeyRenderCount": 0,
+  "directCoveragePercentage": "100.00%",
+  "fallbackAuditResult": "PASS"
+}

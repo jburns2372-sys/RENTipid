@@ -1,0 +1,42 @@
+{
+  "auditDate": "2026-09-28",
+  "workPackage": "P6",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "totalCanonicalKeys": 2208,
+  "locales": {
+    "en-PH": {
+      "locale": "en-PH",
+      "status": "PRODUCTION_READY",
+      "presentKeys": 2208,
+      "missingKeys": 0,
+      "emptyKeys": 0,
+      "directCoverage": "100.00%",
+      "direction": "ltr",
+      "productionSelectable": true
+    },
+    "fil-PH": {
+      "locale": "fil-PH",
+      "status": "QA_REQUIRED",
+      "presentKeys": 2208,
+      "missingKeys": 0,
+      "emptyKeys": 0,
+      "directCoverage": "100.00%",
+      "requiredFallbackCount": 0,
+      "direction": "ltr",
+      "productionSelectable": false,
+      "qaModeSelectable": true,
+      "productionActivation": "BLOCKED"
+    },
+    "ja-JP": {
+      "locale": "ja-JP",
+      "status": "REGISTERED",
+      "presentKeys": 0,
+      "missingKeys": 2208,
+      "directCoverage": "0.00%",
+      "direction": "ltr",
+      "productionSelectable": false,
+      "qaModeSelectable": false,
+      "activation": "BLOCKED"
+    }
+  }
+}

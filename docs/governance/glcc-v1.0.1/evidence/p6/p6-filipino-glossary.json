@@ -1,0 +1,274 @@
+{
+  "version": "1.0.1",
+  "auditDate": "2026-09-28",
+  "workPackage": "P6",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "description": "Authoritative Philippine Filipino/Tagalog e-commerce & rental terminology glossary for RENTipid",
+  "terms": [
+    {
+      "term": "Language",
+      "filipino": "Wika",
+      "context": "User preference & interface locale"
+    },
+    {
+      "term": "Region",
+      "filipino": "Rehiyon",
+      "context": "Geographic location & jurisdiction"
+    },
+    {
+      "term": "Currency",
+      "filipino": "Pananalapi / Pera",
+      "context": "Monetary units & display currency"
+    },
+    {
+      "term": "Preferences",
+      "filipino": "Mga Kagustuhan",
+      "context": "User & device configuration settings"
+    },
+    {
+      "term": "Search",
+      "filipino": "Maghanap",
+      "context": "Marketplace discovery search"
+    },
+    {
+      "term": "Browse",
+      "filipino": "Mag-browse",
+      "context": "Exploring rental categories & listings"
+    },
+    {
+      "term": "Listing",
+      "filipino": "Listahan",
+      "context": "Equipment, vehicle, or space offer"
+    },
+    {
+      "term": "Booking",
+      "filipino": "Booking",
+      "context": "Retained contemporary loanword for rental reservation transaction"
+    },
+    {
+      "term": "Reservation",
+      "filipino": "Reserbasyon",
+      "context": "Advance scheduling of item rental"
+    },
+    {
+      "term": "Renter",
+      "filipino": "Umuupa",
+      "context": "Customer leasing the equipment"
+    },
+    {
+      "term": "Provider",
+      "filipino": "Nagpapaupa",
+      "context": "Owner offering gear for rent"
+    },
+    {
+      "term": "Partner",
+      "filipino": "Kasosyo / Partner",
+      "context": "Business provider & commercial entity"
+    },
+    {
+      "term": "Checkout",
+      "filipino": "Pag-checkout",
+      "context": "Transaction finalization and payment flow"
+    },
+    {
+      "term": "Payment",
+      "filipino": "Pagbabayad",
+      "context": "Financial settlement execution"
+    },
+    {
+      "term": "Deposit",
+      "filipino": "Deposito",
+      "context": "Security escrow guarantee"
+    },
+    {
+      "term": "Refund",
+      "filipino": "Refund",
+      "context": "Retained standard Philippine banking/e-commerce term"
+    },
+    {
+      "term": "Payout",
+      "filipino": "Payout",
+      "context": "Disbursement of earnings to provider"
+    },
+    {
+      "term": "Wallet",
+      "filipino": "Wallet",
+      "context": "In-app digital balance account"
+    },
+    {
+      "term": "Account",
+      "filipino": "Account",
+      "context": "User profile and credentials entity"
+    },
+    {
+      "term": "Profile",
+      "filipino": "Profile",
+      "context": "User identity details & verification view"
+    },
+    {
+      "term": "Message",
+      "filipino": "Mensahe",
+      "context": "Direct user-to-user chat communication"
+    },
+    {
+      "term": "Notification",
+      "filipino": "Abiso",
+      "context": "System alert & transaction update"
+    },
+    {
+      "term": "Review",
+      "filipino": "Pagsusuri",
+      "context": "Post-rental feedback & star rating"
+    },
+    {
+      "term": "Verification",
+      "filipino": "Pag-verify",
+      "context": "Identity document & trust screening"
+    },
+    {
+      "term": "Identity",
+      "filipino": "Pagkakakilanlan",
+      "context": "Legal identity of user"
+    },
+    {
+      "term": "Trust & Safety",
+      "filipino": "Tiwala at Kaligtasan",
+      "context": "Platform integrity & risk mitigation"
+    },
+    {
+      "term": "Support",
+      "filipino": "Suporta",
+      "context": "Customer care and resolution center"
+    },
+    {
+      "term": "Help Center",
+      "filipino": "Sentro ng Tulong",
+      "context": "Self-service knowledge base & FAQs"
+    },
+    {
+      "term": "Dashboard",
+      "filipino": "Dashboard",
+      "context": "Retained standard management console interface term"
+    },
+    {
+      "term": "Approval",
+      "filipino": "Pag-apruba",
+      "context": "Administrative or financial authorization"
+    },
+    {
+      "term": "Status",
+      "filipino": "Katayuan",
+      "context": "State of booking, listing, or claim"
+    },
+    {
+      "term": "Required",
+      "filipino": "Kailangan",
+      "context": "Mandatory form field or action"
+    },
+    {
+      "term": "Available",
+      "filipino": "Available / Maaaring Upahan",
+      "context": "Item ready for booking"
+    },
+    {
+      "term": "Unavailable",
+      "filipino": "Hindi Available",
+      "context": "Item blocked or reserved"
+    },
+    {
+      "term": "Cancel",
+      "filipino": "Kanselahin",
+      "context": "Action to abort transaction or dismiss modal"
+    },
+    {
+      "term": "Apply",
+      "filipino": "Ilapat",
+      "context": "Action to confirm preferences or filters"
+    },
+    {
+      "term": "Save",
+      "filipino": "I-save",
+      "context": "Action to persist changes"
+    },
+    {
+      "term": "Continue",
+      "filipino": "Magpatuloy",
+      "context": "Action to proceed to next step"
+    },
+    {
+      "term": "Submit",
+      "filipino": "Isumite",
+      "context": "Action to dispatch form data"
+    },
+    {
+      "term": "Confirm",
+      "filipino": "Kumpirmahin",
+      "context": "Action to acknowledge verification or payment"
+    },
+    {
+      "term": "Back",
+      "filipino": "Bumalik",
+      "context": "Navigation to previous view"
+    },
+    {
+      "term": "Next",
+      "filipino": "Susunod",
+      "context": "Navigation to forward step"
+    },
+    {
+      "term": "Previous",
+      "filipino": "Nakaraan",
+      "context": "Navigation to prior step"
+    }
+  ],
+  "intentionallyRetainedEnglishTerms": [
+    {
+      "term": "RENTipid",
+      "reason": "Brand identity / trademark"
+    },
+    {
+      "term": "PHP / ₱",
+      "reason": "Authoritative Philippine currency code and statutory ISO 4217 symbol"
+    },
+    {
+      "term": "PayMongo",
+      "reason": "Licensed payment processor partner brand"
+    },
+    {
+      "term": "GCash",
+      "reason": "Authorized mobile e-wallet partner brand"
+    },
+    {
+      "term": "Maya",
+      "reason": "Authorized digital bank partner brand"
+    },
+    {
+      "term": "RA 11967",
+      "reason": "Internet Transactions Act statutory citation"
+    },
+    {
+      "term": "RA 10173",
+      "reason": "Data Privacy Act statutory citation"
+    },
+    {
+      "term": "RA 7394",
+      "reason": "Consumer Act statutory citation"
+    },
+    {
+      "term": "MFA",
+      "reason": "Multi-Factor Authentication technical acronym"
+    },
+    {
+      "term": "SOC",
+      "reason": "Security Operations Center technical acronym"
+    },
+    {
+      "term": "KYC",
+      "reason": "Know Your Customer regulatory term"
+    },
+    {
+      "term": "Email",
+      "reason": "Standard universally recognized communication term in the Philippines"
+    }
+  ]
+}

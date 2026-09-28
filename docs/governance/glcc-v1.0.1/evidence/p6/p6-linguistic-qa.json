@@ -1,0 +1,321 @@
+{
+  "auditDate": "2026-09-28",
+  "workPackage": "P6",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "totalDomainsAudited": 31,
+  "totalKeysAudited": 2208,
+  "linguisticBlockers": 0,
+  "overallStatus": "PASS",
+  "domains": [
+    {
+      "domain": "common",
+      "totalKeys": 130,
+      "reviewedKeys": 130,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "navigation",
+      "totalKeys": 30,
+      "reviewedKeys": 30,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "auth",
+      "totalKeys": 122,
+      "reviewedKeys": 122,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "preferences",
+      "totalKeys": 53,
+      "reviewedKeys": 53,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "marketplace",
+      "totalKeys": 18,
+      "reviewedKeys": 18,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "listing",
+      "totalKeys": 112,
+      "reviewedKeys": 112,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "search",
+      "totalKeys": 1,
+      "reviewedKeys": 1,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "booking",
+      "totalKeys": 30,
+      "reviewedKeys": 30,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "checkout",
+      "totalKeys": 31,
+      "reviewedKeys": 31,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "payment",
+      "totalKeys": 121,
+      "reviewedKeys": 121,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "account",
+      "totalKeys": 23,
+      "reviewedKeys": 23,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "profile",
+      "totalKeys": 8,
+      "reviewedKeys": 8,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "provider",
+      "totalKeys": 175,
+      "reviewedKeys": 175,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "renter",
+      "totalKeys": 82,
+      "reviewedKeys": 82,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "partnerHub",
+      "totalKeys": 18,
+      "reviewedKeys": 18,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "messages",
+      "totalKeys": 1,
+      "reviewedKeys": 1,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "notifications",
+      "totalKeys": 1,
+      "reviewedKeys": 1,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "reviews",
+      "totalKeys": 1,
+      "reviewedKeys": 1,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "kyc",
+      "totalKeys": 15,
+      "reviewedKeys": 15,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "insurance",
+      "totalKeys": 1,
+      "reviewedKeys": 1,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "support",
+      "totalKeys": 40,
+      "reviewedKeys": 40,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "helpCenter",
+      "totalKeys": 19,
+      "reviewedKeys": 19,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "trustSafety",
+      "totalKeys": 14,
+      "reviewedKeys": 14,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "legalCompliance",
+      "totalKeys": 174,
+      "reviewedKeys": 174,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "admin",
+      "totalKeys": 387,
+      "reviewedKeys": 387,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "superAdmin",
+      "totalKeys": 208,
+      "reviewedKeys": 208,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "soc",
+      "totalKeys": 347,
+      "reviewedKeys": 347,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "errors",
+      "totalKeys": 4,
+      "reviewedKeys": 4,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "validation",
+      "totalKeys": 1,
+      "reviewedKeys": 1,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "status",
+      "totalKeys": 1,
+      "reviewedKeys": 1,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    },
+    {
+      "domain": "documents",
+      "totalKeys": 16,
+      "reviewedKeys": 16,
+      "issuesFound": 0,
+      "issuesCorrected": 0,
+      "remainingBlockers": 0,
+      "linguisticQuality": "PASS",
+      "registerStandard": "Contemporary Philippine Tagalog/Filipino standard for e-commerce/rental platforms"
+    }
+  ]
+}

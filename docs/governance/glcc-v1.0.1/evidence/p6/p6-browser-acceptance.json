@@ -1,0 +1,143 @@
+{
+  "auditDate": "2026-09-28",
+  "workPackage": "P6",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "mode": "CONTROLLED_QA (rentipid_locale=fil-PH, GLCC_ENABLE_LOCAL_QA_MODE=true)",
+  "targetHost": "http://localhost:3000",
+  "overallStatus": "PASS",
+  "htmlLangSemantics": {
+    "attribute": "lang=\"fil-PH\"",
+    "direction": "dir=\"ltr\"",
+    "status": "PASS"
+  },
+  "accessibilityLocalization": {
+    "ariaLabelsLocalized": true,
+    "altTextLocalized": true,
+    "titlesLocalized": true,
+    "screenReaderTextLocalized": true,
+    "status": "PASS"
+  },
+  "textExpansionLayout": {
+    "desktopWidth": "1280px (PASS, no overflow, no clipped text)",
+    "mobileWidth": "375px (PASS, responsive wrapping, no horizontal scroll, no button truncation)",
+    "status": "PASS"
+  },
+  "ordinaryEnglishFallbackCount": 0,
+  "rawKeyRenderCount": 0,
+  "capturedSurfaces": [
+    {
+      "surface": "Landing",
+      "route": "/",
+      "effectiveLocale": "fil-PH",
+      "expectedFilipino": [
+        "Mag-browse ng mga Paupahan",
+        "Paano Ito Gumagana",
+        "Kaligtasan",
+        "Ilista ang Iyong Gamit",
+        "Plataporma",
+        "Tiwala at Legal",
+        "Suporta"
+      ],
+      "observedResult": "PASS",
+      "ordinaryEnglishFallbackCount": 0,
+      "rawKeyCount": 0,
+      "layoutResult": "PASS",
+      "screenshotPath": "C:\\Users\\user\\.gemini\\antigravity-ide\\brain\\9016d615-3e65-4a8f-95db-8ba4a67ac750\\p6_landing_fil_ph_1790577324550.png"
+    },
+    {
+      "surface": "Global Preferences Modal",
+      "route": "/ (modal opened)",
+      "effectiveLocale": "fil-PH",
+      "expectedFilipino": [
+        "Mga Pangkalahatang Kagustuhan",
+        "Rehiyon",
+        "Wika",
+        "Pananalapi sa Pagpapakita",
+        "Ilapat ang mga Kagustuhan",
+        "Kanselahin"
+      ],
+      "observedResult": "PASS",
+      "ordinaryEnglishFallbackCount": 0,
+      "rawKeyCount": 0,
+      "layoutResult": "PASS",
+      "screenshotPath": "C:\\Users\\user\\.gemini\\antigravity-ide\\brain\\9016d615-3e65-4a8f-95db-8ba4a67ac750\\p6_global_prefs_modal_1790577483575.png"
+    },
+    {
+      "surface": "Authentication / Login",
+      "route": "/login",
+      "effectiveLocale": "fil-PH",
+      "expectedFilipino": [
+        "Mag-sign In sa RENTipid",
+        "Email Address",
+        "Password",
+        "Mag-sign In",
+        "Lumikha ng Account"
+      ],
+      "observedResult": "PASS",
+      "ordinaryEnglishFallbackCount": 0,
+      "rawKeyCount": 0,
+      "layoutResult": "PASS",
+      "screenshotPath": "C:\\Users\\user\\.gemini\\antigravity-ide\\brain\\9016d615-3e65-4a8f-95db-8ba4a67ac750\\p6_login_fil_ph_1790577602071.png"
+    },
+    {
+      "surface": "Marketplace / Browse",
+      "route": "/browse",
+      "effectiveLocale": "fil-PH",
+      "expectedFilipino": [
+        "Mag-browse ng mga Paupahan",
+        "Mga Kategorya",
+        "I-filter"
+      ],
+      "observedResult": "PASS",
+      "ordinaryEnglishFallbackCount": 0,
+      "rawKeyCount": 0,
+      "layoutResult": "PASS",
+      "screenshotPath": "C:\\Users\\user\\.gemini\\antigravity-ide\\brain\\9016d615-3e65-4a8f-95db-8ba4a67ac750\\p6_browse_fil_ph_1790577645075.png"
+    },
+    {
+      "surface": "Safety & Trust",
+      "route": "/safety",
+      "effectiveLocale": "fil-PH",
+      "expectedFilipino": [
+        "Kaligtasan sa RENTipid",
+        "Tiwala at Legal",
+        "Proteksyon"
+      ],
+      "observedResult": "PASS",
+      "ordinaryEnglishFallbackCount": 0,
+      "rawKeyCount": 0,
+      "layoutResult": "PASS",
+      "screenshotPath": "C:\\Users\\user\\.gemini\\antigravity-ide\\brain\\9016d615-3e65-4a8f-95db-8ba4a67ac750\\p6_safety_fil_ph_1790577682428.png"
+    },
+    {
+      "surface": "Support",
+      "route": "/support",
+      "effectiveLocale": "fil-PH",
+      "expectedFilipino": [
+        "Suporta sa RENTipid",
+        "Makipag-ugnayan",
+        "Tulong"
+      ],
+      "observedResult": "PASS",
+      "ordinaryEnglishFallbackCount": 0,
+      "rawKeyCount": 0,
+      "layoutResult": "PASS",
+      "screenshotPath": "C:\\Users\\user\\.gemini\\antigravity-ide\\brain\\9016d615-3e65-4a8f-95db-8ba4a67ac750\\p6_support_fil_ph_1790577753801.png"
+    },
+    {
+      "surface": "Help Center",
+      "route": "/help",
+      "effectiveLocale": "fil-PH",
+      "expectedFilipino": [
+        "Sentro ng Tulong",
+        "Maghanap ng Sagot",
+        "Mga Madalas Itanong"
+      ],
+      "observedResult": "PASS",
+      "ordinaryEnglishFallbackCount": 0,
+      "rawKeyCount": 0,
+      "layoutResult": "PASS",
+      "screenshotPath": "C:\\Users\\user\\.gemini\\antigravity-ide\\brain\\9016d615-3e65-4a8f-95db-8ba4a67ac750\\p6_help_fil_ph_1790577743141.png"
+    }
+  ]
+}

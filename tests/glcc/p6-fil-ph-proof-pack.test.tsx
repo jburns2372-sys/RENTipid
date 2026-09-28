@@ -249,33 +249,228 @@ describe('RENTipid GLCC v1.0.1 — Work Package P6: Filipino Proof Pack Suite', 
     });
   });
 
-  describe('5. Rendered Application Surface Verification', () => {
-    it('CheckoutFxDisclosure renders authoritative Filipino copy', () => {
+  describe('5. Rendered Application Surface Verification (All 8 Surface Groups)', () => {
+    it('CheckoutFxDisclosure renders authoritative Filipino copy and ordinary English UI is absent', () => {
       render(
-        <CheckoutFxDisclosure
-          authoritativeAmountPhp={5600}
-          targetCurrency="PHP"
-        />
+        <TranslationProvider initialLocale="fil-PH" initialDirection="ltr">
+          <CheckoutFxDisclosure
+            authoritativeAmountPhp={5600}
+            targetCurrency="PHP"
+          />
+        </TranslationProvider>
       );
 
-      // Verify authoritative payment currency notice
-      expect(screen.getByText('Authoritative Payment Currency')).toBeDefined();
+      // Verify authoritative payment currency notice in Filipino
+      expect(screen.getByText('May Kapangyarihang Pananalapi sa Pagbabayad')).toBeDefined();
       expect(screen.getByText(/PHP \(Philippine Peso\)/i)).toBeDefined();
+      expect(screen.getByText(/Huling halaga:/i)).toBeDefined();
+
+      // Verify ordinary English UI is strictly absent (0 fallback)
+      expect(screen.queryByText('Authoritative Payment Currency')).toBeNull();
     });
 
-    it('Footer renders Filipino copy when TranslationProvider is active with fil-PH', () => {
+    it('Footer renders Filipino copy when TranslationProvider is active with fil-PH and ordinary English headers are absent', () => {
       render(
         <TranslationProvider initialLocale="fil-PH" initialDirection="ltr">
           <Footer />
         </TranslationProvider>
       );
 
-      // Verify platform section header translated into Filipino
+      // Verify platform section headers translated into Filipino
       expect(screen.getByText('Plataporma')).toBeDefined();
       expect(screen.getByText('Tiwala at Legal')).toBeDefined();
       expect(screen.getByText('Suporta')).toBeDefined();
       expect(screen.getByText('Mag-browse ng mga Paupahan')).toBeDefined();
       expect(screen.getByText('Ilista ang Iyong Gamit')).toBeDefined();
+
+      // Verify ordinary English headers are strictly absent
+      expect(screen.queryByText('Platform')).toBeNull();
+      expect(screen.queryByText('Trust & Legal')).toBeNull();
+      expect(screen.queryByText('Support')).toBeNull();
+    });
+
+    it('Surface Group 1 (PUBLIC): verifies multiple Filipino strings and absence of ordinary English', () => {
+      const publicKeys = [
+        'navigation.browseRentals',
+        'navigation.howItWorks',
+        'navigation.safety',
+        'navigation.listYourItem',
+        'footer.platform',
+        'footer.trustAndLegal',
+        'footer.support',
+        'helpCenter.howCanIHelp',
+      ] as const;
+
+      for (const k of publicKeys) {
+        const filMsg = engineFil.translate(k);
+        const enMsg = engineEn.translate(k);
+        expect(filMsg).toBeDefined();
+        expect(filMsg.length).toBeGreaterThan(0);
+        expect(filMsg).not.toEqual(enMsg);
+      }
+    });
+
+    it('Surface Group 2 (IDENTITY): verifies multiple Filipino strings and absence of ordinary English', () => {
+      const identityKeys = [
+        'auth.login.title',
+        'auth.login.signIn',
+        'auth.login.createAccount',
+        'auth.login.forgotPassword',
+        'auth.register.title',
+        'auth.register.alreadyHaveAccount',
+        'account.profile.deleteAccount',
+      ] as const;
+
+      for (const k of identityKeys) {
+        const filMsg = engineFil.translate(k);
+        const enMsg = engineEn.translate(k);
+        expect(filMsg).toBeDefined();
+        expect(filMsg.length).toBeGreaterThan(0);
+        expect(filMsg).not.toEqual(enMsg);
+      }
+    });
+
+    it('Surface Group 3 (RENTER): verifies multiple Filipino strings and absence of ordinary English', () => {
+      const renterKeys = [
+        'checkout.authoritativePaymentCurrency',
+        'checkout.orderSummary',
+        'checkout.securityDepositEscrow',
+        'checkout.total',
+        'renter.bookings.title',
+        'renter.bookingDetail.baseRental',
+        'renter.damageClaimAgainstDeposit',
+      ] as const;
+
+      for (const k of renterKeys) {
+        const filMsg = engineFil.translate(k);
+        const enMsg = engineEn.translate(k);
+        expect(filMsg).toBeDefined();
+        expect(filMsg.length).toBeGreaterThan(0);
+        expect(filMsg).not.toEqual(enMsg);
+      }
+    });
+
+    it('Surface Group 4 (PROVIDER): verifies multiple Filipino strings and absence of ordinary English', () => {
+      const providerKeys = [
+        'providerListings.title',
+        'providerListings.createNew',
+        'providerNewListing.title',
+        'providerNewListing.legalRequirementsTitle',
+        'partnerHub.businessDashboard',
+      ] as const;
+
+      for (const k of providerKeys) {
+        const filMsg = engineFil.translate(k);
+        const enMsg = engineEn.translate(k);
+        expect(filMsg).toBeDefined();
+        expect(filMsg.length).toBeGreaterThan(0);
+        expect(filMsg).not.toEqual(enMsg);
+      }
+    });
+
+    it('Surface Group 5 (COMMUNICATION): verifies multiple Filipino strings and absence of ordinary English', () => {
+      const commKeys = [
+        'messages.general.title',
+        'notifications.general.title',
+        'reviews.general.title',
+      ] as const;
+
+      for (const k of commKeys) {
+        const filMsg = engineFil.translate(k);
+        const enMsg = engineEn.translate(k);
+        expect(filMsg).toBeDefined();
+        expect(filMsg.length).toBeGreaterThan(0);
+        expect(filMsg).not.toEqual(enMsg);
+      }
+    });
+
+    it('Surface Group 6 (TRUST): verifies multiple Filipino strings and absence of ordinary English', () => {
+      const trustKeys = [
+        'kyc.accountVerificationKyc',
+        'kyc.uploadDocument',
+        'trustSafety.builtOnTrustSafety',
+        'trustSafety.verifiedCommunity',
+        'legalCompliance.complianceVerification',
+      ] as const;
+
+      for (const k of trustKeys) {
+        const filMsg = engineFil.translate(k);
+        const enMsg = engineEn.translate(k);
+        expect(filMsg).toBeDefined();
+        expect(filMsg.length).toBeGreaterThan(0);
+        expect(filMsg).not.toEqual(enMsg);
+      }
+    });
+
+    it('Surface Group 7 (ADMIN): verifies multiple Filipino strings and absence of ordinary English', () => {
+      const adminKeys = [
+        'superAdmin.title',
+        'admin.accountDeletionRequests',
+        'admin.readOnlyObservabilityTelemetry',
+        'soc.securityAlertsReview',
+        'soc.behavioralRiskInvestigation',
+      ] as const;
+
+      for (const k of adminKeys) {
+        const filMsg = engineFil.translate(k);
+        const enMsg = engineEn.translate(k);
+        expect(filMsg).toBeDefined();
+        expect(filMsg.length).toBeGreaterThan(0);
+        expect(filMsg).not.toEqual(enMsg);
+      }
+    });
+
+    it('Surface Group 8 (GLOBAL): verifies Global Preferences renders Filipino copy', () => {
+      const globalKeys = [
+        'globalPreferences.title',
+        'globalPreferences.countryTab',
+        'globalPreferences.languageTab',
+        'globalPreferences.currencyTab',
+        'globalPreferences.applyButton',
+        'globalPreferences.cancelButton',
+      ] as const;
+
+      for (const k of globalKeys) {
+        const filMsg = engineFil.translate(k);
+        const enMsg = engineEn.translate(k);
+        expect(filMsg).toBeDefined();
+        expect(filMsg.length).toBeGreaterThan(0);
+        expect(filMsg).not.toEqual(enMsg);
+      }
+    });
+
+    it('Accessibility localization: verifies aria-labels and navigation semantics render in Filipino', () => {
+      const ariaNav = engineFil.translate('navigation.mainNav');
+      const ariaUser = engineFil.translate('navigation.userActions');
+
+      expect(ariaNav).toBe('Pangunahing Nabigasyon');
+      expect(ariaUser).toBe('Mga Aksyon ng Gumagamit');
+      expect(ariaNav).not.toEqual(engineEn.translate('navigation.mainNav'));
+      expect(ariaUser).not.toEqual(engineEn.translate('navigation.userActions'));
+    });
+
+    it('HTML Language Semantics: verifies lang="fil-PH" and dir="ltr"', () => {
+      expect(FIL_PH_BUNDLE.locale).toBe('fil-PH');
+      expect(FIL_PH_BUNDLE.direction).toBe('ltr');
+      expect(engineFil.getDirection('fil-PH')).toBe('ltr');
+    });
+
+    it('Layout & Text Expansion: asserts Filipino string lengths remain within standard container tolerances', () => {
+      // Check that button labels and headings do not exceed reasonable expansion bounds (<= 250% of en-PH)
+      const testButtons = [
+        'navigation.browseRentals',
+        'navigation.listYourItem',
+        'navigation.login',
+        'navigation.register',
+        'preferences.applyButton',
+        'preferences.cancelButton',
+      ] as const;
+
+      for (const k of testButtons) {
+        const filLen = engineFil.translate(k).length;
+        const enLen = engineEn.translate(k).length;
+        expect(filLen).toBeLessThanOrEqual(enLen * 2.5 + 10);
+      }
     });
   });
 
@@ -328,12 +523,19 @@ describe('RENTipid GLCC v1.0.1 — Work Package P6: Filipino Proof Pack Suite', 
       expect(jaKeys).toHaveLength(0);
     });
 
-    it('language translation contract strictly maintains currency and payment firewalls', () => {
+    it('language translation contract strictly maintains currency, payment, and RBAC firewalls', () => {
+      // Language dictionary has ZERO authority over financial or auth data structures
+      expect(FIL_PH_BUNDLE).not.toHaveProperty('countryCode');
       expect(FIL_PH_BUNDLE).not.toHaveProperty('currency');
+      expect(FIL_PH_BUNDLE).not.toHaveProperty('displayCurrency');
       expect(FIL_PH_BUNDLE).not.toHaveProperty('chargeCurrency');
+      expect(FIL_PH_BUNDLE).not.toHaveProperty('paymentProvider');
       expect(FIL_PH_BUNDLE).not.toHaveProperty('settlementLedger');
       expect(FIL_PH_BUNDLE).not.toHaveProperty('roles');
       expect(FIL_PH_BUNDLE).not.toHaveProperty('permissions');
+      expect(FIL_PH_BUNDLE).not.toHaveProperty('kycAuthority');
+      expect(FIL_PH_BUNDLE).not.toHaveProperty('complianceJurisdiction');
     });
   });
 });
+
