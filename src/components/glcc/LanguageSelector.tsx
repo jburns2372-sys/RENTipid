@@ -72,14 +72,15 @@ export function LanguageSelector({
   const currentLocale = propCurrentLocale || activeContextLocale || 'en-PH';
 
   // State for pending selection: initialized to propSelectedLocale or currentLocale
+  const [prevPropSelectedLocale, setPrevPropSelectedLocale] = useState(propSelectedLocale);
   const [pendingLocale, setPendingLocale] = useState<string>(propSelectedLocale || currentLocale);
 
-  // Synchronize when external prop changes
-  useEffect(() => {
+  if (propSelectedLocale !== prevPropSelectedLocale) {
+    setPrevPropSelectedLocale(propSelectedLocale);
     if (propSelectedLocale) {
       setPendingLocale(propSelectedLocale);
     }
-  }, [propSelectedLocale]);
+  }
 
   // Determine effective resolver mode enforcing production firewall
   const effectiveMode = useMemo<ResolverMode>(() => {
@@ -168,11 +169,6 @@ export function LanguageSelector({
   const selectableFilteredLocales = useMemo(() => {
     return filteredLocales.filter((l) => l.isSelectable);
   }, [filteredLocales]);
-
-  // Reset keyboard focus index when filter changes
-  useEffect(() => {
-    setFocusedIndex(-1);
-  }, [searchQuery]);
 
   // Candidate selection handler
   const handleSelect = useCallback(
@@ -273,7 +269,10 @@ export function LanguageSelector({
             type="search"
             role="searchbox"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setFocusedIndex(-1);
+            }}
             placeholder={t('preferences.searchLanguages')}
             aria-label={t('preferences.searchLanguages')}
             aria-controls={`${id}-listbox`}
@@ -285,6 +284,7 @@ export function LanguageSelector({
               type="button"
               onClick={() => {
                 setSearchQuery('');
+                setFocusedIndex(-1);
                 searchInputRef.current?.focus();
               }}
               aria-label={t('common.close')}

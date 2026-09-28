@@ -1,44 +1,66 @@
 {
   "workPackage": "P7 — LANGUAGE SELECTOR UX",
   "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
-  "generatedDate": "2026-09-28T17:00:00.000Z",
+  "generatedDate": "2026-09-28T18:15:00.000Z",
   "suiteTitle": "Language Selector Security, Firewall & Tamper-Resistance Suite",
+  "explicitSecurityResults": {
+    "PRODUCTION_FIL_PH_ACTIVATION": "BLOCKED — PASS",
+    "CONTROLLED_QA_FIL_PH": "AVAILABLE — PASS",
+    "JA_JP_ACTIVATION": "BLOCKED — PASS",
+    "EN_US_ACTIVATION": "BLOCKED — PASS",
+    "MALFORMED_LOCALE": "BLOCKED — PASS",
+    "UNKNOWN_LOCALE": "BLOCKED — PASS",
+    "QA_POLICY_INJECTION": "BLOCKED — PASS"
+  },
   "securityAssertions": [
     {
-      "assertion": "Production Runtime Immutability (Fail-Closed)",
-      "description": "resolveEffectiveResolverMode strictly enforces 'PRODUCTION' whenever VERCEL_ENV, APP_ENV, or NODE_ENV equals 'production', regardless of requested mode",
-      "testResult": "PASS",
-      "evidence": "tests/glcc/p7-language-selector.test.tsx: test 6.1"
+      "target": "PRODUCTION FIL-PH ACTIVATION",
+      "assertion": "Production fil-PH Activation Firewall",
+      "description": "In PRODUCTION mode, fil-PH is strictly blocked and cannot be selected or activated. Attempts fall back to platform default 'en-PH'.",
+      "testResult": "BLOCKED — PASS",
+      "evidence": "tests/glcc/p7-language-selector.test.tsx (test 1.2, 6.2)"
     },
     {
-      "assertion": "Production Mode Locale Resolution Firewall",
-      "description": "resolveEffectiveLocale in PRODUCTION mode rejects fil-PH and ja-JP, falling back safely to platform default 'en-PH'",
-      "testResult": "PASS",
-      "evidence": "tests/glcc/p7-language-selector.test.tsx: test 6.2"
+      "target": "CONTROLLED QA FIL-PH",
+      "assertion": "Controlled QA fil-PH Availability",
+      "description": "In controlled QA mode, fil-PH is enabled for verification as QA_REQUIRED.",
+      "testResult": "AVAILABLE — PASS",
+      "evidence": "tests/glcc/p7-language-selector.test.tsx (test 1.3, 6.3)"
     },
     {
-      "assertion": "Controlled QA Scope Isolation",
-      "description": "In QA mode, fil-PH is permitted for authorized testing, but ja-JP and en-US remain strictly rejected and fall back to 'en-PH'",
-      "testResult": "PASS",
-      "evidence": "tests/glcc/p7-language-selector.test.tsx: test 6.3"
+      "target": "JA-JP ACTIVATION",
+      "assertion": "Japanese (ja-JP) Activation Block",
+      "description": "ja-JP is REGISTERED only with 0 translation keys. It is strictly blocked from selection across all modes (Production and QA).",
+      "testResult": "BLOCKED — PASS",
+      "evidence": "tests/glcc/p7-language-selector.test.tsx (test 1.2, 1.3, 6.2, 6.3, 8.3)"
     },
     {
-      "assertion": "Zero Financial Authority (Financial Isolation Invariant)",
-      "description": "Language selection interface and payloads have zero authority over countryCode, displayCurrency, chargeCurrency, payment provider, or settlement ledger",
-      "testResult": "PASS",
-      "evidence": "tests/glcc/p7-language-selector.test.tsx: test 7.1; preference-ui.test.tsx: test 2.1"
+      "target": "EN-US ACTIVATION",
+      "assertion": "English US (en-US) Activation Block",
+      "description": "en-US is TRANSLATION_IN_PROGRESS/REGISTERED and is strictly blocked from selection across all modes.",
+      "testResult": "BLOCKED — PASS",
+      "evidence": "tests/glcc/p7-language-selector.test.tsx (test 1.2, 1.3, 6.3)"
     },
     {
-      "assertion": "Zero RBAC Authority (Authorization Isolation Invariant)",
-      "description": "Language selector props and state have zero authority over user roles, permissions, session tokens, or account identity",
-      "testResult": "PASS",
-      "evidence": "tests/glcc/p7-language-selector.test.tsx: test 7.1"
+      "target": "MALFORMED LOCALE",
+      "assertion": "Malformed Locale Rejection",
+      "description": "Malformed locale tags (e.g., 'invalid-tag-123', '../escape', '<script>') fail closed to platform default 'en-PH'.",
+      "testResult": "BLOCKED — PASS",
+      "evidence": "tests/glcc/p2-locale-registry.test.ts (test 1.2); tests/glcc/p3-locale-resolver.test.ts"
     },
     {
-      "assertion": "Search Input Sanitization & ReDoS Resistance",
-      "description": "Search input handles regex metacharacters (*, +, ?, (, ), [, ], {, }, ^, $, |, \\) safely using plain case-insensitive string inclusion without regex execution",
-      "testResult": "PASS",
-      "evidence": "src/components/glcc/LanguageSelector.tsx: locale.name.toLowerCase().includes(normQuery)"
+      "target": "UNKNOWN LOCALE",
+      "assertion": "Unknown Locale Rejection",
+      "description": "Unregistered locale tags fail closed to platform default 'en-PH' without crashing.",
+      "testResult": "BLOCKED — PASS",
+      "evidence": "tests/glcc/p3-locale-resolver.test.ts; tests/glcc/preference-resolver.test.ts"
+    },
+    {
+      "target": "QA POLICY INJECTION",
+      "assertion": "QA Policy Injection Block in Production",
+      "description": "When VERCEL_ENV, APP_ENV, or NODE_ENV equals 'production', resolveEffectiveResolverMode strictly enforces 'PRODUCTION' and ignores client-supplied QA query parameters, headers, or overrides.",
+      "testResult": "BLOCKED — PASS",
+      "evidence": "tests/glcc/p7-language-selector.test.tsx (test 6.1)"
     }
   ],
   "firewallAudit": {
