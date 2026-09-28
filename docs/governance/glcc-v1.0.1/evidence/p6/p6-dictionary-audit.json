@@ -1,0 +1,68 @@
+{
+  "auditDate": "2026-09-28",
+  "workPackage": "P6",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "locale": "fil-PH",
+  "canonicalTargetKeys": 2208,
+  "bundleFile": "src/lib/glcc/i18n/locales/fil-PH.ts",
+  "domainModulesDirectory": "src/lib/glcc/i18n/locales/filipino/",
+  "totalDomains": 31,
+  "domainKeyCensus": [
+    { "domain": "account", "keyCount": 23, "file": "account.ts", "status": "COMPLETE" },
+    { "domain": "admin", "keyCount": 387, "file": "admin.ts", "status": "COMPLETE" },
+    { "domain": "auth", "keyCount": 122, "file": "auth.ts", "status": "COMPLETE" },
+    { "domain": "booking", "keyCount": 30, "file": "booking.ts", "status": "COMPLETE" },
+    { "domain": "checkout", "keyCount": 31, "file": "checkout.ts", "status": "COMPLETE" },
+    { "domain": "common", "keyCount": 117, "file": "common.ts", "status": "COMPLETE" },
+    { "domain": "documents", "keyCount": 16, "file": "documents.ts", "status": "COMPLETE" },
+    { "domain": "errors", "keyCount": 4, "file": "errors.ts", "status": "COMPLETE" },
+    { "domain": "helpCenter", "keyCount": 19, "file": "helpCenter.ts", "status": "COMPLETE" },
+    { "domain": "insurance", "keyCount": 1, "file": "insurance.ts", "status": "COMPLETE" },
+    { "domain": "kyc", "keyCount": 15, "file": "kyc.ts", "status": "COMPLETE" },
+    { "domain": "legalCompliance", "keyCount": 174, "file": "legalCompliance.ts", "status": "COMPLETE" },
+    { "domain": "listing", "keyCount": 112, "file": "listing.ts", "status": "COMPLETE" },
+    { "domain": "marketplace", "keyCount": 34, "file": "marketplace.ts", "status": "COMPLETE" },
+    { "domain": "messages", "keyCount": 1, "file": "messages.ts", "status": "COMPLETE" },
+    { "domain": "navigation", "keyCount": 30, "file": "navigation.ts", "status": "COMPLETE" },
+    { "domain": "notifications", "keyCount": 1, "file": "notifications.ts", "status": "COMPLETE" },
+    { "domain": "partnerHub", "keyCount": 18, "file": "partnerHub.ts", "status": "COMPLETE" },
+    { "domain": "payment", "keyCount": 134, "file": "payment.ts", "status": "COMPLETE" },
+    { "domain": "preferences", "keyCount": 53, "file": "preferences.ts", "status": "COMPLETE" },
+    { "domain": "profile", "keyCount": 8, "file": "profile.ts", "status": "COMPLETE" },
+    { "domain": "provider", "keyCount": 183, "file": "provider.ts", "status": "COMPLETE" },
+    { "domain": "renter", "keyCount": 82, "file": "renter.ts", "status": "COMPLETE" },
+    { "domain": "reviews", "keyCount": 1, "file": "reviews.ts", "status": "COMPLETE" },
+    { "domain": "search", "keyCount": 1, "file": "search.ts", "status": "COMPLETE" },
+    { "domain": "soc", "keyCount": 347, "file": "soc.ts", "status": "COMPLETE" },
+    { "domain": "status", "keyCount": 1, "file": "status.ts", "status": "COMPLETE" },
+    { "domain": "superAdmin", "keyCount": 208, "file": "superAdmin.ts", "status": "COMPLETE" },
+    { "domain": "support", "keyCount": 40, "file": "support.ts", "status": "COMPLETE" },
+    { "domain": "trustSafety", "keyCount": 14, "file": "trustSafety.ts", "status": "COMPLETE" },
+    { "domain": "validation", "keyCount": 1, "file": "validation.ts", "status": "COMPLETE" }
+  ],
+  "auditSummary": {
+    "totalConfiguredDomains": 31,
+    "totalAuditedKeys": 2208,
+    "presentKeys": 2208,
+    "missingKeys": 0,
+    "emptyKeys": 0,
+    "whitespaceOnlyKeys": 0,
+    "rawKeyLeaks": 0,
+    "coveragePercentage": 100.00,
+    "placeholderParity": {
+      "totalKeysWithInterpolation": 43,
+      "parityPassedKeys": 43,
+      "parityMismatches": 0,
+      "parityPercentage": 100.00
+    },
+    "pluralization": {
+      "implementation": "formatPlural (ECMA-402 Intl.PluralRules 'fil-PH')",
+      "status": "PASS"
+    },
+    "linguisticQuality": {
+      "standard": "Natural, idiomatic Philippine Tagalog/Filipino standard",
+      "properNounPreservation": "PASS",
+      "currencyAndStatutoryPreservation": "PASS"
+    }
+  }
+}
