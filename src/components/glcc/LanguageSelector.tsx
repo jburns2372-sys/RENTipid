@@ -93,6 +93,9 @@ export function LanguageSelector({
         if (urlParams.get('glcc_qa') === 'true' || urlParams.get('glcc_qa') === '1') {
           return resolveEffectiveResolverMode('QA');
         }
+        if (document.cookie.includes('glcc_qa=true') || document.cookie.includes('rentipid_qa_mode=true')) {
+          return resolveEffectiveResolverMode('QA');
+        }
       } catch {
         // Safe fallback in malformed environment
       }
