@@ -51,15 +51,42 @@ export function TranslationProvider({ children, initialLocale = 'en-PH' }: Trans
     if (typeof window === 'undefined') return;
 
     const handlePreferenceEvent = (e: Event) => {
-      const customEvent = e as CustomEvent<{ languageTag?: string }>;
-      const newTag = customEvent.detail?.languageTag;
+      const customEvent = e as CustomEvent<{
+        languageTag?: string;
+        effectivePreference?: { languageTag?: string };
+      }>;
+      const newTag =
+        customEvent.detail?.languageTag ||
+        customEvent.detail?.effectivePreference?.languageTag;
+
       if (newTag && validateBcp47LocaleTag(newTag).isValid) {
         setLocaleState(newTag);
+        defaultTranslationEngine.setActiveLocale(newTag);
+        if (typeof document !== 'undefined') {
+          document.documentElement.lang = newTag;
+          document.documentElement.dir = defaultTranslationEngine.getDirection(newTag);
+        }
+      }
+    };
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'rentipid_locale' && e.newValue) {
+        if (validateBcp47LocaleTag(e.newValue).isValid) {
+          setLocaleState(e.newValue);
+          defaultTranslationEngine.setActiveLocale(e.newValue);
+        }
       }
     };
 
     window.addEventListener('rentipid:preference-applied', handlePreferenceEvent);
-    return () => window.removeEventListener('rentipid:preference-applied', handlePreferenceEvent);
+    window.addEventListener('rentipid:preference-changed', handlePreferenceEvent);
+    window.addEventListener('storage', handleStorage);
+
+    return () => {
+      window.removeEventListener('rentipid:preference-applied', handlePreferenceEvent);
+      window.removeEventListener('rentipid:preference-changed', handlePreferenceEvent);
+      window.removeEventListener('storage', handleStorage);
+    };
   }, []);
 
   const setLocale = useCallback((newLocale: string) => {
@@ -74,6 +101,13 @@ export function TranslationProvider({ children, initialLocale = 'en-PH' }: Trans
         document.cookie = `rentipid_locale=${encodeURIComponent(newLocale)}; path=/; max-age=2592000; SameSite=Lax`;
         document.documentElement.lang = newLocale;
         document.documentElement.dir = defaultTranslationEngine.getDirection(newLocale);
+      }
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(
+          new CustomEvent('rentipid:preference-applied', {
+            detail: { languageTag: newLocale },
+          })
+        );
       }
     });
   }, []);

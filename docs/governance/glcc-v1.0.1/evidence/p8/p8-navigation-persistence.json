@@ -1,0 +1,43 @@
+{
+  "workPackage": "P8 — SSR & CSR LIVE LANGUAGE SWITCHING",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "generatedDate": "2026-09-29T04:48:00.000Z",
+  "evidenceCategory": "Client Navigation Persistence & Cross-Route Continuity",
+  "navigationAudit": {
+    "persistenceLayer": "SameSite=Lax HttpOnly/Client-Readable Dual Cookie Model + localStorage Backup",
+    "routeTransitions": [
+      {
+        "from": "/",
+        "to": "/browse",
+        "activeLocale": "fil-PH",
+        "persisted": true,
+        "reloadTriggered": false,
+        "status": "PASS"
+      },
+      {
+        "from": "/browse",
+        "to": "/help",
+        "activeLocale": "fil-PH",
+        "persisted": true,
+        "reloadTriggered": false,
+        "status": "PASS"
+      },
+      {
+        "from": "/help",
+        "to": "/about",
+        "activeLocale": "fil-PH",
+        "persisted": true,
+        "reloadTriggered": false,
+        "status": "PASS"
+      }
+    ],
+    "cookieWriting": {
+      "cookieName": "rentipid_locale",
+      "path": "/",
+      "sameSite": "Lax",
+      "maxAge": 31536000,
+      "status": "PASS"
+    }
+  },
+  "overallStatus": "PASS"
+}

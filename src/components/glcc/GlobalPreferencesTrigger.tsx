@@ -111,8 +111,16 @@ export default function GlobalPreferencesTrigger({
     setIsModalOpen(false);
     triggerRef.current?.focus();
     if (typeof window !== 'undefined') {
+      window.dispatchEvent(
+        new CustomEvent('rentipid:preference-applied', {
+          detail: {
+            languageTag: updated.languageTag,
+            countryCode: updated.countryCode,
+            displayCurrency: updated.displayCurrency,
+          },
+        })
+      );
       window.dispatchEvent(new CustomEvent('rentipid:preference-changed', { detail: updated }));
-      window.location.reload();
     }
   };
 

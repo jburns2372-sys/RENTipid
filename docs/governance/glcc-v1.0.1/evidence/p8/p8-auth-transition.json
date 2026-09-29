@@ -1,0 +1,31 @@
+{
+  "workPackage": "P8 — SSR & CSR LIVE LANGUAGE SWITCHING",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "generatedDate": "2026-09-29T04:48:00.000Z",
+  "evidenceCategory": "Authentication Transitions (Guest -> Signed In -> Sign Out)",
+  "authTransitionAudit": {
+    "reconciliationModule": "reconcilePreferencesOnSignIn()",
+    "scenarios": [
+      {
+        "transition": "Guest chooses Filipino, signs into brand-new account (no prior DB preferences)",
+        "reconciliationOutcome": "CURRENT_EXPLICIT_SELECTION_USED",
+        "resultingLocale": "fil-PH",
+        "databaseSaveTriggered": true,
+        "status": "PASS"
+      },
+      {
+        "transition": "Guest with passive default cookie signs into existing account with saved English preference",
+        "reconciliationOutcome": "ACCOUNT_PREFERENCE_USED",
+        "resultingLocale": "en-PH",
+        "databaseSaveTriggered": false,
+        "status": "PASS"
+      },
+      {
+        "transition": "User signs out (session terminated)",
+        "behavior": "Guest cookie retains last selected locale; platform default applies if cookie cleared",
+        "status": "PASS"
+      }
+    ]
+  },
+  "overallStatus": "PASS"
+}

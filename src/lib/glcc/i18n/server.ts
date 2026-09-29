@@ -16,16 +16,20 @@ import type { GlccCanonicalTranslationKey, TranslationParams } from './contracts
 export interface GetServerLocaleOptions {
   readonly resolverMode?: ResolverMode;
   readonly defaultLocale?: string;
+  readonly explicitLocale?: string | null;
+  readonly accountLocale?: string | null;
 }
 
 /**
  * Resolves the active request locale on the server during SSR using the authoritative P3 Locale Resolver.
  *
  * Precedence & Authority:
- * 1. Guest tier: Reads signed 'rentipid_pref' (authoritative) and lightweight 'rentipid_locale' (convenience mirror).
+ * 1. Explicit tier: Explicit locale provided by caller (options.explicitLocale).
+ * 2. Account tier: Authenticated account preference (options.accountLocale).
+ * 3. Guest tier: Reads signed 'rentipid_pref' (authoritative) and lightweight 'rentipid_locale' (convenience mirror).
  *    If 'rentipid_pref' is valid and signed, its language takes precedence as the guest candidate.
- * 2. Suggestion tier: Reads 'accept-language' header.
- * 3. Default tier: Platform default ('en-PH').
+ * 4. Suggestion tier: Reads 'accept-language' header.
+ * 5. Default tier: Platform canonical default ('en-PH').
  *
  * Mode Governance:
  * Evaluated under 'PRODUCTION' mode by default. Locales in QA_REQUIRED (such as fil-PH)
@@ -35,9 +39,18 @@ export interface GetServerLocaleOptions {
 export async function getServerLocale(options?: GetServerLocaleOptions): Promise<string> {
   let guestCandidate: string | null = null;
   let suggestedLocale: string | null = null;
+  let qaCandidate: ResolverMode | undefined = options?.resolverMode;
 
   try {
     const cookieStore = await cookies();
+
+    // Check for QA mode cookie in non-production environments
+    if (!qaCandidate) {
+      const qaCookie = cookieStore.get('glcc_qa')?.value || cookieStore.get('rentipid_qa_mode')?.value;
+      if (qaCookie === 'true' || qaCookie === '1' || qaCookie === 'QA') {
+        qaCandidate = 'QA';
+      }
+    }
 
     // 1. Check signed guest preference cookie (authoritative guest cookie)
     const prefCookie = cookieStore.get(GUEST_PREFERENCE_COOKIE_NAME)?.value;
@@ -73,10 +86,12 @@ export async function getServerLocale(options?: GetServerLocaleOptions): Promise
     // cookies() may throw outside request lifecycle (e.g. static generation)
   }
 
-  const resolverMode: ResolverMode = resolveEffectiveResolverMode(options?.resolverMode);
+  const resolverMode: ResolverMode = resolveEffectiveResolverMode(qaCandidate);
 
   const resolved = resolveEffectiveLocale(
     {
+      explicitLocale: options?.explicitLocale,
+      accountLocale: options?.accountLocale,
       guestLocale: guestCandidate,
       suggestedLocale,
       platformDefault: options?.defaultLocale ?? 'en-PH',

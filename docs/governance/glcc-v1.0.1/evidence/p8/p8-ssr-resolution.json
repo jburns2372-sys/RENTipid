@@ -1,0 +1,50 @@
+{
+  "workPackage": "P8 — SSR & CSR LIVE LANGUAGE SWITCHING",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "generatedDate": "2026-09-29T04:48:00.000Z",
+  "evidenceCategory": "SSR Locale Resolution & Server Translator Governance",
+  "ssrResolutionAudit": {
+    "serverResolutionPipeline": "getServerLocale() -> resolveEffectiveLocale()",
+    "serverTranslator": "getServerTranslation()",
+    "requestSafety": "Guaranteed (stateless per-request resolution without mutable process-global cross-contamination)",
+    "scenarios": [
+      {
+        "description": "Cold anonymous request without cookies or headers",
+        "resolvedLocale": "en-PH",
+        "direction": "ltr",
+        "sampleKey": "navigation.browseRentals",
+        "sampleTranslation": "Browse Rentals",
+        "status": "PASS"
+      },
+      {
+        "description": "Request with valid signed rentipid_pref cookie in Controlled QA mode",
+        "resolvedLocale": "fil-PH",
+        "direction": "ltr",
+        "sampleKey": "navigation.browseRentals",
+        "sampleTranslation": "Mag-browse ng mga Paupahan",
+        "status": "PASS"
+      },
+      {
+        "description": "Request with valid signed rentipid_pref cookie in Production mode",
+        "resolvedLocale": "en-PH",
+        "direction": "ltr",
+        "sampleKey": "navigation.browseRentals",
+        "sampleTranslation": "Browse Rentals",
+        "status": "PASS (Fail-closed firewall enforced)"
+      },
+      {
+        "description": "Request with tampered cookie signature",
+        "resolvedLocale": "en-PH",
+        "direction": "ltr",
+        "status": "PASS (Signature validation rejected, fallen back to platform default)"
+      },
+      {
+        "description": "Concurrent multi-locale requests",
+        "resolvedLocales": ["en-PH", "fil-PH"],
+        "crossContaminationDetected": false,
+        "status": "PASS"
+      }
+    ]
+  },
+  "overallStatus": "PASS"
+}

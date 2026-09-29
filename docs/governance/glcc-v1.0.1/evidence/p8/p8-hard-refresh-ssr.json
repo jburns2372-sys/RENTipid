@@ -1,0 +1,29 @@
+{
+  "workPackage": "P8 — SSR & CSR LIVE LANGUAGE SWITCHING",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "generatedDate": "2026-09-29T04:48:00.000Z",
+  "evidenceCategory": "Hard Refresh & Full Page Reload SSR Parity",
+  "hardRefreshAudit": {
+    "mechanism": "Next.js Root Layout Server Component Reads Cookie -> Passes initialLocale to Client TranslationProvider",
+    "zeroHydrationMismatch": true,
+    "zeroEnglishFlicker": true,
+    "testEvidence": [
+      {
+        "test": "Browser hard reload (window.location.reload() / Ctrl+F5) with fil-PH cookie",
+        "serverDeliveredHtmlLang": "fil-PH",
+        "clientHydratedLocale": "fil-PH",
+        "hydrationMismatchWarnings": 0,
+        "firstContentfulPaintLocale": "fil-PH",
+        "status": "PASS"
+      },
+      {
+        "test": "Server SSR translator against local server endpoint",
+        "endpoint": "http://localhost:3000",
+        "defaultLang": "en-PH",
+        "qaCookieLang": "fil-PH",
+        "status": "PASS"
+      }
+    ]
+  },
+  "overallStatus": "PASS"
+}

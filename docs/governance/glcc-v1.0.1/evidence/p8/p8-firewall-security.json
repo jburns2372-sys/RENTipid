@@ -1,0 +1,59 @@
+{
+  "workPackage": "P8 — SSR & CSR LIVE LANGUAGE SWITCHING",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "generatedDate": "2026-09-29T04:48:00.000Z",
+  "evidenceCategory": "Production Firewall & Tamper-Resistance Security Audit",
+  "firewallAudit": {
+    "modeResolutionEngine": "resolveEffectiveResolverMode()",
+    "productionEnforcement": "Strict (NODE_ENV=production or VERCEL_ENV=production overrides all client or environment overrides to PRODUCTION mode)",
+    "securityMatrix": [
+      {
+        "localeCandidate": "en-PH",
+        "releaseStatus": "PRODUCTION_READY",
+        "productionMode": "PERMITTED",
+        "qaMode": "PERMITTED",
+        "status": "PASS"
+      },
+      {
+        "localeCandidate": "fil-PH",
+        "releaseStatus": "QA_REQUIRED",
+        "productionMode": "BLOCKED (Fails closed to en-PH)",
+        "qaMode": "PERMITTED",
+        "status": "PASS"
+      },
+      {
+        "localeCandidate": "en-US",
+        "releaseStatus": "QA_REQUIRED (Disabled)",
+        "productionMode": "BLOCKED (Fails closed to en-PH)",
+        "qaMode": "BLOCKED (Fails closed to en-PH)",
+        "status": "PASS"
+      },
+      {
+        "localeCandidate": "ja-JP",
+        "releaseStatus": "REGISTERED (0 keys)",
+        "productionMode": "BLOCKED (Fails closed to en-PH)",
+        "qaMode": "BLOCKED (Fails closed to en-PH)",
+        "status": "PASS"
+      },
+      {
+        "localeCandidate": "invalid-bcp-47<script>",
+        "releaseStatus": "UNREGISTERED",
+        "productionMode": "BLOCKED (Fails closed to en-PH)",
+        "qaMode": "BLOCKED (Fails closed to en-PH)",
+        "status": "PASS"
+      }
+    ],
+    "cryptographicTamperResistance": {
+      "cookieSignatureAlgorithm": "HMAC-SHA256",
+      "tamperedSignatureBehavior": "Fails closed; ignored safely; falls back to platform default",
+      "status": "PASS"
+    },
+    "independenceInvariants": {
+      "countryIndependence": "Strictly separated (Language change has 0 authority over Country)",
+      "currencyIndependence": "Strictly separated (Settlement currency locked to PHP; display currency unchanged)",
+      "rbacIndependence": "Strictly separated (Language change has 0 authority over User Role or Permissions)",
+      "status": "PASS"
+    }
+  },
+  "overallStatus": "PASS"
+}

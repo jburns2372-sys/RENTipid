@@ -314,6 +314,27 @@ export function useGlobalPreferences(options: UseGlobalPreferencesOptions = {}) 
           document.documentElement.lang = effectiveLng;
           document.documentElement.dir = defaultTranslationEngine.getDirection(effectiveLng);
         }
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(
+            new CustomEvent('rentipid:preference-applied', {
+              detail: {
+                languageTag: effectiveLng,
+                countryCode: data.effectivePreference.countryCode,
+                displayCurrency: data.effectivePreference.displayCurrency,
+              },
+            })
+          );
+          window.dispatchEvent(
+            new CustomEvent('rentipid:preference-changed', {
+              detail: data.effectivePreference,
+            })
+          );
+          try {
+            window.localStorage?.setItem('rentipid_locale', effectiveLng);
+          } catch {
+            // Storage quota or privacy sandbox exception
+          }
+        }
         setServerPreference(data.effectivePreference);
         setAccountPreference(data.accountPreference);
         if (data.accountPreference?.version) {

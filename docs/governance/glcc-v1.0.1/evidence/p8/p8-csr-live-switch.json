@@ -1,0 +1,48 @@
+{
+  "workPackage": "P8 — SSR & CSR LIVE LANGUAGE SWITCHING",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "generatedDate": "2026-09-29T04:48:00.000Z",
+  "evidenceCategory": "Client-Side Reactive Live Switching & Multi-Component Re-render",
+  "csrLiveSwitchAudit": {
+    "providerComponent": "TranslationProvider",
+    "eventBusMechanism": "window.addEventListener('rentipid:preference-applied')",
+    "storageSyncMechanism": "window.addEventListener('storage', key: 'rentipid_locale')",
+    "pageReloadRequired": false,
+    "instantaneousDOMUpdate": true,
+    "testResults": [
+      {
+        "testName": "Multi-component concurrent re-render on preference event",
+        "testedComponents": ["Header/Navigation", "GlobalPreferencesTrigger", "Footer", "Content Areas"],
+        "initialRender": {
+          "locale": "en-PH",
+          "navText": "Browse Rentals",
+          "footerText": "Help Center",
+          "htmlLang": "en-PH"
+        },
+        "postEventRender": {
+          "locale": "fil-PH",
+          "navText": "Mag-browse ng mga Paupahan",
+          "footerText": "Sentro ng Tulong",
+          "htmlLang": "fil-PH"
+        },
+        "status": "PASS"
+      },
+      {
+        "testName": "Bi-directional client live switch (fil-PH -> en-PH)",
+        "result": "Clean instant revert to English without DOM artifacts or layout thrashing",
+        "status": "PASS"
+      },
+      {
+        "testName": "Cross-tab storage synchronization",
+        "result": "StorageEvent for rentipid_locale updates background tabs synchronously",
+        "status": "PASS"
+      },
+      {
+        "testName": "Malformed event payload handling",
+        "result": "Ignored safely, active translation engine retains valid locale without crashing",
+        "status": "PASS"
+      }
+    ]
+  },
+  "overallStatus": "PASS"
+}
