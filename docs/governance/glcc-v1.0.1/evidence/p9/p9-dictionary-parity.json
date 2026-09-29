@@ -1,0 +1,36 @@
+{
+  "canonicalCount": 2208,
+  "locales": {
+    "en-PH": {
+      "present": 2208,
+      "missing": 0,
+      "empty": 0,
+      "coveragePct": 100,
+      "releaseStatus": "PRODUCTION_READY"
+    },
+    "fil-PH": {
+      "present": 2208,
+      "missing": 0,
+      "empty": 0,
+      "requiredFallback": 0,
+      "coveragePct": 100,
+      "releaseStatus": "QA_REQUIRED"
+    },
+    "en-US": {
+      "present": 0,
+      "missing": 2208,
+      "empty": 0,
+      "coveragePct": 0,
+      "releaseStatus": "TRANSLATION_IN_PROGRESS"
+    },
+    "ja-JP": {
+      "present": 0,
+      "missing": 2208,
+      "empty": 0,
+      "coveragePct": 0,
+      "releaseStatus": "REGISTERED"
+    }
+  },
+  "keyDelta": 0,
+  "status": "PASS"
+}

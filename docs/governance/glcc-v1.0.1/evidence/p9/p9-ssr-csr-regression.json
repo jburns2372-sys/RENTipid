@@ -1,0 +1,8 @@
+{
+  "serverClientInitialLocaleParity": "PASS",
+  "hydrationMismatchAttributableToLocale": 0,
+  "immediateClientRerenderAfterApply": "PASS",
+  "routeNavigationPersistence": "PASS",
+  "hardRefreshSsrConsistency": "PASS",
+  "status": "PASS"
+}

@@ -1,0 +1,8 @@
+{
+  "fixture1_missingKeyFailsValidation": "PASS",
+  "fixture2_emptyKeyFailsValidation": "PASS",
+  "fixture3_invalidBcp47FailsRegistry": "PASS",
+  "fixture4_qaRequiredActivationInProductionBlocked": "PASS",
+  "fixture5_chargeCurrencyInjectionBlocked": "PASS",
+  "status": "PASS"
+}

@@ -1,0 +1,12 @@
+{
+  "scannedSurfaces": 78,
+  "unapprovedHardcodedStrings": 0,
+  "approvedExclusionCategories": [
+    "brand names (RENTipid, PayMongo, Maya, GCash)",
+    "currency codes (PHP, USD, JPY, EUR, ₱)",
+    "proper nouns and locations (Manila, Philippines)",
+    "technical standards (ISO-8601, UTC, KYC, MFA, PWA, PDF)",
+    "statutory source-language legal notices (terms, privacy, safety)"
+  ],
+  "status": "PASS"
+}

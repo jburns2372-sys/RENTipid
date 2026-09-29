@@ -1,0 +1,10 @@
+{
+  "workflowFile": ".github/workflows/glcc-ci.yml",
+  "triggers": [
+    "push to main, fix/glcc*",
+    "pull_request to main"
+  ],
+  "command": "npm run test:glcc:ci",
+  "deploymentActionsIncluded": false,
+  "status": "PASS"
+}

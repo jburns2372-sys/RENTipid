@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-09-29T15:12:52.329Z",
+  "suite": "tests/glcc/",
+  "exitCode": 0,
+  "p9PassCriteria": {
+    "canonicalKeyTruth": true,
+    "enPhCoverage": "100% (2208/2208)",
+    "filPhCoverage": "100% (2208/2208)",
+    "filPhReleaseStatus": "QA_REQUIRED",
+    "jaJpReleaseStatus": "REGISTERED (0 keys)",
+    "rawKeyCount": 0,
+    "hardcodedUiStringViolations": 0,
+    "ssrCsrParity": "PASS",
+    "independenceFirewalls": "PASS",
+    "flakinessRuns": "3/3 PASS (0% flake)",
+    "browserProcessCleanup": "PASS"
+  },
+  "status": "PASS"
+}

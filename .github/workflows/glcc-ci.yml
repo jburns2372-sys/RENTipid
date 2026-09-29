@@ -1,0 +1,35 @@
+name: GLCC Localization Quality Gate
+
+on:
+  push:
+    branches:
+      - main
+      - 'fix/glcc*'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  glcc-localization-ci:
+    name: Localization Acceptance CI
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Enforce Frozen Lockfile
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Run GLCC Localization CI Gate
+        run: npm run test:glcc:ci

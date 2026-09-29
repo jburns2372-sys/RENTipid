@@ -1,0 +1,26 @@
+{
+  "enPh": {
+    "missingKeys": 0,
+    "emptyKeys": 0,
+    "fallbackCount": 0,
+    "rawKeys": 0,
+    "status": "PASS"
+  },
+  "filPh": {
+    "missingKeys": 0,
+    "emptyKeys": 0,
+    "fallbackCount": 0,
+    "rawKeys": 0,
+    "authorizedForProduction": false,
+    "releaseStatus": "QA_REQUIRED",
+    "status": "PASS"
+  },
+  "jaJp": {
+    "translationKeys": 0,
+    "releaseStatus": "REGISTERED",
+    "authorizedForProduction": false,
+    "status": "PASS"
+  },
+  "productionReadinessCompletenessRule": "ENFORCED",
+  "status": "PASS"
+}

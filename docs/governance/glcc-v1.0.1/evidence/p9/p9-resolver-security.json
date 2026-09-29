@@ -1,0 +1,13 @@
+{
+  "precedenceHierarchy": [
+    "1. Explicit Authorized Current Selection",
+    "2. Authenticated Account Preference",
+    "3. Signed Guest Preference Cookie",
+    "4. Safe Country-Aligned Suggestion",
+    "5. Platform Default (en-PH)"
+  ],
+  "failClosedInProduction": true,
+  "resolverModeTamperingBlocked": true,
+  "qaModeInjectionBlocked": true,
+  "status": "PASS"
+}
