@@ -1,0 +1,30 @@
+{
+  "policyName": "RENTipid Controlled Legal & Regulated Content Policy",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P10 — COMPLIANCE & GENERATED CONTENT",
+  "translationStateModel": [
+    "SOURCE_AUTHORITATIVE",
+    "TRANSLATION_DRAFT",
+    "TRANSLATION_REVIEW_REQUIRED",
+    "TRANSLATION_APPROVED",
+    "TRANSLATION_SUPERSEDED"
+  ],
+  "authoritativeSource": {
+    "canonicalLocale": "en-PH",
+    "isAuthoritative": true,
+    "requiresApproval": false
+  },
+  "prohibitedActions": [
+    "Auto-publishing machine translations as approved legal contracts",
+    "Promoting AI translations without authorized Legal Officer audit signature",
+    "Treating outdated translation version N as valid for source version N+1",
+    "Using UI dictionary fallbacks to silently impersonate approved legal text",
+    "Altering statutory warning text or eliminating required safety notices"
+  ],
+  "fallbackBehavior": {
+    "unapprovedTranslation": "Fail safely to canonical English (en-PH) with explicit disclosure notice",
+    "missingTranslation": "Fail safely to canonical English (en-PH) with legal disclosure notice",
+    "strictRegulatoryMode": "Fail closed and block publication"
+  },
+  "status": "PASS"
+}

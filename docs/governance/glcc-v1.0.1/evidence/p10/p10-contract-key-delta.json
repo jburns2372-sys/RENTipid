@@ -1,0 +1,34 @@
+{
+  "workPackage": "P10 — COMPLIANCE & GENERATED CONTENT",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "canonicalKeyCount": 2208,
+  "canonicalKeyDelta": 0,
+  "coverage": {
+    "en-PH": {
+      "presentKeys": 2208,
+      "missingKeys": 0,
+      "emptyKeys": 0,
+      "coveragePercentage": "100.00%",
+      "releaseStatus": "PRODUCTION_READY"
+    },
+    "fil-PH": {
+      "presentKeys": 2208,
+      "missingKeys": 0,
+      "emptyKeys": 0,
+      "requiredFallbackCount": 0,
+      "coveragePercentage": "100.00%",
+      "releaseStatus": "QA_REQUIRED"
+    },
+    "en-US": {
+      "presentKeys": 0,
+      "missingKeys": 2208,
+      "releaseStatus": "TRANSLATION_IN_PROGRESS"
+    },
+    "ja-JP": {
+      "presentKeys": 0,
+      "missingKeys": 2208,
+      "releaseStatus": "REGISTERED"
+    }
+  },
+  "status": "PASS"
+}

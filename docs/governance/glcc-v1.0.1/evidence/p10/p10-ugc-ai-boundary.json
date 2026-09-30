@@ -1,0 +1,25 @@
+{
+  "boundaryAudit": "UGC Preservation & AI Legal Promotion Firewalls",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P10 — COMPLIANCE & GENERATED CONTENT",
+  "ugcPreservation": {
+    "entityTypesAudited": ["LISTING", "REVIEW", "CHAT_MESSAGE"],
+    "rule": "Original user-authored text returned verbatim; UI translation bypass enforced",
+    "enPhRendered": "Professional DJI Ronin Gimbal with 3 batteries for rent in Makati City.",
+    "filPhRendered": "Professional DJI Ronin Gimbal with 3 batteries for rent in Makati City.",
+    "isUgcPreservedVerbatim": true,
+    "status": "PASS"
+  },
+  "aiLegalPromotionFirewall": {
+    "rule": "AI-generated text cannot be promoted to authoritative legal status without manual Legal Officer audit record",
+    "draftEvaluation": {
+      "isAiGenerated": true,
+      "approvalStatus": "TRANSLATION_DRAFT",
+      "publicationOutcome": "FALLBACK_TO_CANONICAL_EN",
+      "isAuthoritativePromoted": false,
+      "disclosureRequired": true,
+      "status": "BLOCKED — PASS"
+    }
+  },
+  "status": "PASS"
+}

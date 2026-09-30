@@ -1,0 +1,31 @@
+{
+  "testSuite": "Language / Regulatory Jurisdiction Independence Firewall",
+  "controllingMandate": "LANGUAGE PRESENTATION MUST NEVER SILENTLY CHANGE REGULATORY APPLICABILITY",
+  "evaluatedCombinations": [
+    {
+      "countryCode": "PH",
+      "activeLocale": "en-PH",
+      "resolvedJurisdiction": "PH",
+      "complianceFramework": "Republic of the Philippines Laws (DTI, NPC, RA 10173)",
+      "isAlteredByLocale": false,
+      "status": "PASS"
+    },
+    {
+      "countryCode": "PH",
+      "activeLocale": "fil-PH",
+      "resolvedJurisdiction": "PH",
+      "complianceFramework": "Republic of the Philippines Laws (DTI, NPC, RA 10173)",
+      "isAlteredByLocale": false,
+      "status": "PASS"
+    },
+    {
+      "countryCode": "US",
+      "activeLocale": "fil-PH",
+      "resolvedJurisdiction": "US",
+      "complianceFramework": "United States Federal and State Regulations",
+      "isAlteredByLocale": false,
+      "status": "PASS"
+    }
+  ],
+  "firewallResult": "PASS — Jurisdiction applicability strictly decoupled from presentation locale"
+}

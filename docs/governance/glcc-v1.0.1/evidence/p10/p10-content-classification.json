@@ -1,0 +1,30 @@
+{
+  "workPackage": "P10 — COMPLIANCE & GENERATED CONTENT",
+  "masterPlan": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "classificationCategories": [
+    "UI_STANDARD",
+    "LEGAL_CONTROLLED",
+    "COMPLIANCE_CONTROLLED",
+    "KYC_CONTROLLED",
+    "PAYMENT_CONTROLLED",
+    "TRUST_SAFETY_CONTROLLED",
+    "GENERATED_NOTIFICATION",
+    "GENERATED_EMAIL",
+    "GENERATED_PUSH",
+    "GENERATED_SMS",
+    "GENERATED_DOCUMENT",
+    "USER_GENERATED_CONTENT",
+    "TECHNICAL_INTERNAL"
+  ],
+  "governedBoundaryRules": {
+    "standardUi": "Governed by canonical translation contract (2,208 keys)",
+    "legalControlled": "Version-linked legal approval mandatory; unapproved machine translation prohibited",
+    "complianceControlled": "Statutory regulatory disclosures immutable; language presentation decoupled from legal applicability",
+    "kycControlled": "Document types and verification levels strictly governed by regulatory jurisdiction, untouched by language",
+    "paymentControlled": "PHP charge authority inviolable; display currency is cosmetic only",
+    "trustSafetyControlled": "Prohibited items, scam advisories, and safety warnings cannot be weakened or omitted by translation",
+    "generatedCommunications": "Channel templates resolve locale via recipient preferences; HTML escaped",
+    "userGeneratedContent": "Preserved verbatim; translation engine bypass enforced"
+  },
+  "status": "PASS"
+}

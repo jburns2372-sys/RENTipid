@@ -1,0 +1,46 @@
+{
+  "proofPackage": "RENTipid P10 Representative Rendered Proof",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "renderedProofs": {
+    "trustAndSafetyUi": {
+      "key": "superAdmin.criticalComplianceNotice",
+      "enPh": "CRITICAL COMPLIANCE NOTICE:",
+      "filPh": "KRITIKAL NA PAUNAWA SA PAGSUNOD:",
+      "status": "PASS"
+    },
+    "legalComplianceShell": {
+      "documentType": "TERMS_OF_SERVICE",
+      "sourceVersion": "1.0",
+      "enPhAuthoritative": "RENTipid Terms of Service: All rentals are governed by Philippine law.",
+      "filPhUnapprovedFallback": {
+        "rendered": "RENTipid Terms of Service: All rentals are governed by Philippine law.",
+        "disclosureNotice": "NOTICE: Translation is pending formal legal review. The English version remains authoritative and legally binding.",
+        "status": "PASS"
+      },
+      "filPhApprovedVersion": {
+        "rendered": "Mga Tuntunin ng Serbisyo ng RENTipid: Ang lahat ng upa ay pinamamahalaan ng batas ng Pilipinas.",
+        "approvedBy": "usr_legal_officer_01",
+        "status": "PASS"
+      }
+    },
+    "generatedInAppNotification": {
+      "type": "PAYMENT_RECEIPT",
+      "bookingId": "BK_112233",
+      "enPhSubject": "Payment Processed",
+      "enPhBody": "Payment receipt for ₱1,200.00 PHP is available for booking #BK_112233.",
+      "filPhSubject": "Naproseso ang Bayad",
+      "filPhBody": "Available na ang resibo para sa bayad na ₱1,200.00 PHP sa booking #BK_112233.",
+      "status": "PASS"
+    },
+    "generatedTransactionalEmail": {
+      "type": "BOOKING_CONFIRMED",
+      "bookingId": "BK_998877",
+      "enPhSubject": "Booking Confirmed: Sony A7IV Camera",
+      "enPhBody": "Hello Maria Renter, your booking for Sony A7IV Camera has been confirmed. Total charged: ₱3,500.00 PHP.",
+      "filPhSubject": "Kumpirmado ang Booking: Sony A7IV Camera",
+      "filPhBody": "Kamusta Maria Renter, kumpirmado na ang iyong booking para sa Sony A7IV Camera. Kabuuang binayaran: ₱3,500.00 PHP.",
+      "status": "PASS"
+    }
+  },
+  "status": "PASS"
+}

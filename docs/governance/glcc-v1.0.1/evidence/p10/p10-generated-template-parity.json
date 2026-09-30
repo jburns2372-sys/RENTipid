@@ -1,0 +1,57 @@
+{
+  "templateParityAudit": "Generated Communication Templates Parity Check",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "templatesAudited": [
+    {
+      "type": "BOOKING_CONFIRMED",
+      "requiredPlaceholders": ["recipientName", "itemTitle", "amountPhp"],
+      "enPhChannels": ["EMAIL", "SMS", "PUSH", "IN_APP"],
+      "filPhChannels": ["EMAIL", "SMS", "PUSH", "IN_APP"],
+      "placeholderParity": "100%",
+      "status": "PASS"
+    },
+    {
+      "type": "PAYMENT_RECEIPT",
+      "requiredPlaceholders": ["recipientName", "bookingId", "amountPhp", "refNumber"],
+      "enPhChannels": ["EMAIL", "SMS", "PUSH", "IN_APP"],
+      "filPhChannels": ["EMAIL", "SMS", "PUSH", "IN_APP"],
+      "placeholderParity": "100%",
+      "status": "PASS"
+    },
+    {
+      "type": "REFUND_ISSUED",
+      "requiredPlaceholders": ["recipientName", "bookingId", "amountPhp"],
+      "enPhChannels": ["EMAIL", "SMS", "PUSH", "IN_APP"],
+      "filPhChannels": ["EMAIL", "SMS", "PUSH", "IN_APP"],
+      "placeholderParity": "100%",
+      "status": "PASS"
+    },
+    {
+      "type": "SECURITY_DEPOSIT_HOLD",
+      "requiredPlaceholders": ["recipientName", "bookingId", "amountPhp"],
+      "enPhChannels": ["EMAIL", "SMS", "PUSH", "IN_APP"],
+      "filPhChannels": ["EMAIL", "SMS", "PUSH", "IN_APP"],
+      "placeholderParity": "100%",
+      "status": "PASS"
+    },
+    {
+      "type": "SECURITY_DEPOSIT_RELEASED",
+      "requiredPlaceholders": ["recipientName", "bookingId", "amountPhp"],
+      "enPhChannels": ["EMAIL", "SMS", "PUSH", "IN_APP"],
+      "filPhChannels": ["EMAIL", "SMS", "PUSH", "IN_APP"],
+      "placeholderParity": "100%",
+      "status": "PASS"
+    },
+    {
+      "type": "INSPECTION_REMINDER",
+      "requiredPlaceholders": ["recipientName", "itemTitle", "bookingId"],
+      "enPhChannels": ["EMAIL", "SMS", "PUSH", "IN_APP"],
+      "filPhChannels": ["EMAIL", "SMS", "PUSH", "IN_APP"],
+      "placeholderParity": "100%",
+      "status": "PASS"
+    }
+  ],
+  "aggregateParity": "100.00%",
+  "brokenInterpolations": 0,
+  "status": "PASS"
+}

@@ -1,0 +1,58 @@
+{
+  "inventoryName": "RENTipid Generated Communications Channel Inventory",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P10 — COMPLIANCE & GENERATED CONTENT",
+  "channels": [
+    {
+      "channel": "EMAIL",
+      "implementationPath": "src/lib/glcc/notification-engine.ts",
+      "localeResolver": "GeneratedCommunicationEngine / NotificationEngine",
+      "translationSource": "NOTIFICATION_TEMPLATES (en-PH, fil-PH)",
+      "classification": "GENERATED_EMAIL",
+      "fallbackRule": "Safe canonical en-PH template fallback",
+      "readiness": "PRODUCTION_READY for en-PH; QA_REQUIRED for fil-PH",
+      "p10Action": "Verified template parity, financial grounding, and injection safety"
+    },
+    {
+      "channel": "IN_APP",
+      "implementationPath": "src/lib/glcc/notification-engine.ts",
+      "localeResolver": "GeneratedCommunicationEngine / NotificationEngine",
+      "translationSource": "NOTIFICATION_TEMPLATES (en-PH, fil-PH)",
+      "classification": "GENERATED_NOTIFICATION",
+      "fallbackRule": "Safe canonical en-PH template fallback",
+      "readiness": "PRODUCTION_READY for en-PH; QA_REQUIRED for fil-PH",
+      "p10Action": "Verified runtime in-app toast/notification rendering without raw keys"
+    },
+    {
+      "channel": "PUSH",
+      "implementationPath": "src/lib/glcc/notification-engine.ts",
+      "localeResolver": "GeneratedCommunicationEngine / NotificationEngine",
+      "translationSource": "NOTIFICATION_TEMPLATES (en-PH, fil-PH)",
+      "classification": "GENERATED_PUSH",
+      "fallbackRule": "Safe canonical en-PH template fallback",
+      "readiness": "Template localization ready; External vendor dispatch not connected",
+      "p10Action": "Audited template definitions and placeholder parity"
+    },
+    {
+      "channel": "SMS",
+      "implementationPath": "src/lib/glcc/notification-engine.ts",
+      "localeResolver": "GeneratedCommunicationEngine / NotificationEngine",
+      "translationSource": "NOTIFICATION_TEMPLATES (en-PH, fil-PH)",
+      "classification": "GENERATED_SMS",
+      "fallbackRule": "Safe canonical en-PH template fallback",
+      "readiness": "Template localization ready; External telecom gateway not connected",
+      "p10Action": "Audited concise SMS copy and currency formatting"
+    },
+    {
+      "channel": "DOCUMENT",
+      "implementationPath": "src/lib/glcc/document-snapshot-service.ts",
+      "localeResolver": "DocumentSnapshotService",
+      "translationSource": "Document Templates & LegalTranslationGate",
+      "classification": "GENERATED_DOCUMENT",
+      "fallbackRule": "Canonical en-PH source with legal disclosure notice",
+      "readiness": "Strict PHP financial breakdown & SHA-256 checksums enforced",
+      "p10Action": "Verified TRN-03 legal gate binding and immutable snapshots"
+    }
+  ],
+  "status": "PASS"
+}

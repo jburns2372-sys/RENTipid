@@ -1,0 +1,34 @@
+{
+  "versioningFramework": "RENTipid Version-Linked Legal Document & Translation Model",
+  "versionConsistencyRule": "translatedVersion must strictly equal current sourceVersion",
+  "lifecycleEvaluation": {
+    "matchingVersionApproved": {
+      "sourceVersion": "1.0",
+      "translatedVersion": "1.0",
+      "approvalStatus": "APPROVED",
+      "outcome": "TRANSLATION_APPROVED",
+      "renderedLocale": "fil-PH",
+      "status": "PASS"
+    },
+    "versionMismatchSuperseded": {
+      "sourceVersion": "2.0",
+      "translatedVersion": "1.0",
+      "approvalStatus": "APPROVED_FOR_V1",
+      "outcome": "TRANSLATION_SUPERSEDED",
+      "renderedLocale": "en-PH",
+      "fallbackApplied": true,
+      "disclosureNotice": "NOTICE: The translated version (v1.0) is superseded. The authoritative v2.0 in English is displayed.",
+      "status": "PASS"
+    },
+    "unapprovedDraft": {
+      "sourceVersion": "1.0",
+      "translatedVersion": "1.0",
+      "approvalStatus": "TRANSLATION_DRAFT",
+      "outcome": "FALLBACK_TO_CANONICAL_EN",
+      "renderedLocale": "en-PH",
+      "fallbackApplied": true,
+      "status": "PASS"
+    }
+  },
+  "status": "PASS"
+}

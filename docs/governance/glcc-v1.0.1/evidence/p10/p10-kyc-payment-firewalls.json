@@ -1,0 +1,30 @@
+{
+  "firewallsEvaluated": [
+    "LANGUAGE_KYC_AUTHORITY_FIREWALL",
+    "LANGUAGE_PAYMENT_AUTHORITY_FIREWALL"
+  ],
+  "kycAuthorityVerification": {
+    "testUser": "usr_kyc_test_01",
+    "countryJurisdiction": "PH",
+    "kycLevel": 2,
+    "kycStatus": "VERIFIED",
+    "allowedDocumentsEnPh": ["PHILSYS_ID", "UMID", "PASSPORT", "DRIVERS_LICENSE"],
+    "allowedDocumentsFilPh": ["PHILSYS_ID", "UMID", "PASSPORT", "DRIVERS_LICENSE"],
+    "isAlteredByLocale": false,
+    "status": "PASS"
+  },
+  "paymentAuthorityVerification": {
+    "transactionAmountPhp": 4500.0,
+    "authoritativeChargeCurrency": "PHP",
+    "enPhChargeCurrency": "PHP",
+    "filPhChargeCurrency": "PHP",
+    "withForeignDisplayCurrencyUsd": {
+      "displayCurrency": "USD",
+      "authoritativeChargeCurrency": "PHP",
+      "status": "IMMUTABLE"
+    },
+    "isPaymentAuthorityPreserved": true,
+    "status": "PASS"
+  },
+  "status": "PASS"
+}
