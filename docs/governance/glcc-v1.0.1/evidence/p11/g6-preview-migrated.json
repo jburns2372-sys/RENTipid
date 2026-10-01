@@ -1,0 +1,92 @@
+{
+  "gate": "G6 PREVIEW MIGRATED",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "status": "PROMOTED",
+  "promotedTimestamp": "2026-10-01T11:05:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "sourceHeadSha": "5653687bda7388190014d6dbc52a75f279ac3011",
+  "g5PromotionCommit": "5653687bda7388190014d6dbc52a75f279ac3011",
+  "g5LocalCheckpointSourceSha": "7fa5ef4be76e4c7b919f8e37ad09f1acc4550841",
+  "workingTreeState": "CLEAN",
+  "runtimeDifferenceSinceCheckpoint": 0,
+  "vercelProject": {
+    "name": "ren-tipid",
+    "projectId": "prj_DiF8jBz51kFIHK74udSP6zuqBtMr",
+    "orgId": "team_DWpmafscN88J0nNBvcUKHNM7",
+    "owner": "jburns2372-sys' projects"
+  },
+  "previewEnvironment": {
+    "target": "preview",
+    "isProduction": false
+  },
+  "previewDatabaseIsolation": {
+    "status": "PASS",
+    "target": "NEON_PREVIEW_ISOLATED",
+    "host": "ep-cold-dawn-apgmmi53.c-7.us-east-1.aws.neon.tech",
+    "databaseName": "rentipid_preview",
+    "productionDatabaseTargeted": "NO",
+    "productionDatabaseName": "rentipid_production",
+    "productionNeonHost": "ep-gentle-fog-apwlhnhf"
+  },
+  "previewDatabaseConnectivity": {
+    "status": "PASS",
+    "verifiedVia": "/api/health live database query (SELECT 1) and /api/preferences live preference resolution from Vercel preview deployment"
+  },
+  "previewMigrationStatus": {
+    "status": "PASS",
+    "existingGlccMigration": "20260925000000_add_user_global_preference",
+    "existingGlccMigrationStatus": "PRESENT / APPLIED — PASS",
+    "newPreviewMigrationRequired": "NO",
+    "migrationExecutedDuringG6": "NO",
+    "migrationErrors": 0,
+    "schemaMismatchErrors": 0
+  },
+  "previewDataBoundary": {
+    "newPreviewDataSeedRequired": "NO",
+    "newPreviewDataSyncRequired": "NO",
+    "destructiveOperationsExecuted": "NO"
+  },
+  "previewConfigurationSafety": {
+    "previewQaCapability": "AVAILABLE",
+    "productionPolicy": "UNCHANGED",
+    "filPhReleaseStatus": "QA_REQUIRED",
+    "enPhReleaseStatus": "PRODUCTION_READY",
+    "enUsReleaseStatus": "TRANSLATION_IN_PROGRESS",
+    "jaJpReleaseStatus": "REGISTERED",
+    "jaJpTranslationKeys": 0
+  },
+  "previewDeployment": {
+    "status": "SUCCESS",
+    "deploymentId": "dpl_C1HgccALc3CXautDvMk8mC53Xwm7",
+    "previewDirectUrl": "https://ren-tipid-ozn8xbufq-jburns2372-sys-projects.vercel.app",
+    "previewCanonicalUrl": "https://preview.rentipid.com.ph",
+    "deployedGitSha": "5653687bda7388190014d6dbc52a75f279ac3011",
+    "readyState": "READY",
+    "productionDeployment": "NO",
+    "productionAliasModified": "NO",
+    "wwwRentipidComPhModified": "NO"
+  },
+  "previewHealth": {
+    "status": "PASS",
+    "httpStatus": 200,
+    "bodyStatus": "ready",
+    "databaseStatus": "connected"
+  },
+  "g6Determination": "NO NEW PREVIEW DATABASE MIGRATION REQUIRED — VERIFIED AGAINST EXISTING PREVIEW BASELINE",
+  "lifecycleGates": {
+    "G1_CODE_COMPLETE": "PROMOTED",
+    "G2_LOCAL_FUNCTIONAL": "PROMOTED",
+    "G3_LOCAL_DATABASE_MIGRATED": "PROMOTED",
+    "G4_LOCAL_REQUIRED_DATA_SEEDED_SYNCED": "PROMOTED",
+    "G5_LOCAL_ACCEPTANCE_PASS": "PROMOTED",
+    "G6_PREVIEW_MIGRATED": "PROMOTED",
+    "G7_PREVIEW_ACCEPTANCE_PASS": "NOT PROMOTED",
+    "G8_PRODUCTION_READY": "NOT PROMOTED",
+    "G9_PRODUCTION_DEPLOYMENT": "NOT PROMOTED",
+    "G10_COMPLETED": "NOT PROMOTED",
+    "G11_ACCEPTED": "NOT PROMOTED",
+    "G12_CLOSED": "NOT PROMOTED",
+    "G13_VERSION_FROZEN": "NOT PROMOTED"
+  }
+}
