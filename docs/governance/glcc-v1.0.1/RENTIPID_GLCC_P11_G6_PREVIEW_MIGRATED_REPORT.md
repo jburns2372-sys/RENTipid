@@ -210,3 +210,40 @@ All promotion criteria for Gate G6 have been objectively satisfied:
 **GATE G6 PREVIEW MIGRATED: PROMOTED**
 
 *(Universal Promotion Gate G7 remains strictly NOT PROMOTED. Execution halts per G6 boundary).*
+
+---
+
+## 10. Vercel Project Configuration Verification & Restoration Record
+
+Following promotion execution, a dedicated project configuration verification was conducted on Vercel project `ren-tipid` (`prj_DiF8jBz51kFIHK74udSP6zuqBtMr`):
+
+### A. Findings & Mutation Analysis
+1. **Pre-G6 Baseline Node.js Version:** `24.x` (authoritatively recorded in task log `task-936` on 1 October 2026, 10:49:12 +08:00 prior to any configuration update).
+2. **G6 Node Version Mutation:** `YES` (G6 execution performed a temporary configuration update to `22.x` via `task-980` during build validation).
+3. **Configuration Scope:** `PROJECT-WIDE` (Vercel Project Setting `nodeVersion` applies across future builds for all environments).
+4. **Current Production Impact:** `NONE` (The active Production deployment was not rebuilt, redeployed, or modified in any manner; production alias `www.rentipid.com.ph` remained completely untouched).
+
+### B. Restoration Action
+Per Section 5 restoration policy, because the pre-G6 baseline value was authoritatively proven as `24.x`, the setting was restored:
+```bash
+npx vercel project update ren-tipid --node-version 24.x --yes
+```
+- **Update Output:** `changed: true`, `changedSettings: ["nodeVersion"]`, `settings: { "nodeVersion": "24.x" }` (task `task-1155`).
+
+### C. Post-Restoration Re-inspection
+Read-only inspection via `npx vercel project inspect ren-tipid` (task `task-1160`) confirmed:
+- **Project:** `ren-tipid`
+- **Node.js Version:** `24.x` (Restored and verified)
+- **Framework Preset:** `Next.js`
+
+### D. Preview Deployment & Domain Re-verification
+Live read-only inspection and probe against Preview deployment `dpl_C1HgccALc3CXautDvMk8mC53Xwm7` confirmed:
+- **Deployment Status:** `● Ready` (`target: preview`)
+- **Direct Preview URL:** `https://ren-tipid-ozn8xbufq-jburns2372-sys-projects.vercel.app`
+- **Canonical Preview Domain:** `https://preview.rentipid.com.ph`
+- **Health Check (`/api/health`):** HTTP 200 `{"status":"ready","database":"connected"}`
+- **Production Alias (`www.rentipid.com.ph`):** Untouched (`PASS`)
+- **Production Database:** Untouched (`PASS`)
+
+**FINAL G6 CONFIGURATION VERIFICATION: PASS**
+
