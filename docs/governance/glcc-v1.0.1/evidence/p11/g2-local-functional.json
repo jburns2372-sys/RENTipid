@@ -1,0 +1,81 @@
+{
+  "gate": "G2 LOCAL FUNCTIONAL",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "evaluatedTimestamp": "2026-10-01T08:34:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "headCommit": "cea387c683cb14b35e44d8f12b9c3f7de6af28a7",
+  "g1PromotionCommit": "cea387c683cb14b35e44d8f12b9c3f7de6af28a7",
+  "workingTreeState": "CLEAN",
+  "applicationStart": {
+    "server": "Next.js 16.2.12 (Turbopack)",
+    "localUrl": "http://localhost:3000",
+    "readyTimeSeconds": 7.6,
+    "status": "PASS"
+  },
+  "healthCheck": {
+    "endpoint": "/api/health",
+    "httpStatus": 200,
+    "database": "connected",
+    "status": "PASS"
+  },
+  "routesVerified": [
+    { "route": "/help", "httpStatus": 200, "ssrLocale": "en-PH", "status": "PASS" },
+    { "route": "/help", "httpStatus": 200, "ssrLocale": "fil-PH", "status": "PASS" },
+    { "route": "/terms", "httpStatus": 200, "legalShell": "PASS", "status": "PASS" },
+    { "route": "/login", "httpStatus": 200, "status": "PASS" }
+  ],
+  "apiVerification": [
+    { "endpoint": "/api/health", "method": "GET", "httpStatus": 200, "status": "PASS" },
+    { "endpoint": "/api/preferences", "method": "GET", "httpStatus": 200, "chargeCurrency": "PHP", "status": "PASS" },
+    { "endpoint": "/api/preferences", "method": "PATCH", "httpStatus": 200, "cookieSync": true, "status": "PASS" },
+    { "endpoint": "/api/auth/session", "method": "GET", "httpStatus": 200, "status": "PASS" },
+    { "endpoint": "/api/auth/methods", "method": "GET", "httpStatus": 200, "status": "PASS" }
+  ],
+  "browserAcceptance": {
+    "suite": "Playwright Headless Browser Matrix",
+    "scenariosTotal": 20,
+    "scenariosPassed": 20,
+    "scenariosFailed": 0,
+    "hydrationMismatches": 0,
+    "unhandledErrors": 0,
+    "status": "PASS"
+  },
+  "securityAndIndependenceInvariants": {
+    "languageCountryIndependence": "PASS",
+    "languageJurisdictionIndependence": "PASS",
+    "languageDisplayCurrencyIndependence": "PASS",
+    "languageChargeCurrencyAuthorityPhp": "PASS",
+    "languagePaymentAuthorityIndependence": "PASS",
+    "languageRbacIndependence": "PASS",
+    "languageKycAuthorityIndependence": "PASS",
+    "controlledLegalContentBoundaries": "PASS",
+    "ugcVerbatimPreservationBoundary": "PASS",
+    "aiAuthoritativeLegalPromotionBlock": "PASS"
+  },
+  "databaseImpact": {
+    "impact": "NONE",
+    "schemaValid": true,
+    "newMigrationsRequired": 0
+  },
+  "deploymentStatus": {
+    "previewDeployed": "NO",
+    "productionDeployed": "NO"
+  },
+  "lifecycleGates": {
+    "G1_CODE_COMPLETE": "PROMOTED",
+    "G2_LOCAL_FUNCTIONAL": "PROMOTED",
+    "G3_LOCAL_DATABASE_MIGRATED": "NOT PROMOTED",
+    "G4_LOCAL_REQUIRED_DATA_SEEDED_SYNCED": "NOT PROMOTED",
+    "G5_LOCAL_ACCEPTANCE_PASS": "NOT PROMOTED",
+    "G6_PREVIEW_MIGRATED": "NOT PROMOTED",
+    "G7_PREVIEW_ACCEPTANCE_PASS": "NOT PROMOTED",
+    "G8_PRODUCTION_READY": "NOT PROMOTED",
+    "G9_PRODUCTION_DEPLOYMENT": "NOT PROMOTED",
+    "G10_COMPLETED": "NOT PROMOTED",
+    "G11_ACCEPTED": "NOT PROMOTED",
+    "G12_CLOSED": "NOT PROMOTED",
+    "G13_VERSION_FROZEN": "NOT PROMOTED"
+  },
+  "determination": "PROMOTED"
+}
