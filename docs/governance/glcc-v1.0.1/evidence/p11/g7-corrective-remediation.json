@@ -93,8 +93,43 @@
   },
   "databaseIsolation": {
     "productionDatabaseTouched": false,
-    "previewDatabaseTouched": false,
+    "previewDatabaseTouched": "AUTHORIZED TEST ACCOUNT MUTATION ONLY",
     "migrationsApplied": 0
+  },
+  "authVerification": {
+    "previewDatabase": "rentipid_preview",
+    "previewDatabaseIsolation": "PASS",
+    "productionDatabaseTargeted": "NO",
+    "previewAuthProvisioningMechanism": "PASS",
+    "previewTestDataMutation": "YES — AUTHORIZED TEST ACCOUNT ONLY",
+    "previewAuthSecret": "NOT COMMITTED — PASS",
+    "previewAuthSecretExposure": "NONE / ROTATED — PASS",
+    "previewAuthReadiness": "PASS",
+    "previewAuthLogin": "PASS",
+    "previewAuthTestIdentity": "AVAILABLE — PASS",
+    "http401InvalidCredentials": 0,
+    "testedActors": [
+      {
+        "email": "oat.renter@rentipid.test",
+        "role": "Renter",
+        "loginStatus": "PASS",
+        "preferencesAccess": "PASS"
+      },
+      {
+        "email": "oat.superadmin@rentipid.test",
+        "role": "Super Admin",
+        "loginStatus": "PASS",
+        "preferencesAccess": "PASS"
+      }
+    ],
+    "productionSafety": {
+      "prismaSchemaChange": "NO",
+      "newMigration": "NO",
+      "productionDataTouched": "NO",
+      "productionUserModified": "NO",
+      "previewAppDeployed": "NO",
+      "productionDeployed": "NO"
+    }
   },
   "nextAction": {
     "gate": "G1 CODE COMPLETE REVALIDATION",

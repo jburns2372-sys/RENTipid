@@ -100,10 +100,30 @@ Created dedicated regression suite:
 
 ---
 
-## 6. Lifecycle Action & Next Permitted Gate
+## 6. Preview Auth Test Identity Final Verification Evidence (GLCC-ENV-001)
 
-Because runtime source code has been modified to remediate the blockers, the RENTipid Universal Standard (`.agents/AGENTS.md`) requires the corrected candidate to undergo **Lifecycle Revalidation** starting from Gate G1 (Code Complete Revalidation).
+| Verification Dimension | Governed Requirement | Result | Verified Evidence / Details |
+|---|---|---|---|
+| **Preview DB Isolation** | Target `rentipid_preview`, never `rentipid_production` | **PASS** | Target verified as `ep-cold-dawn-apgmmi53-pooler.c-7.us-east-1.aws.neon.tech/rentipid_preview` (`preview-insurance` branch). Production database (`rentipid_production` on `ep-gentle-fog-apwlhnhf`) untouched. |
+| **Auth Provisioning Mechanism** | Use existing `provisionAiOatActors()` | **PASS** | Existing approved mechanism in `src/lib/oat/modules/ai-oat.ts` invoked; atomically provisions `User` and `EmailCredential` with verified status, timestamp, and bcrypt password hash. |
+| **Preview Test Data Mutation** | Mutate Preview test data only if required | **YES — AUTHORIZED TEST ACCOUNT ONLY** | Idempotently provisioned/repaired 3 required test actors in `rentipid_preview`: `oat.renter@rentipid.test` (Renter), `oat.provider@rentipid.test` (Individual Provider), `oat.superadmin@rentipid.test` (Super Admin). Zero business data created. |
+| **Credential Security** | Ephemeral uncommitted credential management | **PASS** | Governed secret `PREVIEW_OAT_PASSWORD` generated via cryptographically secure random bytes; stored only in git-ignored `.env.local` for local execution; ZERO secrets printed, logged, committed, or hardcoded in source. |
+| **Preview Auth Readiness** | `oat-runner.ts check AI` against Preview DB | **PASS** | Runner reported `FIXTURES: READY`, `DEPENDENCIES: READY`, `RBAC: READY`, `BLOCKERS: NONE`, `OVERALL: READY`. |
+| **Actual Preview Login** | HTTPS live login at `https://preview.rentipid.com.ph` | **PASS** | Real live credential authentication against `/api/auth/callback/credentials` succeeded (HTTP 200 OK) with `__Secure-next-auth.session-token` issued. Verified both `oat.renter@rentipid.test` and `oat.superadmin@rentipid.test`. |
+| **HTTP 401 Invalid Credentials** | No authentication failure | **0** | Exactly zero HTTP 401 errors encountered during verification. |
+| **Session Role Resolution** | Verify session role via `/api/auth/session` | **PASS** | `oat.renter@rentipid.test` resolved to `role: "Renter"`; `oat.superadmin@rentipid.test` resolved to `role: "Super Admin"`. |
+| **Authenticated GLCC Basis** | Preference storage access without auth error | **PASS** | Authenticated call to `/api/me/preferences` succeeded with HTTP 200 OK, returning valid user preferences and capabilities. Account is fully available for future G7 acceptance rerun. |
+| **Prisma Schema Change** | No schema mutations | **NO** | `prisma/schema.prisma` completely unchanged; 0 new migrations. |
+| **Production Safety** | Zero impact on Production | **PASS** | Production DB touched: NO; Production user modified: NO; Preview app deployed: NO; Production deployed: NO. |
 
-- **Current Gate:** G7 Remediation Cycle Complete (Commit Stage)
-- **Next Permitted Gate:** Gate G1 (Code Complete Revalidation)
-- **Prohibited Next Actions:** DO NOT promote G7; DO NOT start G8; DO NOT deploy to Production.
+---
+
+## 7. Lifecycle Action & Next Permitted Gate
+
+Because runtime source code was modified during this corrective remediation cycle, the RENTipid Universal Standard (`.agents/AGENTS.md`) mandates that the corrected candidate undergo **Lifecycle Revalidation** starting from Gate G1 (Code Complete Revalidation).
+
+- **Corrective Status:** **PASS** (Both `GLCC-LOC-002` and `GLCC-ENV-001` REMEDIATED)
+- **G7 Preview Acceptance Pass Status:** **NOT PROMOTED** (Frozen Preview checkpoint pending full revalidation)
+- **Next Permitted Lifecycle Action:** **G1 CODE COMPLETE REVALIDATION FOR CORRECTED CANDIDATE** (G1 Revalidation must pass before re-attempting G7 acceptance)
+- **Prohibited Next Actions:** DO NOT start G1 revalidation in this turn; DO NOT start G7 again; DO NOT start G8; DO NOT deploy Preview; DO NOT deploy Production.
+
