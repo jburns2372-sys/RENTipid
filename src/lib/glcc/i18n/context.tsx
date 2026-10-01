@@ -3,11 +3,13 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useTransition } from 'react';
 import { defaultTranslationEngine, t as globalT } from './engine';
 import { validateBcp47LocaleTag } from '../registry-contracts';
+import { resolveEffectiveResolverMode, type ResolverMode } from '../locale-resolver';
 import type { GlccCanonicalTranslationKey, TranslationParams } from './contracts';
 
 export interface TranslationContextValue {
   readonly locale: string;
   readonly direction: 'ltr' | 'rtl';
+  readonly resolverMode: ResolverMode;
   readonly setLocale: (newLocale: string) => void;
   readonly t: (key: GlccCanonicalTranslationKey | string, params?: TranslationParams, fallbackText?: string) => string;
 }
@@ -17,6 +19,7 @@ const TranslationContext = createContext<TranslationContextValue | null>(null);
 export interface TranslationProviderProps {
   readonly children: React.ReactNode;
   readonly initialLocale?: string;
+  readonly resolverMode?: ResolverMode;
 }
 
 /**
@@ -25,7 +28,7 @@ export interface TranslationProviderProps {
  * Invariant: Consumes the server-resolved effective locale on initial render
  * ensuring SERVER_EFFECTIVE_LOCALE === CLIENT_INITIAL_EFFECTIVE_LOCALE without hydration mismatches.
  */
-export function TranslationProvider({ children, initialLocale = 'en-PH' }: TranslationProviderProps) {
+export function TranslationProvider({ children, initialLocale = 'en-PH', resolverMode: propResolverMode }: TranslationProviderProps) {
   // Directly initialize with server-provided initialLocale to guarantee hydration parity
   const [locale, setLocaleState] = useState<string>(initialLocale);
   const [prevInitialLocale, setPrevInitialLocale] = useState<string>(initialLocale);
@@ -120,10 +123,12 @@ export function TranslationProvider({ children, initialLocale = 'en-PH' }: Trans
   );
 
   const direction = defaultTranslationEngine.getDirection(locale);
+  const effectiveMode = resolveEffectiveResolverMode(propResolverMode);
 
   const value: TranslationContextValue = {
     locale,
     direction,
+    resolverMode: effectiveMode,
     setLocale,
     t,
   };
@@ -139,6 +144,7 @@ export function useTranslation(): TranslationContextValue {
     return {
       locale: currentLocale,
       direction: defaultTranslationEngine.getDirection(currentLocale),
+      resolverMode: resolveEffectiveResolverMode(),
       setLocale: (loc: string) => defaultTranslationEngine.setActiveLocale(loc),
       t: (key: GlccCanonicalTranslationKey | string, params?: TranslationParams, fallbackText?: string) =>
         globalT(key, params, currentLocale, fallbackText),

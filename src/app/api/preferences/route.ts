@@ -37,6 +37,10 @@ import {
   buildAuthoritativeCountryOptions,
   resolveCountryCurrencyPolicy,
 } from '@/lib/glcc/country-policy';
+import {
+  resolveEffectiveResolverMode,
+  isLocaleEligibleForMode,
+} from '@/lib/glcc/locale-resolver';
 import type { RegistryContext } from '@/lib/glcc/registry-contracts';
 import type { EffectiveGlobalPreference } from '@/lib/glcc/contracts';
 
@@ -127,6 +131,8 @@ export function createGuestPreferencesRouteHandlers(deps: GuestPreferencesRouteD
       const countryProfile = registries.countries.get(effectivePreference.countryCode, asOf);
 
       // 4. Return effective preference, capability flags, active registry options, and provenance
+      const effectiveMode = resolveEffectiveResolverMode();
+
       return NextResponse.json({
         effectivePreference,
         capabilities: {
@@ -138,6 +144,7 @@ export function createGuestPreferencesRouteHandlers(deps: GuestPreferencesRouteD
           chargeCurrency: 'PHP',
           isGuest: true,
           requiresReconciliation: false,
+          resolverMode: effectiveMode,
         },
         options: {
           locales: registries.locales.listActive(asOf).map(l => ({
@@ -343,6 +350,7 @@ export function createGuestPreferencesRouteHandlers(deps: GuestPreferencesRouteD
       );
 
       // 11. Prepare response with Set-Cookie header and provenance
+      const effectiveMode = resolveEffectiveResolverMode();
       const response = NextResponse.json({
         status: 'SUCCESS',
         effectivePreference,
@@ -355,6 +363,7 @@ export function createGuestPreferencesRouteHandlers(deps: GuestPreferencesRouteD
           chargeCurrency: 'PHP',
           isGuest: true,
           requiresReconciliation: false,
+          resolverMode: effectiveMode,
         },
         provenance: {
           configVersion: policyResult.provenance.configVersion,

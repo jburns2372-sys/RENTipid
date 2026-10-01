@@ -39,6 +39,7 @@ export interface GlccCapabilities {
   readonly v1Enabled: boolean;
   readonly currencyOverrideEnabled: boolean;
   readonly countryAutodetectEnabled: boolean;
+  readonly resolverMode?: 'PRODUCTION' | 'QA';
 }
 
 export interface GlccReconciliationState {

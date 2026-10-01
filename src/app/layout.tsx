@@ -54,7 +54,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { locale, direction, t } = await getServerTranslation();
+  const { locale, direction, t, resolverMode } = await getServerTranslation();
 
   return (
     <html lang={locale} dir={direction} className="overflow-x-hidden max-w-[100vw]">
@@ -63,7 +63,7 @@ export default async function RootLayout({
           {t('common.betaNotice')}
         </div>
         <AuthProvider>
-          <TranslationProvider initialLocale={locale}>
+          <TranslationProvider initialLocale={locale} resolverMode={resolverMode}>
             <Header />
             <main className="flex-1 flex flex-col relative">
               {children}

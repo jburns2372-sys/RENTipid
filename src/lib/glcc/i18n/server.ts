@@ -36,7 +36,12 @@ export interface GetServerLocaleOptions {
  * or REGISTERED (ja-JP) do NOT resolve in PRODUCTION mode, preventing unauthorized premature activation.
  * Under controlled QA mode ('QA'), QA_REQUIRED locales are allowed to resolve.
  */
-export async function getServerLocale(options?: GetServerLocaleOptions): Promise<string> {
+export interface ServerLocaleDetails {
+  readonly locale: string;
+  readonly resolverMode: ResolverMode;
+}
+
+export async function getServerLocaleDetails(options?: GetServerLocaleOptions): Promise<ServerLocaleDetails> {
   let guestCandidate: string | null = null;
   let suggestedLocale: string | null = null;
   let qaCandidate: ResolverMode | undefined = options?.resolverMode;
@@ -100,16 +105,28 @@ export async function getServerLocale(options?: GetServerLocaleOptions): Promise
     getDefaultRegistryContext().locales
   );
 
-  return resolved.effectiveLocale;
+  return {
+    locale: resolved.effectiveLocale,
+    resolverMode,
+  };
+}
+
+/**
+ * Resolves the active request locale on the server during SSR using the authoritative P3 Locale Resolver.
+ */
+export async function getServerLocale(options?: GetServerLocaleOptions): Promise<string> {
+  const details = await getServerLocaleDetails(options);
+  return details.locale;
 }
 
 /**
  * Resolves server-side translation helpers bound to the request's active locale.
  */
 export async function getServerTranslation(options?: GetServerLocaleOptions) {
-  const locale = await getServerLocale(options);
+  const { locale, resolverMode } = await getServerLocaleDetails(options);
   return {
     locale,
+    resolverMode,
     direction: defaultTranslationEngine.getDirection(locale),
     t: (key: GlccCanonicalTranslationKey | string, params?: TranslationParams, fallbackText?: string) =>
       defaultTranslationEngine.translate(key, params, locale, fallbackText),

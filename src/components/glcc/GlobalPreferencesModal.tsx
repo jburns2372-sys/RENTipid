@@ -54,7 +54,7 @@ export default function GlobalPreferencesModal({
     isGuest,
   });
 
-  const { locale: contextLocale } = useTranslation();
+  const { locale: contextLocale, resolverMode: contextResolverMode } = useTranslation();
   const activeUiLocale = (draft.languageTag === 'fil-PH' || contextLocale === 'fil-PH' || initialData?.effectivePreference?.languageTag === 'fil-PH') ? 'fil-PH' : 'en-PH';
   const copy = getGlccCopy(activeUiLocale);
 
@@ -334,7 +334,7 @@ export default function GlobalPreferencesModal({
                     showActions={false}
                     autoFocusSearch={true}
                     semanticsRole="radiogroup"
-                    resolverMode={process.env.NODE_ENV === 'test' || process.env.GLCC_ENABLE_LOCAL_QA_MODE === 'true' ? 'QA' : undefined}
+                    resolverMode={capabilities?.resolverMode || (process.env.NODE_ENV === 'test' ? 'QA' : contextResolverMode)}
                   />
                 </div>
               )}

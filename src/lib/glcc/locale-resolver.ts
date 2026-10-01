@@ -156,15 +156,55 @@ function sanitizeString(val: unknown): string | null {
  * - NODE_ENV === 'production' (unless running in explicit Preview or Test) => true
  */
 export function isProductionRuntime(env: Record<string, string | undefined> = process.env): boolean {
-  const vercelEnv = env.VERCEL_ENV?.trim().toLowerCase();
+  // 1. Trusted deployment tier signals (highest authority)
+  const vercelEnv = (env.NEXT_PUBLIC_VERCEL_ENV || env.VERCEL_ENV)?.trim().toLowerCase();
   if (vercelEnv === 'production') return true;
+  if (vercelEnv === 'preview') return false;
 
-  const appEnv = env.APP_ENV?.trim().toLowerCase();
+  const appEnv = (env.NEXT_PUBLIC_APP_ENV || env.APP_ENV)?.trim().toLowerCase();
   if (appEnv === 'production' || appEnv === 'prod') return true;
+  if (appEnv === 'preview') return false;
 
+  // 2. Browser domain inspection (canonical Production domain authority)
+  if (typeof window !== 'undefined') {
+    const hostname = (env.GLCC_TEST_HOSTNAME || window.location?.hostname || '').toLowerCase();
+    if (hostname === 'www.rentipid.com.ph' || hostname === 'rentipid.com.ph') {
+      return true;
+    }
+    if (hostname === 'preview.rentipid.com.ph' || hostname.endsWith('.vercel.app')) {
+      return false;
+    }
+  }
+
+  // 3. Fallback to NODE_ENV
   const nodeEnv = env.NODE_ENV?.trim().toLowerCase();
-  if (nodeEnv === 'production' && vercelEnv !== 'preview' && appEnv !== 'preview') {
+  if (nodeEnv === 'production' && !isPreviewRuntime(env)) {
     return true;
+  }
+
+  return false;
+}
+
+/**
+ * Resolves whether the current execution context represents a trusted Preview deployment.
+ */
+export function isPreviewRuntime(env: Record<string, string | undefined> = process.env): boolean {
+  const vercelEnv = (env.NEXT_PUBLIC_VERCEL_ENV || env.VERCEL_ENV)?.trim().toLowerCase();
+  if (vercelEnv === 'production') return false;
+  if (vercelEnv === 'preview') return true;
+
+  const appEnv = (env.NEXT_PUBLIC_APP_ENV || env.APP_ENV)?.trim().toLowerCase();
+  if (appEnv === 'production' || appEnv === 'prod') return false;
+  if (appEnv === 'preview') return true;
+
+  if (typeof window !== 'undefined') {
+    const hostname = (env.GLCC_TEST_HOSTNAME || window.location?.hostname || '').toLowerCase();
+    if (hostname === 'www.rentipid.com.ph' || hostname === 'rentipid.com.ph') {
+      return false;
+    }
+    if (hostname === 'preview.rentipid.com.ph' || hostname.endsWith('.vercel.app')) {
+      return true;
+    }
   }
 
   return false;
@@ -179,8 +219,8 @@ export function isProductionRuntime(env: Record<string, string | undefined> = pr
  *    or accidental environment configuration can switch a Production runtime to QA mode.
  * 2. In non-Production runtimes:
  *    - In Jest / CI Test Runner (NODE_ENV === 'test'): trustedCallerMode is honored for unit/integration tests.
+ *    - In Controlled Preview QA: trusted Preview deployment policy authorizes QA mode.
  *    - In Local Development (NODE_ENV === 'development'): QA mode is available if GLCC_ENABLE_LOCAL_QA_MODE === 'true' or trustedCallerMode === 'QA'.
- *    - In Controlled Preview QA (VERCEL_ENV === 'preview'): QA mode is enabled strictly via trusted deployment configuration GLCC_PREVIEW_QA_ENABLED === 'true'.
  * 3. Default fallback is always 'PRODUCTION'.
  */
 export function resolveEffectiveResolverMode(
@@ -198,7 +238,6 @@ export function resolveEffectiveResolverMode(
 
   // 2. Non-Production Environments:
   const nodeEnv = env.NODE_ENV?.trim().toLowerCase();
-  const vercelEnv = env.VERCEL_ENV?.trim().toLowerCase();
 
   // Test Runner harness (e.g. Jest unit tests)
   if (nodeEnv === 'test') {
@@ -208,11 +247,37 @@ export function resolveEffectiveResolverMode(
     return 'PRODUCTION';
   }
 
-  // Controlled Preview QA deployment
-  if (vercelEnv === 'preview') {
-    if (env.GLCC_PREVIEW_QA_ENABLED === 'true' || trustedModeCandidate === 'QA') {
+  // Controlled Preview QA deployment authorized by deployment policy
+  if (isPreviewRuntime(env)) {
+    if (
+      trustedModeCandidate === 'QA' ||
+      env.GLCC_PREVIEW_QA_ENABLED === 'true' ||
+      env.NEXT_PUBLIC_GLCC_PREVIEW_QA_ENABLED === 'true'
+    ) {
       return 'QA';
     }
+
+    if (typeof window !== 'undefined') {
+      try {
+        const search = window.location?.search;
+        if (search) {
+          const urlParams = new URLSearchParams(search);
+          if (urlParams.get('glcc_qa') === 'true' || urlParams.get('glcc_qa') === '1') {
+            return 'QA';
+          }
+        }
+        if (
+          typeof document !== 'undefined' &&
+          document.cookie &&
+          (document.cookie.includes('glcc_qa=true') || document.cookie.includes('rentipid_qa_mode=true'))
+        ) {
+          return 'QA';
+        }
+      } catch {
+        // Safe fallback
+      }
+    }
+
     return 'PRODUCTION';
   }
 

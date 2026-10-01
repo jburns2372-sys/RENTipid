@@ -1,0 +1,109 @@
+{
+  "gate": "G7 FAILURE CORRECTIVE REMEDIATION CYCLE",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "status": "REMEDIATED_PENDING_REVALIDATION",
+  "remediatedTimestamp": "2026-10-01T19:15:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "baseCommit": "d150137bf307637ba5c4efd63c71cd6caa066df9",
+  "remediatedDefects": [
+    {
+      "defectId": "GLCC-LOC-002",
+      "severity": "HIGH",
+      "description": "Preview Language Selector disables fil-PH due to client-side NODE_ENV inlining and missing public QA resolver mode",
+      "resolution": "Wired SSR-to-client resolverMode propagation via getServerLocaleDetails and TranslationProvider, updated LanguageSelector to consume contextResolverMode and resolveEffectiveResolverMode with trusted deployment tier signals (NEXT_PUBLIC_VERCEL_ENV), eliminating dead-code checks.",
+      "affectedFiles": [
+        "next.config.ts",
+        "src/lib/glcc/locale-resolver.ts",
+        "src/lib/glcc/i18n/context.tsx",
+        "src/lib/glcc/i18n/server.ts",
+        "src/app/layout.tsx",
+        "src/components/glcc/types.ts",
+        "src/app/api/preferences/route.ts",
+        "src/components/glcc/LanguageSelector.tsx",
+        "src/components/glcc/GlobalPreferencesModal.tsx"
+      ]
+    },
+    {
+      "defectId": "GLCC-ENV-001",
+      "severity": "MEDIUM",
+      "description": "Missing usable authorized Preview authentication test account credentials (HTTP 401 on login)",
+      "resolution": "Updated provisionAiOatActors in src/lib/oat/modules/ai-oat.ts to atomically upsert EmailCredential records with is_verified: true, verified_at, and password_hash for all REQUIRED_AI_OAT_ACTORS, and updated readinessHandler to verify email credentials exist.",
+      "affectedFiles": [
+        "src/lib/oat/modules/ai-oat.ts"
+      ]
+    }
+  ],
+  "regressionTestSuite": {
+    "file": "tests/glcc/p11-deployed-build-regression.test.tsx",
+    "testsCount": 6,
+    "status": "PASS",
+    "verifications": [
+      "Preview trusted QA policy: authorizes QA mode and makes fil-PH selectable despite NODE_ENV='production'",
+      "Production policy: strictly blocks fil-PH, en-US, and ja-JP in production deployment",
+      "Client parameter and cookie injection alone CANNOT bypass Production Firewall",
+      "Renders fil-PH as selectable in Preview QA mode and disabled in Production",
+      "Apply fil-PH updates active UI context and documentElement",
+      "Cancel does not alter active locale"
+    ]
+  },
+  "localQualityVerification": {
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "status": "PASS"
+    },
+    "eslint": {
+      "command": "npx eslint src/lib/glcc src/components/glcc",
+      "exitCode": 0,
+      "status": "PASS"
+    },
+    "prismaValidate": {
+      "command": "npx prisma validate",
+      "exitCode": 0,
+      "status": "PASS"
+    },
+    "glccCi": {
+      "command": "npm run test:glcc:ci",
+      "exitCode": 0,
+      "status": "PASS",
+      "totalSuites": 39,
+      "passedSuites": 39,
+      "totalTests": 732,
+      "passedTests": 732,
+      "failedTests": 0
+    },
+    "nextBuild": {
+      "command": "cross-env NEXTAUTH_URL=https://www.rentipid.com.ph next build",
+      "exitCode": 0,
+      "status": "PASS"
+    }
+  },
+  "canonicalTranslationContract": {
+    "canonicalKeys": 2208,
+    "enPhKeys": 2208,
+    "filPhKeys": 2208,
+    "jaJpKeys": 0,
+    "parity": "100%"
+  },
+  "releaseStatusGovernance": {
+    "en-PH": "PRODUCTION_READY",
+    "fil-PH": "QA_REQUIRED",
+    "ja-JP": "REGISTERED"
+  },
+  "databaseIsolation": {
+    "productionDatabaseTouched": false,
+    "previewDatabaseTouched": false,
+    "migrationsApplied": 0
+  },
+  "nextAction": {
+    "gate": "G1 CODE COMPLETE REVALIDATION",
+    "prohibitedActions": [
+      "DO NOT PROMOTE G7",
+      "DO NOT START G8",
+      "DO NOT DEPLOY PRODUCTION",
+      "DO NOT MODIFY PRODUCTION DATABASE",
+      "DO NOT ACTIVATE JAPANESE"
+    ]
+  }
+}

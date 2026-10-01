@@ -50,7 +50,7 @@ export async function provisionAiOatActors(): Promise<void> {
   const passwordHash = await bcrypt.hash(getPreviewOatPassword(), 10);
 
   for (const actor of REQUIRED_AI_OAT_ACTORS) {
-    await prisma.user.upsert({
+    const user = await prisma.user.upsert({
       where: { email: actor.email },
       update: {
         full_name: actor.fullName,
@@ -70,6 +70,24 @@ export async function provisionAiOatActors(): Promise<void> {
         status: 'Verified',
         is_test_data: true,
         beta_label: 'Preview OAT',
+      },
+    });
+
+    const normalizedEmail = actor.email.toLowerCase().trim();
+    await prisma.emailCredential.upsert({
+      where: { normalized_email: normalizedEmail },
+      update: {
+        user_id: user.id,
+        password_hash: passwordHash,
+        is_verified: true,
+        verified_at: new Date(),
+      },
+      create: {
+        user_id: user.id,
+        normalized_email: normalizedEmail,
+        password_hash: passwordHash,
+        is_verified: true,
+        verified_at: new Date(),
       },
     });
   }
@@ -259,7 +277,19 @@ OATRegistry.register({
   readinessHandler: async () => {
     const actors = await prisma.user.findMany({
       where: { email: { in: REQUIRED_AI_OAT_ACTORS.map(actor => actor.email) } },
-      select: { email: true, role: true, status: true, password_hash: true },
+      select: {
+        email: true,
+        role: true,
+        status: true,
+        password_hash: true,
+        emailCredential: {
+          select: {
+            normalized_email: true,
+            is_verified: true,
+            password_hash: true,
+          },
+        },
+      },
     });
     const blockers = REQUIRED_AI_OAT_ACTORS.flatMap(expected => {
       const actual = actors.find(actor => actor.email === expected.email);
@@ -267,6 +297,9 @@ OATRegistry.register({
       if (actual.role !== expected.role) return [`Invalid role for ${expected.description}`];
       if (actual.status !== 'Verified') return [`Invalid status for ${expected.description}`];
       if (!actual.password_hash) return [`Missing credentials for ${expected.description}`];
+      if (!actual.emailCredential?.password_hash || !actual.emailCredential.is_verified) {
+        return [`Missing verified email credential for ${expected.description}`];
+      }
       return [];
     });
 

@@ -66,7 +66,7 @@ export function LanguageSelector({
   semanticsRole = 'listbox',
   locales: customLocales,
 }: LanguageSelectorProps) {
-  const { t, locale: activeContextLocale } = useTranslation();
+  const { t, locale: activeContextLocale, resolverMode: contextResolverMode } = useTranslation();
 
   // Determine effective applied locale
   const currentLocale = propCurrentLocale || activeContextLocale || 'en-PH';
@@ -87,21 +87,11 @@ export function LanguageSelector({
     if (propResolverMode) {
       return resolveEffectiveResolverMode(propResolverMode);
     }
-    if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') {
-      try {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('glcc_qa') === 'true' || urlParams.get('glcc_qa') === '1') {
-          return resolveEffectiveResolverMode('QA');
-        }
-        if (document.cookie.includes('glcc_qa=true') || document.cookie.includes('rentipid_qa_mode=true')) {
-          return resolveEffectiveResolverMode('QA');
-        }
-      } catch {
-        // Safe fallback in malformed environment
-      }
+    if (contextResolverMode) {
+      return resolveEffectiveResolverMode(contextResolverMode);
     }
     return resolveEffectiveResolverMode();
-  }, [propResolverMode]);
+  }, [propResolverMode, contextResolverMode]);
 
   // Search input state
   const [searchQuery, setSearchQuery] = useState('');
