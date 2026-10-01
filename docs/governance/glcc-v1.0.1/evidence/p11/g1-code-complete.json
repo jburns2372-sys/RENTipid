@@ -1,0 +1,94 @@
+{
+  "gate": "G1 CODE COMPLETE",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "evaluatedTimestamp": "2026-10-01T08:05:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "headCommit": "8dc6a5382562f54dec7efbdc0cf59afd7f621580",
+  "acceptedP10Commit": "8dc6a5382562f54dec7efbdc0cf59afd7f621580",
+  "workingTreeState": "CLEAN",
+  "packagesCompletion": {
+    "P0": "PASS",
+    "P1": "PASS",
+    "P2": "PASS",
+    "P3": "PASS",
+    "P4": "PASS",
+    "P5": "PASS",
+    "P6": "PASS",
+    "P7": "PASS",
+    "P8": "PASS",
+    "P9": "PASS",
+    "P10": "PASS"
+  },
+  "canonicalKeyMetrics": {
+    "canonicalKeyCount": 2208,
+    "enPhCoverage": "100.00%",
+    "enPhPresentKeys": 2208,
+    "filPhCoverage": "100.00%",
+    "filPhPresentKeys": 2208,
+    "filPhRequiredFallback": 0,
+    "rawTranslationKeys": 0,
+    "unapprovedHardcodedUiStrings": 0
+  },
+  "localeStates": {
+    "en-PH": "PRODUCTION_READY",
+    "fil-PH": "QA_REQUIRED",
+    "en-US": "TRANSLATION_IN_PROGRESS",
+    "ja-JP": "REGISTERED",
+    "jaJpTranslationKeys": 0
+  },
+  "databaseImpact": {
+    "impact": "NONE",
+    "schemaValid": true,
+    "newMigrationsRequired": 0
+  },
+  "ciEnforcement": {
+    "command": "npm run test:glcc:ci",
+    "workflow": ".github/workflows/glcc-ci.yml",
+    "status": "PRESENT"
+  },
+  "securityAndIndependenceInvariants": {
+    "languageCountryIndependence": "PASS",
+    "languageJurisdictionIndependence": "PASS",
+    "languageDisplayCurrencyIndependence": "PASS",
+    "languageChargeCurrencyAuthorityPhp": "PASS",
+    "languagePaymentAuthorityIndependence": "PASS",
+    "languageRbacIndependence": "PASS",
+    "languageKycAuthorityIndependence": "PASS",
+    "controlledLegalContentBoundaries": "PASS",
+    "ugcVerbatimPreservationBoundary": "PASS",
+    "aiAuthoritativeLegalPromotionBlock": "PASS"
+  },
+  "codeCompleteness": {
+    "blockersCount": 0,
+    "todoBlockers": 0,
+    "fixmeBlockers": 0,
+    "stubBlockers": 0
+  },
+  "approvedOutOfScopeItems": [
+    "Japanese (ja-JP) translations (0 keys, registered placeholder only)",
+    "Future expansion languages (e.g. en-US in progress)",
+    "External telecom SMS vendor integration / external Push vendor connection (internal localized templates and contracts governed, external third-party provider accounts unconfigured)",
+    "Future v1.1 expansion features"
+  ],
+  "deploymentStatus": {
+    "previewDeployed": "NO",
+    "productionDeployed": "NO"
+  },
+  "lifecycleGates": {
+    "G1_CODE_COMPLETE": "PROMOTED",
+    "G2_LOCAL_FUNCTIONAL": "NOT PROMOTED",
+    "G3_LOCAL_DATABASE_MIGRATED": "NOT PROMOTED",
+    "G4_LOCAL_REQUIRED_DATA_SEEDED_SYNCED": "NOT PROMOTED",
+    "G5_LOCAL_ACCEPTANCE_PASS": "NOT PROMOTED",
+    "G6_PREVIEW_MIGRATED": "NOT PROMOTED",
+    "G7_PREVIEW_ACCEPTANCE_PASS": "NOT PROMOTED",
+    "G8_PRODUCTION_READY": "NOT PROMOTED",
+    "G9_PRODUCTION_DEPLOYMENT": "NOT PROMOTED",
+    "G10_COMPLETED": "NOT PROMOTED",
+    "G11_ACCEPTED": "NOT PROMOTED",
+    "G12_CLOSED": "NOT PROMOTED",
+    "G13_VERSION_FROZEN": "NOT PROMOTED"
+  },
+  "determination": "PROMOTED"
+}
