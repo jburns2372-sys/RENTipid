@@ -1,0 +1,108 @@
+{
+  "gate": "G4 LOCAL REQUIRED DATA SEEDED/SYNCED",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "evaluatedTimestamp": "2026-10-01T09:54:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "headCommit": "2fac98c6dbff93f7d4cdd7e235ce481bcd96e60d",
+  "promotionLineage": {
+    "g1Commit": "cea387c683cb14b35e44d8f12b9c3f7de6af28a7",
+    "g2Commit": "b97b6a94410d9e2fb9704b5b10dcda5000b47905",
+    "g3OriginalCommit": "bc39223923d4fff314988fab49980ba303838ed1",
+    "g3VerificationCommit": "2fac98c6dbff93f7d4cdd7e235ce481bcd96e60d"
+  },
+  "workingTreeState": "CLEAN",
+  "dataEnvironment": "LOCAL / DEVELOPMENT",
+  "productionDataTouched": false,
+  "requiredDataInventory": [
+    {
+      "category": "Locale Registry",
+      "source": "CODE-DEFINED",
+      "status": "PRESENT — PASS"
+    },
+    {
+      "category": "Country Registry",
+      "source": "CODE-DEFINED",
+      "status": "PRESENT — PASS"
+    },
+    {
+      "category": "Currency Registry",
+      "source": "CODE-DEFINED",
+      "status": "PRESENT — PASS"
+    },
+    {
+      "category": "GLCC SystemSettings",
+      "source": "DATABASE-PERSISTED",
+      "status": "PRESENT — PASS"
+    },
+    {
+      "category": "Controlled QA Policy",
+      "source": "CODE-DEFINED / HEADER-COOKIE",
+      "status": "AVAILABLE — PASS"
+    },
+    {
+      "category": "User Preference Defaults",
+      "source": "CODE-DEFINED FALLBACK",
+      "status": "AVAILABLE — PASS"
+    },
+    {
+      "category": "Controlled Content Classification",
+      "source": "CODE-DEFINED",
+      "status": "SUFFICIENT — PASS"
+    }
+  ],
+  "localeRegistryData": {
+    "status": "PRESENT — PASS",
+    "states": {
+      "en-PH": "PRODUCTION_READY",
+      "fil-PH": "QA_REQUIRED",
+      "en-US": "TRANSLATION_IN_PROGRESS",
+      "ja-JP": "REGISTERED"
+    }
+  },
+  "countryData": "PRESENT — PASS",
+  "currencyData": "PRESENT — PASS",
+  "glccRequiredSystemSettings": {
+    "status": "PRESENT — PASS",
+    "settings": {
+      "glcc_v1_enabled": "true",
+      "glcc_currency_override_enabled": "true",
+      "glcc_country_autodetect_enabled": "false",
+      "glcc_fx_display_enabled": "true",
+      "glcc_browse_freshness_ms": "300000",
+      "glcc_checkout_freshness_ms": "120000",
+      "glcc_max_outlier_deviation_pct": "5.00",
+      "glcc_approved_rounding_policy": "ROUND_HALF_UP"
+    }
+  },
+  "controlledLocalQaPolicy": "AVAILABLE — PASS",
+  "productionPolicy": "UNCHANGED — PASS",
+  "userPreferenceRequiredSeed": false,
+  "controlledContentRequiredData": "SUFFICIENT — PASS",
+  "localRequiredData": "SUFFICIENT — PASS",
+  "newRequiredDataSeed": false,
+  "newRequiredDataSync": false,
+  "seedExecutedDuringG4": false,
+  "syncExecutedDuringG4": false,
+  "g4DataDetermination": "NO NEW REQUIRED DATA SEED/SYNC REQUIRED — VERIFIED",
+  "deploymentStatus": {
+    "previewDeployed": "NO",
+    "productionDeployed": "NO"
+  },
+  "lifecycleGates": {
+    "G1_CODE_COMPLETE": "PROMOTED",
+    "G2_LOCAL_FUNCTIONAL": "PROMOTED",
+    "G3_LOCAL_DATABASE_MIGRATED": "PROMOTED",
+    "G4_LOCAL_REQUIRED_DATA_SEEDED_SYNCED": "PROMOTED",
+    "G5_LOCAL_ACCEPTANCE_PASS": "NOT PROMOTED",
+    "G6_PREVIEW_MIGRATED": "NOT PROMOTED",
+    "G7_PREVIEW_ACCEPTANCE_PASS": "NOT PROMOTED",
+    "G8_PRODUCTION_READY": "NOT PROMOTED",
+    "G9_PRODUCTION_DEPLOYMENT": "NOT PROMOTED",
+    "G10_COMPLETED": "NOT PROMOTED",
+    "G11_ACCEPTED": "NOT PROMOTED",
+    "G12_CLOSED": "NOT PROMOTED",
+    "G13_VERSION_FROZEN": "NOT PROMOTED"
+  },
+  "determination": "PROMOTED"
+}
