@@ -1,0 +1,157 @@
+{
+  "gate": "G7 PREVIEW ACCEPTANCE PASS — PREVIEW CHECKPOINT FROZEN",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "status": "FAIL",
+  "determination": "G7 FAIL — PREVIEW ACCEPTANCE FAILED DUE TO CLIENT-SIDE QA SELECTOR BLOCK (DEFECT GLCC-LOC-002) AND MISSING AUTHORIZED PREVIEW TEST ACCOUNT CREDENTIALS (SECTION 15 STOP CONDITION)",
+  "promotedTimestamp": null,
+  "evaluatedTimestamp": "2026-10-01T12:08:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "g6OriginalPromotionCommit": "988cde0ac93a8b9103d9a82c4c9c7c53bf931675",
+  "g6VerificationCommit": "9bd78690df82cadc65629330947e6ce02bf6904c",
+  "previewDeploymentId": "dpl_C1HgccALc3CXautDvMk8mC53Xwm7",
+  "previewDirectUrl": "https://ren-tipid-ozn8xbufq-jburns2372-sys-projects.vercel.app",
+  "previewCanonicalAlias": "https://preview.rentipid.com.ph",
+  "deployedGitSha": "5653687bda7388190014d6dbc52a75f279ac3011",
+  "runtimeSourceSha": "7fa5ef4be76e4c7b919f8e37ad09f1acc4550841",
+  "runtimeDifferenceFromG5Source": 0,
+  "workingTreeState": "CLEAN",
+  "vercelProject": {
+    "name": "ren-tipid",
+    "projectId": "prj_DiF8jBz51kFIHK74udSP6zuqBtMr",
+    "nodeVersion": "24.x"
+  },
+  "previewDatabaseIsolation": {
+    "status": "PASS",
+    "target": "NEON_PREVIEW_ISOLATED",
+    "host": "ep-cold-dawn-apgmmi53.c-7.us-east-1.aws.neon.tech",
+    "databaseName": "rentipid_preview",
+    "productionDatabaseTargeted": "NO",
+    "productionDatabaseName": "rentipid_production",
+    "productionNeonHost": "ep-gentle-fog-apwlhnhf"
+  },
+  "previewMigrationStatus": {
+    "status": "PASS",
+    "existingGlccMigration": "20260925000000_add_user_global_preference",
+    "existingGlccMigrationStatus": "PRESENT / APPLIED — PASS",
+    "newPreviewMigrationRequired": "NO",
+    "migrationErrors": 0,
+    "schemaMismatchErrors": 0
+  },
+  "previewHealth": {
+    "status": "PASS",
+    "httpStatus": 200,
+    "bodyStatus": "ready",
+    "databaseStatus": "connected"
+  },
+  "canonicalTranslationContract": {
+    "canonicalKeyCount": 2208,
+    "enPhCoverage": "100%",
+    "filPhCoverage": "100%",
+    "filPhRequiredFallback": 0,
+    "jaJpTranslationKeys": 0
+  },
+  "localeReleasePolicy": {
+    "enPh": "PRODUCTION_READY",
+    "filPh": "QA_REQUIRED",
+    "enUs": "TRANSLATION_IN_PROGRESS",
+    "jaJp": "REGISTERED"
+  },
+  "firewalls": {
+    "productionSelectability": "PASS",
+    "resolverSecurity": "PASS",
+    "languageCountry": "PASS",
+    "languageDisplayCurrency": "PASS",
+    "languageChargeCurrency": "PASS",
+    "paymentAuthority": "UNCHANGED — PASS",
+    "languageRbac": "PASS",
+    "languageKycAuthority": "PASS",
+    "languageJurisdiction": "PASS",
+    "legalControlledContent": "PASS",
+    "authoritativeSourcePreserved": "PASS",
+    "unapprovedLegalTranslationBlocked": "PASS",
+    "controlledVersionConsistency": "PASS",
+    "aiAuthoritativeLegalPromotionBlocked": "PASS",
+    "ugcBoundary": "PASS",
+    "generatedContent": "PASS"
+  },
+  "previewApiAcceptance": {
+    "status": "PASS",
+    "endpointsTested": [
+      "/api/health",
+      "/api/preferences"
+    ],
+    "unauthorizedMutation": "NONE",
+    "clientSuppliedChargeCurrencyAuthority": "REJECTED (HTTP 400)"
+  },
+  "acceptanceResults": {
+    "browserMatrixStatus": "FAIL",
+    "totalAutomatedScenarios": 26,
+    "passedScenarios": 24,
+    "failedScenarios": 2,
+    "realBrowserSubagentExecution": {
+      "recording": "preview_g7_acceptance_1790826511795.webp",
+      "status": "FAIL",
+      "failureDetail": "Language selector modal on preview renders fil-PH as 'Unavailable' due to NODE_ENV !== 'production' check in client bundle"
+    },
+    "specificGateCheckpoints": {
+      "enPhPreviewAcceptance": "PASS",
+      "filPhPreviewAcceptance": "FAIL (Blocked in UI selector)",
+      "clientImmediateRerender": "FAIL (Cannot select fil-PH in UI)",
+      "serverNextRouteLocale": "PASS (Via cookie SSR)",
+      "filPhPreviewRoutePersistence": "PASS (Via cookie SSR)",
+      "filPhPreviewHardRefresh": "PASS (Via cookie SSR)",
+      "guestPreviewAcceptance": "PASS (API/SSR verified)",
+      "authPreviewAcceptance": "BLOCKED / FAIL (No authorized test account credentials in preview DB; returns 401)",
+      "previewLanguageSelector": "FAIL (fil-PH marked Unavailable in preview client bundle)",
+      "htmlLangPreview": "PASS (en-PH: en-PH, fil-PH: fil-PH via SSR)",
+      "directionPreview": "PASS (ltr)",
+      "hydrationLocaleWarnings": 0,
+      "visibleEnglishFlashOnFilPh": 0,
+      "rawTranslationKeyRenderCount": 0,
+      "filPhRequiredEnglishFallbackCount": 0
+    }
+  },
+  "defectsIdentified": [
+    {
+      "defectId": "GLCC-LOC-002",
+      "severity": "HIGH FUNCTIONAL DEFECT",
+      "title": "Client-side Preview QA Mode Disabled by NODE_ENV !== 'production' Guard in LanguageSelector.tsx and Unexposed Server Flag in GlobalPreferencesModal.tsx",
+      "affectedFiles": [
+        "src/components/glcc/LanguageSelector.tsx",
+        "src/components/glcc/GlobalPreferencesModal.tsx"
+      ],
+      "rootCause": "In Next.js production builds on Vercel Preview, process.env.NODE_ENV is inlined as 'production', causing the compiler to dead-code eliminate client-side QA parameter (?glcc_qa=true) and cookie checks. Furthermore, GLCC_ENABLE_LOCAL_QA_MODE lacks NEXT_PUBLIC_ prefix, leaving resolverMode undefined and forcing PRODUCTION mode where QA_REQUIRED locales are disabled.",
+      "impact": "fil-PH is displayed as 'Unavailable' in the deployed Preview Global Preferences modal, preventing users from selecting and testing Filipino localization interactively."
+    },
+    {
+      "defectId": "GLCC-ENV-001",
+      "severity": "MEDIUM ENVIRONMENT BLOCKER",
+      "title": "No Authorized Preview Test Account Credentials in Preview Neon Database",
+      "affectedFiles": [],
+      "rootCause": "Existing seeded development accounts (renter@rentipid.local, superadmin@rentipid.local, oat.*) are not provisioned with matching credentials in the isolated Preview database (rentipid_preview on ep-cold-dawn-apgmmi53), returning 401 Invalid Credentials on login attempts.",
+      "impact": "Precludes completion of Section 15 Authenticated Flow on the live Preview environment without violating database immutability or production credential firewalls."
+    }
+  ],
+  "productionGuards": {
+    "productionDeployed": false,
+    "productionAliasModified": false,
+    "productionDatabaseTouched": false,
+    "wwwRentipidComPhModified": false
+  },
+  "lifecycleGates": {
+    "G1_CODE_COMPLETE": "PROMOTED",
+    "G2_LOCAL_FUNCTIONAL": "PROMOTED",
+    "G3_LOCAL_DATABASE_MIGRATED": "PROMOTED",
+    "G4_LOCAL_REQUIRED_DATA_SEEDED_SYNCED": "PROMOTED",
+    "G5_LOCAL_ACCEPTANCE_PASS": "PROMOTED",
+    "G6_PREVIEW_MIGRATED": "PROMOTED",
+    "G7_PREVIEW_ACCEPTANCE_PASS": "NOT PROMOTED",
+    "G8_PRODUCTION_READY": "NOT PROMOTED",
+    "G9_PRODUCTION_DEPLOYMENT": "NOT PROMOTED",
+    "G10_COMPLETED": "NOT PROMOTED",
+    "G11_ACCEPTED": "NOT PROMOTED",
+    "G12_CLOSED": "NOT PROMOTED",
+    "G13_VERSION_FROZEN": "NOT PROMOTED"
+  }
+}
