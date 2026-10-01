@@ -1,0 +1,66 @@
+{
+  "gate": "G3 LOCAL DATABASE MIGRATED",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "evaluatedTimestamp": "2026-10-01T08:55:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "headCommit": "b97b6a94410d9e2fb9704b5b10dcda5000b47905",
+  "g1PromotionCommit": "cea387c683cb14b35e44d8f12b9c3f7de6af28a7",
+  "g2PromotionCommit": "b97b6a94410d9e2fb9704b5b10dcda5000b47905",
+  "workingTreeState": "CLEAN",
+  "schemaValidation": {
+    "schema": "prisma/schema.prisma",
+    "status": "VALID",
+    "validatorOutput": "The schema at prisma\\schema.prisma is valid"
+  },
+  "generatedClientSynchronization": {
+    "client": "@prisma/client (v6.19.3)",
+    "status": "SYNCHRONIZED"
+  },
+  "modelVerification": {
+    "model": "UserGlobalPreference",
+    "fields": [
+      "id",
+      "user_id",
+      "language_tag",
+      "country_code",
+      "display_currency",
+      "is_manual_display_override",
+      "timezone",
+      "version",
+      "created_at",
+      "updated_at"
+    ],
+    "status": "VERIFIED_COMPATIBLE"
+  },
+  "migrationRequirement": {
+    "newMigrationsRequired": 0,
+    "migrationStatus": "NOT REQUIRED — VERIFIED",
+    "justification": "The baseline schema already contains the UserGlobalPreference model supporting language_tag, country_code, and display_currency. Guest preferences utilize signed client cookies (glcc_user_preferences) requiring zero schema mutations."
+  },
+  "databaseSafety": {
+    "destructiveOperationsAttempted": 0,
+    "existingDataPreserved": true,
+    "status": "PASS"
+  },
+  "deploymentStatus": {
+    "previewDeployed": "NO",
+    "productionDeployed": "NO"
+  },
+  "lifecycleGates": {
+    "G1_CODE_COMPLETE": "PROMOTED",
+    "G2_LOCAL_FUNCTIONAL": "PROMOTED",
+    "G3_LOCAL_DATABASE_MIGRATED": "PROMOTED",
+    "G4_LOCAL_REQUIRED_DATA_SEEDED_SYNCED": "NOT PROMOTED",
+    "G5_LOCAL_ACCEPTANCE_PASS": "NOT PROMOTED",
+    "G6_PREVIEW_MIGRATED": "NOT PROMOTED",
+    "G7_PREVIEW_ACCEPTANCE_PASS": "NOT PROMOTED",
+    "G8_PRODUCTION_READY": "NOT PROMOTED",
+    "G9_PRODUCTION_DEPLOYMENT": "NOT PROMOTED",
+    "G10_COMPLETED": "NOT PROMOTED",
+    "G11_ACCEPTED": "NOT PROMOTED",
+    "G12_CLOSED": "NOT PROMOTED",
+    "G13_VERSION_FROZEN": "NOT PROMOTED"
+  },
+  "determination": "PROMOTED"
+}
