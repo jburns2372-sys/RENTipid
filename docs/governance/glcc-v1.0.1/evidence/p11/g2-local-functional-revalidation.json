@@ -1,0 +1,126 @@
+{
+  "gate": "G2 LOCAL FUNCTIONAL — CORRECTED CANDIDATE REVALIDATION",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "revalidationStatus": "PROMOTED",
+  "revalidationTimestamp": "2026-10-02T10:47:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "g1RevalidationCommit": "758df5068e9d95de0330c87f6f2d7dc1e260541b",
+  "correctedRuntimeCandidate": "9f5db74f25600e17f41bf3486f7659c95f0c7587",
+  "localApplication": {
+    "server": "Next.js 16.2.12 (Turbopack)",
+    "localUrl": "http://localhost:3000",
+    "status": "PASS",
+    "reachable": true,
+    "fatalStartupErrors": 0
+  },
+  "trustedQaPolicySimulation": {
+    "method": "NEXT_PUBLIC_VERCEL_ENV=preview, NEXT_PUBLIC_GLCC_PREVIEW_QA_ENABLED=true, GLCC_ENABLE_LOCAL_QA_MODE=true",
+    "status": "PASS",
+    "tamperResistanceVerified": true
+  },
+  "browserMatrix": {
+    "suite": "Playwright Headless Browser Matrix (All 26 Scenarios)",
+    "scenariosTotal": 26,
+    "scenariosPassed": 26,
+    "scenariosFailed": 0,
+    "status": "PASS",
+    "details": [
+      { "scenario": 1, "name": "en-PH landing", "status": "PASS" },
+      { "scenario": 2, "name": "trusted-QA fil-PH selector available", "status": "PASS" },
+      { "scenario": 3, "name": "fil-PH Apply", "status": "PASS" },
+      { "scenario": 4, "name": "immediate rerender", "status": "PASS" },
+      { "scenario": 5, "name": "fil-PH navigation", "status": "PASS" },
+      { "scenario": 6, "name": "fil-PH hard refresh", "status": "PASS" },
+      { "scenario": 7, "name": "reverse en-PH switch", "status": "PASS" },
+      { "scenario": 8, "name": "Cancel", "status": "PASS" },
+      { "scenario": 9, "name": "close without Apply", "status": "PASS" },
+      { "scenario": 10, "name": "guest persistence", "status": "PASS" },
+      { "scenario": 11, "name": "authenticated flow", "status": "PASS" },
+      { "scenario": 12, "name": "login/logout", "status": "PASS" },
+      { "scenario": 13, "name": "browse/search", "status": "PASS" },
+      { "scenario": 14, "name": "listing/detail", "status": "PASS" },
+      { "scenario": 15, "name": "renter surface", "status": "PASS" },
+      { "scenario": 16, "name": "provider surface", "status": "PASS" },
+      { "scenario": 17, "name": "Global Preferences", "status": "PASS" },
+      { "scenario": 18, "name": "support/help", "status": "PASS" },
+      { "scenario": 19, "name": "legal/compliance", "status": "PASS" },
+      { "scenario": 20, "name": "admin/Super Admin where authorized", "status": "PASS" },
+      { "scenario": 21, "name": "Production fil-PH blocked", "status": "PASS" },
+      { "scenario": 22, "name": "en-US blocked", "status": "PASS" },
+      { "scenario": 23, "name": "ja-JP blocked", "status": "PASS" },
+      { "scenario": 24, "name": "query QA injection blocked", "status": "PASS" },
+      { "scenario": 25, "name": "cookie QA injection blocked", "status": "PASS" },
+      { "scenario": 26, "name": "country/currency/payment/RBAC independence", "status": "PASS" }
+    ]
+  },
+  "runtimeGuards": {
+    "hydrationLocaleWarnings": 0,
+    "visibleEnglishFlashOnFilPh": 0,
+    "rawTranslationKeyRenderCount": 0,
+    "filPhRequiredEnglishFallbackCount": 0,
+    "unapprovedRequiredHardcodedUiStringCount": 0
+  },
+  "translationContractMetrics": {
+    "canonicalKeyCount": 2208,
+    "enPhCoverage": "100%",
+    "filPhCoverage": "100%",
+    "filPhReleaseStatus": "QA_REQUIRED",
+    "jaJpReleaseStatus": "REGISTERED",
+    "jaJpTranslationKeys": 0
+  },
+  "securityAndIndependenceInvariants": {
+    "languageCountryIndependence": "PASS",
+    "languageDisplayCurrencyIndependence": "PASS",
+    "languageChargeCurrencyIndependence": "PASS",
+    "paymentAuthorityUnchanged": "PASS",
+    "languageRbacIndependence": "PASS",
+    "languageKycAuthorityIndependence": "PASS",
+    "languageJurisdictionIndependence": "PASS",
+    "controlledLegalContent": "PASS",
+    "unapprovedLegalTranslation": "BLOCKED — PASS",
+    "aiAuthoritativeLegalPromotion": "BLOCKED — PASS",
+    "generatedContentLocalFunctional": "PASS"
+  },
+  "databaseBoundary": {
+    "localDatabaseFunctionalAccess": "PASS",
+    "databaseMigrationPerformed": "NO",
+    "dataSeedSyncPerformed": "NO",
+    "productionDatabaseTouched": "NO"
+  },
+  "screenshots": [
+    "docs/governance/glcc-v1.0.1/evidence/p11/screenshots/01_trusted_qa_fil_ph_selectable.png",
+    "docs/governance/glcc-v1.0.1/evidence/p11/screenshots/02_fil_ph_after_apply.png",
+    "docs/governance/glcc-v1.0.1/evidence/p11/screenshots/03_fil_ph_after_route_navigation.png",
+    "docs/governance/glcc-v1.0.1/evidence/p11/screenshots/04_fil_ph_after_hard_refresh.png",
+    "docs/governance/glcc-v1.0.1/evidence/p11/screenshots/05_global_preferences_fil_ph.png",
+    "docs/governance/glcc-v1.0.1/evidence/p11/screenshots/06_authenticated_filipino_surface.png",
+    "docs/governance/glcc-v1.0.1/evidence/p11/screenshots/07_production_policy_fil_ph_blocked.png"
+  ],
+  "sourceImmutability": {
+    "runtimeDifferenceAfterCorrectedSource": 0,
+    "schemaModifications": 0,
+    "migrationModifications": 0
+  },
+  "deploymentBoundary": {
+    "correctedRuntimePreviewDeployed": false,
+    "correctedRuntimeProductionDeployed": false
+  },
+  "lifecycleStatus": {
+    "g1CodeComplete": "PROMOTED — REVALIDATED",
+    "g2LocalFunctional": "PROMOTED — REVALIDATED",
+    "g3LocalDatabaseMigrated": "NOT YET REVALIDATED",
+    "g4LocalRequiredDataSeeded": "NOT YET REVALIDATED",
+    "g5LocalAcceptancePass": "NOT YET REVALIDATED",
+    "g6PreviewMigrated": "NOT YET REVALIDATED",
+    "g7PreviewAcceptancePass": "NOT PROMOTED",
+    "g8ProductionReady": "NOT PROMOTED",
+    "g9ProductionDeployment": "NOT PROMOTED",
+    "g10Completed": "NOT PROMOTED",
+    "g11Accepted": "NOT PROMOTED",
+    "g12Closed": "NOT PROMOTED",
+    "g13VersionFrozen": "NOT PROMOTED"
+  },
+  "determination": "PROMOTED",
+  "nextPermittedLifecycleAction": "G3 LOCAL DATABASE MIGRATED REVALIDATION"
+}
