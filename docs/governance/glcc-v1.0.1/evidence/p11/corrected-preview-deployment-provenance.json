@@ -1,0 +1,89 @@
+{
+  "action": "TARGETED PREVIEW DEPLOYMENT PROVENANCE CORRECTION",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "timestamp": "2026-10-02T11:54:00+08:00",
+  "status": "PASS",
+  "provisionalDeployment": {
+    "deploymentId": "dpl_C9jxLQM5KK7Tx6TPaDSHwwp9g87g",
+    "status": "SUPERSEDED — NOT G7 CHECKPOINT",
+    "reason": "Created while working tree contained uncommitted package.json engine alignment change"
+  },
+  "packageJsonInspection": {
+    "packageJsonModified": true,
+    "diffDescription": "engines.node updated from 20.x to 24.x to satisfy Vercel platform runtime requirements (Node 20 EOL deprecation)",
+    "unrelatedChanges": 0,
+    "packageJsonChangeRequired": true
+  },
+  "buildConfigCorrectiveCommit": {
+    "commitSha": "89aeef75af7992bd2632da7bdc8e2594af11a239",
+    "commitMessage": "fix(build): align Node engine with Vercel runtime",
+    "nature": "Targeted build-configuration correction only"
+  },
+  "minimalValidation": {
+    "nodeVersion": "v22.22.2",
+    "typecheck": "PASS",
+    "glccCi": "PASS (732/732 tests passed across 39 suites)",
+    "prisma": "PASS (The schema at prisma/schema.prisma is valid)",
+    "nextBuild": "PASS (Optimized production build compiled in 39.6s, 78/78 static pages generated)"
+  },
+  "cleanDeploymentSource": {
+    "commitSha": "89aeef75af7992bd2632da7bdc8e2594af11a239",
+    "workingTreeAtDeployment": "CLEAN",
+    "uncommittedFilesIncluded": false,
+    "deploymentProvenance": "PASS"
+  },
+  "newPreviewDeployment": {
+    "deploymentId": "dpl_T3JDmsD7UsPy6oLtambLhdADFyuF",
+    "deploymentUrl": "https://ren-tipid-dp4hrwutr-jburns2372-sys-projects.vercel.app",
+    "previewAlias": "https://preview.rentipid.com.ph",
+    "targetEnvironment": "preview",
+    "readyState": "READY",
+    "deployedGitSha": "89aeef75af7992bd2632da7bdc8e2594af11a239"
+  },
+  "previewHealth": {
+    "endpoint": "https://preview.rentipid.com.ph/api/health",
+    "httpStatus": 200,
+    "status": "ready",
+    "database": "connected",
+    "targetDatabase": "rentipid_preview",
+    "result": "PASS"
+  },
+  "previewAuthConnectivity": {
+    "status": "PASS",
+    "http401InvalidCredentials": 0,
+    "identitiesTested": [
+      {
+        "email": "oat.renter@rentipid.test",
+        "role": "Renter",
+        "status": "PASS"
+      },
+      {
+        "email": "oat.superadmin@rentipid.test",
+        "role": "Super Admin",
+        "status": "PASS"
+      }
+    ]
+  },
+  "productionSafety": {
+    "productionDeployed": false,
+    "productionDatabaseTouched": false,
+    "productionEnvModified": false,
+    "productionAliasModified": false,
+    "productionAlias": "https://www.rentipid.com.ph (UNTOUCHED)"
+  },
+  "preservationOfPriorValidations": {
+    "g1Validation": "PRESERVED — NOT REPEATED",
+    "g2Validation": "PRESERVED — NOT REPEATED",
+    "g3Validation": "PRESERVED — NOT REPEATED",
+    "g4Validation": "PRESERVED — NOT REPEATED",
+    "g5Validation": "PRESERVED — NOT REPEATED",
+    "g6DatabaseMigrationValidation": "PRESERVED — NOT REPEATED",
+    "statement": "No completed or validated lifecycle phase was rerun."
+  },
+  "lifecycleGovernance": {
+    "g7PreviewAcceptancePass": "NOT PROMOTED",
+    "g8ProductionReady": "NOT PROMOTED",
+    "nextPermittedAction": "G7 PREVIEW ACCEPTANCE RETEST"
+  }
+}
