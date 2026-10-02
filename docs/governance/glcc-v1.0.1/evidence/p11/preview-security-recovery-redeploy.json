@@ -1,0 +1,60 @@
+{
+  "action": "PREVIEW SECURITY-RECOVERY REDEPLOYMENT",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "timestamp": "2026-10-02T09:30:00+08:00",
+  "reason": "Redeploy previously accepted G6 Preview source so serverless lambda instances pick up the rotated Preview database credential",
+  "securityRecoveryStatus": "PASS",
+  "rotatedSecretStatus": "PRESENT — PASS",
+  "historicalDeployment": {
+    "deploymentId": "dpl_C1HgccALc3CXautDvMk8mC53Xwm7",
+    "deployedGitSha": "5653687bda7388190014d6dbc52a75f279ac3011",
+    "runtimeSourceSha": "7fa5ef4be76e4c7b919f8e37ad09f1acc4550841",
+    "environment": "Preview"
+  },
+  "securityRecoveryDeployment": {
+    "deploymentId": "dpl_GdEzKFUj6LZPT4qeeUxoF9LjzDSS",
+    "deploymentUrl": "https://ren-tipid-djspdxt50-jburns2372-sys-projects.vercel.app",
+    "previewAlias": "https://preview.rentipid.com.ph",
+    "deployedSourceSha": "5653687bda7388190014d6dbc52a75f279ac3011",
+    "sourceOrigin": "HISTORICAL G6 PREVIEW SOURCE",
+    "environment": "Preview",
+    "buildStatus": "Ready"
+  },
+  "correctiveRuntimeDeployment": {
+    "correctiveRuntimeCommit": "9f5db74f25600e17f41bf3486f7659c95f0c7587",
+    "deployedDuringSecurityRecovery": false,
+    "proof": "Capabilities keys on /api/preferences in deployed application lack resolverMode (which exists only in corrective commit 9f5db74), verifying historical source 5653687 was redeployed."
+  },
+  "previewHealth": {
+    "endpoint": "https://preview.rentipid.com.ph/api/health",
+    "httpStatus": 200,
+    "status": "ready",
+    "database": "connected",
+    "result": "PASS"
+  },
+  "previewDatabase": {
+    "target": "rentipid_preview",
+    "isolation": "PASS",
+    "productionDatabaseTargeted": false
+  },
+  "previewAuth": {
+    "testIdentity": "oat.renter@rentipid.test",
+    "loginStatus": "PASS",
+    "sessionEstablished": true,
+    "role": "Renter",
+    "http401InvalidCredentials": 0,
+    "testIdentityAvailable": true
+  },
+  "productionSafety": {
+    "productionDeployed": false,
+    "productionDatabaseTouched": false,
+    "productionEnvModified": false,
+    "productionAliasModified": false,
+    "productionDatabaseCredential": "UNCHANGED"
+  },
+  "lifecycleGovernance": {
+    "g7Promotion": "NOT PROMOTED",
+    "nextPermittedAction": "G1 CODE COMPLETE REVALIDATION FOR CORRECTED CANDIDATE"
+  }
+}
