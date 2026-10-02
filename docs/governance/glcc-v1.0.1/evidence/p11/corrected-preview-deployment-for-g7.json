@@ -1,0 +1,73 @@
+{
+  "action": "CORRECTED CANDIDATE PREVIEW DEPLOYMENT FOR G7 RETEST",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "timestamp": "2026-10-02T11:34:00+08:00",
+  "status": "PASS",
+  "correctedRuntimeSha": "9f5db74f25600e17f41bf3486f7659c95f0c7587",
+  "deploymentSourceSha": "6298c82e844f710a689890262aabd0ce4cde76f6",
+  "deployment": {
+    "deploymentId": "dpl_C9jxLQM5KK7Tx6TPaDSHwwp9g87g",
+    "deploymentUrl": "https://ren-tipid-ewlc6jh9d-jburns2372-sys-projects.vercel.app",
+    "previewAlias": "https://preview.rentipid.com.ph",
+    "targetEnvironment": "preview",
+    "readyState": "READY",
+    "nodeVersion": "24.x",
+    "packageJsonEngineUpdate": "node: 20.x -> 24.x applied per user authorization to resolve Vercel platform EOL deprecation"
+  },
+  "runtimeIdentityVerification": {
+    "correctedRuntimeDeployed": true,
+    "historicalG6RuntimeActive": false,
+    "proof": "/api/preferences capabilities object contains 'resolverMode': 'PRODUCTION', introduced in corrective runtime 9f5db74f25600e17f41bf3486f7659c95f0c7587 and absent in historical G6"
+  },
+  "previewHealth": {
+    "endpoint": "https://preview.rentipid.com.ph/api/health",
+    "httpStatus": 200,
+    "status": "ready",
+    "database": "connected",
+    "targetDatabase": "rentipid_preview",
+    "result": "PASS"
+  },
+  "previewAuthConnectivity": {
+    "status": "PASS",
+    "http401InvalidCredentials": 0,
+    "identitiesTested": [
+      {
+        "email": "oat.renter@rentipid.test",
+        "role": "Renter",
+        "status": "PASS"
+      },
+      {
+        "email": "oat.superadmin@rentipid.test",
+        "role": "Super Admin",
+        "status": "PASS"
+      }
+    ]
+  },
+  "databaseAndDataPreservation": {
+    "newMigrationRequired": false,
+    "migrationExecuted": false,
+    "newSeedRequired": false,
+    "newSyncRequired": false,
+    "g3Validation": "PRESERVED — NOT REPEATED",
+    "g4Validation": "PRESERVED — NOT REPEATED",
+    "g5Validation": "PRESERVED — NOT REPEATED",
+    "g6DatabaseMigrationValidation": "PRESERVED — NOT REPEATED"
+  },
+  "productionSafety": {
+    "productionDeployed": false,
+    "productionDatabaseTouched": false,
+    "productionEnvModified": false,
+    "productionAliasModified": false,
+    "productionDatabaseCredential": "UNCHANGED",
+    "productionAlias": "https://www.rentipid.com.ph (UNTOUCHED)"
+  },
+  "lifecycleGovernance": {
+    "g6PreviewMigrated": "PRESERVED (NO RE-PROMOTION)",
+    "g7PreviewAcceptancePass": "NOT PROMOTED",
+    "g8ProductionReady": "NOT PROMOTED",
+    "statementOnCompletedGates": "No completed or validated gate was repeated. G3, G4, G5, and G6 database migration remain strictly preserved.",
+    "statementOnG7Acceptance": "G7 Preview Acceptance Pass was NOT executed in this deployment task.",
+    "nextPermittedAction": "G7 PREVIEW ACCEPTANCE RETEST"
+  }
+}
