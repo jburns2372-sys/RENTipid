@@ -118,12 +118,36 @@ Created dedicated regression suite:
 
 ---
 
-## 7. Lifecycle Action & Next Permitted Gate
+## 7. Preview Database Credential Rotation & Security Remediation
 
-Because runtime source code was modified during this corrective remediation cycle, the RENTipid Universal Standard (`.agents/AGENTS.md`) mandates that the corrected candidate undergo **Lifecycle Revalidation** starting from Gate G1 (Code Complete Revalidation).
+Following diagnostic execution during G7 auth verification, a Preview database credential exposure was identified and remediated in accordance with RENTipid security governance policies.
 
-- **Corrective Status:** **PASS** (Both `GLCC-LOC-002` and `GLCC-ENV-001` REMEDIATED)
-- **G7 Preview Acceptance Pass Status:** **NOT PROMOTED** (Frozen Preview checkpoint pending full revalidation)
-- **Next Permitted Lifecycle Action:** **G1 CODE COMPLETE REVALIDATION FOR CORRECTED CANDIDATE** (G1 Revalidation must pass before re-attempting G7 acceptance)
-- **Prohibited Next Actions:** DO NOT start G1 revalidation in this turn; DO NOT start G7 again; DO NOT start G8; DO NOT deploy Preview; DO NOT deploy Production.
+| Security Remediation Gate | Governed Requirement | Result | Verified Evidence / Details |
+|---|---|---|---|
+| **Affected DB Identification** | Identify affected Preview target only | **PASS** | Target confirmed as `rentipid_preview` (`neondb_owner` role, `preview-insurance` branch `br-misty-tree-apcv9wv5`, project `holy-shape-01357429`, host `ep-cold-dawn-apgmmi53-pooler.c-7.us-east-1.aws.neon.tech`). Production DB targeted: NO. |
+| **Preview Credential Rotation** | Rotate role password via Neon API | **YES** | Authenticated call to Neon API (`POST /projects/holy-shape-01357429/branches/br-misty-tree-apcv9wv5/roles/neondb_owner/reset_password`) executed; new credential issued safely in-memory without logging. |
+| **Old Credential Revocation** | Confirm old credential rejected | **REVOKED / INVALIDATED — PASS** | Attempted connection to `rentipid_preview` using old compromised credential was strictly rejected with Postgres error `28P01` (password authentication failed). |
+| **New Credential Verification** | Verify connection with rotated credential | **PASS** | Connected to `rentipid_preview` using new rotated credential; verified database name `rentipid_preview` and user records intact. |
+| **Vercel Preview Env Update** | Update Preview DATABASE_URL secret | **UPDATED — PASS** | Executed Vercel CLI `env add DATABASE_URL preview --force --sensitive --yes` (exit code 0); Preview database secret updated. |
+| **Vercel Production Isolation** | Ensure Production env unchanged | **UNCHANGED — PASS** | Verified Vercel Production environment variables; Production `DATABASE_URL` remains completely untouched and unchanged. |
+| **Git Secret Scan** | Scan tracked files and git history | **PASS** | `git grep` and `git log -S` for compromised secret returned exactly 0 occurrences across all tracked files and commit history. |
+| **Local Secret Sanitation** | Purge obsolete scratch files | **PASS** | Removed all obsolete scratch scripts embedding old connection string; sanitized local config; zero secrets committed to Git. |
+| **Preview Application Health** | Probe `https://preview.rentipid.com.ph/api/health` | **DEFERRED (REDEPLOY REQUIRED)** | Health probe returned HTTP 503 (`database: unavailable`), confirming running serverless deployment does not dynamically reload modified environment variables. |
+| **Preview Redeploy Requirement** | Determine if redeployment required | **YES** | A Preview redeployment is required to inject the rotated `DATABASE_URL` secret into runtime serverless lambda instances. |
+| **Preview Auth Post-Rotation** | Verify auth state post-rotation | **DEFERRED — REDEPLOY REQUIRED** | Auth verification deferred pending Preview redeployment with rotated database secret. |
+| **Production Safety** | Zero impact on Production | **PASS** | Production DB touched: NO; Production DB credential rotated: NO; Production Vercel env modified: NO; Production deployed: NO; Production alias modified: NO. |
+
+---
+
+## 8. Lifecycle Action & Next Permitted Gate
+
+Because a Preview redeployment is required for the application to consume the newly rotated database credential, execution must stop before lifecycle revalidation.
+
+- **Corrective Status:** **PASS** (`GLCC-LOC-002` and `GLCC-ENV-001` REMEDIATED)
+- **Security Corrective Status:** **PASS** (Preview database credential rotated, old credential invalidated, Vercel Preview env updated)
+- **Preview Redeploy Required for Rotated Secret:** **YES**
+- **G7 Preview Acceptance Pass Status:** **NOT PROMOTED** (Frozen Preview checkpoint pending redeployment and revalidation)
+- **Next Permitted Lifecycle Action:** **STOP. Await authorized Preview deployment with rotated database credential before G1 revalidation.**
+- **Prohibited Next Actions:** DO NOT start G1 revalidation in this turn; DO NOT start G7 again; DO NOT start G8; DO NOT deploy Preview without authorization; DO NOT deploy Production.
+
 

@@ -131,9 +131,33 @@
       "productionDeployed": "NO"
     }
   },
+  "databaseCredentialRotation": {
+    "previewDatabase": "rentipid_preview",
+    "previewDatabaseCredentialRotated": true,
+    "oldPreviewDatabaseCredential": "REVOKED / INVALIDATED",
+    "vercelPreviewDatabaseSecret": "UPDATED — PASS",
+    "vercelProductionDatabaseSecret": "UNCHANGED — PASS",
+    "oldSecretRemovedFromActiveLocalPreviewConfig": "PASS",
+    "exposedPreviewDbSecretInTrackedFiles": 0,
+    "fullSecretBearingPreviewDatabaseUrlInTrackedFiles": 0,
+    "oldPreviewCredentialAuthentication": "REJECTED — PASS",
+    "newPreviewDatabaseConnection": "PASS",
+    "previewRedeployRequiredForRotatedSecret": true,
+    "previewHealth": "DEFERRED",
+    "previewAuthPostRotation": "DEFERRED — REDEPLOY REQUIRED",
+    "productionSafety": {
+      "productionDatabaseTouched": false,
+      "productionDatabaseCredentialRotated": false,
+      "productionVercelEnvModified": false,
+      "productionDeployed": false,
+      "productionAliasModified": false
+    }
+  },
   "nextAction": {
-    "gate": "G1 CODE COMPLETE REVALIDATION",
+    "status": "STOP — PREVIEW REDEPLOY REQUIRED",
+    "gate": "AWAIT AUTHORIZED PREVIEW REDEPLOYMENT",
     "prohibitedActions": [
+      "DO NOT START G1 REVALIDATION",
       "DO NOT PROMOTE G7",
       "DO NOT START G8",
       "DO NOT DEPLOY PRODUCTION",
