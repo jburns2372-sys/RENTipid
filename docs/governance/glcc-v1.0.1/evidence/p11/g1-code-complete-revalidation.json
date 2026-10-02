@@ -1,0 +1,97 @@
+{
+  "gate": "G1 CODE COMPLETE — CORRECTED CANDIDATE REVALIDATION",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "revalidationStatus": "PROMOTED",
+  "revalidationTimestamp": "2026-10-02T10:30:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "correctedRuntimeCandidate": "9f5db74f25600e17f41bf3486f7659c95f0c7587",
+  "governanceHead": "179a8e535693d7e038e6a82f81804ac636e627d7",
+  "runtimeDifferenceAfterCorrectedSource": 0,
+  "remediatedBlockers": [
+    {
+      "defectId": "GLCC-LOC-002",
+      "status": "REMEDIATED — PASS",
+      "summary": "Preview interactive QA activation failure resolved via NEXT_PUBLIC_VERCEL_ENV and server-to-client resolverMode propagation."
+    },
+    {
+      "defectId": "GLCC-ENV-001",
+      "status": "REMEDIATED — PASS",
+      "summary": "Missing EmailCredential rows resolved via atomic upsert in provisionAiOatActors and readiness verification in ai-oat.ts."
+    }
+  ],
+  "securityRemediation": {
+    "previewDbCredentialRotated": true,
+    "oldPreviewCredentialRevoked": "REVOKED / INVALIDATED — PASS",
+    "vercelPreviewEnvUpdated": "UPDATED — PASS",
+    "previewSecurityRecoveryRedeploy": "SUCCESS",
+    "trackedSecretFindings": 0
+  },
+  "qaPolicyArchitecture": {
+    "trustedPreviewQaPolicy": "PASS",
+    "productionFailClosedPolicy": "PASS",
+    "qaPolicyInjection": "BLOCKED — PASS",
+    "filPhPreviewQaSelectability": "PASS",
+    "enUsBlocked": true,
+    "jaJpBlocked": true
+  },
+  "authTestMechanism": {
+    "status": "PASS",
+    "previewAuthReadiness": "PASS",
+    "livePreviewLogin": "PASS",
+    "http401InvalidCredentials": 0,
+    "previewTestIdentity": "AVAILABLE"
+  },
+  "databaseImpact": {
+    "prismaSchemaChange": "NO",
+    "newMigration": "NO",
+    "productionDatabaseTouched": "NO"
+  },
+  "localeReleaseGovernance": {
+    "en-PH": "PRODUCTION_READY",
+    "fil-PH": "QA_REQUIRED",
+    "en-US": "TRANSLATION_IN_PROGRESS",
+    "ja-JP": "REGISTERED",
+    "jaJpTranslationKeys": 0
+  },
+  "translationContract": {
+    "canonicalKeyCount": 2208,
+    "enPhCoverage": "100% (2208/2208)",
+    "filPhCoverage": "100% (2208/2208)",
+    "filPhRequiredFallback": 0,
+    "rawTranslationKeys": 0,
+    "unapprovedHardcodedUiStrings": 0
+  },
+  "qualityVerificationBaseline": {
+    "sourceCommit": "9f5db74f25600e17f41bf3486f7659c95f0c7587",
+    "typecheck": "PASS",
+    "eslint": "PASS",
+    "prisma": "PASS",
+    "glccCiSuites": "39/39 PASS",
+    "glccCiTests": "732/732 PASS",
+    "deployedBuildRegression": "6/6 PASS",
+    "nextBuild": "PASS"
+  },
+  "requiredCodeBlockers": 0,
+  "deploymentBoundary": {
+    "correctedRuntimePreviewDeployed": false,
+    "correctedRuntimeProductionDeployed": false,
+    "activePreviewDeployment": "dpl_GdEzKFUj6LZPT4qeeUxoF9LjzDSS (Historical G6 Source Redeploy for Rotated DB Secret)"
+  },
+  "lifecycleStatus": {
+    "g1CodeComplete": "PROMOTED — REVALIDATED",
+    "g2LocalFunctional": "NOT YET REVALIDATED",
+    "g3LocalDatabaseMigrated": "NOT YET REVALIDATED",
+    "g4LocalRequiredDataSeeded": "NOT YET REVALIDATED",
+    "g5LocalAcceptancePass": "NOT YET REVALIDATED",
+    "g6PreviewMigrated": "NOT YET REVALIDATED",
+    "g7PreviewAcceptancePass": "NOT PROMOTED",
+    "g8ProductionReady": "NOT PROMOTED",
+    "g9ProductionDeployment": "NOT PROMOTED",
+    "g10Completed": "NOT PROMOTED",
+    "g11Accepted": "NOT PROMOTED",
+    "g12Closed": "NOT PROMOTED",
+    "g13VersionFrozen": "NOT PROMOTED"
+  },
+  "nextPermittedLifecycleAction": "G2 LOCAL FUNCTIONAL REVALIDATION"
+}
