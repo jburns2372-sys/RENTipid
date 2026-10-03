@@ -1,0 +1,125 @@
+{
+  "gate": "G9 PRODUCTION DEPLOYMENT/VERIFICATION",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "status": "FAIL — ROLLED BACK",
+  "determination": "FAIL — ROLLED BACK (Section 17 Stop Condition: No pre-authorized Production verification identity available; zero HTTP 401s requirement could not be satisfied without credentials. Immediate safe rollback to pre-G9 baseline executed and verified per Section 22.)",
+  "evaluatedTimestamp": "2026-10-03T10:18:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "g8GovernanceCommit": "0ef54227e03494f29a726bbcdb61d5202bc28699",
+  "g7GovernanceCommit": "d14d7f2754246fdb7257b888f4369b6e88ec0f45",
+  "filPhActivationCommit": "abb6ccffd32329b05487df9a4517b7293307cd79",
+  "g9DeploymentSourceSha": "abb6ccffd32329b05487df9a4517b7293307cd79",
+  "preG9ProductionBaseline": {
+    "deploymentId": "dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG",
+    "deploymentUrl": "https://ren-tipid-ijmoz966h-jburns2372-sys-projects.vercel.app",
+    "sourceSha": "6ae374cf8558fe32450b8f4d0bc03603a1185006",
+    "canonicalAlias": "https://www.rentipid.com.ph",
+    "target": "production",
+    "healthStatus": "ready",
+    "databaseStatus": "connected"
+  },
+  "candidateProductionDeployment": {
+    "deploymentId": "dpl_8ULf2oGuay7rB6EeAobftMyUCkqq",
+    "deploymentUrl": "https://ren-tipid-2gj76posq-jburns2372-sys-projects.vercel.app",
+    "deployedGitSha": "abb6ccffd32329b05487df9a4517b7293307cd79",
+    "deploymentProvenance": "PASS",
+    "target": "production",
+    "status": "Ready",
+    "buildMachine": "8 cores, 16 GB (Enhanced Build Machine)",
+    "nodeVersion": "24.x"
+  },
+  "frozenPreviewCheckpoint": {
+    "deploymentId": "dpl_HRmZv5eHTv1WYVTD2hs2bTMjz7bS",
+    "deploymentUrl": "https://ren-tipid-bbe2nwwmk-jburns2372-sys-projects.vercel.app",
+    "canonicalAlias": "https://preview.rentipid.com.ph",
+    "sourceSha": "87de2b40e2db8e400fd5d3f0ab4f0665292ad763",
+    "preserved": true
+  },
+  "verificationResults": {
+    "productionHealth": {
+      "status": "PASS",
+      "httpCode": 200,
+      "bodyStatus": "ready",
+      "database": "connected"
+    },
+    "productionDatabaseIdentity": {
+      "databaseName": "rentipid_production",
+      "previewDatabaseTargeted": false,
+      "status": "PASS"
+    },
+    "languageSelector": {
+      "enPhSelectable": true,
+      "filPhSelectable": true,
+      "enUsBlocked": true,
+      "jaJpBlocked": true,
+      "status": "PASS"
+    },
+    "filPhRendering": {
+      "visibleApplicationLanguage": "FILIPINO",
+      "clientImmediateRerender": true,
+      "status": "PASS"
+    },
+    "routePersistenceAndRefresh": {
+      "browseRoutePersistence": true,
+      "hardRefreshPersistence": true,
+      "htmlLang": "fil-PH",
+      "visibleEnglishFlash": 0,
+      "hydrationLocaleWarnings": 0,
+      "status": "PASS"
+    },
+    "translationSafety": {
+      "rawKeyRenderCount": 0,
+      "filPhRequiredEnglishFallbackCount": 0,
+      "canonicalKeyCount": 2208,
+      "enPhCoverage": "100%",
+      "filPhCoverage": "100%",
+      "status": "PASS"
+    },
+    "qaFirewall": {
+      "queryQaInjection": "BLOCKED — PASS",
+      "cookieQaInjection": "BLOCKED — PASS",
+      "clientQaInjection": "BLOCKED — PASS",
+      "jaJpInjection": "BLOCKED — PASS",
+      "enUsInjection": "BLOCKED — PASS",
+      "status": "PASS"
+    },
+    "financialAuthoritySmoke": {
+      "country": "PH (UNCHANGED)",
+      "displayCurrency": "PHP (UNCHANGED)",
+      "chargeCurrency": "PHP (UNCHANGED)",
+      "paymentAuthority": "UNCHANGED — PASS",
+      "status": "PASS"
+    },
+    "securityAndLegalSmoke": {
+      "rbac": "PASS",
+      "kyc": "PASS",
+      "jurisdiction": "PASS",
+      "authoritativeLegalSource": "PASS",
+      "unapprovedLegalTranslation": "BLOCKED — PASS",
+      "status": "PASS"
+    },
+    "authenticatedProductionSmoke": {
+      "status": "FAIL",
+      "preAuthorizedIdentityAvailable": false,
+      "reason": "Section 17 Stop Condition: No pre-authorized Production verification identity available in repository or environment. Creation of new production users, password resets of customer accounts, and preview credentials are all strictly prohibited by SOP.",
+      "http401Count": 0
+    }
+  },
+  "rollbackExecution": {
+    "triggered": true,
+    "triggerReason": "Section 17 / Section 22: Authenticated production smoke cannot complete without authorized verification identity",
+    "targetDeploymentId": "dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG",
+    "targetDomain": "https://www.rentipid.com.ph",
+    "rollbackCommand": "npx vercel alias set dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG www.rentipid.com.ph",
+    "verifiedPostRollbackHealth": "ready",
+    "verifiedPostRollbackAlias": "dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG",
+    "previewAliasPreserved": "dpl_HRmZv5eHTv1WYVTD2hs2bTMjz7bS",
+    "status": "SUCCESS"
+  },
+  "artifacts": {
+    "browserSmokeRecording": "file:///C:/Users/user/.gemini/antigravity-ide/brain/a20f6462-8f70-4a0a-a690-493741c1f5d9/prod_g9_smoke_1790993405183.webp",
+    "loginPageScreenshot": "file:///C:/Users/user/.gemini/antigravity-ide/brain/a20f6462-8f70-4a0a-a690-493741c1f5d9/login_page_fil_ph_1790993685299.png",
+    "loginHeaderScreenshot": "file:///C:/Users/user/.gemini/antigravity-ide/brain/a20f6462-8f70-4a0a-a690-493741c1f5d9/login_header_fil_ph_1790993703715.png"
+  }
+}
