@@ -1,0 +1,160 @@
+{
+  "action": "G7 PREVIEW ACCEPTANCE PASS — PREVIEW CHECKPOINT FROZEN (DELTA RETEST)",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "timestamp": "2026-10-03T09:33:00+08:00",
+  "status": "PASS",
+  "priorG7Result": {
+    "status": "FAIL (HISTORICAL BASELINE)",
+    "historicalReport": "docs/governance/glcc-v1.0.1/RENTIPID_GLCC_P11_G7_PREVIEW_ACCEPTANCE_PASS.md",
+    "defectsIdentified": ["GLCC-LOC-002", "GLCC-ENV-001"]
+  },
+  "deploymentProvenance": {
+    "deployedSourceSha": "87de2b40e2db8e400fd5d3f0ab4f0665292ad763",
+    "previewDeploymentId": "dpl_HRmZv5eHTv1WYVTD2hs2bTMjz7bS",
+    "previewUrl": "https://preview.rentipid.com.ph",
+    "targetEnvironment": "preview",
+    "workingTreeAtDeployment": "CLEAN",
+    "uncommittedFilesIncluded": false,
+    "deploymentProvenance": "PASS",
+    "provisionalDeployment": {
+      "id": "dpl_C9jxLQM5KK7Tx6TPaDSHwwp9g87g",
+      "status": "SUPERSEDED — NOT G7 CHECKPOINT"
+    }
+  },
+  "preservedG7Checks": {
+    "previewDeploymentIdentity": "PASS",
+    "previewHealth": "PASS",
+    "previewDatabaseIsolation": "PASS",
+    "previewMigrationStatus": "PASS",
+    "newV101PreviewMigrationRequired": false,
+    "enPhPreviewAcceptance": "PASS",
+    "serverNextRouteLocale": "PASS",
+    "filPhPreviewRoutePersistence": "PASS",
+    "filPhPreviewHardRefresh": "PASS",
+    "guestPreviewAcceptance": "PASS",
+    "htmlLangPreview": "PASS",
+    "directionPreview": "PASS",
+    "hydrationLocaleWarnings": 0,
+    "visibleEnglishFlash": 0,
+    "rawTranslationKeyRenderCount": 0,
+    "filPhRequiredEnglishFallbackCount": 0,
+    "productionSelectabilityFirewall": "PASS",
+    "resolverSecurityPreview": "PASS",
+    "languageCountry": "PASS",
+    "languageDisplayCurrency": "PASS",
+    "languageChargeCurrency": "PASS",
+    "paymentAuthority": "UNCHANGED — PASS",
+    "languageRbac": "PASS",
+    "languageKyc": "PASS",
+    "languageJurisdiction": "PASS",
+    "legalControlledContent": "PASS",
+    "authoritativeSourcePreserved": "PASS",
+    "unapprovedLegalTranslation": "BLOCKED — PASS",
+    "controlledVersionConsistency": "PASS",
+    "aiAuthoritativeLegalPromotion": "BLOCKED — PASS",
+    "ugcBoundary": "PASS",
+    "generatedContent": "PASS",
+    "previewApiAcceptance": "PASS"
+  },
+  "retestedChecks": {
+    "glccLoc002": {
+      "title": "Preview Language Selector fil-PH Availability",
+      "filPhSelectable": true,
+      "filPhDisabled": false,
+      "filPhUnavailableTextPresent": false,
+      "nativeName": "Wikang Filipino",
+      "status": "PASS"
+    },
+    "filPhApply": {
+      "title": "fil-PH Selection and Application",
+      "appliedSuccessfully": true,
+      "renderedUiLanguage": "FILIPINO",
+      "status": "PASS"
+    },
+    "clientImmediateRerender": {
+      "title": "Immediate Client Rerender without Reload",
+      "navigationUpdated": true,
+      "htmlLangUpdated": "fil-PH",
+      "status": "PASS"
+    },
+    "previewLanguageSelector": {
+      "title": "Selector Controls and Boundaries",
+      "enPhSelectable": true,
+      "filPhSelectable": true,
+      "enUsBlocked": true,
+      "jaJpBlocked": true,
+      "cancelDiscard": true,
+      "closeWithoutApplyDiscard": true,
+      "status": "PASS"
+    },
+    "glccEnv001": {
+      "title": "Authenticated Preview Flow",
+      "testIdentity": "oat.renter@rentipid.test",
+      "loginOk": true,
+      "sessionRole": "Renter",
+      "http401Count": 0,
+      "authenticatedApply": true,
+      "authenticatedRoutePersistence": true,
+      "authenticatedHardRefresh": true,
+      "status": "PASS"
+    },
+    "qaPolicyEnforcement": {
+      "trustedPreviewQaPolicy": "PASS",
+      "productionFailClosedPolicy": "PASS",
+      "queryInjectionBlocked": true,
+      "cookieInjectionBlocked": true,
+      "status": "PASS"
+    }
+  },
+  "targetedBrowserMatrix": {
+    "totalScenarios": 14,
+    "passedScenarios": 14,
+    "failedScenarios": 0,
+    "http401Count": 0,
+    "scenarios": [
+      { "id": 1, "name": "Preview selector shows fil-PH selectable", "status": "PASS" },
+      { "id": 2, "name": "fil-PH Apply", "status": "PASS" },
+      { "id": 3, "name": "immediate client rerender", "status": "PASS" },
+      { "id": 4, "name": "authenticated Preview login", "status": "PASS" },
+      { "id": 5, "name": "authenticated fil-PH Apply", "status": "PASS" },
+      { "id": 6, "name": "authenticated route persistence", "status": "PASS" },
+      { "id": 7, "name": "authenticated hard refresh", "status": "PASS" },
+      { "id": 8, "name": "selector Cancel", "status": "PASS" },
+      { "id": 9, "name": "selector close-without-Apply", "status": "PASS" },
+      { "id": 10, "name": "en-US blocked", "status": "PASS" },
+      { "id": 11, "name": "ja-JP blocked", "status": "PASS" },
+      { "id": 12, "name": "Production-policy fil-PH blocked", "status": "PASS" },
+      { "id": 13, "name": "query QA injection blocked", "status": "PASS" },
+      { "id": 14, "name": "cookie/client QA injection blocked", "status": "PASS" }
+    ]
+  },
+  "translationContract": {
+    "canonicalKeyCount": 2208,
+    "enPhCoverage": "100%",
+    "filPhCoverage": "100%",
+    "filPhRequiredFallback": 0,
+    "filPhReleaseStatus": "QA_REQUIRED",
+    "jaJpReleaseStatus": "REGISTERED",
+    "jaJpTranslationKeys": 0
+  },
+  "productionSafety": {
+    "productionDeployed": false,
+    "productionDatabaseTouched": false,
+    "productionEnvModified": false,
+    "productionAliasModified": false,
+    "productionAlias": "https://www.rentipid.com.ph (UNTOUCHED)"
+  },
+  "frozenCheckpoint": {
+    "previewDeploymentId": "dpl_HRmZv5eHTv1WYVTD2hs2bTMjz7bS",
+    "previewUrl": "https://preview.rentipid.com.ph",
+    "deployedSourceSha": "87de2b40e2db8e400fd5d3f0ab4f0665292ad763",
+    "correctedRuntimeBaseline": "9f5db74f25600e17f41bf3486f7659c95f0c7587",
+    "status": "FROZEN_PREVIEW_CHECKPOINT"
+  },
+  "promotionStatus": {
+    "g7Status": "PROMOTED",
+    "g8Status": "NOT PROMOTED",
+    "nextPermittedAction": "G8 PRODUCTION-READY"
+  }
+}
