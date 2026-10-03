@@ -1,0 +1,90 @@
+{
+  "correctiveAction": "G9 PRODUCTION AUTH VERIFICATION IDENTITY",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "status": "PASS",
+  "evaluationTimestamp": "2026-10-03T10:32:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "baselineGovernanceCommit": "e8fd0a842dd4efb25c45c5d34d74e8157c054fed",
+  "filPhActivationCommit": "abb6ccffd32329b05487df9a4517b7293307cd79",
+  "currentProductionDeployment": "dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG",
+  "failedG9ProductionDeployment": "dpl_8ULf2oGuay7rB6EeAobftMyUCkqq",
+  "rollbackBaseline": {
+    "deploymentId": "dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG",
+    "status": "ACTIVE — PASS",
+    "productionHealth": "PASS",
+    "productionDatabase": "rentipid_production",
+    "workingTree": "CLEAN"
+  },
+  "priorExposedDiagnosticCredential": {
+    "identifierTestedInDiagnostic": "address.local@rentipid.test",
+    "priorCredentialReused": false,
+    "liveProductionIdentityFound": false,
+    "priorDiagnosticCredentialExposure": "NO LIVE IDENTITY",
+    "secretsCommitted": false
+  },
+  "dedicatedVerificationIdentity": {
+    "mechanism": "OAT_SHARED_USERS canonical test account namespace (src/lib/oat/oat-shared-users.ts) & BcryptPasswordHasher (salt rounds 12)",
+    "email": "oat.renter@rentipid.test",
+    "action": "CREATED EXACTLY ONE DEDICATED TEST IDENTITY",
+    "role": "Renter",
+    "accountType": "Individual",
+    "lifecycleStatus": "Verified",
+    "isTestData": true,
+    "betaLabel": "OAT Production Verification",
+    "customerAccount": false,
+    "companionEmailCredential": {
+      "present": true,
+      "isVerified": true,
+      "hashValid": true
+    }
+  },
+  "secretsHandling": {
+    "passwordPrinted": false,
+    "passwordCommitted": false,
+    "trackedSecretFindings": 0
+  },
+  "productionDataMutation": {
+    "productionTestDataMutation": "YES — DEDICATED VERIFICATION IDENTITY ONLY",
+    "customerDataModified": false,
+    "businessDataModified": false,
+    "paymentDataModified": false,
+    "listingBookingDataModified": false
+  },
+  "authReadinessVerification": {
+    "dedicatedUserExists": true,
+    "identityActive": true,
+    "emailCredentialExists": true,
+    "credentialVerified": true,
+    "hashValid": true,
+    "roleExpected": true,
+    "accountIsTestOnlyNonCustomer": true,
+    "status": "PASS"
+  },
+  "liveProductionLoginSmoke": {
+    "targetHost": "https://www.rentipid.com.ph",
+    "loginEndpoint": "/api/auth/callback/credentials",
+    "authLoginStatus": "PASS",
+    "sessionEndpoint": "/api/auth/session",
+    "authSessionStatus": "PASS",
+    "sessionUserEmail": "oat.renter@rentipid.test",
+    "sessionUserRole": "Renter",
+    "sessionUserStatus": "Verified",
+    "globalPreferencesEndpoint": "/api/me/preferences",
+    "globalPreferencesPublicEndpoint": "/api/preferences",
+    "globalPreferencesStatus": "PASS",
+    "logoutEndpoint": "/api/auth/signout",
+    "authLogoutStatus": "PASS",
+    "postLogoutSessionCleared": true,
+    "http401InvalidCredentialsCount": 0
+  },
+  "governancePreservation": {
+    "runtimeSourceChanged": false,
+    "schemaChanged": false,
+    "newMigration": false,
+    "productionDeployed": false,
+    "g1ToG8Preserved": true,
+    "g9ProductionDeployment": "NOT PROMOTED",
+    "nextPermittedAction": "G9 PRODUCTION DEPLOYMENT/VERIFICATION — CORRECTIVE RETRY"
+  }
+}
