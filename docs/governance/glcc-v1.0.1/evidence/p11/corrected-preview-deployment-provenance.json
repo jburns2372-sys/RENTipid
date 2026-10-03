@@ -2,8 +2,9 @@
   "action": "TARGETED PREVIEW DEPLOYMENT PROVENANCE CORRECTION",
   "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
   "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
-  "timestamp": "2026-10-02T11:54:00+08:00",
+  "timestamp": "2026-10-03T09:03:00+08:00",
   "status": "PASS",
+  "savedCheckpointSha": "87de2b40e2db8e400fd5d3f0ab4f0665292ad763",
   "provisionalDeployment": {
     "deploymentId": "dpl_C9jxLQM5KK7Tx6TPaDSHwwp9g87g",
     "status": "SUPERSEDED — NOT G7 CHECKPOINT",
@@ -15,31 +16,34 @@
     "unrelatedChanges": 0,
     "packageJsonChangeRequired": true
   },
-  "buildConfigCorrectiveCommit": {
-    "commitSha": "89aeef75af7992bd2632da7bdc8e2594af11a239",
-    "commitMessage": "fix(build): align Node engine with Vercel runtime",
-    "nature": "Targeted build-configuration correction only"
+  "nodeAlignment": {
+    "packageJsonNodeEngine": "24.x",
+    "vercelNodeVersion": "24.x",
+    "localNodeVersion": "v22.22.2",
+    "status": "PASS"
   },
   "minimalValidation": {
     "nodeVersion": "v22.22.2",
     "typecheck": "PASS",
     "glccCi": "PASS (732/732 tests passed across 39 suites)",
+    "glccSuites": 39,
+    "glccTests": 732,
     "prisma": "PASS (The schema at prisma/schema.prisma is valid)",
-    "nextBuild": "PASS (Optimized production build compiled in 39.6s, 78/78 static pages generated)"
+    "nextBuild": "PASS (Optimized production build compiled successfully, 78/78 static pages generated)"
   },
   "cleanDeploymentSource": {
-    "commitSha": "89aeef75af7992bd2632da7bdc8e2594af11a239",
+    "commitSha": "87de2b40e2db8e400fd5d3f0ab4f0665292ad763",
     "workingTreeAtDeployment": "CLEAN",
     "uncommittedFilesIncluded": false,
     "deploymentProvenance": "PASS"
   },
   "newPreviewDeployment": {
-    "deploymentId": "dpl_T3JDmsD7UsPy6oLtambLhdADFyuF",
-    "deploymentUrl": "https://ren-tipid-dp4hrwutr-jburns2372-sys-projects.vercel.app",
+    "deploymentId": "dpl_HRmZv5eHTv1WYVTD2hs2bTMjz7bS",
+    "deploymentUrl": "https://ren-tipid-bbe2nwwmk-jburns2372-sys-projects.vercel.app",
     "previewAlias": "https://preview.rentipid.com.ph",
     "targetEnvironment": "preview",
     "readyState": "READY",
-    "deployedGitSha": "89aeef75af7992bd2632da7bdc8e2594af11a239"
+    "deployedGitSha": "87de2b40e2db8e400fd5d3f0ab4f0665292ad763"
   },
   "previewHealth": {
     "endpoint": "https://preview.rentipid.com.ph/api/health",
@@ -56,11 +60,6 @@
       {
         "email": "oat.renter@rentipid.test",
         "role": "Renter",
-        "status": "PASS"
-      },
-      {
-        "email": "oat.superadmin@rentipid.test",
-        "role": "Super Admin",
         "status": "PASS"
       }
     ]
