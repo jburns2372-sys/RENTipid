@@ -10,7 +10,7 @@
 **Current Production Deployment / Rollback Baseline:** `dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG`  
 **Failed G9 Deployment Retained as Historical Evidence:** `dpl_8ULf2oGuay7rB6EeAobftMyUCkqq`  
 **Production Database:** `rentipid_production`  
-**Saved Checkpoint SHA:** PENDING_COMMIT  
+**Saved Checkpoint SHA:** `556cb1f24851c2d6c7f91a67961ac77b4d129eb7`  
 
 ---
 
