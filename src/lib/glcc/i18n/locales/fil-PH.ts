@@ -18,7 +18,7 @@ export const FIL_PH_BUNDLE: TranslationBundle = Object.freeze({
   direction: 'ltr',
   version: '1.0.1',
   isFixture: false,
-  releaseStatus: 'QA_REQUIRED',
+  releaseStatus: 'PRODUCTION_READY',
   messages: Object.freeze(CANONICAL_FIL_PH_MESSAGES),
 });
 
