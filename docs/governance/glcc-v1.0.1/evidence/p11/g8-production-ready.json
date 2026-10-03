@@ -1,0 +1,144 @@
+{
+  "action": "G8 PRODUCTION-READY ASSESSMENT",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "timestamp": "2026-10-03T09:42:00+08:00",
+  "status": "PASS",
+  "g8Determination": "PROMOTED",
+  "g7GovernanceCommit": "d14d7f2754246fdb7257b888f4369b6e88ec0f45",
+  "frozenPreviewCheckpoint": {
+    "deploymentId": "dpl_HRmZv5eHTv1WYVTD2hs2bTMjz7bS",
+    "url": "https://preview.rentipid.com.ph",
+    "deployedSourceSha": "87de2b40e2db8e400fd5d3f0ab4f0665292ad763",
+    "correctedRuntimeBaseline": "9f5db74f25600e17f41bf3486f7659c95f0c7587",
+    "environment": "preview",
+    "status": "FROZEN_VALIDATED"
+  },
+  "priorLifecycleGates": {
+    "g1CodeComplete": "PRESERVED — VALIDATED",
+    "g2LocalFunctional": "PRESERVED — VALIDATED",
+    "g3LocalDatabaseMigrated": "PRESERVED — VALIDATED",
+    "g4LocalRequiredDataSeededSynced": "PRESERVED — VALIDATED",
+    "g5LocalAcceptancePass": "PRESERVED — VALIDATED",
+    "g6PreviewMigrated": "PRESERVED — VALIDATED",
+    "g7PreviewAcceptancePass": "PROMOTED — VALIDATED"
+  },
+  "translationReadinessContract": {
+    "canonicalKeyCount": 2208,
+    "enPhCoverage": "100%",
+    "filPhCoverage": "100%",
+    "filPhRequiredFallback": 0,
+    "rawTranslationKeyCount": 0,
+    "unapprovedHardcodedUiStrings": 0,
+    "currentRegistryState": {
+      "enPh": "PRODUCTION_READY",
+      "filPh": "QA_REQUIRED",
+      "enUs": "TRANSLATION_IN_PROGRESS",
+      "jaJp": "REGISTERED"
+    },
+    "jaJpTranslationKeys": 0,
+    "filPhProductionActivationReadiness": "PASS"
+  },
+  "productionChangeSet": {
+    "status": "DEFINED — PASS",
+    "requirements": {
+      "applicationDeployment": "YES (deploy candidate source to Vercel Production via --prod)",
+      "productionEnvChange": "NO (Production environment configuration is already provisioned and operational)",
+      "localeReleaseStatusChange": "YES (controlled activation of fil-PH from QA_REQUIRED to PRODUCTION_READY when authorized for release)",
+      "databaseMigration": "NO (schema backward-compatible; 0 new migrations required)",
+      "dataSeedOrSync": "NO (zero seed/sync required for production)",
+      "aliasChange": "NO (standard Vercel --prod deployment binds to www.rentipid.com.ph and rentipid.com.ph)",
+      "healthVerification": "YES (/api/health HTTP 200, status: ready, database: connected)",
+      "authVerification": "YES (read-only login smoke on Production)",
+      "localizationSmoke": "YES (rendered Filipino UI and fail-closed firewall)"
+    }
+  },
+  "databaseReadiness": {
+    "newProductionSchemaMigrationRequired": false,
+    "newProductionDataSeedRequired": false,
+    "newProductionDataSyncRequired": false,
+    "productionDatabaseTouched": false,
+    "targetDatabase": "rentipid_production (ISOLATED)"
+  },
+  "productionEnvironmentReadiness": {
+    "productionEnvironmentIdentified": true,
+    "requiredConfigurationInventory": "PASS",
+    "secretsPrinted": false,
+    "productionEnvModified": false,
+    "status": "PASS"
+  },
+  "productionSecurityReadiness": {
+    "productionQaFirewall": "PASS",
+    "localeInjectionProtection": "PASS",
+    "countryLanguageSeparation": "PASS",
+    "currencySeparation": "PASS",
+    "chargeCurrencyAuthority": "PASS",
+    "rbacIndependence": "PASS",
+    "kycAuthority": "PASS",
+    "jurisdictionAuthority": "PASS",
+    "legalControlledContentBoundary": "PASS",
+    "authoritativeLegalSource": "PASS",
+    "aiLegalAuthorityBlock": "PASS",
+    "ugcBoundary": "PASS",
+    "status": "PASS"
+  },
+  "financialAuthorityReadiness": {
+    "chargeCurrencyImmutable": true,
+    "ledgerAuthorityImmutable": true,
+    "settlementImmutable": true,
+    "feeImmutable": true,
+    "refundAuthorityImmutable": true,
+    "payoutAuthorityImmutable": true,
+    "paymentAuthorityImmutable": true,
+    "authoritativeCurrency": "PHP",
+    "status": "PASS"
+  },
+  "legalComplianceReadiness": {
+    "controlledLegalSource": "PASS",
+    "authoritativeSourcePreserved": "PASS",
+    "unapprovedLegalTranslation": "BLOCKED — PASS",
+    "controlledVersionConsistency": "PASS",
+    "aiAuthoritativeLegalPromotion": "BLOCKED — PASS",
+    "status": "PASS"
+  },
+  "productionRollbackPlan": {
+    "status": "DEFINED — PASS",
+    "priorProductionDeploymentId": "dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG",
+    "priorProductionUrl": "https://ren-tipid-ijmoz966h-jburns2372-sys-projects.vercel.app",
+    "priorProductionAliases": ["https://www.rentipid.com.ph", "https://rentipid.com.ph"],
+    "rollbackCommand": "npx vercel rollback dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG or vercel alias set dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG www.rentipid.com.ph",
+    "databaseRollbackRequired": false,
+    "postRollbackHealthCheck": "https://www.rentipid.com.ph/api/health"
+  },
+  "g9ProductionVerificationPlan": {
+    "status": "DEFINED — PASS",
+    "verificationSteps": [
+      "1. deployed source identity",
+      "2. /api/health",
+      "3. Production database identity",
+      "4. normal Production language selector policy",
+      "5. authorized locale visibility",
+      "6. actual rendered localization smoke",
+      "7. route persistence",
+      "8. hard refresh",
+      "9. authenticated smoke",
+      "10. html lang",
+      "11. raw translation key check",
+      "12. English fallback check",
+      "13. country/currency/payment independence",
+      "14. Production QA injection remains blocked",
+      "15. legal/security smoke",
+      "16. rollback readiness"
+    ]
+  },
+  "unresolvedBlockers": {
+    "criticalCount": 0,
+    "highCount": 0,
+    "status": "PASS"
+  },
+  "promotionState": {
+    "g8Status": "PROMOTED",
+    "g9Status": "NOT PROMOTED",
+    "nextPermittedAction": "G9 PRODUCTION DEPLOYMENT/VERIFICATION"
+  }
+}
