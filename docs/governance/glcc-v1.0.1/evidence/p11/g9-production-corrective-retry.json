@@ -1,0 +1,142 @@
+{
+  "gate": "G9 PRODUCTION DEPLOYMENT/VERIFICATION",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "status": "PROMOTED",
+  "determination": "PASS — G9 PRODUCTION DEPLOYMENT/VERIFICATION PROMOTED",
+  "evaluatedTimestamp": "2026-10-06T00:00:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "restoredCheckpointSha": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+  "g9PreviousFailGovernanceCommit": "e8fd0a842dd4efb25c45c5d34d74e8157c054fed",
+  "g9AuthCorrectiveGovernanceCommit": "cb8e3749a50b8e99b0abbd8c912a0d15cb2844b2",
+  "filPhActivationCommit": "abb6ccffd32329b05487df9a4517b7293307cd79",
+  "runtimeDifferenceAfterFilPhActivation": 0,
+  "filPhReleaseStatus": "PRODUCTION_READY",
+  "rollbackBaseline": {
+    "deploymentId": "dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG",
+    "deploymentUrl": "https://ren-tipid-ijmoz966h-jburns2372-sys-projects.vercel.app",
+    "sourceSha": "6ae374cf8558fe32450b8f4d0bc03603a1185006",
+    "canonicalAlias": "https://www.rentipid.com.ph",
+    "target": "production",
+    "available": true,
+    "status": "PASS"
+  },
+  "failedG9DeploymentRetainedAsEvidence": "dpl_8ULf2oGuay7rB6EeAobftMyUCkqq",
+  "productionDeployment": {
+    "deploymentId": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X",
+    "deploymentUrl": "https://ren-tipid-i41yhv5sb-jburns2372-sys-projects.vercel.app",
+    "productionUrl": "https://www.rentipid.com.ph",
+    "deployedGitSha": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+    "target": "production",
+    "readyState": "READY",
+    "deploymentProvenance": "PASS",
+    "active": true
+  },
+  "dedicatedVerificationIdentity": {
+    "email": "oat.renter@rentipid.test",
+    "type": "TEST-ONLY NON-CUSTOMER",
+    "role": "Renter",
+    "status": "Verified",
+    "isTestData": true,
+    "available": true,
+    "recreatedOrReprovisioned": false
+  },
+  "verificationResults": {
+    "productionHealth": {
+      "status": "PASS",
+      "httpCode": 200,
+      "bodyStatus": "ready",
+      "database": "connected"
+    },
+    "productionDatabaseIdentity": {
+      "databaseName": "rentipid_production",
+      "previewDatabaseTargeted": false,
+      "status": "PASS"
+    },
+    "previewAliasSafety": {
+      "alias": "https://preview.rentipid.com.ph",
+      "modified": false,
+      "status": "PASS"
+    },
+    "filPhProductionSmoke": {
+      "filPhProductionAvailability": "PASS",
+      "filPhProductionRendering": "PASS",
+      "visibleApplicationLanguage": "FILIPINO",
+      "clientImmediateRerender": "PASS",
+      "filPhRoutePersistence": "PASS",
+      "filPhHardRefresh": "PASS",
+      "htmlLang": "fil-PH",
+      "rawTranslationKeyRenderCount": 0,
+      "filPhRequiredEnglishFallbackCount": 0,
+      "status": "PASS"
+    },
+    "authenticatedProductionSmoke": {
+      "authSmoke": "PASS",
+      "authLogin": "PASS",
+      "authSession": "PASS",
+      "userRole": "Renter",
+      "userEmail": "oat.renter@rentipid.test",
+      "authGlobalPreferences": "PASS",
+      "filPhSelectable": "PASS",
+      "filPhApply": "PASS",
+      "authFilPhRendering": "PASS",
+      "authRoutePersistence": "PASS",
+      "authHardRefresh": "PASS",
+      "authLogout": "PASS",
+      "http401InvalidCredentials": 0,
+      "status": "PASS"
+    },
+    "productionQaSanity": {
+      "productionQaMode": "DISABLED",
+      "enUsBlocked": true,
+      "jaJpBlocked": true,
+      "status": "PASS"
+    },
+    "secretProtection": {
+      "authSecretPrinted": false,
+      "authSecretCommitted": false,
+      "status": "PASS"
+    },
+    "preservedPriorG9Checks": {
+      "deploymentProvenance": "PASS",
+      "visibleEnglishFlash": 0,
+      "hydrationLocaleWarnings": 0,
+      "queryQaInjection": "BLOCKED — PASS",
+      "cookieQaInjection": "BLOCKED — PASS",
+      "clientQaInjection": "BLOCKED — PASS",
+      "enUsInjection": "BLOCKED — PASS",
+      "jaJpInjection": "BLOCKED — PASS",
+      "languageCountry": "PASS",
+      "languageDisplayCurrency": "PASS",
+      "languageChargeCurrency": "PASS",
+      "financialAuthority": "UNCHANGED — PASS",
+      "languageRbac": "PASS",
+      "languageKyc": "PASS",
+      "languageJurisdiction": "PASS",
+      "authoritativeLegalSource": "PASS",
+      "unapprovedLegalTranslation": "BLOCKED — PASS",
+      "newProductionMigration": false,
+      "newProductionSeed": false,
+      "newProductionSync": false,
+      "status": "PASS"
+    },
+    "unresolvedBlockersCount": 0,
+    "rollbackExecuted": false
+  },
+  "lifecyclePromotions": {
+    "g1CodeComplete": "PRESERVED — VALIDATED",
+    "g2LocalFunctional": "PRESERVED — VALIDATED",
+    "g3LocalDatabaseMigrated": "PRESERVED — VALIDATED",
+    "g4LocalRequiredDataSeededSynced": "PRESERVED — VALIDATED",
+    "g5LocalAcceptancePass": "PRESERVED — VALIDATED",
+    "g6PreviewMigrated": "PRESERVED — VALIDATED",
+    "g7PreviewAcceptancePass": "PRESERVED — PROMOTED",
+    "g8ProductionReady": "PRESERVED — PROMOTED",
+    "g9ProductionDeploymentVerification": "PROMOTED",
+    "g10Completed": "NOT PROMOTED",
+    "g11Accepted": "NOT PROMOTED",
+    "g12Closed": "NOT PROMOTED",
+    "g13VersionFrozen": "NOT PROMOTED"
+  },
+  "nextPermittedAction": "G10 COMPLETED"
+}
