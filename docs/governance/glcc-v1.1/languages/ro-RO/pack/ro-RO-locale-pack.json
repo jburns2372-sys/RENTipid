@@ -6,8 +6,8 @@
   "canonicalKeyCount": 2208,
   "canonicalKeyChecksum": "a682064cf1f532c26884104887b012b27be830be39b41e27d0c1d58f77b36fdf",
   "sourceMessageChecksum": "0566572080c895732e61ef62108403a283f6abf12e762eb29ba77a1460c2cbb8",
-  "targetMessageChecksum": "e6bb22a469eeff2d37c38fab83e372068c97a9490299999718987e442ee9ac8b",
-  "packChecksum": "38e85b12da94cff0e15a1fff35480093afe1a7440eed7c4be08723f9bda80cc2",
+  "targetMessageChecksum": "803be88451deb4ed83d328430f57e4325f451e596a40c52c901749bc33da9072",
+  "packChecksum": "004f55028ad75264236dd8423e08e87fb95ae10a566a5dcb284cafefa1245780",
   "generatedAt": "2026-10-06T18:00:00.000Z",
   "workflowState": "APPROVED_FOR_QA",
   "releaseCandidateState": "CANDIDATE_FOR_QA",
@@ -7576,29 +7576,29 @@
     },
     "home.heroSubtitle": {
       "key": "home.heroSubtitle",
-      "value": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "value": "O piață verificată pentru închirierea în siguranță a uneltelor, echipamentelor și spațiilor.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
-      "targetChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
+      "targetChecksum": "2a2449d898fecd6c7da39635a7bb6cc35804666a69aef7ef638a7fc1bb217583",
       "reviewStatus": "APPROVED"
     },
     "home.heroTitle": {
       "key": "home.heroTitle",
-      "value": "Why Buy? RENTipid!",
+      "value": "De ce să cumperi? RENTipid!",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
-      "targetChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
+      "targetChecksum": "679335b96ba3f3a436879336a57d64b12a2787777c0f9811f4344542a5e68480",
       "reviewStatus": "APPROVED"
     },
     "home.startRenting": {
       "key": "home.startRenting",
-      "value": "Start Renting",
+      "value": "Începe să închiriezi",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
-      "targetChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
+      "targetChecksum": "1a30fea5723e88fe288310b9c046807159e67fbd4a52dd32daf5947c246e4389",
       "reviewStatus": "APPROVED"
     },
     "home.trustSubtitle": {
@@ -10994,11 +10994,11 @@
     },
     "marketplace.locationPrompt": {
       "key": "marketplace.locationPrompt",
-      "value": "Where?",
+      "value": "Unde?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
-      "targetChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
+      "targetChecksum": "4f213efc309dd5ea6ce5896ce36bb1741dd23aa3dc8661a83acc0a6be91b8836",
       "reviewStatus": "APPROVED"
     },
     "marketplace.noResults": {
@@ -11012,11 +11012,11 @@
     },
     "marketplace.popularCategories": {
       "key": "marketplace.popularCategories",
-      "value": "Popular Categories",
+      "value": "Categorii populare",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
-      "targetChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
+      "targetChecksum": "c5ae980ebce0a5f165dfef863c307b22553d768b04c3276dfc14b18ccdd996d0",
       "reviewStatus": "APPROVED"
     },
     "marketplace.results": {
@@ -11079,11 +11079,11 @@
     },
     "marketplace.searchPrompt": {
       "key": "marketplace.searchPrompt",
-      "value": "What are you looking for?",
+      "value": "Ce cauți?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
-      "targetChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
+      "targetChecksum": "f9f12e732fe41dbf3800afae93ba6f91afede6370f038581c8913827c15dacb8",
       "reviewStatus": "APPROVED"
     },
     "marketplace.sort": {
@@ -11124,11 +11124,11 @@
     },
     "navigation.browseRentals": {
       "key": "navigation.browseRentals",
-      "value": "Browse Rentals",
+      "value": "Explorează închirieri",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
-      "targetChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
+      "targetChecksum": "aabc33b3aaadf5ed8cf0d8de21ecc4f4ba4da49a915f596f50731426800e0cbb",
       "reviewStatus": "APPROVED"
     },
     "navigation.dashboard": {
@@ -11153,29 +11153,29 @@
     },
     "navigation.howItWorks": {
       "key": "navigation.howItWorks",
-      "value": "How It Works",
+      "value": "Cum funcționează",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
-      "targetChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
+      "targetChecksum": "e9b9b3e1105ab56ecb0bbf813b9e681720bf23cf3fdcbc53be4ded5b2c4bd40e",
       "reviewStatus": "APPROVED"
     },
     "navigation.listYourItem": {
       "key": "navigation.listYourItem",
-      "value": "List Your Item",
+      "value": "Publică un anunț",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
-      "targetChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
+      "targetChecksum": "17ca0c839b3ef9ea0c005ddf5ad37289d67d6c4b8b32a408642122056cfe3fcd",
       "reviewStatus": "APPROVED"
     },
     "navigation.login": {
       "key": "navigation.login",
-      "value": "Login",
+      "value": "Autentificare",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
-      "targetChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
+      "targetChecksum": "94834c0eaeee4aaaa86d26385f7b9765d62c1778344ebaf602a8d24c1c71290f",
       "reviewStatus": "APPROVED"
     },
     "navigation.logout": {
@@ -11216,11 +11216,11 @@
     },
     "navigation.register": {
       "key": "navigation.register",
-      "value": "Register",
+      "value": "Înregistrare",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
-      "targetChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
+      "targetChecksum": "b9c6acff31bd1963864ee229355e9acaed36a277e219286f0c169780561fe213",
       "reviewStatus": "APPROVED"
     },
     "navigation.safety": {

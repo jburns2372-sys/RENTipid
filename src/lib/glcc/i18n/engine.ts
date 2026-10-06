@@ -23,6 +23,11 @@ import type {
 } from './contracts';
 import { EN_PH_BUNDLE } from './locales/en-PH';
 import { FIL_PH_BUNDLE, FIL_PH_FIXTURE_BUNDLE } from './locales/fil-PH';
+import {
+  getProductionBundle,
+  hasProductionBundle,
+  registerAllProductionBundles,
+} from './bundle-registry';
 
 /**
  * Derives a clean humanized presentation fallback from a dot-notated key to prevent
@@ -56,9 +61,10 @@ export class TranslationEngine {
     this.onMissingKey = options?.onMissingKey;
     this.onFallbackUsed = options?.onFallbackUsed;
 
-    // Register baseline bundles
+    // Register baseline and production candidate bundles
     this.registerBundle(EN_PH_BUNDLE);
     this.registerBundle(FIL_PH_BUNDLE || FIL_PH_FIXTURE_BUNDLE);
+    registerAllProductionBundles(this);
   }
 
   /**
@@ -93,21 +99,21 @@ export class TranslationEngine {
    * Check if a bundle is registered for the specified locale.
    */
   public hasBundle(locale: string): boolean {
-    return this.bundles.has(locale.toLowerCase());
+    return this.bundles.has(locale.toLowerCase()) || hasProductionBundle(locale);
   }
 
   /**
    * Retrieve bundle for a locale.
    */
   public getBundle(locale: string): TranslationBundle | undefined {
-    return this.bundles.get(locale.toLowerCase());
+    return this.bundles.get(locale.toLowerCase()) || (getProductionBundle(locale) ?? undefined);
   }
 
   /**
    * Get direction ('ltr' | 'rtl') for a locale.
    */
   public getDirection(locale: string): 'ltr' | 'rtl' {
-    const bundle = this.bundles.get(locale.toLowerCase());
+    const bundle = this.bundles.get(locale.toLowerCase()) || getProductionBundle(locale);
     return bundle?.direction ?? 'ltr';
   }
 
@@ -143,7 +149,14 @@ export class TranslationEngine {
     const normalizedTarget = targetLocale.toLowerCase();
 
     // 1. Exact locale match
-    const exactBundle = this.bundles.get(normalizedTarget);
+    let exactBundle = this.bundles.get(normalizedTarget);
+    if (!exactBundle) {
+      const prodBundle = getProductionBundle(targetLocale);
+      if (prodBundle) {
+        this.registerBundle(prodBundle);
+        exactBundle = prodBundle;
+      }
+    }
     if (exactBundle && Object.prototype.hasOwnProperty.call(exactBundle.messages, key)) {
       const msg = exactBundle.messages[key as GlccCanonicalTranslationKey];
       if (typeof msg === 'string') {

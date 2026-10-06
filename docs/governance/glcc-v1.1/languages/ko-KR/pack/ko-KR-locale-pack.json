@@ -6,8 +6,8 @@
   "canonicalKeyCount": 2208,
   "canonicalKeyChecksum": "a682064cf1f532c26884104887b012b27be830be39b41e27d0c1d58f77b36fdf",
   "sourceMessageChecksum": "0566572080c895732e61ef62108403a283f6abf12e762eb29ba77a1460c2cbb8",
-  "targetMessageChecksum": "e2f3e10d47bfe3b36ed7485bc6df971949f0a2d9b125c4bbd7fee21662fee033",
-  "packChecksum": "ce272bb57074c859df18fe50511769f5bc9dfb94e797e68880a208c72ce17430",
+  "targetMessageChecksum": "0473a27bb6ca0c51cc69750001b09fab6112215fc58dc4be548f07dffff2bc34",
+  "packChecksum": "d222879ed562210ac7ac1cde93b17dc317dde2f933a3979b056714535fdfd762",
   "generatedAt": "2026-10-06T18:00:00.000Z",
   "workflowState": "APPROVED_FOR_QA",
   "releaseCandidateState": "CANDIDATE_FOR_QA",
@@ -5507,11 +5507,11 @@
     },
     "common.aiSocialPromotion": {
       "key": "common.aiSocialPromotion",
-      "value": "AI Social Promotion",
+      "value": "AI 소셜 마케팅",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c69289321fbb61c4923a10dd1c3fcf7d13bd31caf5c273f574116b2191ca61f5",
-      "targetChecksum": "c69289321fbb61c4923a10dd1c3fcf7d13bd31caf5c273f574116b2191ca61f5",
+      "targetChecksum": "3767bb487872f2f802f967131633463ae27bd7b189702b3f4326453ffdfd2245",
       "reviewStatus": "APPROVED"
     },
     "common.amount": {
@@ -5588,20 +5588,20 @@
     },
     "common.becomeAVerifiedProvider": {
       "key": "common.becomeAVerifiedProvider",
-      "value": "Become a Verified Provider",
+      "value": "인증 제공자 등록하기",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "b214bc0ba0eb897c18de6029b2fcd9fdfc2bd1f982ebc5f79629777aee9caf06",
-      "targetChecksum": "b214bc0ba0eb897c18de6029b2fcd9fdfc2bd1f982ebc5f79629777aee9caf06",
+      "targetChecksum": "09f87bfc4d53863258f1c1bc5547869d4b7acee595233e3b50467f8775b185ac",
       "reviewStatus": "APPROVED"
     },
     "common.betaNotice": {
       "key": "common.betaNotice",
-      "value": "RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.",
+      "value": "RENTipid 비공개 베타 | 모의 결제 활성화 | 실제 금융 거래는 비활성화되어 있습니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "ea39fe991e907f6d84798ed1f9f725c41c91b115a8e1c0ac9ec2c2af98d419d4",
-      "targetChecksum": "ea39fe991e907f6d84798ed1f9f725c41c91b115a8e1c0ac9ec2c2af98d419d4",
+      "targetChecksum": "00a4ba79f09dffa941bc9e1a9411b68096cd336faeffeeceb8bf9e110c26aed5",
       "reviewStatus": "APPROVED"
     },
     "common.buttonSquareWithAn": {
@@ -5741,11 +5741,11 @@
     },
     "common.donAposTBuy": {
       "key": "common.donAposTBuy",
-      "value": "Don&apos;t buy a drill for one hole. Rent it for a day.",
+      "value": "구멍 하나 뚫으려고 드릴을 사지 마세요. 하루만 빌려 쓰세요.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d8b07284e3783078fa08f7f421716dfbf63199fa0293f4902d561ec6e0316c6f",
-      "targetChecksum": "d8b07284e3783078fa08f7f421716dfbf63199fa0293f4902d561ec6e0316c6f",
+      "targetChecksum": "0b6f9e0174fa84dcad1fba08e65fed5a0401db56dea79999a9534d14caa3d07b",
       "reviewStatus": "APPROVED"
     },
     "common.edit": {
@@ -5777,20 +5777,20 @@
     },
     "common.everyBookingAutomaticallyGenerates": {
       "key": "common.everyBookingAutomaticallyGenerates",
-      "value": "Every booking automatically generates a clear, fair contract.",
+      "value": "모든 예약마다 명확하고 공정한 계약서가 자동으로 생성됩니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "fcacdb12eed952299b17844ff2428deacdba70e5273a725be3fb19d8e07bc742",
-      "targetChecksum": "fcacdb12eed952299b17844ff2428deacdba70e5273a725be3fb19d8e07bc742",
+      "targetChecksum": "07763061ad5c8c2292131c1e2f6ecdb76e04f9ddc2d714558a39b8a5e0e54ad7",
       "reviewStatus": "APPROVED"
     },
     "common.fairDisputeResolution": {
       "key": "common.fairDisputeResolution",
-      "value": "Fair Dispute Resolution",
+      "value": "공정한 분쟁 해결",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6d233137b4f6b6f5e32f1df45c3ff213396c6387894451ed8aef4d7048fbf050",
-      "targetChecksum": "6d233137b4f6b6f5e32f1df45c3ff213396c6387894451ed8aef4d7048fbf050",
+      "targetChecksum": "c2c94776d3250835e32d24a13b002d34242b6edaf437b40a884bd8ff92be09e8",
       "reviewStatus": "APPROVED"
     },
     "common.findYourAddress": {
@@ -5894,29 +5894,29 @@
     },
     "common.letOurAiGenerate": {
       "key": "common.letOurAiGenerate",
-      "value": "Let our AI generate marketing campaigns to promote your listings worldwide.",
+      "value": "AI가 전 세계에 매물을 홍보할 수 있는 마케팅 캠페인을 제작해 드립니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "168ec218575efb44eff859bef482b6e2fdc9fc82e7f6b08d1e7fe98a2dcb78dd",
-      "targetChecksum": "168ec218575efb44eff859bef482b6e2fdc9fc82e7f6b08d1e7fe98a2dcb78dd",
+      "targetChecksum": "5216d981980d48fd522ef5b2b1b7ec26c2f0995a0a7ce6445468a90da020e3e0",
       "reviewStatus": "APPROVED"
     },
     "common.listYourUnusedGear": {
       "key": "common.listYourUnusedGear",
-      "value": "List your unused gear, properties, and vehicles safely.",
+      "value": "사용하지 않는 장비, 부동산, 차량을 안전하게 대여하세요.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "0e5d967868629135a9754ae0a7133d0890e4b57e7e44d0a683ce3f375d097188",
-      "targetChecksum": "0e5d967868629135a9754ae0a7133d0890e4b57e7e44d0a683ce3f375d097188",
+      "targetChecksum": "63260699863a9469c1f803e117f316870917fd66d28d62dd6f1948a4bf73f659",
       "reviewStatus": "APPROVED"
     },
     "common.loading": {
       "key": "common.loading",
-      "value": "Loading...",
+      "value": "로딩 중...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "47d2a515ef2f05b87d688656286a61e4f743da4b878684c7654969db17711c40",
-      "targetChecksum": "47d2a515ef2f05b87d688656286a61e4f743da4b878684c7654969db17711c40",
+      "targetChecksum": "637f85a455022acfb1263f954848172e86d81c482ef6a1d109176bbdce01d02b",
       "reviewStatus": "APPROVED"
     },
     "common.loadingBarangays": {
@@ -6029,11 +6029,11 @@
     },
     "common.ourAdminTeamAnd": {
       "key": "common.ourAdminTeamAnd",
-      "value": "Our admin team and AI helpers ensure objective damage reviews.",
+      "value": "운영팀과 AI 도우미가 객관적인 손상 조사를 보장합니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "2ef3dcabc3c082609dc5d748bd1dad3ecbfb956387806f4daeb7ad65450bd64e",
-      "targetChecksum": "2ef3dcabc3c082609dc5d748bd1dad3ecbfb956387806f4daeb7ad65450bd64e",
+      "targetChecksum": "7dfef3231a38946c863f91e4ad1e14b4f1dda6ba7e0d7671bde138bfecc6123c",
       "reviewStatus": "APPROVED"
     },
     "common.page.addToHomeScreen": {
@@ -6155,11 +6155,11 @@
     },
     "common.saveMoneyAndSpace": {
       "key": "common.saveMoneyAndSpace",
-      "value": "Save money and space",
+      "value": "비용과 공간 절약",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e1f2fd55b5aa185b964adf220fa4a323ac4648368dd5a3ec54b4f649d3d60ee8",
-      "targetChecksum": "e1f2fd55b5aa185b964adf220fa4a323ac4648368dd5a3ec54b4f649d3d60ee8",
+      "targetChecksum": "f6166bd3526d4b767d516368c3068881b4b048e6e7e7c7d05e10d89529b10975",
       "reviewStatus": "APPROVED"
     },
     "common.scrollDownAndTap": {
@@ -6247,11 +6247,11 @@
     },
     "common.standardizedAgreements": {
       "key": "common.standardizedAgreements",
-      "value": "Standardized Agreements",
+      "value": "표준화된 계약서",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "46bc78999203e7daa40e810cc414a541e079256710765caf30dadf043b924e8b",
-      "targetChecksum": "46bc78999203e7daa40e810cc414a541e079256710765caf30dadf043b924e8b",
+      "targetChecksum": "b92c7b020013e6ce0dba5e63e9d3df8a3519f71e7ce082e757cfb9dd6882d9fb",
       "reviewStatus": "APPROVED"
     },
     "common.startDigitalHuman": {
@@ -6366,11 +6366,11 @@
     },
     "common.turnIdleAssetsInto": {
       "key": "common.turnIdleAssetsInto",
-      "value": "Turn idle assets into income",
+      "value": "놀고 있는 물품으로 수익 창출",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d9805ccb4c93f536761e68bde8573bf4209078c04d933be010783500be746b5e",
-      "targetChecksum": "d9805ccb4c93f536761e68bde8573bf4209078c04d933be010783500be746b5e",
+      "targetChecksum": "8ac39394e06bba67861d722fd3367d39f91be03d1bf35e45715628dbe45a27ea",
       "reviewStatus": "APPROVED"
     },
     "common.typeToSearchCity": {
@@ -6384,11 +6384,11 @@
     },
     "common.user": {
       "key": "common.user",
-      "value": "User",
+      "value": "사용자",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "b512d97e7cbf97c273e4db073bbb547aa65a84589227f8f3d9e4a72b9372a24d",
-      "targetChecksum": "b512d97e7cbf97c273e4db073bbb547aa65a84589227f8f3d9e4a72b9372a24d",
+      "targetChecksum": "1ac6e422b7dc00bbcdc352a09ec908cb8f56264824fe6c9ce03c6a574ee02890",
       "reviewStatus": "APPROVED"
     },
     "common.v1LaunchNote": {
@@ -6411,11 +6411,11 @@
     },
     "common.verifiedRentersOnly": {
       "key": "common.verifiedRentersOnly",
-      "value": "Verified Renters Only",
+      "value": "인증된 대여자 전용",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "606be12bffae946a5f73d367d55e69d5b1b85ff93f95cfc58ada70b4caf0fec5",
-      "targetChecksum": "606be12bffae946a5f73d367d55e69d5b1b85ff93f95cfc58ada70b4caf0fec5",
+      "targetChecksum": "ec8aa60c9cb79c76726a9f02fcc9a8cb9c6c7e9d1e1ee995233b810b86964159",
       "reviewStatus": "APPROVED"
     },
     "common.version": {
@@ -6465,11 +6465,11 @@
     },
     "common.youControlWhoCan": {
       "key": "common.youControlWhoCan",
-      "value": "You control who can rent your items. Require IDs and deposits.",
+      "value": "누구에게 빌려줄지 직접 선택하세요. 신분증과 보증금을 요구할 수 있습니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "a1361e8859cf57f5ffb1c855a128f1b90c7d561ed7d863a4ce4fb33e28e67922",
-      "targetChecksum": "a1361e8859cf57f5ffb1c855a128f1b90c7d561ed7d863a4ce4fb33e28e67922",
+      "targetChecksum": "b5b04b3481a4a92e91b63100b2a33da7aedab9416c5a278edba38b28faf805fc",
       "reviewStatus": "APPROVED"
     },
     "common.zipPostalCode": {
@@ -6700,20 +6700,20 @@
     },
     "footer.description": {
       "key": "footer.description",
-      "value": "RENTipid is a verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "value": "RENTipid는 공구, 장비, 공간, 부동산 등을 안전하게 대여하는 검증된 마켓플레이스입니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c97383b4c2b280e2bd5f5d251d805a10e0a7975006c25d9fcf910d400a70fd62",
-      "targetChecksum": "c97383b4c2b280e2bd5f5d251d805a10e0a7975006c25d9fcf910d400a70fd62",
+      "targetChecksum": "8064c1fda2b6f5d4073822a691c1c7499a28de45a07adbd8a2065d830f44b601",
       "reviewStatus": "APPROVED"
     },
     "footer.helpCenter": {
       "key": "footer.helpCenter",
-      "value": "고객센터",
+      "value": "도움말 센터",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "a78cebc44214256ba361dcee3f1cc1408e55ea6940c65067615abd4fdcc2d788",
-      "targetChecksum": "8497eb60b73b67fda29742eef6b8f3b2c9c702f312e9261f43bfc7935244349e",
+      "targetChecksum": "6cc2cafbf3e217803a14436a8f3bc5bcd9b96fd0492963a713a5730322b0c39c",
       "reviewStatus": "APPROVED"
     },
     "footer.ip": {
@@ -6742,20 +6742,20 @@
     },
     "footer.platform": {
       "key": "footer.platform",
-      "value": "Platform",
+      "value": "플랫폼",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c78ffe19571018fbc93a78873969046fe1a80c3d21e5d20fbb2ca17c7c53a144",
-      "targetChecksum": "c78ffe19571018fbc93a78873969046fe1a80c3d21e5d20fbb2ca17c7c53a144",
+      "targetChecksum": "e56c7fcf61e194b640383bb573942a4e1988d7d93f7bf21865743a99d0559289",
       "reviewStatus": "APPROVED"
     },
     "footer.privacy": {
       "key": "footer.privacy",
-      "value": "개인정보 보호",
+      "value": "개인정보 처리방침",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "54a57c3147c49f33de5898b87084ad2b14c4ab308f762454bf92aca907478ad5",
-      "targetChecksum": "8a05a9daab48de7d4baf2f4b7cddc4c23b3e136287e086e2f008356a253becec",
+      "targetChecksum": "b4f463f37666c59e55744f097521c672fe427d82d735fffd1366ef4c62d3c258",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.privacy",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6763,11 +6763,11 @@
     },
     "footer.prohibitedItems": {
       "key": "footer.prohibitedItems",
-      "value": "금지 품목",
+      "value": "대여 금지 품목",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "4e9f5b3cab42f4bcc2c1594f8be8f0e5e428613a4a65204533c4b9ec329959ce",
-      "targetChecksum": "4258e647219cdbd10913a05ff39828ebd03fecbba1add9b4f944638bdba8cad1",
+      "targetChecksum": "15e5f50e9a1d17c603a3495f2723012b58e83f1f38641b8bca52b024b2da3aa3",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.prohibitedItems",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6775,11 +6775,11 @@
     },
     "footer.reportIllegal": {
       "key": "footer.reportIllegal",
-      "value": "불법 활동 신고",
+      "value": "불법 행위 신고",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "60e4e5cd4a2b80f9163ccea194f76687e72052c39ede19fac7233437e5993229",
-      "targetChecksum": "77414bd373bd2d9cbd493c63e5bf2f30dd62c1e44cac64f38fb24c79da455e51",
+      "targetChecksum": "b4e51233df20ed95b917c1d604062c0384ed7365fe3c550c6aca139a0978d06e",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.reportIllegal",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6799,29 +6799,29 @@
     },
     "footer.socialMedia": {
       "key": "footer.socialMedia",
-      "value": "Social Media",
+      "value": "소셜 미디어",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "8dfdbc2ef4391d511daccaa080cce5fb26e608db8b180c56e31df392519f8d50",
-      "targetChecksum": "8dfdbc2ef4391d511daccaa080cce5fb26e608db8b180c56e31df392519f8d50",
+      "targetChecksum": "328659732325a562170ad79ddc34ff63fc742914d6c42258d7b3e80005934875",
       "reviewStatus": "APPROVED"
     },
     "footer.support": {
       "key": "footer.support",
-      "value": "고객지원",
+      "value": "고객 지원",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "be91940b79f469101df9a50544b6873aa5509a12f1f93f1cb5e3be3990d344b3",
-      "targetChecksum": "e3db8f1f74ec6d6f3249bd56da3540fc4b8648aa0039b4e2791c5ea946cd6288",
+      "targetChecksum": "34f3972b8cb61408ff3c4a5abd28adee60e12d42dd8b33a95d8139c01946dea8",
       "reviewStatus": "APPROVED"
     },
     "footer.terms": {
       "key": "footer.terms",
-      "value": "약관",
+      "value": "이용약관",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "ede5489964834a514b61c7a4a8370be2452dd4a7d807180f14991ccc11ad2430",
-      "targetChecksum": "79928e09de12ead932f6a6f7c0c2f9493f492eb419e4c3e9d4e991a851c15d21",
+      "targetChecksum": "c7e724d5c4951b7236764a653c8667421e13104c70a3d832ab32418eb8ad7277",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.terms",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6829,11 +6829,11 @@
     },
     "footer.trustAndLegal": {
       "key": "footer.trustAndLegal",
-      "value": "신뢰 및 법적 정보",
+      "value": "신뢰 및 약관",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "507708793c137e3ba21b5a5a3b1a70989cea04bb71962466ac7050ee1d7cfe20",
-      "targetChecksum": "bf0d46d36c5721b5ca7e5a8f6a2fd0da52542c7b5af62747c59e06033bc5a453",
+      "targetChecksum": "0cd1f65dec6171564019608414a3f8c3cbfae6d9d3d9569beacf6c412a7d7558",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.trustAndLegal",
       "authoritativeSourceVersion": "v1.0.1",
@@ -7495,146 +7495,146 @@
     },
     "home.aiAssistanceDesc": {
       "key": "home.aiAssistanceDesc",
-      "value": "Our AI Concierge helps you find the right items, suggests fair pricing, and guides you through rental agreements and disputes.",
+      "value": "AI 컨시어지가 적합한 물품 추천, 적정 가격 제안, 대여 계약서 작성 및 분쟁 해결을 지원합니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "5d58796ad034c3ab93758bb4827520efdb749678f313326339508e990d0ec841",
-      "targetChecksum": "5d58796ad034c3ab93758bb4827520efdb749678f313326339508e990d0ec841",
+      "targetChecksum": "bcf45cebb49cca745b0ff5bf974d96b0092abe242c721ce484b77d7fca36d07c",
       "reviewStatus": "APPROVED"
     },
     "home.aiAssistanceTitle": {
       "key": "home.aiAssistanceTitle",
-      "value": "AI Assistance",
+      "value": "AI 어시스턴트",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "7c686fdb859c311ba9324e5a5c4f38e63d0e8a68fdd96d3875dcf0fccc4d6711",
-      "targetChecksum": "7c686fdb859c311ba9324e5a5c4f38e63d0e8a68fdd96d3875dcf0fccc4d6711",
+      "targetChecksum": "8338a35cad8dbf05a55ca0f772b127a303d030e3691df566d8a20459ecf0987b",
       "reviewStatus": "APPROVED"
     },
     "home.ctaSubtitle": {
       "key": "home.ctaSubtitle",
-      "value": "Create an account today and start renting securely.",
+      "value": "지금 계정을 만들고 안전하게 렌탈을 시작하세요.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "159652114ad0306dca432d3d1fde15b97402628e084984f1df9a3183152f8004",
-      "targetChecksum": "159652114ad0306dca432d3d1fde15b97402628e084984f1df9a3183152f8004",
+      "targetChecksum": "d3b707109d143a36d712f4a9e1cdb4e6c7144c9197aa3b965da2f38ddd44031e",
       "reviewStatus": "APPROVED"
     },
     "home.ctaTitle": {
       "key": "home.ctaTitle",
-      "value": "Ready to join RENTipid?",
+      "value": "RENTipid와 함께할 준비가 되셨나요?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "ac109eea4b789c0f5151e01bd56eb3a939289fbc58eed37e2ba643a029cf3c14",
-      "targetChecksum": "ac109eea4b789c0f5151e01bd56eb3a939289fbc58eed37e2ba643a029cf3c14",
+      "targetChecksum": "2d14172274eab8429a4ef758b02803b9becbc3355f90ca063755bc6dda5990b2",
       "reviewStatus": "APPROVED"
     },
     "home.depositProtectionDesc": {
       "key": "home.depositProtectionDesc",
-      "value": "Security deposits are held safely in the platform and automatically resolved based on before-and-after photo inspections.",
+      "value": "보증금은 플랫폼에 안전하게 예치되며, 대여 전후 사진 검수를 바탕으로 자동 정산됩니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "59c3b4ae7418b5cd303c3add6932d4ce0f3f7c75524930403a047857e49c4e7a",
-      "targetChecksum": "59c3b4ae7418b5cd303c3add6932d4ce0f3f7c75524930403a047857e49c4e7a",
+      "targetChecksum": "05543c9f089e4b40d785a41bd1675bdd3b06b088cf37381f2c2ebccdd82f9c36",
       "reviewStatus": "APPROVED"
     },
     "home.depositProtectionTitle": {
       "key": "home.depositProtectionTitle",
-      "value": "Deposit Protection",
+      "value": "보증금 안심 보호",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "a22c3059e657980413eadede858880478bb4a73541cf2533ec3b4cef678b60d6",
-      "targetChecksum": "a22c3059e657980413eadede858880478bb4a73541cf2533ec3b4cef678b60d6",
+      "targetChecksum": "a9a76cce8b3d862557b17e52abbfdfc9c7f34c8e653aacc164385a6a60e544a3",
       "reviewStatus": "APPROVED"
     },
     "home.forProviders": {
       "key": "home.forProviders",
-      "value": "For Providers",
+      "value": "제공자를 위한 혜택",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "2878d60a73996e3f909d22ffcb1ad5513aafc849dd6e0e648622b07231a5d973",
-      "targetChecksum": "2878d60a73996e3f909d22ffcb1ad5513aafc849dd6e0e648622b07231a5d973",
+      "targetChecksum": "919b297d3a59062bc148341a1807fa6dd23cc94cbd8484a5cc50ee2ad30027f5",
       "reviewStatus": "APPROVED"
     },
     "home.forRenters": {
       "key": "home.forRenters",
-      "value": "For Renters",
+      "value": "대여자를 위한 혜택",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9e7c3aac051f930c9801eb4c266c8a08bcef93bd76ed2bbe360280a37ad7b4e8",
-      "targetChecksum": "9e7c3aac051f930c9801eb4c266c8a08bcef93bd76ed2bbe360280a37ad7b4e8",
+      "targetChecksum": "007b43f361ffe02ea5b3ad08863256eb5461fd52ea2c4b9a77f1e17c8f956ba8",
       "reviewStatus": "APPROVED"
     },
     "home.getStarted": {
       "key": "home.getStarted",
-      "value": "Get Started Now",
+      "value": "지금 시작하기",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "cc3666dca734ab8fa68d971c0f1cb8673aac2d655b6af415d68be8720daba55d",
-      "targetChecksum": "cc3666dca734ab8fa68d971c0f1cb8673aac2d655b6af415d68be8720daba55d",
+      "targetChecksum": "3cf865c4257b4c8f18acc69d03e4f23ebdd71b7ac9c4af124cb9ade1b5dfa4a4",
       "reviewStatus": "APPROVED"
     },
     "home.heroSubtitle": {
       "key": "home.heroSubtitle",
-      "value": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "value": "공구, 장비, 공간, 부동산 및 적법한 자산을 안전하게 대여하고 빌릴 수 있는 검증된 렌탈 마켓플레이스입니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
-      "targetChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
+      "targetChecksum": "0c44d11be8475dd5bd808c9ea963bf7910613f8b9c42cf3cdb90043da1464337",
       "reviewStatus": "APPROVED"
     },
     "home.heroTitle": {
       "key": "home.heroTitle",
-      "value": "Why Buy? RENTipid!",
+      "value": "왜 사나요? RENTipid로 렌탈하세요!",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
-      "targetChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
+      "targetChecksum": "9364fb7cff3a6b57763bf683fad439b925415c1e91ad47cff1ed0cfef9ee6d27",
       "reviewStatus": "APPROVED"
     },
     "home.startRenting": {
       "key": "home.startRenting",
-      "value": "Start Renting",
+      "value": "렌탈 시작하기",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
-      "targetChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
+      "targetChecksum": "70418a803ec89f6aacf18322c2d5598d19eac6e0a7e9f5950574e53c91a49b90",
       "reviewStatus": "APPROVED"
     },
     "home.trustSubtitle": {
       "key": "home.trustSubtitle",
-      "value": "Every transaction is secured, verified, and protected.",
+      "value": "모든 거래는 암호화되고 본인 확인을 거쳐 안전하게 보호됩니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "51f688e1f2913caea93a0e399aee1685406c59d7f524e78e7fd44da8e35dd48e",
-      "targetChecksum": "51f688e1f2913caea93a0e399aee1685406c59d7f524e78e7fd44da8e35dd48e",
+      "targetChecksum": "adcc9b0787c4522b670ea6180763d4ade79973a0d0d8fc0cba0b68473ad9f576",
       "reviewStatus": "APPROVED"
     },
     "home.trustTitle": {
       "key": "home.trustTitle",
-      "value": "Rent with Complete Peace of Mind",
+      "value": "완벽한 안심과 함께 렌탈하세요",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6e1277b82621a47447f7082702a3a025113f3809ab84c33b3cccc209f8866305",
-      "targetChecksum": "6e1277b82621a47447f7082702a3a025113f3809ab84c33b3cccc209f8866305",
+      "targetChecksum": "7b8ec399825b37289130a396a6e3618711889173d2f06b3d4b5e452947af10eb",
       "reviewStatus": "APPROVED"
     },
     "home.verifiedUsersDesc": {
       "key": "home.verifiedUsersDesc",
-      "value": "We verify identities and business permits before they can list or rent high-value items, keeping scams out of the platform.",
+      "value": "고가 품목을 등록하거나 대여하기 전에 신원과 사업자 등록을 확인하여 사기 피해를 방지합니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "ed57eb1fd398d6fb2cedd59e641aa2aa9a266d542e5ec56484e8bebea9ed03f2",
-      "targetChecksum": "ed57eb1fd398d6fb2cedd59e641aa2aa9a266d542e5ec56484e8bebea9ed03f2",
+      "targetChecksum": "4f27203136e7ef16e0ad71b6abd0e4ea26f58c9485dd0e9b7f7fd977d2cd9c33",
       "reviewStatus": "APPROVED"
     },
     "home.verifiedUsersTitle": {
       "key": "home.verifiedUsersTitle",
-      "value": "Verified Users",
+      "value": "검증된 사용자",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "adeea24d7119f51c02dcf06378f666c6263638744299efe60efe790ecf8b7e5f",
-      "targetChecksum": "adeea24d7119f51c02dcf06378f666c6263638744299efe60efe790ecf8b7e5f",
+      "targetChecksum": "1fc31b75717203fcd3e4cd62c5bb5540f914f8a622aca668e5687b54fbdd0ed0",
       "reviewStatus": "APPROVED"
     },
     "insurance.general.title": {
@@ -10985,20 +10985,20 @@
     },
     "marketplace.locationPlaceholder": {
       "key": "marketplace.locationPlaceholder",
-      "value": "City or neighborhood",
+      "value": "도시 또는 지역명",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c92129e54379c715f052475922d29c7d6ba615f55570ea48d93859d49a8ca7fb",
-      "targetChecksum": "c92129e54379c715f052475922d29c7d6ba615f55570ea48d93859d49a8ca7fb",
+      "targetChecksum": "cd2694dee4cc481ccd7e714364dd0314922f5951a6769a61f74d50bfa370309f",
       "reviewStatus": "APPROVED"
     },
     "marketplace.locationPrompt": {
       "key": "marketplace.locationPrompt",
-      "value": "Where?",
+      "value": "지역",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
-      "targetChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
+      "targetChecksum": "770eb9e292c171999d24b8a26c73d63c7b1947558ff98c500a1f9069b83a5574",
       "reviewStatus": "APPROVED"
     },
     "marketplace.noResults": {
@@ -11012,11 +11012,11 @@
     },
     "marketplace.popularCategories": {
       "key": "marketplace.popularCategories",
-      "value": "Popular Categories",
+      "value": "인기 카테고리",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
-      "targetChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
+      "targetChecksum": "20f246b745886db6386e03765c4a0d9763098e0def4dbbc00fbd6e446b1ce1cb",
       "reviewStatus": "APPROVED"
     },
     "marketplace.results": {
@@ -11070,20 +11070,20 @@
     },
     "marketplace.searchPlaceholder": {
       "key": "marketplace.searchPlaceholder",
-      "value": "Tools, vehicles, venues...",
+      "value": "공구, 차량, 공간 등...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e923e71fc497e1975d8065da120fb49f66ed15691c8dbec1424e74bb7a49ba8e",
-      "targetChecksum": "e923e71fc497e1975d8065da120fb49f66ed15691c8dbec1424e74bb7a49ba8e",
+      "targetChecksum": "1e7fdb62304f0c3686244431fb6125716f58563474c576fc9f50c1395f6fcc0e",
       "reviewStatus": "APPROVED"
     },
     "marketplace.searchPrompt": {
       "key": "marketplace.searchPrompt",
-      "value": "What are you looking for?",
+      "value": "무엇을 찾고 계신가요?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
-      "targetChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
+      "targetChecksum": "231fbd9e0a45586b89efe7d842e888b69feb6467c61c780140637fe53ee0c055",
       "reviewStatus": "APPROVED"
     },
     "marketplace.sort": {
@@ -11124,20 +11124,20 @@
     },
     "navigation.browseRentals": {
       "key": "navigation.browseRentals",
-      "value": "Browse Rentals",
+      "value": "대여 매물 둘러보기",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
-      "targetChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
+      "targetChecksum": "4127395b3f5bad8706f5216000beed0345a4f51553dd21a555ba0d51c93dd627",
       "reviewStatus": "APPROVED"
     },
     "navigation.dashboard": {
       "key": "navigation.dashboard",
-      "value": "Dashboard",
+      "value": "대시보드",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "67b696468610b879ed7f224dbf6b0861f27e39d20454cb9d7af1ec52d3e5eeaa",
-      "targetChecksum": "67b696468610b879ed7f224dbf6b0861f27e39d20454cb9d7af1ec52d3e5eeaa",
+      "targetChecksum": "2b1a8070a7387c98489353390c8f3404d1faef383de59fa9e92de5d23b7af875",
       "reviewStatus": "APPROVED"
     },
     "navigation.greeting": {
@@ -11153,47 +11153,47 @@
     },
     "navigation.howItWorks": {
       "key": "navigation.howItWorks",
-      "value": "How It Works",
+      "value": "이용 방법",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
-      "targetChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
+      "targetChecksum": "e1d6aab517ab3a981ef30b7e51a7a7830210cdf9fd40f3d653ff00579e3841cd",
       "reviewStatus": "APPROVED"
     },
     "navigation.listYourItem": {
       "key": "navigation.listYourItem",
-      "value": "List Your Item",
+      "value": "물품 등록하기",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
-      "targetChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
+      "targetChecksum": "48a97f1de748f55bd21f80121c34cfa82c744ed7105535fd7101c7c86aa6439a",
       "reviewStatus": "APPROVED"
     },
     "navigation.login": {
       "key": "navigation.login",
-      "value": "Login",
+      "value": "로그인",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
-      "targetChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
+      "targetChecksum": "6d253673db906e71d346cded9f58af3d24e0256033953c80e5bd77c3b9a56715",
       "reviewStatus": "APPROVED"
     },
     "navigation.logout": {
       "key": "navigation.logout",
-      "value": "Logout",
+      "value": "로그아웃",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d0527e4b3d658351dae74be7b10c7531a7ac98493c6b257ab62774853bcc74b2",
-      "targetChecksum": "d0527e4b3d658351dae74be7b10c7531a7ac98493c6b257ab62774853bcc74b2",
+      "targetChecksum": "919c1b32322583720f0004b3ec6c8d8cebdf585d5606966bb403768eb699ea13",
       "reviewStatus": "APPROVED"
     },
     "navigation.mainNav": {
       "key": "navigation.mainNav",
-      "value": "Main Navigation",
+      "value": "메인 탐색",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "56ea852a517b65e779dc6eb1c985d4998899fb0b895cde6686275381be0c09b9",
-      "targetChecksum": "56ea852a517b65e779dc6eb1c985d4998899fb0b895cde6686275381be0c09b9",
+      "targetChecksum": "b78a1f4af16a580f559ef0d0bb94511a2c20e01b5056f7756ebfad4ebaa7c935",
       "reviewStatus": "APPROVED"
     },
     "navigation.myProfile": {
@@ -11207,29 +11207,29 @@
     },
     "navigation.profile": {
       "key": "navigation.profile",
-      "value": "Profile",
+      "value": "프로필",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d696a35bdd1883da07a8d6c41bb7a3153381b23aa197629ee273479a6eaa5a9c",
-      "targetChecksum": "d696a35bdd1883da07a8d6c41bb7a3153381b23aa197629ee273479a6eaa5a9c",
+      "targetChecksum": "4a7849864c3b8d4067bc853c67bcfa572b7dfe68bbc773372bc14393b1f6c5b8",
       "reviewStatus": "APPROVED"
     },
     "navigation.register": {
       "key": "navigation.register",
-      "value": "Register",
+      "value": "회원가입",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
-      "targetChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
+      "targetChecksum": "e668cc2bec841912922fca66072c41872adde8db127b982da9d98e2b925342f6",
       "reviewStatus": "APPROVED"
     },
     "navigation.safety": {
       "key": "navigation.safety",
-      "value": "신뢰 및 안전",
+      "value": "안전 및 신뢰",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "726d11bd5b230253cc5f795cfcb3268117267cb11fee8df060a472e6448abc56",
-      "targetChecksum": "15e962eacda2c00ea4e81137f601d960babbde0414ee822c0b2d97c8a3eb00b4",
+      "targetChecksum": "9328a932080940daaa1f3e01881723dc0bb3d02bb9e9d88125ef0346c71fd3e1",
       "reviewStatus": "APPROVED"
     },
     "navigation.security": {
@@ -11243,11 +11243,11 @@
     },
     "navigation.userActions": {
       "key": "navigation.userActions",
-      "value": "User Actions",
+      "value": "사용자 메뉴",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "156701895ea897987806468598aa96b171f9f1d5b881fbfae7619299f30b1b2e",
-      "targetChecksum": "156701895ea897987806468598aa96b171f9f1d5b881fbfae7619299f30b1b2e",
+      "targetChecksum": "947e760e003b4562c20fa0523f97fc83591926a28c5f82c847cbc99b822c1038",
       "reviewStatus": "APPROVED"
     },
     "notifications.general.title": {

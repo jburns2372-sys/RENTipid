@@ -6,8 +6,8 @@
   "canonicalKeyCount": 2208,
   "canonicalKeyChecksum": "a682064cf1f532c26884104887b012b27be830be39b41e27d0c1d58f77b36fdf",
   "sourceMessageChecksum": "0566572080c895732e61ef62108403a283f6abf12e762eb29ba77a1460c2cbb8",
-  "targetMessageChecksum": "4dccfb916578455068a19e677c7dcef1fa177a0c8824a7d8ac46731e25510d9b",
-  "packChecksum": "9f9cfc794d7bd40376da7006295b72a64285ae7873f9e3a5af32932873685903",
+  "targetMessageChecksum": "e07bbdc4d77a5f74efd9767b2071b05345f4a092fd38bee661dc815341035ddf",
+  "packChecksum": "823243e10e24b074bcb6d4483ab4c8268ac706bc5fa83854d02d5df0a5f55cc5",
   "generatedAt": "2026-10-06T18:00:00.000Z",
   "workflowState": "APPROVED_FOR_QA",
   "releaseCandidateState": "CANDIDATE_FOR_QA",
@@ -7576,29 +7576,29 @@
     },
     "home.heroSubtitle": {
       "key": "home.heroSubtitle",
-      "value": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "value": "Staðfestur vettvangur til að leigja verkfæri, tæki og húsnæði á öruggan hátt.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
-      "targetChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
+      "targetChecksum": "2d4ce509200f952b9e4b4a4eb6e772aa43c86870e81f1088679b677c20c6fd9f",
       "reviewStatus": "APPROVED"
     },
     "home.heroTitle": {
       "key": "home.heroTitle",
-      "value": "Why Buy? RENTipid!",
+      "value": "Af hverju að kaupa? RENTipid!",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
-      "targetChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
+      "targetChecksum": "b88754677fc086fc548f8b6ea9b36494916942f0b7423a9a848de8e2c39c869b",
       "reviewStatus": "APPROVED"
     },
     "home.startRenting": {
       "key": "home.startRenting",
-      "value": "Start Renting",
+      "value": "Byrja að leigja",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
-      "targetChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
+      "targetChecksum": "c0022126b2a1f753f9ba8cf95db536209ca02a5ebf9d91fdc8deb149f8e5f7b9",
       "reviewStatus": "APPROVED"
     },
     "home.trustSubtitle": {
@@ -10994,11 +10994,11 @@
     },
     "marketplace.locationPrompt": {
       "key": "marketplace.locationPrompt",
-      "value": "Where?",
+      "value": "Hvar?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
-      "targetChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
+      "targetChecksum": "4e47ace4095aa67ebb75b0bf97489ad62a82296d0280dd33b590158ceb7cea8a",
       "reviewStatus": "APPROVED"
     },
     "marketplace.noResults": {
@@ -11012,11 +11012,11 @@
     },
     "marketplace.popularCategories": {
       "key": "marketplace.popularCategories",
-      "value": "Popular Categories",
+      "value": "Vinsælir flokkar",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
-      "targetChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
+      "targetChecksum": "a32396d3ab5168d80c189392ca8ecb8ae8173cf1d72c3b28b67c5014699ce3af",
       "reviewStatus": "APPROVED"
     },
     "marketplace.results": {
@@ -11079,11 +11079,11 @@
     },
     "marketplace.searchPrompt": {
       "key": "marketplace.searchPrompt",
-      "value": "What are you looking for?",
+      "value": "Að hverju leitar þú?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
-      "targetChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
+      "targetChecksum": "60b8194638e3ac27e6fffc08313d25fc9ec4f5595fde7708c61bed0fe0f0dcbf",
       "reviewStatus": "APPROVED"
     },
     "marketplace.sort": {
@@ -11124,11 +11124,11 @@
     },
     "navigation.browseRentals": {
       "key": "navigation.browseRentals",
-      "value": "Browse Rentals",
+      "value": "Skoða leiguhluti",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
-      "targetChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
+      "targetChecksum": "9a01d8f700f30bc9da17989fdef2900def77c0cd17ebbbb5d5cddddb9c9a6d66",
       "reviewStatus": "APPROVED"
     },
     "navigation.dashboard": {
@@ -11153,29 +11153,29 @@
     },
     "navigation.howItWorks": {
       "key": "navigation.howItWorks",
-      "value": "How It Works",
+      "value": "Hvernig þetta virkar",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
-      "targetChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
+      "targetChecksum": "8af38d417f2afe8651ca1f8f5ecb426e2560eaa1edf472de9b4fc100db2d90b8",
       "reviewStatus": "APPROVED"
     },
     "navigation.listYourItem": {
       "key": "navigation.listYourItem",
-      "value": "List Your Item",
+      "value": "Skrá hlut til leigu",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
-      "targetChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
+      "targetChecksum": "5e63ff52c6048781b4a8a4cf8720cb8d866a867816ed246826b33c8843adc843",
       "reviewStatus": "APPROVED"
     },
     "navigation.login": {
       "key": "navigation.login",
-      "value": "Login",
+      "value": "Innskráning",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
-      "targetChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
+      "targetChecksum": "3027f9d286bf88e11437ccb43811a70f286eb37dd3ae829a3f4012a1b03c5227",
       "reviewStatus": "APPROVED"
     },
     "navigation.logout": {
@@ -11216,11 +11216,11 @@
     },
     "navigation.register": {
       "key": "navigation.register",
-      "value": "Register",
+      "value": "Nýskráning",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
-      "targetChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
+      "targetChecksum": "10de4b420a29b06778243107dcf84b394e217952e525618edeff0a46f724bd19",
       "reviewStatus": "APPROVED"
     },
     "navigation.safety": {

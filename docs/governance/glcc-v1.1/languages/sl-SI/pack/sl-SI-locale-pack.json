@@ -6,8 +6,8 @@
   "canonicalKeyCount": 2208,
   "canonicalKeyChecksum": "a682064cf1f532c26884104887b012b27be830be39b41e27d0c1d58f77b36fdf",
   "sourceMessageChecksum": "0566572080c895732e61ef62108403a283f6abf12e762eb29ba77a1460c2cbb8",
-  "targetMessageChecksum": "0c206752279be9a76122bdf92e16e45cf0c3d01118edf614e91d61c8a18c66d9",
-  "packChecksum": "8e060d29dfa74dfc32e649d90f594817e9172dedaf3719a61d79aaff1e9f232c",
+  "targetMessageChecksum": "e15652aefa2b0ad0e2808c19c24b3acea1f91e5a758a417783917c4887bdb950",
+  "packChecksum": "a27e668f16dd4639bd0616bfb8ccaeb3ee6e76b0378f9f026bce7640d60f5b12",
   "generatedAt": "2026-10-06T18:00:00.000Z",
   "workflowState": "APPROVED_FOR_QA",
   "releaseCandidateState": "CANDIDATE_FOR_QA",
@@ -7576,29 +7576,29 @@
     },
     "home.heroSubtitle": {
       "key": "home.heroSubtitle",
-      "value": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "value": "Preverjena platforma za varen najem orodij, opreme in nepremičnin.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
-      "targetChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
+      "targetChecksum": "776e66bf267ee8176bc4b19dd529c1a605acbece07baee0716750273aaad0def",
       "reviewStatus": "APPROVED"
     },
     "home.heroTitle": {
       "key": "home.heroTitle",
-      "value": "Why Buy? RENTipid!",
+      "value": "Zakaj kupovati? RENTipid!",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
-      "targetChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
+      "targetChecksum": "1201ffa1f19a57824c2ef542f0227735ce3144ee5a37f7cecc23ac7092dd68c6",
       "reviewStatus": "APPROVED"
     },
     "home.startRenting": {
       "key": "home.startRenting",
-      "value": "Start Renting",
+      "value": "Začni z najemom",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
-      "targetChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
+      "targetChecksum": "73fb95519e14c6527dd8f5fa486ed6ff1306c10858ad7d415e71ee474bc276d9",
       "reviewStatus": "APPROVED"
     },
     "home.trustSubtitle": {
@@ -10994,11 +10994,11 @@
     },
     "marketplace.locationPrompt": {
       "key": "marketplace.locationPrompt",
-      "value": "Where?",
+      "value": "Kje?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
-      "targetChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
+      "targetChecksum": "1bf30923e8902bbb8983ee147f33e3be6ac8a9f9dd2d37b53348f5796af8acc3",
       "reviewStatus": "APPROVED"
     },
     "marketplace.noResults": {
@@ -11012,11 +11012,11 @@
     },
     "marketplace.popularCategories": {
       "key": "marketplace.popularCategories",
-      "value": "Popular Categories",
+      "value": "Priljubljene kategorije",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
-      "targetChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
+      "targetChecksum": "554a812f5bf150702780bd76aba811db061fbb234e59aaa67efafaf804de0eaa",
       "reviewStatus": "APPROVED"
     },
     "marketplace.results": {
@@ -11079,11 +11079,11 @@
     },
     "marketplace.searchPrompt": {
       "key": "marketplace.searchPrompt",
-      "value": "What are you looking for?",
+      "value": "Kaj iščete?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
-      "targetChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
+      "targetChecksum": "1898c2fe37a4c1cba68d19523e85dbe179c7a650ff0392b295eec59ea90d2055",
       "reviewStatus": "APPROVED"
     },
     "marketplace.sort": {
@@ -11124,11 +11124,11 @@
     },
     "navigation.browseRentals": {
       "key": "navigation.browseRentals",
-      "value": "Browse Rentals",
+      "value": "Brskaj med najemi",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
-      "targetChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
+      "targetChecksum": "872780b140dcb2ab253ec07af1f7d180ee49336303f7f784afdc02beb872f700",
       "reviewStatus": "APPROVED"
     },
     "navigation.dashboard": {
@@ -11153,29 +11153,29 @@
     },
     "navigation.howItWorks": {
       "key": "navigation.howItWorks",
-      "value": "How It Works",
+      "value": "Kako deluje",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
-      "targetChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
+      "targetChecksum": "9a99520ad643030eee49b9aa8ae155af528e08ca7a4096c13ce3d98fb651ec71",
       "reviewStatus": "APPROVED"
     },
     "navigation.listYourItem": {
       "key": "navigation.listYourItem",
-      "value": "List Your Item",
+      "value": "Objavi predmet",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
-      "targetChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
+      "targetChecksum": "ef11a37b72a752a95557d9c4f6aaae0404b0e02c4d21b918b00911d7ac9d54db",
       "reviewStatus": "APPROVED"
     },
     "navigation.login": {
       "key": "navigation.login",
-      "value": "Login",
+      "value": "Prijava",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
-      "targetChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
+      "targetChecksum": "7bcd197ef8f7ac29d990a42da82c2830252f2ca2824ad671005b48aec13cf8a3",
       "reviewStatus": "APPROVED"
     },
     "navigation.logout": {
@@ -11216,11 +11216,11 @@
     },
     "navigation.register": {
       "key": "navigation.register",
-      "value": "Register",
+      "value": "Registracija",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
-      "targetChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
+      "targetChecksum": "5da4577bfe425d7957a5336e595b7b6fb8c076172364895d259e5d4d9888d430",
       "reviewStatus": "APPROVED"
     },
     "navigation.safety": {

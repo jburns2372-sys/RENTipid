@@ -6,8 +6,8 @@
   "canonicalKeyCount": 2208,
   "canonicalKeyChecksum": "a682064cf1f532c26884104887b012b27be830be39b41e27d0c1d58f77b36fdf",
   "sourceMessageChecksum": "0566572080c895732e61ef62108403a283f6abf12e762eb29ba77a1460c2cbb8",
-  "targetMessageChecksum": "fd6b51816ab1a9287783e465b8fc92bf97abe7b95abab9bab168257675c5aedb",
-  "packChecksum": "c67ea35df9a8af601ed5541901074dbaf8ed22166e4166052c8cde9729e06d06",
+  "targetMessageChecksum": "232179c6b56e6c5c7e9bd2f49b440b7dc268e02a296f7db0f679b75227206b88",
+  "packChecksum": "b73c3d31ae936e64d417447284799a14de6cded0354bf81b9549599e56283891",
   "generatedAt": "2026-10-06T18:00:00.000Z",
   "workflowState": "APPROVED_FOR_QA",
   "releaseCandidateState": "CANDIDATE_FOR_QA",
@@ -5597,11 +5597,11 @@
     },
     "common.betaNotice": {
       "key": "common.betaNotice",
-      "value": "RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.",
+      "value": "Bản thử nghiệm RENTipid | Giao dịch thử nghiệm | Giao dịch tài chính thật bị tắt.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "ea39fe991e907f6d84798ed1f9f725c41c91b115a8e1c0ac9ec2c2af98d419d4",
-      "targetChecksum": "ea39fe991e907f6d84798ed1f9f725c41c91b115a8e1c0ac9ec2c2af98d419d4",
+      "targetChecksum": "2e6c8ebe8fef754ea11b508c429df0449197af0f67d39bfdeeacb0220b469cdf",
       "reviewStatus": "APPROVED"
     },
     "common.buttonSquareWithAn": {
@@ -5912,11 +5912,11 @@
     },
     "common.loading": {
       "key": "common.loading",
-      "value": "Loading...",
+      "value": "Đang tải...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "47d2a515ef2f05b87d688656286a61e4f743da4b878684c7654969db17711c40",
-      "targetChecksum": "47d2a515ef2f05b87d688656286a61e4f743da4b878684c7654969db17711c40",
+      "targetChecksum": "148ded8380553e499ed48a224e4abaf1c900d48cb9bf06783cc8065a694c007d",
       "reviewStatus": "APPROVED"
     },
     "common.loadingBarangays": {
@@ -6384,11 +6384,11 @@
     },
     "common.user": {
       "key": "common.user",
-      "value": "User",
+      "value": "Người dùng",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "b512d97e7cbf97c273e4db073bbb547aa65a84589227f8f3d9e4a72b9372a24d",
-      "targetChecksum": "b512d97e7cbf97c273e4db073bbb547aa65a84589227f8f3d9e4a72b9372a24d",
+      "targetChecksum": "9e9519eb042d26421f2c805b34e171798e0f32efcbac90f93b6558fe9347541b",
       "reviewStatus": "APPROVED"
     },
     "common.v1LaunchNote": {
@@ -6689,22 +6689,22 @@
     },
     "footer.copyright": {
       "key": "footer.copyright",
-      "value": "© {year} RENTipid. Bảo lưu mọi quyền.",
+      "value": "© {year} RENTipid. Mọi quyền được bảo lưu.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [
         "year"
       ],
       "sourceChecksum": "14b07b92ba50adecca2fffff0d4127da44a8d56538db642c585057e6b8890e5b",
-      "targetChecksum": "e2551ca582fc7334ae59d363cbd4da2a214fb4652ecfe4ddf395d122f31a3de5",
+      "targetChecksum": "ba644d1d5d5f53ad8c9c7e90c2f1b9f443389b28290b69d17e6c3fe957849c4d",
       "reviewStatus": "APPROVED"
     },
     "footer.description": {
       "key": "footer.description",
-      "value": "RENTipid is a verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "value": "RENTipid là thị trường cho thuê uy tín giúp thuê dụng cụ, thiết bị và tài sản an toàn.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c97383b4c2b280e2bd5f5d251d805a10e0a7975006c25d9fcf910d400a70fd62",
-      "targetChecksum": "c97383b4c2b280e2bd5f5d251d805a10e0a7975006c25d9fcf910d400a70fd62",
+      "targetChecksum": "429644e4eacac15b21725f2c829806071a315784b47366ee61560f26038b8bb2",
       "reviewStatus": "APPROVED"
     },
     "footer.helpCenter": {
@@ -6742,11 +6742,11 @@
     },
     "footer.platform": {
       "key": "footer.platform",
-      "value": "Platform",
+      "value": "Nền tảng",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c78ffe19571018fbc93a78873969046fe1a80c3d21e5d20fbb2ca17c7c53a144",
-      "targetChecksum": "c78ffe19571018fbc93a78873969046fe1a80c3d21e5d20fbb2ca17c7c53a144",
+      "targetChecksum": "5d24b1efc5c9a21ded9af5d9b1eafa1e14271e1344c82d1f7d7a3ac489d1d53b",
       "reviewStatus": "APPROVED"
     },
     "footer.privacy": {
@@ -6808,11 +6808,11 @@
     },
     "footer.support": {
       "key": "footer.support",
-      "value": "Hỗ Trợ",
+      "value": "Hỗ trợ",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "be91940b79f469101df9a50544b6873aa5509a12f1f93f1cb5e3be3990d344b3",
-      "targetChecksum": "3d38540cf0f92d7034eeee6262fb49a51bcf7f558b885f387fc350f4c8137295",
+      "targetChecksum": "c94bda257e5603cbf6342bf2a25ccdc6eba1624651b4b1dda654489d98fff9a7",
       "reviewStatus": "APPROVED"
     },
     "footer.terms": {
@@ -7504,29 +7504,29 @@
     },
     "home.aiAssistanceTitle": {
       "key": "home.aiAssistanceTitle",
-      "value": "AI Assistance",
+      "value": "Trợ lý AI",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "7c686fdb859c311ba9324e5a5c4f38e63d0e8a68fdd96d3875dcf0fccc4d6711",
-      "targetChecksum": "7c686fdb859c311ba9324e5a5c4f38e63d0e8a68fdd96d3875dcf0fccc4d6711",
+      "targetChecksum": "0a8d5bc9d64315acba784601e13f03fc881a4cccad0952a08318a6ca3ff8a06f",
       "reviewStatus": "APPROVED"
     },
     "home.ctaSubtitle": {
       "key": "home.ctaSubtitle",
-      "value": "Create an account today and start renting securely.",
+      "value": "Tạo tài khoản ngay hôm nay và bắt đầu thuê an toàn.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "159652114ad0306dca432d3d1fde15b97402628e084984f1df9a3183152f8004",
-      "targetChecksum": "159652114ad0306dca432d3d1fde15b97402628e084984f1df9a3183152f8004",
+      "targetChecksum": "4c28c968c8eb9d48d01b304f3fe4b9c2cd789ad173cf493f55ba3505dc24c203",
       "reviewStatus": "APPROVED"
     },
     "home.ctaTitle": {
       "key": "home.ctaTitle",
-      "value": "Ready to join RENTipid?",
+      "value": "Sẵn sàng tham gia RENTipid?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "ac109eea4b789c0f5151e01bd56eb3a939289fbc58eed37e2ba643a029cf3c14",
-      "targetChecksum": "ac109eea4b789c0f5151e01bd56eb3a939289fbc58eed37e2ba643a029cf3c14",
+      "targetChecksum": "cae2d048b44d83ad60aff82ad804b063efd60f8033510c3a83ecbeff40c7c9c1",
       "reviewStatus": "APPROVED"
     },
     "home.depositProtectionDesc": {
@@ -7540,11 +7540,11 @@
     },
     "home.depositProtectionTitle": {
       "key": "home.depositProtectionTitle",
-      "value": "Deposit Protection",
+      "value": "Bảo vệ tiền đặt cọc",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "a22c3059e657980413eadede858880478bb4a73541cf2533ec3b4cef678b60d6",
-      "targetChecksum": "a22c3059e657980413eadede858880478bb4a73541cf2533ec3b4cef678b60d6",
+      "targetChecksum": "b39cfd514f0e809b83c04e6203a6031b3f07dbcac8df2ab15c26b4b1eb9a4d18",
       "reviewStatus": "APPROVED"
     },
     "home.forProviders": {
@@ -7567,56 +7567,56 @@
     },
     "home.getStarted": {
       "key": "home.getStarted",
-      "value": "Get Started Now",
+      "value": "Bắt đầu ngay",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "cc3666dca734ab8fa68d971c0f1cb8673aac2d655b6af415d68be8720daba55d",
-      "targetChecksum": "cc3666dca734ab8fa68d971c0f1cb8673aac2d655b6af415d68be8720daba55d",
+      "targetChecksum": "281893c77e1c02d7d3c42e892095ca161d97846788fc7b55e248c8e96b8e86e3",
       "reviewStatus": "APPROVED"
     },
     "home.heroSubtitle": {
       "key": "home.heroSubtitle",
-      "value": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "value": "Thị trường cho thuê uy tín để thuê và cho thuê dụng cụ, thiết bị, không gian và bất động sản an toàn.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
-      "targetChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
+      "targetChecksum": "2f18d0a85932ce442e5732b482f306bb5b66be9f8dee4fef6eb85d4f06313efd",
       "reviewStatus": "APPROVED"
     },
     "home.heroTitle": {
       "key": "home.heroTitle",
-      "value": "Why Buy? RENTipid!",
+      "value": "Sao phải mua? Thuê ngay cùng RENTipid!",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
-      "targetChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
+      "targetChecksum": "28b42b53fb13fbf7f3958618ed1e1c9ed6048659dbdf79b9127f8fb96ceefd7a",
       "reviewStatus": "APPROVED"
     },
     "home.startRenting": {
       "key": "home.startRenting",
-      "value": "Start Renting",
+      "value": "Bắt đầu thuê",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
-      "targetChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
+      "targetChecksum": "41bb26f6452845c2a66454e92dce4297ada13d6cf3d6d09b5a782ed44266e5e9",
       "reviewStatus": "APPROVED"
     },
     "home.trustSubtitle": {
       "key": "home.trustSubtitle",
-      "value": "Every transaction is secured, verified, and protected.",
+      "value": "Mọi giao dịch đều được mã hóa, xác minh và bảo vệ toàn diện.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "51f688e1f2913caea93a0e399aee1685406c59d7f524e78e7fd44da8e35dd48e",
-      "targetChecksum": "51f688e1f2913caea93a0e399aee1685406c59d7f524e78e7fd44da8e35dd48e",
+      "targetChecksum": "20da160ed1673feab63771c321af4755ac856f38ecbba94a3fc29c9abbef99b5",
       "reviewStatus": "APPROVED"
     },
     "home.trustTitle": {
       "key": "home.trustTitle",
-      "value": "Rent with Complete Peace of Mind",
+      "value": "Thuê với sự an tâm tuyệt đối",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6e1277b82621a47447f7082702a3a025113f3809ab84c33b3cccc209f8866305",
-      "targetChecksum": "6e1277b82621a47447f7082702a3a025113f3809ab84c33b3cccc209f8866305",
+      "targetChecksum": "4acc932d47dc34a8df2caa67d5b7b95cdfce2e63d0a764d2d6fa6ea69ce7430c",
       "reviewStatus": "APPROVED"
     },
     "home.verifiedUsersDesc": {
@@ -7630,11 +7630,11 @@
     },
     "home.verifiedUsersTitle": {
       "key": "home.verifiedUsersTitle",
-      "value": "Verified Users",
+      "value": "Người dùng đã xác minh",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "adeea24d7119f51c02dcf06378f666c6263638744299efe60efe790ecf8b7e5f",
-      "targetChecksum": "adeea24d7119f51c02dcf06378f666c6263638744299efe60efe790ecf8b7e5f",
+      "targetChecksum": "12b4483ffc7f24c6ba9ac16100b86eb31cfa27e93c685cdcecce4a5dbd7a749b",
       "reviewStatus": "APPROVED"
     },
     "insurance.general.title": {
@@ -10985,20 +10985,20 @@
     },
     "marketplace.locationPlaceholder": {
       "key": "marketplace.locationPlaceholder",
-      "value": "City or neighborhood",
+      "value": "Thành phố hoặc khu vực",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c92129e54379c715f052475922d29c7d6ba615f55570ea48d93859d49a8ca7fb",
-      "targetChecksum": "c92129e54379c715f052475922d29c7d6ba615f55570ea48d93859d49a8ca7fb",
+      "targetChecksum": "bac1865dbe3d93484f8a7e49721d891a12c8a73e41f6cc6a6f794ab62983daa3",
       "reviewStatus": "APPROVED"
     },
     "marketplace.locationPrompt": {
       "key": "marketplace.locationPrompt",
-      "value": "Where?",
+      "value": "Ở đâu?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
-      "targetChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
+      "targetChecksum": "2bc926eddffeed501bfb508262dbedad7e622d0b1468f2c435547a723d7db184",
       "reviewStatus": "APPROVED"
     },
     "marketplace.noResults": {
@@ -11012,11 +11012,11 @@
     },
     "marketplace.popularCategories": {
       "key": "marketplace.popularCategories",
-      "value": "Popular Categories",
+      "value": "Danh mục phổ biến",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
-      "targetChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
+      "targetChecksum": "54e556263ff3ff600b5df98582b5f74321ad1c6581bd621afbe75fee46620cf6",
       "reviewStatus": "APPROVED"
     },
     "marketplace.results": {
@@ -11070,20 +11070,20 @@
     },
     "marketplace.searchPlaceholder": {
       "key": "marketplace.searchPlaceholder",
-      "value": "Tools, vehicles, venues...",
+      "value": "Dụng cụ, xe cộ, địa điểm...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e923e71fc497e1975d8065da120fb49f66ed15691c8dbec1424e74bb7a49ba8e",
-      "targetChecksum": "e923e71fc497e1975d8065da120fb49f66ed15691c8dbec1424e74bb7a49ba8e",
+      "targetChecksum": "994786ce6dbc20172cd48d512677a13764232ff661b3261c60af748f618eee7c",
       "reviewStatus": "APPROVED"
     },
     "marketplace.searchPrompt": {
       "key": "marketplace.searchPrompt",
-      "value": "What are you looking for?",
+      "value": "Bạn đang tìm gì?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
-      "targetChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
+      "targetChecksum": "e9e1492926348c74a6d79f05694296616ca246da1b62a73835f9edfec8c5d93b",
       "reviewStatus": "APPROVED"
     },
     "marketplace.sort": {
@@ -11124,20 +11124,20 @@
     },
     "navigation.browseRentals": {
       "key": "navigation.browseRentals",
-      "value": "Browse Rentals",
+      "value": "Duyệt danh sách thuê",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
-      "targetChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
+      "targetChecksum": "b4eeeecacf0e37c02bfc3393992a4a586c0e5cd9a5d2a29bb76df14944c371a9",
       "reviewStatus": "APPROVED"
     },
     "navigation.dashboard": {
       "key": "navigation.dashboard",
-      "value": "Dashboard",
+      "value": "Bảng điều khiển",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "67b696468610b879ed7f224dbf6b0861f27e39d20454cb9d7af1ec52d3e5eeaa",
-      "targetChecksum": "67b696468610b879ed7f224dbf6b0861f27e39d20454cb9d7af1ec52d3e5eeaa",
+      "targetChecksum": "e3312d0fe1ae13e4ad992b4da5768a43973daad7435e50be2e2784a019ebb21d",
       "reviewStatus": "APPROVED"
     },
     "navigation.greeting": {
@@ -11153,38 +11153,38 @@
     },
     "navigation.howItWorks": {
       "key": "navigation.howItWorks",
-      "value": "How It Works",
+      "value": "Cách hoạt động",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
-      "targetChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
+      "targetChecksum": "f37a3b2e4bbcd633be5d529cc3642723d9a1796b5955a1b8b03cc60b3f32c5fa",
       "reviewStatus": "APPROVED"
     },
     "navigation.listYourItem": {
       "key": "navigation.listYourItem",
-      "value": "List Your Item",
+      "value": "Đăng tin cho thuê",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
-      "targetChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
+      "targetChecksum": "cf20ae766ea5fa6ef1c8845092e95d7549ccd9cfe802734fc28bfb1dc9318cf1",
       "reviewStatus": "APPROVED"
     },
     "navigation.login": {
       "key": "navigation.login",
-      "value": "Login",
+      "value": "Đăng nhập",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
-      "targetChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
+      "targetChecksum": "9a402bdfdea79e64f88a4290f7267de6137af137bc89359c3cdca660b800e81f",
       "reviewStatus": "APPROVED"
     },
     "navigation.logout": {
       "key": "navigation.logout",
-      "value": "Logout",
+      "value": "Đăng xuất",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d0527e4b3d658351dae74be7b10c7531a7ac98493c6b257ab62774853bcc74b2",
-      "targetChecksum": "d0527e4b3d658351dae74be7b10c7531a7ac98493c6b257ab62774853bcc74b2",
+      "targetChecksum": "c9e0facd692ac36b2a773329ed2d603aa90b44b113ae674cce50aa9421244a4a",
       "reviewStatus": "APPROVED"
     },
     "navigation.mainNav": {
@@ -11207,29 +11207,29 @@
     },
     "navigation.profile": {
       "key": "navigation.profile",
-      "value": "Profile",
+      "value": "Hồ sơ",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d696a35bdd1883da07a8d6c41bb7a3153381b23aa197629ee273479a6eaa5a9c",
-      "targetChecksum": "d696a35bdd1883da07a8d6c41bb7a3153381b23aa197629ee273479a6eaa5a9c",
+      "targetChecksum": "7f401d2e3891e1a8a788341e07bc8f11cd22ba11de4f0e7de529cc465350954c",
       "reviewStatus": "APPROVED"
     },
     "navigation.register": {
       "key": "navigation.register",
-      "value": "Register",
+      "value": "Đăng ký",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
-      "targetChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
+      "targetChecksum": "cb18c60444eb413dd1eda355f3c0691f263229c3f0db2c12050ed2162976506e",
       "reviewStatus": "APPROVED"
     },
     "navigation.safety": {
       "key": "navigation.safety",
-      "value": "Tin Cậy & An Toàn",
+      "value": "An toàn & Tin cậy",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "726d11bd5b230253cc5f795cfcb3268117267cb11fee8df060a472e6448abc56",
-      "targetChecksum": "077334b5f29f07cc8e806e775e11baa98ea0cbfee8921f1936a33d5ee6140058",
+      "targetChecksum": "bba9ad2a2d0a171f9717a87ac9c6b4bc83b8f1d2f71bd82ee6492e6ca834dab7",
       "reviewStatus": "APPROVED"
     },
     "navigation.security": {

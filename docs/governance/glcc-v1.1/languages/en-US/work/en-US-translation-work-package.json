@@ -9246,7 +9246,7 @@
     "common.betaNotice": {
       "key": "common.betaNotice",
       "sourceText": "RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.",
-      "targetText": "RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.",
+      "targetText": "RENTipid Private Beta | Test Transactions Active",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18301,7 +18301,7 @@
     "navigation.login": {
       "key": "navigation.login",
       "sourceText": "Login",
-      "targetText": "Login",
+      "targetText": "Log In",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18376,7 +18376,7 @@
     "navigation.register": {
       "key": "navigation.register",
       "sourceText": "Register",
-      "targetText": "Register",
+      "targetText": "Sign Up",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18391,7 +18391,7 @@
     "navigation.safety": {
       "key": "navigation.safety",
       "sourceText": "Safety",
-      "targetText": "Safety",
+      "targetText": "Trust & Safety",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],

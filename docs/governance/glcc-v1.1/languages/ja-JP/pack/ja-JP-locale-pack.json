@@ -6,8 +6,8 @@
   "canonicalKeyCount": 2208,
   "canonicalKeyChecksum": "a682064cf1f532c26884104887b012b27be830be39b41e27d0c1d58f77b36fdf",
   "sourceMessageChecksum": "0566572080c895732e61ef62108403a283f6abf12e762eb29ba77a1460c2cbb8",
-  "targetMessageChecksum": "e272c830dda1ff876322e5c6ab4124b66f05e51579419c5f46bf46117a7e3128",
-  "packChecksum": "4997501b9f94a8e8ef0eee5c1ef0495f6ff519f41d81574523048b1444df0563",
+  "targetMessageChecksum": "b68502be62e61538f1a03de8baa214f963ff42cf0e55a80986d83ec60fb045f4",
+  "packChecksum": "2b4138d91024c34d07d91ae425f140590388706392df52c6fa6508f293a5e36a",
   "generatedAt": "2026-10-06T18:00:00.000Z",
   "workflowState": "APPROVED_FOR_QA",
   "releaseCandidateState": "CANDIDATE_FOR_QA",
@@ -5507,11 +5507,11 @@
     },
     "common.aiSocialPromotion": {
       "key": "common.aiSocialPromotion",
-      "value": "AI Social Promotion",
+      "value": "AIによるプロモーション",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c69289321fbb61c4923a10dd1c3fcf7d13bd31caf5c273f574116b2191ca61f5",
-      "targetChecksum": "c69289321fbb61c4923a10dd1c3fcf7d13bd31caf5c273f574116b2191ca61f5",
+      "targetChecksum": "122a194cf6cfffc8ab649d1f677bd5c0e49bed4666d76832cbc5c98273b455cf",
       "reviewStatus": "APPROVED"
     },
     "common.amount": {
@@ -5588,20 +5588,20 @@
     },
     "common.becomeAVerifiedProvider": {
       "key": "common.becomeAVerifiedProvider",
-      "value": "Become a Verified Provider",
+      "value": "認証プロバイダーになる",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "b214bc0ba0eb897c18de6029b2fcd9fdfc2bd1f982ebc5f79629777aee9caf06",
-      "targetChecksum": "b214bc0ba0eb897c18de6029b2fcd9fdfc2bd1f982ebc5f79629777aee9caf06",
+      "targetChecksum": "28e683a353f43b482b9889cedb634b00a6bc5a94d3f42cc4031fdd209dbe85a3",
       "reviewStatus": "APPROVED"
     },
     "common.betaNotice": {
       "key": "common.betaNotice",
-      "value": "RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.",
+      "value": "ベータプレビュー版 | 模擬決済実施中 | 実際の金融取引は無効化されています。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "ea39fe991e907f6d84798ed1f9f725c41c91b115a8e1c0ac9ec2c2af98d419d4",
-      "targetChecksum": "ea39fe991e907f6d84798ed1f9f725c41c91b115a8e1c0ac9ec2c2af98d419d4",
+      "targetChecksum": "96590255ec2ad4c86a98d59614d85cce57fd697e65eed347576731e517510120",
       "reviewStatus": "APPROVED"
     },
     "common.buttonSquareWithAn": {
@@ -5741,11 +5741,11 @@
     },
     "common.donAposTBuy": {
       "key": "common.donAposTBuy",
-      "value": "Don&apos;t buy a drill for one hole. Rent it for a day.",
+      "value": "一度しか使わないドリルを買う必要はありません。1日だけレンタルしましょう。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d8b07284e3783078fa08f7f421716dfbf63199fa0293f4902d561ec6e0316c6f",
-      "targetChecksum": "d8b07284e3783078fa08f7f421716dfbf63199fa0293f4902d561ec6e0316c6f",
+      "targetChecksum": "c60f8a6a1b5e21bef0cd6f77dcd5422268ee4ac1b9f705820c154f358b30161d",
       "reviewStatus": "APPROVED"
     },
     "common.edit": {
@@ -5777,20 +5777,20 @@
     },
     "common.everyBookingAutomaticallyGenerates": {
       "key": "common.everyBookingAutomaticallyGenerates",
-      "value": "Every booking automatically generates a clear, fair contract.",
+      "value": "すべての予約で明確かつ公正な契約書が自動生成されます。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "fcacdb12eed952299b17844ff2428deacdba70e5273a725be3fb19d8e07bc742",
-      "targetChecksum": "fcacdb12eed952299b17844ff2428deacdba70e5273a725be3fb19d8e07bc742",
+      "targetChecksum": "c044e849729da73a81e0a6f0cf6dd0ebe36ed06d30957a15bb0dd06b346e08ef",
       "reviewStatus": "APPROVED"
     },
     "common.fairDisputeResolution": {
       "key": "common.fairDisputeResolution",
-      "value": "Fair Dispute Resolution",
+      "value": "公正な紛争解決",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6d233137b4f6b6f5e32f1df45c3ff213396c6387894451ed8aef4d7048fbf050",
-      "targetChecksum": "6d233137b4f6b6f5e32f1df45c3ff213396c6387894451ed8aef4d7048fbf050",
+      "targetChecksum": "d494b0a74057fec9813b50aff8b3a5b9e50053b8f27d43f2fd159fe4e8aba591",
       "reviewStatus": "APPROVED"
     },
     "common.findYourAddress": {
@@ -5894,29 +5894,29 @@
     },
     "common.letOurAiGenerate": {
       "key": "common.letOurAiGenerate",
-      "value": "Let our AI generate marketing campaigns to promote your listings worldwide.",
+      "value": "AIが世界中に向けた出品物のマーケティングキャンペーンを自動作成します。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "168ec218575efb44eff859bef482b6e2fdc9fc82e7f6b08d1e7fe98a2dcb78dd",
-      "targetChecksum": "168ec218575efb44eff859bef482b6e2fdc9fc82e7f6b08d1e7fe98a2dcb78dd",
+      "targetChecksum": "3b770e6b8d25ba2442683fbc6b5e809e952efe9720736c70bd23fd5f1805c6b0",
       "reviewStatus": "APPROVED"
     },
     "common.listYourUnusedGear": {
       "key": "common.listYourUnusedGear",
-      "value": "List your unused gear, properties, and vehicles safely.",
+      "value": "使っていない機材、不動産、車両を安全に貸し出せます。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "0e5d967868629135a9754ae0a7133d0890e4b57e7e44d0a683ce3f375d097188",
-      "targetChecksum": "0e5d967868629135a9754ae0a7133d0890e4b57e7e44d0a683ce3f375d097188",
+      "targetChecksum": "ef17cb72b323e3cc6c573d243f184fb177bb7636f9c110ed561eb66b2cb4efd5",
       "reviewStatus": "APPROVED"
     },
     "common.loading": {
       "key": "common.loading",
-      "value": "Loading...",
+      "value": "読み込み中...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "47d2a515ef2f05b87d688656286a61e4f743da4b878684c7654969db17711c40",
-      "targetChecksum": "47d2a515ef2f05b87d688656286a61e4f743da4b878684c7654969db17711c40",
+      "targetChecksum": "c9a913f813b3785cf71cf7d59cf1e8a01e7638d76c829cb81243e4a270d24f5a",
       "reviewStatus": "APPROVED"
     },
     "common.loadingBarangays": {
@@ -6029,11 +6029,11 @@
     },
     "common.ourAdminTeamAnd": {
       "key": "common.ourAdminTeamAnd",
-      "value": "Our admin team and AI helpers ensure objective damage reviews.",
+      "value": "専任の管理チームとAIアシスタントが客観的な損害査定を保証します。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "2ef3dcabc3c082609dc5d748bd1dad3ecbfb956387806f4daeb7ad65450bd64e",
-      "targetChecksum": "2ef3dcabc3c082609dc5d748bd1dad3ecbfb956387806f4daeb7ad65450bd64e",
+      "targetChecksum": "e49a087920f2b1d27f72451613363eb2ae885b9f4806c8168118dd4b58887137",
       "reviewStatus": "APPROVED"
     },
     "common.page.addToHomeScreen": {
@@ -6155,11 +6155,11 @@
     },
     "common.saveMoneyAndSpace": {
       "key": "common.saveMoneyAndSpace",
-      "value": "Save money and space",
+      "value": "お金とスペースを節約",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e1f2fd55b5aa185b964adf220fa4a323ac4648368dd5a3ec54b4f649d3d60ee8",
-      "targetChecksum": "e1f2fd55b5aa185b964adf220fa4a323ac4648368dd5a3ec54b4f649d3d60ee8",
+      "targetChecksum": "c39248920847fa806b7a09f86dcdd50662e158e4b75352da3e509b0dbf31d960",
       "reviewStatus": "APPROVED"
     },
     "common.scrollDownAndTap": {
@@ -6247,11 +6247,11 @@
     },
     "common.standardizedAgreements": {
       "key": "common.standardizedAgreements",
-      "value": "Standardized Agreements",
+      "value": "標準化された契約書",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "46bc78999203e7daa40e810cc414a541e079256710765caf30dadf043b924e8b",
-      "targetChecksum": "46bc78999203e7daa40e810cc414a541e079256710765caf30dadf043b924e8b",
+      "targetChecksum": "7b548d5dca2e9275ac304a2f0a1d3f1f5671797b0ef53f78210351cb4235c85f",
       "reviewStatus": "APPROVED"
     },
     "common.startDigitalHuman": {
@@ -6366,11 +6366,11 @@
     },
     "common.turnIdleAssetsInto": {
       "key": "common.turnIdleAssetsInto",
-      "value": "Turn idle assets into income",
+      "value": "使っていない遊休資産を収入に",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d9805ccb4c93f536761e68bde8573bf4209078c04d933be010783500be746b5e",
-      "targetChecksum": "d9805ccb4c93f536761e68bde8573bf4209078c04d933be010783500be746b5e",
+      "targetChecksum": "a549ebc96f21ccade52035edd8652b9fdfeee129775f88a6340afbbcb0eeffc2",
       "reviewStatus": "APPROVED"
     },
     "common.typeToSearchCity": {
@@ -6384,11 +6384,11 @@
     },
     "common.user": {
       "key": "common.user",
-      "value": "User",
+      "value": "ユーザー",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "b512d97e7cbf97c273e4db073bbb547aa65a84589227f8f3d9e4a72b9372a24d",
-      "targetChecksum": "b512d97e7cbf97c273e4db073bbb547aa65a84589227f8f3d9e4a72b9372a24d",
+      "targetChecksum": "11f06de567b84713f38d64853155354126b3e454760e98351bf19269423c4014",
       "reviewStatus": "APPROVED"
     },
     "common.v1LaunchNote": {
@@ -6411,11 +6411,11 @@
     },
     "common.verifiedRentersOnly": {
       "key": "common.verifiedRentersOnly",
-      "value": "Verified Renters Only",
+      "value": "認証済みユーザー限定",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "606be12bffae946a5f73d367d55e69d5b1b85ff93f95cfc58ada70b4caf0fec5",
-      "targetChecksum": "606be12bffae946a5f73d367d55e69d5b1b85ff93f95cfc58ada70b4caf0fec5",
+      "targetChecksum": "55ef53ac0abbd523a6c2bec7e475432be96070fe05ea1aa63bab9799069a8980",
       "reviewStatus": "APPROVED"
     },
     "common.version": {
@@ -6465,11 +6465,11 @@
     },
     "common.youControlWhoCan": {
       "key": "common.youControlWhoCan",
-      "value": "You control who can rent your items. Require IDs and deposits.",
+      "value": "誰に貸し出すかは自分で決定可能。身元確認とデポジットを必須化。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "a1361e8859cf57f5ffb1c855a128f1b90c7d561ed7d863a4ce4fb33e28e67922",
-      "targetChecksum": "a1361e8859cf57f5ffb1c855a128f1b90c7d561ed7d863a4ce4fb33e28e67922",
+      "targetChecksum": "fdf33e8922bfd10c8f6d7fc9c923ef982cc320a22ab3782aa1228b2050b0f009",
       "reviewStatus": "APPROVED"
     },
     "common.zipPostalCode": {
@@ -6689,22 +6689,22 @@
     },
     "footer.copyright": {
       "key": "footer.copyright",
-      "value": "© {year} RENTipid. 無断転載を禁じます。",
+      "value": "© {year} RENTipid. All rights reserved.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [
         "year"
       ],
       "sourceChecksum": "14b07b92ba50adecca2fffff0d4127da44a8d56538db642c585057e6b8890e5b",
-      "targetChecksum": "c3d868042c5934c89563705cb830755d10fabeed464c037738aa61b167384c3e",
+      "targetChecksum": "14b07b92ba50adecca2fffff0d4127da44a8d56538db642c585057e6b8890e5b",
       "reviewStatus": "APPROVED"
     },
     "footer.description": {
       "key": "footer.description",
-      "value": "RENTipid is a verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "value": "RENTipidは、工具、機材、スペース、不動産、その他の適法な資産を安全に貸し借りできる認証制レンタルマーケットプレイスです。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c97383b4c2b280e2bd5f5d251d805a10e0a7975006c25d9fcf910d400a70fd62",
-      "targetChecksum": "c97383b4c2b280e2bd5f5d251d805a10e0a7975006c25d9fcf910d400a70fd62",
+      "targetChecksum": "508ca13e3d7afd0db344a9fc758532788559ac30f8e8bf3f8237c0fbf019ed25",
       "reviewStatus": "APPROVED"
     },
     "footer.helpCenter": {
@@ -6718,11 +6718,11 @@
     },
     "footer.ip": {
       "key": "footer.ip",
-      "value": "知的財産",
+      "value": "知的財産権",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "0ceef38a020e129ca4eb9b2a3088fcffe2f12b400e00894c3ee28c20d779f4f6",
-      "targetChecksum": "49c76f78307d73d51c8f01a836093e685920bebff900926e9da28a238ba6b6c6",
+      "targetChecksum": "9aee6e26cd93eef9b1d6599ea72425a3e56f292f177ed853ce4f1938b9a181fe",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.ip",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6730,11 +6730,11 @@
     },
     "footer.legalCompliance": {
       "key": "footer.legalCompliance",
-      "value": "グローバルな法体制の遵守",
+      "value": "グローバル法令遵守",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "04fa411fa1efa15b6ad3cf42a6a76f3c62b129c3a638ef99754e65fd3fd5e44e",
-      "targetChecksum": "32baf7c5238ec1fc93d1d746e7e66b3ad279d6eb224e2b9e56ab4e34b176d782",
+      "targetChecksum": "930a07e7497e525d6a35ac622265722a8f49acb38e4dd2d6b05cd409ee6270f7",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.legalCompliance",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6742,20 +6742,20 @@
     },
     "footer.platform": {
       "key": "footer.platform",
-      "value": "Platform",
+      "value": "プラットフォーム",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c78ffe19571018fbc93a78873969046fe1a80c3d21e5d20fbb2ca17c7c53a144",
-      "targetChecksum": "c78ffe19571018fbc93a78873969046fe1a80c3d21e5d20fbb2ca17c7c53a144",
+      "targetChecksum": "4bf4082c3f317cf61d530d1aa6091dc56ad2700d9004c7cadbeada7e82b88616",
       "reviewStatus": "APPROVED"
     },
     "footer.privacy": {
       "key": "footer.privacy",
-      "value": "プライバシー",
+      "value": "プライバシーポリシー",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "54a57c3147c49f33de5898b87084ad2b14c4ab308f762454bf92aca907478ad5",
-      "targetChecksum": "fd55785d8031515305c604cf5f7ccf1f8a0fa8412f8d23522b557e8d562de469",
+      "targetChecksum": "f28b5782bc5c83bdc8279afc8d5dfbcefde914141575d28f90087170f2107663",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.privacy",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6763,11 +6763,11 @@
     },
     "footer.prohibitedItems": {
       "key": "footer.prohibitedItems",
-      "value": "禁止品目",
+      "value": "禁止商品リスト",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "4e9f5b3cab42f4bcc2c1594f8be8f0e5e428613a4a65204533c4b9ec329959ce",
-      "targetChecksum": "f7d53b5804337fb8932bb19e33463b299ff24dfe7ea658ab00a38e7a931a13b1",
+      "targetChecksum": "f519fcdfd51c056b38781a0638fe438762ac745383fbff760ea6be17f7542103",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.prohibitedItems",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6775,11 +6775,11 @@
     },
     "footer.reportIllegal": {
       "key": "footer.reportIllegal",
-      "value": "違法行為を報告する",
+      "value": "不正利用の通報",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "60e4e5cd4a2b80f9163ccea194f76687e72052c39ede19fac7233437e5993229",
-      "targetChecksum": "5d2eaefba8e4faf285272f13df4e4652ef81b5c72e522d63fcce85e8c2905230",
+      "targetChecksum": "f10bb150143df25f9c112ef523f5f5cfee68606e9cd69af71c7b8df8094fbcb1",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.reportIllegal",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6799,11 +6799,11 @@
     },
     "footer.socialMedia": {
       "key": "footer.socialMedia",
-      "value": "Social Media",
+      "value": "ソーシャルメディア",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "8dfdbc2ef4391d511daccaa080cce5fb26e608db8b180c56e31df392519f8d50",
-      "targetChecksum": "8dfdbc2ef4391d511daccaa080cce5fb26e608db8b180c56e31df392519f8d50",
+      "targetChecksum": "e9e0c18cc25604d42bd5b6331bf7792f8b60d060d336cbdc44b0acdcabbe4134",
       "reviewStatus": "APPROVED"
     },
     "footer.support": {
@@ -6817,11 +6817,11 @@
     },
     "footer.terms": {
       "key": "footer.terms",
-      "value": "規約",
+      "value": "利用規約",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "ede5489964834a514b61c7a4a8370be2452dd4a7d807180f14991ccc11ad2430",
-      "targetChecksum": "0483a426ccd49315b0bc708dd29e65c967f2752630467344ac69e255b7eef9a9",
+      "targetChecksum": "a9ebd889eddf6f199253d4785393e9159ce206e8e5ae8dea9ac5a8b57b0b65ba",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.terms",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6829,11 +6829,11 @@
     },
     "footer.trustAndLegal": {
       "key": "footer.trustAndLegal",
-      "value": "信頼と法務",
+      "value": "信頼と規約",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "507708793c137e3ba21b5a5a3b1a70989cea04bb71962466ac7050ee1d7cfe20",
-      "targetChecksum": "010aa01365e46804c759295c4b64b5e555799eddc32d0807375ad4972fb631d2",
+      "targetChecksum": "d234cbffd8567042cf6e48d7e288ddd6b3770aba6c3f907b1ae83dc2333b6aca",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.trustAndLegal",
       "authoritativeSourceVersion": "v1.0.1",
@@ -7495,146 +7495,146 @@
     },
     "home.aiAssistanceDesc": {
       "key": "home.aiAssistanceDesc",
-      "value": "Our AI Concierge helps you find the right items, suggests fair pricing, and guides you through rental agreements and disputes.",
+      "value": "AIコンシェルジュが最適な商品の提案、適正価格の算出、契約書やトラブル対応をサポートします。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "5d58796ad034c3ab93758bb4827520efdb749678f313326339508e990d0ec841",
-      "targetChecksum": "5d58796ad034c3ab93758bb4827520efdb749678f313326339508e990d0ec841",
+      "targetChecksum": "41614e75e812208c29bf3bf2fe6aef34ec29ed37ea74b3dc854ac75b5ab6e12f",
       "reviewStatus": "APPROVED"
     },
     "home.aiAssistanceTitle": {
       "key": "home.aiAssistanceTitle",
-      "value": "AI Assistance",
+      "value": "AIアシスタント",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "7c686fdb859c311ba9324e5a5c4f38e63d0e8a68fdd96d3875dcf0fccc4d6711",
-      "targetChecksum": "7c686fdb859c311ba9324e5a5c4f38e63d0e8a68fdd96d3875dcf0fccc4d6711",
+      "targetChecksum": "f808096972ff2da89204ca9efc9f883c0ca960e73a5386a227507fae70f64338",
       "reviewStatus": "APPROVED"
     },
     "home.ctaSubtitle": {
       "key": "home.ctaSubtitle",
-      "value": "Create an account today and start renting securely.",
+      "value": "今すぐアカウントを作成して、安心・安全なレンタルを体験しましょう。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "159652114ad0306dca432d3d1fde15b97402628e084984f1df9a3183152f8004",
-      "targetChecksum": "159652114ad0306dca432d3d1fde15b97402628e084984f1df9a3183152f8004",
+      "targetChecksum": "a357e0ae8e057711701bafd7a2352efd379a980ba20a85f3711ee98571137d67",
       "reviewStatus": "APPROVED"
     },
     "home.ctaTitle": {
       "key": "home.ctaTitle",
-      "value": "Ready to join RENTipid?",
+      "value": "RENTipidを始めませんか？",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "ac109eea4b789c0f5151e01bd56eb3a939289fbc58eed37e2ba643a029cf3c14",
-      "targetChecksum": "ac109eea4b789c0f5151e01bd56eb3a939289fbc58eed37e2ba643a029cf3c14",
+      "targetChecksum": "6a5d97121d97503e45baab1baa7483a78c385a1bded94c825ee25dfa4f31197f",
       "reviewStatus": "APPROVED"
     },
     "home.depositProtectionDesc": {
       "key": "home.depositProtectionDesc",
-      "value": "Security deposits are held safely in the platform and automatically resolved based on before-and-after photo inspections.",
+      "value": "保証金はプラットフォームで安全に預託され、貸出前後の写真確認に基づいて自動清算されます。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "59c3b4ae7418b5cd303c3add6932d4ce0f3f7c75524930403a047857e49c4e7a",
-      "targetChecksum": "59c3b4ae7418b5cd303c3add6932d4ce0f3f7c75524930403a047857e49c4e7a",
+      "targetChecksum": "4823e9a2cc9c0ec5e255bf480aec7c77c978e07404d32aec62f0dca7cd1824a3",
       "reviewStatus": "APPROVED"
     },
     "home.depositProtectionTitle": {
       "key": "home.depositProtectionTitle",
-      "value": "Deposit Protection",
+      "value": "デポジット（保証金）保護",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "a22c3059e657980413eadede858880478bb4a73541cf2533ec3b4cef678b60d6",
-      "targetChecksum": "a22c3059e657980413eadede858880478bb4a73541cf2533ec3b4cef678b60d6",
+      "targetChecksum": "c6bbc525f6621fe52736779fcb9d66919ee4ae1047e07357bd2b3a6729ce024b",
       "reviewStatus": "APPROVED"
     },
     "home.forProviders": {
       "key": "home.forProviders",
-      "value": "For Providers",
+      "value": "貸し出す方へ",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "2878d60a73996e3f909d22ffcb1ad5513aafc849dd6e0e648622b07231a5d973",
-      "targetChecksum": "2878d60a73996e3f909d22ffcb1ad5513aafc849dd6e0e648622b07231a5d973",
+      "targetChecksum": "5113a1fc44d88376b3b49f4da2386618e19d52b6e92e33fe394800c10300c05c",
       "reviewStatus": "APPROVED"
     },
     "home.forRenters": {
       "key": "home.forRenters",
-      "value": "For Renters",
+      "value": "借りる方へ",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9e7c3aac051f930c9801eb4c266c8a08bcef93bd76ed2bbe360280a37ad7b4e8",
-      "targetChecksum": "9e7c3aac051f930c9801eb4c266c8a08bcef93bd76ed2bbe360280a37ad7b4e8",
+      "targetChecksum": "4ee6179d0aa5f988fad1aa899af1efe5ebfbbf83a13b278c5521bc9f105cd0fa",
       "reviewStatus": "APPROVED"
     },
     "home.getStarted": {
       "key": "home.getStarted",
-      "value": "Get Started Now",
+      "value": "今すぐ始める",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "cc3666dca734ab8fa68d971c0f1cb8673aac2d655b6af415d68be8720daba55d",
-      "targetChecksum": "cc3666dca734ab8fa68d971c0f1cb8673aac2d655b6af415d68be8720daba55d",
+      "targetChecksum": "9edf3a77315a4c948a190a581d281268622554bd603697c754a45d3720d0625c",
       "reviewStatus": "APPROVED"
     },
     "home.heroSubtitle": {
       "key": "home.heroSubtitle",
-      "value": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "value": "道具、機材、スペース、不動産、適法なレンタル資産を安心・安全に貸し借りできる認証制レンタルマーケットプレイス。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
-      "targetChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
+      "targetChecksum": "cedba927a385b4df0a1fcb4bdec780f5d9068ba815e6cc68ab750c53ca591d79",
       "reviewStatus": "APPROVED"
     },
     "home.heroTitle": {
       "key": "home.heroTitle",
-      "value": "Why Buy? RENTipid!",
+      "value": "購入するより賢くレンタル！ RENTipid!",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
-      "targetChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
+      "targetChecksum": "fb0406240060c7348dc9d38d481131992d65b531a00cf73912762f8cff091e6b",
       "reviewStatus": "APPROVED"
     },
     "home.startRenting": {
       "key": "home.startRenting",
-      "value": "Start Renting",
+      "value": "レンタルを始める",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
-      "targetChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
+      "targetChecksum": "0f20f2ab42fb6c07396d508efcc1fc50092169098a4513bfa9c3da8de9bef59d",
       "reviewStatus": "APPROVED"
     },
     "home.trustSubtitle": {
       "key": "home.trustSubtitle",
-      "value": "Every transaction is secured, verified, and protected.",
+      "value": "すべての取引は暗号化・本人確認され、安全に保護されています。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "51f688e1f2913caea93a0e399aee1685406c59d7f524e78e7fd44da8e35dd48e",
-      "targetChecksum": "51f688e1f2913caea93a0e399aee1685406c59d7f524e78e7fd44da8e35dd48e",
+      "targetChecksum": "1c81ed5cdcca7a40914ef4b9232f5087d36276dc06eb16ea243c03046a49017e",
       "reviewStatus": "APPROVED"
     },
     "home.trustTitle": {
       "key": "home.trustTitle",
-      "value": "Rent with Complete Peace of Mind",
+      "value": "完全な安心感を持ってレンタル",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6e1277b82621a47447f7082702a3a025113f3809ab84c33b3cccc209f8866305",
-      "targetChecksum": "6e1277b82621a47447f7082702a3a025113f3809ab84c33b3cccc209f8866305",
+      "targetChecksum": "0983070db53419ee4cefb579e9bd361cef5d96a624de362de770bc9bc5bb6fb2",
       "reviewStatus": "APPROVED"
     },
     "home.verifiedUsersDesc": {
       "key": "home.verifiedUsersDesc",
-      "value": "We verify identities and business permits before they can list or rent high-value items, keeping scams out of the platform.",
+      "value": "高額商品の出品やレンタル前に本人確認および事業許可を確認し、詐欺を徹底的に防止します。",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "ed57eb1fd398d6fb2cedd59e641aa2aa9a266d542e5ec56484e8bebea9ed03f2",
-      "targetChecksum": "ed57eb1fd398d6fb2cedd59e641aa2aa9a266d542e5ec56484e8bebea9ed03f2",
+      "targetChecksum": "ccdb76125606da393997309b65cbc0a5c4b9367f4b75eb9d3cb4fb394ac07bf4",
       "reviewStatus": "APPROVED"
     },
     "home.verifiedUsersTitle": {
       "key": "home.verifiedUsersTitle",
-      "value": "Verified Users",
+      "value": "認証済みユーザー",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "adeea24d7119f51c02dcf06378f666c6263638744299efe60efe790ecf8b7e5f",
-      "targetChecksum": "adeea24d7119f51c02dcf06378f666c6263638744299efe60efe790ecf8b7e5f",
+      "targetChecksum": "688e2e1f3520bd59a8bdb8c18258fc6a810d943e2044dc40c87d88a237ab6c7f",
       "reviewStatus": "APPROVED"
     },
     "insurance.general.title": {
@@ -10985,20 +10985,20 @@
     },
     "marketplace.locationPlaceholder": {
       "key": "marketplace.locationPlaceholder",
-      "value": "City or neighborhood",
+      "value": "市区町村または地域",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c92129e54379c715f052475922d29c7d6ba615f55570ea48d93859d49a8ca7fb",
-      "targetChecksum": "c92129e54379c715f052475922d29c7d6ba615f55570ea48d93859d49a8ca7fb",
+      "targetChecksum": "003a56a14900edfd1bb9cf0a72ad73e8e1112ddac61cd085f0923c316435cf5e",
       "reviewStatus": "APPROVED"
     },
     "marketplace.locationPrompt": {
       "key": "marketplace.locationPrompt",
-      "value": "Where?",
+      "value": "場所はどちらですか？",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
-      "targetChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
+      "targetChecksum": "53c713809f0f586586e8c0d134c1ac1946a1cfd92200c6dcef12ad4bdf8f77fa",
       "reviewStatus": "APPROVED"
     },
     "marketplace.noResults": {
@@ -11012,11 +11012,11 @@
     },
     "marketplace.popularCategories": {
       "key": "marketplace.popularCategories",
-      "value": "Popular Categories",
+      "value": "人気のカテゴリー",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
-      "targetChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
+      "targetChecksum": "004268d507649396f531f76feb8c3e90a5b2fd5248db53c5b6ea055a198b1222",
       "reviewStatus": "APPROVED"
     },
     "marketplace.results": {
@@ -11070,20 +11070,20 @@
     },
     "marketplace.searchPlaceholder": {
       "key": "marketplace.searchPlaceholder",
-      "value": "Tools, vehicles, venues...",
+      "value": "工具、車両、イベント会場...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e923e71fc497e1975d8065da120fb49f66ed15691c8dbec1424e74bb7a49ba8e",
-      "targetChecksum": "e923e71fc497e1975d8065da120fb49f66ed15691c8dbec1424e74bb7a49ba8e",
+      "targetChecksum": "b162bbf3643268a49a4f740c89e2866a4cd3ae0e04c533f55485d71f23dd303b",
       "reviewStatus": "APPROVED"
     },
     "marketplace.searchPrompt": {
       "key": "marketplace.searchPrompt",
-      "value": "What are you looking for?",
+      "value": "何をお探しですか？",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
-      "targetChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
+      "targetChecksum": "a802bda73734e5562a7e778389e1368c28243e7721f7b75840ed631c499eb41b",
       "reviewStatus": "APPROVED"
     },
     "marketplace.sort": {
@@ -11124,76 +11124,76 @@
     },
     "navigation.browseRentals": {
       "key": "navigation.browseRentals",
-      "value": "Browse Rentals",
+      "value": "レンタルを探す",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
-      "targetChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
+      "targetChecksum": "ee5854d3189d1a5e2a594b8db778826265285e775a686974850b83fb0cbece28",
       "reviewStatus": "APPROVED"
     },
     "navigation.dashboard": {
       "key": "navigation.dashboard",
-      "value": "Dashboard",
+      "value": "ダッシュボード",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "67b696468610b879ed7f224dbf6b0861f27e39d20454cb9d7af1ec52d3e5eeaa",
-      "targetChecksum": "67b696468610b879ed7f224dbf6b0861f27e39d20454cb9d7af1ec52d3e5eeaa",
+      "targetChecksum": "8d169038a239bb47ef831c82af9bd5821e714d8b2b76aabc7b4e3c1c0cf40a71",
       "reviewStatus": "APPROVED"
     },
     "navigation.greeting": {
       "key": "navigation.greeting",
-      "value": "こんにちは、{name} さん",
+      "value": "こんにちは、{name}様",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [
         "name"
       ],
       "sourceChecksum": "02c4b6b16307129227cbeea45c1cf512346a87d81f6f884902f1cec523eb2a63",
-      "targetChecksum": "550a54e88033a9fdddb30371540b0e11d3e91af9966caffd7823e238337a95d1",
+      "targetChecksum": "989cac4d2f6e7aedcefc2b11ff96dc3837213cc6019e1bd7b99b2e9c2851d56d",
       "reviewStatus": "APPROVED"
     },
     "navigation.howItWorks": {
       "key": "navigation.howItWorks",
-      "value": "How It Works",
+      "value": "ご利用方法",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
-      "targetChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
+      "targetChecksum": "9d2a24d26e3595422c7d20df68b0aa0fa9c13e6754d0e96ef232838df7a317c7",
       "reviewStatus": "APPROVED"
     },
     "navigation.listYourItem": {
       "key": "navigation.listYourItem",
-      "value": "List Your Item",
+      "value": "アイテムを出品",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
-      "targetChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
+      "targetChecksum": "e365fe11c443bb5b1961f785df6b895c3be653392245e3311ce967cb1e11a50b",
       "reviewStatus": "APPROVED"
     },
     "navigation.login": {
       "key": "navigation.login",
-      "value": "Login",
+      "value": "ログイン",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
-      "targetChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
+      "targetChecksum": "9ba14a4f95787046d99906cd6a2b6341f135b1cdb435d849570dc17b5e402bb5",
       "reviewStatus": "APPROVED"
     },
     "navigation.logout": {
       "key": "navigation.logout",
-      "value": "Logout",
+      "value": "ログアウト",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d0527e4b3d658351dae74be7b10c7531a7ac98493c6b257ab62774853bcc74b2",
-      "targetChecksum": "d0527e4b3d658351dae74be7b10c7531a7ac98493c6b257ab62774853bcc74b2",
+      "targetChecksum": "18db4ebaf4df16f4054e4c894bf2bdad7fdaf82428d4f162f55e0ceddbdfc74d",
       "reviewStatus": "APPROVED"
     },
     "navigation.mainNav": {
       "key": "navigation.mainNav",
-      "value": "Main Navigation",
+      "value": "メインナビゲーション",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "56ea852a517b65e779dc6eb1c985d4998899fb0b895cde6686275381be0c09b9",
-      "targetChecksum": "56ea852a517b65e779dc6eb1c985d4998899fb0b895cde6686275381be0c09b9",
+      "targetChecksum": "b05800bc20638cdf2e4cca66d926c703bff398a855cda909f635d4cfae215f08",
       "reviewStatus": "APPROVED"
     },
     "navigation.myProfile": {
@@ -11207,20 +11207,20 @@
     },
     "navigation.profile": {
       "key": "navigation.profile",
-      "value": "Profile",
+      "value": "プロフィール",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d696a35bdd1883da07a8d6c41bb7a3153381b23aa197629ee273479a6eaa5a9c",
-      "targetChecksum": "d696a35bdd1883da07a8d6c41bb7a3153381b23aa197629ee273479a6eaa5a9c",
+      "targetChecksum": "d9251b856c472b7aa03ce3b80d495c204fcf7fa2c0713856e929a54927771572",
       "reviewStatus": "APPROVED"
     },
     "navigation.register": {
       "key": "navigation.register",
-      "value": "Register",
+      "value": "会員登録",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
-      "targetChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
+      "targetChecksum": "43a5848930388fec71b2523e7e6fb3712c9aa2d39472e425af20b7939076d564",
       "reviewStatus": "APPROVED"
     },
     "navigation.safety": {
@@ -11243,11 +11243,11 @@
     },
     "navigation.userActions": {
       "key": "navigation.userActions",
-      "value": "User Actions",
+      "value": "ユーザーアクション",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "156701895ea897987806468598aa96b171f9f1d5b881fbfae7619299f30b1b2e",
-      "targetChecksum": "156701895ea897987806468598aa96b171f9f1d5b881fbfae7619299f30b1b2e",
+      "targetChecksum": "53afdb9ce8806204894821846c140bc3155e6e44d5466fb59607ecb591ae7a22",
       "reviewStatus": "APPROVED"
     },
     "notifications.general.title": {

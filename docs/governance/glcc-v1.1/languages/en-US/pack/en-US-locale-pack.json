@@ -6,8 +6,8 @@
   "canonicalKeyCount": 2208,
   "canonicalKeyChecksum": "a682064cf1f532c26884104887b012b27be830be39b41e27d0c1d58f77b36fdf",
   "sourceMessageChecksum": "0566572080c895732e61ef62108403a283f6abf12e762eb29ba77a1460c2cbb8",
-  "targetMessageChecksum": "46d80d9c9c592519eb04db939fd44152e03b4aabec0ca1af96aff97d57dae856",
-  "packChecksum": "e0d99cf647ef440782262617f05fd9deb5d3ac194d06282c4b9e9dce205e4995",
+  "targetMessageChecksum": "865c1c9ab87b7aa740b863becb311058c8002b1e11fb03e19cac06931537f690",
+  "packChecksum": "23d205ca625c1282fb263dc4610d69c099feca115ea7682f13b425d3a2ab0981",
   "generatedAt": "2026-10-06T18:00:00.000Z",
   "workflowState": "APPROVED_FOR_QA",
   "releaseCandidateState": "CANDIDATE_FOR_QA",
@@ -5597,11 +5597,11 @@
     },
     "common.betaNotice": {
       "key": "common.betaNotice",
-      "value": "RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.",
+      "value": "RENTipid Private Beta | Test Transactions Active",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "ea39fe991e907f6d84798ed1f9f725c41c91b115a8e1c0ac9ec2c2af98d419d4",
-      "targetChecksum": "ea39fe991e907f6d84798ed1f9f725c41c91b115a8e1c0ac9ec2c2af98d419d4",
+      "targetChecksum": "7c849f0a761b4c45ade30f65b42380e5f17d5ca73f1b3041ed8a1feae9911766",
       "reviewStatus": "LINGUISTIC_REVIEW_PASSED"
     },
     "common.buttonSquareWithAn": {
@@ -11171,11 +11171,11 @@
     },
     "navigation.login": {
       "key": "navigation.login",
-      "value": "Login",
+      "value": "Log In",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
-      "targetChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
+      "targetChecksum": "2ded4a3ee653ffdd82681e9f39144e169a1a217bea7f7c22a2795f48e3dc6864",
       "reviewStatus": "LINGUISTIC_REVIEW_PASSED"
     },
     "navigation.logout": {
@@ -11216,20 +11216,20 @@
     },
     "navigation.register": {
       "key": "navigation.register",
-      "value": "Register",
+      "value": "Sign Up",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
-      "targetChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
+      "targetChecksum": "47de23586e49d83300bafc4feec21bfc1483d728d12bb000e99c31283206f2ce",
       "reviewStatus": "LINGUISTIC_REVIEW_PASSED"
     },
     "navigation.safety": {
       "key": "navigation.safety",
-      "value": "Safety",
+      "value": "Trust & Safety",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "726d11bd5b230253cc5f795cfcb3268117267cb11fee8df060a472e6448abc56",
-      "targetChecksum": "726d11bd5b230253cc5f795cfcb3268117267cb11fee8df060a472e6448abc56",
+      "targetChecksum": "5b9c374d59a60280d7150cf45fa75c702d65bf6bca58b1b535ac8e276866db05",
       "reviewStatus": "LINGUISTIC_REVIEW_PASSED"
     },
     "navigation.security": {

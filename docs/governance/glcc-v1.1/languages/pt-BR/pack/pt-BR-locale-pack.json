@@ -6,8 +6,8 @@
   "canonicalKeyCount": 2208,
   "canonicalKeyChecksum": "a682064cf1f532c26884104887b012b27be830be39b41e27d0c1d58f77b36fdf",
   "sourceMessageChecksum": "0566572080c895732e61ef62108403a283f6abf12e762eb29ba77a1460c2cbb8",
-  "targetMessageChecksum": "3c1c4d1d9e78e963cc5542e0bc110d56ebec58d9fdec2f560a8c82c39e080734",
-  "packChecksum": "5150aa023f08cf131f56696a298fd7126ba7908851b123d7c6c72d9eff48b929",
+  "targetMessageChecksum": "98153183baf44f2f8ed4390edd996df2fb8c7355267c2bc64a38fe89cb2ab504",
+  "packChecksum": "71e1c50676b4d9be94a864dcbafe426c1a0e56dd19a43a68d375d6ee3d6eeb84",
   "generatedAt": "2026-10-06T18:00:00.000Z",
   "workflowState": "APPROVED_FOR_QA",
   "releaseCandidateState": "CANDIDATE_FOR_QA",
@@ -5507,11 +5507,11 @@
     },
     "common.aiSocialPromotion": {
       "key": "common.aiSocialPromotion",
-      "value": "AI Social Promotion",
+      "value": "Divulgação social com IA",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c69289321fbb61c4923a10dd1c3fcf7d13bd31caf5c273f574116b2191ca61f5",
-      "targetChecksum": "c69289321fbb61c4923a10dd1c3fcf7d13bd31caf5c273f574116b2191ca61f5",
+      "targetChecksum": "8e60cc118a54a4359765a09e81c962fb110c26a2c6598265222ea8cfbcd8708d",
       "reviewStatus": "APPROVED"
     },
     "common.amount": {
@@ -5588,20 +5588,20 @@
     },
     "common.becomeAVerifiedProvider": {
       "key": "common.becomeAVerifiedProvider",
-      "value": "Become a Verified Provider",
+      "value": "Tornar-se fornecedor verificado",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "b214bc0ba0eb897c18de6029b2fcd9fdfc2bd1f982ebc5f79629777aee9caf06",
-      "targetChecksum": "b214bc0ba0eb897c18de6029b2fcd9fdfc2bd1f982ebc5f79629777aee9caf06",
+      "targetChecksum": "c2c60452fa243a5faf9a6c7b0f57559ba6676f5779eacabb444dda8ed513a3cc",
       "reviewStatus": "APPROVED"
     },
     "common.betaNotice": {
       "key": "common.betaNotice",
-      "value": "RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.",
+      "value": "Prévia Beta RENTipid | Pagamentos simulados ativos | Transações financeiras reais desativadas.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "ea39fe991e907f6d84798ed1f9f725c41c91b115a8e1c0ac9ec2c2af98d419d4",
-      "targetChecksum": "ea39fe991e907f6d84798ed1f9f725c41c91b115a8e1c0ac9ec2c2af98d419d4",
+      "targetChecksum": "8925c0939ac290953956200d6f13e4ffbb3e39e959c6c01a410260d586dc7035",
       "reviewStatus": "APPROVED"
     },
     "common.buttonSquareWithAn": {
@@ -5741,11 +5741,11 @@
     },
     "common.donAposTBuy": {
       "key": "common.donAposTBuy",
-      "value": "Don&apos;t buy a drill for one hole. Rent it for a day.",
+      "value": "Não compre uma furadeira para fazer um furo. Alugue por um dia.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d8b07284e3783078fa08f7f421716dfbf63199fa0293f4902d561ec6e0316c6f",
-      "targetChecksum": "d8b07284e3783078fa08f7f421716dfbf63199fa0293f4902d561ec6e0316c6f",
+      "targetChecksum": "996a10af66c485e0f5994d4e0b3def1ac19a06f37c27f8dff635f6c29579ae2f",
       "reviewStatus": "APPROVED"
     },
     "common.edit": {
@@ -5777,20 +5777,20 @@
     },
     "common.everyBookingAutomaticallyGenerates": {
       "key": "common.everyBookingAutomaticallyGenerates",
-      "value": "Every booking automatically generates a clear, fair contract.",
+      "value": "Cada reserva gera automaticamente um contrato claro e justo.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "fcacdb12eed952299b17844ff2428deacdba70e5273a725be3fb19d8e07bc742",
-      "targetChecksum": "fcacdb12eed952299b17844ff2428deacdba70e5273a725be3fb19d8e07bc742",
+      "targetChecksum": "19a99cb9ac1861257d46160d0e60bfa2da4c5e8dcff2bc3afea1b273ff63e335",
       "reviewStatus": "APPROVED"
     },
     "common.fairDisputeResolution": {
       "key": "common.fairDisputeResolution",
-      "value": "Fair Dispute Resolution",
+      "value": "Resolução justa de disputas",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6d233137b4f6b6f5e32f1df45c3ff213396c6387894451ed8aef4d7048fbf050",
-      "targetChecksum": "6d233137b4f6b6f5e32f1df45c3ff213396c6387894451ed8aef4d7048fbf050",
+      "targetChecksum": "776441ddb3437ed1b7eafe809fd38048610899bc37df01642a8288e5cda3b50f",
       "reviewStatus": "APPROVED"
     },
     "common.findYourAddress": {
@@ -5894,29 +5894,29 @@
     },
     "common.letOurAiGenerate": {
       "key": "common.letOurAiGenerate",
-      "value": "Let our AI generate marketing campaigns to promote your listings worldwide.",
+      "value": "Deixe nossa IA gerar campanhas para promover seus anúncios globalmente.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "168ec218575efb44eff859bef482b6e2fdc9fc82e7f6b08d1e7fe98a2dcb78dd",
-      "targetChecksum": "168ec218575efb44eff859bef482b6e2fdc9fc82e7f6b08d1e7fe98a2dcb78dd",
+      "targetChecksum": "043a472ea20e0af3e933438fdb1c8b163b5cfb4fcf2066a66356ff1ce0d11aa3",
       "reviewStatus": "APPROVED"
     },
     "common.listYourUnusedGear": {
       "key": "common.listYourUnusedGear",
-      "value": "List your unused gear, properties, and vehicles safely.",
+      "value": "Anuncie seus equipamentos, imóveis e veículos com segurança.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "0e5d967868629135a9754ae0a7133d0890e4b57e7e44d0a683ce3f375d097188",
-      "targetChecksum": "0e5d967868629135a9754ae0a7133d0890e4b57e7e44d0a683ce3f375d097188",
+      "targetChecksum": "8f0a83ff01e4816d0918c35e1367b57c90b5e63320888c7364e140f2073e1a04",
       "reviewStatus": "APPROVED"
     },
     "common.loading": {
       "key": "common.loading",
-      "value": "Loading...",
+      "value": "Carregando...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "47d2a515ef2f05b87d688656286a61e4f743da4b878684c7654969db17711c40",
-      "targetChecksum": "47d2a515ef2f05b87d688656286a61e4f743da4b878684c7654969db17711c40",
+      "targetChecksum": "1258573b225a22cda178e4810cb00b439af75d3fe3351dc7ecefe637aaac4579",
       "reviewStatus": "APPROVED"
     },
     "common.loadingBarangays": {
@@ -6029,11 +6029,11 @@
     },
     "common.ourAdminTeamAnd": {
       "key": "common.ourAdminTeamAnd",
-      "value": "Our admin team and AI helpers ensure objective damage reviews.",
+      "value": "Nossa equipe e assistentes de IA garantem avaliações objetivas de danos.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "2ef3dcabc3c082609dc5d748bd1dad3ecbfb956387806f4daeb7ad65450bd64e",
-      "targetChecksum": "2ef3dcabc3c082609dc5d748bd1dad3ecbfb956387806f4daeb7ad65450bd64e",
+      "targetChecksum": "8978b82c1c46e0017d5eed9424b9ad90a05c3c3de375a39739b290cd27d88e6f",
       "reviewStatus": "APPROVED"
     },
     "common.page.addToHomeScreen": {
@@ -6155,11 +6155,11 @@
     },
     "common.saveMoneyAndSpace": {
       "key": "common.saveMoneyAndSpace",
-      "value": "Save money and space",
+      "value": "Economize dinheiro e espaço",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e1f2fd55b5aa185b964adf220fa4a323ac4648368dd5a3ec54b4f649d3d60ee8",
-      "targetChecksum": "e1f2fd55b5aa185b964adf220fa4a323ac4648368dd5a3ec54b4f649d3d60ee8",
+      "targetChecksum": "8b330d22194ca9fbfbbd5f833efd03f089c5bced5ec0eeaa8fb8133d67495067",
       "reviewStatus": "APPROVED"
     },
     "common.scrollDownAndTap": {
@@ -6247,11 +6247,11 @@
     },
     "common.standardizedAgreements": {
       "key": "common.standardizedAgreements",
-      "value": "Standardized Agreements",
+      "value": "Contratos padronizados",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "46bc78999203e7daa40e810cc414a541e079256710765caf30dadf043b924e8b",
-      "targetChecksum": "46bc78999203e7daa40e810cc414a541e079256710765caf30dadf043b924e8b",
+      "targetChecksum": "e108522a525ef186811a4178cbfe22b467b4f2741a165a1bc9c2915f80ddda3a",
       "reviewStatus": "APPROVED"
     },
     "common.startDigitalHuman": {
@@ -6366,11 +6366,11 @@
     },
     "common.turnIdleAssetsInto": {
       "key": "common.turnIdleAssetsInto",
-      "value": "Turn idle assets into income",
+      "value": "Transforme bens ociosos em renda",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d9805ccb4c93f536761e68bde8573bf4209078c04d933be010783500be746b5e",
-      "targetChecksum": "d9805ccb4c93f536761e68bde8573bf4209078c04d933be010783500be746b5e",
+      "targetChecksum": "706812c06e97f310e50501f06f901b38e108d5c2eb15bff4b60ca7a5ac8b9c06",
       "reviewStatus": "APPROVED"
     },
     "common.typeToSearchCity": {
@@ -6384,11 +6384,11 @@
     },
     "common.user": {
       "key": "common.user",
-      "value": "User",
+      "value": "Usuário",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "b512d97e7cbf97c273e4db073bbb547aa65a84589227f8f3d9e4a72b9372a24d",
-      "targetChecksum": "b512d97e7cbf97c273e4db073bbb547aa65a84589227f8f3d9e4a72b9372a24d",
+      "targetChecksum": "f53bbaa05faef8e20f9a492a1fa067990e19c0aafd3746fbe9072c253f885ce6",
       "reviewStatus": "APPROVED"
     },
     "common.v1LaunchNote": {
@@ -6411,11 +6411,11 @@
     },
     "common.verifiedRentersOnly": {
       "key": "common.verifiedRentersOnly",
-      "value": "Verified Renters Only",
+      "value": "Apenas locatários verificados",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "606be12bffae946a5f73d367d55e69d5b1b85ff93f95cfc58ada70b4caf0fec5",
-      "targetChecksum": "606be12bffae946a5f73d367d55e69d5b1b85ff93f95cfc58ada70b4caf0fec5",
+      "targetChecksum": "977b78c7cf19e9d698377ecec95714d846ec75e7ecc72f20c787f22ef7798411",
       "reviewStatus": "APPROVED"
     },
     "common.version": {
@@ -6465,11 +6465,11 @@
     },
     "common.youControlWhoCan": {
       "key": "common.youControlWhoCan",
-      "value": "You control who can rent your items. Require IDs and deposits.",
+      "value": "Você decide quem aluga seus itens. Exija documento e caução.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "a1361e8859cf57f5ffb1c855a128f1b90c7d561ed7d863a4ce4fb33e28e67922",
-      "targetChecksum": "a1361e8859cf57f5ffb1c855a128f1b90c7d561ed7d863a4ce4fb33e28e67922",
+      "targetChecksum": "df033e42683ce9daf1bc59d9572fcf1f18d45c31cad0e0c3bf5eae0115eec944",
       "reviewStatus": "APPROVED"
     },
     "common.zipPostalCode": {
@@ -6680,11 +6680,11 @@
     },
     "footer.contactUs": {
       "key": "footer.contactUs",
-      "value": "Fale Conosco",
+      "value": "Fale conosco",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "98b67063cf8e584d75e53b88472ee85473e01e0ea16f29ece9cc98f4a2710494",
-      "targetChecksum": "f868b96162a100308cfa363cc3eacce785d7f3ba75f06c847f0d4b1df3ed6891",
+      "targetChecksum": "4e9c55568353ad20866f18a318e9f20a5010e2b0a3f6f4efb93eae52ae3c4e43",
       "reviewStatus": "APPROVED"
     },
     "footer.copyright": {
@@ -6700,29 +6700,29 @@
     },
     "footer.description": {
       "key": "footer.description",
-      "value": "RENTipid is a verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "value": "A RENTipid é um marketplace verificado para aluguel seguro de ferramentas, equipamentos e espaços.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c97383b4c2b280e2bd5f5d251d805a10e0a7975006c25d9fcf910d400a70fd62",
-      "targetChecksum": "c97383b4c2b280e2bd5f5d251d805a10e0a7975006c25d9fcf910d400a70fd62",
+      "targetChecksum": "329682744b196e9319546fad709186ad8e5e02b84d0c3059c92806a0e71e0fd7",
       "reviewStatus": "APPROVED"
     },
     "footer.helpCenter": {
       "key": "footer.helpCenter",
-      "value": "Central de Ajuda",
+      "value": "Central de ajuda",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "a78cebc44214256ba361dcee3f1cc1408e55ea6940c65067615abd4fdcc2d788",
-      "targetChecksum": "5895b95d5e62ffd3ccc7d575a6fd68b316eca79c53d2dcd56bfa4c1cca5adf5c",
+      "targetChecksum": "6f9065c4b305f30dd167a0edb8b934da4c4bb7853c94b0f0b5e0aeec3b33cbb9",
       "reviewStatus": "APPROVED"
     },
     "footer.ip": {
       "key": "footer.ip",
-      "value": "Propriedade Intelectual",
+      "value": "Propriedade intelectual",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "0ceef38a020e129ca4eb9b2a3088fcffe2f12b400e00894c3ee28c20d779f4f6",
-      "targetChecksum": "af3d8c0caf71c07f3dac6266d9bd293f1e0d478836b888d671863542e89b7a71",
+      "targetChecksum": "25fd4b379663e5f6f99b33d14717a3bee8b68bd879a9a117fa67e89714f1693a",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.ip",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6730,11 +6730,11 @@
     },
     "footer.legalCompliance": {
       "key": "footer.legalCompliance",
-      "value": "Conformidade Legal Global",
+      "value": "Conformidade legal global",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "04fa411fa1efa15b6ad3cf42a6a76f3c62b129c3a638ef99754e65fd3fd5e44e",
-      "targetChecksum": "0c5154e2d65dcaef84f69fabc022e81d9bc9668eb943b49fd41c758d3585975c",
+      "targetChecksum": "954be0aa6c7a14afa922184b6ce4e17c7b54cc56d5b078743573d55dfb2e733a",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.legalCompliance",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6742,11 +6742,11 @@
     },
     "footer.platform": {
       "key": "footer.platform",
-      "value": "Platform",
+      "value": "Plataforma",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c78ffe19571018fbc93a78873969046fe1a80c3d21e5d20fbb2ca17c7c53a144",
-      "targetChecksum": "c78ffe19571018fbc93a78873969046fe1a80c3d21e5d20fbb2ca17c7c53a144",
+      "targetChecksum": "5d7325dd007ccc28def0e4ba780259263991da78d5673fdce5fa667fa2daf57f",
       "reviewStatus": "APPROVED"
     },
     "footer.privacy": {
@@ -6763,11 +6763,11 @@
     },
     "footer.prohibitedItems": {
       "key": "footer.prohibitedItems",
-      "value": "Itens Proibidos",
+      "value": "Itens proibidos",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "4e9f5b3cab42f4bcc2c1594f8be8f0e5e428613a4a65204533c4b9ec329959ce",
-      "targetChecksum": "c5e4ece0826c2fae02efb0e3e0505803a58d34af61dfac059abe40a79a33bb4a",
+      "targetChecksum": "8a8d47914950bcf28cd12aa20d9dcc35bbfb172a73292f3a5731fe22c824ee72",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.prohibitedItems",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6775,11 +6775,11 @@
     },
     "footer.reportIllegal": {
       "key": "footer.reportIllegal",
-      "value": "Denunciar Atividade Ilegal",
+      "value": "Denunciar atividade ilegal",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "60e4e5cd4a2b80f9163ccea194f76687e72052c39ede19fac7233437e5993229",
-      "targetChecksum": "5b7a1c8abf51c483cdbb53ac22a9cb1855606ccf032fae4a4655f0db8072fc4e",
+      "targetChecksum": "96089de7b7b540eebad3a72d6568199955922696e88c6d9de25aa65314490eeb",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.reportIllegal",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6787,11 +6787,11 @@
     },
     "footer.safety": {
       "key": "footer.safety",
-      "value": "Proteção ao Consumidor e Segurança",
+      "value": "Proteção ao consumidor e segurança",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "fb1b6c7a5b5db535607268e33baefc9b6c6111e57bc0d3323af69f37067bdaac",
-      "targetChecksum": "24a9078510ef9f265abaff568f5b6677df617ab88eccb9203a01ff68b4d4581e",
+      "targetChecksum": "910ef1e4051e434105fda692ea0aa4207ba0a9cf40cbf70e8b51fae7621d2204",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.safety",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6799,11 +6799,11 @@
     },
     "footer.socialMedia": {
       "key": "footer.socialMedia",
-      "value": "Social Media",
+      "value": "Redes sociais",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "8dfdbc2ef4391d511daccaa080cce5fb26e608db8b180c56e31df392519f8d50",
-      "targetChecksum": "8dfdbc2ef4391d511daccaa080cce5fb26e608db8b180c56e31df392519f8d50",
+      "targetChecksum": "1dbaacdfd1c16499a66d13f8f8c867c469c26d5b8b8da9d0339ae23bf613b585",
       "reviewStatus": "APPROVED"
     },
     "footer.support": {
@@ -6817,11 +6817,11 @@
     },
     "footer.terms": {
       "key": "footer.terms",
-      "value": "Termos",
+      "value": "Termos de uso",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "ede5489964834a514b61c7a4a8370be2452dd4a7d807180f14991ccc11ad2430",
-      "targetChecksum": "93ba09fe6f1d2d6dd9e3714968bb8d620c52c7183ef93918684830b87e45dfe6",
+      "targetChecksum": "a6f04fc4cc1e437bac445f69c9b8ca5dfe9809c796a39a2425ffcccba6a39d29",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.terms",
       "authoritativeSourceVersion": "v1.0.1",
@@ -6829,11 +6829,11 @@
     },
     "footer.trustAndLegal": {
       "key": "footer.trustAndLegal",
-      "value": "Confiança e Jurídico",
+      "value": "Confiança e termos",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "placeholderSignature": [],
       "sourceChecksum": "507708793c137e3ba21b5a5a3b1a70989cea04bb71962466ac7050ee1d7cfe20",
-      "targetChecksum": "cf6f259576e8f042d736f7379cca65b1f6f5f3f7ab820e5365dbc3d6ce9c3eda",
+      "targetChecksum": "45992bb95f5b7c17b87bdcda1b22e1d73083478b0800ad012c662d90f442a004",
       "reviewStatus": "APPROVED",
       "authoritativeSourceId": "SRC-GLCC-footer.trustAndLegal",
       "authoritativeSourceVersion": "v1.0.1",
@@ -7495,146 +7495,146 @@
     },
     "home.aiAssistanceDesc": {
       "key": "home.aiAssistanceDesc",
-      "value": "Our AI Concierge helps you find the right items, suggests fair pricing, and guides you through rental agreements and disputes.",
+      "value": "Nosso assistente de IA ajuda a encontrar os itens certos, sugere preços justos e orienta contratos.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "5d58796ad034c3ab93758bb4827520efdb749678f313326339508e990d0ec841",
-      "targetChecksum": "5d58796ad034c3ab93758bb4827520efdb749678f313326339508e990d0ec841",
+      "targetChecksum": "0b74c3658334a85af3c052acfd2f48dd43d66b2a6742191573ade5d022ffe500",
       "reviewStatus": "APPROVED"
     },
     "home.aiAssistanceTitle": {
       "key": "home.aiAssistanceTitle",
-      "value": "AI Assistance",
+      "value": "Assistência por IA",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "7c686fdb859c311ba9324e5a5c4f38e63d0e8a68fdd96d3875dcf0fccc4d6711",
-      "targetChecksum": "7c686fdb859c311ba9324e5a5c4f38e63d0e8a68fdd96d3875dcf0fccc4d6711",
+      "targetChecksum": "0e7b34b15b220686e274bc7680351d16c61e5c3c4b8fcf4f762965194daf6b7d",
       "reviewStatus": "APPROVED"
     },
     "home.ctaSubtitle": {
       "key": "home.ctaSubtitle",
-      "value": "Create an account today and start renting securely.",
+      "value": "Crie uma conta hoje e comece a alugar com segurança.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "159652114ad0306dca432d3d1fde15b97402628e084984f1df9a3183152f8004",
-      "targetChecksum": "159652114ad0306dca432d3d1fde15b97402628e084984f1df9a3183152f8004",
+      "targetChecksum": "36167ffc17abfb0e2d5fb851ba946c13880c4950c5be8b5a84abdaf14b60d687",
       "reviewStatus": "APPROVED"
     },
     "home.ctaTitle": {
       "key": "home.ctaTitle",
-      "value": "Ready to join RENTipid?",
+      "value": "Pronto para se juntar à RENTipid?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "ac109eea4b789c0f5151e01bd56eb3a939289fbc58eed37e2ba643a029cf3c14",
-      "targetChecksum": "ac109eea4b789c0f5151e01bd56eb3a939289fbc58eed37e2ba643a029cf3c14",
+      "targetChecksum": "b3e2bf46772d04e8640a65639f712e7592edeba9ff74f59a9efb13c0fd1d93ac",
       "reviewStatus": "APPROVED"
     },
     "home.depositProtectionDesc": {
       "key": "home.depositProtectionDesc",
-      "value": "Security deposits are held safely in the platform and automatically resolved based on before-and-after photo inspections.",
+      "value": "Os depósitos de segurança ficam retidos com segurança e são liberados com base em fotos de vistoria.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "59c3b4ae7418b5cd303c3add6932d4ce0f3f7c75524930403a047857e49c4e7a",
-      "targetChecksum": "59c3b4ae7418b5cd303c3add6932d4ce0f3f7c75524930403a047857e49c4e7a",
+      "targetChecksum": "73e958475d8a199e93de3fd4ef2d991100f8b191e21281f65dbd0a45343befd8",
       "reviewStatus": "APPROVED"
     },
     "home.depositProtectionTitle": {
       "key": "home.depositProtectionTitle",
-      "value": "Deposit Protection",
+      "value": "Proteção de caução",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "a22c3059e657980413eadede858880478bb4a73541cf2533ec3b4cef678b60d6",
-      "targetChecksum": "a22c3059e657980413eadede858880478bb4a73541cf2533ec3b4cef678b60d6",
+      "targetChecksum": "b047a0e1276dcdd01b5f37a93087462e008ad717969f70eb04fba9954a0f84b4",
       "reviewStatus": "APPROVED"
     },
     "home.forProviders": {
       "key": "home.forProviders",
-      "value": "For Providers",
+      "value": "Para proprietários",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "2878d60a73996e3f909d22ffcb1ad5513aafc849dd6e0e648622b07231a5d973",
-      "targetChecksum": "2878d60a73996e3f909d22ffcb1ad5513aafc849dd6e0e648622b07231a5d973",
+      "targetChecksum": "d0a6e7730949bbd29e567ad85acbc639704a8a73ebc38d3665f98347588de118",
       "reviewStatus": "APPROVED"
     },
     "home.forRenters": {
       "key": "home.forRenters",
-      "value": "For Renters",
+      "value": "Para locatários",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9e7c3aac051f930c9801eb4c266c8a08bcef93bd76ed2bbe360280a37ad7b4e8",
-      "targetChecksum": "9e7c3aac051f930c9801eb4c266c8a08bcef93bd76ed2bbe360280a37ad7b4e8",
+      "targetChecksum": "dfcd048ad3f69735fe47346d1eae0fd190fc6934d10a5f087b9d25c3ebd10bc2",
       "reviewStatus": "APPROVED"
     },
     "home.getStarted": {
       "key": "home.getStarted",
-      "value": "Get Started Now",
+      "value": "Começar agora",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "cc3666dca734ab8fa68d971c0f1cb8673aac2d655b6af415d68be8720daba55d",
-      "targetChecksum": "cc3666dca734ab8fa68d971c0f1cb8673aac2d655b6af415d68be8720daba55d",
+      "targetChecksum": "9299737e11f5e7cd15c22427694b7da5793b5d6dca6ffa7c42d87840c23b1824",
       "reviewStatus": "APPROVED"
     },
     "home.heroSubtitle": {
       "key": "home.heroSubtitle",
-      "value": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "value": "Um marketplace de aluguel verificado para alugar com segurança ferramentas, equipamentos, espaços e imóveis legalmente alugáveis.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
-      "targetChecksum": "e7a16a2481843457dc65a783a4f093141a1b6a4e2d36edb9b173a354f5357aed",
+      "targetChecksum": "ebf781eab17be789a378f31fd6705b9e0a5500671999e9069846e1ef85659973",
       "reviewStatus": "APPROVED"
     },
     "home.heroTitle": {
       "key": "home.heroTitle",
-      "value": "Why Buy? RENTipid!",
+      "value": "Por que comprar? RENTipid!",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
-      "targetChecksum": "c04138a1967dbdacb9f2b01b9d4bd0139048850499c6ce3d4a8e885c8c6da1a1",
+      "targetChecksum": "5fe1e8ed6f486352e9e1c4da92b42aa731049ca211b8d8f229cecfd7759b2710",
       "reviewStatus": "APPROVED"
     },
     "home.startRenting": {
       "key": "home.startRenting",
-      "value": "Start Renting",
+      "value": "Começar a alugar",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
-      "targetChecksum": "205ac9fc26cbaea9c2a723478ff83dc553275d030e7a75d12386f827c37357bf",
+      "targetChecksum": "9850416007ddb1bc4b6ce7c85c57c3daf778d824bdbf5a0009ecc899e4330652",
       "reviewStatus": "APPROVED"
     },
     "home.trustSubtitle": {
       "key": "home.trustSubtitle",
-      "value": "Every transaction is secured, verified, and protected.",
+      "value": "Cada transação é protegida, verificada e segura.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "51f688e1f2913caea93a0e399aee1685406c59d7f524e78e7fd44da8e35dd48e",
-      "targetChecksum": "51f688e1f2913caea93a0e399aee1685406c59d7f524e78e7fd44da8e35dd48e",
+      "targetChecksum": "004b5a9ed73d5ea52941945ca0e2f083fe7ff9648fed750a4627c7e31a3e28f6",
       "reviewStatus": "APPROVED"
     },
     "home.trustTitle": {
       "key": "home.trustTitle",
-      "value": "Rent with Complete Peace of Mind",
+      "value": "Alugue com total tranquilidade",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6e1277b82621a47447f7082702a3a025113f3809ab84c33b3cccc209f8866305",
-      "targetChecksum": "6e1277b82621a47447f7082702a3a025113f3809ab84c33b3cccc209f8866305",
+      "targetChecksum": "2607542e26a78b6c99325097dd3b7838bb30a033543a9585f792e02670e55571",
       "reviewStatus": "APPROVED"
     },
     "home.verifiedUsersDesc": {
       "key": "home.verifiedUsersDesc",
-      "value": "We verify identities and business permits before they can list or rent high-value items, keeping scams out of the platform.",
+      "value": "Verificamos identidades e licenças antes de permitir anúncios de itens de alto valor.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "ed57eb1fd398d6fb2cedd59e641aa2aa9a266d542e5ec56484e8bebea9ed03f2",
-      "targetChecksum": "ed57eb1fd398d6fb2cedd59e641aa2aa9a266d542e5ec56484e8bebea9ed03f2",
+      "targetChecksum": "1b5bba5363de37b3ead5ae5db3ae5708feabe1c948bdf4a1626354fd29eccf65",
       "reviewStatus": "APPROVED"
     },
     "home.verifiedUsersTitle": {
       "key": "home.verifiedUsersTitle",
-      "value": "Verified Users",
+      "value": "Usuários verificados",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "adeea24d7119f51c02dcf06378f666c6263638744299efe60efe790ecf8b7e5f",
-      "targetChecksum": "adeea24d7119f51c02dcf06378f666c6263638744299efe60efe790ecf8b7e5f",
+      "targetChecksum": "15340703bf7826f0b6a35d48f7bf047545ce52c8e81d92a379e6be1200b881a2",
       "reviewStatus": "APPROVED"
     },
     "insurance.general.title": {
@@ -10985,20 +10985,20 @@
     },
     "marketplace.locationPlaceholder": {
       "key": "marketplace.locationPlaceholder",
-      "value": "City or neighborhood",
+      "value": "Cidade ou bairro",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c92129e54379c715f052475922d29c7d6ba615f55570ea48d93859d49a8ca7fb",
-      "targetChecksum": "c92129e54379c715f052475922d29c7d6ba615f55570ea48d93859d49a8ca7fb",
+      "targetChecksum": "e45617c445dcb0a2ce48bc2dcc49c78ee1b577a9e7f5909043c4dbf5b0a5ae79",
       "reviewStatus": "APPROVED"
     },
     "marketplace.locationPrompt": {
       "key": "marketplace.locationPrompt",
-      "value": "Where?",
+      "value": "Onde?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
-      "targetChecksum": "91f45115c34f7dcf6eb244ea679ade1f3ff13bf8215b007449b7624d67b19858",
+      "targetChecksum": "0c12d30f66794cfe6f5804810c78173b86ea3681db32dccebd7bc2c9aa51aacf",
       "reviewStatus": "APPROVED"
     },
     "marketplace.noResults": {
@@ -11012,11 +11012,11 @@
     },
     "marketplace.popularCategories": {
       "key": "marketplace.popularCategories",
-      "value": "Popular Categories",
+      "value": "Categorias populares",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
-      "targetChecksum": "9942bf5b84451d1787005bcc61ad7984e14b38adaacb5fe04216e5c0cf8aa28a",
+      "targetChecksum": "760ad1a13e0f40faf5e79024668f5443902deaaec84515e966df31d2f0f8c424",
       "reviewStatus": "APPROVED"
     },
     "marketplace.results": {
@@ -11070,20 +11070,20 @@
     },
     "marketplace.searchPlaceholder": {
       "key": "marketplace.searchPlaceholder",
-      "value": "Tools, vehicles, venues...",
+      "value": "Ferramentas, veículos, espaços...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e923e71fc497e1975d8065da120fb49f66ed15691c8dbec1424e74bb7a49ba8e",
-      "targetChecksum": "e923e71fc497e1975d8065da120fb49f66ed15691c8dbec1424e74bb7a49ba8e",
+      "targetChecksum": "2058b6107d7df797b4d5d4d1e8afd28a05c855be3be377a5c1cfedcc7022e48a",
       "reviewStatus": "APPROVED"
     },
     "marketplace.searchPrompt": {
       "key": "marketplace.searchPrompt",
-      "value": "What are you looking for?",
+      "value": "O que você está procurando?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
-      "targetChecksum": "e3ad92be491a08c8f78a46b936737b95e64d6820e04ee4fea4d2fe55f28de36e",
+      "targetChecksum": "1504e1b2649aa8bd77a0b3e59dabc8852f5ce82aafeafd4b78ae65cf01621482",
       "reviewStatus": "APPROVED"
     },
     "marketplace.sort": {
@@ -11124,20 +11124,20 @@
     },
     "navigation.browseRentals": {
       "key": "navigation.browseRentals",
-      "value": "Browse Rentals",
+      "value": "Navegar por aluguéis",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
-      "targetChecksum": "72702fc94fbce3fff7da91cead240c2f7f619010556a8d4cc53b2e6e9eee31e2",
+      "targetChecksum": "f4387f39a8975047588d694a4ef0eadb7729a3223d4dbb9093c20dc3e30c6d29",
       "reviewStatus": "APPROVED"
     },
     "navigation.dashboard": {
       "key": "navigation.dashboard",
-      "value": "Dashboard",
+      "value": "Painel",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "67b696468610b879ed7f224dbf6b0861f27e39d20454cb9d7af1ec52d3e5eeaa",
-      "targetChecksum": "67b696468610b879ed7f224dbf6b0861f27e39d20454cb9d7af1ec52d3e5eeaa",
+      "targetChecksum": "0ebf35ccfd307bc6fa2f6ebd05b0a1a33c5a5f97893c052cffe84376745c5012",
       "reviewStatus": "APPROVED"
     },
     "navigation.greeting": {
@@ -11153,47 +11153,47 @@
     },
     "navigation.howItWorks": {
       "key": "navigation.howItWorks",
-      "value": "How It Works",
+      "value": "Como funciona",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
-      "targetChecksum": "c1879525c75cb5c2f2f3bcd2db2554aeca020ede722bdbe6949b8f5f51d885d2",
+      "targetChecksum": "991f80d4356d46fd9c565c92f281523fef297f3e244e1470112135157ab191f7",
       "reviewStatus": "APPROVED"
     },
     "navigation.listYourItem": {
       "key": "navigation.listYourItem",
-      "value": "List Your Item",
+      "value": "Anunciar seu item",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
-      "targetChecksum": "6f203ab5d1779bf591b9b7395331be289677f166a5203b18a239dc2071c09df5",
+      "targetChecksum": "39beda0c51cbcd406fa65ca745bf06fbf825d6452d28b52a9055c4823cfc79b4",
       "reviewStatus": "APPROVED"
     },
     "navigation.login": {
       "key": "navigation.login",
-      "value": "Login",
+      "value": "Entrar",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
-      "targetChecksum": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
+      "targetChecksum": "4105811890aee724c93366822ede0d3ca55fff4d3ee80e569326f359502ec586",
       "reviewStatus": "APPROVED"
     },
     "navigation.logout": {
       "key": "navigation.logout",
-      "value": "Logout",
+      "value": "Sair",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d0527e4b3d658351dae74be7b10c7531a7ac98493c6b257ab62774853bcc74b2",
-      "targetChecksum": "d0527e4b3d658351dae74be7b10c7531a7ac98493c6b257ab62774853bcc74b2",
+      "targetChecksum": "2d023dea2a9d93793dcee75a664d3396a73269adb273bdac8733c6ccba59b154",
       "reviewStatus": "APPROVED"
     },
     "navigation.mainNav": {
       "key": "navigation.mainNav",
-      "value": "Main Navigation",
+      "value": "Navegação principal",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "56ea852a517b65e779dc6eb1c985d4998899fb0b895cde6686275381be0c09b9",
-      "targetChecksum": "56ea852a517b65e779dc6eb1c985d4998899fb0b895cde6686275381be0c09b9",
+      "targetChecksum": "895f0739f1b48b53e828b9fad57e25b329df46d34662971a3ae8c2e6c7cfcabc",
       "reviewStatus": "APPROVED"
     },
     "navigation.myProfile": {
@@ -11207,29 +11207,29 @@
     },
     "navigation.profile": {
       "key": "navigation.profile",
-      "value": "Profile",
+      "value": "Perfil",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "d696a35bdd1883da07a8d6c41bb7a3153381b23aa197629ee273479a6eaa5a9c",
-      "targetChecksum": "d696a35bdd1883da07a8d6c41bb7a3153381b23aa197629ee273479a6eaa5a9c",
+      "targetChecksum": "00d551e63dd540fcd2431ec32c2e398b096651c864c18b33adaffc07bf7ccd67",
       "reviewStatus": "APPROVED"
     },
     "navigation.register": {
       "key": "navigation.register",
-      "value": "Register",
+      "value": "Cadastrar",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
-      "targetChecksum": "bb7234ec12451361e6f35bcbe76de58e4350657fe60d1b96ace0947f59194083",
+      "targetChecksum": "779d4c1da33f2db3636296aa32f89ec580ad866acc6131c05d1a85ab9ede9b01",
       "reviewStatus": "APPROVED"
     },
     "navigation.safety": {
       "key": "navigation.safety",
-      "value": "Confiança E Segurança",
+      "value": "Segurança",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "726d11bd5b230253cc5f795cfcb3268117267cb11fee8df060a472e6448abc56",
-      "targetChecksum": "d27f5bb713c479e22a2c5957af4826179c6a03421e6d9bb10e1e2c8104defec0",
+      "targetChecksum": "d5668a0b8310b59f8af527bf66f56c37aa35a7d4868fea6986f9dae9d908d3fc",
       "reviewStatus": "APPROVED"
     },
     "navigation.security": {
@@ -11243,11 +11243,11 @@
     },
     "navigation.userActions": {
       "key": "navigation.userActions",
-      "value": "User Actions",
+      "value": "Ações do usuário",
       "contentClass": "CLASS_A_STANDARD_UI",
       "placeholderSignature": [],
       "sourceChecksum": "156701895ea897987806468598aa96b171f9f1d5b881fbfae7619299f30b1b2e",
-      "targetChecksum": "156701895ea897987806468598aa96b171f9f1d5b881fbfae7619299f30b1b2e",
+      "targetChecksum": "7feaabf1734a09d7a9dc272b861d9d583773f97364e82ac6bb8517d7205be7f7",
       "reviewStatus": "APPROVED"
     },
     "notifications.general.title": {

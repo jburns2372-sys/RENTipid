@@ -9096,7 +9096,7 @@
     "common.aiSocialPromotion": {
       "key": "common.aiSocialPromotion",
       "sourceText": "AI Social Promotion",
-      "targetText": "AI Social Promotion",
+      "targetText": "Divulgação social com IA",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9231,7 +9231,7 @@
     "common.becomeAVerifiedProvider": {
       "key": "common.becomeAVerifiedProvider",
       "sourceText": "Become a Verified Provider",
-      "targetText": "Become a Verified Provider",
+      "targetText": "Tornar-se fornecedor verificado",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9246,7 +9246,7 @@
     "common.betaNotice": {
       "key": "common.betaNotice",
       "sourceText": "RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.",
-      "targetText": "RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.",
+      "targetText": "Prévia Beta RENTipid | Pagamentos simulados ativos | Transações financeiras reais desativadas.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9486,7 +9486,7 @@
     "common.donAposTBuy": {
       "key": "common.donAposTBuy",
       "sourceText": "Don&apos;t buy a drill for one hole. Rent it for a day.",
-      "targetText": "Don&apos;t buy a drill for one hole. Rent it for a day.",
+      "targetText": "Não compre uma furadeira para fazer um furo. Alugue por um dia.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9546,7 +9546,7 @@
     "common.everyBookingAutomaticallyGenerates": {
       "key": "common.everyBookingAutomaticallyGenerates",
       "sourceText": "Every booking automatically generates a clear, fair contract.",
-      "targetText": "Every booking automatically generates a clear, fair contract.",
+      "targetText": "Cada reserva gera automaticamente um contrato claro e justo.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9561,7 +9561,7 @@
     "common.fairDisputeResolution": {
       "key": "common.fairDisputeResolution",
       "sourceText": "Fair Dispute Resolution",
-      "targetText": "Fair Dispute Resolution",
+      "targetText": "Resolução justa de disputas",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9741,7 +9741,7 @@
     "common.letOurAiGenerate": {
       "key": "common.letOurAiGenerate",
       "sourceText": "Let our AI generate marketing campaigns to promote your listings worldwide.",
-      "targetText": "Let our AI generate marketing campaigns to promote your listings worldwide.",
+      "targetText": "Deixe nossa IA gerar campanhas para promover seus anúncios globalmente.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9756,7 +9756,7 @@
     "common.listYourUnusedGear": {
       "key": "common.listYourUnusedGear",
       "sourceText": "List your unused gear, properties, and vehicles safely.",
-      "targetText": "List your unused gear, properties, and vehicles safely.",
+      "targetText": "Anuncie seus equipamentos, imóveis e veículos com segurança.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9771,7 +9771,7 @@
     "common.loading": {
       "key": "common.loading",
       "sourceText": "Loading...",
-      "targetText": "Loading...",
+      "targetText": "Carregando...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9966,7 +9966,7 @@
     "common.ourAdminTeamAnd": {
       "key": "common.ourAdminTeamAnd",
       "sourceText": "Our admin team and AI helpers ensure objective damage reviews.",
-      "targetText": "Our admin team and AI helpers ensure objective damage reviews.",
+      "targetText": "Nossa equipe e assistentes de IA garantem avaliações objetivas de danos.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -10176,7 +10176,7 @@
     "common.saveMoneyAndSpace": {
       "key": "common.saveMoneyAndSpace",
       "sourceText": "Save money and space",
-      "targetText": "Save money and space",
+      "targetText": "Economize dinheiro e espaço",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -10328,7 +10328,7 @@
     "common.standardizedAgreements": {
       "key": "common.standardizedAgreements",
       "sourceText": "Standardized Agreements",
-      "targetText": "Standardized Agreements",
+      "targetText": "Contratos padronizados",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -10525,7 +10525,7 @@
     "common.turnIdleAssetsInto": {
       "key": "common.turnIdleAssetsInto",
       "sourceText": "Turn idle assets into income",
-      "targetText": "Turn idle assets into income",
+      "targetText": "Transforme bens ociosos em renda",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -10555,7 +10555,7 @@
     "common.user": {
       "key": "common.user",
       "sourceText": "User",
-      "targetText": "User",
+      "targetText": "Usuário",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -10600,7 +10600,7 @@
     "common.verifiedRentersOnly": {
       "key": "common.verifiedRentersOnly",
       "sourceText": "Verified Renters Only",
-      "targetText": "Verified Renters Only",
+      "targetText": "Apenas locatários verificados",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -10690,7 +10690,7 @@
     "common.youControlWhoCan": {
       "key": "common.youControlWhoCan",
       "sourceText": "You control who can rent your items. Require IDs and deposits.",
-      "targetText": "You control who can rent your items. Require IDs and deposits.",
+      "targetText": "Você decide quem aluga seus itens. Exija documento e caução.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11042,7 +11042,7 @@
     "footer.contactUs": {
       "key": "footer.contactUs",
       "sourceText": "Contact Us",
-      "targetText": "Fale Conosco",
+      "targetText": "Fale conosco",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11074,7 +11074,7 @@
     "footer.description": {
       "key": "footer.description",
       "sourceText": "RENTipid is a verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
-      "targetText": "RENTipid is a verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "targetText": "A RENTipid é um marketplace verificado para aluguel seguro de ferramentas, equipamentos e espaços.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11089,7 +11089,7 @@
     "footer.helpCenter": {
       "key": "footer.helpCenter",
       "sourceText": "Help Center",
-      "targetText": "Central de Ajuda",
+      "targetText": "Central de ajuda",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11104,7 +11104,7 @@
     "footer.ip": {
       "key": "footer.ip",
       "sourceText": "Intellectual Property",
-      "targetText": "Propriedade Intelectual",
+      "targetText": "Propriedade intelectual",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11123,7 +11123,7 @@
     "footer.legalCompliance": {
       "key": "footer.legalCompliance",
       "sourceText": "Global Legal Compliance",
-      "targetText": "Conformidade Legal Global",
+      "targetText": "Conformidade legal global",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11142,7 +11142,7 @@
     "footer.platform": {
       "key": "footer.platform",
       "sourceText": "Platform",
-      "targetText": "Platform",
+      "targetText": "Plataforma",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11176,7 +11176,7 @@
     "footer.prohibitedItems": {
       "key": "footer.prohibitedItems",
       "sourceText": "Prohibited Items",
-      "targetText": "Itens Proibidos",
+      "targetText": "Itens proibidos",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11195,7 +11195,7 @@
     "footer.reportIllegal": {
       "key": "footer.reportIllegal",
       "sourceText": "Report Illegal Activity",
-      "targetText": "Denunciar Atividade Ilegal",
+      "targetText": "Denunciar atividade ilegal",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11214,7 +11214,7 @@
     "footer.safety": {
       "key": "footer.safety",
       "sourceText": "Consumer Protection & Safety",
-      "targetText": "Proteção ao Consumidor e Segurança",
+      "targetText": "Proteção ao consumidor e segurança",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11233,7 +11233,7 @@
     "footer.socialMedia": {
       "key": "footer.socialMedia",
       "sourceText": "Social Media",
-      "targetText": "Social Media",
+      "targetText": "Redes sociais",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11263,7 +11263,7 @@
     "footer.terms": {
       "key": "footer.terms",
       "sourceText": "Terms",
-      "targetText": "Termos",
+      "targetText": "Termos de uso",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11282,7 +11282,7 @@
     "footer.trustAndLegal": {
       "key": "footer.trustAndLegal",
       "sourceText": "Trust & Legal",
-      "targetText": "Confiança e Jurídico",
+      "targetText": "Confiança e termos",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12374,7 +12374,7 @@
     "home.aiAssistanceDesc": {
       "key": "home.aiAssistanceDesc",
       "sourceText": "Our AI Concierge helps you find the right items, suggests fair pricing, and guides you through rental agreements and disputes.",
-      "targetText": "Our AI Concierge helps you find the right items, suggests fair pricing, and guides you through rental agreements and disputes.",
+      "targetText": "Nosso assistente de IA ajuda a encontrar os itens certos, sugere preços justos e orienta contratos.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12389,7 +12389,7 @@
     "home.aiAssistanceTitle": {
       "key": "home.aiAssistanceTitle",
       "sourceText": "AI Assistance",
-      "targetText": "AI Assistance",
+      "targetText": "Assistência por IA",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12404,7 +12404,7 @@
     "home.ctaSubtitle": {
       "key": "home.ctaSubtitle",
       "sourceText": "Create an account today and start renting securely.",
-      "targetText": "Create an account today and start renting securely.",
+      "targetText": "Crie uma conta hoje e comece a alugar com segurança.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12419,7 +12419,7 @@
     "home.ctaTitle": {
       "key": "home.ctaTitle",
       "sourceText": "Ready to join RENTipid?",
-      "targetText": "Ready to join RENTipid?",
+      "targetText": "Pronto para se juntar à RENTipid?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12434,7 +12434,7 @@
     "home.depositProtectionDesc": {
       "key": "home.depositProtectionDesc",
       "sourceText": "Security deposits are held safely in the platform and automatically resolved based on before-and-after photo inspections.",
-      "targetText": "Security deposits are held safely in the platform and automatically resolved based on before-and-after photo inspections.",
+      "targetText": "Os depósitos de segurança ficam retidos com segurança e são liberados com base em fotos de vistoria.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12449,7 +12449,7 @@
     "home.depositProtectionTitle": {
       "key": "home.depositProtectionTitle",
       "sourceText": "Deposit Protection",
-      "targetText": "Deposit Protection",
+      "targetText": "Proteção de caução",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12464,7 +12464,7 @@
     "home.forProviders": {
       "key": "home.forProviders",
       "sourceText": "For Providers",
-      "targetText": "For Providers",
+      "targetText": "Para proprietários",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12479,7 +12479,7 @@
     "home.forRenters": {
       "key": "home.forRenters",
       "sourceText": "For Renters",
-      "targetText": "For Renters",
+      "targetText": "Para locatários",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12494,7 +12494,7 @@
     "home.getStarted": {
       "key": "home.getStarted",
       "sourceText": "Get Started Now",
-      "targetText": "Get Started Now",
+      "targetText": "Começar agora",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12509,7 +12509,7 @@
     "home.heroSubtitle": {
       "key": "home.heroSubtitle",
       "sourceText": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
-      "targetText": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "targetText": "Um marketplace de aluguel verificado para alugar com segurança ferramentas, equipamentos, espaços e imóveis legalmente alugáveis.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12524,7 +12524,7 @@
     "home.heroTitle": {
       "key": "home.heroTitle",
       "sourceText": "Why Buy? RENTipid!",
-      "targetText": "Why Buy? RENTipid!",
+      "targetText": "Por que comprar? RENTipid!",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12539,7 +12539,7 @@
     "home.startRenting": {
       "key": "home.startRenting",
       "sourceText": "Start Renting",
-      "targetText": "Start Renting",
+      "targetText": "Começar a alugar",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12554,7 +12554,7 @@
     "home.trustSubtitle": {
       "key": "home.trustSubtitle",
       "sourceText": "Every transaction is secured, verified, and protected.",
-      "targetText": "Every transaction is secured, verified, and protected.",
+      "targetText": "Cada transação é protegida, verificada e segura.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12569,7 +12569,7 @@
     "home.trustTitle": {
       "key": "home.trustTitle",
       "sourceText": "Rent with Complete Peace of Mind",
-      "targetText": "Rent with Complete Peace of Mind",
+      "targetText": "Alugue com total tranquilidade",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12584,7 +12584,7 @@
     "home.verifiedUsersDesc": {
       "key": "home.verifiedUsersDesc",
       "sourceText": "We verify identities and business permits before they can list or rent high-value items, keeping scams out of the platform.",
-      "targetText": "We verify identities and business permits before they can list or rent high-value items, keeping scams out of the platform.",
+      "targetText": "Verificamos identidades e licenças antes de permitir anúncios de itens de alto valor.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12599,7 +12599,7 @@
     "home.verifiedUsersTitle": {
       "key": "home.verifiedUsersTitle",
       "sourceText": "Verified Users",
-      "targetText": "Verified Users",
+      "targetText": "Usuários verificados",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -17995,7 +17995,7 @@
     "marketplace.locationPlaceholder": {
       "key": "marketplace.locationPlaceholder",
       "sourceText": "City or neighborhood",
-      "targetText": "City or neighborhood",
+      "targetText": "Cidade ou bairro",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18010,7 +18010,7 @@
     "marketplace.locationPrompt": {
       "key": "marketplace.locationPrompt",
       "sourceText": "Where?",
-      "targetText": "Where?",
+      "targetText": "Onde?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18040,7 +18040,7 @@
     "marketplace.popularCategories": {
       "key": "marketplace.popularCategories",
       "sourceText": "Popular Categories",
-      "targetText": "Popular Categories",
+      "targetText": "Categorias populares",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18134,7 +18134,7 @@
     "marketplace.searchPlaceholder": {
       "key": "marketplace.searchPlaceholder",
       "sourceText": "Tools, vehicles, venues...",
-      "targetText": "Tools, vehicles, venues...",
+      "targetText": "Ferramentas, veículos, espaços...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18149,7 +18149,7 @@
     "marketplace.searchPrompt": {
       "key": "marketplace.searchPrompt",
       "sourceText": "What are you looking for?",
-      "targetText": "What are you looking for?",
+      "targetText": "O que você está procurando?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18224,7 +18224,7 @@
     "navigation.browseRentals": {
       "key": "navigation.browseRentals",
       "sourceText": "Browse Rentals",
-      "targetText": "Browse Rentals",
+      "targetText": "Navegar por aluguéis",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18239,7 +18239,7 @@
     "navigation.dashboard": {
       "key": "navigation.dashboard",
       "sourceText": "Dashboard",
-      "targetText": "Dashboard",
+      "targetText": "Painel",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18271,7 +18271,7 @@
     "navigation.howItWorks": {
       "key": "navigation.howItWorks",
       "sourceText": "How It Works",
-      "targetText": "How It Works",
+      "targetText": "Como funciona",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18286,7 +18286,7 @@
     "navigation.listYourItem": {
       "key": "navigation.listYourItem",
       "sourceText": "List Your Item",
-      "targetText": "List Your Item",
+      "targetText": "Anunciar seu item",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18301,7 +18301,7 @@
     "navigation.login": {
       "key": "navigation.login",
       "sourceText": "Login",
-      "targetText": "Login",
+      "targetText": "Entrar",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18316,7 +18316,7 @@
     "navigation.logout": {
       "key": "navigation.logout",
       "sourceText": "Logout",
-      "targetText": "Logout",
+      "targetText": "Sair",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18331,7 +18331,7 @@
     "navigation.mainNav": {
       "key": "navigation.mainNav",
       "sourceText": "Main Navigation",
-      "targetText": "Main Navigation",
+      "targetText": "Navegação principal",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18361,7 +18361,7 @@
     "navigation.profile": {
       "key": "navigation.profile",
       "sourceText": "Profile",
-      "targetText": "Profile",
+      "targetText": "Perfil",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18376,7 +18376,7 @@
     "navigation.register": {
       "key": "navigation.register",
       "sourceText": "Register",
-      "targetText": "Register",
+      "targetText": "Cadastrar",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18391,7 +18391,7 @@
     "navigation.safety": {
       "key": "navigation.safety",
       "sourceText": "Safety",
-      "targetText": "Confiança E Segurança",
+      "targetText": "Segurança",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18421,7 +18421,7 @@
     "navigation.userActions": {
       "key": "navigation.userActions",
       "sourceText": "User Actions",
-      "targetText": "User Actions",
+      "targetText": "Ações do usuário",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],

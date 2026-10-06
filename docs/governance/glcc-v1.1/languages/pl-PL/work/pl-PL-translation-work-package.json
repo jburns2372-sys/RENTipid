@@ -12509,7 +12509,7 @@
     "home.heroSubtitle": {
       "key": "home.heroSubtitle",
       "sourceText": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
-      "targetText": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "targetText": "Zweryfikowany rynek bezpiecznego wynajmu narzędzi, sprzętu i lokali.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12524,7 +12524,7 @@
     "home.heroTitle": {
       "key": "home.heroTitle",
       "sourceText": "Why Buy? RENTipid!",
-      "targetText": "Why Buy? RENTipid!",
+      "targetText": "Po co kupować? RENTipid!",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12539,7 +12539,7 @@
     "home.startRenting": {
       "key": "home.startRenting",
       "sourceText": "Start Renting",
-      "targetText": "Start Renting",
+      "targetText": "Zacznij wynajmować",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18010,7 +18010,7 @@
     "marketplace.locationPrompt": {
       "key": "marketplace.locationPrompt",
       "sourceText": "Where?",
-      "targetText": "Where?",
+      "targetText": "Gdzie?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18040,7 +18040,7 @@
     "marketplace.popularCategories": {
       "key": "marketplace.popularCategories",
       "sourceText": "Popular Categories",
-      "targetText": "Popular Categories",
+      "targetText": "Popularne kategorie",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18149,7 +18149,7 @@
     "marketplace.searchPrompt": {
       "key": "marketplace.searchPrompt",
       "sourceText": "What are you looking for?",
-      "targetText": "What are you looking for?",
+      "targetText": "Czego szukasz?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18224,7 +18224,7 @@
     "navigation.browseRentals": {
       "key": "navigation.browseRentals",
       "sourceText": "Browse Rentals",
-      "targetText": "Browse Rentals",
+      "targetText": "Przeglądaj oferty",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18271,7 +18271,7 @@
     "navigation.howItWorks": {
       "key": "navigation.howItWorks",
       "sourceText": "How It Works",
-      "targetText": "How It Works",
+      "targetText": "Jak to działa",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18286,7 +18286,7 @@
     "navigation.listYourItem": {
       "key": "navigation.listYourItem",
       "sourceText": "List Your Item",
-      "targetText": "List Your Item",
+      "targetText": "Wystaw przedmiot",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18301,7 +18301,7 @@
     "navigation.login": {
       "key": "navigation.login",
       "sourceText": "Login",
-      "targetText": "Login",
+      "targetText": "Zaloguj się",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18376,7 +18376,7 @@
     "navigation.register": {
       "key": "navigation.register",
       "sourceText": "Register",
-      "targetText": "Register",
+      "targetText": "Zarejestruj się",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],

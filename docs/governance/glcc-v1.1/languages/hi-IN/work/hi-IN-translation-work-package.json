@@ -9246,7 +9246,7 @@
     "common.betaNotice": {
       "key": "common.betaNotice",
       "sourceText": "RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.",
-      "targetText": "RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.",
+      "targetText": "RENTipid बीटा पूर्वावलोकन | मॉक भुगतान सक्रिय | वास्तविक वित्तीय लेनदेन अक्षम हैं।",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9771,7 +9771,7 @@
     "common.loading": {
       "key": "common.loading",
       "sourceText": "Loading...",
-      "targetText": "Loading...",
+      "targetText": "लोड हो रहा है...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -10555,7 +10555,7 @@
     "common.user": {
       "key": "common.user",
       "sourceText": "User",
-      "targetText": "User",
+      "targetText": "उपयोगकर्ता",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11074,7 +11074,7 @@
     "footer.description": {
       "key": "footer.description",
       "sourceText": "RENTipid is a verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
-      "targetText": "RENTipid is a verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "targetText": "RENTipid उपकरण, संपत्ति और वाहन सुरक्षित रूप से किराए पर लेने के लिए एक सत्यापित बाज़ार है।",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11142,7 +11142,7 @@
     "footer.platform": {
       "key": "footer.platform",
       "sourceText": "Platform",
-      "targetText": "Platform",
+      "targetText": "प्लेटफ़ॉर्म",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12389,7 +12389,7 @@
     "home.aiAssistanceTitle": {
       "key": "home.aiAssistanceTitle",
       "sourceText": "AI Assistance",
-      "targetText": "AI Assistance",
+      "targetText": "AI सहायता",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12404,7 +12404,7 @@
     "home.ctaSubtitle": {
       "key": "home.ctaSubtitle",
       "sourceText": "Create an account today and start renting securely.",
-      "targetText": "Create an account today and start renting securely.",
+      "targetText": "आज ही खाता बनाएं और सुरक्षित रूप से किराए पर लेना शुरू करें।",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12419,7 +12419,7 @@
     "home.ctaTitle": {
       "key": "home.ctaTitle",
       "sourceText": "Ready to join RENTipid?",
-      "targetText": "Ready to join RENTipid?",
+      "targetText": "RENTipid से जुड़ने के लिए तैयार हैं?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12449,7 +12449,7 @@
     "home.depositProtectionTitle": {
       "key": "home.depositProtectionTitle",
       "sourceText": "Deposit Protection",
-      "targetText": "Deposit Protection",
+      "targetText": "जमानत राशि सुरक्षा",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12494,7 +12494,7 @@
     "home.getStarted": {
       "key": "home.getStarted",
       "sourceText": "Get Started Now",
-      "targetText": "Get Started Now",
+      "targetText": "अभी शुरू करें",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12509,7 +12509,7 @@
     "home.heroSubtitle": {
       "key": "home.heroSubtitle",
       "sourceText": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
-      "targetText": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "targetText": "उपकरणों, वाहनों, स्थानों और संपत्तियों को सुरक्षित रूप से किराए पर लेने के लिए एक सत्यापित मार्केटप्लेस।",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12524,7 +12524,7 @@
     "home.heroTitle": {
       "key": "home.heroTitle",
       "sourceText": "Why Buy? RENTipid!",
-      "targetText": "Why Buy? RENTipid!",
+      "targetText": "खरीदना क्यों? RENTipid से किराए पर लें!",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12539,7 +12539,7 @@
     "home.startRenting": {
       "key": "home.startRenting",
       "sourceText": "Start Renting",
-      "targetText": "Start Renting",
+      "targetText": "किराए पर लेना शुरू करें",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12554,7 +12554,7 @@
     "home.trustSubtitle": {
       "key": "home.trustSubtitle",
       "sourceText": "Every transaction is secured, verified, and protected.",
-      "targetText": "Every transaction is secured, verified, and protected.",
+      "targetText": "प्रत्येक लेन-देन सुरक्षित, सत्यापित और संरक्षित है।",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12569,7 +12569,7 @@
     "home.trustTitle": {
       "key": "home.trustTitle",
       "sourceText": "Rent with Complete Peace of Mind",
-      "targetText": "Rent with Complete Peace of Mind",
+      "targetText": "पूर्ण मानसिक शांति के साथ किराए पर लें",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12599,7 +12599,7 @@
     "home.verifiedUsersTitle": {
       "key": "home.verifiedUsersTitle",
       "sourceText": "Verified Users",
-      "targetText": "Verified Users",
+      "targetText": "सत्यापित उपयोगकर्ता",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -17995,7 +17995,7 @@
     "marketplace.locationPlaceholder": {
       "key": "marketplace.locationPlaceholder",
       "sourceText": "City or neighborhood",
-      "targetText": "City or neighborhood",
+      "targetText": "शहर या इलाका",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18010,7 +18010,7 @@
     "marketplace.locationPrompt": {
       "key": "marketplace.locationPrompt",
       "sourceText": "Where?",
-      "targetText": "Where?",
+      "targetText": "कहाँ?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18040,7 +18040,7 @@
     "marketplace.popularCategories": {
       "key": "marketplace.popularCategories",
       "sourceText": "Popular Categories",
-      "targetText": "Popular Categories",
+      "targetText": "लोकप्रिय श्रेणियां",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18134,7 +18134,7 @@
     "marketplace.searchPlaceholder": {
       "key": "marketplace.searchPlaceholder",
       "sourceText": "Tools, vehicles, venues...",
-      "targetText": "Tools, vehicles, venues...",
+      "targetText": "उपकरण, वाहन, स्थान...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18149,7 +18149,7 @@
     "marketplace.searchPrompt": {
       "key": "marketplace.searchPrompt",
       "sourceText": "What are you looking for?",
-      "targetText": "What are you looking for?",
+      "targetText": "आप क्या खोज रहे हैं?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18224,7 +18224,7 @@
     "navigation.browseRentals": {
       "key": "navigation.browseRentals",
       "sourceText": "Browse Rentals",
-      "targetText": "Browse Rentals",
+      "targetText": "किराए के विकल्प देखें",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18239,7 +18239,7 @@
     "navigation.dashboard": {
       "key": "navigation.dashboard",
       "sourceText": "Dashboard",
-      "targetText": "Dashboard",
+      "targetText": "डैशबोर्ड",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18271,7 +18271,7 @@
     "navigation.howItWorks": {
       "key": "navigation.howItWorks",
       "sourceText": "How It Works",
-      "targetText": "How It Works",
+      "targetText": "यह कैसे काम करता है",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18286,7 +18286,7 @@
     "navigation.listYourItem": {
       "key": "navigation.listYourItem",
       "sourceText": "List Your Item",
-      "targetText": "List Your Item",
+      "targetText": "अपनी वस्तु सूचीबद्ध करें",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18301,7 +18301,7 @@
     "navigation.login": {
       "key": "navigation.login",
       "sourceText": "Login",
-      "targetText": "Login",
+      "targetText": "लॉग इन करें",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18316,7 +18316,7 @@
     "navigation.logout": {
       "key": "navigation.logout",
       "sourceText": "Logout",
-      "targetText": "Logout",
+      "targetText": "लॉग आउट",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18361,7 +18361,7 @@
     "navigation.profile": {
       "key": "navigation.profile",
       "sourceText": "Profile",
-      "targetText": "Profile",
+      "targetText": "प्रोफ़ाइल",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18376,7 +18376,7 @@
     "navigation.register": {
       "key": "navigation.register",
       "sourceText": "Register",
-      "targetText": "Register",
+      "targetText": "पंजीकरण करें",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18391,7 +18391,7 @@
     "navigation.safety": {
       "key": "navigation.safety",
       "sourceText": "Safety",
-      "targetText": "विश्वास और सुरक्षा",
+      "targetText": "सुरक्षा और विश्वास",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],

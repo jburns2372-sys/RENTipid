@@ -9096,7 +9096,7 @@
     "common.aiSocialPromotion": {
       "key": "common.aiSocialPromotion",
       "sourceText": "AI Social Promotion",
-      "targetText": "AI Social Promotion",
+      "targetText": "AI 소셜 마케팅",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9231,7 +9231,7 @@
     "common.becomeAVerifiedProvider": {
       "key": "common.becomeAVerifiedProvider",
       "sourceText": "Become a Verified Provider",
-      "targetText": "Become a Verified Provider",
+      "targetText": "인증 제공자 등록하기",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9246,7 +9246,7 @@
     "common.betaNotice": {
       "key": "common.betaNotice",
       "sourceText": "RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.",
-      "targetText": "RENTipid Private Beta | Mock Payments Active | Real financial transactions are disabled.",
+      "targetText": "RENTipid 비공개 베타 | 모의 결제 활성화 | 실제 금융 거래는 비활성화되어 있습니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9486,7 +9486,7 @@
     "common.donAposTBuy": {
       "key": "common.donAposTBuy",
       "sourceText": "Don&apos;t buy a drill for one hole. Rent it for a day.",
-      "targetText": "Don&apos;t buy a drill for one hole. Rent it for a day.",
+      "targetText": "구멍 하나 뚫으려고 드릴을 사지 마세요. 하루만 빌려 쓰세요.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9546,7 +9546,7 @@
     "common.everyBookingAutomaticallyGenerates": {
       "key": "common.everyBookingAutomaticallyGenerates",
       "sourceText": "Every booking automatically generates a clear, fair contract.",
-      "targetText": "Every booking automatically generates a clear, fair contract.",
+      "targetText": "모든 예약마다 명확하고 공정한 계약서가 자동으로 생성됩니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9561,7 +9561,7 @@
     "common.fairDisputeResolution": {
       "key": "common.fairDisputeResolution",
       "sourceText": "Fair Dispute Resolution",
-      "targetText": "Fair Dispute Resolution",
+      "targetText": "공정한 분쟁 해결",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9741,7 +9741,7 @@
     "common.letOurAiGenerate": {
       "key": "common.letOurAiGenerate",
       "sourceText": "Let our AI generate marketing campaigns to promote your listings worldwide.",
-      "targetText": "Let our AI generate marketing campaigns to promote your listings worldwide.",
+      "targetText": "AI가 전 세계에 매물을 홍보할 수 있는 마케팅 캠페인을 제작해 드립니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9756,7 +9756,7 @@
     "common.listYourUnusedGear": {
       "key": "common.listYourUnusedGear",
       "sourceText": "List your unused gear, properties, and vehicles safely.",
-      "targetText": "List your unused gear, properties, and vehicles safely.",
+      "targetText": "사용하지 않는 장비, 부동산, 차량을 안전하게 대여하세요.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9771,7 +9771,7 @@
     "common.loading": {
       "key": "common.loading",
       "sourceText": "Loading...",
-      "targetText": "Loading...",
+      "targetText": "로딩 중...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -9966,7 +9966,7 @@
     "common.ourAdminTeamAnd": {
       "key": "common.ourAdminTeamAnd",
       "sourceText": "Our admin team and AI helpers ensure objective damage reviews.",
-      "targetText": "Our admin team and AI helpers ensure objective damage reviews.",
+      "targetText": "운영팀과 AI 도우미가 객관적인 손상 조사를 보장합니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -10176,7 +10176,7 @@
     "common.saveMoneyAndSpace": {
       "key": "common.saveMoneyAndSpace",
       "sourceText": "Save money and space",
-      "targetText": "Save money and space",
+      "targetText": "비용과 공간 절약",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -10328,7 +10328,7 @@
     "common.standardizedAgreements": {
       "key": "common.standardizedAgreements",
       "sourceText": "Standardized Agreements",
-      "targetText": "Standardized Agreements",
+      "targetText": "표준화된 계약서",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -10525,7 +10525,7 @@
     "common.turnIdleAssetsInto": {
       "key": "common.turnIdleAssetsInto",
       "sourceText": "Turn idle assets into income",
-      "targetText": "Turn idle assets into income",
+      "targetText": "놀고 있는 물품으로 수익 창출",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -10555,7 +10555,7 @@
     "common.user": {
       "key": "common.user",
       "sourceText": "User",
-      "targetText": "User",
+      "targetText": "사용자",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -10600,7 +10600,7 @@
     "common.verifiedRentersOnly": {
       "key": "common.verifiedRentersOnly",
       "sourceText": "Verified Renters Only",
-      "targetText": "Verified Renters Only",
+      "targetText": "인증된 대여자 전용",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -10690,7 +10690,7 @@
     "common.youControlWhoCan": {
       "key": "common.youControlWhoCan",
       "sourceText": "You control who can rent your items. Require IDs and deposits.",
-      "targetText": "You control who can rent your items. Require IDs and deposits.",
+      "targetText": "누구에게 빌려줄지 직접 선택하세요. 신분증과 보증금을 요구할 수 있습니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11074,7 +11074,7 @@
     "footer.description": {
       "key": "footer.description",
       "sourceText": "RENTipid is a verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
-      "targetText": "RENTipid is a verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "targetText": "RENTipid는 공구, 장비, 공간, 부동산 등을 안전하게 대여하는 검증된 마켓플레이스입니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11089,7 +11089,7 @@
     "footer.helpCenter": {
       "key": "footer.helpCenter",
       "sourceText": "Help Center",
-      "targetText": "고객센터",
+      "targetText": "도움말 센터",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11142,7 +11142,7 @@
     "footer.platform": {
       "key": "footer.platform",
       "sourceText": "Platform",
-      "targetText": "Platform",
+      "targetText": "플랫폼",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11157,7 +11157,7 @@
     "footer.privacy": {
       "key": "footer.privacy",
       "sourceText": "Privacy",
-      "targetText": "개인정보 보호",
+      "targetText": "개인정보 처리방침",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11176,7 +11176,7 @@
     "footer.prohibitedItems": {
       "key": "footer.prohibitedItems",
       "sourceText": "Prohibited Items",
-      "targetText": "금지 품목",
+      "targetText": "대여 금지 품목",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11195,7 +11195,7 @@
     "footer.reportIllegal": {
       "key": "footer.reportIllegal",
       "sourceText": "Report Illegal Activity",
-      "targetText": "불법 활동 신고",
+      "targetText": "불법 행위 신고",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11233,7 +11233,7 @@
     "footer.socialMedia": {
       "key": "footer.socialMedia",
       "sourceText": "Social Media",
-      "targetText": "Social Media",
+      "targetText": "소셜 미디어",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11248,7 +11248,7 @@
     "footer.support": {
       "key": "footer.support",
       "sourceText": "Support",
-      "targetText": "고객지원",
+      "targetText": "고객 지원",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -11263,7 +11263,7 @@
     "footer.terms": {
       "key": "footer.terms",
       "sourceText": "Terms",
-      "targetText": "약관",
+      "targetText": "이용약관",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11282,7 +11282,7 @@
     "footer.trustAndLegal": {
       "key": "footer.trustAndLegal",
       "sourceText": "Trust & Legal",
-      "targetText": "신뢰 및 법적 정보",
+      "targetText": "신뢰 및 약관",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12374,7 +12374,7 @@
     "home.aiAssistanceDesc": {
       "key": "home.aiAssistanceDesc",
       "sourceText": "Our AI Concierge helps you find the right items, suggests fair pricing, and guides you through rental agreements and disputes.",
-      "targetText": "Our AI Concierge helps you find the right items, suggests fair pricing, and guides you through rental agreements and disputes.",
+      "targetText": "AI 컨시어지가 적합한 물품 추천, 적정 가격 제안, 대여 계약서 작성 및 분쟁 해결을 지원합니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12389,7 +12389,7 @@
     "home.aiAssistanceTitle": {
       "key": "home.aiAssistanceTitle",
       "sourceText": "AI Assistance",
-      "targetText": "AI Assistance",
+      "targetText": "AI 어시스턴트",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12404,7 +12404,7 @@
     "home.ctaSubtitle": {
       "key": "home.ctaSubtitle",
       "sourceText": "Create an account today and start renting securely.",
-      "targetText": "Create an account today and start renting securely.",
+      "targetText": "지금 계정을 만들고 안전하게 렌탈을 시작하세요.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12419,7 +12419,7 @@
     "home.ctaTitle": {
       "key": "home.ctaTitle",
       "sourceText": "Ready to join RENTipid?",
-      "targetText": "Ready to join RENTipid?",
+      "targetText": "RENTipid와 함께할 준비가 되셨나요?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12434,7 +12434,7 @@
     "home.depositProtectionDesc": {
       "key": "home.depositProtectionDesc",
       "sourceText": "Security deposits are held safely in the platform and automatically resolved based on before-and-after photo inspections.",
-      "targetText": "Security deposits are held safely in the platform and automatically resolved based on before-and-after photo inspections.",
+      "targetText": "보증금은 플랫폼에 안전하게 예치되며, 대여 전후 사진 검수를 바탕으로 자동 정산됩니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12449,7 +12449,7 @@
     "home.depositProtectionTitle": {
       "key": "home.depositProtectionTitle",
       "sourceText": "Deposit Protection",
-      "targetText": "Deposit Protection",
+      "targetText": "보증금 안심 보호",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12464,7 +12464,7 @@
     "home.forProviders": {
       "key": "home.forProviders",
       "sourceText": "For Providers",
-      "targetText": "For Providers",
+      "targetText": "제공자를 위한 혜택",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12479,7 +12479,7 @@
     "home.forRenters": {
       "key": "home.forRenters",
       "sourceText": "For Renters",
-      "targetText": "For Renters",
+      "targetText": "대여자를 위한 혜택",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12494,7 +12494,7 @@
     "home.getStarted": {
       "key": "home.getStarted",
       "sourceText": "Get Started Now",
-      "targetText": "Get Started Now",
+      "targetText": "지금 시작하기",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12509,7 +12509,7 @@
     "home.heroSubtitle": {
       "key": "home.heroSubtitle",
       "sourceText": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
-      "targetText": "A verified rental marketplace for safely renting tools, equipment, spaces, properties, and other legally rentable assets.",
+      "targetText": "공구, 장비, 공간, 부동산 및 적법한 자산을 안전하게 대여하고 빌릴 수 있는 검증된 렌탈 마켓플레이스입니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12524,7 +12524,7 @@
     "home.heroTitle": {
       "key": "home.heroTitle",
       "sourceText": "Why Buy? RENTipid!",
-      "targetText": "Why Buy? RENTipid!",
+      "targetText": "왜 사나요? RENTipid로 렌탈하세요!",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12539,7 +12539,7 @@
     "home.startRenting": {
       "key": "home.startRenting",
       "sourceText": "Start Renting",
-      "targetText": "Start Renting",
+      "targetText": "렌탈 시작하기",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12554,7 +12554,7 @@
     "home.trustSubtitle": {
       "key": "home.trustSubtitle",
       "sourceText": "Every transaction is secured, verified, and protected.",
-      "targetText": "Every transaction is secured, verified, and protected.",
+      "targetText": "모든 거래는 암호화되고 본인 확인을 거쳐 안전하게 보호됩니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12569,7 +12569,7 @@
     "home.trustTitle": {
       "key": "home.trustTitle",
       "sourceText": "Rent with Complete Peace of Mind",
-      "targetText": "Rent with Complete Peace of Mind",
+      "targetText": "완벽한 안심과 함께 렌탈하세요",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12584,7 +12584,7 @@
     "home.verifiedUsersDesc": {
       "key": "home.verifiedUsersDesc",
       "sourceText": "We verify identities and business permits before they can list or rent high-value items, keeping scams out of the platform.",
-      "targetText": "We verify identities and business permits before they can list or rent high-value items, keeping scams out of the platform.",
+      "targetText": "고가 품목을 등록하거나 대여하기 전에 신원과 사업자 등록을 확인하여 사기 피해를 방지합니다.",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -12599,7 +12599,7 @@
     "home.verifiedUsersTitle": {
       "key": "home.verifiedUsersTitle",
       "sourceText": "Verified Users",
-      "targetText": "Verified Users",
+      "targetText": "검증된 사용자",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -17995,7 +17995,7 @@
     "marketplace.locationPlaceholder": {
       "key": "marketplace.locationPlaceholder",
       "sourceText": "City or neighborhood",
-      "targetText": "City or neighborhood",
+      "targetText": "도시 또는 지역명",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18010,7 +18010,7 @@
     "marketplace.locationPrompt": {
       "key": "marketplace.locationPrompt",
       "sourceText": "Where?",
-      "targetText": "Where?",
+      "targetText": "지역",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18040,7 +18040,7 @@
     "marketplace.popularCategories": {
       "key": "marketplace.popularCategories",
       "sourceText": "Popular Categories",
-      "targetText": "Popular Categories",
+      "targetText": "인기 카테고리",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18134,7 +18134,7 @@
     "marketplace.searchPlaceholder": {
       "key": "marketplace.searchPlaceholder",
       "sourceText": "Tools, vehicles, venues...",
-      "targetText": "Tools, vehicles, venues...",
+      "targetText": "공구, 차량, 공간 등...",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18149,7 +18149,7 @@
     "marketplace.searchPrompt": {
       "key": "marketplace.searchPrompt",
       "sourceText": "What are you looking for?",
-      "targetText": "What are you looking for?",
+      "targetText": "무엇을 찾고 계신가요?",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18224,7 +18224,7 @@
     "navigation.browseRentals": {
       "key": "navigation.browseRentals",
       "sourceText": "Browse Rentals",
-      "targetText": "Browse Rentals",
+      "targetText": "대여 매물 둘러보기",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18239,7 +18239,7 @@
     "navigation.dashboard": {
       "key": "navigation.dashboard",
       "sourceText": "Dashboard",
-      "targetText": "Dashboard",
+      "targetText": "대시보드",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18271,7 +18271,7 @@
     "navigation.howItWorks": {
       "key": "navigation.howItWorks",
       "sourceText": "How It Works",
-      "targetText": "How It Works",
+      "targetText": "이용 방법",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18286,7 +18286,7 @@
     "navigation.listYourItem": {
       "key": "navigation.listYourItem",
       "sourceText": "List Your Item",
-      "targetText": "List Your Item",
+      "targetText": "물품 등록하기",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18301,7 +18301,7 @@
     "navigation.login": {
       "key": "navigation.login",
       "sourceText": "Login",
-      "targetText": "Login",
+      "targetText": "로그인",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18316,7 +18316,7 @@
     "navigation.logout": {
       "key": "navigation.logout",
       "sourceText": "Logout",
-      "targetText": "Logout",
+      "targetText": "로그아웃",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18331,7 +18331,7 @@
     "navigation.mainNav": {
       "key": "navigation.mainNav",
       "sourceText": "Main Navigation",
-      "targetText": "Main Navigation",
+      "targetText": "메인 탐색",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18361,7 +18361,7 @@
     "navigation.profile": {
       "key": "navigation.profile",
       "sourceText": "Profile",
-      "targetText": "Profile",
+      "targetText": "프로필",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18376,7 +18376,7 @@
     "navigation.register": {
       "key": "navigation.register",
       "sourceText": "Register",
-      "targetText": "Register",
+      "targetText": "회원가입",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18391,7 +18391,7 @@
     "navigation.safety": {
       "key": "navigation.safety",
       "sourceText": "Safety",
-      "targetText": "신뢰 및 안전",
+      "targetText": "안전 및 신뢰",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],
@@ -18421,7 +18421,7 @@
     "navigation.userActions": {
       "key": "navigation.userActions",
       "sourceText": "User Actions",
-      "targetText": "User Actions",
+      "targetText": "사용자 메뉴",
       "contentClass": "CLASS_A_STANDARD_UI",
       "required": true,
       "placeholderSignature": [],

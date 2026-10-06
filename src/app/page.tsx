@@ -36,7 +36,18 @@ export default async function Home() {
         <div className="container mx-auto px-4 text-center max-w-4xl">
           <RentipidLogo variant="full" size="xl" showText={false} className="mb-8" />
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-6">
-            Why Buy? <span className="text-blue-600">RENTipid!</span>
+            {(() => {
+              const title = t('home.heroTitle');
+              if (title.includes('RENTipid')) {
+                const parts = title.split('RENTipid');
+                return (
+                  <>
+                    {parts[0]}<span className="text-blue-600">RENTipid</span>{parts.slice(1).join('RENTipid')}
+                  </>
+                );
+              }
+              return title;
+            })()}
           </h1>
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
             {t('home.heroSubtitle')}

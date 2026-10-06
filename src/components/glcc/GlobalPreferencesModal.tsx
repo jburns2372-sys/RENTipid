@@ -68,6 +68,17 @@ export default function GlobalPreferencesModal({
     if (result.success && result.effectivePreference) {
       onApplied?.(result.effectivePreference);
       onClose();
+      if (typeof window !== 'undefined') {
+        setTimeout(() => {
+          try {
+            if (typeof window.location.reload === 'function') {
+              window.location.reload();
+            }
+          } catch {
+            // Environment without location reload (e.g. test runner)
+          }
+        }, 100);
+      }
     }
   }, [applyPreferences, onApplied, onClose]);
 
