@@ -1,0 +1,115 @@
+{
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workstream": "P12 / v1.1 GLOBAL EXPANSION FACTORY",
+  "currentAction": "P12-F LEGAL/COMPLIANCE TRANSLATION CONTROL",
+  "status": "PASS",
+  "evaluatedTimestamp": "2026-10-06T09:55:00+08:00",
+  "branch": "feat/glcc-v1.1-global-expansion-factory",
+  "p12ECommit": "874637c25108da0fd46be9950f11fe75199db6b6",
+  "p12DCommit": "87f40d42e345c7f58699ef5345fc370a1f2f31f9",
+  "p12CCommit": "ed596811f3fdd7dea098a8a24e4205daa82699ba",
+  "p12BGovernanceCommit": "e09c73aabef63371255c1da5702fe6df27adfc4e",
+  "frozenApplicationSource": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+  "canonicalBaseline": {
+    "canonicalKeyCount": 2208,
+    "sourceLocale": "en-PH",
+    "canonicalKeyChecksum": "a682064cf1f532c26884104887b012b27be830be39b41e27d0c1d58f77b36fdf",
+    "sourceMessageChecksum": "0566572080c895732e61ef62108403a283f6abf12e762eb29ba77a1460c2cbb8"
+  },
+  "factoryFiles": [
+    "scripts/glcc-v1.1/legal-control-schema.ts",
+    "scripts/glcc-v1.1/legal-source-registry.ts",
+    "scripts/glcc-v1.1/legal-translation-validate.ts",
+    "scripts/glcc-v1.1/legal-control-self-test.ts"
+  ],
+  "authorityModel": {
+    "tiers": [
+      "AUTHORITATIVE_SOURCE",
+      "APPROVED_TRANSLATION",
+      "REFERENCE_TRANSLATION",
+      "DRAFT_TRANSLATION"
+    ],
+    "status": "DEFINED — PASS"
+  },
+  "legalSourceRegistryContract": "DEFINED — PASS",
+  "controlledTranslationContract": "DEFINED — PASS",
+  "approvalModel": {
+    "states": [
+      "NOT_REQUIRED",
+      "PENDING",
+      "APPROVED",
+      "REJECTED",
+      "SUPERSEDED",
+      "REVOKED"
+    ],
+    "status": "DEFINED — PASS"
+  },
+  "sourceVersionConsistency": "DEFINED — PASS",
+  "jurisdictionControls": "DEFINED — PASS",
+  "authoritativeFallback": "DEFINED — PASS",
+  "aiAuthorityFirewall": "DEFINED — PASS",
+  "legalControlSchema": "IMPLEMENTED — PASS",
+  "legalSourceRegistryValidator": "IMPLEMENTED — PASS",
+  "controlledTranslationValidator": "IMPLEMENTED — PASS",
+  "legalSourceDriftGuard": "IMPLEMENTED — PASS",
+  "legalJurisdictionGuard": "IMPLEMENTED — PASS",
+  "legalAuthoritativeResolver": "IMPLEMENTED — PASS",
+  "legalApprovalTamperGuard": "IMPLEMENTED — PASS",
+  "legalAuditRetentionContract": "DEFINED — PASS",
+  "p12EToP12FLegalQaHandoff": {
+    "targetDomain": "QA-20",
+    "domainName": "Legal / Compliance Authority",
+    "status": "DEFINED — PASS"
+  },
+  "selfTest": {
+    "status": "PASS",
+    "totalScenarios": 30,
+    "passedCount": 30,
+    "failedCount": 0,
+    "scenarios": [
+      { "id": 1, "name": "Valid authoritative source passes", "passed": true },
+      { "id": 2, "name": "Valid approved translation passes", "passed": true },
+      { "id": 3, "name": "Pending approval blocked", "passed": true },
+      { "id": 4, "name": "Rejected approval blocked", "passed": true },
+      { "id": 5, "name": "Revoked approval blocked", "passed": true },
+      { "id": 6, "name": "Superseded translation blocked", "passed": true },
+      { "id": 7, "name": "Missing legal reviewer blocked", "passed": true },
+      { "id": 8, "name": "Missing approval reference blocked", "passed": true },
+      { "id": 9, "name": "SourceId mismatch blocked", "passed": true },
+      { "id": 10, "name": "SourceVersion mismatch returns SOURCE_OUTDATED", "passed": true },
+      { "id": 11, "name": "Source checksum mismatch returns SOURCE_OUTDATED", "passed": true },
+      { "id": 12, "name": "Translation checksum tamper blocked", "passed": true },
+      { "id": 13, "name": "Jurisdiction mismatch blocked", "passed": true },
+      { "id": 14, "name": "Valid jurisdiction passes", "passed": true },
+      { "id": 15, "name": "Future effective date blocked", "passed": true },
+      { "id": 16, "name": "Expired translation blocked", "passed": true },
+      { "id": 17, "name": "Approved translation resolves as authoritative localization", "passed": true },
+      { "id": 18, "name": "Absent translation falls back to authoritative source", "passed": true },
+      { "id": 19, "name": "Draft AI translation cannot resolve as authoritative", "passed": true },
+      { "id": 20, "name": "AI cannot set legal approval", "passed": true },
+      { "id": 21, "name": "Translation modified after approval invalidates approval", "passed": true },
+      { "id": 22, "name": "Supersession chain retained", "passed": true },
+      { "id": 23, "name": "Revoked record retained for audit", "passed": true },
+      { "id": 24, "name": "Locale switching does not change jurisdiction", "passed": true },
+      { "id": 25, "name": "Legal content does not change payment authority", "passed": true },
+      { "id": 26, "name": "Legal content does not change RBAC/KYC authority", "passed": true },
+      { "id": 27, "name": "Runtime registry remains unchanged", "passed": true },
+      { "id": 28, "name": "Existing translation bundles remain unchanged", "passed": true },
+      { "id": 29, "name": "No Production data modified", "passed": true },
+      { "id": 30, "name": "No Preview data modified", "passed": true }
+    ]
+  },
+  "runtimeFirewall": {
+    "implemented": true,
+    "status": "IMPLEMENTED — PASS"
+  },
+  "runtimeState": {
+    "runtimeLocaleRegistryChanged": false,
+    "existingTranslationBundlesChanged": false,
+    "firstLanguageImplementationPriority": "NOT YET AUTHORIZED",
+    "productionModified": false,
+    "previewModified": false,
+    "databaseModified": false,
+    "packageJsonModified": false
+  }
+}
