@@ -24,7 +24,7 @@ export interface GlobalCurrencyDefinition extends CurrencyMetadata {
   readonly standardSymbol: string;
   readonly countrySuggestions: readonly string[]; // ISO country codes suggesting this as default
   readonly decimalSeparator: '.' | ',';
-  readonly groupSeparator: ',' | '.' | ' ';
+  readonly groupSeparator: ',' | '.' | ' ' | "'";
 }
 
 export const GLOBAL_CURRENCY_CATALOG: readonly GlobalCurrencyDefinition[] = Object.freeze([

@@ -12,8 +12,26 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import type { TranslationBundle } from './contracts';
-import type { LocalePack } from '../../../scripts/glcc-v1.1/locale-pack-schema';
 import { TranslationEngine } from './engine';
+
+export interface LocalePackMessageItem {
+  value: string;
+  [key: string]: unknown;
+}
+
+export interface LocalePack {
+  packVersion: string;
+  localeTag: string;
+  workflowState: string;
+  releaseCandidateState: string;
+  localeMetadata: {
+    tag: string;
+    direction: 'ltr' | 'rtl';
+    [key: string]: unknown;
+  };
+  messages: Record<string, LocalePackMessageItem>;
+  [key: string]: unknown;
+}
 
 const REPO_ROOT = path.resolve(__dirname, '../../../..');
 const LANG_DIR = path.join(REPO_ROOT, 'docs/governance/glcc-v1.1/languages');
