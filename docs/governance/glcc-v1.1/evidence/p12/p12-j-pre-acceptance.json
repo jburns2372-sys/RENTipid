@@ -1,0 +1,54 @@
+{
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workstream": "P12 / v1.1 GLOBAL EXPANSION FACTORY",
+  "currentAction": "P12-J ACCEPTANCE / CLOSURE / FACTORY FREEZE (PRE-ACCEPTANCE VERIFICATION)",
+  "p12JPreAcceptanceStatus": "PASS",
+  "evaluatedTimestamp": "2026-10-06T11:05:00+08:00",
+  "branch": "feat/glcc-v1.1-global-expansion-factory",
+  "factoryFreezeCandidateSha": "c25111d038190a76c6dfad1759d211cd0459e6cc",
+  "frozenApplicationSource": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+  "stageAudit": {
+    "P12-A": { "status": "PASS", "commit": "0d7d9dac179b0aecfca83c0159aae3a7aced11df" },
+    "P12-B": { "status": "PASS", "commit": "e09c73aabef63371255c1da5702fe6df27adfc4e" },
+    "P12-C": { "status": "PASS", "commit": "ed596811f3fdd7dea098a8a24e4205daa82699ba", "selfTestPassed": 16, "selfTestTotal": 16 },
+    "P12-D": { "status": "PASS", "commit": "87f40d42e345c7f58699ef5345fc370a1f2f31f9", "selfTestPassed": 24, "selfTestTotal": 24 },
+    "P12-E": { "status": "PASS", "commit": "874637c25108da0fd46be9950f11fe75199db6b6", "selfTestPassed": 28, "selfTestTotal": 28 },
+    "P12-F": { "status": "PASS", "commit": "877cbe30827d512ece2052541fc81b0668d63220", "selfTestPassed": 30, "selfTestTotal": 30 },
+    "P12-G": { "status": "PASS", "commit": "7f555f050caaa880d28f73471caa11b7cd778ad0", "selfTestPassed": 32, "selfTestTotal": 32 },
+    "P12-H": { "status": "PASS", "commit": "a2145778dc73b68f3e96ffccadcc32aa5dd746e8", "selfTestPassed": 40, "selfTestTotal": 40 },
+    "P12-I": { "status": "PASS", "commit": "c25111d038190a76c6dfad1759d211cd0459e6cc", "selfTestPassed": 46, "selfTestTotal": 46 }
+  },
+  "p12FactorySelfTestHistory": {
+    "totalScenarios": 216,
+    "passedScenarios": 216,
+    "failedScenarios": 0,
+    "status": "216 / 216 PASS"
+  },
+  "canonicalBaseline": {
+    "canonicalKeyCount": 2208,
+    "sourceLocale": "en-PH",
+    "enPhReleaseStatus": "PRODUCTION_READY",
+    "filPhReleaseStatus": "PRODUCTION_READY",
+    "enUsReleaseStatus": "TRANSLATION_IN_PROGRESS",
+    "jaJpReleaseStatus": "REGISTERED",
+    "jaJpTranslationKeys": 0
+  },
+  "p12FactoryLanguageImplementationSeparation": "PASS",
+  "p12FactorySafetyBoundary": "PASS",
+  "governanceState": {
+    "ownerP12Acceptance": "NOT YET CONFIRMED",
+    "p12JStatus": "NOT PROMOTED",
+    "p12WorkstreamStatus": "IMPLEMENTATION COMPLETE — AWAITING OWNER ACCEPTANCE",
+    "factoryFreeze": "PENDING OWNER ACCEPTANCE",
+    "firstLanguageImplementationPriority": "NOT YET AUTHORIZED"
+  },
+  "runtimeState": {
+    "runtimeModified": false,
+    "productionModified": false,
+    "previewModified": false,
+    "databaseModified": false,
+    "environmentModified": false,
+    "packageJsonModified": false,
+    "tagsCreated": false
+  }
+}
