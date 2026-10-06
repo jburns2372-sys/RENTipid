@@ -1,0 +1,199 @@
+{
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workstream": "P12 / v1.1 GLOBAL EXPANSION FACTORY",
+  "currentAction": "P12-B LANGUAGE ONBOARDING CONTRACT",
+  "status": "PASS",
+  "evaluatedTimestamp": "2026-10-06T09:28:00+08:00",
+  "branch": "feat/glcc-v1.1-global-expansion-factory",
+  "p12KickoffGovernanceCommit": "0d7d9dac179b0aecfca83c0159aae3a7aced11df",
+  "baseGovernanceCommit": "6533e882d0f6a52fb8f2eb4eaa6eb04c2c4121dd",
+  "frozenApplicationSource": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+  "activeProductionDeployment": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X",
+  "ownerAuthorization": {
+    "statement": "I AUTHORIZE P12 / v1.1 GLOBAL EXPANSION FACTORY",
+    "status": "CONFIRMED",
+    "scope": "P12 / v1.1 Global Expansion Factory"
+  },
+  "contracts": {
+    "languageReleaseStateModel": {
+      "status": "DEFINED — PASS",
+      "states": [
+        "REGISTERED",
+        "TRANSLATION_IN_PROGRESS",
+        "QA_REQUIRED",
+        "PRODUCTION_READY"
+      ],
+      "unidirectional": true,
+      "skipStateAllowed": false
+    },
+    "translationCoverageContract": {
+      "status": "DEFINED — PASS",
+      "requiredKeyCoverage": "100%",
+      "missingRequiredKeysAllowed": 0,
+      "rawTranslationKeysAllowed": 0,
+      "unapprovedSourceFallbackAllowed": 0,
+      "placeholderVariableIntegrity": "100%",
+      "icuMessageFormatIntegrity": "100%",
+      "duplicateConflictingKeys": 0,
+      "invalidUnicodeReplacementChars": 0,
+      "brokenInterpolationVariables": 0
+    },
+    "contentClassificationContract": {
+      "status": "DEFINED — PASS",
+      "classes": [
+        {
+          "class": "CLASS A",
+          "name": "STANDARD UI",
+          "rules": "Governed translation workflow & automated review"
+        },
+        {
+          "class": "CLASS B",
+          "name": "SYSTEM / TRANSACTIONAL",
+          "rules": "Strict message-format linting, high-priority localization"
+        },
+        {
+          "class": "CLASS C",
+          "name": "CONTROLLED LEGAL / COMPLIANCE",
+          "rules": "Strict human/legal review required; machine translation forbidden as authoritative without legal provenance"
+        },
+        {
+          "class": "CLASS D",
+          "name": "USER-GENERATED CONTENT",
+          "rules": "Preserve original content; translation must be derivative and non-authoritative"
+        },
+        {
+          "class": "CLASS E",
+          "name": "AI / GENERATED CONTENT",
+          "rules": "Must never silently replace authoritative legal, financial, or compliance text"
+        }
+      ]
+    },
+    "languagePackContract": {
+      "status": "DEFINED — PASS",
+      "requiredElements": [
+        "localeMetadata",
+        "releaseStatus",
+        "sourceLanguageRelationship",
+        "completeMessageBundle",
+        "canonicalKeyCount",
+        "coverageStatistics",
+        "fallbackCount",
+        "translationVersion",
+        "lastValidationTimestamp",
+        "qaEvidenceReference",
+        "legalComplianceApprovalReferences"
+      ]
+    },
+    "localeMetadataContract": {
+      "status": "DEFINED — PASS",
+      "requiredFields": [
+        "tag",
+        "code",
+        "region",
+        "displayName",
+        "nativeName",
+        "script",
+        "direction",
+        "fallback",
+        "releaseStatus",
+        "numberFormat",
+        "dateTimeFormat",
+        "pluralRules",
+        "normalization"
+      ],
+      "prohibitedScope": [
+        "paymentAuthority",
+        "chargeCurrencyAuthority",
+        "ledgerAuthority",
+        "kycRules",
+        "jurisdictionRules",
+        "legalApplicability"
+      ]
+    },
+    "languageAuthorityInvariants": {
+      "status": "DEFINED — PASS",
+      "isolatedAuthorities": [
+        "country",
+        "displayCurrency",
+        "chargeCurrency",
+        "paymentAuthority",
+        "fees",
+        "ledger",
+        "settlement",
+        "refundAuthority",
+        "payoutAuthority",
+        "rbac",
+        "kyc",
+        "jurisdiction",
+        "legalApplicability",
+        "authoritativeLegalSource"
+      ]
+    },
+    "ssrCsrLocalizationContract": {
+      "status": "DEFINED — PASS",
+      "guarantees": [
+        "serverSideLocaleResolution",
+        "clientSideImmediateLanguageSwitching",
+        "noMandatoryReloadAfterApply",
+        "routePersistence",
+        "hardRefreshPersistence",
+        "authenticatedPersistence",
+        "guestPersistence",
+        "correctHtmlLang",
+        "correctTextDirection",
+        "zeroHydrationLocaleWarnings",
+        "zeroVisibleSourceLanguageFlash"
+      ]
+    },
+    "languageSelectorContract": {
+      "status": "DEFINED — PASS",
+      "productionSelectableStates": ["PRODUCTION_READY"],
+      "previewSelectableStates": ["PRODUCTION_READY", "QA_REQUIRED"],
+      "neverSelectableStates": ["REGISTERED", "TRANSLATION_IN_PROGRESS"],
+      "failClosed": true
+    },
+    "legalComplianceOnboardingContract": {
+      "status": "DEFINED — PASS",
+      "criteria": [
+        "authoritativeSourceIdentifier",
+        "sourceVersion",
+        "translatedVersionIdentifier",
+        "translatorReviewer",
+        "legalComplianceApprovalStatus",
+        "approvalDateReference",
+        "jurisdictionApplicability",
+        "versionConsistency",
+        "noUnreviewedMachineTranslation"
+      ]
+    },
+    "languageQaEvidenceContract": {
+      "status": "DEFINED — PASS",
+      "verificationVectors": 20
+    },
+    "languageOnboardingArtifactContract": {
+      "status": "DEFINED — PASS",
+      "standardArtifacts": [
+        "language-onboarding.json",
+        "language-translation-coverage.json",
+        "language-qa-results.json",
+        "language-legal-approval.json",
+        "language-preview-acceptance.json",
+        "language-production-readiness.json"
+      ]
+    },
+    "languageEntryExitContract": {
+      "status": "DEFINED — PASS",
+      "entryChecklistDefined": true,
+      "exitChecklistDefined": true
+    }
+  },
+  "firstLanguageImplementationPriority": "NOT YET AUTHORIZED",
+  "verification": {
+    "runtimeSourceModified": false,
+    "translationsModified": false,
+    "localeRegistryModified": false,
+    "productionModified": false,
+    "previewModified": false,
+    "databaseModified": false
+  }
+}
