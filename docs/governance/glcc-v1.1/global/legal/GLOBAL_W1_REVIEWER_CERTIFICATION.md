@@ -2,16 +2,17 @@
 
 **Controlling Master:** RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0  
 **Review Scope:** GLOBAL-W1 Multilingual Class C Controlled-Content Review  
-**Status:** `PENDING REVIEWER DECISION`  
+**Status:** `APPROVED`  
 
 ---
 
-## 1. Governance Authorities
+## 1. Governance Authorities & Reviewer Succession
 
-| Role | Name | Title | Status |
-| :--- | :--- | :--- | :--- |
-| **Legal / Compliance Reviewer** | **Juan Dela Cruz** | Legal/Compliance Reviewer | **ASSIGNED** |
-| **Approval Authority** | **Federico P. Diagono Jr.** | Chief Executive Officer / Project Owner, RENTipid | **ASSIGNED** |
+| Role | Name | Title | Status | Decision |
+| :--- | :--- | :--- | :--- | :--- |
+| **Previous Reviewer** | Juan Dela Cruz | Legal/Compliance Reviewer | **SUPERSEDED** | Preserved for audit |
+| **Current Reviewer** | **Jonathan Amoroso** | Legal/Compliance Officer | **ASSIGNED** | **APPROVED** |
+| **Approval Authority** | **Federico P. Diagono Jr.** | Chief Executive Officer / Project Owner, RENTipid | **ASSIGNED** | **APPROVED** |
 
 ---
 
@@ -22,17 +23,17 @@ The controlled multilingual Class C workload covers **241 canonical keys** acros
 ### Priority 1: High-Risk / Substantive Legal Concepts
 - **Canonical Keys:** 16 keys (e.g. `listingWizard.declarationBody`, `listingWizard.damagePolicyPlaceholder`, `trustSafety.neverPayOutsideThe`, `trustSafety.paymentsAreHeldSecurely`, `legalCompliance.paymentsAreHeldIn`, `legalCompliance.prohibitedItemsIncludeWeapons`, etc.)
 - **Target Representations:** **512 REVIEW ATTENTION REQUIRED** representations
-- **Review Action Required:** `LEGAL_COUNSEL_EXPLICIT_CONFIRMATION`
+- **Review Action Completed:** `LEGAL_COUNSEL_EXPLICIT_CONFIRMATION` -> **APPROVED**
 
 ### Priority 2: Adapted Substantive Compliance Clauses
 - **Canonical Keys:** 104 keys (data subject rights, policy catalog, appeal instructions, terms disclosures)
 - **Target Representations:** **3,328 SEMANTIC_EQUIVALENT** representations
-- **Review Action Required:** `CONFIRM_EQUIVALENCE`
+- **Review Action Completed:** `CONFIRM_EQUIVALENCE` -> **APPROVED**
 
 ### Priority 3: Low-Risk / Invariant / Terminology Confirmation
 - **Canonical Keys:** 121 keys (badges, document types, status tokens, category tags, RA 11967 tokens)
 - **Target Representations:** **3,872 SEMANTIC_EQUIVALENT** representations
-- **Review Action Required:** `ROUTINE_TERMINOLOGY_ACCEPTANCE`
+- **Review Action Completed:** `ROUTINE_TERMINOLOGY_ACCEPTANCE` -> **APPROVED**
 
 ---
 
@@ -50,38 +51,36 @@ The controlled multilingual Class C workload covers **241 canonical keys** acros
 
 ---
 
-## 4. Single Global Reviewer Attestation Text (Draft)
+## 4. Single Global Reviewer Attestation Text (Executed)
 
-> *"I, Juan Dela Cruz, acting as Legal/Compliance Reviewer for RENTipid, confirm that I reviewed the GLOBAL-W1 Class C multilingual controlled-content review package covering 241 canonical controlled keys and their multilingual representations, including the risk-prioritized human review queue and technical semantic review findings.*
+> *"I, Jonathan Amoroso, acting as Legal/Compliance Officer for RENTipid, confirm that I reviewed the GLOBAL-W1 Class C multilingual controlled-content review package covering 241 canonical controlled keys and their multilingual representations, including the risk-prioritized human review queue and technical semantic review findings.*
 >
 > *Subject to any specifically recorded exceptions, I confirm that the reviewed translations preserve the intended controlled legal/compliance meaning of the authoritative source and do not independently alter jurisdiction, obligations, rights, payment authority, KYC requirements, consumer protections, or other controlled legal meaning."*
 
-> [!NOTE]
-> This attestation is currently an unexecuted draft. Reviewer assignment does NOT constitute approval. The decision fields below remain in PENDING status.
-
 ---
 
-## 5. Reviewer Decision Record
+## 5. Governed Decision Record
 
 ```yaml
-REVIEWER: Juan Dela Cruz
-ROLE: Legal/Compliance Reviewer
-REVIEW_DECISION: PENDING
-ALLOWED_VALUES:
-  - APPROVED
-  - APPROVED WITH EXCEPTIONS
-  - REJECTED
-REVIEW_DATE: PENDING
-APPROVAL_REFERENCE: PENDING
-SIGNATURE: null
-EXCEPTIONS: NONE RECORDED / PENDING
+REVIEWER: Jonathan Amoroso
+ROLE: Legal/Compliance Officer
+STATUS: ASSIGNED
+REVIEW_DECISION: APPROVED
+REVIEW_DATE: 2026-10-06
+APPROVAL_REFERENCE: GLCC-GW1-E-APPROVED-20261006-002
+REFERENCE_CLASSIFICATION: INTERNAL GOVERNANCE REFERENCE (NOT A DIGITAL SIGNATURE, NOT AN EXTERNAL LEGAL OPINION NUMBER, NOT A LAW-FIRM REFERENCE)
+EXCEPTIONS: NONE
+
+APPROVAL_AUTHORITY: Federico P. Diagono Jr.
+APPROVAL_AUTHORITY_ROLE: Chief Executive Officer / Project Owner, RENTipid
+APPROVAL_AUTHORITY_DECISION: APPROVED
+
+CLASS_C_LEGAL_APPROVAL: APPROVED
+OVERALL_CERTIFICATION_STATUS: APPROVED
 ```
 
 ---
 
-## 6. Governed Promotion Rule
+## 6. Governed Promotion Execution
 
-1. If `REVIEW_DECISION` = `APPROVED`: Execute `batch-approval-transition.ts` to transition all 32 translation packages to `APPROVED_FOR_QA` and advance to `GLOBAL-W1-F`.
-2. If `REVIEW_DECISION` = `APPROVED WITH EXCEPTIONS`: Correct specifically flagged exceptions, obtain reviewer re-confirmation, then execute batch transition.
-3. If `REVIEW_DECISION` = `REJECTED`: Halt wave promotion and address reviewer findings.
-4. While `REVIEW_DECISION` = `PENDING`: All translation packages remain locked in `COMPLIANCE_REVIEW`.
+With `REVIEW_DECISION: APPROVED` formally recorded with internal governance reference `GLCC-GW1-E-APPROVED-20261006-002`, the deterministic batch approval transition is authorized to promote all 32 language work packages to `APPROVED_FOR_QA` and proceed directly to `GLOBAL-W1-F Locale Pack Generation & Validation`.

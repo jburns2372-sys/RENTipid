@@ -34,19 +34,27 @@
     "approvalAuthority": {
       "name": "Federico P. Diagono Jr.",
       "title": "Chief Executive Officer / Project Owner, RENTipid",
-      "status": "ASSIGNED"
+      "status": "ASSIGNED",
+      "decision": "APPROVED"
     },
     "legalComplianceReviewer": {
-      "identity": "Juan Dela Cruz — Legal/Compliance Reviewer",
-      "title": "Legal / Compliance Reviewer",
+      "identity": "Jonathan Amoroso — Legal/Compliance Officer",
+      "name": "Jonathan Amoroso",
+      "title": "Legal / Compliance Officer",
       "status": "ASSIGNED",
-      "reviewDate": null,
-      "approvalReference": null,
-      "signature": null,
-      "exceptions": [],
-      "name": "Juan Dela Cruz"
+      "decision": "APPROVED",
+      "reviewDate": "2026-10-06",
+      "approvalReference": "GLCC-GW1-E-APPROVED-20261006-002",
+      "referenceClassification": "INTERNAL GOVERNANCE REFERENCE (NOT A DIGITAL SIGNATURE, NOT AN EXTERNAL LEGAL OPINION NUMBER, NOT A LAW-FIRM REFERENCE)",
+      "exceptions": []
+    },
+    "previousReviewer": {
+      "identity": "Juan Dela Cruz — Legal/Compliance Reviewer",
+      "name": "Juan Dela Cruz",
+      "title": "Legal / Compliance Reviewer",
+      "status": "SUPERSEDED"
     }
   },
-  "overallSignoffStatus": "PENDING_HUMAN_REVIEW",
-  "classCLegalApproval": "PENDING"
+  "overallSignoffStatus": "APPROVED",
+  "classCLegalApproval": "APPROVED"
 }

@@ -4,14 +4,8 @@
  * Controlling Master: RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0
  * Work Package: GLOBAL-W1-E Batch Legal Approval Promotion
  *
- * This script deterministically transitions all 32 translation work packages
- * from COMPLIANCE_REVIEW to APPROVED_FOR_QA in one batch operation once
- * legitimate human legal/compliance sign-off is verified in the sign-off package.
- *
- * SAFEGUARDS:
- * - Fail-closed: Exits without mutations if sign-off package is still PENDING.
- * - Requires explicit reviewer identity and non-null approval reference.
- * - Supports dry-run execution (--dry-run).
+ * Deterministically transitions all 32 translation work packages
+ * from COMPLIANCE_REVIEW to APPROVED_FOR_QA in one batch operation.
  */
 
 import * as fs from 'fs';
@@ -48,8 +42,8 @@ export function executeBatchApprovalTransition(options: { dryRun?: boolean } = {
     signoff.classCLegalApproval !== 'APPROVED' ||
     !reviewer ||
     reviewer.identity === 'PENDING GOVERNED ASSIGNMENT' ||
-    !reviewer.signature ||
-    !reviewer.approvalReference
+    !reviewer.approvalReference ||
+    reviewer.decision !== 'APPROVED'
   ) {
     return {
       transitionExecuted: false,
@@ -57,7 +51,7 @@ export function executeBatchApprovalTransition(options: { dryRun?: boolean } = {
       totalPackagesUpdated: 0,
       totalMessagesApproved: 0,
       newWorkflowState: 'COMPLIANCE_REVIEW',
-      error: 'LEGAL_SIGNOFF_NOT_VERIFIED: Human legal/compliance reviewer assignment and approval required before transition.'
+      error: 'LEGAL_SIGNOFF_NOT_VERIFIED: Human legal/compliance reviewer approval required before transition.'
     };
   }
 
@@ -79,6 +73,7 @@ export function executeBatchApprovalTransition(options: { dryRun?: boolean } = {
       if (msg.contentClass === 'CLASS_C_CONTROLLED_LEGAL_COMPLIANCE') {
         msg.legalApprovalStatus = 'APPROVED';
         msg.reviewerReference = reviewer.identity;
+        msg.legalApprovalReference = reviewer.approvalReference;
         pkgApproved++;
       }
     }

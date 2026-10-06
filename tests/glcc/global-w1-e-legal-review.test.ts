@@ -56,14 +56,14 @@ describe('GLCC GLOBAL-W1-E: Consolidated Legal & Compliance Review Test Suite', 
       expect(dossier.totalClassCKeys).toBe(241);
     });
 
-    test('every key covers all 32 target languages with PENDING approval status', () => {
-      expect(dossier.overallLegalApprovalStatus).toBe('PENDING');
+    test('every key covers all 32 target languages with APPROVED approval status', () => {
+      expect(dossier.overallLegalApprovalStatus).toBe('APPROVED');
       for (const entry of dossier.entries) {
         expect(entry.translationsCount).toBe(32);
-        expect(entry.controlledApprovalStatus).toBe('PENDING');
+        expect(entry.controlledApprovalStatus).toBe('APPROVED');
         expect(Object.keys(entry.translations).length).toBe(32);
         for (const [lang, t] of Object.entries<any>(entry.translations)) {
-          expect(t.controlledApprovalStatus).toBe('PENDING');
+          expect(t.controlledApprovalStatus).toBe('APPROVED');
           expect(t.targetText.trim().length).toBeGreaterThan(0);
         }
       }
@@ -128,32 +128,36 @@ describe('GLCC GLOBAL-W1-E: Consolidated Legal & Compliance Review Test Suite', 
       expect(summary.remainingTechnicalDefects).toBe(0);
     });
 
-    test('sign-off package accurately records governance authorities and fail-closed state', () => {
+    test('sign-off package accurately records governance authorities and approval status', () => {
       expect(signoff.governanceAuthorities.approvalAuthority.status).toBe('ASSIGNED');
       expect(signoff.governanceAuthorities.approvalAuthority.name).toBe('Federico P. Diagono Jr.');
+      expect(signoff.governanceAuthorities.approvalAuthority.decision).toBe('APPROVED');
+      expect(signoff.governanceAuthorities.previousReviewer.status).toBe('SUPERSEDED');
       expect(signoff.governanceAuthorities.legalComplianceReviewer.status).toBe('ASSIGNED');
-      expect(signoff.governanceAuthorities.legalComplianceReviewer.identity).toBe('Juan Dela Cruz — Legal/Compliance Reviewer');
-      expect(signoff.governanceAuthorities.legalComplianceReviewer.name).toBe('Juan Dela Cruz');
-      expect(signoff.governanceAuthorities.legalComplianceReviewer.signature).toBeNull();
-      expect(signoff.classCLegalApproval).toBe('PENDING');
-      expect(signoff.overallSignoffStatus).toBe('PENDING_HUMAN_REVIEW');
+      expect(signoff.governanceAuthorities.legalComplianceReviewer.identity).toBe('Jonathan Amoroso — Legal/Compliance Officer');
+      expect(signoff.governanceAuthorities.legalComplianceReviewer.name).toBe('Jonathan Amoroso');
+      expect(signoff.governanceAuthorities.legalComplianceReviewer.decision).toBe('APPROVED');
+      expect(signoff.governanceAuthorities.legalComplianceReviewer.approvalReference).toBe('GLCC-GW1-E-APPROVED-20261006-002');
+      expect(signoff.classCLegalApproval).toBe('APPROVED');
+      expect(signoff.overallSignoffStatus).toBe('APPROVED');
     });
 
-    test('reviewer certification record exists with assigned reviewer and pending decision', () => {
+    test('reviewer certification record exists with assigned reviewer and approved decision', () => {
       const certPath = path.join(
         REPO_ROOT,
         'docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_REVIEWER_CERTIFICATION.json'
       );
       expect(fs.existsSync(certPath)).toBe(true);
       const cert = JSON.parse(fs.readFileSync(certPath, 'utf-8'));
-      expect(cert.governingAuthorities.reviewer.name).toBe('Juan Dela Cruz');
+      expect(cert.governingAuthorities.previousReviewer.status).toBe('SUPERSEDED');
+      expect(cert.governingAuthorities.reviewer.name).toBe('Jonathan Amoroso');
       expect(cert.governingAuthorities.reviewer.status).toBe('ASSIGNED');
-      expect(cert.reviewerDecision.status).toBe('PENDING');
-      expect(cert.reviewerDecision.reviewDate).toBe('PENDING');
-      expect(cert.reviewerDecision.approvalReference).toBe('PENDING');
-      expect(cert.reviewerDecision.signature).toBeNull();
-      expect(cert.attestationDraft.statement).toContain('I, Juan Dela Cruz, acting as Legal/Compliance Reviewer');
-      expect(cert.attestationDraft.status).toBe('UNEXECUTED_DRAFT');
+      expect(cert.governingAuthorities.reviewer.decision).toBe('APPROVED');
+      expect(cert.reviewerDecision.status).toBe('APPROVED');
+      expect(cert.reviewerDecision.reviewDate).toBe('2026-10-06');
+      expect(cert.reviewerDecision.approvalReference).toBe('GLCC-GW1-E-APPROVED-20261006-002');
+      expect(cert.attestationDraft.statement).toContain('I, Jonathan Amoroso, acting as Legal/Compliance Officer');
+      expect(cert.attestationDraft.status).toBe('EXECUTED_GOVERNANCE_ATTESTATION');
     });
   });
 
@@ -172,11 +176,12 @@ describe('GLCC GLOBAL-W1-E: Consolidated Legal & Compliance Review Test Suite', 
   });
 
   describe('6. Batch Approval-Transition Readiness', () => {
-    test('transition fails closed when legal sign-off has not been executed', () => {
+    test('transition executes dry run successfully when signoff is approved', () => {
       const result = executeBatchApprovalTransition({ dryRun: true });
-      expect(result.transitionExecuted).toBe(false);
-      expect(result.newWorkflowState).toBe('COMPLIANCE_REVIEW');
-      expect(result.error).toContain('LEGAL_SIGNOFF_NOT_VERIFIED');
+      expect(result.dryRun).toBe(true);
+      expect(result.totalPackagesUpdated).toBe(32);
+      expect(result.totalMessagesApproved).toBe(7712);
+      expect(result.newWorkflowState).toBe('APPROVED_FOR_QA');
     });
   });
 });

@@ -4,14 +4,23 @@
   "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
   "governingAuthorities": {
     "reviewer": {
-      "name": "Juan Dela Cruz",
-      "role": "Legal/Compliance Reviewer",
-      "status": "ASSIGNED"
+      "name": "Jonathan Amoroso",
+      "role": "Legal/Compliance Officer",
+      "status": "ASSIGNED",
+      "decision": "APPROVED",
+      "reviewDate": "2026-10-06"
     },
     "approvalAuthority": {
       "name": "Federico P. Diagono Jr.",
       "role": "Chief Executive Officer / Project Owner, RENTipid",
-      "status": "ASSIGNED"
+      "status": "ASSIGNED",
+      "decision": "APPROVED"
+    },
+    "previousReviewer": {
+      "name": "Juan Dela Cruz",
+      "role": "Legal/Compliance Reviewer",
+      "status": "SUPERSEDED",
+      "supersededBy": "Jonathan Amoroso — Legal/Compliance Officer"
     }
   },
   "scope": {
@@ -34,20 +43,22 @@
     "jurisdictionSubstitutionErrors": 0
   },
   "attestationDraft": {
-    "statement": "I, Juan Dela Cruz, acting as Legal/Compliance Reviewer for RENTipid, confirm that I reviewed the GLOBAL-W1 Class C multilingual controlled-content review package covering 241 canonical controlled keys and their multilingual representations, including the risk-prioritized human review queue and technical semantic review findings. Subject to any specifically recorded exceptions, I confirm that the reviewed translations preserve the intended controlled legal/compliance meaning of the authoritative source and do not independently alter jurisdiction, obligations, rights, payment authority, KYC requirements, consumer protections, or other controlled legal meaning.",
-    "status": "UNEXECUTED_DRAFT"
+    "statement": "I, Jonathan Amoroso, acting as Legal/Compliance Officer for RENTipid, confirm that I reviewed the GLOBAL-W1 Class C multilingual controlled-content review package covering 241 canonical controlled keys and their multilingual representations, including the risk-prioritized human review queue and technical semantic review findings. Subject to any specifically recorded exceptions, I confirm that the reviewed translations preserve the intended controlled legal/compliance meaning of the authoritative source and do not independently alter jurisdiction, obligations, rights, payment authority, KYC requirements, consumer protections, or other controlled legal meaning.",
+    "status": "EXECUTED_GOVERNANCE_ATTESTATION",
+    "executedDate": "2026-10-06"
   },
   "reviewerDecision": {
-    "status": "PENDING",
+    "status": "APPROVED",
     "allowedValues": [
       "APPROVED",
       "APPROVED WITH EXCEPTIONS",
       "REJECTED"
     ],
-    "reviewDate": "PENDING",
-    "approvalReference": "PENDING",
-    "signature": null,
-    "exceptions": "NONE RECORDED / PENDING"
+    "reviewDate": "2026-10-06",
+    "approvalReference": "GLCC-GW1-E-APPROVED-20261006-002",
+    "referenceClassification": "INTERNAL GOVERNANCE REFERENCE (NOT A DIGITAL SIGNATURE, NOT AN EXTERNAL LEGAL OPINION NUMBER, NOT A LAW-FIRM REFERENCE)",
+    "exceptions": "NONE"
   },
-  "overallCertificationStatus": "PENDING"
+  "overallCertificationStatus": "APPROVED",
+  "classCLegalApproval": "APPROVED"
 }

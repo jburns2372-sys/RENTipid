@@ -3,10 +3,13 @@
   "generatedAt": "2026-10-06T09:29:08.635374+00:00",
   "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
   "governingAuthorities": {
-    "legalComplianceReviewer": "Juan Dela Cruz — Legal/Compliance Reviewer",
+    "legalComplianceReviewer": "Jonathan Amoroso — Legal/Compliance Officer",
     "legalComplianceReviewerStatus": "ASSIGNED",
     "approvalAuthority": "Federico P. Diagono Jr. — Chief Executive Officer / Project Owner, RENTipid",
-    "approvalAuthorityStatus": "ASSIGNED"
+    "approvalAuthorityStatus": "ASSIGNED",
+    "previousReviewer": "Juan Dela Cruz — Legal/Compliance Reviewer (SUPERSEDED)",
+    "reviewerDecision": "APPROVED",
+    "approvalReference": "GLCC-GW1-E-APPROVED-20261006-002"
   },
   "queueSummary": {
     "totalCanonicalKeys": 241,
