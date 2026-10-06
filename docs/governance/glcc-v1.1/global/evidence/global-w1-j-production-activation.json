@@ -1,17 +1,26 @@
 {
   "evidenceId": "EVIDENCE-GLCC-GLOBAL-W1-J-001",
-  "action": "GLOBAL-W1-J CONTROLLED GLOBAL PRODUCTION ACTIVATION",
+  "action": "GLOBAL-W1-J CORRECTIVE LANGUAGE-RUNTIME REMEDIATION",
   "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
   "governingFactory": "P12 / v1.1 GLOBAL EXPANSION FACTORY (ACCEPTED — CLOSED — FROZEN)",
-  "timestamp": "2026-10-07T05:05:00+08:00",
+  "timestamp": "2026-10-07T05:38:00+08:00",
   "status": "PASS",
   "productionReleaseState": "PRODUCTION_ACTIVATED_AND_VERIFIED",
-  "applicationCommit": "94804f1c70b0e88d64b0e3f91fd2aaf42bd2b052",
-  "productionDeploymentId": "dpl_FXA6vTEjHD5TZmEs8vqXCCWZKWxy",
-  "productionCanonicalUrl": "https://www.rentipid.com.ph",
-  "previousProductionDeploymentId": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X",
-  "previousProductionSourceSha": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
-  "deployedShaMatchesApplicationCommit": true,
+  "ownerObservedDefect": "Language preference persisted but application UI remained English.",
+  "originalAcceptanceStatus": "INVALIDATED_FOR_LANGUAGE_APPLICATION_BEHAVIOR",
+  "correctiveRemediation": {
+    "correctiveApplicationCommit": "d3846e327905fe3762c73bc7b26697a19d708fbb",
+    "correctivePreviewDeploymentId": "dpl_BPcnqeRtcFNMp2FAsZeDx6tNnB8T",
+    "correctivePreviewCanonicalUrl": "https://preview.rentipid.com.ph",
+    "correctiveProductionDeploymentId": "dpl_754t6JhqcPjLVzdh5wNBCm6QCBA3",
+    "correctiveProductionCanonicalUrl": "https://www.rentipid.com.ph",
+    "deployedShaMatchesApplicationCommit": true,
+    "finalCorrectiveVerification": "PASS"
+  },
+  "priorProductionBaseline": {
+    "deploymentId": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X",
+    "sourceSha": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d"
+  },
   "counts": {
     "productionLanguageRegistryEntries": 46,
     "productionSelectableLanguages": 46,
@@ -34,6 +43,13 @@
   },
   "verificationChecks": {
     "productionHealth": "PASS",
+    "productionJaJpApply": "PASS",
+    "productionJaJpVisibleTranslation": "PASS",
+    "productionJaJpReloadPersistence": "PASS",
+    "productionLanguageSwitchTested": 9,
+    "productionLanguageSwitchPass": 9,
+    "productionLanguageSwitchFail": 0,
+    "arabicLanguageSwitch": "PASS",
     "arabicRtl": "PASS",
     "rtlBlockingDefects": 0,
     "countrySelector": "PASS",

@@ -2,15 +2,24 @@
   "matrixId": "GLOBAL-W1-PROD-ACTIVATION-MATRIX-001",
   "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
   "governingFactory": "P12 / v1.1 GLOBAL EXPANSION FACTORY (ACCEPTED — CLOSED — FROZEN)",
-  "timestamp": "2026-10-07T05:05:00+08:00",
+  "timestamp": "2026-10-07T05:38:00+08:00",
+  "correctiveAction": {
+    "action": "GLOBAL-W1-J CORRECTIVE LANGUAGE-RUNTIME REMEDIATION",
+    "ownerObservedDefect": "Language preference persisted but application UI remained English.",
+    "originalAcceptanceStatus": "INVALIDATED_FOR_LANGUAGE_APPLICATION_BEHAVIOR",
+    "correctivePreviewDeploymentId": "dpl_BPcnqeRtcFNMp2FAsZeDx6tNnB8T",
+    "correctiveProductionDeploymentId": "dpl_754t6JhqcPjLVzdh5wNBCm6QCBA3",
+    "correctiveApplicationCommit": "d3846e327905fe3762c73bc7b26697a19d708fbb",
+    "finalCorrectiveVerification": "PASS"
+  },
   "deploymentProvenance": {
-    "applicationCommit": "94804f1c70b0e88d64b0e3f91fd2aaf42bd2b052",
-    "productionDeploymentId": "dpl_FXA6vTEjHD5TZmEs8vqXCCWZKWxy",
+    "applicationCommit": "d3846e327905fe3762c73bc7b26697a19d708fbb",
+    "productionDeploymentId": "dpl_754t6JhqcPjLVzdh5wNBCm6QCBA3",
     "productionCanonicalUrl": "https://www.rentipid.com.ph",
-    "productionDirectUrl": "https://ren-tipid-rad4rlf7j-jburns2372-sys-projects.vercel.app",
+    "productionDirectUrl": "https://ren-tipid-erkehzal1-jburns2372-sys-projects.vercel.app",
     "deploymentStatus": "READY",
     "target": "production",
-    "deployedGitSha": "94804f1c70b0e88d64b0e3f91fd2aaf42bd2b052",
+    "deployedGitSha": "d3846e327905fe3762c73bc7b26697a19d708fbb",
     "deployedShaMatchesApplicationCommit": true
   },
   "priorProductionBaseline": {
@@ -104,33 +113,28 @@
       "HUF",
       "RON",
       "CHF"
-    ],
-    "immutableTransactionCurrency": "PHP",
-    "immutableSettlementCurrency": "PHP"
+    ]
   },
-  "liveSmokeVerification": {
-    "healthCheck": "PASS",
-    "landingRoute": "PASS",
-    "loginRoute": "PASS",
-    "registrationRoute": "PASS",
-    "preferencesEndpoint": "PASS",
-    "protectedAdminRoute": "PASS (HTTP 307 redirect)",
-    "arabicRtlAcceptance": "PASS",
-    "rtlBlockingDefects": 0,
+  "supportedCountries": {
+    "totalCountries": 44
+  },
+  "verificationSummary": {
+    "status": "PASS",
+    "productionHealth": "PASS",
+    "productionJaJpApply": "PASS",
+    "productionJaJpVisibleTranslation": "PASS",
+    "productionJaJpReloadPersistence": "PASS",
+    "productionLanguageSwitchTested": 9,
+    "productionLanguageSwitchPass": 9,
+    "productionLanguageSwitchFail": 0,
+    "fullLocalesTested": 32,
+    "fullLocalesPass": 32,
+    "fullLocalesFail": 0,
+    "aliasesTested": 12,
+    "aliasFailures": 0,
+    "arabicRtl": "PASS",
     "rawKeyOccurrences": 0,
     "requiredFallbackOccurrences": 0,
-    "emptyRequiredStrings": 0,
-    "placeholderFailures": 0,
-    "dimensionIndependence": "PASS",
-    "authRbacRegression": "PASS (0 regressions)",
-    "databaseIntegrity": "PASS (0 schema changes, 0 migrations)",
-    "paymentAuthority": "PASS (strictly locked to PHP rails)"
-  },
-  "rollbackState": {
-    "executed": false,
-    "standbyRollbackDeploymentId": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X",
-    "standbyRollbackSourceSha": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d"
-  },
-  "overallStatus": "PASS",
-  "productionReleaseState": "PRODUCTION_ACTIVATED_AND_VERIFIED"
+    "blockingProductionDefects": 0
+  }
 }
