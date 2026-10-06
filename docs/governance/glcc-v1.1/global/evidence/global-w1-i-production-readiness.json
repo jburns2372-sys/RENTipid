@@ -1,0 +1,73 @@
+{
+  "evidenceId": "EVIDENCE-GLCC-GLOBAL-W1-I-001",
+  "action": "GLOBAL-W1-I GLOBAL PRODUCTION READINESS",
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "governingFactory": "P12 / v1.1 GLOBAL EXPANSION FACTORY (ACCEPTED — CLOSED — FROZEN)",
+  "timestamp": "2026-10-06T19:28:00+08:00",
+  "status": "PASS",
+  "productionReadinessDecision": "READY_FOR_CONTROLLED_PRODUCTION_ACTIVATION",
+  "candidateReleaseHead": "24b5cc92561befc5b93595c677fef7f111114e95",
+  "acceptedPreviewApplicationSha": "5758790f85dbcbb95a00b4017e7f41931fcfb776",
+  "acceptedPreviewDeploymentId": "dpl_CgW7qDegPhmQXN34s2aPmymGfUtS",
+  "currentProductionDeploymentId": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X",
+  "currentProductionSourceSha": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+  "targetProductionDomain": "https://www.rentipid.com.ph",
+  "validationResults": {
+    "changeSetValidation": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "envSafetyValidation": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "dbPlanValidation": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "authValidation": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "boundariesValidation": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "rollbackValidation": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "verificationPlanValidation": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    }
+  },
+  "counts": {
+    "fullCandidateLocalesCount": 32,
+    "regionalAliasesCount": 12,
+    "existingProductionReadyCount": 2,
+    "totalCatalogEntries": 46,
+    "newActivationCandidatesCount": 44,
+    "currentNewProductionSelectableCount": 0,
+    "supportedCurrenciesCount": 23,
+    "currencyBlockersCount": 0,
+    "unresolvedProductionOnlyChangesCount": 0,
+    "potentialProductionRegressionsCount": 0,
+    "missingBlockingProductionVariablesCount": 0
+  },
+  "productionIsolation": {
+    "productionDeploymentTriggered": false,
+    "productionDomainModified": false,
+    "productionEnvironmentModified": false,
+    "productionDatabaseModified": false,
+    "productionLanguageGateModified": false,
+    "frozenFactoryModified": false
+  }
+}

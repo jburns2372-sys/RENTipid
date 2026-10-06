@@ -1,0 +1,255 @@
+{
+  "matrixId": "GLOBAL-W1-PROD-READINESS-MATRIX-001",
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "governingFactory": "P12 / v1.1 GLOBAL EXPANSION FACTORY",
+  "evaluationDate": "2026-10-06T19:28:00+08:00",
+  "overallState": "READY_FOR_CONTROLLED_PRODUCTION_ACTIVATION",
+  "pillars": {
+    "sourceProvenance": {
+      "status": "PASS",
+      "candidateHead": "24b5cc92561befc5b93595c677fef7f111114e95",
+      "acceptedPreviewApplicationSha": "5758790f85dbcbb95a00b4017e7f41931fcfb776",
+      "previewToHeadApplicationImpact": "NONE"
+    },
+    "previewAcceptanceProvenance": {
+      "status": "PASS",
+      "previewDeploymentId": "dpl_CgW7qDegPhmQXN34s2aPmymGfUtS",
+      "previewUrl": "https://preview.rentipid.com.ph",
+      "previewHealth": "PASS",
+      "localesPassed": "32/32",
+      "aliasesPassed": "12/12",
+      "currenciesPassed": "23/23"
+    },
+    "currentProductionProvenance": {
+      "status": "PASS",
+      "currentDeploymentId": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X",
+      "currentSourceSha": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+      "currentHealth": "PASS",
+      "unresolvedProductionOnlyChanges": 0,
+      "potentialProductionRegressions": 0
+    },
+    "environmentReadiness": {
+      "status": "PASS",
+      "environmentIdentity": "Production",
+      "missingBlockingVariables": 0,
+      "secretsExposed": false
+    },
+    "buildReadiness": {
+      "status": "PASS",
+      "typeCheck": "PASS",
+      "productionBuild": "PASS"
+    },
+    "localeReadiness": {
+      "status": "PASS",
+      "fullCandidateLocalesCount": 32,
+      "regionalAliasesCount": 12,
+      "existingProductionReadyCount": 2,
+      "totalCatalogEntries": 46,
+      "newActivationCandidates": 44,
+      "productionGate": "CLOSED (productionSelectable=false)"
+    },
+    "currencyReadiness": {
+      "status": "PASS",
+      "supportedCurrenciesCount": 23,
+      "chargeCurrency": "PHP",
+      "settlementCurrency": "PHP",
+      "currencyBlockers": 0
+    },
+    "fxReadiness": {
+      "status": "PASS",
+      "provider": "CurrencyApiRateProvider (REAL_RUNTIME_ADAPTER_ONLINE)",
+      "safeFailureMode": "PASS",
+      "fakeFxSubstitution": "NO"
+    },
+    "databaseReadiness": {
+      "status": "PASS",
+      "schemaChange": "NO",
+      "migrationRequired": "NO",
+      "destructiveChange": "NO"
+    },
+    "authRbacReadiness": {
+      "status": "PASS",
+      "authReadiness": "PASS",
+      "rbacReadiness": "PASS",
+      "glccAuthRegressions": 0
+    },
+    "paymentAuthority": {
+      "status": "PASS",
+      "authorityPreserved": "PASS",
+      "chargeCurrencySeparation": "PASS"
+    },
+    "rollbackReadiness": {
+      "status": "PASS",
+      "rollbackPlanReady": true,
+      "rollbackDeploymentId": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X",
+      "rollbackSourceSha": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d"
+    },
+    "failurePolicy": {
+      "status": "PASS",
+      "policyReady": true,
+      "failClosedDefined": true
+    }
+  },
+  "candidateLocaleEvaluations": {
+    "ar-AE": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "bg-BG": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "cs-CZ": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "da-DK": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "de-DE": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "el-GR": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "en-US": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "es-ES": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "et-EE": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "fi-FI": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "fr-FR": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "hi-IN": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "hr-HR": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "hu-HU": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "id-ID": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "is-IS": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "it-IT": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "ja-JP": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "ko-KR": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "lt-LT": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "lv-LV": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "ms-MY": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "nb-NO": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "nl-NL": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "pl-PL": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "pt-BR": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "ro-RO": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "sk-SK": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "sl-SI": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "sv-SE": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "vi-VN": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    },
+    "zh-Hans": {
+      "state": "READY",
+      "isReady": true,
+      "reasons": []
+    }
+  }
+}

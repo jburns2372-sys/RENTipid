@@ -1,0 +1,29 @@
+{
+  "planId": "GLOBAL-W1-PROD-ROLLBACK-001",
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "currentProductionDeploymentId": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X",
+  "currentProductionSourceSha": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+  "currentProductionUrl": "https://www.rentipid.com.ph",
+  "rollbackDeploymentId": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X",
+  "rollbackSourceSha": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+  "rollbackCommand": "npx vercel alias set dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X www.rentipid.com.ph",
+  "rollbackStatus": "STANDBY_READY",
+  "triggerConditions": [
+    "Production root or /api/health returns HTTP 5xx or fails readiness probe",
+    "Authentication or RBAC session resolution encounters fatal regression",
+    "Checkout or payment processing deviates from statutory PHP charge currency",
+    "Language selector causes hydration mismatch or blocking client-side crash",
+    "Raw translation keys or broken placeholder interpolation detected in live production",
+    "Static assets or locale bundles fail to load on production CDN"
+  ],
+  "postRollbackVerificationSteps": [
+    "Verify production domain https://www.rentipid.com.ph returns HTTP 200 on /api/health and /login",
+    "Confirm en-PH and fil-PH remain selectable while candidate languages revert to unselectable state",
+    "Verify that active user sessions and booking operations continue uninterrupted"
+  ],
+  "databaseExpectation": "No database modification or rollback needed.",
+  "environmentExpectation": "Production environment variables remain unchanged.",
+  "authRbacExpectation": "Uninterrupted NextAuth session resolution.",
+  "languageGateExpectation": "Candidate languages remain unselectable; en-PH and fil-PH available.",
+  "createdAt": "2026-10-06T19:28:00+08:00"
+}
