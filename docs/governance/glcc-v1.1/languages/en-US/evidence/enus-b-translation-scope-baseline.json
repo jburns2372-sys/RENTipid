@@ -1,0 +1,112 @@
+{
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "governingFactory": "P12 / v1.1 GLOBAL EXPANSION FACTORY (COMPLETE — ACCEPTED — CLOSED — FROZEN)",
+  "languageWorkstream": "en-US",
+  "currentAction": "ENUS-B TRANSLATION WORK PACKAGE / SCOPE BASELINE",
+  "enusBStatus": "PASS",
+  "timestamp": "2026-10-06T15:10:00+08:00",
+  "enusAGovernanceCommit": "3427d5c16211142bf2e20bcfa6f7847eab5b7811",
+  "p12JFinalGovernanceCommit": "c3974169e3e294d15541bb173c5037adccca8850",
+  "factoryImplementationSourceSha": "c25111d038190a76c6dfad1759d211cd0459e6cc",
+  "branch": "feat/glcc-v1.1-en-us",
+  "sourceLocale": "en-PH",
+  "targetLocale": "en-US",
+  "canonicalKeyCount": 2208,
+  "canonicalKeyChecksum": "a682064cf1f532c26884104887b012b27be830be39b41e27d0c1d58f77b36fdf",
+  "sourceMessageChecksum": "0566572080c895732e61ef62108403a283f6abf12e762eb29ba77a1460c2cbb8",
+  "canonicalSourceDrift": "NO",
+  "workPackagePath": "docs/governance/glcc-v1.1/languages/en-US/work/en-US-translation-work-package.json",
+  "workPackageKeyCount": 2208,
+  "currentTranslatedCount": 0,
+  "currentMissingCount": 2208,
+  "currentCoverage": "0.0%",
+  "currentWorkflowState": "SOURCE_LOCKED",
+  "structuralValidation": {
+    "status": "VALID",
+    "isValid": true,
+    "errorCount": 0,
+    "warningCount": 0
+  },
+  "contentClassificationCounts": {
+    "CLASS_A_STANDARD_UI": 1127,
+    "CLASS_B_SYSTEM_TRANSACTIONAL": 310,
+    "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE": 216,
+    "CLASS_D_USER_GENERATED_BOUNDARY": 0,
+    "CLASS_E_AI_GENERATED_BOUNDARY": 347,
+    "CLASSIFICATION_REVIEW_REQUIRED": 208,
+    "totalReconciled": 2208
+  },
+  "placeholderMetrics": {
+    "messagesWithPlaceholders": 43,
+    "uniquePlaceholderCount": 21,
+    "totalPlaceholderSignatures": 48,
+    "messagesRequiringIcu": 43,
+    "malformedSourceMessages": 0,
+    "uniquePlaceholderVariables": [
+      "amount",
+      "code",
+      "count",
+      "country",
+      "currency",
+      "date",
+      "duration",
+      "fee",
+      "id",
+      "language",
+      "name",
+      "price",
+      "provider",
+      "rate",
+      "reason",
+      "risk",
+      "seconds",
+      "status",
+      "title",
+      "unit",
+      "year"
+    ]
+  },
+  "classCCount": 216,
+  "classCControlPlan": {
+    "status": "INITIALIZED — PASS",
+    "legalApprovalRequiredCount": 216,
+    "legalApprovalPendingCount": 216,
+    "legalApprovalApprovedCount": 0,
+    "rule": "Authoritative legal standing requires formal review under ENUS-F prior to release promotion."
+  },
+  "regionalLanguagePolicy": {
+    "status": "DEFINED — PASS",
+    "rule": "Careful regional adaptation for US orthography, rental terminology, and punctuation without indiscriminate bulk replace."
+  },
+  "languageCountryIndependence": {
+    "status": "DEFINED — PASS",
+    "rule": "en-US selection never implies US country, USD currency, US payment routing, or US legal jurisdiction."
+  },
+  "formattingBoundary": {
+    "status": "DEFINED — PASS",
+    "rule": "Translatable text is decoupled from runtime formatting engines (currency, numbers, dates, times, addresses)."
+  },
+  "currentRuntimeIsolation": {
+    "runtimeEnUsKeyCount": 0,
+    "runtimeEnUsCoverage": "0.0%",
+    "runtimeEnUsMissingRequiredKeys": 2208,
+    "runtimeEnUsRequiredFallback": 2208,
+    "runtimeEnUsRawKeys": 0,
+    "runtimeEnUsBundleCreated": false,
+    "runtimeLocaleRegistryModified": false,
+    "status": "PASS"
+  },
+  "enusCCompletionTarget": {
+    "requiredCanonicalCoverage": "100%",
+    "requiredTranslatedEntries": 2208,
+    "missingRequiredKeys": 0,
+    "unknownKeys": 0,
+    "duplicateKeys": 0,
+    "placeholderMismatches": 0,
+    "formatErrors": 0,
+    "unicodeErrors": 0,
+    "requiredSourceLanguageFallback": 0,
+    "targetWorkflowState": "APPROVED_FOR_QA",
+    "status": "DEFINED — PASS"
+  }
+}
