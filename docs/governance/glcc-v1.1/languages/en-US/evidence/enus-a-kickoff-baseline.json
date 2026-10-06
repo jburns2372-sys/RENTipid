@@ -1,0 +1,138 @@
+{
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "governingFactory": "P12 / v1.1 GLOBAL EXPANSION FACTORY (COMPLETE — ACCEPTED — CLOSED — FROZEN)",
+  "languageWorkstream": "en-US",
+  "currentAction": "ENUS-A KICKOFF / ONBOARDING ENTRY BASELINE",
+  "enusAStatus": "PASS",
+  "timestamp": "2026-10-06T11:45:00+08:00",
+  "ownerAuthorization": {
+    "status": "CONFIRMED",
+    "statement": "I AUTHORIZE en-US AS THE FIRST REAL LANGUAGE WORKSTREAM",
+    "targetLocale": "en-US"
+  },
+  "branch": "feat/glcc-v1.1-en-us",
+  "baseGovernanceCommit": "c3974169e3e294d15541bb173c5037adccca8850",
+  "factoryImplementationSourceSha": "c25111d038190a76c6dfad1759d211cd0459e6cc",
+  "factoryTags": {
+    "rentipidGlccV11FactoryFrozen": {
+      "name": "rentipid-glcc-v1.1-factory-frozen",
+      "targetCommit": "c25111d038190a76c6dfad1759d211cd0459e6cc",
+      "status": "PRESERVED — PASS"
+    },
+    "glccV11Factory": {
+      "name": "glcc-v1.1-factory",
+      "targetCommit": "c25111d038190a76c6dfad1759d211cd0459e6cc",
+      "status": "PRESERVED — PASS"
+    }
+  },
+  "v101HistoricalTags": {
+    "rentipidGlccV101Frozen": {
+      "name": "rentipid-glcc-v1.0.1-frozen",
+      "targetCommit": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+      "status": "PRESERVED — PASS"
+    },
+    "glccV101": {
+      "name": "glcc-v1.0.1",
+      "targetCommit": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+      "status": "PRESERVED — PASS"
+    }
+  },
+  "currentProductionApplicationSource": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+  "currentProductionLanguages": [
+    { "locale": "en-PH", "status": "PRODUCTION_READY", "keyCount": 2208 },
+    { "locale": "fil-PH", "status": "PRODUCTION_READY", "keyCount": 2208 }
+  ],
+  "candidateLanguages": [
+    { "locale": "ja-JP", "status": "REGISTERED", "keyCount": 0 }
+  ],
+  "sourceLocaleBaseline": {
+    "sourceLocale": "en-PH",
+    "canonicalKeyCount": 2208,
+    "status": "UNCHANGED — PASS"
+  },
+  "enUsBaselineMetrics": {
+    "targetLocale": "en-US",
+    "currentReleaseStatus": "TRANSLATION_IN_PROGRESS",
+    "currentEnUsKeyCount": 0,
+    "currentEnUsRequiredCoverage": "0.0%",
+    "currentEnUsMissingRequiredKeys": 2208,
+    "currentEnUsRequiredFallbackCount": 2208,
+    "currentEnUsRawKeyCount": 0
+  },
+  "enUsLanguageIdentity": {
+    "locale": "en-US",
+    "language": "English",
+    "region": "United States",
+    "script": "Latin",
+    "direction": "ltr",
+    "sourceLocale": "en-PH",
+    "fallbackLocale": "en-PH",
+    "currentReleaseStatus": "TRANSLATION_IN_PROGRESS",
+    "targetFinalReleaseStatus": "PRODUCTION_READY",
+    "status": "DEFINED — PASS"
+  },
+  "enUsOnboardingContract": {
+    "status": "INITIALIZED — PASS",
+    "canonicalSourceVersion": "1.0.1",
+    "canonicalKeyCount": 2208,
+    "fallbackLocale": "en-PH",
+    "roles": {
+      "languageOwner": "PENDING GOVERNED ASSIGNMENT",
+      "translationOwner": "PENDING GOVERNED ASSIGNMENT",
+      "qaOwner": "PENDING GOVERNED ASSIGNMENT",
+      "legalComplianceReviewer": "PENDING GOVERNED ASSIGNMENT",
+      "releaseApprover": "PENDING GOVERNED ASSIGNMENT"
+    },
+    "contentClasses": ["CLASS_A", "CLASS_B", "CLASS_C", "CLASS_D", "CLASS_E"],
+    "lifecycle": "TRANSLATION_IN_PROGRESS -> QA_REQUIRED -> PRODUCTION_READY"
+  },
+  "workstreamStages": [
+    "ENUS-A — Kickoff / Onboarding Entry Baseline",
+    "ENUS-B — Translation Work Package / Scope Baseline",
+    "ENUS-C — Translation Completion & Workflow Validation",
+    "ENUS-D — Locale Pack Generation & Validation",
+    "ENUS-E — Language-Specific QA",
+    "ENUS-F — Legal / Compliance Review",
+    "ENUS-G — Preview Eligibility / QA_REQUIRED Promotion / Preview Activation & Acceptance",
+    "ENUS-H — Production Readiness",
+    "ENUS-I — Controlled Production Activation",
+    "ENUS-J — Acceptance / Closure / Language Release Freeze"
+  ],
+  "nonRegressionBaseline": {
+    "status": "DEFINED — PASS",
+    "enPhPreserved": true,
+    "filPhPreserved": true,
+    "countryIndependence": true,
+    "displayCurrencyIndependence": true,
+    "chargeCurrencyAuthority": "PHP locked",
+    "paymentAuthority": "Preserved",
+    "financialAuthority": "Preserved",
+    "rbacPreserved": true,
+    "kycPreserved": true,
+    "jurisdictionPreserved": true,
+    "failClosedSelector": true,
+    "ssrCsrConsistency": true
+  },
+  "enusBEntryCriteria": {
+    "ownerAuthorization": "CONFIRMED",
+    "frozenP12Factory": "VERIFIED",
+    "dedicatedEnUsBranch": "CREATED",
+    "canonicalSource": "VERIFIED",
+    "currentEnUsState": "RECORDED",
+    "onboardingContract": "INITIALIZED",
+    "nonRegressionBaseline": "DEFINED",
+    "noRuntimeModifications": "CONFIRMED",
+    "status": "PASS"
+  },
+  "runtimeSafetyBoundary": {
+    "runtimeModified": false,
+    "translationsModified": false,
+    "localeRegistryModified": false,
+    "productionModified": false,
+    "previewModified": false,
+    "databaseModified": false,
+    "environmentModified": false,
+    "packageJsonModified": false,
+    "tagModified": false
+  }
+}
