@@ -28,10 +28,10 @@
 | Role | Name / Identity | Title | Status |
 | :--- | :--- | :--- | :--- |
 | **Approval Authority** | Federico P. Diagono Jr. | Chief Executive Officer / Project Owner, RENTipid | **ASSIGNED** |
-| **Legal / Compliance Reviewer** | *PENDING GOVERNED ASSIGNMENT* | Legal / Compliance Reviewer | **NOT ASSIGNED** |
+| **Legal / Compliance Reviewer** | Juan Dela Cruz | Legal / Compliance Reviewer | **ASSIGNED** |
 
 > [!IMPORTANT]
-> AI semantic comparison and risk triage do NOT substitute for qualified human legal counsel. Approval fields below remain unpopulated in accordance with RENTipid Truthful Acceptance standard.
+> AI semantic comparison and risk triage do NOT substitute for qualified human legal counsel. The Legal/Compliance Reviewer has been formally ASSIGNED; review decision and approval fields remain unpopulated pending actual human review by Juan Dela Cruz.
 
 ---
 
@@ -39,6 +39,7 @@
 
 - **Global Review Matrix:** `docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_CLASS_C_REVIEW_MATRIX.json`
 - **Human Review Queue:** `docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_HUMAN_LEGAL_REVIEW_QUEUE.json`
+- **Reviewer Certification Record:** `docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_REVIEWER_CERTIFICATION.md`
 - **Multilingual Dossier:** `docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_CLASS_C_MULTILINGUAL_REVIEW_DOSSIER.json`
 - **Batch Transition Script:** `docs/governance/glcc-v1.1/global/legal/batch-approval-transition.ts`
 
@@ -53,12 +54,14 @@ APPROVAL_AUTHORITY:
   STATUS: ASSIGNED
 
 LEGAL_COMPLIANCE_REVIEWER:
-  IDENTITY: PENDING GOVERNED ASSIGNMENT
+  IDENTITY: Juan Dela Cruz — Legal/Compliance Reviewer
+  STATUS: ASSIGNED
   REVIEW_DATE: null
   APPROVAL_REFERENCE: null
   SIGNATURE: null
   EXCEPTIONS: []
 
+REVIEWER_DECISION: PENDING
 OVERALL_STATUS: PENDING
 CLASS_C_LEGAL_APPROVAL: PENDING
 WORK_PACKAGE_STATE: COMPLIANCE_REVIEW

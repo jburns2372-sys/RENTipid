@@ -22,8 +22,8 @@
     "remainingTechnicalDefects": 0,
     "languageJurisdictionIndependence": "PASS",
     "jurisdictionSubstitutionErrors": 0,
-    "legalComplianceReviewer": "PENDING GOVERNED ASSIGNMENT",
-    "legalComplianceReviewerStatus": "NOT ASSIGNED",
+    "legalComplianceReviewer": "Juan Dela Cruz — Legal/Compliance Reviewer",
+    "legalComplianceReviewerStatus": "ASSIGNED",
     "approvalAuthority": "Federico P. Diagono Jr. — Chief Executive Officer / Project Owner, RENTipid",
     "approvalAuthorityStatus": "ASSIGNED",
     "globalLegalReviewMatrix": "PASS",
@@ -40,6 +40,8 @@
     "previewModified": "NO",
     "databaseModified": "NO",
     "technicalReview": "PASS",
-    "status": "BLOCKED — HUMAN LEGAL/COMPLIANCE APPROVAL REQUIRED"
+    "status": "BLOCKED — HUMAN LEGAL/COMPLIANCE APPROVAL REQUIRED",
+    "reviewerCertification": "CREATED",
+    "reviewerDecision": "PENDING"
   }
 }

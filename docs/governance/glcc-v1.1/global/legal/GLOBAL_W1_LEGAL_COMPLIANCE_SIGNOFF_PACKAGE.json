@@ -13,7 +13,9 @@
     "reviewMatrixMarkdown": "docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_CLASS_C_REVIEW_MATRIX.md",
     "reviewQueue": "docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_HUMAN_LEGAL_REVIEW_QUEUE.json",
     "classCDossier": "docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_CLASS_C_MULTILINGUAL_REVIEW_DOSSIER.json",
-    "batchTransitionScript": "docs/governance/glcc-v1.1/global/legal/batch-approval-transition.ts"
+    "batchTransitionScript": "docs/governance/glcc-v1.1/global/legal/batch-approval-transition.ts",
+    "reviewerCertification": "docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_REVIEWER_CERTIFICATION.json",
+    "reviewerCertificationMarkdown": "docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_REVIEWER_CERTIFICATION.md"
   },
   "automatedTechnicalFindings": {
     "authoritativeSourcesResolved": "241 / 241",
@@ -35,13 +37,14 @@
       "status": "ASSIGNED"
     },
     "legalComplianceReviewer": {
-      "identity": "PENDING GOVERNED ASSIGNMENT",
+      "identity": "Juan Dela Cruz — Legal/Compliance Reviewer",
       "title": "Legal / Compliance Reviewer",
-      "status": "NOT ASSIGNED",
+      "status": "ASSIGNED",
       "reviewDate": null,
       "approvalReference": null,
       "signature": null,
-      "exceptions": []
+      "exceptions": [],
+      "name": "Juan Dela Cruz"
     }
   },
   "overallSignoffStatus": "PENDING_HUMAN_REVIEW",

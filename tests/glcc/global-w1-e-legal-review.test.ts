@@ -131,11 +131,29 @@ describe('GLCC GLOBAL-W1-E: Consolidated Legal & Compliance Review Test Suite', 
     test('sign-off package accurately records governance authorities and fail-closed state', () => {
       expect(signoff.governanceAuthorities.approvalAuthority.status).toBe('ASSIGNED');
       expect(signoff.governanceAuthorities.approvalAuthority.name).toBe('Federico P. Diagono Jr.');
-      expect(signoff.governanceAuthorities.legalComplianceReviewer.status).toBe('NOT ASSIGNED');
-      expect(signoff.governanceAuthorities.legalComplianceReviewer.identity).toBe('PENDING GOVERNED ASSIGNMENT');
+      expect(signoff.governanceAuthorities.legalComplianceReviewer.status).toBe('ASSIGNED');
+      expect(signoff.governanceAuthorities.legalComplianceReviewer.identity).toBe('Juan Dela Cruz — Legal/Compliance Reviewer');
+      expect(signoff.governanceAuthorities.legalComplianceReviewer.name).toBe('Juan Dela Cruz');
       expect(signoff.governanceAuthorities.legalComplianceReviewer.signature).toBeNull();
       expect(signoff.classCLegalApproval).toBe('PENDING');
       expect(signoff.overallSignoffStatus).toBe('PENDING_HUMAN_REVIEW');
+    });
+
+    test('reviewer certification record exists with assigned reviewer and pending decision', () => {
+      const certPath = path.join(
+        REPO_ROOT,
+        'docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_REVIEWER_CERTIFICATION.json'
+      );
+      expect(fs.existsSync(certPath)).toBe(true);
+      const cert = JSON.parse(fs.readFileSync(certPath, 'utf-8'));
+      expect(cert.governingAuthorities.reviewer.name).toBe('Juan Dela Cruz');
+      expect(cert.governingAuthorities.reviewer.status).toBe('ASSIGNED');
+      expect(cert.reviewerDecision.status).toBe('PENDING');
+      expect(cert.reviewerDecision.reviewDate).toBe('PENDING');
+      expect(cert.reviewerDecision.approvalReference).toBe('PENDING');
+      expect(cert.reviewerDecision.signature).toBeNull();
+      expect(cert.attestationDraft.statement).toContain('I, Juan Dela Cruz, acting as Legal/Compliance Reviewer');
+      expect(cert.attestationDraft.status).toBe('UNEXECUTED_DRAFT');
     });
   });
 
