@@ -1,0 +1,75 @@
+{
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workstream": "P12 / v1.1 GLOBAL EXPANSION FACTORY",
+  "currentAction": "P12-C TRANSLATION SOURCE / WORKFLOW FACTORY",
+  "status": "PASS",
+  "evaluatedTimestamp": "2026-10-06T09:35:00+08:00",
+  "branch": "feat/glcc-v1.1-global-expansion-factory",
+  "p12BGovernanceCommit": "e09c73aabef63371255c1da5702fe6df27adfc4e",
+  "frozenApplicationSource": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+  "canonicalBaseline": {
+    "canonicalKeyCount": 2208,
+    "sourceLocale": "en-PH",
+    "canonicalKeyChecksum": "a682064cf1f532c26884104887b012b27be830be39b41e27d0c1d58f77b36fdf",
+    "sourceMessageChecksum": "0566572080c895732e61ef62108403a283f6abf12e762eb29ba77a1460c2cbb8",
+    "sourceBaselineMutated": false
+  },
+  "factoryFiles": [
+    "scripts/glcc-v1.1/translation-work-package-schema.ts",
+    "scripts/glcc-v1.1/translation-source-export.ts",
+    "scripts/glcc-v1.1/translation-package-validate.ts",
+    "scripts/glcc-v1.1/translation-factory-self-test.ts"
+  ],
+  "workflowStateModel": {
+    "status": "DEFINED — PASS",
+    "states": [
+      "SOURCE_LOCKED",
+      "DRAFT",
+      "LINGUISTIC_REVIEW",
+      "COMPLIANCE_REVIEW",
+      "APPROVED_FOR_QA"
+    ]
+  },
+  "contentClassificationWorkflow": "IMPLEMENTED — PASS",
+  "placeholderIntegrityFactory": "IMPLEMENTED — PASS",
+  "translationPackageValidator": "IMPLEMENTED — PASS",
+  "legalComplianceWorkflowGuard": "IMPLEMENTED — PASS",
+  "aiTranslationWorkflowBoundary": "DEFINED — PASS",
+  "sourceDriftProtection": "IMPLEMENTED — PASS",
+  "factoryDeterminism": "PASS",
+  "selfTest": {
+    "status": "PASS",
+    "syntheticLocale": "zz-ZZ",
+    "totalScenarios": 16,
+    "passedCount": 16,
+    "failedCount": 0,
+    "scenarios": [
+      { "id": 1, "name": "Export contains exactly 2208 canonical keys", "passed": true },
+      { "id": 2, "name": "Deterministic key ordering", "passed": true },
+      { "id": 3, "name": "Deterministic source checksums", "passed": true },
+      { "id": 4, "name": "Complete synthetic valid package passes structural validation", "passed": true },
+      { "id": 5, "name": "Missing key fails", "passed": true },
+      { "id": 6, "name": "Extra key fails", "passed": true },
+      { "id": 7, "name": "Duplicate/count mismatch fails", "passed": true },
+      { "id": 8, "name": "Placeholder removal fails", "passed": true },
+      { "id": 9, "name": "Unauthorized placeholder addition fails", "passed": true },
+      { "id": 10, "name": "Malformed message format fails", "passed": true },
+      { "id": 11, "name": "Invalid Unicode replacement character fails", "passed": true },
+      { "id": 12, "name": "Canonical checksum mismatch fails", "passed": true },
+      { "id": 13, "name": "Source checksum mismatch returns SOURCE_DRIFT", "passed": true },
+      { "id": 14, "name": "Incomplete controlled Class C approval fails", "passed": true },
+      { "id": 15, "name": "AI/DRAFT package cannot become authoritative legal content", "passed": true },
+      { "id": 16, "name": "Runtime locale registry remains unchanged", "passed": true }
+    ]
+  },
+  "runtimeBundleWriteBlocked": true,
+  "runtimeLocaleRegistryChanged": false,
+  "existingTranslationBundlesChanged": false,
+  "firstLanguageImplementationPriority": "NOT YET AUTHORIZED",
+  "verification": {
+    "productionModified": false,
+    "previewModified": false,
+    "databaseModified": false,
+    "packageJsonModified": false
+  }
+}
