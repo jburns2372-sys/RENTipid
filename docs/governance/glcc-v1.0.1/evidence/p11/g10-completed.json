@@ -1,0 +1,91 @@
+{
+  "gate": "G10 COMPLETED",
+  "controllingDocument": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workPackage": "P11 — v1.0.1 PREVIEW/PRODUCTION",
+  "status": "PROMOTED",
+  "determination": "PASS — G10 IMPLEMENTATION COMPLETION GATE PROMOTED",
+  "evaluatedTimestamp": "2026-10-06T08:00:00+08:00",
+  "branch": "fix/glcc-v1.0.1-fil-ph-localization",
+  "g9GovernanceCommit": "e6071d3127b45e796cbfa262a8f18cd59d72d78e",
+  "productionDeployment": {
+    "deploymentId": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X",
+    "deploymentUrl": "https://ren-tipid-i41yhv5sb-jburns2372-sys-projects.vercel.app",
+    "productionUrl": "https://www.rentipid.com.ph",
+    "deployedGitSha": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+    "environment": "production",
+    "status": "Ready",
+    "identityStatus": "PASS"
+  },
+  "currentProductionHealth": {
+    "httpCode": 200,
+    "status": "ready",
+    "database": "connected",
+    "productionDatabase": "rentipid_production",
+    "healthStatus": "PASS"
+  },
+  "translationContract": {
+    "canonicalKeyCount": 2208,
+    "enPhCoverage": "100%",
+    "filPhCoverage": "100%",
+    "filPhRequiredFallbackCount": 0,
+    "rawTranslationKeysCount": 0,
+    "localeReleaseStates": {
+      "en-PH": "PRODUCTION_READY",
+      "fil-PH": "PRODUCTION_READY",
+      "en-US": "TRANSLATION_IN_PROGRESS",
+      "ja-JP": "REGISTERED"
+    },
+    "jaJpTranslationKeys": 0,
+    "status": "COMPLETE — PASS"
+  },
+  "databaseSchemaStatus": {
+    "newV101ProductionMigration": false,
+    "newV101ProductionSeed": false,
+    "newV101ProductionSync": false,
+    "status": "PASS"
+  },
+  "securityFinancialLegalStatus": {
+    "productionSecurity": "PASS",
+    "financialAuthority": "UNCHANGED — PASS",
+    "rbac": "UNCHANGED — PASS",
+    "kycAuthority": "UNCHANGED — PASS",
+    "jurisdictionAuthority": "UNCHANGED — PASS",
+    "legalAuthoritativeSource": "PRESERVED — PASS",
+    "aiAuthoritativeLegalPromotion": "BLOCKED — PASS",
+    "ugcGeneratedContentBoundaries": "PASS",
+    "status": "PASS"
+  },
+  "rollbackInformation": {
+    "previousStableProductionBaseline": "dpl_A3gYPGCCeAMydSzQquNDfxhPxQWG",
+    "currentProduction": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X",
+    "status": "PASS"
+  },
+  "blockerReview": {
+    "unresolvedCriticalBlockers": 0,
+    "unresolvedHighBlockers": 0,
+    "openRequiredV101ImplementationItems": 0,
+    "status": "PASS"
+  },
+  "lifecyclePromotions": {
+    "g1CodeComplete": "PRESERVED — VALIDATED",
+    "g2LocalFunctional": "PRESERVED — VALIDATED",
+    "g3LocalDatabaseMigrated": "PRESERVED — VALIDATED",
+    "g4LocalRequiredDataSeededSynced": "PRESERVED — VALIDATED",
+    "g5LocalAcceptancePass": "PRESERVED — VALIDATED",
+    "g6PreviewMigrated": "PRESERVED — VALIDATED",
+    "g7PreviewAcceptancePass": "PRESERVED — PROMOTED",
+    "g8ProductionReady": "PRESERVED — PROMOTED",
+    "g9ProductionDeploymentVerification": "PRESERVED — PROMOTED",
+    "g10Completed": "PROMOTED",
+    "g11Accepted": "NOT PROMOTED",
+    "g12Closed": "NOT PROMOTED",
+    "g13VersionFrozen": "NOT PROMOTED"
+  },
+  "environmentalSafety": {
+    "productionDeployedDuringG10": false,
+    "productionDatabaseModifiedDuringG10": false,
+    "productionEnvModifiedDuringG10": false,
+    "runtimeSourceModifiedDuringG10": false
+  },
+  "nextPermittedAction": "G11 ACCEPTED"
+}
