@@ -210,12 +210,19 @@ export function useGlobalPreferences(options: UseGlobalPreferencesOptions = {}) 
       setIsConflict(false);
 
       setDraft(prev => {
-        // Propose configured default currency for newly selected country
+        // If user already had an explicit display currency that is allowed in the new country, preserve it!
+        // Only fallback to country default if current currency is not allowed in new country.
+        const isCurrentCurrencyAllowed = country.allowedDisplayCurrencies?.includes(prev.displayCurrency);
+        const resolvedCurrency = isCurrentCurrencyAllowed
+          ? prev.displayCurrency
+          : country.defaultDisplayCurrency;
+        const isManual = resolvedCurrency !== country.defaultDisplayCurrency;
+
         return {
           ...prev,
           countryCode: normalizedCode,
-          displayCurrency: country.defaultDisplayCurrency,
-          isManualDisplayOverride: false,
+          displayCurrency: resolvedCurrency,
+          isManualDisplayOverride: isManual,
         };
       });
     },

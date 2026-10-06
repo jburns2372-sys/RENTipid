@@ -1,0 +1,72 @@
+{
+  "reportVersion": "1.1.0",
+  "generatedAt": "2026-10-06T16:21:00.000Z",
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "currentAction": "GLOBAL-W1 BATCH MULTI-COUNTRY / MULTI-LANGUAGE / MULTI-CURRENCY FOUNDATION",
+  "status": "PASS",
+  "branch": "feat/glcc-v1.1-global-wave1",
+  "confirmedComplianceJurisdictionsCount": 15,
+  "individualCountryRecordsCount": 44,
+  "supportedCurrenciesCount": 23,
+  "supportedCurrenciesList": [
+    "PHP", "USD", "GBP", "EUR", "CAD", "AUD", "SGD", "MYR", "IDR", "VND",
+    "JPY", "KRW", "INR", "AED", "BRL", "PLN", "SEK", "DKK", "NOK", "CZK",
+    "HUF", "RON", "CHF"
+  ],
+  "targetLanguageCatalogCount": 26,
+  "targetLanguagesList": [
+    "en-PH", "fil-PH", "en-US", "ja-JP", "en-GB", "en-CA", "en-AU", "en-SG",
+    "en-IN", "en-MY", "en-ID", "es-ES", "fr-FR", "de-DE", "it-IT", "pt-BR",
+    "zh-Hans", "ms-MY", "id-ID", "vi-VN", "ko-KR", "hi-IN", "ar-AE", "nl-NL",
+    "pl-PL", "sv-SE"
+  ],
+  "existingProductionReadyLanguages": ["en-PH", "fil-PH"],
+  "existingLanguageWorkReused": [
+    "en-PH (canonical baseline reused across 7 English variants)",
+    "en-US (100% translation coverage preserved in COMPLIANCE_REVIEW)"
+  ],
+  "newBatchTranslationPackagesCount": 16,
+  "newBatchPackagesList": [
+    "ja-JP", "es-ES", "fr-FR", "de-DE", "it-IT", "pt-BR", "zh-Hans", "ms-MY",
+    "id-ID", "vi-VN", "ko-KR", "hi-IN", "ar-AE", "nl-NL", "pl-PL", "sv-SE"
+  ],
+  "batchTranslationManifestStatus": "PASS",
+  "canonicalKeyCount": 2208,
+  "canonicalKeyChecksum": "a682064cf1f532c26884104887b012b27be830be39b41e27d0c1d58f77b36fdf",
+  "sourceMessageChecksum": "0566572080c895732e61ef62108403a283f6abf12e762eb29ba77a1460c2cbb8",
+  "canonicalSourceDrift": false,
+  "orthogonalityAssertions": {
+    "countryLanguageIndependence": "PASS",
+    "countryCurrencyIndependence": "PASS",
+    "languageCurrencyIndependence": "PASS",
+    "displayTransactionSeparation": "PASS",
+    "displaySettlementSeparation": "PASS"
+  },
+  "globalLanguageRegistry": "PASS",
+  "globalCurrencyRegistry": "PASS",
+  "globalPreferenceModel": "PASS",
+  "globalPreferenceUI": "PASS",
+  "rtlSupportModel": "PASS",
+  "fxProviderStatus": "OWNER / BUSINESS APPROVAL REQUIRED",
+  "fakeProductionFx": false,
+  "crossDimensionTests": {
+    "passed": 32,
+    "total": 32,
+    "status": "PASS"
+  },
+  "relevantNonRegressionTests": {
+    "passed": 104,
+    "total": 104,
+    "suitesPassed": 4,
+    "suitesTotal": 4,
+    "status": "PASS"
+  },
+  "enUsStandaloneWorkstream": "SUSPENDED",
+  "enUsExistingWork": "PRESERVED",
+  "frozenFactoryModified": false,
+  "newLanguagesProductionSelectable": false,
+  "productionModified": false,
+  "previewModified": false,
+  "databaseModified": false,
+  "nextPermittedAction": "GLOBAL PARALLEL BATCH TRANSLATION / LINGUISTIC ADAPTATION"
+}

@@ -1,0 +1,455 @@
+{
+  "matrixVersion": "1.1.0",
+  "generatedAt": "2026-10-06T16:15:00.000Z",
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workstream": "GLOBAL-W1 BATCH MULTI-COUNTRY / MULTI-LANGUAGE / MULTI-CURRENCY FOUNDATION",
+  "monetaryInvariants": {
+    "transactionCurrency": "PHP",
+    "settlementCurrency": "PHP",
+    "paymentAuthority": "IMMUTABLE_PHILIPPINE_PESO",
+    "fxAvailability": "NO_LIVE_FX_UNLESS_APPROVED",
+    "fakeProductionFx": false
+  },
+  "countries": [
+    {
+      "countryName": "Philippines",
+      "countryCode": "PH",
+      "complianceGroup": "Philippines",
+      "defaultCurrency": "PHP",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "United States",
+      "countryCode": "US",
+      "complianceGroup": "United States",
+      "defaultCurrency": "USD",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "United Kingdom",
+      "countryCode": "GB",
+      "complianceGroup": "United Kingdom",
+      "defaultCurrency": "GBP",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Canada",
+      "countryCode": "CA",
+      "complianceGroup": "Canada",
+      "defaultCurrency": "CAD",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Australia",
+      "countryCode": "AU",
+      "complianceGroup": "Australia",
+      "defaultCurrency": "AUD",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Singapore",
+      "countryCode": "SG",
+      "complianceGroup": "Singapore",
+      "defaultCurrency": "SGD",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Malaysia",
+      "countryCode": "MY",
+      "complianceGroup": "Malaysia",
+      "defaultCurrency": "MYR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Indonesia",
+      "countryCode": "ID",
+      "complianceGroup": "Indonesia",
+      "defaultCurrency": "IDR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Vietnam",
+      "countryCode": "VN",
+      "complianceGroup": "Vietnam",
+      "defaultCurrency": "VND",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Japan",
+      "countryCode": "JP",
+      "complianceGroup": "Japan",
+      "defaultCurrency": "JPY",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "South Korea",
+      "countryCode": "KR",
+      "complianceGroup": "South Korea",
+      "defaultCurrency": "KRW",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "India",
+      "countryCode": "IN",
+      "complianceGroup": "India",
+      "defaultCurrency": "INR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "United Arab Emirates",
+      "countryCode": "AE",
+      "complianceGroup": "United Arab Emirates",
+      "defaultCurrency": "AED",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Brazil",
+      "countryCode": "BR",
+      "complianceGroup": "Brazil",
+      "defaultCurrency": "BRL",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Germany",
+      "countryCode": "DE",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "France",
+      "countryCode": "FR",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Italy",
+      "countryCode": "IT",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Spain",
+      "countryCode": "ES",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Netherlands",
+      "countryCode": "NL",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Belgium",
+      "countryCode": "BE",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Austria",
+      "countryCode": "AT",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Ireland",
+      "countryCode": "IE",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Portugal",
+      "countryCode": "PT",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Poland",
+      "countryCode": "PL",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "PLN",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Sweden",
+      "countryCode": "SE",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "SEK",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Denmark",
+      "countryCode": "DK",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "DKK",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Finland",
+      "countryCode": "FI",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Greece",
+      "countryCode": "GR",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Czech Republic",
+      "countryCode": "CZ",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "CZK",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Romania",
+      "countryCode": "RO",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "RON",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Hungary",
+      "countryCode": "HU",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "HUF",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Norway",
+      "countryCode": "NO",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "NOK",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Iceland",
+      "countryCode": "IS",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Luxembourg",
+      "countryCode": "LU",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Bulgaria",
+      "countryCode": "BG",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Croatia",
+      "countryCode": "HR",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Cyprus",
+      "countryCode": "CY",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Estonia",
+      "countryCode": "EE",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Latvia",
+      "countryCode": "LV",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Lithuania",
+      "countryCode": "LT",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Malta",
+      "countryCode": "MT",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Slovakia",
+      "countryCode": "SK",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Slovenia",
+      "countryCode": "SI",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "EUR",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    },
+    {
+      "countryName": "Liechtenstein",
+      "countryCode": "LI",
+      "complianceGroup": "European Union / EEA",
+      "defaultCurrency": "CHF",
+      "supportedDisplayCurrencies": "ALL_23_GLOBAL_CURRENCIES",
+      "transactionCurrencyBehavior": "LOCKED_PHP",
+      "settlementCurrencyBehavior": "LOCKED_PHP",
+      "fxAvailability": "ORIGINAL_CURRENCY_SAFE_FALLBACK"
+    }
+  ]
+}

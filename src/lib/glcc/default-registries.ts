@@ -1,15 +1,20 @@
 /**
- * RENTipid GLCC v1.0 — Default Registry Context
+ * RENTipid GLCC v1.1 — Default Registry Context
  *
- * Provides the baseline registry context conforming to the Architecture Lock:
- * - Currencies: PHP (exponent 2), USD (exponent 2), JPY (exponent 0)
- * - Countries: PH, US, JP
- * - Locales: en-PH, fil-PH, en-US, ja-JP
- * - Fallbacks: fil-PH -> en-PH
+ * Work Package: GLOBAL-W1
+ *
+ * Provides the global registry context conforming to the Architecture Lock:
+ * - Currencies: Full ISO 4217 Global Currency Catalog (23 currencies, including PHP, USD, JPY, EUR, GBP, etc.)
+ * - Countries: Full Global Country Catalog (44 individual country records across 15 compliance jurisdictions/groups)
+ * - Locales: Full Global Language Catalog (25 languages, preserving en-PH, fil-PH, en-US, ja-JP + English reuse + global targets)
+ * - Platform Anchor: en-PH / PH / PHP / PHP (Immutable financial boundary: chargeCurrency is ALWAYS PHP)
  */
 
 import { createInMemoryRegistryContext, type RegistryContext, type LocaleRegistry } from './registry-contracts';
 import type { PlatformDefaultPreference } from './contracts';
+import { GLOBAL_CURRENCY_CATALOG } from './currency/currency-registry';
+import { GLOBAL_COUNTRY_CATALOG } from './country/country-registry';
+import { GLOBAL_LANGUAGE_CATALOG } from './language/language-registry';
 
 export const DEFAULT_PLATFORM_PREFERENCE: PlatformDefaultPreference = Object.freeze({
   languageTag: 'en-PH',
@@ -31,148 +36,10 @@ export function getDefaultRegistryContext(): RegistryContext {
   }
 
   cachedRegistryContext = createInMemoryRegistryContext({
-    currencies: [
-      { code: 'PHP', minorUnitExponent: 2, name: 'Philippine Peso', symbol: '₱', isActive: true },
-      { code: 'USD', minorUnitExponent: 2, name: 'US Dollar', symbol: '$', isActive: true },
-      { code: 'JPY', minorUnitExponent: 0, name: 'Japanese Yen', symbol: '¥', isActive: true },
-    ],
-    countries: [
-      {
-        code: 'PH',
-        countryCode: 'PH',
-        name: 'Philippines',
-        defaultDisplayCurrency: 'PHP',
-        defaultCurrency: 'PHP',
-        allowedDisplayCurrencies: ['PHP', 'USD'],
-        allowedChargeCurrencies: ['PHP'],
-        defaultLanguageTag: 'en-PH',
-        supportedLanguageTags: ['en-PH', 'fil-PH'],
-        defaultTimezone: 'Asia/Manila',
-        timezoneDefault: 'Asia/Manila',
-        unitSystem: 'metric',
-        isActive: true,
-        enabled: true,
-        effectiveFrom: '2026-01-01T00:00:00.000Z',
-        configVersion: '1.0.0',
-        isTestFixture: false, // Production-configured market profile
-      },
-      {
-        code: 'US',
-        countryCode: 'US',
-        name: 'United States',
-        defaultDisplayCurrency: 'USD',
-        defaultCurrency: 'USD',
-        allowedDisplayCurrencies: ['USD'],
-        allowedChargeCurrencies: ['PHP'], // Charge currency remains strictly PHP; no foreign charges
-        defaultLanguageTag: 'en-US',
-        supportedLanguageTags: ['en-US'],
-        defaultTimezone: 'America/New_York',
-        timezoneDefault: 'America/New_York',
-        unitSystem: 'imperial',
-        isActive: true,
-        enabled: true,
-        effectiveFrom: '2026-01-01T00:00:00.000Z',
-        configVersion: '1.0.0',
-        isTestFixture: true, // TEST ONLY — NOT PRODUCTION ENABLED
-      },
-      {
-        code: 'JP',
-        countryCode: 'JP',
-        name: 'Japan',
-        defaultDisplayCurrency: 'JPY',
-        defaultCurrency: 'JPY',
-        allowedDisplayCurrencies: ['JPY', 'USD'],
-        allowedChargeCurrencies: ['PHP'], // Charge currency remains strictly PHP; no foreign charges
-        defaultLanguageTag: 'ja-JP',
-        supportedLanguageTags: ['ja-JP', 'en-US'],
-        defaultTimezone: 'Asia/Tokyo',
-        timezoneDefault: 'Asia/Tokyo',
-        unitSystem: 'metric',
-        isActive: true,
-        enabled: true,
-        effectiveFrom: '2026-01-01T00:00:00.000Z',
-        configVersion: '1.0.0',
-        isTestFixture: true, // TEST ONLY — NOT PRODUCTION ENABLED
-      },
-    ],
-    locales: [
-      {
-        tag: 'en-PH',
-        localeTag: 'en-PH',
-        language: 'en',
-        region: 'PH',
-        direction: 'ltr',
-        name: 'English (Philippines)',
-        englishName: 'English (Philippines)',
-        nativeName: 'English',
-        isActive: true,
-        enabled: true,
-        releaseStatus: 'PRODUCTION_READY',
-        status: 'PRODUCTION_READY',
-        translationVersion: '1.0.1',
-        bundleVersion: '1.0.1',
-        legalTranslationStatus: 'APPROVED',
-      },
-      {
-        tag: 'fil-PH',
-        localeTag: 'fil-PH',
-        language: 'fil',
-        region: 'PH',
-        direction: 'ltr',
-        name: 'Filipino (Philippines)',
-        englishName: 'Filipino (Philippines)',
-        nativeName: 'Wikang Filipino',
-        isActive: true,
-        enabled: true,
-        releaseStatus: 'PRODUCTION_READY',
-        status: 'PRODUCTION_READY',
-        fallbackTag: 'en-PH',
-        fallbackLocale: 'en-PH',
-        translationVersion: '1.0.1',
-        bundleVersion: '1.0.1',
-        legalTranslationStatus: 'REVIEW_REQUIRED',
-      },
-      {
-        tag: 'en-US',
-        localeTag: 'en-US',
-        language: 'en',
-        region: 'US',
-        direction: 'ltr',
-        name: 'English (United States)',
-        englishName: 'English (United States)',
-        nativeName: 'English (US)',
-        isActive: true,
-        enabled: true,
-        releaseStatus: 'TRANSLATION_IN_PROGRESS',
-        status: 'TRANSLATION_IN_PROGRESS',
-        fallbackTag: 'en-PH',
-        fallbackLocale: 'en-PH',
-        translationVersion: '1.0.0',
-        bundleVersion: '1.0.0',
-        legalTranslationStatus: 'NONE',
-      },
-      {
-        tag: 'ja-JP',
-        localeTag: 'ja-JP',
-        language: 'ja',
-        region: 'JP',
-        script: 'Jpan',
-        direction: 'ltr',
-        name: 'Japanese',
-        englishName: 'Japanese',
-        nativeName: '日本語',
-        isActive: true,
-        enabled: true,
-        releaseStatus: 'REGISTERED',
-        status: 'REGISTERED',
-        fallbackTag: 'en-PH',
-        fallbackLocale: 'en-PH',
-        translationVersion: '0.1.0-draft',
-        bundleVersion: '0.1.0-draft',
-        legalTranslationStatus: 'NONE',
-      },
-    ],
-    version: '1.0.0-canonical',
+    currencies: [...GLOBAL_CURRENCY_CATALOG],
+    countries: [...GLOBAL_COUNTRY_CATALOG],
+    locales: [...GLOBAL_LANGUAGE_CATALOG],
+    version: '1.1.0-global-w1',
   });
 
   return cachedRegistryContext;
