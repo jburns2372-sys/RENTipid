@@ -1,17 +1,21 @@
 {
   "matrixVersion": "1.1.0",
-  "generatedAt": "2026-10-06T16:15:00.000Z",
+  "generatedAt": "2026-10-06T16:30:00.000Z",
   "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
-  "workstream": "GLOBAL-W1 BATCH MULTI-COUNTRY / MULTI-LANGUAGE / MULTI-CURRENCY FOUNDATION",
+  "workstream": "GLOBAL-W1 BATCH MULTI-COUNTRY / MULTI-LANGUAGE / MULTI-CURRENCY IMPLEMENTATION",
   "confirmedComplianceJurisdictionsCount": 15,
   "individualCountryCount": 44,
+  "countriesWithoutAppropriateLanguageCoverage": 0,
   "countries": [
     {
       "complianceGroup": "Philippines",
       "countryCode": "PH",
       "countryName": "Philippines",
       "defaultLanguage": "en-PH",
-      "applicableLanguages": ["en-PH", "fil-PH"],
+      "applicableLanguages": [
+        "en-PH",
+        "fil-PH"
+      ],
       "sharedLanguagePackId": "en-PH",
       "regionalOverrideRequirement": "NONE_CANONICAL_ANCHOR",
       "existingLocalizationStatus": "PRODUCTION_READY",
@@ -23,7 +27,10 @@
       "countryCode": "US",
       "countryName": "United States",
       "defaultLanguage": "en-US",
-      "applicableLanguages": ["en-US", "es-ES"],
+      "applicableLanguages": [
+        "en-US",
+        "es-ES"
+      ],
       "sharedLanguagePackId": "en-PH",
       "regionalOverrideRequirement": "US_ORTHOGRAPHY_RESOLVED",
       "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
@@ -35,10 +42,12 @@
       "countryCode": "GB",
       "countryName": "United Kingdom",
       "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB"],
+      "applicableLanguages": [
+        "en-GB"
+      ],
       "sharedLanguagePackId": "en-PH",
       "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "existingLocalizationStatus": "ENGLISH_REUSE_REGISTERED",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -47,10 +56,14 @@
       "countryCode": "CA",
       "countryName": "Canada",
       "defaultLanguage": "en-CA",
-      "applicableLanguages": ["en-CA", "fr-FR"],
+      "applicableLanguages": [
+        "en-CA",
+        "fr-CA",
+        "fr-FR"
+      ],
       "sharedLanguagePackId": "en-PH",
       "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "existingLocalizationStatus": "ENGLISH_REUSE_REGISTERED",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -59,10 +72,12 @@
       "countryCode": "AU",
       "countryName": "Australia",
       "defaultLanguage": "en-AU",
-      "applicableLanguages": ["en-AU"],
+      "applicableLanguages": [
+        "en-AU"
+      ],
       "sharedLanguagePackId": "en-PH",
       "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "existingLocalizationStatus": "ENGLISH_REUSE_REGISTERED",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -71,10 +86,15 @@
       "countryCode": "SG",
       "countryName": "Singapore",
       "defaultLanguage": "en-SG",
-      "applicableLanguages": ["en-SG", "zh-Hans"],
+      "applicableLanguages": [
+        "en-SG",
+        "zh-Hans",
+        "ms-MY",
+        "ta-SG"
+      ],
       "sharedLanguagePackId": "en-PH",
       "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "existingLocalizationStatus": "ENGLISH_REUSE_REGISTERED",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -83,11 +103,14 @@
       "countryCode": "MY",
       "countryName": "Malaysia",
       "defaultLanguage": "ms-MY",
-      "applicableLanguages": ["ms-MY", "en-MY"],
+      "applicableLanguages": [
+        "ms-MY",
+        "en-MY"
+      ],
       "sharedLanguagePackId": "ms-MY",
-      "regionalOverrideRequirement": "NONE",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -95,11 +118,14 @@
       "countryCode": "ID",
       "countryName": "Indonesia",
       "defaultLanguage": "id-ID",
-      "applicableLanguages": ["id-ID", "en-ID"],
+      "applicableLanguages": [
+        "id-ID",
+        "en-ID"
+      ],
       "sharedLanguagePackId": "id-ID",
-      "regionalOverrideRequirement": "NONE",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -107,11 +133,14 @@
       "countryCode": "VN",
       "countryName": "Vietnam",
       "defaultLanguage": "vi-VN",
-      "applicableLanguages": ["vi-VN", "en-PH"],
+      "applicableLanguages": [
+        "vi-VN",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "vi-VN",
-      "regionalOverrideRequirement": "NONE",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -119,11 +148,14 @@
       "countryCode": "JP",
       "countryName": "Japan",
       "defaultLanguage": "ja-JP",
-      "applicableLanguages": ["ja-JP", "en-PH"],
+      "applicableLanguages": [
+        "ja-JP",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "ja-JP",
-      "regionalOverrideRequirement": "NONE",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -131,11 +163,14 @@
       "countryCode": "KR",
       "countryName": "South Korea",
       "defaultLanguage": "ko-KR",
-      "applicableLanguages": ["ko-KR", "en-PH"],
+      "applicableLanguages": [
+        "ko-KR",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "ko-KR",
-      "regionalOverrideRequirement": "NONE",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -143,11 +178,14 @@
       "countryCode": "IN",
       "countryName": "India",
       "defaultLanguage": "hi-IN",
-      "applicableLanguages": ["hi-IN", "en-IN"],
+      "applicableLanguages": [
+        "hi-IN",
+        "en-IN"
+      ],
       "sharedLanguagePackId": "hi-IN",
-      "regionalOverrideRequirement": "NONE",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -155,11 +193,14 @@
       "countryCode": "AE",
       "countryName": "United Arab Emirates",
       "defaultLanguage": "ar-AE",
-      "applicableLanguages": ["ar-AE", "en-PH"],
+      "applicableLanguages": [
+        "ar-AE",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "ar-AE",
-      "regionalOverrideRequirement": "RTL_BIDI_HARDENED",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -167,11 +208,14 @@
       "countryCode": "BR",
       "countryName": "Brazil",
       "defaultLanguage": "pt-BR",
-      "applicableLanguages": ["pt-BR", "en-PH"],
+      "applicableLanguages": [
+        "pt-BR",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "pt-BR",
-      "regionalOverrideRequirement": "NONE",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -179,11 +223,14 @@
       "countryCode": "DE",
       "countryName": "Germany",
       "defaultLanguage": "de-DE",
-      "applicableLanguages": ["de-DE", "en-PH"],
+      "applicableLanguages": [
+        "de-DE",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "de-DE",
-      "regionalOverrideRequirement": "SHARED_EU_GERMAN",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -191,11 +238,14 @@
       "countryCode": "FR",
       "countryName": "France",
       "defaultLanguage": "fr-FR",
-      "applicableLanguages": ["fr-FR", "en-PH"],
+      "applicableLanguages": [
+        "fr-FR",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "fr-FR",
-      "regionalOverrideRequirement": "SHARED_EU_FRENCH",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -203,11 +253,14 @@
       "countryCode": "IT",
       "countryName": "Italy",
       "defaultLanguage": "it-IT",
-      "applicableLanguages": ["it-IT", "en-PH"],
+      "applicableLanguages": [
+        "it-IT",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "it-IT",
-      "regionalOverrideRequirement": "SHARED_EU_ITALIAN",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -215,11 +268,14 @@
       "countryCode": "ES",
       "countryName": "Spain",
       "defaultLanguage": "es-ES",
-      "applicableLanguages": ["es-ES", "en-PH"],
+      "applicableLanguages": [
+        "es-ES",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "es-ES",
-      "regionalOverrideRequirement": "SHARED_EU_SPANISH",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -227,11 +283,14 @@
       "countryCode": "NL",
       "countryName": "Netherlands",
       "defaultLanguage": "nl-NL",
-      "applicableLanguages": ["nl-NL", "en-PH"],
+      "applicableLanguages": [
+        "nl-NL",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "nl-NL",
-      "regionalOverrideRequirement": "SHARED_EU_DUTCH",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -239,11 +298,15 @@
       "countryCode": "BE",
       "countryName": "Belgium",
       "defaultLanguage": "nl-NL",
-      "applicableLanguages": ["nl-NL", "fr-FR", "en-PH"],
+      "applicableLanguages": [
+        "nl-NL",
+        "fr-FR",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "nl-NL",
-      "regionalOverrideRequirement": "SHARED_EU_DUTCH_FRENCH",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -251,11 +314,14 @@
       "countryCode": "AT",
       "countryName": "Austria",
       "defaultLanguage": "de-DE",
-      "applicableLanguages": ["de-DE", "en-PH"],
+      "applicableLanguages": [
+        "de-DE",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "de-DE",
-      "regionalOverrideRequirement": "SHARED_EU_GERMAN",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -263,10 +329,14 @@
       "countryCode": "IE",
       "countryName": "Ireland",
       "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB"],
+      "applicableLanguages": [
+        "en-GB",
+        "ga-IE",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "en-PH",
       "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "existingLocalizationStatus": "ENGLISH_REUSE_REGISTERED",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -274,12 +344,16 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "PT",
       "countryName": "Portugal",
-      "defaultLanguage": "pt-BR",
-      "applicableLanguages": ["pt-BR", "en-PH"],
+      "defaultLanguage": "pt-PT",
+      "applicableLanguages": [
+        "pt-PT",
+        "pt-BR",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "pt-BR",
-      "regionalOverrideRequirement": "SHARED_LUSOPHONE",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "REGIONAL_SHARED_PACK_REUSED",
+      "existingLocalizationStatus": "SHARED_PACK_REGISTERED",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -287,11 +361,14 @@
       "countryCode": "PL",
       "countryName": "Poland",
       "defaultLanguage": "pl-PL",
-      "applicableLanguages": ["pl-PL", "en-PH"],
+      "applicableLanguages": [
+        "pl-PL",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "pl-PL",
-      "regionalOverrideRequirement": "NONE",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
@@ -299,22 +376,29 @@
       "countryCode": "SE",
       "countryName": "Sweden",
       "defaultLanguage": "sv-SE",
-      "applicableLanguages": ["sv-SE", "en-PH"],
+      "applicableLanguages": [
+        "sv-SE",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "sv-SE",
-      "regionalOverrideRequirement": "NONE",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
       "complianceGroup": "European Union / EEA",
       "countryCode": "DK",
       "countryName": "Denmark",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "da-DK",
+      "applicableLanguages": [
+        "da-DK",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "da-DK",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -322,23 +406,31 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "FI",
       "countryName": "Finland",
-      "defaultLanguage": "sv-SE",
-      "applicableLanguages": ["sv-SE", "en-PH"],
-      "sharedLanguagePackId": "sv-SE",
-      "regionalOverrideRequirement": "SHARED_NORDIC",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "defaultLanguage": "fi-FI",
+      "applicableLanguages": [
+        "fi-FI",
+        "sv-SE",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "fi-FI",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
       "complianceGroup": "European Union / EEA",
       "countryCode": "GR",
       "countryName": "Greece",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "el-GR",
+      "applicableLanguages": [
+        "el-GR",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "el-GR",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -346,11 +438,15 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "CZ",
       "countryName": "Czech Republic",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "cs-CZ",
+      "applicableLanguages": [
+        "cs-CZ",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "cs-CZ",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -358,11 +454,15 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "RO",
       "countryName": "Romania",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "ro-RO",
+      "applicableLanguages": [
+        "ro-RO",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "ro-RO",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -370,11 +470,15 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "HU",
       "countryName": "Hungary",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "hu-HU",
+      "applicableLanguages": [
+        "hu-HU",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "hu-HU",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -382,11 +486,15 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "NO",
       "countryName": "Norway",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "nb-NO",
+      "applicableLanguages": [
+        "nb-NO",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "nb-NO",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -394,11 +502,15 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "IS",
       "countryName": "Iceland",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "is-IS",
+      "applicableLanguages": [
+        "is-IS",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "is-IS",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -407,22 +519,30 @@
       "countryCode": "LU",
       "countryName": "Luxembourg",
       "defaultLanguage": "fr-FR",
-      "applicableLanguages": ["fr-FR", "de-DE", "en-PH"],
+      "applicableLanguages": [
+        "fr-FR",
+        "de-DE",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "fr-FR",
-      "regionalOverrideRequirement": "SHARED_EU_FRENCH_GERMAN",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     },
     {
       "complianceGroup": "European Union / EEA",
       "countryCode": "BG",
       "countryName": "Bulgaria",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "bg-BG",
+      "applicableLanguages": [
+        "bg-BG",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "bg-BG",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -430,11 +550,15 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "HR",
       "countryName": "Croatia",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "hr-HR",
+      "applicableLanguages": [
+        "hr-HR",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "hr-HR",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -442,11 +566,15 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "CY",
       "countryName": "Cyprus",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "el-GR",
+      "applicableLanguages": [
+        "el-GR",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "el-GR",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -454,11 +582,15 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "EE",
       "countryName": "Estonia",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "et-EE",
+      "applicableLanguages": [
+        "et-EE",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "et-EE",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -466,11 +598,15 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "LV",
       "countryName": "Latvia",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "lv-LV",
+      "applicableLanguages": [
+        "lv-LV",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "lv-LV",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -478,11 +614,15 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "LT",
       "countryName": "Lithuania",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "lt-LT",
+      "applicableLanguages": [
+        "lt-LT",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "lt-LT",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -491,10 +631,14 @@
       "countryCode": "MT",
       "countryName": "Malta",
       "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
+      "applicableLanguages": [
+        "en-GB",
+        "mt-MT",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "en-PH",
       "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "existingLocalizationStatus": "ENGLISH_REUSE_REGISTERED",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -502,11 +646,15 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "SK",
       "countryName": "Slovakia",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "sk-SK",
+      "applicableLanguages": [
+        "sk-SK",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "sk-SK",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -514,11 +662,15 @@
       "complianceGroup": "European Union / EEA",
       "countryCode": "SI",
       "countryName": "Slovenia",
-      "defaultLanguage": "en-GB",
-      "applicableLanguages": ["en-GB", "en-PH"],
-      "sharedLanguagePackId": "en-PH",
-      "regionalOverrideRequirement": "ENGLISH_BASELINE_REUSED",
-      "existingLocalizationStatus": "REGISTERED",
+      "defaultLanguage": "sl-SI",
+      "applicableLanguages": [
+        "sl-SI",
+        "en-GB",
+        "en-PH"
+      ],
+      "sharedLanguagePackId": "sl-SI",
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
       "newTranslationRequired": false,
       "productionSelectable": false
     },
@@ -527,11 +679,14 @@
       "countryCode": "LI",
       "countryName": "Liechtenstein",
       "defaultLanguage": "de-DE",
-      "applicableLanguages": ["de-DE", "en-PH"],
+      "applicableLanguages": [
+        "de-DE",
+        "en-PH"
+      ],
       "sharedLanguagePackId": "de-DE",
-      "regionalOverrideRequirement": "SHARED_EU_GERMAN",
-      "existingLocalizationStatus": "WORK_PACKAGE_EXPORTED",
-      "newTranslationRequired": true,
+      "regionalOverrideRequirement": "NONE_FULL_PACKAGE",
+      "existingLocalizationStatus": "TRANSLATION_100_PERCENT_LEGAL_REVIEW_PENDING",
+      "newTranslationRequired": false,
       "productionSelectable": false
     }
   ]
