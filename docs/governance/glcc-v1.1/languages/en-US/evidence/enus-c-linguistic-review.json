@@ -1,0 +1,73 @@
+{
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "governingFactory": "P12 / v1.1 GLOBAL EXPANSION FACTORY (COMPLETE — ACCEPTED — CLOSED — FROZEN)",
+  "languageWorkstream": "en-US",
+  "stage": "ENUS-C",
+  "evidenceType": "LINGUISTIC_REVIEW_AND_CLASSIFICATION_RESOLUTION",
+  "timestamp": "2026-10-06T15:20:00+08:00",
+  "targetLocale": "en-US",
+  "sourceLocale": "en-PH",
+  "canonicalKeyCount": 2208,
+  "completedTargetEntries": 2208,
+  "coveragePercentage": "100.0%",
+  "identicalReviewedCount": 2205,
+  "regionallyAdaptedCount": 3,
+  "regionallyAdaptedSamples": [
+    {
+      "key": "admin.refundsAreOnlyEligible",
+      "sourceText": "Refunds are only eligible if the booking status is `Cancelled by Provider`, `Cancelled by Renter` (prior to start), or `Rejected`. Ensure that the amount requested does not exceed the total paid.",
+      "targetText": "Refunds are only eligible if the booking status is `Canceled by Provider`, `Canceled by Renter` (prior to start), or `Rejected`. Ensure that the amount requested does not exceed the total paid."
+    },
+    {
+      "key": "legalCompliance.noPoliciesFoundIn",
+      "sourceText": "No policies found in the catalogue.",
+      "targetText": "No policies found in the catalog."
+    },
+    {
+      "key": "legalCompliance.policyCatalogue",
+      "sourceText": "Policy Catalogue",
+      "targetText": "Policy Catalog"
+    }
+  ],
+  "classificationResolution": {
+    "initialReviewRequiredCount": 208,
+    "resolvedCount": 208,
+    "unresolvedRemaining": 0,
+    "finalClassCounts": {
+      "CLASS_A_STANDARD_UI": 1273,
+      "CLASS_B_SYSTEM_TRANSACTIONAL": 347,
+      "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE": 241,
+      "CLASS_D_USER_GENERATED_BOUNDARY": 0,
+      "CLASS_E_AI_GENERATED_BOUNDARY": 347,
+      "CLASSIFICATION_REVIEW_REQUIRED": 0,
+      "totalReconciled": 2208
+    }
+  },
+  "placeholderVerification": {
+    "sourceMessagesWithPlaceholders": 43,
+    "targetMessagesWithPlaceholders": 43,
+    "missingPlaceholders": 0,
+    "renamedPlaceholders": 0,
+    "placeholderMismatchCount": 0,
+    "status": "PASS"
+  },
+  "formatAndUnicodeVerification": {
+    "formatErrors": 0,
+    "malformedIcuCount": 0,
+    "unicodeReplacementCharCount": 0,
+    "duplicateKeys": 0,
+    "unknownExtraKeys": 0,
+    "status": "PASS"
+  },
+  "classCHandoffState": {
+    "totalClassCEntries": 241,
+    "targetWordingCompleted": true,
+    "linguisticReviewPassed": true,
+    "legalApprovalStatus": "PENDING",
+    "legalApprovalReference": null,
+    "authorityPromoted": false,
+    "status": "PENDING_ENUS_D_APPROVAL"
+  },
+  "linguisticReviewStatus": "PASS",
+  "workflowHandoffState": "COMPLIANCE_REVIEW"
+}
