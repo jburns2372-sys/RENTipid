@@ -1,0 +1,951 @@
+{
+  "version": "1.0.0",
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "action": "GLOBAL-W1-H Batch Preview Activation & Acceptance",
+  "generatedAt": "2026-10-06T11:03:47.056Z",
+  "previewDeployment": {
+    "deploymentId": "dpl_CgW7qDegPhmQXN34s2aPmymGfUtS",
+    "previewUrl": "https://preview.rentipid.com.ph",
+    "deployedGitSha": "5758790f85dbcbb95a00b4017e7f41931fcfb776",
+    "environment": "Preview",
+    "status": "READY",
+    "health": "PASS",
+    "database": "rentipid_preview (connected)"
+  },
+  "summary": {
+    "previewFullLocalesTested": 32,
+    "previewFullLocalesPass": 32,
+    "previewFullLocalesFail": 0,
+    "previewAliasesTested": 12,
+    "previewAliasFailures": 0,
+    "previewArabicRtl": "PASS",
+    "previewRtlBlockingDefects": 0,
+    "previewCriticalSurfacesTested": 14,
+    "previewBlockingSurfaceFailures": 0,
+    "previewRawKeyOccurrences": 0,
+    "previewRequiredFallbackOccurrences": 0,
+    "previewEmptyRequiredStrings": 0,
+    "previewPlaceholderFailures": 0,
+    "previewCurrenciesTested": 23,
+    "previewCurrencyFailures": 0,
+    "previewFxContract": "PASS",
+    "previewFxSafeFailure": "PASS",
+    "previewCountryLanguageIndependence": "PASS",
+    "previewCountryCurrencyIndependence": "PASS",
+    "previewLanguageCurrencyIndependence": "PASS",
+    "previewDisplayTransactionSeparation": "PASS",
+    "previewDisplaySettlementSeparation": "PASS",
+    "previewCountrySelector": "PASS",
+    "previewLanguageSelector": "PASS",
+    "previewCurrencySelector": "PASS",
+    "previewPreferencePersistence": "PASS",
+    "previewAuthRbac": "PASS",
+    "blockingPreviewDefects": 0,
+    "previewReleaseState": "PREVIEW_ACCEPTED",
+    "newLanguagesProductionSelectable": "NO",
+    "productionDeploymentTriggered": "NO",
+    "productionShaChanged": "NO",
+    "productionLanguageGateChanged": "NO",
+    "productionDatabaseModified": "NO",
+    "frozenFactoryModified": "NO"
+  },
+  "fullLocales": [
+    {
+      "locale": "ar-AE",
+      "languageName": "Arabic (United Arab Emirates)",
+      "nativeName": "العربية",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "rtl",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "bg-BG",
+      "languageName": "Bulgarian",
+      "nativeName": "Български",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "cs-CZ",
+      "languageName": "Czech",
+      "nativeName": "Čeština",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "da-DK",
+      "languageName": "Danish",
+      "nativeName": "Dansk",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "de-DE",
+      "languageName": "German",
+      "nativeName": "Deutsch",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "el-GR",
+      "languageName": "Greek",
+      "nativeName": "Ελληνικά",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "en-US",
+      "languageName": "English (United States)",
+      "nativeName": "English (US)",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "es-ES",
+      "languageName": "Spanish",
+      "nativeName": "Español",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "et-EE",
+      "languageName": "Estonian",
+      "nativeName": "Eesti",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "fi-FI",
+      "languageName": "Finnish",
+      "nativeName": "Suomi",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "fr-FR",
+      "languageName": "French",
+      "nativeName": "Français",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "hi-IN",
+      "languageName": "Hindi",
+      "nativeName": "हिन्दी",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "hr-HR",
+      "languageName": "Croatian",
+      "nativeName": "Hrvatski",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "hu-HU",
+      "languageName": "Hungarian",
+      "nativeName": "Magyar",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "id-ID",
+      "languageName": "Indonesian",
+      "nativeName": "Bahasa Indonesia",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "is-IS",
+      "languageName": "Icelandic",
+      "nativeName": "Íslenska",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "it-IT",
+      "languageName": "Italian",
+      "nativeName": "Italiano",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "ja-JP",
+      "languageName": "Japanese",
+      "nativeName": "日本語",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "ko-KR",
+      "languageName": "Korean",
+      "nativeName": "한국어",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "lt-LT",
+      "languageName": "Lithuanian",
+      "nativeName": "Lietuvių",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "lv-LV",
+      "languageName": "Latvian",
+      "nativeName": "Latviešu",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "ms-MY",
+      "languageName": "Malay",
+      "nativeName": "Bahasa Melayu",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "nb-NO",
+      "languageName": "Norwegian Bokmål",
+      "nativeName": "Norsk bokmål",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "nl-NL",
+      "languageName": "Dutch",
+      "nativeName": "Nederlands",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "pl-PL",
+      "languageName": "Polish",
+      "nativeName": "Polski",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "pt-BR",
+      "languageName": "Portuguese (Brazil)",
+      "nativeName": "Português",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "ro-RO",
+      "languageName": "Romanian",
+      "nativeName": "Română",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "sk-SK",
+      "languageName": "Slovak",
+      "nativeName": "Slovenčina",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "sl-SI",
+      "languageName": "Slovenian",
+      "nativeName": "Slovenščina",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "sv-SE",
+      "languageName": "Swedish",
+      "nativeName": "Svenska",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "vi-VN",
+      "languageName": "Vietnamese",
+      "nativeName": "Tiếng Việt",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "locale": "zh-Hans",
+      "languageName": "Simplified Chinese",
+      "nativeName": "简体中文",
+      "canonicalCount": 2208,
+      "coverage": "100%",
+      "previewSelectable": true,
+      "productionSelectable": false,
+      "rawKeys": 0,
+      "fallbacks": 0,
+      "placeholders": "PASS",
+      "direction": "ltr",
+      "status": "PREVIEW_ACCEPTED"
+    }
+  ],
+  "aliases": [
+    {
+      "alias": "en-GB",
+      "name": "English (United Kingdom)",
+      "targetBase": "en-PH",
+      "baseResolves": true,
+      "circular": false,
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "alias": "en-CA",
+      "name": "English (Canada)",
+      "targetBase": "en-PH",
+      "baseResolves": true,
+      "circular": false,
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "alias": "en-AU",
+      "name": "English (Australia)",
+      "targetBase": "en-PH",
+      "baseResolves": true,
+      "circular": false,
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "alias": "en-SG",
+      "name": "English (Singapore)",
+      "targetBase": "en-PH",
+      "baseResolves": true,
+      "circular": false,
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "alias": "en-IN",
+      "name": "English (India)",
+      "targetBase": "en-PH",
+      "baseResolves": true,
+      "circular": false,
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "alias": "en-MY",
+      "name": "English (Malaysia)",
+      "targetBase": "en-PH",
+      "baseResolves": true,
+      "circular": false,
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "alias": "en-ID",
+      "name": "English (Indonesia)",
+      "targetBase": "en-PH",
+      "baseResolves": true,
+      "circular": false,
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "alias": "pt-PT",
+      "name": "Portuguese (Portugal)",
+      "targetBase": "pt-BR",
+      "baseResolves": true,
+      "circular": false,
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "alias": "fr-CA",
+      "name": "French (Canada)",
+      "targetBase": "fr-FR",
+      "baseResolves": true,
+      "circular": false,
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "alias": "ga-IE",
+      "name": "Irish",
+      "targetBase": "en-GB",
+      "baseResolves": true,
+      "circular": false,
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "alias": "mt-MT",
+      "name": "Maltese",
+      "targetBase": "en-GB",
+      "baseResolves": true,
+      "circular": false,
+      "status": "PREVIEW_ACCEPTED"
+    },
+    {
+      "alias": "ta-SG",
+      "name": "Tamil (Singapore)",
+      "targetBase": "en-SG",
+      "baseResolves": true,
+      "circular": false,
+      "status": "PREVIEW_ACCEPTED"
+    }
+  ],
+  "currencies": [
+    {
+      "code": "PHP",
+      "name": "Philippine Peso",
+      "symbol": "₱",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "USD",
+      "name": "US Dollar",
+      "symbol": "$",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "GBP",
+      "name": "British Pound",
+      "symbol": "£",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "EUR",
+      "name": "Euro",
+      "symbol": "€",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "CAD",
+      "name": "Canadian Dollar",
+      "symbol": "CA$",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "AUD",
+      "name": "Australian Dollar",
+      "symbol": "A$",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "SGD",
+      "name": "Singapore Dollar",
+      "symbol": "S$",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "MYR",
+      "name": "Malaysian Ringgit",
+      "symbol": "RM",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "IDR",
+      "name": "Indonesian Rupiah",
+      "symbol": "Rp",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "VND",
+      "name": "Vietnamese Dong",
+      "symbol": "₫",
+      "exponent": 0,
+      "status": "PASS"
+    },
+    {
+      "code": "JPY",
+      "name": "Japanese Yen",
+      "symbol": "¥",
+      "exponent": 0,
+      "status": "PASS"
+    },
+    {
+      "code": "KRW",
+      "name": "South Korean Won",
+      "symbol": "₩",
+      "exponent": 0,
+      "status": "PASS"
+    },
+    {
+      "code": "INR",
+      "name": "Indian Rupee",
+      "symbol": "₹",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "AED",
+      "name": "UAE Dirham",
+      "symbol": "د.إ",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "BRL",
+      "name": "Brazilian Real",
+      "symbol": "R$",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "PLN",
+      "name": "Polish Zloty",
+      "symbol": "zł",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "SEK",
+      "name": "Swedish Krona",
+      "symbol": "kr",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "DKK",
+      "name": "Danish Krone",
+      "symbol": "kr",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "NOK",
+      "name": "Norwegian Krone",
+      "symbol": "kr",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "CZK",
+      "name": "Czech Koruna",
+      "symbol": "Kč",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "HUF",
+      "name": "Hungarian Forint",
+      "symbol": "Ft",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "RON",
+      "name": "Romanian Leu",
+      "symbol": "lei",
+      "exponent": 2,
+      "status": "PASS"
+    },
+    {
+      "code": "CHF",
+      "name": "Swiss Franc",
+      "symbol": "CHF",
+      "exponent": 2,
+      "status": "PASS"
+    }
+  ],
+  "criticalSurfaces": [
+    {
+      "name": "Home / Landing",
+      "sampleKey": "common.save",
+      "route": "/"
+    },
+    {
+      "name": "Navigation / Header",
+      "sampleKey": "navigation.dashboard",
+      "route": "/dashboard"
+    },
+    {
+      "name": "Login",
+      "sampleKey": "auth.termsOfService",
+      "route": "/login"
+    },
+    {
+      "name": "Registration",
+      "sampleKey": "auth.signUp",
+      "route": "/register"
+    },
+    {
+      "name": "Account / Preferences",
+      "sampleKey": "account.activeSessions",
+      "route": "/account"
+    },
+    {
+      "name": "Search / Discovery",
+      "sampleKey": "search.filters",
+      "route": "/browse"
+    },
+    {
+      "name": "Listing Display",
+      "sampleKey": "listing.details",
+      "route": "/listing/sample"
+    },
+    {
+      "name": "Listing Creation / Wizard",
+      "sampleKey": "listingWizard.declarationBody",
+      "route": "/listing/create"
+    },
+    {
+      "name": "Booking / Request",
+      "sampleKey": "booking.agreementDisclosure",
+      "route": "/checkout"
+    },
+    {
+      "name": "Checkout / Payment Messaging",
+      "sampleKey": "fx.checkout.chargeNotice",
+      "route": "/checkout"
+    },
+    {
+      "name": "Trust & Safety",
+      "sampleKey": "trustSafety.neverPayOutsideThe",
+      "route": "/safety"
+    },
+    {
+      "name": "Global Legal Compliance",
+      "sampleKey": "legalCompliance.paymentsAreHeldIn",
+      "route": "/terms"
+    },
+    {
+      "name": "Validation / Errors",
+      "sampleKey": "validation.requiredField",
+      "route": "/unauthorized"
+    },
+    {
+      "name": "Protected / Admin Redirect",
+      "sampleKey": "admin.jurisdiction",
+      "route": "/dashboard/admin"
+    }
+  ],
+  "dimensionSmokeCases": [
+    {
+      "name": "Philippines + Filipino + PHP",
+      "country": "PH",
+      "lang": "fil-PH",
+      "cur": "PHP"
+    },
+    {
+      "name": "Philippines + English + USD display",
+      "country": "PH",
+      "lang": "en-PH",
+      "cur": "USD"
+    },
+    {
+      "name": "Philippines + Japanese + JPY display",
+      "country": "PH",
+      "lang": "ja-JP",
+      "cur": "JPY"
+    },
+    {
+      "name": "United States + English + USD",
+      "country": "US",
+      "lang": "en-US",
+      "cur": "USD"
+    },
+    {
+      "name": "United States + Spanish + USD",
+      "country": "US",
+      "lang": "es-ES",
+      "cur": "USD"
+    },
+    {
+      "name": "Canada + French + CAD",
+      "country": "CA",
+      "lang": "fr-CA",
+      "cur": "CAD"
+    },
+    {
+      "name": "United Kingdom + English + GBP",
+      "country": "GB",
+      "lang": "en-GB",
+      "cur": "GBP"
+    },
+    {
+      "name": "Germany + German + EUR",
+      "country": "DE",
+      "lang": "de-DE",
+      "cur": "EUR"
+    },
+    {
+      "name": "Singapore + English + SGD",
+      "country": "SG",
+      "lang": "en-SG",
+      "cur": "SGD"
+    },
+    {
+      "name": "Singapore + Chinese + SGD",
+      "country": "SG",
+      "lang": "zh-Hans",
+      "cur": "SGD"
+    },
+    {
+      "name": "Malaysia + Malay + MYR",
+      "country": "MY",
+      "lang": "ms-MY",
+      "cur": "MYR"
+    },
+    {
+      "name": "Indonesia + Indonesian + IDR",
+      "country": "ID",
+      "lang": "id-ID",
+      "cur": "IDR"
+    },
+    {
+      "name": "Vietnam + Vietnamese + VND",
+      "country": "VN",
+      "lang": "vi-VN",
+      "cur": "VND"
+    },
+    {
+      "name": "Japan + Japanese + JPY",
+      "country": "JP",
+      "lang": "ja-JP",
+      "cur": "JPY"
+    },
+    {
+      "name": "Japan + English + JPY",
+      "country": "JP",
+      "lang": "en-PH",
+      "cur": "JPY"
+    },
+    {
+      "name": "South Korea + Korean + KRW",
+      "country": "KR",
+      "lang": "ko-KR",
+      "cur": "KRW"
+    },
+    {
+      "name": "India + Hindi + INR",
+      "country": "IN",
+      "lang": "hi-IN",
+      "cur": "INR"
+    },
+    {
+      "name": "UAE + Arabic + AED",
+      "country": "AE",
+      "lang": "ar-AE",
+      "cur": "AED"
+    },
+    {
+      "name": "Brazil + Portuguese + BRL",
+      "country": "BR",
+      "lang": "pt-BR",
+      "cur": "BRL"
+    }
+  ]
+}
