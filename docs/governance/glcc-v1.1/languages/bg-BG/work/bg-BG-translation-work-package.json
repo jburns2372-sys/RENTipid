@@ -2683,7 +2683,7 @@
     "admin.jurisdiction": {
       "key": "admin.jurisdiction",
       "sourceText": "Jurisdiction",
-      "targetText": "Jurisdiction",
+      "targetText": "Юрисдикция",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4066,7 +4066,7 @@
     "admin.privacyAdministrationDashboard": {
       "key": "admin.privacyAdministrationDashboard",
       "sourceText": "Privacy Administration Dashboard",
-      "targetText": "Privacy Administration Dashboard",
+      "targetText": "Табло за администрация на поверителността",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4084,7 +4084,7 @@
     "admin.privacyOperationsCenter": {
       "key": "admin.privacyOperationsCenter",
       "sourceText": "Privacy Operations Center",
-      "targetText": "Privacy Operations Center",
+      "targetText": "Център за операции по поверителност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4102,7 +4102,7 @@
     "admin.privacyPolicyManagement": {
       "key": "admin.privacyPolicyManagement",
       "sourceText": "Privacy Policy Management",
-      "targetText": "Политика за поверителност Management",
+      "targetText": "Управление на политики за поверителност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4120,7 +4120,7 @@
     "admin.privacyRegistriesMatrices": {
       "key": "admin.privacyRegistriesMatrices",
       "sourceText": "Privacy Registries & Matrices",
-      "targetText": "Privacy Registries & Matrices",
+      "targetText": "Регистри и матрици за поверителност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10848,7 +10848,7 @@
     "documentUploader.types.businessPermit": {
       "key": "documentUploader.types.businessPermit",
       "sourceText": "Business Permit",
-      "targetText": "Business Permit",
+      "targetText": "Търговско разрешително",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10866,7 +10866,7 @@
     "documentUploader.types.insurancePolicy": {
       "key": "documentUploader.types.insurancePolicy",
       "sourceText": "Insurance Policy",
-      "targetText": "Insurance Policy",
+      "targetText": "Застрахователна полица",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10884,7 +10884,7 @@
     "documentUploader.types.proofOfOwnership": {
       "key": "documentUploader.types.proofOfOwnership",
       "sourceText": "Proof of Ownership",
-      "targetText": "Proof of Ownership",
+      "targetText": "Доказателство за собственост",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10902,7 +10902,7 @@
     "documentUploader.types.safetyCertificate": {
       "key": "documentUploader.types.safetyCertificate",
       "sourceText": "Safety Certificate",
-      "targetText": "Safety Certificate",
+      "targetText": "Сертификат за безопасност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10920,7 +10920,7 @@
     "documentUploader.types.vehicleRegistration": {
       "key": "documentUploader.types.vehicleRegistration",
       "sourceText": "Vehicle Registration (OR/CR)",
-      "targetText": "Vehicle Registration (OR/CR)",
+      "targetText": "Регистрация на превозно средство (OR/CR)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11092,7 +11092,7 @@
     "footer.ip": {
       "key": "footer.ip",
       "sourceText": "Intellectual Property",
-      "targetText": "Intellectual Property",
+      "targetText": "Интелектуална собственост",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11110,7 +11110,7 @@
     "footer.legalCompliance": {
       "key": "footer.legalCompliance",
       "sourceText": "Global Legal Compliance",
-      "targetText": "Global Legal Compliance",
+      "targetText": "Глобално правно съответствие",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11143,7 +11143,7 @@
     "footer.privacy": {
       "key": "footer.privacy",
       "sourceText": "Privacy",
-      "targetText": "Политика За Поверителност",
+      "targetText": "Поверителност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11161,7 +11161,7 @@
     "footer.prohibitedItems": {
       "key": "footer.prohibitedItems",
       "sourceText": "Prohibited Items",
-      "targetText": "Prohibited Items",
+      "targetText": "Забранени артикули",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11179,7 +11179,7 @@
     "footer.reportIllegal": {
       "key": "footer.reportIllegal",
       "sourceText": "Report Illegal Activity",
-      "targetText": "Report Illegal Activity",
+      "targetText": "Докладване на незаконна дейност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11197,7 +11197,7 @@
     "footer.safety": {
       "key": "footer.safety",
       "sourceText": "Consumer Protection & Safety",
-      "targetText": "Consumer Protection & Safety",
+      "targetText": "Защита на потребителите и безопасност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11245,7 +11245,7 @@
     "footer.terms": {
       "key": "footer.terms",
       "sourceText": "Terms",
-      "targetText": "Условия За Ползване",
+      "targetText": "Условия",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11263,7 +11263,7 @@
     "footer.trustAndLegal": {
       "key": "footer.trustAndLegal",
       "sourceText": "Trust & Legal",
-      "targetText": "Trust & Legal",
+      "targetText": "Доверие и правни въпроси",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11281,7 +11281,7 @@
     "fx.checkout.chargeNotice": {
       "key": "fx.checkout.chargeNotice",
       "sourceText": "You will be charged in PHP (Philippine Peso).",
-      "targetText": "You will be charged in PHP (Philippine Peso).",
+      "targetText": "Ще бъдете таксувани в PHP (филипинско песо).",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11299,7 +11299,7 @@
     "fx.checkout.disclosureTitle": {
       "key": "fx.checkout.disclosureTitle",
       "sourceText": "Currency & Payment Disclosure",
-      "targetText": "Currency & Payment Disclosure",
+      "targetText": "Информация за валути и плащания",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11869,7 +11869,7 @@
     "globalPreferences.previewNotice": {
       "key": "globalPreferences.previewNotice",
       "sourceText": "Preview formatting only. Display currency may differ from the currency used for payment. The exact charge amount and currency will be shown before confirmation.",
-      "targetText": "Preview formatting only. Display currency may differ from the currency used for payment. The exact charge amount and currency will be shown before confirmation.",
+      "targetText": "Само форматиране за визуализация. Валутата на показване може да се различава от използваната за плащане. Точната сума на таксата и валутата ще бъдат показани преди потвърждението.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12241,7 +12241,7 @@
     "helpCenter.privacyDataProtection": {
       "key": "helpCenter.privacyDataProtection",
       "sourceText": "Privacy & Data Protection",
-      "targetText": "Privacy & Data Protection",
+      "targetText": "Поверителност и защита на данните",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12604,7 +12604,7 @@
     "kyc.accountVerificationKyc": {
       "key": "kyc.accountVerificationKyc",
       "sourceText": "Account Verification (KYC)",
-      "targetText": "Account Verification (KYC)",
+      "targetText": "Потвърждаване на акаунта (KYC)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12622,7 +12622,7 @@
     "kyc.businessPermitRegistration": {
       "key": "kyc.businessPermitRegistration",
       "sourceText": "Business Permit / Registration",
-      "targetText": "Business Permit / Registration",
+      "targetText": "Търговско разрешително / Регистрация",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12640,7 +12640,7 @@
     "kyc.documentType": {
       "key": "kyc.documentType",
       "sourceText": "Document Type",
-      "targetText": "Document Type",
+      "targetText": "Тип документ",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12658,7 +12658,7 @@
     "kyc.file": {
       "key": "kyc.file",
       "sourceText": "File",
-      "targetText": "File",
+      "targetText": "Файл",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12676,7 +12676,7 @@
     "kyc.maxSize5mbFormats": {
       "key": "kyc.maxSize5mbFormats",
       "sourceText": "Max size: 5MB. Formats: PDF, JPG, PNG, WEBP.",
-      "targetText": "Max size: 5MB. Formats: PDF, JPG, PNG, WEBP.",
+      "targetText": "Максимален размер: 5 MB. Формати: PDF, JPG, PNG, WEBP.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12694,7 +12694,7 @@
     "kyc.myUploadedDocuments": {
       "key": "kyc.myUploadedDocuments",
       "sourceText": "My Uploaded Documents",
-      "targetText": "My Uploaded Documents",
+      "targetText": "Моите качени документи",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12712,7 +12712,7 @@
     "kyc.noDocumentsUploadedYet": {
       "key": "kyc.noDocumentsUploadedYet",
       "sourceText": "No documents uploaded yet.",
-      "targetText": "No documents uploaded yet.",
+      "targetText": "Все още няма качени документи.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12730,7 +12730,7 @@
     "kyc.proofOfAddress": {
       "key": "kyc.proofOfAddress",
       "sourceText": "Proof of Address",
-      "targetText": "Proof of Address",
+      "targetText": "Доказателство за адрес",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12748,7 +12748,7 @@
     "kyc.proofOfOwnershipAuthorization": {
       "key": "kyc.proofOfOwnershipAuthorization",
       "sourceText": "Proof of Ownership / Authorization",
-      "targetText": "Proof of Ownership / Authorization",
+      "targetText": "Доказателство за собственост / Упълномощаване",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12766,7 +12766,7 @@
     "kyc.requiredDocuments": {
       "key": "kyc.requiredDocuments",
       "sourceText": "Required Documents",
-      "targetText": "Required Documents",
+      "targetText": "Изисквани документи",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12784,7 +12784,7 @@
     "kyc.selectDocumentType": {
       "key": "kyc.selectDocumentType",
       "sourceText": "Select document type...",
-      "targetText": "Select document type...",
+      "targetText": "Изберете тип документ...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12802,7 +12802,7 @@
     "kyc.selfieVerification": {
       "key": "kyc.selfieVerification",
       "sourceText": "Selfie Verification",
-      "targetText": "Selfie Verification",
+      "targetText": "Потвърждение със селфи",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12820,7 +12820,7 @@
     "kyc.submitRequiredDocumentsTo": {
       "key": "kyc.submitRequiredDocumentsTo",
       "sourceText": "Submit required documents to unlock full platform features.",
-      "targetText": "Submit required documents to unlock full platform features.",
+      "targetText": "Подайте изискваните документи, за да отключите пълните функции на платформата.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12838,7 +12838,7 @@
     "kyc.uploadDocument": {
       "key": "kyc.uploadDocument",
       "sourceText": "Upload Document",
-      "targetText": "Upload Document",
+      "targetText": "Качване на документ",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12856,7 +12856,7 @@
     "kyc.validGovernmentId": {
       "key": "kyc.validGovernmentId",
       "sourceText": "Valid Government ID",
-      "targetText": "Valid Government ID",
+      "targetText": "Валиден документ за самоличност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13018,7 +13018,7 @@
     "legalCompliance.activePolicies": {
       "key": "legalCompliance.activePolicies",
       "sourceText": "Active Policies",
-      "targetText": "Active Policies",
+      "targetText": "Активни политики",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13036,7 +13036,7 @@
     "legalCompliance.adminView": {
       "key": "legalCompliance.adminView",
       "sourceText": "Admin View",
-      "targetText": "Admin View",
+      "targetText": "Изглед за администратор",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13054,7 +13054,7 @@
     "legalCompliance.all": {
       "key": "legalCompliance.all",
       "sourceText": "All",
-      "targetText": "All",
+      "targetText": "Всички",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13072,7 +13072,7 @@
     "legalCompliance.allPolicies": {
       "key": "legalCompliance.allPolicies",
       "sourceText": "All Policies",
-      "targetText": "Всички правила",
+      "targetText": "Всички политики",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13144,7 +13144,7 @@
     "legalCompliance.analyticsCookies": {
       "key": "legalCompliance.analyticsCookies",
       "sourceText": "Analytics Cookies",
-      "targetText": "Анализи Cookies",
+      "targetText": "Бисквитки за анализ",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13162,7 +13162,7 @@
     "legalCompliance.appealDetails": {
       "key": "legalCompliance.appealDetails",
       "sourceText": "Appeal Details",
-      "targetText": "Appeal Details",
+      "targetText": "Подробности за обжалването",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13180,7 +13180,7 @@
     "legalCompliance.appealId": {
       "key": "legalCompliance.appealId",
       "sourceText": "Appeal ID",
-      "targetText": "Appeal ID",
+      "targetText": "ID на обжалването",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13198,7 +13198,7 @@
     "legalCompliance.appealReason": {
       "key": "legalCompliance.appealReason",
       "sourceText": "Appeal Reason",
-      "targetText": "Appeal Reason",
+      "targetText": "Причина за обжалване",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13216,7 +13216,7 @@
     "legalCompliance.appealsQueue": {
       "key": "legalCompliance.appealsQueue",
       "sourceText": "Appeals Queue",
-      "targetText": "Appeals Queue",
+      "targetText": "Опашка за обжалвания",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13234,7 +13234,7 @@
     "legalCompliance.appellant": {
       "key": "legalCompliance.appellant",
       "sourceText": "Appellant",
-      "targetText": "Appellant",
+      "targetText": "Жалбоподател",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13252,7 +13252,7 @@
     "legalCompliance.appellantId": {
       "key": "legalCompliance.appellantId",
       "sourceText": "Appellant ID",
-      "targetText": "Appellant ID",
+      "targetText": "ID на жалбоподателя",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13288,7 +13288,7 @@
     "legalCompliance.attachedDocuments": {
       "key": "legalCompliance.attachedDocuments",
       "sourceText": "Attached Documents",
-      "targetText": "Attached Documents",
+      "targetText": "Прикачени документи",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13306,7 +13306,7 @@
     "legalCompliance.auditTrailNotesNot": {
       "key": "legalCompliance.auditTrailNotesNot",
       "sourceText": "Audit trail notes... (not visible to user)",
-      "targetText": "Audit trail notes... (not visible to user)",
+      "targetText": "Бележки за одит... (не са видими за потребителя)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13360,7 +13360,7 @@
     "legalCompliance.briefDescriptionOfThe": {
       "key": "legalCompliance.briefDescriptionOfThe",
       "sourceText": "Brief description of the policy",
-      "targetText": "Brief description of the policy",
+      "targetText": "Кратко описание на политиката",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13378,7 +13378,7 @@
     "legalCompliance.byAccessingOrUsing": {
       "key": "legalCompliance.byAccessingOrUsing",
       "sourceText": "By accessing or using RENTipid, you agree to be bound by these Terms and Conditions.",
-      "targetText": "By accessing or using RENTipid, you agree to be bound by these Terms and Conditions.",
+      "targetText": "Чрез достъпа или използването на RENTipid вие се съгласявате да бъдете обвързани с тези Общи условия.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13396,7 +13396,7 @@
     "legalCompliance.caseDetails": {
       "key": "legalCompliance.caseDetails",
       "sourceText": "Case Details",
-      "targetText": "Case Details",
+      "targetText": "Подробности за случая",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13414,7 +13414,7 @@
     "legalCompliance.caseNumber": {
       "key": "legalCompliance.caseNumber",
       "sourceText": "Case Number",
-      "targetText": "Case Number",
+      "targetText": "Номер на случая",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13432,7 +13432,7 @@
     "legalCompliance.caseStatus": {
       "key": "legalCompliance.caseStatus",
       "sourceText": "Case Status",
-      "targetText": "Case Status",
+      "targetText": "Статус на случая",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13450,7 +13450,7 @@
     "legalCompliance.classification": {
       "key": "legalCompliance.classification",
       "sourceText": "Classification",
-      "targetText": "Classification",
+      "targetText": "Класификация",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13468,7 +13468,7 @@
     "legalCompliance.clientsearch.tryAdjustingYourSearch": {
       "key": "legalCompliance.clientsearch.tryAdjustingYourSearch",
       "sourceText": "Try adjusting your search query or filter.",
-      "targetText": "Try adjusting your search query or filter.",
+      "targetText": "Опитайте да коригирате заявката за търсене или филтъра.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13504,7 +13504,7 @@
     "legalCompliance.code": {
       "key": "legalCompliance.code",
       "sourceText": "Code",
-      "targetText": "Code",
+      "targetText": "Код",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13522,7 +13522,7 @@
     "legalCompliance.complianceEnforcement": {
       "key": "legalCompliance.complianceEnforcement",
       "sourceText": "Compliance & Enforcement",
-      "targetText": "Compliance & Enforcement",
+      "targetText": "Съответствие и прилагане",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13540,7 +13540,7 @@
     "legalCompliance.complianceReady": {
       "key": "legalCompliance.complianceReady",
       "sourceText": "Compliance Ready",
-      "targetText": "Compliance Ready",
+      "targetText": "Готов за съответствие",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13558,7 +13558,7 @@
     "legalCompliance.complianceVerification": {
       "key": "legalCompliance.complianceVerification",
       "sourceText": "Compliance & Verification",
-      "targetText": "Compliance & Verification",
+      "targetText": "Съответствие и верификация",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13594,7 +13594,7 @@
     "legalCompliance.cookiePreferences": {
       "key": "legalCompliance.cookiePreferences",
       "sourceText": "Cookie Preferences",
-      "targetText": "Cookie Preferences",
+      "targetText": "Предпочитания за бисквитки",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13612,7 +13612,7 @@
     "legalCompliance.cookieTrackingPreferences": {
       "key": "legalCompliance.cookieTrackingPreferences",
       "sourceText": "Cookie & Tracking Preferences",
-      "targetText": "Cookie & Tracking Preferences",
+      "targetText": "Предпочитания за бисквитки и проследяване",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13630,7 +13630,7 @@
     "legalCompliance.correctionOfMyData": {
       "key": "legalCompliance.correctionOfMyData",
       "sourceText": "Correction of my data",
-      "targetText": "Correction of my data",
+      "targetText": "Коригиране на моите данни",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13666,7 +13666,7 @@
     "legalCompliance.dataPortability": {
       "key": "legalCompliance.dataPortability",
       "sourceText": "Data Portability",
-      "targetText": "Data Portability",
+      "targetText": "Преносимост на данни",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13702,7 +13702,7 @@
     "legalCompliance.deleteMyAccount": {
       "key": "legalCompliance.deleteMyAccount",
       "sourceText": "Delete My Account",
-      "targetText": "Delete My Account",
+      "targetText": "Изтриване на профила ми",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13738,7 +13738,7 @@
     "legalCompliance.detailedPolicyGuidelines": {
       "key": "legalCompliance.detailedPolicyGuidelines",
       "sourceText": "Detailed policy guidelines...",
-      "targetText": "Detailed policy guidelines...",
+      "targetText": "Подробни указания за политиката...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13756,7 +13756,7 @@
     "legalCompliance.detailsOptional": {
       "key": "legalCompliance.detailsOptional",
       "sourceText": "Details (Optional)",
-      "targetText": "Details (Optional)",
+      "targetText": "Подробности (по избор)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13774,7 +13774,7 @@
     "legalCompliance.detectionConfidence": {
       "key": "legalCompliance.detectionConfidence",
       "sourceText": "Detection Confidence",
-      "targetText": "Detection Confidence",
+      "targetText": "Увереност при откриване",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13792,7 +13792,7 @@
     "legalCompliance.eGFirearmsAmmunition": {
       "key": "legalCompliance.eGFirearmsAmmunition",
       "sourceText": "e.g. Firearms & Ammunition",
-      "targetText": "e.g. Firearms & Ammunition",
+      "targetText": "напр. Огнестрелни оръжия и боеприпаси",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13810,7 +13810,7 @@
     "legalCompliance.eGHandgunsRifles": {
       "key": "legalCompliance.eGHandgunsRifles",
       "sourceText": "e.g. Handguns, rifles, bullets",
-      "targetText": "e.g. Handguns, rifles, bullets",
+      "targetText": "напр. Пистолети, пушки, куршуми",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13882,7 +13882,7 @@
     "legalCompliance.eGTakedown": {
       "key": "legalCompliance.eGTakedown",
       "sourceText": "e.g. TAKEDOWN",
-      "targetText": "e.g. TAKEDOWN",
+      "targetText": "напр. TAKEDOWN",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13900,7 +13900,7 @@
     "legalCompliance.eGToyGuns": {
       "key": "legalCompliance.eGToyGuns",
       "sourceText": "e.g. Toy guns clearly marked with orange tips",
-      "targetText": "e.g. Toy guns clearly marked with orange tips",
+      "targetText": "напр. Оръжия играчки, ясно маркирани с оранжеви върхове",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13954,7 +13954,7 @@
     "legalCompliance.enforcementAction": {
       "key": "legalCompliance.enforcementAction",
       "sourceText": "Enforcement Action",
-      "targetText": "Enforcement Action",
+      "targetText": "Действие по прилагане",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13972,7 +13972,7 @@
     "legalCompliance.enforcementQueue": {
       "key": "legalCompliance.enforcementQueue",
       "sourceText": "Enforcement Queue",
-      "targetText": "Enforcement Queue",
+      "targetText": "Опашка за прилагане",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13990,7 +13990,7 @@
     "legalCompliance.enterTheEmailAssociated": {
       "key": "legalCompliance.enterTheEmailAssociated",
       "sourceText": "Enter the email associated with your account",
-      "targetText": "Enter the email associated with your account",
+      "targetText": "Въведете имейла, свързан с вашия акаунт",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14008,7 +14008,7 @@
     "legalCompliance.erasureOrBlockingOf": {
       "key": "legalCompliance.erasureOrBlockingOf",
       "sourceText": "Erasure or blocking of my data",
-      "targetText": "Erasure or blocking of my data",
+      "targetText": "Изтриване или блокиране на моите данни",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14026,7 +14026,7 @@
     "legalCompliance.evaluationReason": {
       "key": "legalCompliance.evaluationReason",
       "sourceText": "Evaluation Reason",
-      "targetText": "Evaluation Reason",
+      "targetText": "Причина за оценка",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14044,7 +14044,7 @@
     "legalCompliance.examples": {
       "key": "legalCompliance.examples",
       "sourceText": "Examples",
-      "targetText": "Examples",
+      "targetText": "Примери",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14062,7 +14062,7 @@
     "legalCompliance.exclusions": {
       "key": "legalCompliance.exclusions",
       "sourceText": "Exclusions",
-      "targetText": "Exclusions",
+      "targetText": "Изключения",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14080,7 +14080,7 @@
     "legalCompliance.fullDescription": {
       "key": "legalCompliance.fullDescription",
       "sourceText": "Full Description",
-      "targetText": "Full Description",
+      "targetText": "Пълно описание",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14098,7 +14098,7 @@
     "legalCompliance.functional": {
       "key": "legalCompliance.functional",
       "sourceText": "Functional",
-      "targetText": "Functional",
+      "targetText": "Функционален",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14116,7 +14116,7 @@
     "legalCompliance.functionalCookies": {
       "key": "legalCompliance.functionalCookies",
       "sourceText": "Functional Cookies",
-      "targetText": "Functional Cookies",
+      "targetText": "Функционални бисквитки",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14134,7 +14134,7 @@
     "legalCompliance.help": {
       "key": "legalCompliance.help",
       "sourceText": "Help",
-      "targetText": "Help",
+      "targetText": "Помощ",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14170,7 +14170,7 @@
     "legalCompliance.ifYouHaveQuestions": {
       "key": "legalCompliance.ifYouHaveQuestions",
       "sourceText": "If you have questions about whether an item is allowed, please contact Support or use the AI Assistant below.",
-      "targetText": "If you have questions about whether an item is allowed, please contact Support or use the AI Assistant below.",
+      "targetText": "Ако имате въпроси дали даден артикул е разрешен, моля, свържете се с отдела за поддръжка или използвайте AI асистента по-долу.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14188,7 +14188,7 @@
     "legalCompliance.informationProvidedInThis": {
       "key": "legalCompliance.informationProvidedInThis",
       "sourceText": "Information provided in this Compliance Center is intended to explain RENTipid's platform compliance framework and is not individual legal advice.",
-      "targetText": "Information provided in this Compliance Center is intended to explain RENTipid's platform compliance framework and is not individual legal advice.",
+      "targetText": "Информацията, предоставена в този Център за съответствие, има за цел да обясни рамката за съответствие на платформата RENTipid и не представлява индивидуален правен съвет.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14206,7 +14206,7 @@
     "legalCompliance.internalNotes": {
       "key": "legalCompliance.internalNotes",
       "sourceText": "Internal Notes",
-      "targetText": "Internal Notes",
+      "targetText": "Вътрешни бележки",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14224,7 +14224,7 @@
     "legalCompliance.justificationForTheDecision": {
       "key": "legalCompliance.justificationForTheDecision",
       "sourceText": "Justification for the decision...",
-      "targetText": "Justification for the decision...",
+      "targetText": "Обосновка на решението...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14242,7 +14242,7 @@
     "legalCompliance.legalReferenceOptional": {
       "key": "legalCompliance.legalReferenceOptional",
       "sourceText": "Legal Reference (Optional)",
-      "targetText": "Legal Reference (Optional)",
+      "targetText": "Правна референция (по избор)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14260,7 +14260,7 @@
     "legalCompliance.listingId": {
       "key": "legalCompliance.listingId",
       "sourceText": "Listing ID",
-      "targetText": "Listing ID",
+      "targetText": "ID на обявата",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14296,7 +14296,7 @@
     "legalCompliance.manageAppealsRarr": {
       "key": "legalCompliance.manageAppealsRarr",
       "sourceText": "Manage appeals &rarr;",
-      "targetText": "Manage appeals &rarr;",
+      "targetText": "Управление на обжалвания &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14314,7 +14314,7 @@
     "legalCompliance.manageHowWeUse": {
       "key": "legalCompliance.manageHowWeUse",
       "sourceText": "Manage how we use cookies and tracking technologies when you browse RENTipid.",
-      "targetText": "Manage how we use cookies and tracking technologies when you browse RENTipid.",
+      "targetText": "Управлявайте как използваме бисквитки и технологии за проследяване, когато сърфирате в RENTipid.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14332,7 +14332,7 @@
     "legalCompliance.managePoliciesRarr": {
       "key": "legalCompliance.managePoliciesRarr",
       "sourceText": "Manage policies &rarr;",
-      "targetText": "Manage policies &rarr;",
+      "targetText": "Управление на политики &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14350,7 +14350,7 @@
     "legalCompliance.manageProhibitedAndRestricted": {
       "key": "legalCompliance.manageProhibitedAndRestricted",
       "sourceText": "Manage prohibited and restricted item policies.",
-      "targetText": "Manage prohibited and restricted item policies.",
+      "targetText": "Управление на политиките за забранени и ограничени артикули.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14368,7 +14368,7 @@
     "legalCompliance.marketing": {
       "key": "legalCompliance.marketing",
       "sourceText": "Marketing",
-      "targetText": "Marketing",
+      "targetText": "Маркетинг",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14386,7 +14386,7 @@
     "legalCompliance.marketingCookies": {
       "key": "legalCompliance.marketingCookies",
       "sourceText": "Marketing Cookies",
-      "targetText": "Marketing Cookies",
+      "targetText": "Маркетингови бисквитки",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14422,7 +14422,7 @@
     "legalCompliance.messageSentToListing": {
       "key": "legalCompliance.messageSentToListing",
       "sourceText": "Message sent to listing owner if applicable...",
-      "targetText": "Message sent to listing owner if applicable...",
+      "targetText": "Съобщение, изпратено до собственика на обявата, ако е приложимо...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14440,7 +14440,7 @@
     "legalCompliance.messageThatWillBe": {
       "key": "legalCompliance.messageThatWillBe",
       "sourceText": "Message that will be sent to the user...",
-      "targetText": "Message that will be sent to the user...",
+      "targetText": "Съобщение, което ще бъде изпратено до потребителя...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14476,7 +14476,7 @@
     "legalCompliance.myPrivacySettings": {
       "key": "legalCompliance.myPrivacySettings",
       "sourceText": "My Privacy Settings",
-      "targetText": "My Privacy Настройки",
+      "targetText": "Моите настройки за поверителност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14494,7 +14494,7 @@
     "legalCompliance.name": {
       "key": "legalCompliance.name",
       "sourceText": "Name",
-      "targetText": "Name",
+      "targetText": "Име",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14512,7 +14512,7 @@
     "legalCompliance.necessary": {
       "key": "legalCompliance.necessary",
       "sourceText": "Necessary",
-      "targetText": "Necessary",
+      "targetText": "Необходим",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14530,7 +14530,7 @@
     "legalCompliance.noAppealsFoundMatching": {
       "key": "legalCompliance.noAppealsFoundMatching",
       "sourceText": "No appeals found matching the criteria.",
-      "targetText": "No appeals found matching the criteria.",
+      "targetText": "Няма намерени обжалвания, отговарящи на критериите.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14548,7 +14548,7 @@
     "legalCompliance.noCasesFoundMatching": {
       "key": "legalCompliance.noCasesFoundMatching",
       "sourceText": "No cases found matching the criteria.",
-      "targetText": "No cases found matching the criteria.",
+      "targetText": "Няма намерени случаи, отговарящи на критериите.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14566,7 +14566,7 @@
     "legalCompliance.noMatchingPoliciesFound": {
       "key": "legalCompliance.noMatchingPoliciesFound",
       "sourceText": "No matching policies found",
-      "targetText": "No matching policies found",
+      "targetText": "Няма намерени съответстващи политики",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14584,7 +14584,7 @@
     "legalCompliance.noPoliciesFoundIn": {
       "key": "legalCompliance.noPoliciesFoundIn",
       "sourceText": "No policies found in the catalogue.",
-      "targetText": "No policies found in the catalogue.",
+      "targetText": "В каталога не са намерени политики.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14602,7 +14602,7 @@
     "legalCompliance.noPrivacyRequestsFound": {
       "key": "legalCompliance.noPrivacyRequestsFound",
       "sourceText": "No privacy requests found.",
-      "targetText": "No privacy requests found.",
+      "targetText": "Няма намерени искания за поверителност.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14620,7 +14620,7 @@
     "legalCompliance.noRecentEnforcementCases": {
       "key": "legalCompliance.noRecentEnforcementCases",
       "sourceText": "No recent enforcement cases found.",
-      "targetText": "No recent enforcement cases found.",
+      "targetText": "Няма намерени скорошни случаи на прилагане.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14638,7 +14638,7 @@
     "legalCompliance.noRecordsFound": {
       "key": "legalCompliance.noRecordsFound",
       "sourceText": "No records found",
-      "targetText": "No records found",
+      "targetText": "Няма намерени записи",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14656,7 +14656,7 @@
     "legalCompliance.noSavedCookiePreferences": {
       "key": "legalCompliance.noSavedCookiePreferences",
       "sourceText": "No saved cookie preferences found.",
-      "targetText": "No saved cookie preferences found.",
+      "targetText": "Няма намерени запазени предпочитания за бисквитки.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14692,7 +14692,7 @@
     "legalCompliance.objectToProcessing": {
       "key": "legalCompliance.objectToProcessing",
       "sourceText": "Object to processing",
-      "targetText": "Object to processing",
+      "targetText": "Възражение срещу обработването",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14728,7 +14728,7 @@
     "legalCompliance.openCasesActionNeeded": {
       "key": "legalCompliance.openCasesActionNeeded",
       "sourceText": "Open Cases (Action Needed)",
-      "targetText": "Open Cases (Action Needed)",
+      "targetText": "Отворени случаи (необходимо действие)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14746,7 +14746,7 @@
     "legalCompliance.originalCaseReference": {
       "key": "legalCompliance.originalCaseReference",
       "sourceText": "Original Case Reference",
-      "targetText": "Original Case Reference",
+      "targetText": "Референция към първоначалния случай",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14782,7 +14782,7 @@
     "legalCompliance.paymentsAreHeldIn": {
       "key": "legalCompliance.paymentsAreHeldIn",
       "sourceText": "Payments are held in escrow until the asset is returned and inspections are cleared.",
-      "targetText": "Payments are held in escrow until the asset is returned and inspections are cleared.",
+      "targetText": "Плащанията се задържат в ескроу, докато активът не бъде върнат и проверките не бъдат завършени.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14818,7 +14818,7 @@
     "legalCompliance.pendingAppeals": {
       "key": "legalCompliance.pendingAppeals",
       "sourceText": "Pending Appeals",
-      "targetText": "Pending Appeals",
+      "targetText": "Чакащи обжалвания",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14836,7 +14836,7 @@
     "legalCompliance.pendingVerifications": {
       "key": "legalCompliance.pendingVerifications",
       "sourceText": "Pending Verifications",
-      "targetText": "Pending Verifications",
+      "targetText": "Чакащи верификации",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14854,7 +14854,7 @@
     "legalCompliance.pistolGunRifle": {
       "key": "legalCompliance.pistolGunRifle",
       "sourceText": "pistol, gun, rifle",
-      "targetText": "pistol, gun, rifle",
+      "targetText": "пистолет, пистолет, пушка",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14872,7 +14872,7 @@
     "legalCompliance.plainLanguageSummary": {
       "key": "legalCompliance.plainLanguageSummary",
       "sourceText": "Plain-Language Summary",
-      "targetText": "Plain-Language Summary",
+      "targetText": "Обобщение на достъпен език",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14890,7 +14890,7 @@
     "legalCompliance.policyCatalogue": {
       "key": "legalCompliance.policyCatalogue",
       "sourceText": "Policy Catalogue",
-      "targetText": "Policy Catalogue",
+      "targetText": "Каталог с политики",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14908,7 +14908,7 @@
     "legalCompliance.policyCode": {
       "key": "legalCompliance.policyCode",
       "sourceText": "Policy Code",
-      "targetText": "Policy Code",
+      "targetText": "Код на политиката",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14926,7 +14926,7 @@
     "legalCompliance.policyName": {
       "key": "legalCompliance.policyName",
       "sourceText": "Policy Name",
-      "targetText": "Policy Name",
+      "targetText": "Име на политиката",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14944,7 +14944,7 @@
     "legalCompliance.policyViolated": {
       "key": "legalCompliance.policyViolated",
       "sourceText": "Policy Violated",
-      "targetText": "Policy Violated",
+      "targetText": "Нарушена политика",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14980,7 +14980,7 @@
     "legalCompliance.prohibitedItemsIncludeWeapons": {
       "key": "legalCompliance.prohibitedItemsIncludeWeapons",
       "sourceText": "Prohibited items include weapons, illegal substances, and hazardous materials.",
-      "targetText": "Prohibited items include weapons, illegal substances, and hazardous materials.",
+      "targetText": "Забранените артикули включват оръжия, незаконни вещества и опасни материали.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14998,7 +14998,7 @@
     "legalCompliance.prohibitedItemsModule": {
       "key": "legalCompliance.prohibitedItemsModule",
       "sourceText": "Prohibited Items Module",
-      "targetText": "Prohibited Items Module",
+      "targetText": "Модул за забранени артикули",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15016,7 +15016,7 @@
     "legalCompliance.prohibitedKeywordsCommaSeparated": {
       "key": "legalCompliance.prohibitedKeywordsCommaSeparated",
       "sourceText": "Prohibited Keywords (Comma separated)",
-      "targetText": "Prohibited Keywords (Comma separated)",
+      "targetText": "Забранени ключови думи (разделени със запетая)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15052,7 +15052,7 @@
     "legalCompliance.provideAnyAdditionalDetails": {
       "key": "legalCompliance.provideAnyAdditionalDetails",
       "sourceText": "Provide any additional details that will help us process your request...",
-      "targetText": "Provide any additional details that will help us process your request...",
+      "targetText": "Предоставете допълнителни подробности, които ще ни помогнат да обработим вашата заявка...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15070,7 +15070,7 @@
     "legalCompliance.publicGuidance": {
       "key": "legalCompliance.publicGuidance",
       "sourceText": "Public Guidance",
-      "targetText": "Public Guidance",
+      "targetText": "Публични насоки",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15106,7 +15106,7 @@
     "legalCompliance.readPrivacyPolicy": {
       "key": "legalCompliance.readPrivacyPolicy",
       "sourceText": "Read Privacy Policy",
-      "targetText": "Read Политика за поверителност",
+      "targetText": "Прочетете политиката за поверителност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15124,7 +15124,7 @@
     "legalCompliance.recentEnforcementActions": {
       "key": "legalCompliance.recentEnforcementActions",
       "sourceText": "Recent Enforcement Actions",
-      "targetText": "Recent Enforcement Actions",
+      "targetText": "Скорошни действия по прилагане",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15142,7 +15142,7 @@
     "legalCompliance.recentUsers": {
       "key": "legalCompliance.recentUsers",
       "sourceText": "Recent Users",
-      "targetText": "Recent Users",
+      "targetText": "Скорошни потребители",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15160,7 +15160,7 @@
     "legalCompliance.regulatorOptional": {
       "key": "legalCompliance.regulatorOptional",
       "sourceText": "Regulator (Optional)",
-      "targetText": "Regulator (Optional)",
+      "targetText": "Регулатор (по избор)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15178,7 +15178,7 @@
     "legalCompliance.requestSubmittedSuccessfully": {
       "key": "legalCompliance.requestSubmittedSuccessfully",
       "sourceText": "Request Submitted Successfully",
-      "targetText": "Request Submitted Successfully",
+      "targetText": "Заявката е изпратена успешно",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15196,7 +15196,7 @@
     "legalCompliance.resolutionAction": {
       "key": "legalCompliance.resolutionAction",
       "sourceText": "Resolution Action",
-      "targetText": "Resolution Action",
+      "targetText": "Действие за разрешаване",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15214,7 +15214,7 @@
     "legalCompliance.responseToAppellant": {
       "key": "legalCompliance.responseToAppellant",
       "sourceText": "Response to Appellant",
-      "targetText": "Response to Appellant",
+      "targetText": "Отговор до жалбоподателя",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15250,7 +15250,7 @@
     "legalCompliance.returnToPrivacyCenter": {
       "key": "legalCompliance.returnToPrivacyCenter",
       "sourceText": "Return to Privacy Center",
-      "targetText": "Return to Privacy Center",
+      "targetText": "Връщане към Центъра за поверителност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15286,7 +15286,7 @@
     "legalCompliance.reviewAction": {
       "key": "legalCompliance.reviewAction",
       "sourceText": "Review Action",
-      "targetText": "Review Action",
+      "targetText": "Действие за преглед",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15304,7 +15304,7 @@
     "legalCompliance.reviewAndManageUser": {
       "key": "legalCompliance.reviewAndManageUser",
       "sourceText": "Review and manage user appeals for enforcement actions.",
-      "targetText": "Review and manage user appeals for enforcement actions.",
+      "targetText": "Преглеждайте и управлявайте жалбите на потребителите срещу действия по прилагане.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15322,7 +15322,7 @@
     "legalCompliance.reviewDecision": {
       "key": "legalCompliance.reviewDecision",
       "sourceText": "Review Decision",
-      "targetText": "Review Decision",
+      "targetText": "Решение за преглед",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15340,7 +15340,7 @@
     "legalCompliance.reviewFlaggedListingsAnd": {
       "key": "legalCompliance.reviewFlaggedListingsAnd",
       "sourceText": "Review flagged listings and manage active cases.",
-      "targetText": "Review flagged listings and manage active cases.",
+      "targetText": "Преглеждайте докладваните обяви и управлявайте активните случаи.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15358,7 +15358,7 @@
     "legalCompliance.reviewKeywordsCommaSeparated": {
       "key": "legalCompliance.reviewKeywordsCommaSeparated",
       "sourceText": "Review Keywords (Comma separated)",
-      "targetText": "Review Keywords (Comma separated)",
+      "targetText": "Ключови думи за преглед (разделени със запетая)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15376,7 +15376,7 @@
     "legalCompliance.reviewOpenCasesRarr": {
       "key": "legalCompliance.reviewOpenCasesRarr",
       "sourceText": "Review open cases &rarr;",
-      "targetText": "Review open cases &rarr;",
+      "targetText": "Преглед на отворените случаи &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15394,7 +15394,7 @@
     "legalCompliance.reviewerNotesInternal": {
       "key": "legalCompliance.reviewerNotesInternal",
       "sourceText": "Reviewer Notes (Internal)",
-      "targetText": "Reviewer Notes (Internal)",
+      "targetText": "Бележки на проверяващия (вътрешни)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15412,7 +15412,7 @@
     "legalCompliance.searchLawsJurisdictionsTopics": {
       "key": "legalCompliance.searchLawsJurisdictionsTopics",
       "sourceText": "Search laws, jurisdictions, topics (e.g. RA 11967, GDPR, privacy, refund)...",
-      "targetText": "Search laws, jurisdictions, topics (e.g. RA 11967, GDPR, privacy, refund)...",
+      "targetText": "Търсене на закони, юрисдикции, теми (напр. RA 11967, GDPR, поверителност, възстановяване)...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15430,7 +15430,7 @@
     "legalCompliance.searchProhibitedItemsKeywords": {
       "key": "legalCompliance.searchProhibitedItemsKeywords",
       "sourceText": "Search prohibited items, keywords, or policies...",
-      "targetText": "Search prohibited items, keywords, or policies...",
+      "targetText": "Търсене на забранени артикули, ключови думи или политики...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15448,7 +15448,7 @@
     "legalCompliance.strictlyNecessaryCookies": {
       "key": "legalCompliance.strictlyNecessaryCookies",
       "sourceText": "Strictly Necessary Cookies",
-      "targetText": "Strictly Necessary Cookies",
+      "targetText": "Строго необходими бисквитки",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15466,7 +15466,7 @@
     "legalCompliance.submitAPrivacyRequest": {
       "key": "legalCompliance.submitAPrivacyRequest",
       "sourceText": "Submit a Privacy Request",
-      "targetText": "Submit a Privacy Request",
+      "targetText": "Подаване на искане за поверителност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15484,7 +15484,7 @@
     "legalCompliance.submitRequest": {
       "key": "legalCompliance.submitRequest",
       "sourceText": "Submit Request",
-      "targetText": "Submit Request",
+      "targetText": "Изпращане на заявка",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15520,7 +15520,7 @@
     "legalCompliance.summary": {
       "key": "legalCompliance.summary",
       "sourceText": "Summary",
-      "targetText": "Summary",
+      "targetText": "Обобщение",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15538,7 +15538,7 @@
     "legalCompliance.supportingStatement": {
       "key": "legalCompliance.supportingStatement",
       "sourceText": "Supporting Statement",
-      "targetText": "Supporting Statement",
+      "targetText": "Подкрепящо изявление",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15592,7 +15592,7 @@
     "legalCompliance.targetUserId": {
       "key": "legalCompliance.targetUserId",
       "sourceText": "Target User ID",
-      "targetText": "Target User ID",
+      "targetText": "ID на целевия потребител",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15610,7 +15610,7 @@
     "legalCompliance.totalEnforcementCases": {
       "key": "legalCompliance.totalEnforcementCases",
       "sourceText": "Total Enforcement Cases",
-      "targetText": "Total Enforcement Cases",
+      "targetText": "Общ брой случаи на прилагане",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15628,7 +15628,7 @@
     "legalCompliance.trackYourPastRequests": {
       "key": "legalCompliance.trackYourPastRequests",
       "sourceText": "Track your past requests to access, correct, or delete your personal data.",
-      "targetText": "Track your past requests to access, correct, or delete your personal data.",
+      "targetText": "Проследявайте предишните си искания за достъп, коригиране или изтриване на личните ви данни.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15646,7 +15646,7 @@
     "legalCompliance.trustSafetyLegal": {
       "key": "legalCompliance.trustSafetyLegal",
       "sourceText": "Trust, Safety & Legal",
-      "targetText": "Trust, Safety & Legal",
+      "targetText": "Доверие, безопасност и право",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15664,7 +15664,7 @@
     "legalCompliance.tryAdjustingYourSearch": {
       "key": "legalCompliance.tryAdjustingYourSearch",
       "sourceText": "Try adjusting your search terms.",
-      "targetText": "Try adjusting your search terms.",
+      "targetText": "Опитайте да коригирате думите за търсене.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15772,7 +15772,7 @@
     "legalCompliance.userNoticeMessage": {
       "key": "legalCompliance.userNoticeMessage",
       "sourceText": "User Notice Message",
-      "targetText": "User Notice Message",
+      "targetText": "Съобщение с известие за потребителя",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15790,7 +15790,7 @@
     "legalCompliance.validationRequired": {
       "key": "legalCompliance.validationRequired",
       "sourceText": "Validation Required",
-      "targetText": "Validation Required",
+      "targetText": "Изисква се валидация",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15826,7 +15826,7 @@
     "legalCompliance.viewAllCasesRarr": {
       "key": "legalCompliance.viewAllCasesRarr",
       "sourceText": "View all cases &rarr;",
-      "targetText": "View all cases &rarr;",
+      "targetText": "Вижте всички случаи &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15844,7 +15844,7 @@
     "legalCompliance.viewQueue": {
       "key": "legalCompliance.viewQueue",
       "sourceText": "View Queue",
-      "targetText": "View Queue",
+      "targetText": "Преглед на опашката",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15862,7 +15862,7 @@
     "legalCompliance.violatedPolicy": {
       "key": "legalCompliance.violatedPolicy",
       "sourceText": "Violated Policy",
-      "targetText": "Violated Policy",
+      "targetText": "Нарушена политика",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15898,7 +15898,7 @@
     "legalCompliance.weWillProcessYour": {
       "key": "legalCompliance.weWillProcessYour",
       "sourceText": "We will process your request in accordance with our Privacy Policy and applicable data protection laws. You will receive an email shortly with instructions on how to track the status of your request.",
-      "targetText": "We will process your request in accordance with our Политика за поверителност and applicable data protection laws. You will receive an email shortly with instructions on how to track the status of your request.",
+      "targetText": "Ще обработим вашата заявка в съответствие с нашата Политика за поверителност и приложимите закони за защита на данните. Скоро ще получите имейл с инструкции как да проследите статуса на заявката си.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15916,7 +15916,7 @@
     "legalCompliance.weaponTactical": {
       "key": "legalCompliance.weaponTactical",
       "sourceText": "weapon, tactical",
-      "targetText": "weapon, tactical",
+      "targetText": "оръжие, тактически",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15934,7 +15934,7 @@
     "legalCompliance.withdrawConsent": {
       "key": "legalCompliance.withdrawConsent",
       "sourceText": "Withdraw consent",
-      "targetText": "Withdraw consent",
+      "targetText": "Оттегляне на съгласието",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15970,7 +15970,7 @@
     "legalCompliance.youMustProvideAccurate": {
       "key": "legalCompliance.youMustProvideAccurate",
       "sourceText": "You must provide accurate KYC information. Business providers must hold valid permits.",
-      "targetText": "You must provide accurate KYC information. Business providers must hold valid permits.",
+      "targetText": "Трябва да предоставите точна информация за KYC. Търговските доставчици трябва да притежават валидни разрешителни.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15988,7 +15988,7 @@
     "legalCompliance.yourPrivacyRequestHas": {
       "key": "legalCompliance.yourPrivacyRequestHas",
       "sourceText": "Your privacy request has been received. Please keep the following reference number for your records:",
-      "targetText": "Your privacy request has been received. Please keep the following reference number for your records:",
+      "targetText": "Вашето искане за поверителност беше получено. Моля, запазете следния референтен номер за вашата документация:",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17075,7 +17075,7 @@
     "listingWizard.damagePolicyLabel": {
       "key": "listingWizard.damagePolicyLabel",
       "sourceText": "Damage Policy",
-      "targetText": "Damage Policy",
+      "targetText": "Политика за повреди",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17093,7 +17093,7 @@
     "listingWizard.damagePolicyPlaceholder": {
       "key": "listingWizard.damagePolicyPlaceholder",
       "sourceText": "e.g. Any scratches will deduct ₱500 from the deposit...",
-      "targetText": "e.g. Any scratches will deduct ₱500 from the deposit...",
+      "targetText": "напр. Всякакви драскотини ще удържат ₱500 от депозита...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17111,7 +17111,7 @@
     "listingWizard.declarationBody": {
       "key": "listingWizard.declarationBody",
       "sourceText": "I declare that I legally own this asset or am legally authorized to offer it for rent. I agree that this listing must comply with RENTipid policies, applicable laws, safety rules, and category requirements.",
-      "targetText": "I declare that I legally own this asset or am legally authorized to offer it for rent. I agree that this listing must comply with RENTipid policies, applicable laws, safety rules, and category requirements.",
+      "targetText": "Декларирам, че законно притежавам този актив или имам законно право да го предлагам под наем. Съгласявам се, че тази обява трябва да отговаря на политиките на RENTipid, приложимите закони, правилата за безопасност и изискванията за категорията.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17129,7 +17129,7 @@
     "listingWizard.declarationTitle": {
       "key": "listingWizard.declarationTitle",
       "sourceText": "Provider Declaration:",
-      "targetText": "Provider Declaration:",
+      "targetText": "Декларация на доставчика:",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -18488,7 +18488,7 @@
     "partnerHub.termsAndConditions": {
       "key": "partnerHub.termsAndConditions",
       "sourceText": "Terms and Conditions",
-      "targetText": "Terms and Conditions",
+      "targetText": "Правила и условия",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -22849,7 +22849,7 @@
     "providerListingManage.errorMissingDocuments": {
       "key": "providerListingManage.errorMissingDocuments",
       "sourceText": "This category requires compliance or proof of ownership verification documents before submission.",
-      "targetText": "This category requires compliance or proof of ownership verification documents before submission.",
+      "targetText": "Тази категория изисква документи за съответствие или доказване на собственост преди изпращане.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -22963,7 +22963,7 @@
     "providerListingManage.riskCategoryWarning": {
       "key": "providerListingManage.riskCategoryWarning",
       "sourceText": "This category strictly requires admin verification and compliance documents.",
-      "targetText": "This category strictly requires admin verification and compliance documents.",
+      "targetText": "Тази категория стриктно изисква проверка от администратор и документи за съответствие.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23334,7 +23334,7 @@
     "providerListings.verificationRequiredBody": {
       "key": "providerListings.verificationRequiredBody",
       "sourceText": "You must complete your provider verification before you can create and manage listings.",
-      "targetText": "You must complete your provider verification before you can create and manage listings.",
+      "targetText": "Трябва да завършите верификацията като доставчик, преди да можете да създавате и управлявате обяви.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23352,7 +23352,7 @@
     "providerListings.verificationRequiredTitle": {
       "key": "providerListings.verificationRequiredTitle",
       "sourceText": "Account Verification Required",
-      "targetText": "Account Verification Required",
+      "targetText": "Изисква се потвърждаване на акаунта",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23385,7 +23385,7 @@
     "providerNewListing.legalRequirementsBody": {
       "key": "providerNewListing.legalRequirementsBody",
       "sourceText": "Depending on your jurisdiction and category, certain legal requirements or permits may apply to this listing.",
-      "targetText": "Depending on your jurisdiction and category, certain legal requirements or permits may apply to this listing.",
+      "targetText": "В зависимост от вашата юрисдикция и категория, за тази обява може да се прилагат определени законови изисквания или разрешения.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23403,7 +23403,7 @@
     "providerNewListing.legalRequirementsTitle": {
       "key": "providerNewListing.legalRequirementsTitle",
       "sourceText": "Legal & Compliance Requirements",
-      "targetText": "Legal & Compliance Requirements",
+      "targetText": "Законови изисквания и изисквания за съответствие",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23451,7 +23451,7 @@
     "providerNewListing.viewComplianceRegister": {
       "key": "providerNewListing.viewComplianceRegister",
       "sourceText": "View Global Legal Compliance Register",
-      "targetText": "View Global Legal Compliance Register",
+      "targetText": "Преглед на глобалния регистър за правно съответствие",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -24300,7 +24300,7 @@
     "renter.onboarding.termsAccepted": {
       "key": "renter.onboarding.termsAccepted",
       "sourceText": "Terms accepted",
-      "targetText": "Terms accepted",
+      "targetText": "Условията са приети",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33678,7 +33678,7 @@
     "trustSafety.247Support": {
       "key": "trustSafety.247Support",
       "sourceText": "24/7 Support",
-      "targetText": "24/7 Support",
+      "targetText": "24/7 Поддръжка",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33696,7 +33696,7 @@
     "trustSafety.allUsersMustVerify": {
       "key": "trustSafety.allUsersMustVerify",
       "sourceText": "All users must verify their identity before transacting on the platform.",
-      "targetText": "All users must verify their identity before transacting on the platform.",
+      "targetText": "Всички потребители трябва да потвърдят самоличността си, преди да извършват транзакции на платформата.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33714,7 +33714,7 @@
     "trustSafety.builtOnTrustSafety": {
       "key": "trustSafety.builtOnTrustSafety",
       "sourceText": "Built on Trust & Safety",
-      "targetText": "Built on Trust & Safety",
+      "targetText": "Изградено върху доверие и безопасност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33732,7 +33732,7 @@
     "trustSafety.everyUserUndergoesThorough": {
       "key": "trustSafety.everyUserUndergoesThorough",
       "sourceText": "Every user undergoes thorough identity verification (KYC) before they can transact on the platform.",
-      "targetText": "Every user undergoes thorough identity verification (KYC) before they can transact on the platform.",
+      "targetText": "Всеки потребител преминава щателна верификация на самоличността (KYC), преди да може да извършва транзакции на платформата.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33750,7 +33750,7 @@
     "trustSafety.identityVerificationKyc": {
       "key": "trustSafety.identityVerificationKyc",
       "sourceText": "Identity Verification (KYC)",
-      "targetText": "Identity Verification (KYC)",
+      "targetText": "Потвърждаване на самоличността (KYC)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33768,7 +33768,7 @@
     "trustSafety.neverPayOutsideThe": {
       "key": "trustSafety.neverPayOutsideThe",
       "sourceText": "Never pay outside the RENTipid platform. All transactions are protected by our Escrow system.",
-      "targetText": "Never pay outside the RENTipid platform. All transactions are protected by our Escrow system.",
+      "targetText": "Никога не плащайте извън платформата RENTipid. Всички транзакции са защитени от нашата ескроу система.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33786,7 +33786,7 @@
     "trustSafety.ourDedicatedResolutionCenter": {
       "key": "trustSafety.ourDedicatedResolutionCenter",
       "sourceText": "Our dedicated resolution center and support team are always ready to help mediate any disputes.",
-      "targetText": "Our dedicated resolution center and support team are always ready to help mediate any disputes.",
+      "targetText": "Нашият специализиран център за разрешаване на спорове и екип за поддръжка са винаги готови да помогнат при спорове.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33804,7 +33804,7 @@
     "trustSafety.paymentsAreHeldSecurely": {
       "key": "trustSafety.paymentsAreHeldSecurely",
       "sourceText": "Payments are held securely in escrow and only released when the rental is successfully completed.",
-      "targetText": "Payments are held securely in escrow and only released when the rental is successfully completed.",
+      "targetText": "Плащанията се държат сигурно в ескроу и се освобождават само след успешно приключване на наема.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33822,7 +33822,7 @@
     "trustSafety.readyToGetStarted": {
       "key": "trustSafety.readyToGetStarted",
       "sourceText": "Ready to get started?",
-      "targetText": "Ready to get started?",
+      "targetText": "Готови ли сте да започнете?",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33840,7 +33840,7 @@
     "trustSafety.secureEscrow": {
       "key": "trustSafety.secureEscrow",
       "sourceText": "Secure Escrow",
-      "targetText": "Secure Escrow",
+      "targetText": "Сигурен ескроу",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33858,7 +33858,7 @@
     "trustSafety.securePayments": {
       "key": "trustSafety.securePayments",
       "sourceText": "Secure Payments",
-      "targetText": "Secure Payments",
+      "targetText": "Сигурни плащания",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33876,7 +33876,7 @@
     "trustSafety.trustSafetyCenter": {
       "key": "trustSafety.trustSafetyCenter",
       "sourceText": "Trust & Safety Center",
-      "targetText": "Trust & Safety Center",
+      "targetText": "Център за доверие и безопасност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33894,7 +33894,7 @@
     "trustSafety.verifiedCommunity": {
       "key": "trustSafety.verifiedCommunity",
       "sourceText": "Verified Community",
-      "targetText": "Verified Community",
+      "targetText": "Потвърдена общност",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33912,7 +33912,7 @@
     "trustSafety.weTakeSecuritySeriously": {
       "key": "trustSafety.weTakeSecuritySeriously",
       "sourceText": "We take security seriously. Every transaction is protected by our comprehensive safety framework.",
-      "targetText": "We take security seriously. Every transaction is protected by our comprehensive safety framework.",
+      "targetText": "Ние приемаме сигурността сериозно. Всяка транзакция е защитена от нашата цялостна рамка за сигурност.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],

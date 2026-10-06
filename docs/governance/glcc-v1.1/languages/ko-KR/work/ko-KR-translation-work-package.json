@@ -2683,7 +2683,7 @@
     "admin.jurisdiction": {
       "key": "admin.jurisdiction",
       "sourceText": "Jurisdiction",
-      "targetText": "Jurisdiction",
+      "targetText": "관할권",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4066,7 +4066,7 @@
     "admin.privacyAdministrationDashboard": {
       "key": "admin.privacyAdministrationDashboard",
       "sourceText": "Privacy Administration Dashboard",
-      "targetText": "Privacy Administration Dashboard",
+      "targetText": "개인정보 관리 대시보드",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4084,7 +4084,7 @@
     "admin.privacyOperationsCenter": {
       "key": "admin.privacyOperationsCenter",
       "sourceText": "Privacy Operations Center",
-      "targetText": "Privacy Operations Center",
+      "targetText": "개인정보 운영 센터",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4102,7 +4102,7 @@
     "admin.privacyPolicyManagement": {
       "key": "admin.privacyPolicyManagement",
       "sourceText": "Privacy Policy Management",
-      "targetText": "개인정보 처리방침 Management",
+      "targetText": "개인정보 처리방침 관리",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4120,7 +4120,7 @@
     "admin.privacyRegistriesMatrices": {
       "key": "admin.privacyRegistriesMatrices",
       "sourceText": "Privacy Registries & Matrices",
-      "targetText": "Privacy Registries & Matrices",
+      "targetText": "개인정보 등록부 및 매트릭스",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10848,7 +10848,7 @@
     "documentUploader.types.businessPermit": {
       "key": "documentUploader.types.businessPermit",
       "sourceText": "Business Permit",
-      "targetText": "Business Permit",
+      "targetText": "사업자 등록증",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10866,7 +10866,7 @@
     "documentUploader.types.insurancePolicy": {
       "key": "documentUploader.types.insurancePolicy",
       "sourceText": "Insurance Policy",
-      "targetText": "Insurance Policy",
+      "targetText": "보험 증권",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10884,7 +10884,7 @@
     "documentUploader.types.proofOfOwnership": {
       "key": "documentUploader.types.proofOfOwnership",
       "sourceText": "Proof of Ownership",
-      "targetText": "Proof of Ownership",
+      "targetText": "소유권 증명서",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10902,7 +10902,7 @@
     "documentUploader.types.safetyCertificate": {
       "key": "documentUploader.types.safetyCertificate",
       "sourceText": "Safety Certificate",
-      "targetText": "Safety Certificate",
+      "targetText": "안전 인증서",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10920,7 +10920,7 @@
     "documentUploader.types.vehicleRegistration": {
       "key": "documentUploader.types.vehicleRegistration",
       "sourceText": "Vehicle Registration (OR/CR)",
-      "targetText": "Vehicle Registration (OR/CR)",
+      "targetText": "차량 등록증 (OR/CR)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11092,7 +11092,7 @@
     "footer.ip": {
       "key": "footer.ip",
       "sourceText": "Intellectual Property",
-      "targetText": "Intellectual Property",
+      "targetText": "지식재산권",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11110,7 +11110,7 @@
     "footer.legalCompliance": {
       "key": "footer.legalCompliance",
       "sourceText": "Global Legal Compliance",
-      "targetText": "Global Legal Compliance",
+      "targetText": "글로벌 법적 준수",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11143,7 +11143,7 @@
     "footer.privacy": {
       "key": "footer.privacy",
       "sourceText": "Privacy",
-      "targetText": "개인정보 처리방침",
+      "targetText": "개인정보 보호",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11161,7 +11161,7 @@
     "footer.prohibitedItems": {
       "key": "footer.prohibitedItems",
       "sourceText": "Prohibited Items",
-      "targetText": "Prohibited Items",
+      "targetText": "금지 품목",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11179,7 +11179,7 @@
     "footer.reportIllegal": {
       "key": "footer.reportIllegal",
       "sourceText": "Report Illegal Activity",
-      "targetText": "Report Illegal Activity",
+      "targetText": "불법 활동 신고",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11197,7 +11197,7 @@
     "footer.safety": {
       "key": "footer.safety",
       "sourceText": "Consumer Protection & Safety",
-      "targetText": "Consumer Protection & Safety",
+      "targetText": "소비자 보호 및 안전",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11245,7 +11245,7 @@
     "footer.terms": {
       "key": "footer.terms",
       "sourceText": "Terms",
-      "targetText": "서비스 이용약관",
+      "targetText": "약관",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11263,7 +11263,7 @@
     "footer.trustAndLegal": {
       "key": "footer.trustAndLegal",
       "sourceText": "Trust & Legal",
-      "targetText": "Trust & Legal",
+      "targetText": "신뢰 및 법적 정보",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11281,7 +11281,7 @@
     "fx.checkout.chargeNotice": {
       "key": "fx.checkout.chargeNotice",
       "sourceText": "You will be charged in PHP (Philippine Peso).",
-      "targetText": "You will be charged in PHP (Philippine Peso).",
+      "targetText": "결제는 PHP(필리핀 페소)로 청구됩니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11299,7 +11299,7 @@
     "fx.checkout.disclosureTitle": {
       "key": "fx.checkout.disclosureTitle",
       "sourceText": "Currency & Payment Disclosure",
-      "targetText": "Currency & Payment Disclosure",
+      "targetText": "통화 및 결제 공개 정보",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11869,7 +11869,7 @@
     "globalPreferences.previewNotice": {
       "key": "globalPreferences.previewNotice",
       "sourceText": "Preview formatting only. Display currency may differ from the currency used for payment. The exact charge amount and currency will be shown before confirmation.",
-      "targetText": "Preview formatting only. Display currency may differ from the currency used for payment. The exact charge amount and currency will be shown before confirmation.",
+      "targetText": "미리보기 형식일 뿐입니다. 표시 통화는 결제에 사용되는 통화와 다를 수 있습니다. 정확한 청구 금액과 통화는 확인 전에 표시됩니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12241,7 +12241,7 @@
     "helpCenter.privacyDataProtection": {
       "key": "helpCenter.privacyDataProtection",
       "sourceText": "Privacy & Data Protection",
-      "targetText": "Privacy & Data Protection",
+      "targetText": "개인정보 및 데이터 보호",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12604,7 +12604,7 @@
     "kyc.accountVerificationKyc": {
       "key": "kyc.accountVerificationKyc",
       "sourceText": "Account Verification (KYC)",
-      "targetText": "Account Verification (KYC)",
+      "targetText": "계정 인증 (KYC)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12622,7 +12622,7 @@
     "kyc.businessPermitRegistration": {
       "key": "kyc.businessPermitRegistration",
       "sourceText": "Business Permit / Registration",
-      "targetText": "Business Permit / Registration",
+      "targetText": "사업자 등록증 / 허가증",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12640,7 +12640,7 @@
     "kyc.documentType": {
       "key": "kyc.documentType",
       "sourceText": "Document Type",
-      "targetText": "Document Type",
+      "targetText": "문서 유형",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12658,7 +12658,7 @@
     "kyc.file": {
       "key": "kyc.file",
       "sourceText": "File",
-      "targetText": "File",
+      "targetText": "파일",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12676,7 +12676,7 @@
     "kyc.maxSize5mbFormats": {
       "key": "kyc.maxSize5mbFormats",
       "sourceText": "Max size: 5MB. Formats: PDF, JPG, PNG, WEBP.",
-      "targetText": "Max size: 5MB. Formats: PDF, JPG, PNG, WEBP.",
+      "targetText": "최대 크기: 5MB. 지원 형식: PDF, JPG, PNG, WEBP.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12694,7 +12694,7 @@
     "kyc.myUploadedDocuments": {
       "key": "kyc.myUploadedDocuments",
       "sourceText": "My Uploaded Documents",
-      "targetText": "My Uploaded Documents",
+      "targetText": "업로드한 문서 목록",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12712,7 +12712,7 @@
     "kyc.noDocumentsUploadedYet": {
       "key": "kyc.noDocumentsUploadedYet",
       "sourceText": "No documents uploaded yet.",
-      "targetText": "No documents uploaded yet.",
+      "targetText": "아직 업로드된 문서가 없습니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12730,7 +12730,7 @@
     "kyc.proofOfAddress": {
       "key": "kyc.proofOfAddress",
       "sourceText": "Proof of Address",
-      "targetText": "Proof of Address",
+      "targetText": "거주지 증명서",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12748,7 +12748,7 @@
     "kyc.proofOfOwnershipAuthorization": {
       "key": "kyc.proofOfOwnershipAuthorization",
       "sourceText": "Proof of Ownership / Authorization",
-      "targetText": "Proof of Ownership / Authorization",
+      "targetText": "소유권 증명서 / 위임장",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12766,7 +12766,7 @@
     "kyc.requiredDocuments": {
       "key": "kyc.requiredDocuments",
       "sourceText": "Required Documents",
-      "targetText": "Required Documents",
+      "targetText": "필수 서류",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12784,7 +12784,7 @@
     "kyc.selectDocumentType": {
       "key": "kyc.selectDocumentType",
       "sourceText": "Select document type...",
-      "targetText": "Select document type...",
+      "targetText": "문서 유형을 선택하세요...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12802,7 +12802,7 @@
     "kyc.selfieVerification": {
       "key": "kyc.selfieVerification",
       "sourceText": "Selfie Verification",
-      "targetText": "Selfie Verification",
+      "targetText": "셀카 인증",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12820,7 +12820,7 @@
     "kyc.submitRequiredDocumentsTo": {
       "key": "kyc.submitRequiredDocumentsTo",
       "sourceText": "Submit required documents to unlock full platform features.",
-      "targetText": "Submit required documents to unlock full platform features.",
+      "targetText": "플랫폼의 모든 기능을 사용하려면 필수 서류를 제출하세요.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12838,7 +12838,7 @@
     "kyc.uploadDocument": {
       "key": "kyc.uploadDocument",
       "sourceText": "Upload Document",
-      "targetText": "Upload Document",
+      "targetText": "문서 업로드",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12856,7 +12856,7 @@
     "kyc.validGovernmentId": {
       "key": "kyc.validGovernmentId",
       "sourceText": "Valid Government ID",
-      "targetText": "Valid Government ID",
+      "targetText": "유효한 정부 발급 신분증",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12874,7 +12874,7 @@
     "legalCompliance.1AcceptanceOfTerms": {
       "key": "legalCompliance.1AcceptanceOfTerms",
       "sourceText": "1. Acceptance of Terms",
-      "targetText": "1. 약관 동의",
+      "targetText": "1. 약관의 수락",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12910,7 +12910,7 @@
     "legalCompliance.3ListingRules": {
       "key": "legalCompliance.3ListingRules",
       "sourceText": "3. Listing Rules",
-      "targetText": "3. 등록 규정",
+      "targetText": "3. 등록 규칙",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12946,7 +12946,7 @@
     "legalCompliance.accessToMyData": {
       "key": "legalCompliance.accessToMyData",
       "sourceText": "Access to my data",
-      "targetText": "내 데이터 액세스",
+      "targetText": "내 데이터에 대한 접근",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13018,7 +13018,7 @@
     "legalCompliance.activePolicies": {
       "key": "legalCompliance.activePolicies",
       "sourceText": "Active Policies",
-      "targetText": "Active Policies",
+      "targetText": "활성 정책",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13036,7 +13036,7 @@
     "legalCompliance.adminView": {
       "key": "legalCompliance.adminView",
       "sourceText": "Admin View",
-      "targetText": "Admin View",
+      "targetText": "관리자 보기",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13054,7 +13054,7 @@
     "legalCompliance.all": {
       "key": "legalCompliance.all",
       "sourceText": "All",
-      "targetText": "All",
+      "targetText": "전체",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13072,7 +13072,7 @@
     "legalCompliance.allPolicies": {
       "key": "legalCompliance.allPolicies",
       "sourceText": "All Policies",
-      "targetText": "전체 정책",
+      "targetText": "모든 정책",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13144,7 +13144,7 @@
     "legalCompliance.analyticsCookies": {
       "key": "legalCompliance.analyticsCookies",
       "sourceText": "Analytics Cookies",
-      "targetText": "분석 Cookies",
+      "targetText": "분석 쿠키",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13162,7 +13162,7 @@
     "legalCompliance.appealDetails": {
       "key": "legalCompliance.appealDetails",
       "sourceText": "Appeal Details",
-      "targetText": "Appeal Details",
+      "targetText": "이의 신청 세부 정보",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13180,7 +13180,7 @@
     "legalCompliance.appealId": {
       "key": "legalCompliance.appealId",
       "sourceText": "Appeal ID",
-      "targetText": "Appeal ID",
+      "targetText": "이의 신청 ID",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13198,7 +13198,7 @@
     "legalCompliance.appealReason": {
       "key": "legalCompliance.appealReason",
       "sourceText": "Appeal Reason",
-      "targetText": "Appeal Reason",
+      "targetText": "이의 신청 사유",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13216,7 +13216,7 @@
     "legalCompliance.appealsQueue": {
       "key": "legalCompliance.appealsQueue",
       "sourceText": "Appeals Queue",
-      "targetText": "Appeals Queue",
+      "targetText": "이의 신청 대기열",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13234,7 +13234,7 @@
     "legalCompliance.appellant": {
       "key": "legalCompliance.appellant",
       "sourceText": "Appellant",
-      "targetText": "Appellant",
+      "targetText": "항소인/신청인",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13252,7 +13252,7 @@
     "legalCompliance.appellantId": {
       "key": "legalCompliance.appellantId",
       "sourceText": "Appellant ID",
-      "targetText": "Appellant ID",
+      "targetText": "신청인 ID",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13288,7 +13288,7 @@
     "legalCompliance.attachedDocuments": {
       "key": "legalCompliance.attachedDocuments",
       "sourceText": "Attached Documents",
-      "targetText": "Attached Documents",
+      "targetText": "첨부 서류",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13306,7 +13306,7 @@
     "legalCompliance.auditTrailNotesNot": {
       "key": "legalCompliance.auditTrailNotesNot",
       "sourceText": "Audit trail notes... (not visible to user)",
-      "targetText": "Audit trail notes... (not visible to user)",
+      "targetText": "감사 추적 메모... (사용자에게 표시되지 않음)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13360,7 +13360,7 @@
     "legalCompliance.briefDescriptionOfThe": {
       "key": "legalCompliance.briefDescriptionOfThe",
       "sourceText": "Brief description of the policy",
-      "targetText": "Brief description of the policy",
+      "targetText": "정책에 대한 간략한 설명",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13378,7 +13378,7 @@
     "legalCompliance.byAccessingOrUsing": {
       "key": "legalCompliance.byAccessingOrUsing",
       "sourceText": "By accessing or using RENTipid, you agree to be bound by these Terms and Conditions.",
-      "targetText": "By accessing or using RENTipid, you agree to be bound by these Terms and Conditions.",
+      "targetText": "RENTipid에 접속하거나 이를 이용함으로써 귀하는 본 이용 약관에 구속되는 데 동의합니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13396,7 +13396,7 @@
     "legalCompliance.caseDetails": {
       "key": "legalCompliance.caseDetails",
       "sourceText": "Case Details",
-      "targetText": "Case Details",
+      "targetText": "사건 세부 정보",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13414,7 +13414,7 @@
     "legalCompliance.caseNumber": {
       "key": "legalCompliance.caseNumber",
       "sourceText": "Case Number",
-      "targetText": "Case Number",
+      "targetText": "사건 번호",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13432,7 +13432,7 @@
     "legalCompliance.caseStatus": {
       "key": "legalCompliance.caseStatus",
       "sourceText": "Case Status",
-      "targetText": "Case Status",
+      "targetText": "사건 상태",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13450,7 +13450,7 @@
     "legalCompliance.classification": {
       "key": "legalCompliance.classification",
       "sourceText": "Classification",
-      "targetText": "Classification",
+      "targetText": "분류",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13468,7 +13468,7 @@
     "legalCompliance.clientsearch.tryAdjustingYourSearch": {
       "key": "legalCompliance.clientsearch.tryAdjustingYourSearch",
       "sourceText": "Try adjusting your search query or filter.",
-      "targetText": "Try adjusting your search query or filter.",
+      "targetText": "검색어 또는 필터를 조정해 보세요.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13504,7 +13504,7 @@
     "legalCompliance.code": {
       "key": "legalCompliance.code",
       "sourceText": "Code",
-      "targetText": "Code",
+      "targetText": "코드",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13522,7 +13522,7 @@
     "legalCompliance.complianceEnforcement": {
       "key": "legalCompliance.complianceEnforcement",
       "sourceText": "Compliance & Enforcement",
-      "targetText": "Compliance & Enforcement",
+      "targetText": "규정 준수 및 집행",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13540,7 +13540,7 @@
     "legalCompliance.complianceReady": {
       "key": "legalCompliance.complianceReady",
       "sourceText": "Compliance Ready",
-      "targetText": "Compliance Ready",
+      "targetText": "규정 준수 준비 완료",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13558,7 +13558,7 @@
     "legalCompliance.complianceVerification": {
       "key": "legalCompliance.complianceVerification",
       "sourceText": "Compliance & Verification",
-      "targetText": "Compliance & Verification",
+      "targetText": "규정 준수 및 검증",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13594,7 +13594,7 @@
     "legalCompliance.cookiePreferences": {
       "key": "legalCompliance.cookiePreferences",
       "sourceText": "Cookie Preferences",
-      "targetText": "Cookie Preferences",
+      "targetText": "쿠키 설정",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13612,7 +13612,7 @@
     "legalCompliance.cookieTrackingPreferences": {
       "key": "legalCompliance.cookieTrackingPreferences",
       "sourceText": "Cookie & Tracking Preferences",
-      "targetText": "Cookie & Tracking Preferences",
+      "targetText": "쿠키 및 추적 설정",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13630,7 +13630,7 @@
     "legalCompliance.correctionOfMyData": {
       "key": "legalCompliance.correctionOfMyData",
       "sourceText": "Correction of my data",
-      "targetText": "Correction of my data",
+      "targetText": "내 데이터 정정",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13666,7 +13666,7 @@
     "legalCompliance.dataPortability": {
       "key": "legalCompliance.dataPortability",
       "sourceText": "Data Portability",
-      "targetText": "Data Portability",
+      "targetText": "데이터 이동성",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13702,7 +13702,7 @@
     "legalCompliance.deleteMyAccount": {
       "key": "legalCompliance.deleteMyAccount",
       "sourceText": "Delete My Account",
-      "targetText": "Delete My Account",
+      "targetText": "내 계정 삭제",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13738,7 +13738,7 @@
     "legalCompliance.detailedPolicyGuidelines": {
       "key": "legalCompliance.detailedPolicyGuidelines",
       "sourceText": "Detailed policy guidelines...",
-      "targetText": "Detailed policy guidelines...",
+      "targetText": "상세 정책 지침...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13756,7 +13756,7 @@
     "legalCompliance.detailsOptional": {
       "key": "legalCompliance.detailsOptional",
       "sourceText": "Details (Optional)",
-      "targetText": "Details (Optional)",
+      "targetText": "세부 정보 (선택 사항)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13774,7 +13774,7 @@
     "legalCompliance.detectionConfidence": {
       "key": "legalCompliance.detectionConfidence",
       "sourceText": "Detection Confidence",
-      "targetText": "Detection Confidence",
+      "targetText": "탐지 신뢰도",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13792,7 +13792,7 @@
     "legalCompliance.eGFirearmsAmmunition": {
       "key": "legalCompliance.eGFirearmsAmmunition",
       "sourceText": "e.g. Firearms & Ammunition",
-      "targetText": "e.g. Firearms & Ammunition",
+      "targetText": "예: 총기 및 탄약",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13810,7 +13810,7 @@
     "legalCompliance.eGHandgunsRifles": {
       "key": "legalCompliance.eGHandgunsRifles",
       "sourceText": "e.g. Handguns, rifles, bullets",
-      "targetText": "e.g. Handguns, rifles, bullets",
+      "targetText": "예: 권총, 소총, 총알",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13882,7 +13882,7 @@
     "legalCompliance.eGTakedown": {
       "key": "legalCompliance.eGTakedown",
       "sourceText": "e.g. TAKEDOWN",
-      "targetText": "e.g. TAKEDOWN",
+      "targetText": "예: TAKEDOWN",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13900,7 +13900,7 @@
     "legalCompliance.eGToyGuns": {
       "key": "legalCompliance.eGToyGuns",
       "sourceText": "e.g. Toy guns clearly marked with orange tips",
-      "targetText": "e.g. Toy guns clearly marked with orange tips",
+      "targetText": "예: 주황색 팁으로 명확하게 표시된 장난감 총",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13954,7 +13954,7 @@
     "legalCompliance.enforcementAction": {
       "key": "legalCompliance.enforcementAction",
       "sourceText": "Enforcement Action",
-      "targetText": "Enforcement Action",
+      "targetText": "집행 조치",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13972,7 +13972,7 @@
     "legalCompliance.enforcementQueue": {
       "key": "legalCompliance.enforcementQueue",
       "sourceText": "Enforcement Queue",
-      "targetText": "Enforcement Queue",
+      "targetText": "집행 대기열",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13990,7 +13990,7 @@
     "legalCompliance.enterTheEmailAssociated": {
       "key": "legalCompliance.enterTheEmailAssociated",
       "sourceText": "Enter the email associated with your account",
-      "targetText": "Enter the email associated with your account",
+      "targetText": "계정과 연결된 이메일을 입력하세요",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14008,7 +14008,7 @@
     "legalCompliance.erasureOrBlockingOf": {
       "key": "legalCompliance.erasureOrBlockingOf",
       "sourceText": "Erasure or blocking of my data",
-      "targetText": "Erasure or blocking of my data",
+      "targetText": "내 데이터 삭제 또는 차단",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14026,7 +14026,7 @@
     "legalCompliance.evaluationReason": {
       "key": "legalCompliance.evaluationReason",
       "sourceText": "Evaluation Reason",
-      "targetText": "Evaluation Reason",
+      "targetText": "평가 사유",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14044,7 +14044,7 @@
     "legalCompliance.examples": {
       "key": "legalCompliance.examples",
       "sourceText": "Examples",
-      "targetText": "Examples",
+      "targetText": "예시",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14062,7 +14062,7 @@
     "legalCompliance.exclusions": {
       "key": "legalCompliance.exclusions",
       "sourceText": "Exclusions",
-      "targetText": "Exclusions",
+      "targetText": "제외 항목",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14080,7 +14080,7 @@
     "legalCompliance.fullDescription": {
       "key": "legalCompliance.fullDescription",
       "sourceText": "Full Description",
-      "targetText": "Full Description",
+      "targetText": "전체 설명",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14098,7 +14098,7 @@
     "legalCompliance.functional": {
       "key": "legalCompliance.functional",
       "sourceText": "Functional",
-      "targetText": "Functional",
+      "targetText": "기능성",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14116,7 +14116,7 @@
     "legalCompliance.functionalCookies": {
       "key": "legalCompliance.functionalCookies",
       "sourceText": "Functional Cookies",
-      "targetText": "Functional Cookies",
+      "targetText": "기능 쿠키",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14134,7 +14134,7 @@
     "legalCompliance.help": {
       "key": "legalCompliance.help",
       "sourceText": "Help",
-      "targetText": "Help",
+      "targetText": "도움말",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14170,7 +14170,7 @@
     "legalCompliance.ifYouHaveQuestions": {
       "key": "legalCompliance.ifYouHaveQuestions",
       "sourceText": "If you have questions about whether an item is allowed, please contact Support or use the AI Assistant below.",
-      "targetText": "If you have questions about whether an item is allowed, please contact Support or use the AI Assistant below.",
+      "targetText": "특정 물품이 허용되는지 궁금한 점이 있으면 지원팀에 문의하거나 아래의 AI 어시스턴트를 이용하세요.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14188,7 +14188,7 @@
     "legalCompliance.informationProvidedInThis": {
       "key": "legalCompliance.informationProvidedInThis",
       "sourceText": "Information provided in this Compliance Center is intended to explain RENTipid's platform compliance framework and is not individual legal advice.",
-      "targetText": "Information provided in this Compliance Center is intended to explain RENTipid's platform compliance framework and is not individual legal advice.",
+      "targetText": "본 규정 준수 센터에서 제공하는 정보는 RENTipid 플랫폼의 규정 준수 프레임워크를 설명하기 위한 것이며 개별적인 법률 자문을 구성하지 않습니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14206,7 +14206,7 @@
     "legalCompliance.internalNotes": {
       "key": "legalCompliance.internalNotes",
       "sourceText": "Internal Notes",
-      "targetText": "Internal Notes",
+      "targetText": "내부 메모",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14224,7 +14224,7 @@
     "legalCompliance.justificationForTheDecision": {
       "key": "legalCompliance.justificationForTheDecision",
       "sourceText": "Justification for the decision...",
-      "targetText": "Justification for the decision...",
+      "targetText": "결정에 대한 정당성/사유...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14242,7 +14242,7 @@
     "legalCompliance.legalReferenceOptional": {
       "key": "legalCompliance.legalReferenceOptional",
       "sourceText": "Legal Reference (Optional)",
-      "targetText": "Legal Reference (Optional)",
+      "targetText": "법적 근거/참조 (선택 사항)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14260,7 +14260,7 @@
     "legalCompliance.listingId": {
       "key": "legalCompliance.listingId",
       "sourceText": "Listing ID",
-      "targetText": "Listing ID",
+      "targetText": "등록 매물 ID",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14296,7 +14296,7 @@
     "legalCompliance.manageAppealsRarr": {
       "key": "legalCompliance.manageAppealsRarr",
       "sourceText": "Manage appeals &rarr;",
-      "targetText": "Manage appeals &rarr;",
+      "targetText": "이의 신청 관리 &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14314,7 +14314,7 @@
     "legalCompliance.manageHowWeUse": {
       "key": "legalCompliance.manageHowWeUse",
       "sourceText": "Manage how we use cookies and tracking technologies when you browse RENTipid.",
-      "targetText": "Manage how we use cookies and tracking technologies when you browse RENTipid.",
+      "targetText": "RENTipid를 탐색할 때 당사가 쿠키 및 추적 기술을 사용하는 방식을 관리하세요.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14332,7 +14332,7 @@
     "legalCompliance.managePoliciesRarr": {
       "key": "legalCompliance.managePoliciesRarr",
       "sourceText": "Manage policies &rarr;",
-      "targetText": "Manage policies &rarr;",
+      "targetText": "정책 관리 &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14350,7 +14350,7 @@
     "legalCompliance.manageProhibitedAndRestricted": {
       "key": "legalCompliance.manageProhibitedAndRestricted",
       "sourceText": "Manage prohibited and restricted item policies.",
-      "targetText": "Manage prohibited and restricted item policies.",
+      "targetText": "금지 및 제한 품목 정책을 관리합니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14368,7 +14368,7 @@
     "legalCompliance.marketing": {
       "key": "legalCompliance.marketing",
       "sourceText": "Marketing",
-      "targetText": "Marketing",
+      "targetText": "마케팅",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14386,7 +14386,7 @@
     "legalCompliance.marketingCookies": {
       "key": "legalCompliance.marketingCookies",
       "sourceText": "Marketing Cookies",
-      "targetText": "Marketing Cookies",
+      "targetText": "마케팅 쿠키",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14422,7 +14422,7 @@
     "legalCompliance.messageSentToListing": {
       "key": "legalCompliance.messageSentToListing",
       "sourceText": "Message sent to listing owner if applicable...",
-      "targetText": "Message sent to listing owner if applicable...",
+      "targetText": "해당하는 경우 등록자에게 전송된 메시지...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14440,7 +14440,7 @@
     "legalCompliance.messageThatWillBe": {
       "key": "legalCompliance.messageThatWillBe",
       "sourceText": "Message that will be sent to the user...",
-      "targetText": "Message that will be sent to the user...",
+      "targetText": "사용자에게 전송될 메시지...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14476,7 +14476,7 @@
     "legalCompliance.myPrivacySettings": {
       "key": "legalCompliance.myPrivacySettings",
       "sourceText": "My Privacy Settings",
-      "targetText": "My Privacy 설정",
+      "targetText": "내 개인정보 보호 설정",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14494,7 +14494,7 @@
     "legalCompliance.name": {
       "key": "legalCompliance.name",
       "sourceText": "Name",
-      "targetText": "Name",
+      "targetText": "이름",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14512,7 +14512,7 @@
     "legalCompliance.necessary": {
       "key": "legalCompliance.necessary",
       "sourceText": "Necessary",
-      "targetText": "Necessary",
+      "targetText": "필수",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14530,7 +14530,7 @@
     "legalCompliance.noAppealsFoundMatching": {
       "key": "legalCompliance.noAppealsFoundMatching",
       "sourceText": "No appeals found matching the criteria.",
-      "targetText": "No appeals found matching the criteria.",
+      "targetText": "조건과 일치하는 이의 신청을 찾을 수 없습니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14548,7 +14548,7 @@
     "legalCompliance.noCasesFoundMatching": {
       "key": "legalCompliance.noCasesFoundMatching",
       "sourceText": "No cases found matching the criteria.",
-      "targetText": "No cases found matching the criteria.",
+      "targetText": "조건과 일치하는 사건을 찾을 수 없습니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14566,7 +14566,7 @@
     "legalCompliance.noMatchingPoliciesFound": {
       "key": "legalCompliance.noMatchingPoliciesFound",
       "sourceText": "No matching policies found",
-      "targetText": "No matching policies found",
+      "targetText": "일치하는 정책이 없습니다",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14584,7 +14584,7 @@
     "legalCompliance.noPoliciesFoundIn": {
       "key": "legalCompliance.noPoliciesFoundIn",
       "sourceText": "No policies found in the catalogue.",
-      "targetText": "No policies found in the catalogue.",
+      "targetText": "카탈로그에서 정책을 찾을 수 없습니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14602,7 +14602,7 @@
     "legalCompliance.noPrivacyRequestsFound": {
       "key": "legalCompliance.noPrivacyRequestsFound",
       "sourceText": "No privacy requests found.",
-      "targetText": "No privacy requests found.",
+      "targetText": "개인정보 요청 내역이 없습니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14620,7 +14620,7 @@
     "legalCompliance.noRecentEnforcementCases": {
       "key": "legalCompliance.noRecentEnforcementCases",
       "sourceText": "No recent enforcement cases found.",
-      "targetText": "No recent enforcement cases found.",
+      "targetText": "최근 집행 사건이 없습니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14638,7 +14638,7 @@
     "legalCompliance.noRecordsFound": {
       "key": "legalCompliance.noRecordsFound",
       "sourceText": "No records found",
-      "targetText": "No records found",
+      "targetText": "기록이 없습니다",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14656,7 +14656,7 @@
     "legalCompliance.noSavedCookiePreferences": {
       "key": "legalCompliance.noSavedCookiePreferences",
       "sourceText": "No saved cookie preferences found.",
-      "targetText": "No saved cookie preferences found.",
+      "targetText": "저장된 쿠키 설정이 없습니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14692,7 +14692,7 @@
     "legalCompliance.objectToProcessing": {
       "key": "legalCompliance.objectToProcessing",
       "sourceText": "Object to processing",
-      "targetText": "Object to processing",
+      "targetText": "데이터 처리에 대한 이의 제기",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14728,7 +14728,7 @@
     "legalCompliance.openCasesActionNeeded": {
       "key": "legalCompliance.openCasesActionNeeded",
       "sourceText": "Open Cases (Action Needed)",
-      "targetText": "Open Cases (Action Needed)",
+      "targetText": "해결되지 않은 사건 (조치 필요)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14746,7 +14746,7 @@
     "legalCompliance.originalCaseReference": {
       "key": "legalCompliance.originalCaseReference",
       "sourceText": "Original Case Reference",
-      "targetText": "Original Case Reference",
+      "targetText": "원래 사건 참조",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14782,7 +14782,7 @@
     "legalCompliance.paymentsAreHeldIn": {
       "key": "legalCompliance.paymentsAreHeldIn",
       "sourceText": "Payments are held in escrow until the asset is returned and inspections are cleared.",
-      "targetText": "Payments are held in escrow until the asset is returned and inspections are cleared.",
+      "targetText": "결제 대금은 자산이 반환되고 검수가 완료될 때까지 에스크로에 보관됩니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14818,7 +14818,7 @@
     "legalCompliance.pendingAppeals": {
       "key": "legalCompliance.pendingAppeals",
       "sourceText": "Pending Appeals",
-      "targetText": "Pending Appeals",
+      "targetText": "대기 중인 이의 신청",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14836,7 +14836,7 @@
     "legalCompliance.pendingVerifications": {
       "key": "legalCompliance.pendingVerifications",
       "sourceText": "Pending Verifications",
-      "targetText": "Pending Verifications",
+      "targetText": "대기 중인 인증",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14854,7 +14854,7 @@
     "legalCompliance.pistolGunRifle": {
       "key": "legalCompliance.pistolGunRifle",
       "sourceText": "pistol, gun, rifle",
-      "targetText": "pistol, gun, rifle",
+      "targetText": "권총, 총, 소총",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14872,7 +14872,7 @@
     "legalCompliance.plainLanguageSummary": {
       "key": "legalCompliance.plainLanguageSummary",
       "sourceText": "Plain-Language Summary",
-      "targetText": "Plain-Language Summary",
+      "targetText": "쉬운 언어로 된 요약",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14890,7 +14890,7 @@
     "legalCompliance.policyCatalogue": {
       "key": "legalCompliance.policyCatalogue",
       "sourceText": "Policy Catalogue",
-      "targetText": "Policy Catalogue",
+      "targetText": "정책 카탈로그",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14908,7 +14908,7 @@
     "legalCompliance.policyCode": {
       "key": "legalCompliance.policyCode",
       "sourceText": "Policy Code",
-      "targetText": "Policy Code",
+      "targetText": "정책 코드",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14926,7 +14926,7 @@
     "legalCompliance.policyName": {
       "key": "legalCompliance.policyName",
       "sourceText": "Policy Name",
-      "targetText": "Policy Name",
+      "targetText": "정책 이름",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14944,7 +14944,7 @@
     "legalCompliance.policyViolated": {
       "key": "legalCompliance.policyViolated",
       "sourceText": "Policy Violated",
-      "targetText": "Policy Violated",
+      "targetText": "위반된 정책",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14980,7 +14980,7 @@
     "legalCompliance.prohibitedItemsIncludeWeapons": {
       "key": "legalCompliance.prohibitedItemsIncludeWeapons",
       "sourceText": "Prohibited items include weapons, illegal substances, and hazardous materials.",
-      "targetText": "Prohibited items include weapons, illegal substances, and hazardous materials.",
+      "targetText": "금지 품목에는 무기, 불법 물질 및 위험 물질이 포함됩니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14998,7 +14998,7 @@
     "legalCompliance.prohibitedItemsModule": {
       "key": "legalCompliance.prohibitedItemsModule",
       "sourceText": "Prohibited Items Module",
-      "targetText": "Prohibited Items Module",
+      "targetText": "금지 품목 모듈",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15016,7 +15016,7 @@
     "legalCompliance.prohibitedKeywordsCommaSeparated": {
       "key": "legalCompliance.prohibitedKeywordsCommaSeparated",
       "sourceText": "Prohibited Keywords (Comma separated)",
-      "targetText": "Prohibited Keywords (Comma separated)",
+      "targetText": "금지된 키워드 (쉼표로 구분)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15052,7 +15052,7 @@
     "legalCompliance.provideAnyAdditionalDetails": {
       "key": "legalCompliance.provideAnyAdditionalDetails",
       "sourceText": "Provide any additional details that will help us process your request...",
-      "targetText": "Provide any additional details that will help us process your request...",
+      "targetText": "요청 처리에 도움이 될 추가 세부 정보를 입력하세요...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15070,7 +15070,7 @@
     "legalCompliance.publicGuidance": {
       "key": "legalCompliance.publicGuidance",
       "sourceText": "Public Guidance",
-      "targetText": "Public Guidance",
+      "targetText": "공개 안내",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15106,7 +15106,7 @@
     "legalCompliance.readPrivacyPolicy": {
       "key": "legalCompliance.readPrivacyPolicy",
       "sourceText": "Read Privacy Policy",
-      "targetText": "Read 개인정보 처리방침",
+      "targetText": "개인정보 처리방침 읽기",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15124,7 +15124,7 @@
     "legalCompliance.recentEnforcementActions": {
       "key": "legalCompliance.recentEnforcementActions",
       "sourceText": "Recent Enforcement Actions",
-      "targetText": "Recent Enforcement Actions",
+      "targetText": "최근 집행 조치",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15142,7 +15142,7 @@
     "legalCompliance.recentUsers": {
       "key": "legalCompliance.recentUsers",
       "sourceText": "Recent Users",
-      "targetText": "Recent Users",
+      "targetText": "최근 사용자",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15160,7 +15160,7 @@
     "legalCompliance.regulatorOptional": {
       "key": "legalCompliance.regulatorOptional",
       "sourceText": "Regulator (Optional)",
-      "targetText": "Regulator (Optional)",
+      "targetText": "규제 기관 (선택 사항)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15178,7 +15178,7 @@
     "legalCompliance.requestSubmittedSuccessfully": {
       "key": "legalCompliance.requestSubmittedSuccessfully",
       "sourceText": "Request Submitted Successfully",
-      "targetText": "Request Submitted Successfully",
+      "targetText": "요청이 성공적으로 제출되었습니다",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15196,7 +15196,7 @@
     "legalCompliance.resolutionAction": {
       "key": "legalCompliance.resolutionAction",
       "sourceText": "Resolution Action",
-      "targetText": "Resolution Action",
+      "targetText": "해결 조치",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15214,7 +15214,7 @@
     "legalCompliance.responseToAppellant": {
       "key": "legalCompliance.responseToAppellant",
       "sourceText": "Response to Appellant",
-      "targetText": "Response to Appellant",
+      "targetText": "신청인에 대한 답변",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15250,7 +15250,7 @@
     "legalCompliance.returnToPrivacyCenter": {
       "key": "legalCompliance.returnToPrivacyCenter",
       "sourceText": "Return to Privacy Center",
-      "targetText": "Return to Privacy Center",
+      "targetText": "개인정보 보호 센터로 돌아가기",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15286,7 +15286,7 @@
     "legalCompliance.reviewAction": {
       "key": "legalCompliance.reviewAction",
       "sourceText": "Review Action",
-      "targetText": "Review Action",
+      "targetText": "검토 조치",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15304,7 +15304,7 @@
     "legalCompliance.reviewAndManageUser": {
       "key": "legalCompliance.reviewAndManageUser",
       "sourceText": "Review and manage user appeals for enforcement actions.",
-      "targetText": "Review and manage user appeals for enforcement actions.",
+      "targetText": "집행 조치에 대한 사용자 이의 신청을 검토하고 관리합니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15322,7 +15322,7 @@
     "legalCompliance.reviewDecision": {
       "key": "legalCompliance.reviewDecision",
       "sourceText": "Review Decision",
-      "targetText": "Review Decision",
+      "targetText": "검토 결정",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15340,7 +15340,7 @@
     "legalCompliance.reviewFlaggedListingsAnd": {
       "key": "legalCompliance.reviewFlaggedListingsAnd",
       "sourceText": "Review flagged listings and manage active cases.",
-      "targetText": "Review flagged listings and manage active cases.",
+      "targetText": "신고된 매물을 검토하고 진행 중인 사건을 관리합니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15358,7 +15358,7 @@
     "legalCompliance.reviewKeywordsCommaSeparated": {
       "key": "legalCompliance.reviewKeywordsCommaSeparated",
       "sourceText": "Review Keywords (Comma separated)",
-      "targetText": "Review Keywords (Comma separated)",
+      "targetText": "검토 키워드 (쉼표로 구분)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15376,7 +15376,7 @@
     "legalCompliance.reviewOpenCasesRarr": {
       "key": "legalCompliance.reviewOpenCasesRarr",
       "sourceText": "Review open cases &rarr;",
-      "targetText": "Review open cases &rarr;",
+      "targetText": "해결되지 않은 사건 검토 &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15394,7 +15394,7 @@
     "legalCompliance.reviewerNotesInternal": {
       "key": "legalCompliance.reviewerNotesInternal",
       "sourceText": "Reviewer Notes (Internal)",
-      "targetText": "Reviewer Notes (Internal)",
+      "targetText": "검토자 메모 (내부용)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15412,7 +15412,7 @@
     "legalCompliance.searchLawsJurisdictionsTopics": {
       "key": "legalCompliance.searchLawsJurisdictionsTopics",
       "sourceText": "Search laws, jurisdictions, topics (e.g. RA 11967, GDPR, privacy, refund)...",
-      "targetText": "Search laws, jurisdictions, topics (e.g. RA 11967, GDPR, privacy, refund)...",
+      "targetText": "법률, 관할권, 주제 검색 (예: RA 11967, GDPR, 개인정보 보호, 환불)...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15430,7 +15430,7 @@
     "legalCompliance.searchProhibitedItemsKeywords": {
       "key": "legalCompliance.searchProhibitedItemsKeywords",
       "sourceText": "Search prohibited items, keywords, or policies...",
-      "targetText": "Search prohibited items, keywords, or policies...",
+      "targetText": "금지 품목, 키워드 또는 정책 검색...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15448,7 +15448,7 @@
     "legalCompliance.strictlyNecessaryCookies": {
       "key": "legalCompliance.strictlyNecessaryCookies",
       "sourceText": "Strictly Necessary Cookies",
-      "targetText": "Strictly Necessary Cookies",
+      "targetText": "꼭 필요한 필수 쿠키",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15466,7 +15466,7 @@
     "legalCompliance.submitAPrivacyRequest": {
       "key": "legalCompliance.submitAPrivacyRequest",
       "sourceText": "Submit a Privacy Request",
-      "targetText": "Submit a Privacy Request",
+      "targetText": "개인정보 보호 요청 제출",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15484,7 +15484,7 @@
     "legalCompliance.submitRequest": {
       "key": "legalCompliance.submitRequest",
       "sourceText": "Submit Request",
-      "targetText": "Submit Request",
+      "targetText": "요청 제출",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15520,7 +15520,7 @@
     "legalCompliance.summary": {
       "key": "legalCompliance.summary",
       "sourceText": "Summary",
-      "targetText": "Summary",
+      "targetText": "요약",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15538,7 +15538,7 @@
     "legalCompliance.supportingStatement": {
       "key": "legalCompliance.supportingStatement",
       "sourceText": "Supporting Statement",
-      "targetText": "Supporting Statement",
+      "targetText": "증빙 진술서",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15592,7 +15592,7 @@
     "legalCompliance.targetUserId": {
       "key": "legalCompliance.targetUserId",
       "sourceText": "Target User ID",
-      "targetText": "Target User ID",
+      "targetText": "대상 사용자 ID",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15610,7 +15610,7 @@
     "legalCompliance.totalEnforcementCases": {
       "key": "legalCompliance.totalEnforcementCases",
       "sourceText": "Total Enforcement Cases",
-      "targetText": "Total Enforcement Cases",
+      "targetText": "총 집행 사건 수",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15628,7 +15628,7 @@
     "legalCompliance.trackYourPastRequests": {
       "key": "legalCompliance.trackYourPastRequests",
       "sourceText": "Track your past requests to access, correct, or delete your personal data.",
-      "targetText": "Track your past requests to access, correct, or delete your personal data.",
+      "targetText": "개인정보 열람, 정정 또는 삭제에 대한 과거 요청 내역을 추적하세요.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15646,7 +15646,7 @@
     "legalCompliance.trustSafetyLegal": {
       "key": "legalCompliance.trustSafetyLegal",
       "sourceText": "Trust, Safety & Legal",
-      "targetText": "Trust, Safety & Legal",
+      "targetText": "신뢰, 안전 및 법적 문제",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15664,7 +15664,7 @@
     "legalCompliance.tryAdjustingYourSearch": {
       "key": "legalCompliance.tryAdjustingYourSearch",
       "sourceText": "Try adjusting your search terms.",
-      "targetText": "Try adjusting your search terms.",
+      "targetText": "검색어를 조정해 보세요.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15772,7 +15772,7 @@
     "legalCompliance.userNoticeMessage": {
       "key": "legalCompliance.userNoticeMessage",
       "sourceText": "User Notice Message",
-      "targetText": "User Notice Message",
+      "targetText": "사용자 안내 메시지",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15790,7 +15790,7 @@
     "legalCompliance.validationRequired": {
       "key": "legalCompliance.validationRequired",
       "sourceText": "Validation Required",
-      "targetText": "Validation Required",
+      "targetText": "유효성 검사 필요",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15826,7 +15826,7 @@
     "legalCompliance.viewAllCasesRarr": {
       "key": "legalCompliance.viewAllCasesRarr",
       "sourceText": "View all cases &rarr;",
-      "targetText": "View all cases &rarr;",
+      "targetText": "모든 사건 보기 &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15844,7 +15844,7 @@
     "legalCompliance.viewQueue": {
       "key": "legalCompliance.viewQueue",
       "sourceText": "View Queue",
-      "targetText": "View Queue",
+      "targetText": "대기열 보기",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15862,7 +15862,7 @@
     "legalCompliance.violatedPolicy": {
       "key": "legalCompliance.violatedPolicy",
       "sourceText": "Violated Policy",
-      "targetText": "Violated Policy",
+      "targetText": "위반된 정책",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15898,7 +15898,7 @@
     "legalCompliance.weWillProcessYour": {
       "key": "legalCompliance.weWillProcessYour",
       "sourceText": "We will process your request in accordance with our Privacy Policy and applicable data protection laws. You will receive an email shortly with instructions on how to track the status of your request.",
-      "targetText": "We will process your request in accordance with our 개인정보 처리방침 and applicable data protection laws. You will receive an email shortly with instructions on how to track the status of your request.",
+      "targetText": "당사는 개인정보 처리방침 및 관련 데이터 보호 법령에 따라 귀하의 요청을 처리합니다. 요청 진행 상태를 확인하는 방법이 포함된 이메일이 곧 발송됩니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15916,7 +15916,7 @@
     "legalCompliance.weaponTactical": {
       "key": "legalCompliance.weaponTactical",
       "sourceText": "weapon, tactical",
-      "targetText": "weapon, tactical",
+      "targetText": "무기, 전술 장비",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15934,7 +15934,7 @@
     "legalCompliance.withdrawConsent": {
       "key": "legalCompliance.withdrawConsent",
       "sourceText": "Withdraw consent",
-      "targetText": "Withdraw consent",
+      "targetText": "동의 철회",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15970,7 +15970,7 @@
     "legalCompliance.youMustProvideAccurate": {
       "key": "legalCompliance.youMustProvideAccurate",
       "sourceText": "You must provide accurate KYC information. Business providers must hold valid permits.",
-      "targetText": "You must provide accurate KYC information. Business providers must hold valid permits.",
+      "targetText": "정확한 신원 확인(KYC) 정보를 제공해야 합니다. 비즈니스 제공자는 유효한 허가증을 보유해야 합니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15988,7 +15988,7 @@
     "legalCompliance.yourPrivacyRequestHas": {
       "key": "legalCompliance.yourPrivacyRequestHas",
       "sourceText": "Your privacy request has been received. Please keep the following reference number for your records:",
-      "targetText": "Your privacy request has been received. Please keep the following reference number for your records:",
+      "targetText": "개인정보 보호 요청이 접수되었습니다. 기록을 위해 다음 참조 번호를 보관해 주세요:",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17075,7 +17075,7 @@
     "listingWizard.damagePolicyLabel": {
       "key": "listingWizard.damagePolicyLabel",
       "sourceText": "Damage Policy",
-      "targetText": "Damage Policy",
+      "targetText": "손상 정책",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17093,7 +17093,7 @@
     "listingWizard.damagePolicyPlaceholder": {
       "key": "listingWizard.damagePolicyPlaceholder",
       "sourceText": "e.g. Any scratches will deduct ₱500 from the deposit...",
-      "targetText": "e.g. Any scratches will deduct ₱500 from the deposit...",
+      "targetText": "예: 긁힘 발생 시 보증금에서 ₱500가 차감됩니다...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17111,7 +17111,7 @@
     "listingWizard.declarationBody": {
       "key": "listingWizard.declarationBody",
       "sourceText": "I declare that I legally own this asset or am legally authorized to offer it for rent. I agree that this listing must comply with RENTipid policies, applicable laws, safety rules, and category requirements.",
-      "targetText": "I declare that I legally own this asset or am legally authorized to offer it for rent. I agree that this listing must comply with RENTipid policies, applicable laws, safety rules, and category requirements.",
+      "targetText": "본인은 본 자산을 합법적으로 소유하고 있거나 대여할 법적 권한이 있음을 선언합니다. 본 등록 매물은 RENTipid 정책, 관련 법령, 안전 규정 및 카테고리 요건을 준수해야 함에 동의합니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17129,7 +17129,7 @@
     "listingWizard.declarationTitle": {
       "key": "listingWizard.declarationTitle",
       "sourceText": "Provider Declaration:",
-      "targetText": "Provider Declaration:",
+      "targetText": "제공자 서약:",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -18488,7 +18488,7 @@
     "partnerHub.termsAndConditions": {
       "key": "partnerHub.termsAndConditions",
       "sourceText": "Terms and Conditions",
-      "targetText": "Terms and Conditions",
+      "targetText": "이용 약관",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -22849,7 +22849,7 @@
     "providerListingManage.errorMissingDocuments": {
       "key": "providerListingManage.errorMissingDocuments",
       "sourceText": "This category requires compliance or proof of ownership verification documents before submission.",
-      "targetText": "This category requires compliance or proof of ownership verification documents before submission.",
+      "targetText": "이 카테고리는 제출 전에 규정 준수 또는 소유권 확인 서류가 필요합니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -22963,7 +22963,7 @@
     "providerListingManage.riskCategoryWarning": {
       "key": "providerListingManage.riskCategoryWarning",
       "sourceText": "This category strictly requires admin verification and compliance documents.",
-      "targetText": "This category strictly requires admin verification and compliance documents.",
+      "targetText": "이 카테고리는 관리자 검증 및 규정 준수 서류가 엄격히 요구됩니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23334,7 +23334,7 @@
     "providerListings.verificationRequiredBody": {
       "key": "providerListings.verificationRequiredBody",
       "sourceText": "You must complete your provider verification before you can create and manage listings.",
-      "targetText": "You must complete your provider verification before you can create and manage listings.",
+      "targetText": "등록 매물을 생성하고 관리하려면 먼저 제공자 인증을 완료해야 합니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23352,7 +23352,7 @@
     "providerListings.verificationRequiredTitle": {
       "key": "providerListings.verificationRequiredTitle",
       "sourceText": "Account Verification Required",
-      "targetText": "Account Verification Required",
+      "targetText": "계정 인증 필요",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23385,7 +23385,7 @@
     "providerNewListing.legalRequirementsBody": {
       "key": "providerNewListing.legalRequirementsBody",
       "sourceText": "Depending on your jurisdiction and category, certain legal requirements or permits may apply to this listing.",
-      "targetText": "Depending on your jurisdiction and category, certain legal requirements or permits may apply to this listing.",
+      "targetText": "관할권 및 카테고리에 따라 이 매물에 특정 법적 요건이나 허가가 적용될 수 있습니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23403,7 +23403,7 @@
     "providerNewListing.legalRequirementsTitle": {
       "key": "providerNewListing.legalRequirementsTitle",
       "sourceText": "Legal & Compliance Requirements",
-      "targetText": "Legal & Compliance Requirements",
+      "targetText": "법적 및 규정 준수 요건",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23451,7 +23451,7 @@
     "providerNewListing.viewComplianceRegister": {
       "key": "providerNewListing.viewComplianceRegister",
       "sourceText": "View Global Legal Compliance Register",
-      "targetText": "View Global Legal Compliance Register",
+      "targetText": "글로벌 법적 준수 등록부 보기",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -24300,7 +24300,7 @@
     "renter.onboarding.termsAccepted": {
       "key": "renter.onboarding.termsAccepted",
       "sourceText": "Terms accepted",
-      "targetText": "Terms accepted",
+      "targetText": "약관 동의 완료",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33678,7 +33678,7 @@
     "trustSafety.247Support": {
       "key": "trustSafety.247Support",
       "sourceText": "24/7 Support",
-      "targetText": "24/7 Support",
+      "targetText": "24/7 고객 지원",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33696,7 +33696,7 @@
     "trustSafety.allUsersMustVerify": {
       "key": "trustSafety.allUsersMustVerify",
       "sourceText": "All users must verify their identity before transacting on the platform.",
-      "targetText": "All users must verify their identity before transacting on the platform.",
+      "targetText": "모든 사용자는 플랫폼에서 거래하기 전에 신원을 확인해야 합니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33714,7 +33714,7 @@
     "trustSafety.builtOnTrustSafety": {
       "key": "trustSafety.builtOnTrustSafety",
       "sourceText": "Built on Trust & Safety",
-      "targetText": "Built on Trust & Safety",
+      "targetText": "신뢰와 안전을 바탕으로 구축",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33732,7 +33732,7 @@
     "trustSafety.everyUserUndergoesThorough": {
       "key": "trustSafety.everyUserUndergoesThorough",
       "sourceText": "Every user undergoes thorough identity verification (KYC) before they can transact on the platform.",
-      "targetText": "Every user undergoes thorough identity verification (KYC) before they can transact on the platform.",
+      "targetText": "모든 사용자는 플랫폼에서 거래하기 전에 철저한 신원 확인(KYC)을 거칩니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33750,7 +33750,7 @@
     "trustSafety.identityVerificationKyc": {
       "key": "trustSafety.identityVerificationKyc",
       "sourceText": "Identity Verification (KYC)",
-      "targetText": "Identity Verification (KYC)",
+      "targetText": "신원 확인 (KYC)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33768,7 +33768,7 @@
     "trustSafety.neverPayOutsideThe": {
       "key": "trustSafety.neverPayOutsideThe",
       "sourceText": "Never pay outside the RENTipid platform. All transactions are protected by our Escrow system.",
-      "targetText": "Never pay outside the RENTipid platform. All transactions are protected by our Escrow system.",
+      "targetText": "RENTipid 플랫폼 외부에서 결제하지 마세요. 모든 거래는 당사의 에스크로 시스템으로 보호됩니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33786,7 +33786,7 @@
     "trustSafety.ourDedicatedResolutionCenter": {
       "key": "trustSafety.ourDedicatedResolutionCenter",
       "sourceText": "Our dedicated resolution center and support team are always ready to help mediate any disputes.",
-      "targetText": "Our dedicated resolution center and support team are always ready to help mediate any disputes.",
+      "targetText": "전담 분쟁 해결 센터와 지원 팀이 분쟁을 중재할 준비가 되어 있습니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33804,7 +33804,7 @@
     "trustSafety.paymentsAreHeldSecurely": {
       "key": "trustSafety.paymentsAreHeldSecurely",
       "sourceText": "Payments are held securely in escrow and only released when the rental is successfully completed.",
-      "targetText": "Payments are held securely in escrow and only released when the rental is successfully completed.",
+      "targetText": "결제 대금은 에스크로에 안전하게 보관되며 대여가 성공적으로 완료된 경우에만 지급됩니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33822,7 +33822,7 @@
     "trustSafety.readyToGetStarted": {
       "key": "trustSafety.readyToGetStarted",
       "sourceText": "Ready to get started?",
-      "targetText": "Ready to get started?",
+      "targetText": "시작할 준비가 되셨나요?",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33840,7 +33840,7 @@
     "trustSafety.secureEscrow": {
       "key": "trustSafety.secureEscrow",
       "sourceText": "Secure Escrow",
-      "targetText": "Secure Escrow",
+      "targetText": "안전한 에스크로",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33858,7 +33858,7 @@
     "trustSafety.securePayments": {
       "key": "trustSafety.securePayments",
       "sourceText": "Secure Payments",
-      "targetText": "Secure Payments",
+      "targetText": "안전한 결제",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33876,7 +33876,7 @@
     "trustSafety.trustSafetyCenter": {
       "key": "trustSafety.trustSafetyCenter",
       "sourceText": "Trust & Safety Center",
-      "targetText": "Trust & Safety Center",
+      "targetText": "신뢰 및 안전 센터",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33894,7 +33894,7 @@
     "trustSafety.verifiedCommunity": {
       "key": "trustSafety.verifiedCommunity",
       "sourceText": "Verified Community",
-      "targetText": "Verified Community",
+      "targetText": "인증된 커뮤니티",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33912,7 +33912,7 @@
     "trustSafety.weTakeSecuritySeriously": {
       "key": "trustSafety.weTakeSecuritySeriously",
       "sourceText": "We take security seriously. Every transaction is protected by our comprehensive safety framework.",
-      "targetText": "We take security seriously. Every transaction is protected by our comprehensive safety framework.",
+      "targetText": "당사는 보안을 매우 중요하게 생각합니다. 모든 거래는 포괄적인 보안 프레임워크로 보호됩니다.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],

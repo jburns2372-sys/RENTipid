@@ -1,0 +1,49 @@
+{
+  "signoffPackageVersion": "1.0.0",
+  "generatedAt": "2026-10-06T09:29:08.636051+00:00",
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "scope": "GLOBAL-W1-E Consolidated Multilingual Legal & Compliance Translation Review",
+  "reviewScopeMetrics": {
+    "canonicalControlledKeys": 241,
+    "totalLanguagesRepresented": 32,
+    "totalControlledTargetRepresentations": 7712
+  },
+  "artifactLocations": {
+    "reviewMatrix": "docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_CLASS_C_REVIEW_MATRIX.json",
+    "reviewMatrixMarkdown": "docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_CLASS_C_REVIEW_MATRIX.md",
+    "reviewQueue": "docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_HUMAN_LEGAL_REVIEW_QUEUE.json",
+    "classCDossier": "docs/governance/glcc-v1.1/global/legal/GLOBAL_W1_CLASS_C_MULTILINGUAL_REVIEW_DOSSIER.json",
+    "batchTransitionScript": "docs/governance/glcc-v1.1/global/legal/batch-approval-transition.ts"
+  },
+  "automatedTechnicalFindings": {
+    "authoritativeSourcesResolved": "241 / 241",
+    "sourceVersionMismatch": 0,
+    "sourceChecksumMismatch": 0,
+    "semanticallyEquivalent": 7200,
+    "reviewAttentionRequired": 512,
+    "criticalMeaningDrift": 0,
+    "automaticCorrectionsMade": 5923,
+    "remainingTechnicalDefects": 0,
+    "languageJurisdictionIndependence": "PASS",
+    "jurisdictionSubstitutionErrors": 0,
+    "placeholderIntegrity": "100% PRESERVED"
+  },
+  "governanceAuthorities": {
+    "approvalAuthority": {
+      "name": "Federico P. Diagono Jr.",
+      "title": "Chief Executive Officer / Project Owner, RENTipid",
+      "status": "ASSIGNED"
+    },
+    "legalComplianceReviewer": {
+      "identity": "PENDING GOVERNED ASSIGNMENT",
+      "title": "Legal / Compliance Reviewer",
+      "status": "NOT ASSIGNED",
+      "reviewDate": null,
+      "approvalReference": null,
+      "signature": null,
+      "exceptions": []
+    }
+  },
+  "overallSignoffStatus": "PENDING_HUMAN_REVIEW",
+  "classCLegalApproval": "PENDING"
+}

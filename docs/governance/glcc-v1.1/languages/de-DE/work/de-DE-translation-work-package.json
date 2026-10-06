@@ -2683,7 +2683,7 @@
     "admin.jurisdiction": {
       "key": "admin.jurisdiction",
       "sourceText": "Jurisdiction",
-      "targetText": "Jurisdiction",
+      "targetText": "Gerichtsstand",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4066,7 +4066,7 @@
     "admin.privacyAdministrationDashboard": {
       "key": "admin.privacyAdministrationDashboard",
       "sourceText": "Privacy Administration Dashboard",
-      "targetText": "Privacy Administration Dashboard",
+      "targetText": "Datenschutz-Verwaltungs-Dashboard",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4084,7 +4084,7 @@
     "admin.privacyOperationsCenter": {
       "key": "admin.privacyOperationsCenter",
       "sourceText": "Privacy Operations Center",
-      "targetText": "Privacy Operations Center",
+      "targetText": "Datenschutz-Betriebszentrum",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4102,7 +4102,7 @@
     "admin.privacyPolicyManagement": {
       "key": "admin.privacyPolicyManagement",
       "sourceText": "Privacy Policy Management",
-      "targetText": "Datenschutzerklärung Management",
+      "targetText": "Datenschutzrichtlinien-Verwaltung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4120,7 +4120,7 @@
     "admin.privacyRegistriesMatrices": {
       "key": "admin.privacyRegistriesMatrices",
       "sourceText": "Privacy Registries & Matrices",
-      "targetText": "Privacy Registries & Matrices",
+      "targetText": "Datenschutzregister & Matrizen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10848,7 +10848,7 @@
     "documentUploader.types.businessPermit": {
       "key": "documentUploader.types.businessPermit",
       "sourceText": "Business Permit",
-      "targetText": "Business Permit",
+      "targetText": "Gewerbegenehmigung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10866,7 +10866,7 @@
     "documentUploader.types.insurancePolicy": {
       "key": "documentUploader.types.insurancePolicy",
       "sourceText": "Insurance Policy",
-      "targetText": "Insurance Policy",
+      "targetText": "Versicherungspolice",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10884,7 +10884,7 @@
     "documentUploader.types.proofOfOwnership": {
       "key": "documentUploader.types.proofOfOwnership",
       "sourceText": "Proof of Ownership",
-      "targetText": "Proof of Ownership",
+      "targetText": "Eigentumsnachweis",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10902,7 +10902,7 @@
     "documentUploader.types.safetyCertificate": {
       "key": "documentUploader.types.safetyCertificate",
       "sourceText": "Safety Certificate",
-      "targetText": "Safety Certificate",
+      "targetText": "Sicherheitszertifikat",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10920,7 +10920,7 @@
     "documentUploader.types.vehicleRegistration": {
       "key": "documentUploader.types.vehicleRegistration",
       "sourceText": "Vehicle Registration (OR/CR)",
-      "targetText": "Vehicle Registration (OR/CR)",
+      "targetText": "Fahrzeugzulassung (OR/CR)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11092,7 +11092,7 @@
     "footer.ip": {
       "key": "footer.ip",
       "sourceText": "Intellectual Property",
-      "targetText": "Intellectual Property",
+      "targetText": "Geistiges Eigentum",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11110,7 +11110,7 @@
     "footer.legalCompliance": {
       "key": "footer.legalCompliance",
       "sourceText": "Global Legal Compliance",
-      "targetText": "Global Legal Compliance",
+      "targetText": "Globale rechtliche Compliance",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11143,7 +11143,7 @@
     "footer.privacy": {
       "key": "footer.privacy",
       "sourceText": "Privacy",
-      "targetText": "Datenschutzerklärung",
+      "targetText": "Datenschutz",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11161,7 +11161,7 @@
     "footer.prohibitedItems": {
       "key": "footer.prohibitedItems",
       "sourceText": "Prohibited Items",
-      "targetText": "Prohibited Items",
+      "targetText": "Verbotene Artikel",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11179,7 +11179,7 @@
     "footer.reportIllegal": {
       "key": "footer.reportIllegal",
       "sourceText": "Report Illegal Activity",
-      "targetText": "Report Illegal Activity",
+      "targetText": "Illegale Aktivitäten melden",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11197,7 +11197,7 @@
     "footer.safety": {
       "key": "footer.safety",
       "sourceText": "Consumer Protection & Safety",
-      "targetText": "Consumer Protection & Safety",
+      "targetText": "Verbraucherschutz & Sicherheit",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11245,7 +11245,7 @@
     "footer.terms": {
       "key": "footer.terms",
       "sourceText": "Terms",
-      "targetText": "Nutzungsbedingungen",
+      "targetText": "Bedingungen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11263,7 +11263,7 @@
     "footer.trustAndLegal": {
       "key": "footer.trustAndLegal",
       "sourceText": "Trust & Legal",
-      "targetText": "Trust & Legal",
+      "targetText": "Vertrauen & Recht",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11281,7 +11281,7 @@
     "fx.checkout.chargeNotice": {
       "key": "fx.checkout.chargeNotice",
       "sourceText": "You will be charged in PHP (Philippine Peso).",
-      "targetText": "You will be charged in PHP (Philippine Peso).",
+      "targetText": "Die Abrechnung erfolgt in PHP (Philippinischer Peso).",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11299,7 +11299,7 @@
     "fx.checkout.disclosureTitle": {
       "key": "fx.checkout.disclosureTitle",
       "sourceText": "Currency & Payment Disclosure",
-      "targetText": "Currency & Payment Disclosure",
+      "targetText": "Währungs- und Zahlungshinweise",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11444,7 +11444,7 @@
     "fx.estimate.originalPrice": {
       "key": "fx.estimate.originalPrice",
       "sourceText": "Authoritative base price: {price}",
-      "targetText": "Maßgeblicher Basispreis: {price}",
+      "targetText": "Verbindlicher Basispreis: {price}",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [
@@ -11869,7 +11869,7 @@
     "globalPreferences.previewNotice": {
       "key": "globalPreferences.previewNotice",
       "sourceText": "Preview formatting only. Display currency may differ from the currency used for payment. The exact charge amount and currency will be shown before confirmation.",
-      "targetText": "Preview formatting only. Display currency may differ from the currency used for payment. The exact charge amount and currency will be shown before confirmation.",
+      "targetText": "Nur Vorschauformatierung. Die Anzeigewährung kann von der für die Zahlung verwendeten Währung abweichen. Der genaue Abrechnungsbetrag und die Währung werden vor der Bestätigung angezeigt.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12241,7 +12241,7 @@
     "helpCenter.privacyDataProtection": {
       "key": "helpCenter.privacyDataProtection",
       "sourceText": "Privacy & Data Protection",
-      "targetText": "Privacy & Data Protection",
+      "targetText": "Datenschutz & Datensicherheit",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12604,7 +12604,7 @@
     "kyc.accountVerificationKyc": {
       "key": "kyc.accountVerificationKyc",
       "sourceText": "Account Verification (KYC)",
-      "targetText": "Account Verification (KYC)",
+      "targetText": "Kontoverifizierung (KYC)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12622,7 +12622,7 @@
     "kyc.businessPermitRegistration": {
       "key": "kyc.businessPermitRegistration",
       "sourceText": "Business Permit / Registration",
-      "targetText": "Business Permit / Registration",
+      "targetText": "Gewerbegenehmigung / Registrierung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12640,7 +12640,7 @@
     "kyc.documentType": {
       "key": "kyc.documentType",
       "sourceText": "Document Type",
-      "targetText": "Document Type",
+      "targetText": "Dokumententyp",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12658,7 +12658,7 @@
     "kyc.file": {
       "key": "kyc.file",
       "sourceText": "File",
-      "targetText": "File",
+      "targetText": "Datei",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12676,7 +12676,7 @@
     "kyc.maxSize5mbFormats": {
       "key": "kyc.maxSize5mbFormats",
       "sourceText": "Max size: 5MB. Formats: PDF, JPG, PNG, WEBP.",
-      "targetText": "Max size: 5MB. Formats: PDF, JPG, PNG, WEBP.",
+      "targetText": "Max. Größe: 5 MB. Formate: PDF, JPG, PNG, WEBP.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12694,7 +12694,7 @@
     "kyc.myUploadedDocuments": {
       "key": "kyc.myUploadedDocuments",
       "sourceText": "My Uploaded Documents",
-      "targetText": "My Uploaded Documents",
+      "targetText": "Meine hochgeladenen Dokumente",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12712,7 +12712,7 @@
     "kyc.noDocumentsUploadedYet": {
       "key": "kyc.noDocumentsUploadedYet",
       "sourceText": "No documents uploaded yet.",
-      "targetText": "No documents uploaded yet.",
+      "targetText": "Noch keine Dokumente hochgeladen.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12730,7 +12730,7 @@
     "kyc.proofOfAddress": {
       "key": "kyc.proofOfAddress",
       "sourceText": "Proof of Address",
-      "targetText": "Proof of Address",
+      "targetText": "Adressnachweis",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12748,7 +12748,7 @@
     "kyc.proofOfOwnershipAuthorization": {
       "key": "kyc.proofOfOwnershipAuthorization",
       "sourceText": "Proof of Ownership / Authorization",
-      "targetText": "Proof of Ownership / Authorization",
+      "targetText": "Eigentumsnachweis / Autorisierung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12766,7 +12766,7 @@
     "kyc.requiredDocuments": {
       "key": "kyc.requiredDocuments",
       "sourceText": "Required Documents",
-      "targetText": "Required Documents",
+      "targetText": "Erforderliche Dokumente",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12784,7 +12784,7 @@
     "kyc.selectDocumentType": {
       "key": "kyc.selectDocumentType",
       "sourceText": "Select document type...",
-      "targetText": "Select document type...",
+      "targetText": "Dokumententyp auswählen...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12802,7 +12802,7 @@
     "kyc.selfieVerification": {
       "key": "kyc.selfieVerification",
       "sourceText": "Selfie Verification",
-      "targetText": "Selfie Verification",
+      "targetText": "Selfie-Verifizierung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12820,7 +12820,7 @@
     "kyc.submitRequiredDocumentsTo": {
       "key": "kyc.submitRequiredDocumentsTo",
       "sourceText": "Submit required documents to unlock full platform features.",
-      "targetText": "Submit required documents to unlock full platform features.",
+      "targetText": "Reichen Sie die erforderlichen Dokumente ein, um alle Plattformfunktionen freizuschalten.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12838,7 +12838,7 @@
     "kyc.uploadDocument": {
       "key": "kyc.uploadDocument",
       "sourceText": "Upload Document",
-      "targetText": "Upload Document",
+      "targetText": "Dokument hochladen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12856,7 +12856,7 @@
     "kyc.validGovernmentId": {
       "key": "kyc.validGovernmentId",
       "sourceText": "Valid Government ID",
-      "targetText": "Valid Government ID",
+      "targetText": "Gültiger amtlicher Ausweis",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12910,7 +12910,7 @@
     "legalCompliance.3ListingRules": {
       "key": "legalCompliance.3ListingRules",
       "sourceText": "3. Listing Rules",
-      "targetText": "3. Inseratsregeln",
+      "targetText": "3. Richtlinien für Angebote",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12928,7 +12928,7 @@
     "legalCompliance.4BookingAndEscrow": {
       "key": "legalCompliance.4BookingAndEscrow",
       "sourceText": "4. Booking and Escrow",
-      "targetText": "4. Buchung und Treuhand",
+      "targetText": "4. Buchung und Treuhandservice",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13018,7 +13018,7 @@
     "legalCompliance.activePolicies": {
       "key": "legalCompliance.activePolicies",
       "sourceText": "Active Policies",
-      "targetText": "Active Policies",
+      "targetText": "Aktive Richtlinien",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13036,7 +13036,7 @@
     "legalCompliance.adminView": {
       "key": "legalCompliance.adminView",
       "sourceText": "Admin View",
-      "targetText": "Admin View",
+      "targetText": "Administratoransicht",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13054,7 +13054,7 @@
     "legalCompliance.all": {
       "key": "legalCompliance.all",
       "sourceText": "All",
-      "targetText": "All",
+      "targetText": "Alle",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13144,7 +13144,7 @@
     "legalCompliance.analyticsCookies": {
       "key": "legalCompliance.analyticsCookies",
       "sourceText": "Analytics Cookies",
-      "targetText": "Analysen Cookies",
+      "targetText": "Analyse-Cookies",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13162,7 +13162,7 @@
     "legalCompliance.appealDetails": {
       "key": "legalCompliance.appealDetails",
       "sourceText": "Appeal Details",
-      "targetText": "Appeal Details",
+      "targetText": "Details der Beschwerde",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13180,7 +13180,7 @@
     "legalCompliance.appealId": {
       "key": "legalCompliance.appealId",
       "sourceText": "Appeal ID",
-      "targetText": "Appeal ID",
+      "targetText": "Beschwerde-ID",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13198,7 +13198,7 @@
     "legalCompliance.appealReason": {
       "key": "legalCompliance.appealReason",
       "sourceText": "Appeal Reason",
-      "targetText": "Appeal Reason",
+      "targetText": "Grund der Beschwerde",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13216,7 +13216,7 @@
     "legalCompliance.appealsQueue": {
       "key": "legalCompliance.appealsQueue",
       "sourceText": "Appeals Queue",
-      "targetText": "Appeals Queue",
+      "targetText": "Beschwerdewarteschlange",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13234,7 +13234,7 @@
     "legalCompliance.appellant": {
       "key": "legalCompliance.appellant",
       "sourceText": "Appellant",
-      "targetText": "Appellant",
+      "targetText": "Beschwerdeführer",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13252,7 +13252,7 @@
     "legalCompliance.appellantId": {
       "key": "legalCompliance.appellantId",
       "sourceText": "Appellant ID",
-      "targetText": "Appellant ID",
+      "targetText": "Beschwerdeführer-ID",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13288,7 +13288,7 @@
     "legalCompliance.attachedDocuments": {
       "key": "legalCompliance.attachedDocuments",
       "sourceText": "Attached Documents",
-      "targetText": "Attached Documents",
+      "targetText": "Angehängte Dokumente",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13306,7 +13306,7 @@
     "legalCompliance.auditTrailNotesNot": {
       "key": "legalCompliance.auditTrailNotesNot",
       "sourceText": "Audit trail notes... (not visible to user)",
-      "targetText": "Audit trail notes... (not visible to user)",
+      "targetText": "Prüfpfadnotizen... (für Benutzer nicht sichtbar)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13360,7 +13360,7 @@
     "legalCompliance.briefDescriptionOfThe": {
       "key": "legalCompliance.briefDescriptionOfThe",
       "sourceText": "Brief description of the policy",
-      "targetText": "Brief description of the policy",
+      "targetText": "Kurze Beschreibung der Richtlinie",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13378,7 +13378,7 @@
     "legalCompliance.byAccessingOrUsing": {
       "key": "legalCompliance.byAccessingOrUsing",
       "sourceText": "By accessing or using RENTipid, you agree to be bound by these Terms and Conditions.",
-      "targetText": "By accessing or using RENTipid, you agree to be bound by these Terms and Conditions.",
+      "targetText": "Durch den Zugriff auf oder die Nutzung von RENTipid erklären Sie sich mit diesen Allgemeinen Geschäftsbedingungen einverstanden.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13396,7 +13396,7 @@
     "legalCompliance.caseDetails": {
       "key": "legalCompliance.caseDetails",
       "sourceText": "Case Details",
-      "targetText": "Case Details",
+      "targetText": "Falldetails",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13414,7 +13414,7 @@
     "legalCompliance.caseNumber": {
       "key": "legalCompliance.caseNumber",
       "sourceText": "Case Number",
-      "targetText": "Case Number",
+      "targetText": "Fallnummer",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13432,7 +13432,7 @@
     "legalCompliance.caseStatus": {
       "key": "legalCompliance.caseStatus",
       "sourceText": "Case Status",
-      "targetText": "Case Status",
+      "targetText": "Fallstatus",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13450,7 +13450,7 @@
     "legalCompliance.classification": {
       "key": "legalCompliance.classification",
       "sourceText": "Classification",
-      "targetText": "Classification",
+      "targetText": "Klassifizierung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13468,7 +13468,7 @@
     "legalCompliance.clientsearch.tryAdjustingYourSearch": {
       "key": "legalCompliance.clientsearch.tryAdjustingYourSearch",
       "sourceText": "Try adjusting your search query or filter.",
-      "targetText": "Try adjusting your search query or filter.",
+      "targetText": "Versuchen Sie, Ihre Suchanfrage oder Ihren Filter anzupassen.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13522,7 +13522,7 @@
     "legalCompliance.complianceEnforcement": {
       "key": "legalCompliance.complianceEnforcement",
       "sourceText": "Compliance & Enforcement",
-      "targetText": "Compliance & Enforcement",
+      "targetText": "Compliance & Durchsetzung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13540,7 +13540,7 @@
     "legalCompliance.complianceReady": {
       "key": "legalCompliance.complianceReady",
       "sourceText": "Compliance Ready",
-      "targetText": "Compliance Ready",
+      "targetText": "Bereit für Compliance",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13558,7 +13558,7 @@
     "legalCompliance.complianceVerification": {
       "key": "legalCompliance.complianceVerification",
       "sourceText": "Compliance & Verification",
-      "targetText": "Compliance & Verification",
+      "targetText": "Compliance & Verifizierung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13594,7 +13594,7 @@
     "legalCompliance.cookiePreferences": {
       "key": "legalCompliance.cookiePreferences",
       "sourceText": "Cookie Preferences",
-      "targetText": "Cookie Preferences",
+      "targetText": "Cookie-Einstellungen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13612,7 +13612,7 @@
     "legalCompliance.cookieTrackingPreferences": {
       "key": "legalCompliance.cookieTrackingPreferences",
       "sourceText": "Cookie & Tracking Preferences",
-      "targetText": "Cookie & Tracking Preferences",
+      "targetText": "Cookie- & Tracking-Einstellungen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13630,7 +13630,7 @@
     "legalCompliance.correctionOfMyData": {
       "key": "legalCompliance.correctionOfMyData",
       "sourceText": "Correction of my data",
-      "targetText": "Correction of my data",
+      "targetText": "Korrektur meiner Daten",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13666,7 +13666,7 @@
     "legalCompliance.dataPortability": {
       "key": "legalCompliance.dataPortability",
       "sourceText": "Data Portability",
-      "targetText": "Data Portability",
+      "targetText": "Datenübertragbarkeit",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13702,7 +13702,7 @@
     "legalCompliance.deleteMyAccount": {
       "key": "legalCompliance.deleteMyAccount",
       "sourceText": "Delete My Account",
-      "targetText": "Delete My Account",
+      "targetText": "Mein Konto löschen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13738,7 +13738,7 @@
     "legalCompliance.detailedPolicyGuidelines": {
       "key": "legalCompliance.detailedPolicyGuidelines",
       "sourceText": "Detailed policy guidelines...",
-      "targetText": "Detailed policy guidelines...",
+      "targetText": "Detaillierte Richtlinien...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13756,7 +13756,7 @@
     "legalCompliance.detailsOptional": {
       "key": "legalCompliance.detailsOptional",
       "sourceText": "Details (Optional)",
-      "targetText": "Details (Optional)",
+      "targetText": "Details (optional)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13774,7 +13774,7 @@
     "legalCompliance.detectionConfidence": {
       "key": "legalCompliance.detectionConfidence",
       "sourceText": "Detection Confidence",
-      "targetText": "Detection Confidence",
+      "targetText": "Erkennungssicherheit",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13792,7 +13792,7 @@
     "legalCompliance.eGFirearmsAmmunition": {
       "key": "legalCompliance.eGFirearmsAmmunition",
       "sourceText": "e.g. Firearms & Ammunition",
-      "targetText": "e.g. Firearms & Ammunition",
+      "targetText": "z. B. Schusswaffen & Munition",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13810,7 +13810,7 @@
     "legalCompliance.eGHandgunsRifles": {
       "key": "legalCompliance.eGHandgunsRifles",
       "sourceText": "e.g. Handguns, rifles, bullets",
-      "targetText": "e.g. Handguns, rifles, bullets",
+      "targetText": "z. B. Handfeuerwaffen, Gewehre, Patronen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13882,7 +13882,7 @@
     "legalCompliance.eGTakedown": {
       "key": "legalCompliance.eGTakedown",
       "sourceText": "e.g. TAKEDOWN",
-      "targetText": "e.g. TAKEDOWN",
+      "targetText": "z. B. TAKEDOWN",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13900,7 +13900,7 @@
     "legalCompliance.eGToyGuns": {
       "key": "legalCompliance.eGToyGuns",
       "sourceText": "e.g. Toy guns clearly marked with orange tips",
-      "targetText": "e.g. Toy guns clearly marked with orange tips",
+      "targetText": "z. B. Spielzeugwaffen, die deutlich mit orangefarbenen Spitzen gekennzeichnet sind",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13954,7 +13954,7 @@
     "legalCompliance.enforcementAction": {
       "key": "legalCompliance.enforcementAction",
       "sourceText": "Enforcement Action",
-      "targetText": "Enforcement Action",
+      "targetText": "Durchsetzungsmaßnahme",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13972,7 +13972,7 @@
     "legalCompliance.enforcementQueue": {
       "key": "legalCompliance.enforcementQueue",
       "sourceText": "Enforcement Queue",
-      "targetText": "Enforcement Queue",
+      "targetText": "Durchsetzungswarteschlange",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13990,7 +13990,7 @@
     "legalCompliance.enterTheEmailAssociated": {
       "key": "legalCompliance.enterTheEmailAssociated",
       "sourceText": "Enter the email associated with your account",
-      "targetText": "Enter the email associated with your account",
+      "targetText": "Geben Sie die mit Ihrem Konto verknüpfte E-Mail-Adresse ein",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14008,7 +14008,7 @@
     "legalCompliance.erasureOrBlockingOf": {
       "key": "legalCompliance.erasureOrBlockingOf",
       "sourceText": "Erasure or blocking of my data",
-      "targetText": "Erasure or blocking of my data",
+      "targetText": "Löschung oder Sperrung meiner Daten",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14026,7 +14026,7 @@
     "legalCompliance.evaluationReason": {
       "key": "legalCompliance.evaluationReason",
       "sourceText": "Evaluation Reason",
-      "targetText": "Evaluation Reason",
+      "targetText": "Bewertungsgrund",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14044,7 +14044,7 @@
     "legalCompliance.examples": {
       "key": "legalCompliance.examples",
       "sourceText": "Examples",
-      "targetText": "Examples",
+      "targetText": "Beispiele",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14062,7 +14062,7 @@
     "legalCompliance.exclusions": {
       "key": "legalCompliance.exclusions",
       "sourceText": "Exclusions",
-      "targetText": "Exclusions",
+      "targetText": "Ausschlüsse",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14080,7 +14080,7 @@
     "legalCompliance.fullDescription": {
       "key": "legalCompliance.fullDescription",
       "sourceText": "Full Description",
-      "targetText": "Full Description",
+      "targetText": "Vollständige Beschreibung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14098,7 +14098,7 @@
     "legalCompliance.functional": {
       "key": "legalCompliance.functional",
       "sourceText": "Functional",
-      "targetText": "Functional",
+      "targetText": "Funktional",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14116,7 +14116,7 @@
     "legalCompliance.functionalCookies": {
       "key": "legalCompliance.functionalCookies",
       "sourceText": "Functional Cookies",
-      "targetText": "Functional Cookies",
+      "targetText": "Funktionale Cookies",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14134,7 +14134,7 @@
     "legalCompliance.help": {
       "key": "legalCompliance.help",
       "sourceText": "Help",
-      "targetText": "Help",
+      "targetText": "Hilfe",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14170,7 +14170,7 @@
     "legalCompliance.ifYouHaveQuestions": {
       "key": "legalCompliance.ifYouHaveQuestions",
       "sourceText": "If you have questions about whether an item is allowed, please contact Support or use the AI Assistant below.",
-      "targetText": "If you have questions about whether an item is allowed, please contact Support or use the AI Assistant below.",
+      "targetText": "Wenn Sie Fragen dazu haben, ob ein Artikel erlaubt ist, wenden Sie sich bitte an den Support oder nutzen Sie den unten stehenden KI-Assistenten.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14188,7 +14188,7 @@
     "legalCompliance.informationProvidedInThis": {
       "key": "legalCompliance.informationProvidedInThis",
       "sourceText": "Information provided in this Compliance Center is intended to explain RENTipid's platform compliance framework and is not individual legal advice.",
-      "targetText": "Information provided in this Compliance Center is intended to explain RENTipid's platform compliance framework and is not individual legal advice.",
+      "targetText": "Die in diesem Compliance Center bereitgestellten Informationen dienen der Erläuterung des Compliance-Rahmens der RENTipid-Plattform und stellen keine individuelle Rechtsberatung dar.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14206,7 +14206,7 @@
     "legalCompliance.internalNotes": {
       "key": "legalCompliance.internalNotes",
       "sourceText": "Internal Notes",
-      "targetText": "Internal Notes",
+      "targetText": "Interne Notizen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14224,7 +14224,7 @@
     "legalCompliance.justificationForTheDecision": {
       "key": "legalCompliance.justificationForTheDecision",
       "sourceText": "Justification for the decision...",
-      "targetText": "Justification for the decision...",
+      "targetText": "Begründung der Entscheidung...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14242,7 +14242,7 @@
     "legalCompliance.legalReferenceOptional": {
       "key": "legalCompliance.legalReferenceOptional",
       "sourceText": "Legal Reference (Optional)",
-      "targetText": "Legal Reference (Optional)",
+      "targetText": "Rechtliche Referenz (optional)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14260,7 +14260,7 @@
     "legalCompliance.listingId": {
       "key": "legalCompliance.listingId",
       "sourceText": "Listing ID",
-      "targetText": "Listing ID",
+      "targetText": "Angebots-ID",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14296,7 +14296,7 @@
     "legalCompliance.manageAppealsRarr": {
       "key": "legalCompliance.manageAppealsRarr",
       "sourceText": "Manage appeals &rarr;",
-      "targetText": "Manage appeals &rarr;",
+      "targetText": "Beschwerden verwalten &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14314,7 +14314,7 @@
     "legalCompliance.manageHowWeUse": {
       "key": "legalCompliance.manageHowWeUse",
       "sourceText": "Manage how we use cookies and tracking technologies when you browse RENTipid.",
-      "targetText": "Manage how we use cookies and tracking technologies when you browse RENTipid.",
+      "targetText": "Verwalten Sie, wie wir Cookies und Tracking-Technologien verwenden, wenn Sie RENTipid durchsuchen.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14332,7 +14332,7 @@
     "legalCompliance.managePoliciesRarr": {
       "key": "legalCompliance.managePoliciesRarr",
       "sourceText": "Manage policies &rarr;",
-      "targetText": "Manage policies &rarr;",
+      "targetText": "Richtlinien verwalten &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14350,7 +14350,7 @@
     "legalCompliance.manageProhibitedAndRestricted": {
       "key": "legalCompliance.manageProhibitedAndRestricted",
       "sourceText": "Manage prohibited and restricted item policies.",
-      "targetText": "Manage prohibited and restricted item policies.",
+      "targetText": "Richtlinien für verbotene und eingeschränkte Artikel verwalten.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14386,7 +14386,7 @@
     "legalCompliance.marketingCookies": {
       "key": "legalCompliance.marketingCookies",
       "sourceText": "Marketing Cookies",
-      "targetText": "Marketing Cookies",
+      "targetText": "Marketing-Cookies",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14422,7 +14422,7 @@
     "legalCompliance.messageSentToListing": {
       "key": "legalCompliance.messageSentToListing",
       "sourceText": "Message sent to listing owner if applicable...",
-      "targetText": "Message sent to listing owner if applicable...",
+      "targetText": "Nachricht an den Anbieter des Angebots, falls zutreffend...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14440,7 +14440,7 @@
     "legalCompliance.messageThatWillBe": {
       "key": "legalCompliance.messageThatWillBe",
       "sourceText": "Message that will be sent to the user...",
-      "targetText": "Message that will be sent to the user...",
+      "targetText": "Nachricht, die an den Benutzer gesendet wird...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14476,7 +14476,7 @@
     "legalCompliance.myPrivacySettings": {
       "key": "legalCompliance.myPrivacySettings",
       "sourceText": "My Privacy Settings",
-      "targetText": "My Privacy Einstellungen",
+      "targetText": "Meine Datenschutzeinstellungen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14512,7 +14512,7 @@
     "legalCompliance.necessary": {
       "key": "legalCompliance.necessary",
       "sourceText": "Necessary",
-      "targetText": "Necessary",
+      "targetText": "Notwendig",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14530,7 +14530,7 @@
     "legalCompliance.noAppealsFoundMatching": {
       "key": "legalCompliance.noAppealsFoundMatching",
       "sourceText": "No appeals found matching the criteria.",
-      "targetText": "No appeals found matching the criteria.",
+      "targetText": "Keine Einsprüche gefunden, die den Kriterien entsprechen.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14548,7 +14548,7 @@
     "legalCompliance.noCasesFoundMatching": {
       "key": "legalCompliance.noCasesFoundMatching",
       "sourceText": "No cases found matching the criteria.",
-      "targetText": "No cases found matching the criteria.",
+      "targetText": "Keine Fälle gefunden, die den Kriterien entsprechen.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14566,7 +14566,7 @@
     "legalCompliance.noMatchingPoliciesFound": {
       "key": "legalCompliance.noMatchingPoliciesFound",
       "sourceText": "No matching policies found",
-      "targetText": "No matching policies found",
+      "targetText": "Keine passenden Richtlinien gefunden",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14584,7 +14584,7 @@
     "legalCompliance.noPoliciesFoundIn": {
       "key": "legalCompliance.noPoliciesFoundIn",
       "sourceText": "No policies found in the catalogue.",
-      "targetText": "No policies found in the catalogue.",
+      "targetText": "Keine Richtlinien im Katalog gefunden.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14602,7 +14602,7 @@
     "legalCompliance.noPrivacyRequestsFound": {
       "key": "legalCompliance.noPrivacyRequestsFound",
       "sourceText": "No privacy requests found.",
-      "targetText": "No privacy requests found.",
+      "targetText": "Keine Datenschutzanfragen gefunden.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14620,7 +14620,7 @@
     "legalCompliance.noRecentEnforcementCases": {
       "key": "legalCompliance.noRecentEnforcementCases",
       "sourceText": "No recent enforcement cases found.",
-      "targetText": "No recent enforcement cases found.",
+      "targetText": "Keine aktuellen Durchsetzungsfälle gefunden.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14638,7 +14638,7 @@
     "legalCompliance.noRecordsFound": {
       "key": "legalCompliance.noRecordsFound",
       "sourceText": "No records found",
-      "targetText": "No records found",
+      "targetText": "Keine Datensätze gefunden",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14656,7 +14656,7 @@
     "legalCompliance.noSavedCookiePreferences": {
       "key": "legalCompliance.noSavedCookiePreferences",
       "sourceText": "No saved cookie preferences found.",
-      "targetText": "No saved cookie preferences found.",
+      "targetText": "Keine gespeicherten Cookie-Einstellungen gefunden.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14692,7 +14692,7 @@
     "legalCompliance.objectToProcessing": {
       "key": "legalCompliance.objectToProcessing",
       "sourceText": "Object to processing",
-      "targetText": "Object to processing",
+      "targetText": "Widerspruch gegen die Verarbeitung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14728,7 +14728,7 @@
     "legalCompliance.openCasesActionNeeded": {
       "key": "legalCompliance.openCasesActionNeeded",
       "sourceText": "Open Cases (Action Needed)",
-      "targetText": "Open Cases (Action Needed)",
+      "targetText": "Offene Fälle (Handlung erforderlich)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14746,7 +14746,7 @@
     "legalCompliance.originalCaseReference": {
       "key": "legalCompliance.originalCaseReference",
       "sourceText": "Original Case Reference",
-      "targetText": "Original Case Reference",
+      "targetText": "Ursprüngliche Fallreferenz",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14782,7 +14782,7 @@
     "legalCompliance.paymentsAreHeldIn": {
       "key": "legalCompliance.paymentsAreHeldIn",
       "sourceText": "Payments are held in escrow until the asset is returned and inspections are cleared.",
-      "targetText": "Payments are held in escrow until the asset is returned and inspections are cleared.",
+      "targetText": "Zahlungen werden auf einem Treuhandkonto verwahrt, bis der Vermögenswert zurückgegeben und die Inspektionen freigegeben sind.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14818,7 +14818,7 @@
     "legalCompliance.pendingAppeals": {
       "key": "legalCompliance.pendingAppeals",
       "sourceText": "Pending Appeals",
-      "targetText": "Pending Appeals",
+      "targetText": "Ausstehende Einsprüche",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14836,7 +14836,7 @@
     "legalCompliance.pendingVerifications": {
       "key": "legalCompliance.pendingVerifications",
       "sourceText": "Pending Verifications",
-      "targetText": "Pending Verifications",
+      "targetText": "Ausstehende Verifizierungen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14854,7 +14854,7 @@
     "legalCompliance.pistolGunRifle": {
       "key": "legalCompliance.pistolGunRifle",
       "sourceText": "pistol, gun, rifle",
-      "targetText": "pistol, gun, rifle",
+      "targetText": "Pistole, Schusswaffe, Gewehr",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14872,7 +14872,7 @@
     "legalCompliance.plainLanguageSummary": {
       "key": "legalCompliance.plainLanguageSummary",
       "sourceText": "Plain-Language Summary",
-      "targetText": "Plain-Language Summary",
+      "targetText": "Zusammenfassung in einfacher Sprache",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14890,7 +14890,7 @@
     "legalCompliance.policyCatalogue": {
       "key": "legalCompliance.policyCatalogue",
       "sourceText": "Policy Catalogue",
-      "targetText": "Policy Catalogue",
+      "targetText": "Richtlinienkatalog",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14908,7 +14908,7 @@
     "legalCompliance.policyCode": {
       "key": "legalCompliance.policyCode",
       "sourceText": "Policy Code",
-      "targetText": "Policy Code",
+      "targetText": "Richtliniencode",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14926,7 +14926,7 @@
     "legalCompliance.policyName": {
       "key": "legalCompliance.policyName",
       "sourceText": "Policy Name",
-      "targetText": "Policy Name",
+      "targetText": "Name der Richtlinie",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14944,7 +14944,7 @@
     "legalCompliance.policyViolated": {
       "key": "legalCompliance.policyViolated",
       "sourceText": "Policy Violated",
-      "targetText": "Policy Violated",
+      "targetText": "Verletzte Richtlinie",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14980,7 +14980,7 @@
     "legalCompliance.prohibitedItemsIncludeWeapons": {
       "key": "legalCompliance.prohibitedItemsIncludeWeapons",
       "sourceText": "Prohibited items include weapons, illegal substances, and hazardous materials.",
-      "targetText": "Prohibited items include weapons, illegal substances, and hazardous materials.",
+      "targetText": "Zu den verbotenen Artikeln gehören Waffen, illegale Substanzen und gefährliche Materialien.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14998,7 +14998,7 @@
     "legalCompliance.prohibitedItemsModule": {
       "key": "legalCompliance.prohibitedItemsModule",
       "sourceText": "Prohibited Items Module",
-      "targetText": "Prohibited Items Module",
+      "targetText": "Modul für verbotene Artikel",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15016,7 +15016,7 @@
     "legalCompliance.prohibitedKeywordsCommaSeparated": {
       "key": "legalCompliance.prohibitedKeywordsCommaSeparated",
       "sourceText": "Prohibited Keywords (Comma separated)",
-      "targetText": "Prohibited Keywords (Comma separated)",
+      "targetText": "Verbotene Schlüsselwörter (kommagetrennt)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15052,7 +15052,7 @@
     "legalCompliance.provideAnyAdditionalDetails": {
       "key": "legalCompliance.provideAnyAdditionalDetails",
       "sourceText": "Provide any additional details that will help us process your request...",
-      "targetText": "Provide any additional details that will help us process your request...",
+      "targetText": "Geben Sie zusätzliche Details an, die uns bei der Bearbeitung Ihrer Anfrage helfen...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15070,7 +15070,7 @@
     "legalCompliance.publicGuidance": {
       "key": "legalCompliance.publicGuidance",
       "sourceText": "Public Guidance",
-      "targetText": "Public Guidance",
+      "targetText": "Öffentlicher Leitfaden",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15106,7 +15106,7 @@
     "legalCompliance.readPrivacyPolicy": {
       "key": "legalCompliance.readPrivacyPolicy",
       "sourceText": "Read Privacy Policy",
-      "targetText": "Read Datenschutzerklärung",
+      "targetText": "Datenschutzerklärung lesen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15124,7 +15124,7 @@
     "legalCompliance.recentEnforcementActions": {
       "key": "legalCompliance.recentEnforcementActions",
       "sourceText": "Recent Enforcement Actions",
-      "targetText": "Recent Enforcement Actions",
+      "targetText": "Kürzliche Durchsetzungsmaßnahmen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15142,7 +15142,7 @@
     "legalCompliance.recentUsers": {
       "key": "legalCompliance.recentUsers",
       "sourceText": "Recent Users",
-      "targetText": "Recent Users",
+      "targetText": "Kürzliche Benutzer",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15160,7 +15160,7 @@
     "legalCompliance.regulatorOptional": {
       "key": "legalCompliance.regulatorOptional",
       "sourceText": "Regulator (Optional)",
-      "targetText": "Regulator (Optional)",
+      "targetText": "Regulierungsbehörde (optional)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15178,7 +15178,7 @@
     "legalCompliance.requestSubmittedSuccessfully": {
       "key": "legalCompliance.requestSubmittedSuccessfully",
       "sourceText": "Request Submitted Successfully",
-      "targetText": "Request Submitted Successfully",
+      "targetText": "Anfrage erfolgreich eingereicht",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15196,7 +15196,7 @@
     "legalCompliance.resolutionAction": {
       "key": "legalCompliance.resolutionAction",
       "sourceText": "Resolution Action",
-      "targetText": "Resolution Action",
+      "targetText": "Lösungsmaßnahme",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15214,7 +15214,7 @@
     "legalCompliance.responseToAppellant": {
       "key": "legalCompliance.responseToAppellant",
       "sourceText": "Response to Appellant",
-      "targetText": "Response to Appellant",
+      "targetText": "Antwort an den Beschwerdeführer",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15250,7 +15250,7 @@
     "legalCompliance.returnToPrivacyCenter": {
       "key": "legalCompliance.returnToPrivacyCenter",
       "sourceText": "Return to Privacy Center",
-      "targetText": "Return to Privacy Center",
+      "targetText": "Zurück zum Datenschutz-Center",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15286,7 +15286,7 @@
     "legalCompliance.reviewAction": {
       "key": "legalCompliance.reviewAction",
       "sourceText": "Review Action",
-      "targetText": "Review Action",
+      "targetText": "Prüfmaßnahme",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15304,7 +15304,7 @@
     "legalCompliance.reviewAndManageUser": {
       "key": "legalCompliance.reviewAndManageUser",
       "sourceText": "Review and manage user appeals for enforcement actions.",
-      "targetText": "Review and manage user appeals for enforcement actions.",
+      "targetText": "Überprüfen und verwalten Sie Einsprüche von Benutzern gegen Durchsetzungsmaßnahmen.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15322,7 +15322,7 @@
     "legalCompliance.reviewDecision": {
       "key": "legalCompliance.reviewDecision",
       "sourceText": "Review Decision",
-      "targetText": "Review Decision",
+      "targetText": "Prüfentscheidung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15340,7 +15340,7 @@
     "legalCompliance.reviewFlaggedListingsAnd": {
       "key": "legalCompliance.reviewFlaggedListingsAnd",
       "sourceText": "Review flagged listings and manage active cases.",
-      "targetText": "Review flagged listings and manage active cases.",
+      "targetText": "Überprüfen Sie gemeldete Angebote und verwalten Sie aktive Fälle.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15358,7 +15358,7 @@
     "legalCompliance.reviewKeywordsCommaSeparated": {
       "key": "legalCompliance.reviewKeywordsCommaSeparated",
       "sourceText": "Review Keywords (Comma separated)",
-      "targetText": "Review Keywords (Comma separated)",
+      "targetText": "Schlüsselwörter überprüfen (kommagetrennt)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15376,7 +15376,7 @@
     "legalCompliance.reviewOpenCasesRarr": {
       "key": "legalCompliance.reviewOpenCasesRarr",
       "sourceText": "Review open cases &rarr;",
-      "targetText": "Review open cases &rarr;",
+      "targetText": "Offene Fälle prüfen &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15394,7 +15394,7 @@
     "legalCompliance.reviewerNotesInternal": {
       "key": "legalCompliance.reviewerNotesInternal",
       "sourceText": "Reviewer Notes (Internal)",
-      "targetText": "Reviewer Notes (Internal)",
+      "targetText": "Prüfernotizen (intern)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15412,7 +15412,7 @@
     "legalCompliance.searchLawsJurisdictionsTopics": {
       "key": "legalCompliance.searchLawsJurisdictionsTopics",
       "sourceText": "Search laws, jurisdictions, topics (e.g. RA 11967, GDPR, privacy, refund)...",
-      "targetText": "Search laws, jurisdictions, topics (e.g. RA 11967, GDPR, privacy, refund)...",
+      "targetText": "Gesetze, Gerichtsbarkeiten, Themen durchsuchen (z. B. RA 11967, DSGVO, Datenschutz, Rückerstattung)...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15430,7 +15430,7 @@
     "legalCompliance.searchProhibitedItemsKeywords": {
       "key": "legalCompliance.searchProhibitedItemsKeywords",
       "sourceText": "Search prohibited items, keywords, or policies...",
-      "targetText": "Search prohibited items, keywords, or policies...",
+      "targetText": "Verbotene Artikel, Schlüsselwörter oder Richtlinien durchsuchen...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15448,7 +15448,7 @@
     "legalCompliance.strictlyNecessaryCookies": {
       "key": "legalCompliance.strictlyNecessaryCookies",
       "sourceText": "Strictly Necessary Cookies",
-      "targetText": "Strictly Necessary Cookies",
+      "targetText": "Unbedingt erforderliche Cookies",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15466,7 +15466,7 @@
     "legalCompliance.submitAPrivacyRequest": {
       "key": "legalCompliance.submitAPrivacyRequest",
       "sourceText": "Submit a Privacy Request",
-      "targetText": "Submit a Privacy Request",
+      "targetText": "Datenschutzanfrage einreichen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15484,7 +15484,7 @@
     "legalCompliance.submitRequest": {
       "key": "legalCompliance.submitRequest",
       "sourceText": "Submit Request",
-      "targetText": "Submit Request",
+      "targetText": "Anfrage einreichen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15520,7 +15520,7 @@
     "legalCompliance.summary": {
       "key": "legalCompliance.summary",
       "sourceText": "Summary",
-      "targetText": "Summary",
+      "targetText": "Zusammenfassung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15538,7 +15538,7 @@
     "legalCompliance.supportingStatement": {
       "key": "legalCompliance.supportingStatement",
       "sourceText": "Supporting Statement",
-      "targetText": "Supporting Statement",
+      "targetText": "Unterstützende Erklärung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15592,7 +15592,7 @@
     "legalCompliance.targetUserId": {
       "key": "legalCompliance.targetUserId",
       "sourceText": "Target User ID",
-      "targetText": "Target User ID",
+      "targetText": "Zielbenutzer-ID",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15610,7 +15610,7 @@
     "legalCompliance.totalEnforcementCases": {
       "key": "legalCompliance.totalEnforcementCases",
       "sourceText": "Total Enforcement Cases",
-      "targetText": "Total Enforcement Cases",
+      "targetText": "Durchsetzungsfälle insgesamt",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15628,7 +15628,7 @@
     "legalCompliance.trackYourPastRequests": {
       "key": "legalCompliance.trackYourPastRequests",
       "sourceText": "Track your past requests to access, correct, or delete your personal data.",
-      "targetText": "Track your past requests to access, correct, or delete your personal data.",
+      "targetText": "Verfolgen Sie Ihre vergangenen Anfragen auf Zugriff, Berichtigung oder Löschung Ihrer personenbezogenen Daten.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15646,7 +15646,7 @@
     "legalCompliance.trustSafetyLegal": {
       "key": "legalCompliance.trustSafetyLegal",
       "sourceText": "Trust, Safety & Legal",
-      "targetText": "Trust, Safety & Legal",
+      "targetText": "Vertrauen, Sicherheit & Recht",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15664,7 +15664,7 @@
     "legalCompliance.tryAdjustingYourSearch": {
       "key": "legalCompliance.tryAdjustingYourSearch",
       "sourceText": "Try adjusting your search terms.",
-      "targetText": "Try adjusting your search terms.",
+      "targetText": "Versuchen Sie, Ihre Suchbegriffe anzupassen.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15772,7 +15772,7 @@
     "legalCompliance.userNoticeMessage": {
       "key": "legalCompliance.userNoticeMessage",
       "sourceText": "User Notice Message",
-      "targetText": "User Notice Message",
+      "targetText": "Benutzerbenachrichtigung",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15790,7 +15790,7 @@
     "legalCompliance.validationRequired": {
       "key": "legalCompliance.validationRequired",
       "sourceText": "Validation Required",
-      "targetText": "Validation Required",
+      "targetText": "Validierung erforderlich",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15826,7 +15826,7 @@
     "legalCompliance.viewAllCasesRarr": {
       "key": "legalCompliance.viewAllCasesRarr",
       "sourceText": "View all cases &rarr;",
-      "targetText": "View all cases &rarr;",
+      "targetText": "Alle Fälle anzeigen &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15844,7 +15844,7 @@
     "legalCompliance.viewQueue": {
       "key": "legalCompliance.viewQueue",
       "sourceText": "View Queue",
-      "targetText": "View Queue",
+      "targetText": "Warteschlange anzeigen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15862,7 +15862,7 @@
     "legalCompliance.violatedPolicy": {
       "key": "legalCompliance.violatedPolicy",
       "sourceText": "Violated Policy",
-      "targetText": "Violated Policy",
+      "targetText": "Verletzte Richtlinie",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15898,7 +15898,7 @@
     "legalCompliance.weWillProcessYour": {
       "key": "legalCompliance.weWillProcessYour",
       "sourceText": "We will process your request in accordance with our Privacy Policy and applicable data protection laws. You will receive an email shortly with instructions on how to track the status of your request.",
-      "targetText": "We will process your request in accordance with our Datenschutzerklärung and applicable data protection laws. You will receive an email shortly with instructions on how to track the status of your request.",
+      "targetText": "Wir werden Ihre Anfrage in Übereinstimmung mit unserer Datenschutzerklärung und den geltenden Datenschutzgesetzen bearbeiten. Sie erhalten in Kürze eine E-Mail mit Anweisungen zur Verfolgung des Status Ihrer Anfrage.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15916,7 +15916,7 @@
     "legalCompliance.weaponTactical": {
       "key": "legalCompliance.weaponTactical",
       "sourceText": "weapon, tactical",
-      "targetText": "weapon, tactical",
+      "targetText": "Waffe, taktisch",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15934,7 +15934,7 @@
     "legalCompliance.withdrawConsent": {
       "key": "legalCompliance.withdrawConsent",
       "sourceText": "Withdraw consent",
-      "targetText": "Withdraw consent",
+      "targetText": "Einwilligung widerrufen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15970,7 +15970,7 @@
     "legalCompliance.youMustProvideAccurate": {
       "key": "legalCompliance.youMustProvideAccurate",
       "sourceText": "You must provide accurate KYC information. Business providers must hold valid permits.",
-      "targetText": "You must provide accurate KYC information. Business providers must hold valid permits.",
+      "targetText": "Sie müssen genaue KYC-Informationen angeben. Gewerbliche Anbieter müssen über gültige Genehmigungen verfügen.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15988,7 +15988,7 @@
     "legalCompliance.yourPrivacyRequestHas": {
       "key": "legalCompliance.yourPrivacyRequestHas",
       "sourceText": "Your privacy request has been received. Please keep the following reference number for your records:",
-      "targetText": "Your privacy request has been received. Please keep the following reference number for your records:",
+      "targetText": "Ihre Datenschutzanfrage ist eingegangen. Bitte bewahren Sie die folgende Referenznummer für Ihre Unterlagen auf:",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17075,7 +17075,7 @@
     "listingWizard.damagePolicyLabel": {
       "key": "listingWizard.damagePolicyLabel",
       "sourceText": "Damage Policy",
-      "targetText": "Damage Policy",
+      "targetText": "Schadensrichtlinie",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17093,7 +17093,7 @@
     "listingWizard.damagePolicyPlaceholder": {
       "key": "listingWizard.damagePolicyPlaceholder",
       "sourceText": "e.g. Any scratches will deduct ₱500 from the deposit...",
-      "targetText": "e.g. Any scratches will deduct ₱500 from the deposit...",
+      "targetText": "z. B. Bei Kratzern werden ₱500 von der Kaution einbehalten...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17111,7 +17111,7 @@
     "listingWizard.declarationBody": {
       "key": "listingWizard.declarationBody",
       "sourceText": "I declare that I legally own this asset or am legally authorized to offer it for rent. I agree that this listing must comply with RENTipid policies, applicable laws, safety rules, and category requirements.",
-      "targetText": "I declare that I legally own this asset or am legally authorized to offer it for rent. I agree that this listing must comply with RENTipid policies, applicable laws, safety rules, and category requirements.",
+      "targetText": "Ich erkläre, dass ich der rechtmäßige Eigentümer dieses Vermögenswerts bin oder gesetzlich befugt bin, ihn zur Miete anzubieten. Ich stimme zu, dass dieses Angebot den RENTipid-Richtlinien, den geltenden Gesetzen, den Sicherheitsvorschriften und den Kategorieanforderungen entsprechen muss.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17129,7 +17129,7 @@
     "listingWizard.declarationTitle": {
       "key": "listingWizard.declarationTitle",
       "sourceText": "Provider Declaration:",
-      "targetText": "Provider Declaration:",
+      "targetText": "Erklärung des Anbieters:",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -18488,7 +18488,7 @@
     "partnerHub.termsAndConditions": {
       "key": "partnerHub.termsAndConditions",
       "sourceText": "Terms and Conditions",
-      "targetText": "Terms and Conditions",
+      "targetText": "Allgemeine Geschäftsbedingungen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -22849,7 +22849,7 @@
     "providerListingManage.errorMissingDocuments": {
       "key": "providerListingManage.errorMissingDocuments",
       "sourceText": "This category requires compliance or proof of ownership verification documents before submission.",
-      "targetText": "This category requires compliance or proof of ownership verification documents before submission.",
+      "targetText": "Diese Kategorie erfordert vor der Einreichung Nachweise zur Einhaltung von Vorschriften oder Eigentumsnachweise.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -22963,7 +22963,7 @@
     "providerListingManage.riskCategoryWarning": {
       "key": "providerListingManage.riskCategoryWarning",
       "sourceText": "This category strictly requires admin verification and compliance documents.",
-      "targetText": "This category strictly requires admin verification and compliance documents.",
+      "targetText": "Diese Kategorie erfordert streng die Überprüfung durch den Administrator und Compliance-Dokumente.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23334,7 +23334,7 @@
     "providerListings.verificationRequiredBody": {
       "key": "providerListings.verificationRequiredBody",
       "sourceText": "You must complete your provider verification before you can create and manage listings.",
-      "targetText": "You must complete your provider verification before you can create and manage listings.",
+      "targetText": "Sie müssen Ihre Anbieterverifizierung abschließen, bevor Sie Angebote erstellen und verwalten können.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23352,7 +23352,7 @@
     "providerListings.verificationRequiredTitle": {
       "key": "providerListings.verificationRequiredTitle",
       "sourceText": "Account Verification Required",
-      "targetText": "Account Verification Required",
+      "targetText": "Kontoverifizierung erforderlich",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23385,7 +23385,7 @@
     "providerNewListing.legalRequirementsBody": {
       "key": "providerNewListing.legalRequirementsBody",
       "sourceText": "Depending on your jurisdiction and category, certain legal requirements or permits may apply to this listing.",
-      "targetText": "Depending on your jurisdiction and category, certain legal requirements or permits may apply to this listing.",
+      "targetText": "Je nach Ihrer Gerichtsbarkeit und Kategorie können für dieses Angebot bestimmte gesetzliche Anforderungen oder Genehmigungen gelten.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23403,7 +23403,7 @@
     "providerNewListing.legalRequirementsTitle": {
       "key": "providerNewListing.legalRequirementsTitle",
       "sourceText": "Legal & Compliance Requirements",
-      "targetText": "Legal & Compliance Requirements",
+      "targetText": "Rechtliche & Compliance-Anforderungen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23451,7 +23451,7 @@
     "providerNewListing.viewComplianceRegister": {
       "key": "providerNewListing.viewComplianceRegister",
       "sourceText": "View Global Legal Compliance Register",
-      "targetText": "View Global Legal Compliance Register",
+      "targetText": "Globales rechtliches Compliance-Register anzeigen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -24300,7 +24300,7 @@
     "renter.onboarding.termsAccepted": {
       "key": "renter.onboarding.termsAccepted",
       "sourceText": "Terms accepted",
-      "targetText": "Terms accepted",
+      "targetText": "Bedingungen akzeptiert",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33696,7 +33696,7 @@
     "trustSafety.allUsersMustVerify": {
       "key": "trustSafety.allUsersMustVerify",
       "sourceText": "All users must verify their identity before transacting on the platform.",
-      "targetText": "All users must verify their identity before transacting on the platform.",
+      "targetText": "Alle Benutzer müssen ihre Identität überprüfen, bevor sie Transaktionen auf der Plattform durchführen.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33714,7 +33714,7 @@
     "trustSafety.builtOnTrustSafety": {
       "key": "trustSafety.builtOnTrustSafety",
       "sourceText": "Built on Trust & Safety",
-      "targetText": "Built on Trust & Safety",
+      "targetText": "Aufgebaut auf Vertrauen & Sicherheit",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33732,7 +33732,7 @@
     "trustSafety.everyUserUndergoesThorough": {
       "key": "trustSafety.everyUserUndergoesThorough",
       "sourceText": "Every user undergoes thorough identity verification (KYC) before they can transact on the platform.",
-      "targetText": "Every user undergoes thorough identity verification (KYC) before they can transact on the platform.",
+      "targetText": "Jeder Benutzer durchläuft eine gründliche Identitätsprüfung (KYC), bevor er auf der Plattform Transaktionen durchführen kann.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33750,7 +33750,7 @@
     "trustSafety.identityVerificationKyc": {
       "key": "trustSafety.identityVerificationKyc",
       "sourceText": "Identity Verification (KYC)",
-      "targetText": "Identity Verification (KYC)",
+      "targetText": "Identitätsprüfung (KYC)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33768,7 +33768,7 @@
     "trustSafety.neverPayOutsideThe": {
       "key": "trustSafety.neverPayOutsideThe",
       "sourceText": "Never pay outside the RENTipid platform. All transactions are protected by our Escrow system.",
-      "targetText": "Never pay outside the RENTipid platform. All transactions are protected by our Escrow system.",
+      "targetText": "Zahlen Sie niemals außerhalb der RENTipid-Plattform. Alle Transaktionen sind durch unser Treuhandsystem geschützt.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33786,7 +33786,7 @@
     "trustSafety.ourDedicatedResolutionCenter": {
       "key": "trustSafety.ourDedicatedResolutionCenter",
       "sourceText": "Our dedicated resolution center and support team are always ready to help mediate any disputes.",
-      "targetText": "Our dedicated resolution center and support team are always ready to help mediate any disputes.",
+      "targetText": "Unser engagiertes Streitbeilegungszentrum und unser Support-Team sind jederzeit bereit, bei Streitigkeiten zu vermitteln.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33804,7 +33804,7 @@
     "trustSafety.paymentsAreHeldSecurely": {
       "key": "trustSafety.paymentsAreHeldSecurely",
       "sourceText": "Payments are held securely in escrow and only released when the rental is successfully completed.",
-      "targetText": "Payments are held securely in escrow and only released when the rental is successfully completed.",
+      "targetText": "Zahlungen werden sicher auf einem Treuhandkonto verwahrt und erst freigegeben, wenn die Miete erfolgreich abgeschlossen ist.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33822,7 +33822,7 @@
     "trustSafety.readyToGetStarted": {
       "key": "trustSafety.readyToGetStarted",
       "sourceText": "Ready to get started?",
-      "targetText": "Ready to get started?",
+      "targetText": "Bereit loszulegen?",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33840,7 +33840,7 @@
     "trustSafety.secureEscrow": {
       "key": "trustSafety.secureEscrow",
       "sourceText": "Secure Escrow",
-      "targetText": "Secure Escrow",
+      "targetText": "Sicheres Treuhandkonto",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33858,7 +33858,7 @@
     "trustSafety.securePayments": {
       "key": "trustSafety.securePayments",
       "sourceText": "Secure Payments",
-      "targetText": "Secure Payments",
+      "targetText": "Sichere Zahlungen",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33876,7 +33876,7 @@
     "trustSafety.trustSafetyCenter": {
       "key": "trustSafety.trustSafetyCenter",
       "sourceText": "Trust & Safety Center",
-      "targetText": "Trust & Safety Center",
+      "targetText": "Zentrum für Vertrauen & Sicherheit",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33894,7 +33894,7 @@
     "trustSafety.verifiedCommunity": {
       "key": "trustSafety.verifiedCommunity",
       "sourceText": "Verified Community",
-      "targetText": "Verified Community",
+      "targetText": "Verifizierte Gemeinschaft",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33912,7 +33912,7 @@
     "trustSafety.weTakeSecuritySeriously": {
       "key": "trustSafety.weTakeSecuritySeriously",
       "sourceText": "We take security seriously. Every transaction is protected by our comprehensive safety framework.",
-      "targetText": "We take security seriously. Every transaction is protected by our comprehensive safety framework.",
+      "targetText": "Wir nehmen Sicherheit ernst. Jede Transaktion ist durch unser umfassendes Sicherheitskonzept geschützt.",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],

@@ -2683,7 +2683,7 @@
     "admin.jurisdiction": {
       "key": "admin.jurisdiction",
       "sourceText": "Jurisdiction",
-      "targetText": "Jurisdiction",
+      "targetText": "司法管辖区",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4066,7 +4066,7 @@
     "admin.privacyAdministrationDashboard": {
       "key": "admin.privacyAdministrationDashboard",
       "sourceText": "Privacy Administration Dashboard",
-      "targetText": "Privacy Administration Dashboard",
+      "targetText": "隐私管理控制面板",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4084,7 +4084,7 @@
     "admin.privacyOperationsCenter": {
       "key": "admin.privacyOperationsCenter",
       "sourceText": "Privacy Operations Center",
-      "targetText": "Privacy Operations Center",
+      "targetText": "隐私运营中心",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4102,7 +4102,7 @@
     "admin.privacyPolicyManagement": {
       "key": "admin.privacyPolicyManagement",
       "sourceText": "Privacy Policy Management",
-      "targetText": "隐私政策 Management",
+      "targetText": "隐私政策管理",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -4120,7 +4120,7 @@
     "admin.privacyRegistriesMatrices": {
       "key": "admin.privacyRegistriesMatrices",
       "sourceText": "Privacy Registries & Matrices",
-      "targetText": "Privacy Registries & Matrices",
+      "targetText": "隐私登记册与矩阵",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10848,7 +10848,7 @@
     "documentUploader.types.businessPermit": {
       "key": "documentUploader.types.businessPermit",
       "sourceText": "Business Permit",
-      "targetText": "Business Permit",
+      "targetText": "营业执照",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10866,7 +10866,7 @@
     "documentUploader.types.insurancePolicy": {
       "key": "documentUploader.types.insurancePolicy",
       "sourceText": "Insurance Policy",
-      "targetText": "Insurance Policy",
+      "targetText": "保险单",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10884,7 +10884,7 @@
     "documentUploader.types.proofOfOwnership": {
       "key": "documentUploader.types.proofOfOwnership",
       "sourceText": "Proof of Ownership",
-      "targetText": "Proof of Ownership",
+      "targetText": "所有权证明",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10902,7 +10902,7 @@
     "documentUploader.types.safetyCertificate": {
       "key": "documentUploader.types.safetyCertificate",
       "sourceText": "Safety Certificate",
-      "targetText": "Safety Certificate",
+      "targetText": "安全合格证书",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -10920,7 +10920,7 @@
     "documentUploader.types.vehicleRegistration": {
       "key": "documentUploader.types.vehicleRegistration",
       "sourceText": "Vehicle Registration (OR/CR)",
-      "targetText": "Vehicle Registration (OR/CR)",
+      "targetText": "车辆行驶证 (OR/CR)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11092,7 +11092,7 @@
     "footer.ip": {
       "key": "footer.ip",
       "sourceText": "Intellectual Property",
-      "targetText": "Intellectual Property",
+      "targetText": "知识产权",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11110,7 +11110,7 @@
     "footer.legalCompliance": {
       "key": "footer.legalCompliance",
       "sourceText": "Global Legal Compliance",
-      "targetText": "Global Legal Compliance",
+      "targetText": "全球合规监管",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11143,7 +11143,7 @@
     "footer.privacy": {
       "key": "footer.privacy",
       "sourceText": "Privacy",
-      "targetText": "隐私政策",
+      "targetText": "隐私",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11161,7 +11161,7 @@
     "footer.prohibitedItems": {
       "key": "footer.prohibitedItems",
       "sourceText": "Prohibited Items",
-      "targetText": "Prohibited Items",
+      "targetText": "违禁物品",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11179,7 +11179,7 @@
     "footer.reportIllegal": {
       "key": "footer.reportIllegal",
       "sourceText": "Report Illegal Activity",
-      "targetText": "Report Illegal Activity",
+      "targetText": "举报违法行为",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11197,7 +11197,7 @@
     "footer.safety": {
       "key": "footer.safety",
       "sourceText": "Consumer Protection & Safety",
-      "targetText": "Consumer Protection & Safety",
+      "targetText": "消费者保护与安全",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11245,7 +11245,7 @@
     "footer.terms": {
       "key": "footer.terms",
       "sourceText": "Terms",
-      "targetText": "服务条款",
+      "targetText": "条款",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11263,7 +11263,7 @@
     "footer.trustAndLegal": {
       "key": "footer.trustAndLegal",
       "sourceText": "Trust & Legal",
-      "targetText": "Trust & Legal",
+      "targetText": "信任与法律",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11281,7 +11281,7 @@
     "fx.checkout.chargeNotice": {
       "key": "fx.checkout.chargeNotice",
       "sourceText": "You will be charged in PHP (Philippine Peso).",
-      "targetText": "You will be charged in PHP (Philippine Peso).",
+      "targetText": "您将以 PHP（菲律宾比索）进行结算。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11299,7 +11299,7 @@
     "fx.checkout.disclosureTitle": {
       "key": "fx.checkout.disclosureTitle",
       "sourceText": "Currency & Payment Disclosure",
-      "targetText": "Currency & Payment Disclosure",
+      "targetText": "货币与支付披露",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -11444,7 +11444,7 @@
     "fx.estimate.originalPrice": {
       "key": "fx.estimate.originalPrice",
       "sourceText": "Authoritative base price: {price}",
-      "targetText": "权威基准价格: {price}",
+      "targetText": "权威基准价格：{price}",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [
@@ -11869,7 +11869,7 @@
     "globalPreferences.previewNotice": {
       "key": "globalPreferences.previewNotice",
       "sourceText": "Preview formatting only. Display currency may differ from the currency used for payment. The exact charge amount and currency will be shown before confirmation.",
-      "targetText": "Preview formatting only. Display currency may differ from the currency used for payment. The exact charge amount and currency will be shown before confirmation.",
+      "targetText": "仅供预览格式。显示货币可能与支付所用货币不同。确切的扣费金额和货币将在确认前显示。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12241,7 +12241,7 @@
     "helpCenter.privacyDataProtection": {
       "key": "helpCenter.privacyDataProtection",
       "sourceText": "Privacy & Data Protection",
-      "targetText": "Privacy & Data Protection",
+      "targetText": "隐私与数据保护",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12604,7 +12604,7 @@
     "kyc.accountVerificationKyc": {
       "key": "kyc.accountVerificationKyc",
       "sourceText": "Account Verification (KYC)",
-      "targetText": "Account Verification (KYC)",
+      "targetText": "账户认证 (KYC)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12622,7 +12622,7 @@
     "kyc.businessPermitRegistration": {
       "key": "kyc.businessPermitRegistration",
       "sourceText": "Business Permit / Registration",
-      "targetText": "Business Permit / Registration",
+      "targetText": "营业执照 / 注册证明",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12640,7 +12640,7 @@
     "kyc.documentType": {
       "key": "kyc.documentType",
       "sourceText": "Document Type",
-      "targetText": "Document Type",
+      "targetText": "证件类型",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12658,7 +12658,7 @@
     "kyc.file": {
       "key": "kyc.file",
       "sourceText": "File",
-      "targetText": "File",
+      "targetText": "文件",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12676,7 +12676,7 @@
     "kyc.maxSize5mbFormats": {
       "key": "kyc.maxSize5mbFormats",
       "sourceText": "Max size: 5MB. Formats: PDF, JPG, PNG, WEBP.",
-      "targetText": "Max size: 5MB. Formats: PDF, JPG, PNG, WEBP.",
+      "targetText": "最大容量：5MB。支持格式：PDF、JPG、PNG、WEBP。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12694,7 +12694,7 @@
     "kyc.myUploadedDocuments": {
       "key": "kyc.myUploadedDocuments",
       "sourceText": "My Uploaded Documents",
-      "targetText": "My Uploaded Documents",
+      "targetText": "我上传的证件",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12712,7 +12712,7 @@
     "kyc.noDocumentsUploadedYet": {
       "key": "kyc.noDocumentsUploadedYet",
       "sourceText": "No documents uploaded yet.",
-      "targetText": "No documents uploaded yet.",
+      "targetText": "尚未上传任何证件。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12730,7 +12730,7 @@
     "kyc.proofOfAddress": {
       "key": "kyc.proofOfAddress",
       "sourceText": "Proof of Address",
-      "targetText": "Proof of Address",
+      "targetText": "地址证明",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12748,7 +12748,7 @@
     "kyc.proofOfOwnershipAuthorization": {
       "key": "kyc.proofOfOwnershipAuthorization",
       "sourceText": "Proof of Ownership / Authorization",
-      "targetText": "Proof of Ownership / Authorization",
+      "targetText": "所有权证明 / 授权书",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12766,7 +12766,7 @@
     "kyc.requiredDocuments": {
       "key": "kyc.requiredDocuments",
       "sourceText": "Required Documents",
-      "targetText": "Required Documents",
+      "targetText": "所需证件",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12784,7 +12784,7 @@
     "kyc.selectDocumentType": {
       "key": "kyc.selectDocumentType",
       "sourceText": "Select document type...",
-      "targetText": "Select document type...",
+      "targetText": "选择证件类型...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12802,7 +12802,7 @@
     "kyc.selfieVerification": {
       "key": "kyc.selfieVerification",
       "sourceText": "Selfie Verification",
-      "targetText": "Selfie Verification",
+      "targetText": "自拍人脸验证",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12820,7 +12820,7 @@
     "kyc.submitRequiredDocumentsTo": {
       "key": "kyc.submitRequiredDocumentsTo",
       "sourceText": "Submit required documents to unlock full platform features.",
-      "targetText": "Submit required documents to unlock full platform features.",
+      "targetText": "提交所需证件以解锁平台的全部功能。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12838,7 +12838,7 @@
     "kyc.uploadDocument": {
       "key": "kyc.uploadDocument",
       "sourceText": "Upload Document",
-      "targetText": "Upload Document",
+      "targetText": "上传证件",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12856,7 +12856,7 @@
     "kyc.validGovernmentId": {
       "key": "kyc.validGovernmentId",
       "sourceText": "Valid Government ID",
-      "targetText": "Valid Government ID",
+      "targetText": "有效的政府签发身份证件",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12874,7 +12874,7 @@
     "legalCompliance.1AcceptanceOfTerms": {
       "key": "legalCompliance.1AcceptanceOfTerms",
       "sourceText": "1. Acceptance of Terms",
-      "targetText": "1. 接受条款",
+      "targetText": "1. 条款的接受",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12910,7 +12910,7 @@
     "legalCompliance.3ListingRules": {
       "key": "legalCompliance.3ListingRules",
       "sourceText": "3. Listing Rules",
-      "targetText": "3. 房源/物品发布规则",
+      "targetText": "3. 发布与上架规则",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12928,7 +12928,7 @@
     "legalCompliance.4BookingAndEscrow": {
       "key": "legalCompliance.4BookingAndEscrow",
       "sourceText": "4. Booking and Escrow",
-      "targetText": "4. 预订与托管",
+      "targetText": "4. 预订与资金托管 (Escrow)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -12946,7 +12946,7 @@
     "legalCompliance.accessToMyData": {
       "key": "legalCompliance.accessToMyData",
       "sourceText": "Access to my data",
-      "targetText": "访问我的数据",
+      "targetText": "访问我的个人数据",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13018,7 +13018,7 @@
     "legalCompliance.activePolicies": {
       "key": "legalCompliance.activePolicies",
       "sourceText": "Active Policies",
-      "targetText": "Active Policies",
+      "targetText": "生效中的政策",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13036,7 +13036,7 @@
     "legalCompliance.adminView": {
       "key": "legalCompliance.adminView",
       "sourceText": "Admin View",
-      "targetText": "Admin View",
+      "targetText": "管理员视图",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13054,7 +13054,7 @@
     "legalCompliance.all": {
       "key": "legalCompliance.all",
       "sourceText": "All",
-      "targetText": "All",
+      "targetText": "全部",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13108,7 +13108,7 @@
     "legalCompliance.alwaysActive": {
       "key": "legalCompliance.alwaysActive",
       "sourceText": "Always Active",
-      "targetText": "始终处于有效状态",
+      "targetText": "始终有效",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13126,7 +13126,7 @@
     "legalCompliance.analytics": {
       "key": "legalCompliance.analytics",
       "sourceText": "Analytics",
-      "targetText": "分析统计",
+      "targetText": "分析",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13144,7 +13144,7 @@
     "legalCompliance.analyticsCookies": {
       "key": "legalCompliance.analyticsCookies",
       "sourceText": "Analytics Cookies",
-      "targetText": "分析统计 Cookies",
+      "targetText": "分析型 Cookie",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13162,7 +13162,7 @@
     "legalCompliance.appealDetails": {
       "key": "legalCompliance.appealDetails",
       "sourceText": "Appeal Details",
-      "targetText": "Appeal Details",
+      "targetText": "申诉详情",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13180,7 +13180,7 @@
     "legalCompliance.appealId": {
       "key": "legalCompliance.appealId",
       "sourceText": "Appeal ID",
-      "targetText": "Appeal ID",
+      "targetText": "申诉 ID",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13198,7 +13198,7 @@
     "legalCompliance.appealReason": {
       "key": "legalCompliance.appealReason",
       "sourceText": "Appeal Reason",
-      "targetText": "Appeal Reason",
+      "targetText": "申诉原因",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13216,7 +13216,7 @@
     "legalCompliance.appealsQueue": {
       "key": "legalCompliance.appealsQueue",
       "sourceText": "Appeals Queue",
-      "targetText": "Appeals Queue",
+      "targetText": "申诉队列",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13234,7 +13234,7 @@
     "legalCompliance.appellant": {
       "key": "legalCompliance.appellant",
       "sourceText": "Appellant",
-      "targetText": "Appellant",
+      "targetText": "申诉人",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13252,7 +13252,7 @@
     "legalCompliance.appellantId": {
       "key": "legalCompliance.appellantId",
       "sourceText": "Appellant ID",
-      "targetText": "Appellant ID",
+      "targetText": "申诉人 ID",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13288,7 +13288,7 @@
     "legalCompliance.attachedDocuments": {
       "key": "legalCompliance.attachedDocuments",
       "sourceText": "Attached Documents",
-      "targetText": "Attached Documents",
+      "targetText": "附加材料/文件",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13306,7 +13306,7 @@
     "legalCompliance.auditTrailNotesNot": {
       "key": "legalCompliance.auditTrailNotesNot",
       "sourceText": "Audit trail notes... (not visible to user)",
-      "targetText": "Audit trail notes... (not visible to user)",
+      "targetText": "审计跟踪备注...（对用户不可见）",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13360,7 +13360,7 @@
     "legalCompliance.briefDescriptionOfThe": {
       "key": "legalCompliance.briefDescriptionOfThe",
       "sourceText": "Brief description of the policy",
-      "targetText": "Brief description of the policy",
+      "targetText": "政策简述",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13378,7 +13378,7 @@
     "legalCompliance.byAccessingOrUsing": {
       "key": "legalCompliance.byAccessingOrUsing",
       "sourceText": "By accessing or using RENTipid, you agree to be bound by these Terms and Conditions.",
-      "targetText": "By accessing or using RENTipid, you agree to be bound by these Terms and Conditions.",
+      "targetText": "访问或使用 RENTipid 即表示您同意遵守本条款与条件。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13396,7 +13396,7 @@
     "legalCompliance.caseDetails": {
       "key": "legalCompliance.caseDetails",
       "sourceText": "Case Details",
-      "targetText": "Case Details",
+      "targetText": "案件详情",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13414,7 +13414,7 @@
     "legalCompliance.caseNumber": {
       "key": "legalCompliance.caseNumber",
       "sourceText": "Case Number",
-      "targetText": "Case Number",
+      "targetText": "案件编号",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13432,7 +13432,7 @@
     "legalCompliance.caseStatus": {
       "key": "legalCompliance.caseStatus",
       "sourceText": "Case Status",
-      "targetText": "Case Status",
+      "targetText": "案件状态",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13450,7 +13450,7 @@
     "legalCompliance.classification": {
       "key": "legalCompliance.classification",
       "sourceText": "Classification",
-      "targetText": "Classification",
+      "targetText": "分类分级",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13468,7 +13468,7 @@
     "legalCompliance.clientsearch.tryAdjustingYourSearch": {
       "key": "legalCompliance.clientsearch.tryAdjustingYourSearch",
       "sourceText": "Try adjusting your search query or filter.",
-      "targetText": "Try adjusting your search query or filter.",
+      "targetText": "尝试调整您的搜索词或筛选条件。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13504,7 +13504,7 @@
     "legalCompliance.code": {
       "key": "legalCompliance.code",
       "sourceText": "Code",
-      "targetText": "Code",
+      "targetText": "代码",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13522,7 +13522,7 @@
     "legalCompliance.complianceEnforcement": {
       "key": "legalCompliance.complianceEnforcement",
       "sourceText": "Compliance & Enforcement",
-      "targetText": "Compliance & Enforcement",
+      "targetText": "合规与执法",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13540,7 +13540,7 @@
     "legalCompliance.complianceReady": {
       "key": "legalCompliance.complianceReady",
       "sourceText": "Compliance Ready",
-      "targetText": "Compliance Ready",
+      "targetText": "合规就绪",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13558,7 +13558,7 @@
     "legalCompliance.complianceVerification": {
       "key": "legalCompliance.complianceVerification",
       "sourceText": "Compliance & Verification",
-      "targetText": "Compliance & Verification",
+      "targetText": "合规与核验",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13594,7 +13594,7 @@
     "legalCompliance.cookiePreferences": {
       "key": "legalCompliance.cookiePreferences",
       "sourceText": "Cookie Preferences",
-      "targetText": "Cookie Preferences",
+      "targetText": "Cookie 首选项",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13612,7 +13612,7 @@
     "legalCompliance.cookieTrackingPreferences": {
       "key": "legalCompliance.cookieTrackingPreferences",
       "sourceText": "Cookie & Tracking Preferences",
-      "targetText": "Cookie & Tracking Preferences",
+      "targetText": "Cookie 与追踪偏好",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13630,7 +13630,7 @@
     "legalCompliance.correctionOfMyData": {
       "key": "legalCompliance.correctionOfMyData",
       "sourceText": "Correction of my data",
-      "targetText": "Correction of my data",
+      "targetText": "更正我的个人数据",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13666,7 +13666,7 @@
     "legalCompliance.dataPortability": {
       "key": "legalCompliance.dataPortability",
       "sourceText": "Data Portability",
-      "targetText": "Data Portability",
+      "targetText": "数据可携权",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13702,7 +13702,7 @@
     "legalCompliance.deleteMyAccount": {
       "key": "legalCompliance.deleteMyAccount",
       "sourceText": "Delete My Account",
-      "targetText": "Delete My Account",
+      "targetText": "删除我的账户",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13738,7 +13738,7 @@
     "legalCompliance.detailedPolicyGuidelines": {
       "key": "legalCompliance.detailedPolicyGuidelines",
       "sourceText": "Detailed policy guidelines...",
-      "targetText": "Detailed policy guidelines...",
+      "targetText": "详细政策指引...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13756,7 +13756,7 @@
     "legalCompliance.detailsOptional": {
       "key": "legalCompliance.detailsOptional",
       "sourceText": "Details (Optional)",
-      "targetText": "Details (Optional)",
+      "targetText": "详情（选填）",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13774,7 +13774,7 @@
     "legalCompliance.detectionConfidence": {
       "key": "legalCompliance.detectionConfidence",
       "sourceText": "Detection Confidence",
-      "targetText": "Detection Confidence",
+      "targetText": "检出置信度",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13792,7 +13792,7 @@
     "legalCompliance.eGFirearmsAmmunition": {
       "key": "legalCompliance.eGFirearmsAmmunition",
       "sourceText": "e.g. Firearms & Ammunition",
-      "targetText": "e.g. Firearms & Ammunition",
+      "targetText": "例：枪支弹药",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13810,7 +13810,7 @@
     "legalCompliance.eGHandgunsRifles": {
       "key": "legalCompliance.eGHandgunsRifles",
       "sourceText": "e.g. Handguns, rifles, bullets",
-      "targetText": "e.g. Handguns, rifles, bullets",
+      "targetText": "例：手枪、步枪、子弹",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13882,7 +13882,7 @@
     "legalCompliance.eGTakedown": {
       "key": "legalCompliance.eGTakedown",
       "sourceText": "e.g. TAKEDOWN",
-      "targetText": "e.g. TAKEDOWN",
+      "targetText": "例：TAKEDOWN",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13900,7 +13900,7 @@
     "legalCompliance.eGToyGuns": {
       "key": "legalCompliance.eGToyGuns",
       "sourceText": "e.g. Toy guns clearly marked with orange tips",
-      "targetText": "e.g. Toy guns clearly marked with orange tips",
+      "targetText": "例：带有明显橙色枪口标识的玩具枪",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13954,7 +13954,7 @@
     "legalCompliance.enforcementAction": {
       "key": "legalCompliance.enforcementAction",
       "sourceText": "Enforcement Action",
-      "targetText": "Enforcement Action",
+      "targetText": "执行处置措施",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13972,7 +13972,7 @@
     "legalCompliance.enforcementQueue": {
       "key": "legalCompliance.enforcementQueue",
       "sourceText": "Enforcement Queue",
-      "targetText": "Enforcement Queue",
+      "targetText": "处置队列",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -13990,7 +13990,7 @@
     "legalCompliance.enterTheEmailAssociated": {
       "key": "legalCompliance.enterTheEmailAssociated",
       "sourceText": "Enter the email associated with your account",
-      "targetText": "Enter the email associated with your account",
+      "targetText": "输入与您的账户关联的电子邮件地址",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14008,7 +14008,7 @@
     "legalCompliance.erasureOrBlockingOf": {
       "key": "legalCompliance.erasureOrBlockingOf",
       "sourceText": "Erasure or blocking of my data",
-      "targetText": "Erasure or blocking of my data",
+      "targetText": "删除或封锁我的数据",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14026,7 +14026,7 @@
     "legalCompliance.evaluationReason": {
       "key": "legalCompliance.evaluationReason",
       "sourceText": "Evaluation Reason",
-      "targetText": "Evaluation Reason",
+      "targetText": "评估原因",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14044,7 +14044,7 @@
     "legalCompliance.examples": {
       "key": "legalCompliance.examples",
       "sourceText": "Examples",
-      "targetText": "Examples",
+      "targetText": "示例",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14062,7 +14062,7 @@
     "legalCompliance.exclusions": {
       "key": "legalCompliance.exclusions",
       "sourceText": "Exclusions",
-      "targetText": "Exclusions",
+      "targetText": "例外情况",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14080,7 +14080,7 @@
     "legalCompliance.fullDescription": {
       "key": "legalCompliance.fullDescription",
       "sourceText": "Full Description",
-      "targetText": "Full Description",
+      "targetText": "完整描述",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14098,7 +14098,7 @@
     "legalCompliance.functional": {
       "key": "legalCompliance.functional",
       "sourceText": "Functional",
-      "targetText": "Functional",
+      "targetText": "功能性",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14116,7 +14116,7 @@
     "legalCompliance.functionalCookies": {
       "key": "legalCompliance.functionalCookies",
       "sourceText": "Functional Cookies",
-      "targetText": "Functional Cookies",
+      "targetText": "功能型 Cookie",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14134,7 +14134,7 @@
     "legalCompliance.help": {
       "key": "legalCompliance.help",
       "sourceText": "Help",
-      "targetText": "Help",
+      "targetText": "帮助",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14170,7 +14170,7 @@
     "legalCompliance.ifYouHaveQuestions": {
       "key": "legalCompliance.ifYouHaveQuestions",
       "sourceText": "If you have questions about whether an item is allowed, please contact Support or use the AI Assistant below.",
-      "targetText": "If you have questions about whether an item is allowed, please contact Support or use the AI Assistant below.",
+      "targetText": "如果您对某个物品是否允许发布有疑问，请联系客服或使用下方的 AI 助手。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14188,7 +14188,7 @@
     "legalCompliance.informationProvidedInThis": {
       "key": "legalCompliance.informationProvidedInThis",
       "sourceText": "Information provided in this Compliance Center is intended to explain RENTipid's platform compliance framework and is not individual legal advice.",
-      "targetText": "Information provided in this Compliance Center is intended to explain RENTipid's platform compliance framework and is not individual legal advice.",
+      "targetText": "本合规中心提供的信息旨在说明 RENTipid 平台的合规框架，不构成个案法律建议。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14206,7 +14206,7 @@
     "legalCompliance.internalNotes": {
       "key": "legalCompliance.internalNotes",
       "sourceText": "Internal Notes",
-      "targetText": "Internal Notes",
+      "targetText": "内部备注",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14224,7 +14224,7 @@
     "legalCompliance.justificationForTheDecision": {
       "key": "legalCompliance.justificationForTheDecision",
       "sourceText": "Justification for the decision...",
-      "targetText": "Justification for the decision...",
+      "targetText": "裁决理由/依据...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14242,7 +14242,7 @@
     "legalCompliance.legalReferenceOptional": {
       "key": "legalCompliance.legalReferenceOptional",
       "sourceText": "Legal Reference (Optional)",
-      "targetText": "Legal Reference (Optional)",
+      "targetText": "法律依据（选填）",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14260,7 +14260,7 @@
     "legalCompliance.listingId": {
       "key": "legalCompliance.listingId",
       "sourceText": "Listing ID",
-      "targetText": "Listing ID",
+      "targetText": "房源/物品 ID",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14296,7 +14296,7 @@
     "legalCompliance.manageAppealsRarr": {
       "key": "legalCompliance.manageAppealsRarr",
       "sourceText": "Manage appeals &rarr;",
-      "targetText": "Manage appeals &rarr;",
+      "targetText": "管理申诉 &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14314,7 +14314,7 @@
     "legalCompliance.manageHowWeUse": {
       "key": "legalCompliance.manageHowWeUse",
       "sourceText": "Manage how we use cookies and tracking technologies when you browse RENTipid.",
-      "targetText": "Manage how we use cookies and tracking technologies when you browse RENTipid.",
+      "targetText": "管理您在浏览 RENTipid 时我们如何使用 Cookie 和追踪技术。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14332,7 +14332,7 @@
     "legalCompliance.managePoliciesRarr": {
       "key": "legalCompliance.managePoliciesRarr",
       "sourceText": "Manage policies &rarr;",
-      "targetText": "Manage policies &rarr;",
+      "targetText": "管理政策 &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14350,7 +14350,7 @@
     "legalCompliance.manageProhibitedAndRestricted": {
       "key": "legalCompliance.manageProhibitedAndRestricted",
       "sourceText": "Manage prohibited and restricted item policies.",
-      "targetText": "Manage prohibited and restricted item policies.",
+      "targetText": "管理违禁和受限物品政策。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14368,7 +14368,7 @@
     "legalCompliance.marketing": {
       "key": "legalCompliance.marketing",
       "sourceText": "Marketing",
-      "targetText": "Marketing",
+      "targetText": "营销推广",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14386,7 +14386,7 @@
     "legalCompliance.marketingCookies": {
       "key": "legalCompliance.marketingCookies",
       "sourceText": "Marketing Cookies",
-      "targetText": "Marketing Cookies",
+      "targetText": "营销型 Cookie",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14422,7 +14422,7 @@
     "legalCompliance.messageSentToListing": {
       "key": "legalCompliance.messageSentToListing",
       "sourceText": "Message sent to listing owner if applicable...",
-      "targetText": "Message sent to listing owner if applicable...",
+      "targetText": "发送给发布者的消息（如适用）...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14440,7 +14440,7 @@
     "legalCompliance.messageThatWillBe": {
       "key": "legalCompliance.messageThatWillBe",
       "sourceText": "Message that will be sent to the user...",
-      "targetText": "Message that will be sent to the user...",
+      "targetText": "将发送给用户的通知消息...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14476,7 +14476,7 @@
     "legalCompliance.myPrivacySettings": {
       "key": "legalCompliance.myPrivacySettings",
       "sourceText": "My Privacy Settings",
-      "targetText": "My Privacy 设置",
+      "targetText": "我的隐私设置",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14494,7 +14494,7 @@
     "legalCompliance.name": {
       "key": "legalCompliance.name",
       "sourceText": "Name",
-      "targetText": "Name",
+      "targetText": "名称",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14512,7 +14512,7 @@
     "legalCompliance.necessary": {
       "key": "legalCompliance.necessary",
       "sourceText": "Necessary",
-      "targetText": "Necessary",
+      "targetText": "必要",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14530,7 +14530,7 @@
     "legalCompliance.noAppealsFoundMatching": {
       "key": "legalCompliance.noAppealsFoundMatching",
       "sourceText": "No appeals found matching the criteria.",
-      "targetText": "No appeals found matching the criteria.",
+      "targetText": "未找到符合条件的申诉。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14548,7 +14548,7 @@
     "legalCompliance.noCasesFoundMatching": {
       "key": "legalCompliance.noCasesFoundMatching",
       "sourceText": "No cases found matching the criteria.",
-      "targetText": "No cases found matching the criteria.",
+      "targetText": "未找到符合条件的案件。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14566,7 +14566,7 @@
     "legalCompliance.noMatchingPoliciesFound": {
       "key": "legalCompliance.noMatchingPoliciesFound",
       "sourceText": "No matching policies found",
-      "targetText": "No matching policies found",
+      "targetText": "未找到相符的政策",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14584,7 +14584,7 @@
     "legalCompliance.noPoliciesFoundIn": {
       "key": "legalCompliance.noPoliciesFoundIn",
       "sourceText": "No policies found in the catalogue.",
-      "targetText": "No policies found in the catalogue.",
+      "targetText": "目录中未找到任何政策。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14602,7 +14602,7 @@
     "legalCompliance.noPrivacyRequestsFound": {
       "key": "legalCompliance.noPrivacyRequestsFound",
       "sourceText": "No privacy requests found.",
-      "targetText": "No privacy requests found.",
+      "targetText": "未找到隐私权利请求。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14620,7 +14620,7 @@
     "legalCompliance.noRecentEnforcementCases": {
       "key": "legalCompliance.noRecentEnforcementCases",
       "sourceText": "No recent enforcement cases found.",
-      "targetText": "No recent enforcement cases found.",
+      "targetText": "未找到近期的处置案件。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14638,7 +14638,7 @@
     "legalCompliance.noRecordsFound": {
       "key": "legalCompliance.noRecordsFound",
       "sourceText": "No records found",
-      "targetText": "No records found",
+      "targetText": "未找到记录",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14656,7 +14656,7 @@
     "legalCompliance.noSavedCookiePreferences": {
       "key": "legalCompliance.noSavedCookiePreferences",
       "sourceText": "No saved cookie preferences found.",
-      "targetText": "No saved cookie preferences found.",
+      "targetText": "未找到已保存的 Cookie 首选项。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14692,7 +14692,7 @@
     "legalCompliance.objectToProcessing": {
       "key": "legalCompliance.objectToProcessing",
       "sourceText": "Object to processing",
-      "targetText": "Object to processing",
+      "targetText": "反对个人数据处理",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14728,7 +14728,7 @@
     "legalCompliance.openCasesActionNeeded": {
       "key": "legalCompliance.openCasesActionNeeded",
       "sourceText": "Open Cases (Action Needed)",
-      "targetText": "Open Cases (Action Needed)",
+      "targetText": "未结案件（需要采取行动）",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14746,7 +14746,7 @@
     "legalCompliance.originalCaseReference": {
       "key": "legalCompliance.originalCaseReference",
       "sourceText": "Original Case Reference",
-      "targetText": "Original Case Reference",
+      "targetText": "原始案件编号",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14782,7 +14782,7 @@
     "legalCompliance.paymentsAreHeldIn": {
       "key": "legalCompliance.paymentsAreHeldIn",
       "sourceText": "Payments are held in escrow until the asset is returned and inspections are cleared.",
-      "targetText": "Payments are held in escrow until the asset is returned and inspections are cleared.",
+      "targetText": "款项由第三方托管，直至资产归还且验收合格。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14818,7 +14818,7 @@
     "legalCompliance.pendingAppeals": {
       "key": "legalCompliance.pendingAppeals",
       "sourceText": "Pending Appeals",
-      "targetText": "Pending Appeals",
+      "targetText": "待处理的申诉",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14836,7 +14836,7 @@
     "legalCompliance.pendingVerifications": {
       "key": "legalCompliance.pendingVerifications",
       "sourceText": "Pending Verifications",
-      "targetText": "Pending Verifications",
+      "targetText": "待审核的认证",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14854,7 +14854,7 @@
     "legalCompliance.pistolGunRifle": {
       "key": "legalCompliance.pistolGunRifle",
       "sourceText": "pistol, gun, rifle",
-      "targetText": "pistol, gun, rifle",
+      "targetText": "手枪、枪支、步枪",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14872,7 +14872,7 @@
     "legalCompliance.plainLanguageSummary": {
       "key": "legalCompliance.plainLanguageSummary",
       "sourceText": "Plain-Language Summary",
-      "targetText": "Plain-Language Summary",
+      "targetText": "通俗语言概述",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14890,7 +14890,7 @@
     "legalCompliance.policyCatalogue": {
       "key": "legalCompliance.policyCatalogue",
       "sourceText": "Policy Catalogue",
-      "targetText": "Policy Catalogue",
+      "targetText": "政策目录",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14908,7 +14908,7 @@
     "legalCompliance.policyCode": {
       "key": "legalCompliance.policyCode",
       "sourceText": "Policy Code",
-      "targetText": "Policy Code",
+      "targetText": "政策代码",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14926,7 +14926,7 @@
     "legalCompliance.policyName": {
       "key": "legalCompliance.policyName",
       "sourceText": "Policy Name",
-      "targetText": "Policy Name",
+      "targetText": "政策名称",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14944,7 +14944,7 @@
     "legalCompliance.policyViolated": {
       "key": "legalCompliance.policyViolated",
       "sourceText": "Policy Violated",
-      "targetText": "Policy Violated",
+      "targetText": "违反的政策",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14980,7 +14980,7 @@
     "legalCompliance.prohibitedItemsIncludeWeapons": {
       "key": "legalCompliance.prohibitedItemsIncludeWeapons",
       "sourceText": "Prohibited items include weapons, illegal substances, and hazardous materials.",
-      "targetText": "Prohibited items include weapons, illegal substances, and hazardous materials.",
+      "targetText": "违禁物品包括武器、非法物品及危险化学材料。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -14998,7 +14998,7 @@
     "legalCompliance.prohibitedItemsModule": {
       "key": "legalCompliance.prohibitedItemsModule",
       "sourceText": "Prohibited Items Module",
-      "targetText": "Prohibited Items Module",
+      "targetText": "违禁物品管理模块",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15016,7 +15016,7 @@
     "legalCompliance.prohibitedKeywordsCommaSeparated": {
       "key": "legalCompliance.prohibitedKeywordsCommaSeparated",
       "sourceText": "Prohibited Keywords (Comma separated)",
-      "targetText": "Prohibited Keywords (Comma separated)",
+      "targetText": "违禁关键词（逗号分隔）",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15052,7 +15052,7 @@
     "legalCompliance.provideAnyAdditionalDetails": {
       "key": "legalCompliance.provideAnyAdditionalDetails",
       "sourceText": "Provide any additional details that will help us process your request...",
-      "targetText": "Provide any additional details that will help us process your request...",
+      "targetText": "提供有助于我们处理您请求的任何附加详细信息...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15070,7 +15070,7 @@
     "legalCompliance.publicGuidance": {
       "key": "legalCompliance.publicGuidance",
       "sourceText": "Public Guidance",
-      "targetText": "Public Guidance",
+      "targetText": "公众指引",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15106,7 +15106,7 @@
     "legalCompliance.readPrivacyPolicy": {
       "key": "legalCompliance.readPrivacyPolicy",
       "sourceText": "Read Privacy Policy",
-      "targetText": "Read 隐私政策",
+      "targetText": "阅读隐私政策",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15124,7 +15124,7 @@
     "legalCompliance.recentEnforcementActions": {
       "key": "legalCompliance.recentEnforcementActions",
       "sourceText": "Recent Enforcement Actions",
-      "targetText": "Recent Enforcement Actions",
+      "targetText": "近期处置行动",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15142,7 +15142,7 @@
     "legalCompliance.recentUsers": {
       "key": "legalCompliance.recentUsers",
       "sourceText": "Recent Users",
-      "targetText": "Recent Users",
+      "targetText": "近期用户",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15160,7 +15160,7 @@
     "legalCompliance.regulatorOptional": {
       "key": "legalCompliance.regulatorOptional",
       "sourceText": "Regulator (Optional)",
-      "targetText": "Regulator (Optional)",
+      "targetText": "监管机构（选填）",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15178,7 +15178,7 @@
     "legalCompliance.requestSubmittedSuccessfully": {
       "key": "legalCompliance.requestSubmittedSuccessfully",
       "sourceText": "Request Submitted Successfully",
-      "targetText": "Request Submitted Successfully",
+      "targetText": "请求提交成功",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15196,7 +15196,7 @@
     "legalCompliance.resolutionAction": {
       "key": "legalCompliance.resolutionAction",
       "sourceText": "Resolution Action",
-      "targetText": "Resolution Action",
+      "targetText": "调解/处置决定",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15214,7 +15214,7 @@
     "legalCompliance.responseToAppellant": {
       "key": "legalCompliance.responseToAppellant",
       "sourceText": "Response to Appellant",
-      "targetText": "Response to Appellant",
+      "targetText": "对申诉人的答复",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15250,7 +15250,7 @@
     "legalCompliance.returnToPrivacyCenter": {
       "key": "legalCompliance.returnToPrivacyCenter",
       "sourceText": "Return to Privacy Center",
-      "targetText": "Return to Privacy Center",
+      "targetText": "返回隐私中心",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15286,7 +15286,7 @@
     "legalCompliance.reviewAction": {
       "key": "legalCompliance.reviewAction",
       "sourceText": "Review Action",
-      "targetText": "Review Action",
+      "targetText": "审核处置动作",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15304,7 +15304,7 @@
     "legalCompliance.reviewAndManageUser": {
       "key": "legalCompliance.reviewAndManageUser",
       "sourceText": "Review and manage user appeals for enforcement actions.",
-      "targetText": "Review and manage user appeals for enforcement actions.",
+      "targetText": "审查并管理用户对违规处置的申诉。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15322,7 +15322,7 @@
     "legalCompliance.reviewDecision": {
       "key": "legalCompliance.reviewDecision",
       "sourceText": "Review Decision",
-      "targetText": "Review Decision",
+      "targetText": "审核裁定",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15340,7 +15340,7 @@
     "legalCompliance.reviewFlaggedListingsAnd": {
       "key": "legalCompliance.reviewFlaggedListingsAnd",
       "sourceText": "Review flagged listings and manage active cases.",
-      "targetText": "Review flagged listings and manage active cases.",
+      "targetText": "审核被标记的物品/房源并处理进行中的案件。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15358,7 +15358,7 @@
     "legalCompliance.reviewKeywordsCommaSeparated": {
       "key": "legalCompliance.reviewKeywordsCommaSeparated",
       "sourceText": "Review Keywords (Comma separated)",
-      "targetText": "Review Keywords (Comma separated)",
+      "targetText": "复核关键词（逗号分隔）",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15376,7 +15376,7 @@
     "legalCompliance.reviewOpenCasesRarr": {
       "key": "legalCompliance.reviewOpenCasesRarr",
       "sourceText": "Review open cases &rarr;",
-      "targetText": "Review open cases &rarr;",
+      "targetText": "查看未结案件 &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15394,7 +15394,7 @@
     "legalCompliance.reviewerNotesInternal": {
       "key": "legalCompliance.reviewerNotesInternal",
       "sourceText": "Reviewer Notes (Internal)",
-      "targetText": "Reviewer Notes (Internal)",
+      "targetText": "审核人备注（内部）",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15412,7 +15412,7 @@
     "legalCompliance.searchLawsJurisdictionsTopics": {
       "key": "legalCompliance.searchLawsJurisdictionsTopics",
       "sourceText": "Search laws, jurisdictions, topics (e.g. RA 11967, GDPR, privacy, refund)...",
-      "targetText": "Search laws, jurisdictions, topics (e.g. RA 11967, GDPR, privacy, refund)...",
+      "targetText": "搜索法规、司法管辖区、主题（例如 RA 11967、GDPR、隐私、退款）...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15430,7 +15430,7 @@
     "legalCompliance.searchProhibitedItemsKeywords": {
       "key": "legalCompliance.searchProhibitedItemsKeywords",
       "sourceText": "Search prohibited items, keywords, or policies...",
-      "targetText": "Search prohibited items, keywords, or policies...",
+      "targetText": "搜索违禁物品、关键词或政策...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15448,7 +15448,7 @@
     "legalCompliance.strictlyNecessaryCookies": {
       "key": "legalCompliance.strictlyNecessaryCookies",
       "sourceText": "Strictly Necessary Cookies",
-      "targetText": "Strictly Necessary Cookies",
+      "targetText": "绝对必要的 Cookie",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15466,7 +15466,7 @@
     "legalCompliance.submitAPrivacyRequest": {
       "key": "legalCompliance.submitAPrivacyRequest",
       "sourceText": "Submit a Privacy Request",
-      "targetText": "Submit a Privacy Request",
+      "targetText": "提交隐私权利请求",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15484,7 +15484,7 @@
     "legalCompliance.submitRequest": {
       "key": "legalCompliance.submitRequest",
       "sourceText": "Submit Request",
-      "targetText": "Submit Request",
+      "targetText": "提交申请",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15520,7 +15520,7 @@
     "legalCompliance.summary": {
       "key": "legalCompliance.summary",
       "sourceText": "Summary",
-      "targetText": "Summary",
+      "targetText": "摘要",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15538,7 +15538,7 @@
     "legalCompliance.supportingStatement": {
       "key": "legalCompliance.supportingStatement",
       "sourceText": "Supporting Statement",
-      "targetText": "Supporting Statement",
+      "targetText": "证明陈述",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15592,7 +15592,7 @@
     "legalCompliance.targetUserId": {
       "key": "legalCompliance.targetUserId",
       "sourceText": "Target User ID",
-      "targetText": "Target User ID",
+      "targetText": "目标用户 ID",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15610,7 +15610,7 @@
     "legalCompliance.totalEnforcementCases": {
       "key": "legalCompliance.totalEnforcementCases",
       "sourceText": "Total Enforcement Cases",
-      "targetText": "Total Enforcement Cases",
+      "targetText": "处置案件总数",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15628,7 +15628,7 @@
     "legalCompliance.trackYourPastRequests": {
       "key": "legalCompliance.trackYourPastRequests",
       "sourceText": "Track your past requests to access, correct, or delete your personal data.",
-      "targetText": "Track your past requests to access, correct, or delete your personal data.",
+      "targetText": "追踪您以往关于查阅、更正或删除您个人数据的权利请求。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15646,7 +15646,7 @@
     "legalCompliance.trustSafetyLegal": {
       "key": "legalCompliance.trustSafetyLegal",
       "sourceText": "Trust, Safety & Legal",
-      "targetText": "Trust, Safety & Legal",
+      "targetText": "信任、安全与法律",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15664,7 +15664,7 @@
     "legalCompliance.tryAdjustingYourSearch": {
       "key": "legalCompliance.tryAdjustingYourSearch",
       "sourceText": "Try adjusting your search terms.",
-      "targetText": "Try adjusting your search terms.",
+      "targetText": "尝试调整您的搜索字词。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15772,7 +15772,7 @@
     "legalCompliance.userNoticeMessage": {
       "key": "legalCompliance.userNoticeMessage",
       "sourceText": "User Notice Message",
-      "targetText": "User Notice Message",
+      "targetText": "用户告知消息",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15790,7 +15790,7 @@
     "legalCompliance.validationRequired": {
       "key": "legalCompliance.validationRequired",
       "sourceText": "Validation Required",
-      "targetText": "Validation Required",
+      "targetText": "需要验证",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15826,7 +15826,7 @@
     "legalCompliance.viewAllCasesRarr": {
       "key": "legalCompliance.viewAllCasesRarr",
       "sourceText": "View all cases &rarr;",
-      "targetText": "View all cases &rarr;",
+      "targetText": "查看所有案件 &rarr;",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15844,7 +15844,7 @@
     "legalCompliance.viewQueue": {
       "key": "legalCompliance.viewQueue",
       "sourceText": "View Queue",
-      "targetText": "View Queue",
+      "targetText": "查看队列",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15862,7 +15862,7 @@
     "legalCompliance.violatedPolicy": {
       "key": "legalCompliance.violatedPolicy",
       "sourceText": "Violated Policy",
-      "targetText": "Violated Policy",
+      "targetText": "违反的政策",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15898,7 +15898,7 @@
     "legalCompliance.weWillProcessYour": {
       "key": "legalCompliance.weWillProcessYour",
       "sourceText": "We will process your request in accordance with our Privacy Policy and applicable data protection laws. You will receive an email shortly with instructions on how to track the status of your request.",
-      "targetText": "We will process your request in accordance with our 隐私政策 and applicable data protection laws. You will receive an email shortly with instructions on how to track the status of your request.",
+      "targetText": "我们将根据我们的隐私政策和适用的数据保护法律处理您的请求。您很快就会收到一封电子邮件，说明如何追踪您请求的处理状态。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15916,7 +15916,7 @@
     "legalCompliance.weaponTactical": {
       "key": "legalCompliance.weaponTactical",
       "sourceText": "weapon, tactical",
-      "targetText": "weapon, tactical",
+      "targetText": "武器、战术装备",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15934,7 +15934,7 @@
     "legalCompliance.withdrawConsent": {
       "key": "legalCompliance.withdrawConsent",
       "sourceText": "Withdraw consent",
-      "targetText": "Withdraw consent",
+      "targetText": "撤回同意",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15970,7 +15970,7 @@
     "legalCompliance.youMustProvideAccurate": {
       "key": "legalCompliance.youMustProvideAccurate",
       "sourceText": "You must provide accurate KYC information. Business providers must hold valid permits.",
-      "targetText": "You must provide accurate KYC information. Business providers must hold valid permits.",
+      "targetText": "您必须提供准确的实名认证（KYC）信息。企业服务商必须持有有效的经营许可。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -15988,7 +15988,7 @@
     "legalCompliance.yourPrivacyRequestHas": {
       "key": "legalCompliance.yourPrivacyRequestHas",
       "sourceText": "Your privacy request has been received. Please keep the following reference number for your records:",
-      "targetText": "Your privacy request has been received. Please keep the following reference number for your records:",
+      "targetText": "您的隐私权利请求已收到。请妥善保存以下参考编号以便查询：",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17075,7 +17075,7 @@
     "listingWizard.damagePolicyLabel": {
       "key": "listingWizard.damagePolicyLabel",
       "sourceText": "Damage Policy",
-      "targetText": "Damage Policy",
+      "targetText": "损坏赔偿政策",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17093,7 +17093,7 @@
     "listingWizard.damagePolicyPlaceholder": {
       "key": "listingWizard.damagePolicyPlaceholder",
       "sourceText": "e.g. Any scratches will deduct ₱500 from the deposit...",
-      "targetText": "e.g. Any scratches will deduct ₱500 from the deposit...",
+      "targetText": "例：任何划痕将从押金中扣除 ₱500...",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17111,7 +17111,7 @@
     "listingWizard.declarationBody": {
       "key": "listingWizard.declarationBody",
       "sourceText": "I declare that I legally own this asset or am legally authorized to offer it for rent. I agree that this listing must comply with RENTipid policies, applicable laws, safety rules, and category requirements.",
-      "targetText": "I declare that I legally own this asset or am legally authorized to offer it for rent. I agree that this listing must comply with RENTipid policies, applicable laws, safety rules, and category requirements.",
+      "targetText": "我声明我对该资产拥有合法所有权或经合法授权出租该资产。我同意该发布内容必须符合 RENTipid 政策、适用法律、安全规则和类目要求。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -17129,7 +17129,7 @@
     "listingWizard.declarationTitle": {
       "key": "listingWizard.declarationTitle",
       "sourceText": "Provider Declaration:",
-      "targetText": "Provider Declaration:",
+      "targetText": "服务商声明：",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -18488,7 +18488,7 @@
     "partnerHub.termsAndConditions": {
       "key": "partnerHub.termsAndConditions",
       "sourceText": "Terms and Conditions",
-      "targetText": "Terms and Conditions",
+      "targetText": "条款与条件",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -22849,7 +22849,7 @@
     "providerListingManage.errorMissingDocuments": {
       "key": "providerListingManage.errorMissingDocuments",
       "sourceText": "This category requires compliance or proof of ownership verification documents before submission.",
-      "targetText": "This category requires compliance or proof of ownership verification documents before submission.",
+      "targetText": "该类目在提交前需要合规文件或所有权验证凭证。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -22963,7 +22963,7 @@
     "providerListingManage.riskCategoryWarning": {
       "key": "providerListingManage.riskCategoryWarning",
       "sourceText": "This category strictly requires admin verification and compliance documents.",
-      "targetText": "This category strictly requires admin verification and compliance documents.",
+      "targetText": "该类目严格要求管理员审核和合规材料。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23334,7 +23334,7 @@
     "providerListings.verificationRequiredBody": {
       "key": "providerListings.verificationRequiredBody",
       "sourceText": "You must complete your provider verification before you can create and manage listings.",
-      "targetText": "You must complete your provider verification before you can create and manage listings.",
+      "targetText": "在创建和管理房源/物品之前，您必须完成服务商认证。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23352,7 +23352,7 @@
     "providerListings.verificationRequiredTitle": {
       "key": "providerListings.verificationRequiredTitle",
       "sourceText": "Account Verification Required",
-      "targetText": "Account Verification Required",
+      "targetText": "需要账户认证",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23385,7 +23385,7 @@
     "providerNewListing.legalRequirementsBody": {
       "key": "providerNewListing.legalRequirementsBody",
       "sourceText": "Depending on your jurisdiction and category, certain legal requirements or permits may apply to this listing.",
-      "targetText": "Depending on your jurisdiction and category, certain legal requirements or permits may apply to this listing.",
+      "targetText": "根据您所在的司法管辖区和类目，此房源/物品可能适用某些法律要求或许可。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23403,7 +23403,7 @@
     "providerNewListing.legalRequirementsTitle": {
       "key": "providerNewListing.legalRequirementsTitle",
       "sourceText": "Legal & Compliance Requirements",
-      "targetText": "Legal & Compliance Requirements",
+      "targetText": "法律与合规要求",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -23451,7 +23451,7 @@
     "providerNewListing.viewComplianceRegister": {
       "key": "providerNewListing.viewComplianceRegister",
       "sourceText": "View Global Legal Compliance Register",
-      "targetText": "View Global Legal Compliance Register",
+      "targetText": "查看全球法律合规登记册",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -24300,7 +24300,7 @@
     "renter.onboarding.termsAccepted": {
       "key": "renter.onboarding.termsAccepted",
       "sourceText": "Terms accepted",
-      "targetText": "Terms accepted",
+      "targetText": "已同意条款",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33678,7 +33678,7 @@
     "trustSafety.247Support": {
       "key": "trustSafety.247Support",
       "sourceText": "24/7 Support",
-      "targetText": "24/7 Support",
+      "targetText": "24/7 全天候支持",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33696,7 +33696,7 @@
     "trustSafety.allUsersMustVerify": {
       "key": "trustSafety.allUsersMustVerify",
       "sourceText": "All users must verify their identity before transacting on the platform.",
-      "targetText": "All users must verify their identity before transacting on the platform.",
+      "targetText": "所有用户在平台上进行交易前必须验证其身份。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33714,7 +33714,7 @@
     "trustSafety.builtOnTrustSafety": {
       "key": "trustSafety.builtOnTrustSafety",
       "sourceText": "Built on Trust & Safety",
-      "targetText": "Built on Trust & Safety",
+      "targetText": "以信任与安全为基石",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33732,7 +33732,7 @@
     "trustSafety.everyUserUndergoesThorough": {
       "key": "trustSafety.everyUserUndergoesThorough",
       "sourceText": "Every user undergoes thorough identity verification (KYC) before they can transact on the platform.",
-      "targetText": "Every user undergoes thorough identity verification (KYC) before they can transact on the platform.",
+      "targetText": "每位用户在平台上进行交易前，均需经过严格的身份验证（KYC）。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33750,7 +33750,7 @@
     "trustSafety.identityVerificationKyc": {
       "key": "trustSafety.identityVerificationKyc",
       "sourceText": "Identity Verification (KYC)",
-      "targetText": "Identity Verification (KYC)",
+      "targetText": "身份认证 (KYC)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33768,7 +33768,7 @@
     "trustSafety.neverPayOutsideThe": {
       "key": "trustSafety.neverPayOutsideThe",
       "sourceText": "Never pay outside the RENTipid platform. All transactions are protected by our Escrow system.",
-      "targetText": "Never pay outside the RENTipid platform. All transactions are protected by our Escrow system.",
+      "targetText": "切勿在 RENTipid 平台之外付款。所有交易均受到我们托管系统（Escrow）的保护。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33786,7 +33786,7 @@
     "trustSafety.ourDedicatedResolutionCenter": {
       "key": "trustSafety.ourDedicatedResolutionCenter",
       "sourceText": "Our dedicated resolution center and support team are always ready to help mediate any disputes.",
-      "targetText": "Our dedicated resolution center and support team are always ready to help mediate any disputes.",
+      "targetText": "我们专注的纠纷调解中心和支持团队随时准备协助调解任何争议。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33804,7 +33804,7 @@
     "trustSafety.paymentsAreHeldSecurely": {
       "key": "trustSafety.paymentsAreHeldSecurely",
       "sourceText": "Payments are held securely in escrow and only released when the rental is successfully completed.",
-      "targetText": "Payments are held securely in escrow and only released when the rental is successfully completed.",
+      "targetText": "款项安全存放在托管账户中，仅在租赁成功完成后才会释放。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33822,7 +33822,7 @@
     "trustSafety.readyToGetStarted": {
       "key": "trustSafety.readyToGetStarted",
       "sourceText": "Ready to get started?",
-      "targetText": "Ready to get started?",
+      "targetText": "准备好开始了吗？",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33840,7 +33840,7 @@
     "trustSafety.secureEscrow": {
       "key": "trustSafety.secureEscrow",
       "sourceText": "Secure Escrow",
-      "targetText": "Secure Escrow",
+      "targetText": "安全托管 (Escrow)",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33858,7 +33858,7 @@
     "trustSafety.securePayments": {
       "key": "trustSafety.securePayments",
       "sourceText": "Secure Payments",
-      "targetText": "Secure Payments",
+      "targetText": "安全支付",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33876,7 +33876,7 @@
     "trustSafety.trustSafetyCenter": {
       "key": "trustSafety.trustSafetyCenter",
       "sourceText": "Trust & Safety Center",
-      "targetText": "Trust & Safety Center",
+      "targetText": "信任与安全中心",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33894,7 +33894,7 @@
     "trustSafety.verifiedCommunity": {
       "key": "trustSafety.verifiedCommunity",
       "sourceText": "Verified Community",
-      "targetText": "Verified Community",
+      "targetText": "已实名认证社区",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
@@ -33912,7 +33912,7 @@
     "trustSafety.weTakeSecuritySeriously": {
       "key": "trustSafety.weTakeSecuritySeriously",
       "sourceText": "We take security seriously. Every transaction is protected by our comprehensive safety framework.",
-      "targetText": "We take security seriously. Every transaction is protected by our comprehensive safety framework.",
+      "targetText": "我们高度重视安全性。每笔交易都受到我们完备的安全体系保护。",
       "contentClass": "CLASS_C_CONTROLLED_LEGAL_COMPLIANCE",
       "required": true,
       "placeholderSignature": [],
