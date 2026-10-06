@@ -1,0 +1,115 @@
+{
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "governingFactory": "P12 / v1.1 GLOBAL EXPANSION FACTORY (COMPLETE — ACCEPTED — CLOSED — FROZEN)",
+  "languageWorkstream": "en-US",
+  "stage": "ENUS-D",
+  "currentAction": "ENUS-D LEGAL / COMPLIANCE REVIEW & CONTROLLED APPROVAL",
+  "enusDStatus": "BLOCKED — CONTROLLED APPROVAL REQUIRED",
+  "timestamp": "2026-10-06T15:45:00+08:00",
+  "enusCCommit": "e3a689f7ddf6183a27eed7caa77698efcab80961",
+  "sequenceCorrectiveGovernanceCommit": "028ac2bcf57e9bbc6a99f3a9d0293f98f194b112",
+  "enusBGovernanceCommit": "aa6449a55f1f671143740d3a71dc3c9c452eda42",
+  "branch": "feat/glcc-v1.1-en-us",
+  "sourceLocale": "en-PH",
+  "targetLocale": "en-US",
+  "classCInventoryCount": 241,
+  "classCCategoryInventory": {
+    "status": "PASS",
+    "categoryCounts": {
+      "JURISDICTION_AND_GOVERNING_LAW": 1,
+      "PRIVACY_AND_DATA_PROTECTION": 28,
+      "TERMS_AND_CONTRACTUAL": 9,
+      "REGULATORY_AND_STATUTORY_COMPLIANCE": 155,
+      "OTHER_CONTROLLED_CONTENT": 7,
+      "KYC_AND_IDENTITY_VERIFICATION": 22,
+      "INTELLECTUAL_PROPERTY": 1,
+      "CONSUMER_PROTECTION_AND_SAFETY": 13,
+      "PAYMENT_AND_FINANCIAL_DISCLAIMER": 5
+    }
+  },
+  "authoritativeSourceInventory": {
+    "authoritativeSourceResolved": 241,
+    "authoritativeSourceUnresolved": 0,
+    "status": "COMPLETE — PASS"
+  },
+  "sourceReuseAnalysis": {
+    "identicalToSource": 239,
+    "regionallyAdapted": 2,
+    "adaptedKeys": [
+      "legalCompliance.noPoliciesFoundIn",
+      "legalCompliance.policyCatalogue"
+    ],
+    "status": "PASS"
+  },
+  "approvalRequirementInventory": {
+    "approvalNotRequired": 0,
+    "approvalRequired": 241,
+    "alreadyApproved": 0,
+    "sourceAuthorityUnresolved": 0,
+    "totalReconciled": 241,
+    "status": "PASS"
+  },
+  "reviewerAuthorityStatus": {
+    "legalComplianceReviewerStatus": "PENDING GOVERNED ASSIGNMENT",
+    "approvalAuthorityStatus": "PENDING GOVERNED ASSIGNMENT",
+    "fabricationOccurred": false
+  },
+  "controlledTranslationRecords": {
+    "count": 241,
+    "filePath": "docs/governance/glcc-v1.1/languages/en-US/legal/en-US-controlled-content-records.json",
+    "status": "GENERATED — PASS"
+  },
+  "sourceVersionAndChecksumIntegrity": {
+    "sourceVersionMismatch": 0,
+    "sourceChecksumMismatch": 0,
+    "status": "PASS"
+  },
+  "languageJurisdictionIndependence": {
+    "status": "PASS",
+    "jurisdictionAuthorityChanges": 0,
+    "rule": "Selection of en-US does not imply US jurisdiction, courts, or governing law."
+  },
+  "semanticControl": {
+    "unreviewedSubstantiveLegalChanges": 0,
+    "status": "PASS"
+  },
+  "validatorResults": {
+    "validControlledRecords": 241,
+    "pendingRequiredApproval": 241,
+    "sourceAuthorityUnresolved": 0,
+    "rejected": 0,
+    "sourceOutdated": 0,
+    "tamperChecksumErrors": 0,
+    "jurisdictionErrors": 0,
+    "status": "PASS"
+  },
+  "approvalDecision": {
+    "outcome": "OUTCOME_B_REQUIRED_APPROVAL_NOT_YET_AVAILABLE",
+    "enusDStatus": "BLOCKED — CONTROLLED APPROVAL REQUIRED",
+    "workPackageWorkflowState": "COMPLIANCE_REVIEW",
+    "approvedForQaPromoted": false,
+    "controlledApprovalDossier": "CREATED"
+  },
+  "controlledApprovalDossierFiles": {
+    "markdown": "docs/governance/glcc-v1.1/languages/en-US/legal/ENUS_D_CONTROLLED_APPROVAL_DOSSIER.md",
+    "json": "docs/governance/glcc-v1.1/languages/en-US/evidence/enus-d-controlled-approval-dossier.json"
+  },
+  "runtimeSeparation": {
+    "runtimeEnUsKeyCount": 0,
+    "runtimeEnUsCoverage": "0.0%",
+    "runtimeEnUsReleaseStatus": "TRANSLATION_IN_PROGRESS",
+    "runtimeEnUsBundleInstalled": false,
+    "localeRegistryModified": false,
+    "status": "PASS"
+  },
+  "enusEEntryCriteria": {
+    "status": "NOT MET",
+    "reason": "ENUS-D must be PASS with 0 pending Class C approvals before ENUS-E Locale Pack Generation may begin."
+  },
+  "remediationRequiredToUnblock": [
+    "1. Assign accredited legal and compliance reviewer(s) in governance records.",
+    "2. Review all 241 Class C records in legal/en-US-controlled-content-records.json.",
+    "3. Assign formal approvalReference (e.g. LGL-REV-ENUS-YYYYMMDD) and set approvalStatus to APPROVED.",
+    "4. Transition en-US work package workflowState to APPROVED_FOR_QA."
+  ]
+}
