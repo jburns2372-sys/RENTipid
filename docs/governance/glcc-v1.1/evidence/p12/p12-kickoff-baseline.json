@@ -1,0 +1,131 @@
+{
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "workstream": "P12 / v1.1 GLOBAL EXPANSION FACTORY",
+  "action": "KICKOFF & BASELINE — FIRST AUTHORIZED ACTION",
+  "status": "PASS",
+  "evaluatedTimestamp": "2026-10-06T09:25:00+08:00",
+  "branch": "feat/glcc-v1.1-global-expansion-factory",
+  "baseGovernanceCommit": "6533e882d0f6a52fb8f2eb4eaa6eb04c2c4121dd",
+  "frozenApplicationSource": {
+    "sha": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+    "verified": true,
+    "runtimeDifferences": 0
+  },
+  "productionDeployment": {
+    "deploymentId": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X",
+    "productionUrl": "https://www.rentipid.com.ph"
+  },
+  "v101Tags": {
+    "freezeTag": "rentipid-glcc-v1.0.1-frozen",
+    "freezeTagTarget": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+    "releaseTag": "glcc-v1.0.1",
+    "releaseTagTarget": "7ed8388f36e970f7da7d04ca44afccb883d4ea9d",
+    "status": "PRESERVED — PASS"
+  },
+  "ownerAuthorization": {
+    "statement": "I AUTHORIZE P12 / v1.1 GLOBAL EXPANSION FACTORY",
+    "status": "CONFIRMED",
+    "scope": "P12 / v1.1 Global Expansion Factory"
+  },
+  "immutableBaseline": {
+    "previousRelease": "GLCC v1.0.1",
+    "previousLifecycle": "COMPLETE — CLOSED — FROZEN",
+    "immutabilityBoundary": "DEFINED — PASS"
+  },
+  "startingLanguageState": {
+    "canonicalKeyCount": 2208,
+    "languages": {
+      "en-PH": {
+        "status": "PRODUCTION_READY",
+        "coverage": "100%",
+        "selectableInProduction": true
+      },
+      "fil-PH": {
+        "status": "PRODUCTION_READY",
+        "coverage": "100%",
+        "selectableInProduction": true
+      },
+      "en-US": {
+        "status": "TRANSLATION_IN_PROGRESS",
+        "selectableInProduction": false
+      },
+      "ja-JP": {
+        "status": "REGISTERED",
+        "translationKeys": 0,
+        "selectableInProduction": false
+      }
+    }
+  },
+  "factoryPrinciples": [
+    "Language remains independent of country",
+    "Language remains independent of display currency",
+    "Language cannot modify charge currency",
+    "Language cannot modify payment authority",
+    "Language cannot modify RBAC",
+    "Language cannot modify KYC authority",
+    "Language cannot modify jurisdiction",
+    "Legal/compliance source authority remains controlled",
+    "Unsupported/incomplete languages remain fail-closed",
+    "Locale persistence must produce actual rendered localization",
+    "SSR/CSR behavior must remain consistent",
+    "Production activation requires explicit governed acceptance",
+    "Every new language must pass measurable coverage criteria",
+    "AI translation may assist drafting but cannot become authoritative legal/compliance text automatically",
+    "v1.0.1 en-PH and fil-PH behavior must not regress"
+  ],
+  "factoryStages": [
+    "P12-A — Baseline & Governance",
+    "P12-B — Language Onboarding Contract",
+    "P12-C — Translation Source/Workflow Factory",
+    "P12-D — Locale Pack Generation & Validation",
+    "P12-E — Language-Specific QA Factory",
+    "P12-F — Legal/Compliance Translation Control",
+    "P12-G — Preview Activation Factory",
+    "P12-H — Production Readiness Factory",
+    "P12-I — Controlled Production Activation",
+    "P12-J — Acceptance / Closure / Freeze"
+  ],
+  "candidateInventory": {
+    "candidates": [
+      {
+        "tag": "en-US",
+        "currentStatus": "TRANSLATION_IN_PROGRESS"
+      },
+      {
+        "tag": "ja-JP",
+        "currentStatus": "REGISTERED",
+        "translationKeys": 0
+      }
+    ],
+    "firstLanguageImplementationPriority": "NOT YET AUTHORIZED"
+  },
+  "nonRegressionBaseline": {
+    "status": "DEFINED — PASS",
+    "preservedProperties": [
+      "en-PH Production behavior",
+      "fil-PH Production behavior",
+      "2208-key baseline",
+      "language selector security",
+      "Production fail-closed behavior",
+      "country/currency independence",
+      "payment/financial authority independence",
+      "RBAC/KYC/jurisdiction independence",
+      "legal source authority",
+      "guest/authenticated localization behavior",
+      "SSR/CSR consistency",
+      "route persistence",
+      "hard-refresh persistence"
+    ]
+  },
+  "p12EntryCriteria": {
+    "frozenBaselineVerified": true,
+    "branchCreated": true,
+    "workspaceCreated": true,
+    "ownerAuthorizationRecorded": true,
+    "factoryStagesDocumented": true,
+    "candidateInventoryDocumented": true,
+    "nonRegressionBaselineDocumented": true,
+    "zeroRuntimeChanges": true,
+    "status": "PASS"
+  }
+}
