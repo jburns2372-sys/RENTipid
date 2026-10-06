@@ -1,0 +1,56 @@
+{
+  "evidenceId": "EVIDENCE-GLCC-GLOBAL-W1-K-001",
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "governingFactory": "P12 / v1.1 GLOBAL EXPANSION FACTORY (ACCEPTED — CLOSED — FROZEN)",
+  "release": "GLOBAL-W1 / GLCC v1.1 GLOBAL MULTILINGUAL + MULTI-CURRENCY PRODUCTION RELEASE",
+  "action": "GLOBAL-W1-K FINAL OWNER ACCEPTANCE + GLOBAL RELEASE FREEZE",
+  "timestamp": "2026-10-07T05:46:00+08:00",
+  "finalReleaseStatus": "ACCEPTED — CLOSED — FROZEN",
+  "ownerAcceptance": {
+    "status": "ACCEPTED",
+    "owner": "Federico P. Diagono Jr.",
+    "role": "Chief Executive Officer / Project Owner, RENTipid",
+    "statement": "I ACCEPT GLOBAL-W1 / v1.1 GLOBAL MULTILINGUAL + MULTI-CURRENCY PRODUCTION RELEASE",
+    "date": "2026-10-07"
+  },
+  "legalComplianceApproval": {
+    "officer": "Jonathan Amoroso — Legal/Compliance Officer",
+    "decision": "APPROVED",
+    "reference": "GLCC-GW1-E-APPROVED-20261006-002",
+    "date": "2026-10-06"
+  },
+  "frozenApplicationSource": "d3846e327905fe3762c73bc7b26697a19d708fbb",
+  "verifiedProductionDeploymentId": "dpl_754t6JhqcPjLVzdh5wNBCm6QCBA3",
+  "productionCanonicalUrl": "https://www.rentipid.com.ph",
+  "preFreezeGovernanceCommit": "9038fe45d05d7a13febb7765d04b42804769cf2e",
+  "freezeTags": {
+    "freezeTag": "rentipid-glcc-v1.1-global-frozen",
+    "releaseTag": "glcc-v1.1-global",
+    "targetCommit": "d3846e327905fe3762c73bc7b26697a19d708fbb"
+  },
+  "metrics": {
+    "languageRegistryEntries": 46,
+    "productionSelectableLanguages": 46,
+    "newLanguagesActivated": 44,
+    "fullLocalePacks": 32,
+    "sharedRegionalAliases": 12,
+    "supportedDisplayCurrencies": 23,
+    "supportedCountries": 44,
+    "canonicalKeysPerFullPack": 2208,
+    "legalClassCCanonicalKeys": 241,
+    "blockingDefects": 0
+  },
+  "verificationSummary": {
+    "finalProductionHealth": "PASS",
+    "finalAuthRbac": "PASS",
+    "jaJpVisibleLocalization": "PASS",
+    "jaJpPersistence": "PASS",
+    "arAeLocalization": "PASS",
+    "arAeRtl": "PASS",
+    "paymentAuthority": "PRESERVED",
+    "transactionCurrencyAuthority": "PRESERVED",
+    "settlementCurrencyAuthority": "PRESERVED",
+    "databaseModified": false,
+    "frozenFactoryModified": false
+  }
+}

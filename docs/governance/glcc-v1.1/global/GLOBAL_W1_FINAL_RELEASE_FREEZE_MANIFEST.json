@@ -1,0 +1,92 @@
+{
+  "manifestId": "GLOBAL-W1-FINAL-RELEASE-FREEZE-MANIFEST-001",
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "governingFactory": "P12 / v1.1 GLOBAL EXPANSION FACTORY (ACCEPTED — CLOSED — FROZEN)",
+  "release": "GLOBAL-W1 / GLCC v1.1 GLOBAL MULTILINGUAL + MULTI-CURRENCY PRODUCTION RELEASE",
+  "action": "GLOBAL-W1-K FINAL OWNER ACCEPTANCE + GLOBAL RELEASE FREEZE",
+  "timestamp": "2026-10-07T05:46:00+08:00",
+  "finalReleaseStatus": "ACCEPTED — CLOSED — FROZEN",
+  "ownerAcceptance": {
+    "status": "ACCEPTED",
+    "statement": "I ACCEPT GLOBAL-W1 / v1.1 GLOBAL MULTILINGUAL + MULTI-CURRENCY PRODUCTION RELEASE",
+    "owner": "Federico P. Diagono Jr.",
+    "role": "Chief Executive Officer / Project Owner, RENTipid",
+    "date": "2026-10-07",
+    "scope": "GLOBAL-W1 / v1.1 GLOBAL MULTILINGUAL + MULTI-CURRENCY PRODUCTION RELEASE"
+  },
+  "legalComplianceApproval": {
+    "officer": "Jonathan Amoroso — Legal/Compliance Officer",
+    "decision": "APPROVED",
+    "internalReference": "GLCC-GW1-E-APPROVED-20261006-002",
+    "date": "2026-10-06"
+  },
+  "deploymentProvenance": {
+    "frozenProductionApplicationSource": "d3846e327905fe3762c73bc7b26697a19d708fbb",
+    "verifiedProductionDeploymentId": "dpl_754t6JhqcPjLVzdh5wNBCm6QCBA3",
+    "productionDomain": "https://www.rentipid.com.ph",
+    "directProductionUrl": "https://ren-tipid-erkehzal1-jburns2372-sys-projects.vercel.app",
+    "preFreezeGovernanceCommit": "9038fe45d05d7a13febb7765d04b42804769cf2e",
+    "deployedShaMatchesFrozenSource": true
+  },
+  "correctiveRemediationHistory": {
+    "ownerObservedDefect": "Language preference was persisted and displayed in Global Preferences, but the application UI remained rendered in English.",
+    "originalAcceptanceStatus": "INVALIDATED_FOR_LANGUAGE_APPLICATION_BEHAVIOR",
+    "rootCause": "TranslationEngine initially registered only baseline en-PH and fil-PH Production bundles; candidate locale bundles were not registered in Production runtime; GlobalPreferencesModal did not refresh Server Components after preference application; one home hero string was hardcoded; and candidate Class A navigation/landing strings required runtime localization correction.",
+    "correctiveApplicationSource": "d3846e327905fe3762c73bc7b26697a19d708fbb",
+    "correctedPreviewDeployment": "dpl_BPcnqeRtcFNMp2FAsZeDx6tNnB8T",
+    "correctedPreviewCanonicalUrl": "https://preview.rentipid.com.ph",
+    "correctedProductionDeployment": "dpl_754t6JhqcPjLVzdh5wNBCm6QCBA3",
+    "correctiveGovernanceCommit": "9038fe45d05d7a13febb7765d04b42804769cf2e",
+    "finalCorrectiveStatus": "PASS"
+  },
+  "releaseInventory": {
+    "languageRegistryEntries": 46,
+    "productionSelectableLanguages": 46,
+    "existingOriginalProductionLocales": 2,
+    "newGlobalActivationCandidates": 44,
+    "fullLocalePacks": 32,
+    "sharedRegionalAliases": 12,
+    "supportedDisplayCurrencies": 23,
+    "supportedCountries": 44,
+    "canonicalKeysPerFullPack": 2208,
+    "legalClassCCanonicalKeys": 241,
+    "unapprovedProductionLanguages": 0,
+    "blockingLocalizationDefects": 0
+  },
+  "financialAndMonetaryAuthority": {
+    "countryLanguageIndependence": "PASS",
+    "countryCurrencyIndependence": "PASS",
+    "languageCurrencyIndependence": "PASS",
+    "displayTransactionSeparation": "PASS",
+    "displaySettlementSeparation": "PASS",
+    "paymentAuthority": "PRESERVED",
+    "transactionCurrencyAuthority": "PRESERVED",
+    "settlementCurrencyAuthority": "PRESERVED",
+    "chargeCurrency": "PHP",
+    "fxProvider": "REAL_RUNTIME_ADAPTER_ONLINE",
+    "fakeProductionFx": false
+  },
+  "databaseState": {
+    "databaseMigrationExecuted": false,
+    "databaseSchemaChangeRequired": false,
+    "destructiveDatabaseAction": false
+  },
+  "frozenFactoryState": {
+    "frozenFactoryPath": "scripts/glcc-v1.1/**",
+    "frozenFactoryModified": false
+  },
+  "operationalSafety": {
+    "productionHealth": "PASS",
+    "authRbacSmoke": "PASS",
+    "jaJpVisibleLocalization": "PASS",
+    "jaJpPersistence": "PASS",
+    "arAeLocalization": "PASS",
+    "arAeRtl": "PASS",
+    "rollbackDeploymentRetained": "dpl_7CtWAHhhBu2zWNcDPPNkDX7zBw6X"
+  },
+  "releaseTags": {
+    "freezeTag": "rentipid-glcc-v1.1-global-frozen",
+    "releaseTag": "glcc-v1.1-global",
+    "targetCommit": "d3846e327905fe3762c73bc7b26697a19d708fbb"
+  }
+}
