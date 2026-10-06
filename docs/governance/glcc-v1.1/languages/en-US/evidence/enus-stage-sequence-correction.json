@@ -1,0 +1,104 @@
+{
+  "controllingMaster": "RENTIPID-GLCC-MULTILINGUAL-MIP-001 v1.0",
+  "governingFactory": "P12 / v1.1 GLOBAL EXPANSION FACTORY (COMPLETE — ACCEPTED — CLOSED — FROZEN)",
+  "languageWorkstream": "en-US",
+  "currentAction": "TARGETED ENUS WORKSTREAM SEQUENCE CORRECTION",
+  "correctiveStatus": "PASS",
+  "timestamp": "2026-10-06T15:15:00+08:00",
+  "defectDiscovered": {
+    "defect": "Stage dependency ordering conflict in forward workstream roadmap",
+    "affectedDependency": "Class C Legal/Compliance Approval vs. Locale Pack Generation",
+    "whyFrozenFactoryRequiresCorrection": "P12-D Locale Pack Generation and validation require work package state APPROVED_FOR_QA with all Class C legal approvals completed. Placing Legal Review (formerly ENUS-F) after Locale Pack Generation (formerly ENUS-D) violated P12-D pre-generation guards.",
+    "defectScope": "en-US workstream governance sequence only",
+    "frozenFactoryDefect": false,
+    "historicalWorkInvalidated": false
+  },
+  "originalSequence": [
+    "ENUS-A — Kickoff / Onboarding Entry Baseline",
+    "ENUS-B — Translation Work Package / Scope Baseline",
+    "ENUS-C — Translation Completion & Workflow Validation",
+    "ENUS-D — Locale Pack Generation & Validation",
+    "ENUS-E — Language-Specific QA",
+    "ENUS-F — Legal / Compliance Review",
+    "ENUS-G — Preview Eligibility / QA_REQUIRED Promotion / Preview Activation & Acceptance",
+    "ENUS-H — Production Readiness",
+    "ENUS-I — Controlled Production Activation",
+    "ENUS-J — Acceptance / Closure / Language Release Freeze"
+  ],
+  "correctedSequence": [
+    "ENUS-A — Kickoff / Onboarding Entry Baseline (PASS — PRESERVED)",
+    "ENUS-B — Translation Work Package / Scope Baseline (PASS — PRESERVED)",
+    "ENUS-C — Translation Completion / Classification Resolution / Linguistic Review",
+    "ENUS-D — Legal / Compliance Review & Controlled Approval",
+    "ENUS-E — Locale Pack Generation & Validation",
+    "ENUS-F — Language-Specific QA",
+    "ENUS-G — Preview Eligibility / QA_REQUIRED Promotion / Preview Activation & Acceptance",
+    "ENUS-H — Production Readiness",
+    "ENUS-I — Controlled Production Activation",
+    "ENUS-J — Acceptance / Closure / Language Release Freeze"
+  ],
+  "stageContracts": {
+    "enusCExitContract": {
+      "resolveUnclassified": "Resolve all 208 CLASSIFICATION_REVIEW_REQUIRED keys",
+      "translationCoverage": "100% complete across all 2,208 canonical keys",
+      "linguisticReview": "Completed",
+      "placeholderIntegrity": "Zero mismatches across 43 dynamic messages",
+      "structuralIntegrity": "0 missing, 0 unknown, 0 duplicate, 0 format errors, 0 unicode errors",
+      "authorizedExitState": "COMPLIANCE_REVIEW",
+      "prohibitedExitState": "APPROVED_FOR_QA (prohibited until ENUS-D legal approval is complete)"
+    },
+    "enusDApprovalGate": {
+      "scope": "All 216 Class C controlled legal/compliance keys",
+      "system": "Frozen P12-F legal/compliance control factory",
+      "requirements": [
+        "authoritative source identity & checksum verification",
+        "target translation version & checksum verification",
+        "legal/compliance reviewer accreditation",
+        "jurisdiction applicability confirmation",
+        "approval reference assignment",
+        "effective date controls"
+      ],
+      "exitState": "APPROVED_FOR_QA"
+    },
+    "enusEEntryContract": {
+      "prerequisites": [
+        "translation package structurally complete: PASS",
+        "classification reviews unresolved: 0",
+        "canonical coverage: 100%",
+        "missing required keys: 0",
+        "placeholder mismatches: 0",
+        "format errors: 0",
+        "unicode errors: 0",
+        "Class C required approvals: PASS",
+        "workflowState: APPROVED_FOR_QA"
+      ]
+    },
+    "enusFEntryContract": {
+      "prerequisites": [
+        "ENUS-E locale pack: VALID",
+        "releaseCandidateState: CANDIDATE_FOR_QA",
+        "legal/compliance evidence: VALID"
+      ]
+    }
+  },
+  "priorResultsPreservation": {
+    "enusA": { "status": "PASS — PRESERVED", "commit": "3427d5c16211142bf2e20bcfa6f7847eab5b7811" },
+    "enusB": { "status": "PASS — PRESERVED", "commit": "aa6449a55f1f671143740d3a71dc3c9c452eda42" },
+    "canonicalKeyCount": 2208,
+    "workPackageState": "SOURCE_LOCKED",
+    "runtimeEnUsKeyCount": 0,
+    "enUsReleaseStatus": "TRANSLATION_IN_PROGRESS"
+  },
+  "invariantsPreserved": {
+    "runtimeModified": false,
+    "translationsModified": false,
+    "workPackageModified": false,
+    "localeRegistryModified": false,
+    "productionModified": false,
+    "previewModified": false,
+    "databaseModified": false,
+    "factoryToolingModified": false,
+    "packageJsonModified": false,
+    "tagsModified": false
+  }
+}
