@@ -6,6 +6,13 @@ import { RegisterInputSchema } from '@/lib/security/identity-input-security';
 import { ProfileFieldProtection, ProfileFieldContext } from '@/lib/security/crypto/profile-field-protection';
 import { createAuthAncillaryService, resolveAuthPublicBaseUrl } from '@/lib/auth/unified/ancillary-factory';
 
+import {
+  resolveOperatingJurisdiction,
+  canRegisterInJurisdiction,
+  normalizeInternationalPhone,
+} from '@/lib/global-market';
+import { getCountryProfile } from '@/lib/glcc/country/country-registry';
+
 const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
@@ -25,7 +32,7 @@ export async function POST(req: Request) {
     const email = validatedData.email;
     const password = validatedData.password;
     const full_name = validatedData.full_name;
-    const mobile_number = validatedData.mobile_number || null;
+    const mobile_number_raw = validatedData.mobile_number || null;
     const account_type = validatedData.account_type;
     const role = validatedData.role;
     
@@ -36,6 +43,25 @@ export async function POST(req: Request) {
     const business_name = validatedData.business_name || null;
     const business_registration_number = validatedData.business_registration_number || null;
     const authorized_representative = validatedData.authorized_representative || null;
+
+    // GM-2: Resolve Operating Jurisdiction strictly against GM-1 framework
+    const operatingJurisdiction = resolveOperatingJurisdiction(country) || 'PH';
+    const regCheck = canRegisterInJurisdiction(operatingJurisdiction);
+    if (!regCheck.allowed) {
+      return NextResponse.json(
+        { message: regCheck.reason || 'Registration is not permitted in this jurisdiction' },
+        { status: 403 }
+      );
+    }
+
+    // GM-2: Country-aware phone normalization
+    let mobile_number = mobile_number_raw;
+    if (mobile_number_raw) {
+      const phoneRes = normalizeInternationalPhone(mobile_number_raw, operatingJurisdiction);
+      if (phoneRes.valid && phoneRes.e164) {
+        mobile_number = phoneRes.e164;
+      }
+    }
 
     let userAddressEncrypted: string | null = null;
     let businessAddressEncrypted: string | null = null;
@@ -83,6 +109,18 @@ export async function POST(req: Request) {
         },
       });
 
+      // GM-2: Initialize UserGlobalPreference with operating jurisdiction
+      const glccCountry = getCountryProfile(operatingJurisdiction);
+      await tx.userGlobalPreference.create({
+        data: {
+          user_id: createdUser.id,
+          country_code: operatingJurisdiction,
+          language_tag: glccCountry?.defaultLanguageTag || 'en-PH',
+          display_currency: glccCountry?.defaultDisplayCurrency || 'PHP',
+          is_manual_display_override: false,
+        },
+      });
+
       if (account_type === 'Business') {
         await tx.businessProfile.create({
           data: {
@@ -104,7 +142,7 @@ export async function POST(req: Request) {
             address_encrypted: userAddressEncrypted,
             city: city || '',
             province: province || '',
-            country: country || 'Philippines',
+            country: operatingJurisdiction,
             verification_status: 'Pending'
           }
         });

@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-import RentipidLogo from '@/components/brand/RentipidLogo';
 import { useTranslation } from '@/lib/glcc/i18n';
+import { GLOBAL_COUNTRY_CATALOG } from '@/lib/glcc/country/country-registry';
+import RentipidLogo from '@/components/brand/RentipidLogo';
 
 export default function RegisterIndividualProvider() {
   const { t } = useTranslation();
@@ -101,6 +102,20 @@ export default function RegisterIndividualProvider() {
           <div className="pt-4">
             <h3 className="font-semibold text-gray-800 border-b pb-2 mb-4">{t('auth.register.locationDetails')}</h3>
             <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Country / Operating Jurisdiction</label>
+                <select
+                  name="country"
+                  defaultValue="PH"
+                  className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none bg-white text-gray-900"
+                >
+                  {GLOBAL_COUNTRY_CATALOG.map(c => (
+                    <option key={c.code} value={c.code}>
+                      {c.name} ({c.code})
+                    </option>
+                  ))}
+                </select>
+              </div>
               <div>
                 <label className="block text-sm font-medium mb-1">{t('auth.address')}</label>
                 <input name="address" required className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none" />

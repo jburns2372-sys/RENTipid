@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-import RentipidLogo from '@/components/brand/RentipidLogo';
 import { useTranslation } from '@/lib/glcc/i18n';
+import { GLOBAL_COUNTRY_CATALOG } from '@/lib/glcc/country/country-registry';
+import RentipidLogo from '@/components/brand/RentipidLogo';
 
 export default function RegisterBusinessProvider() {
   const { t } = useTranslation();
@@ -84,6 +85,20 @@ export default function RegisterBusinessProvider() {
               <div>
                 <label className="block text-sm font-medium mb-1">{t('auth.register.businessRegNumber')}</label>
                 <input name="business_registration_number" required className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Country / Operating Jurisdiction</label>
+                <select
+                  name="country"
+                  defaultValue="PH"
+                  className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none bg-white text-gray-900"
+                >
+                  {GLOBAL_COUNTRY_CATALOG.map(c => (
+                    <option key={c.code} value={c.code}>
+                      {c.name} ({c.code})
+                    </option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label className="block text-sm font-medium mb-1">{t('auth.register.businessAddress')}</label>
