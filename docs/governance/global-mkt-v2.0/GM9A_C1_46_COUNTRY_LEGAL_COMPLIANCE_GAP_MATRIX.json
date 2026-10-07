@@ -1,0 +1,875 @@
+[
+  {
+    "countryCode": "PH",
+    "countryName": "Philippines",
+    "marketplaceOperation": "ALLOWED",
+    "consumerProtection": "VERIFIED",
+    "privacyData": "VERIFIED",
+    "KYC": "VERIFIED",
+    "payment": "VERIFIED",
+    "payout": "VERIFIED",
+    "tax": "CONFIGURED",
+    "invoice": "CONFIGURED",
+    "categories": "CONFIGURED",
+    "crossBorder": "ALLOWED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "BIR Withholding Tax Opinion on Marketplace Operators"
+    ]
+  },
+  {
+    "countryCode": "US",
+    "countryName": "United States",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for United States",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "GB",
+    "countryName": "United Kingdom",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for United Kingdom",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "CA",
+    "countryName": "Canada",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Canada",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "AU",
+    "countryName": "Australia",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Australia",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "SG",
+    "countryName": "Singapore",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Singapore",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "MY",
+    "countryName": "Malaysia",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Malaysia",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "ID",
+    "countryName": "Indonesia",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Indonesia",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "VN",
+    "countryName": "Vietnam",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Vietnam",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "JP",
+    "countryName": "Japan",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Japan",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "KR",
+    "countryName": "South Korea",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for South Korea",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "IN",
+    "countryName": "India",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for India",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "CN",
+    "countryName": "China",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "PIPL (LOCALIZATION MANDATORY)",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Mainland In-Country Residency Required",
+    "humanLegalReviewRequirements": [
+      "MIIT Commercial ICP License joint venture evaluation",
+      "CAC PIPL Cross-Border Data Transfer compliance assessment"
+    ]
+  },
+  {
+    "countryCode": "TH",
+    "countryName": "Thailand",
+    "marketplaceOperation": "ALLOWED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "PDPA (VALIDATION REQUIRED)",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "ALLOWED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Thai Department of Business Development (DBD) E-Commerce Registration",
+      "PDPA cross-border processing review"
+    ]
+  },
+  {
+    "countryCode": "AE",
+    "countryName": "United Arab Emirates",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for United Arab Emirates",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "BR",
+    "countryName": "Brazil",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Brazil",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "DE",
+    "countryName": "Germany",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Germany",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "FR",
+    "countryName": "France",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for France",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "IT",
+    "countryName": "Italy",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Italy",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "ES",
+    "countryName": "Spain",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Spain",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "NL",
+    "countryName": "Netherlands",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Netherlands",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "BE",
+    "countryName": "Belgium",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Belgium",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "AT",
+    "countryName": "Austria",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Austria",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "IE",
+    "countryName": "Ireland",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Ireland",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "PT",
+    "countryName": "Portugal",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Portugal",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "PL",
+    "countryName": "Poland",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Poland",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "SE",
+    "countryName": "Sweden",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Sweden",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "DK",
+    "countryName": "Denmark",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Denmark",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "FI",
+    "countryName": "Finland",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Finland",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "GR",
+    "countryName": "Greece",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Greece",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "CZ",
+    "countryName": "Czech Republic",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Czech Republic",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "RO",
+    "countryName": "Romania",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Romania",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "HU",
+    "countryName": "Hungary",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Hungary",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "NO",
+    "countryName": "Norway",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Norway",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "IS",
+    "countryName": "Iceland",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Iceland",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "LU",
+    "countryName": "Luxembourg",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Luxembourg",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "BG",
+    "countryName": "Bulgaria",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Bulgaria",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "HR",
+    "countryName": "Croatia",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Croatia",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "CY",
+    "countryName": "Cyprus",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Cyprus",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "EE",
+    "countryName": "Estonia",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Estonia",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "LV",
+    "countryName": "Latvia",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Latvia",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "LT",
+    "countryName": "Lithuania",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Lithuania",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "MT",
+    "countryName": "Malta",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Malta",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "SK",
+    "countryName": "Slovakia",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Slovakia",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "SI",
+    "countryName": "Slovenia",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Slovenia",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  },
+  {
+    "countryCode": "LI",
+    "countryName": "Liechtenstein",
+    "marketplaceOperation": "RESTRICTED",
+    "consumerProtection": "VALIDATION_REQUIRED",
+    "privacyData": "VALIDATION_REQUIRED",
+    "KYC": "VALIDATION_REQUIRED",
+    "payment": "VALIDATION_REQUIRED",
+    "payout": "VALIDATION_REQUIRED",
+    "tax": "VALIDATION_REQUIRED",
+    "invoice": "VALIDATION_REQUIRED",
+    "categories": "VALIDATION_REQUIRED",
+    "crossBorder": "RESTRICTED",
+    "networkDataResidency": "Standard AWS/Vercel Cloud Tier",
+    "humanLegalReviewRequirements": [
+      "Statutory consumer protection & rental liability opinion for Liechtenstein",
+      "Digital marketplace tax reporting reconciliation (e.g. DAC7 for EU, 1099-K for US)"
+    ]
+  }
+]

@@ -1,0 +1,2659 @@
+[
+  {
+    "countryCode": "PH",
+    "countryName": "Philippines",
+    "kycProvider": {
+      "currentStatus": "MANUAL_INTERNAL (READY)",
+      "candidateResolution": "Internal compliance verification",
+      "sandboxRequirement": "N/A",
+      "productionRequirement": "Standard operating procedure",
+      "commercialAgreementRequirement": "None",
+      "externalDependency": "None"
+    },
+    "paymentProvider": {
+      "currentStatus": "paymongo_global (VERIFIED)",
+      "candidateResolution": "PayMongo Domestic Rails",
+      "supportedPaymentMethods": [
+        "GCash",
+        "Maya",
+        "Cards",
+        "Direct Bank"
+      ],
+      "transactionCurrencies": [
+        "PHP"
+      ],
+      "sandboxAvailability": "ACTIVE",
+      "productionRequirement": "Verified",
+      "refundCapability": "Supported",
+      "webhookCapability": "Verified",
+      "reconciliationCapability": "Verified",
+      "evidenceStatus": "VERIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "Manual batch payout (READY)",
+      "candidateResolution": "Automated PayMongo / Direct Bank Rail",
+      "payoutMethods": [
+        "PESONet",
+        "InstaPay"
+      ],
+      "settlementCurrency": "PHP",
+      "sandboxRequirement": "Mocked in GM-6A",
+      "productionRequirement": "Automated rail integration",
+      "commercialAgreementRequirement": "Existing"
+    },
+    "geocodingProvider": {
+      "currentStatus": "PSGC Domestic Hierarchy (VERIFIED)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "Domestic 12% VAT Engine (VERIFIED)",
+      "candidateResolution": "BIR CAS Integration"
+    }
+  },
+  {
+    "countryCode": "US",
+    "countryName": "United States",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "GB",
+    "countryName": "United Kingdom",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "CA",
+    "countryName": "Canada",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "AU",
+    "countryName": "Australia",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "SG",
+    "countryName": "Singapore",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "MY",
+    "countryName": "Malaysia",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "ID",
+    "countryName": "Indonesia",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "VN",
+    "countryName": "Vietnam",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "JP",
+    "countryName": "Japan",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "KR",
+    "countryName": "South Korea",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "IN",
+    "countryName": "India",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "CN",
+    "countryName": "China",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "WeChat Pay / Alipay",
+      "supportedPaymentMethods": [
+        "Alipay",
+        "WeChat Pay"
+      ],
+      "transactionCurrencies": [
+        "CNY"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Domestic China Settlement",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "CNY",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "TH",
+    "countryName": "Thailand",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "PromptPay / Stripe APAC / 2C2P",
+      "supportedPaymentMethods": [
+        "PromptPay",
+        "Cards"
+      ],
+      "transactionCurrencies": [
+        "THB"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Local Thai Bank Disbursement / PromptPay",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "THB",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "AE",
+    "countryName": "United Arab Emirates",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "BR",
+    "countryName": "Brazil",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "DE",
+    "countryName": "Germany",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "FR",
+    "countryName": "France",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "IT",
+    "countryName": "Italy",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "ES",
+    "countryName": "Spain",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "NL",
+    "countryName": "Netherlands",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "BE",
+    "countryName": "Belgium",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "AT",
+    "countryName": "Austria",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "IE",
+    "countryName": "Ireland",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "PT",
+    "countryName": "Portugal",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "PL",
+    "countryName": "Poland",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "SE",
+    "countryName": "Sweden",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "DK",
+    "countryName": "Denmark",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "FI",
+    "countryName": "Finland",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "GR",
+    "countryName": "Greece",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "CZ",
+    "countryName": "Czech Republic",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "RO",
+    "countryName": "Romania",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "HU",
+    "countryName": "Hungary",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "NO",
+    "countryName": "Norway",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "IS",
+    "countryName": "Iceland",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "LU",
+    "countryName": "Luxembourg",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "BG",
+    "countryName": "Bulgaria",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "HR",
+    "countryName": "Croatia",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "CY",
+    "countryName": "Cyprus",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "EE",
+    "countryName": "Estonia",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "LV",
+    "countryName": "Latvia",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "LT",
+    "countryName": "Lithuania",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "MT",
+    "countryName": "Malta",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "SK",
+    "countryName": "Slovakia",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "SI",
+    "countryName": "Slovenia",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  },
+  {
+    "countryCode": "LI",
+    "countryName": "Liechtenstein",
+    "kycProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Global KYC Vendor (e.g. Veriff, Sumsub, Stripe Identity)",
+      "sandboxRequirement": "API sandbox credentials",
+      "productionRequirement": "Enterprise verification contract",
+      "commercialAgreementRequirement": "Required",
+      "externalDependency": "KYC vendor selection by Project Owner"
+    },
+    "paymentProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe / Adyen Global Gateway",
+      "supportedPaymentMethods": [
+        "Cards",
+        "Local Direct Debit",
+        "Wallets"
+      ],
+      "transactionCurrencies": [
+        "EUR",
+        "USD",
+        "GBP",
+        "Local"
+      ],
+      "sandboxAvailability": "Pending vendor onboarding",
+      "productionRequirement": "Production acquiring account",
+      "refundCapability": "Standard API refund rail",
+      "webhookCapability": "Signed webhook listener",
+      "reconciliationCapability": "Authoritative settlement ledger",
+      "evidenceStatus": "GAP_IDENTIFIED"
+    },
+    "payoutProvider": {
+      "currentStatus": "NOT_CONFIGURED",
+      "candidateResolution": "Stripe Connect / Wise / Local Rails",
+      "payoutMethods": [
+        "Local Bank Direct",
+        "SEPA",
+        "ACH"
+      ],
+      "settlementCurrency": "Local Currency",
+      "sandboxRequirement": "Sandbox disbursement API",
+      "productionRequirement": "Licensed disbursement entity",
+      "commercialAgreementRequirement": "Required"
+    },
+    "geocodingProvider": {
+      "currentStatus": "NOT_CONFIGURED (Haversine active)",
+      "candidateResolution": "Google Maps / Mapbox / OpenStreetMap Nominatim"
+    },
+    "notificationProvider": {
+      "currentStatus": "Core In-App Notification Engine (VERIFIED)",
+      "candidateResolution": "Twilio SMS / SendGrid Email / FCM Push"
+    },
+    "taxProvider": {
+      "currentStatus": "NOT_CONFIGURED (Suppressed)",
+      "candidateResolution": "Stripe Tax / Avalara / TaxJar"
+    }
+  }
+]
