@@ -1,0 +1,185 @@
+{
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-5R3 CORRECTED PRODUCTION ACTIVATION + ACCEPTANCE",
+  "deployment": {
+    "deploymentId": "dpl_BLvC4y4i21giKNGBoLJszoRNxEQ6",
+    "deploymentUrl": "https://ren-tipid-o0tto5xvf-jburns2372-sys-projects.vercel.app",
+    "productionDomain": "https://www.rentipid.com.ph",
+    "deployedSha": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+    "deployedShaMatch": "YES",
+    "status": "READY"
+  },
+  "historicalIncidentSummary": {
+    "originalDeployment": "dpl_6FrhmpiGAG1uHSqg4ZP5BdL2TLRt",
+    "originalSha": "0734f9930d3b16566f09637b35ca61406b25888a",
+    "incidentResult": "FAIL-ROLLED-BACK",
+    "rollbackTarget": "dpl_754t6JhqcPjLVzdh5wNBCm6QCBA3 (d3846e327905fe3762c73bc7b26697a19d708fbb)",
+    "rootCause": "th-TH language-registry.ts releaseStatus was QA_REQUIRED; failed closed under Production-mode firewall",
+    "remediationAction": "CNTH-5R1 promoted th-TH to PRODUCTION_READY (commit 9c69fd0128b0f9ef6a2e933d8a6636403a300bf6)",
+    "previewVerification": "CNTH-5R2 verified th-TH visible UI without QA override on Preview (dpl_HHUtSYdtQia9SxA6119bLdx8tmqV)"
+  },
+  "overallResult": "PASS",
+  "blockingProductionDefects": 0,
+  "matrix": [
+    {
+      "id": "SEC-10-11",
+      "category": "Deployment Verification",
+      "test": "Exact Corrected Candidate Deployed & SHA Proven",
+      "expected": "Target https://www.rentipid.com.ph, exact SHA 9c69fd0128b0f9ef6a2e933d8a6636403a300bf6, 0 governance commits deployed",
+      "actual": "dpl_BLvC4y4i21giKNGBoLJszoRNxEQ6 deployed SHA 9c69fd0128b0f9ef6a2e933d8a6636403a300bf6 verified via Vercel deployment API",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-12",
+      "category": "Production Health",
+      "test": "Endpoint and Core Routes Health",
+      "expected": "200 OK on /api/health (ready, connected), landing, login, register, preferences; RBAC redirect 307; 0 fatal 500 errors",
+      "actual": "All 200 OK; database connected; 0 fatal errors; RBAC redirect 307",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-13",
+      "category": "Production Inventory",
+      "test": "GLCC Complete Dimensional Count",
+      "expected": "46 countries, 47 languages, 33 full locale packs, 12 aliases, 25 currencies; CN/TH/zh-Hans/th-TH/CNY/THB present",
+      "actual": "46 countries, 47 languages, 25 currencies verified on /api/preferences; all target items present",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-14.1",
+      "category": "Critical Thai Remediation",
+      "test": "TH / th-TH / THB Selectors",
+      "expected": "Available in options and selectable",
+      "actual": "Present and selectable in /api/preferences options",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-14.2",
+      "category": "Critical Thai Remediation",
+      "test": "Thai Visible Production UI WITHOUT QA Override",
+      "expected": "lang='th-TH', visible Thai script rendered throughout SSR page without glcc_qa=true",
+      "actual": "<html lang='th-TH'> with verified Thai Unicode characters rendered on production landing page",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-14.3",
+      "category": "Critical Thai Remediation",
+      "test": "Thai Preference Persistence & Reload",
+      "expected": "Preference saved in rentipid_pref cookie and preserved upon reload",
+      "actual": "PATCH /api/preferences saved preference; GET /api/preferences verified reload persistence",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-15",
+      "category": "Thai Production Surfaces",
+      "test": "Representative Real Production Surfaces Coverage",
+      "expected": ">= 14 representative surfaces tested without blocking failures",
+      "actual": "17 surfaces tested (landing, browse, login, register, preferences, search, listing, listing creation wizard, booking, checkout, safety, terms, privacy, unauthorized, admin redirect, help, how-it-works); 0 blocking failures",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-16",
+      "category": "Thai String Quality",
+      "test": "Raw-Key, Fallback & Unicode Sweep",
+      "expected": "0 raw keys, 0 required fallback, 0 empty strings, 0 Unicode corruption, 0 placeholder leaks",
+      "actual": "Raw keys: 0, required fallback: 0, empty strings: 0, Unicode errors: 0, placeholder failures: 0",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-17",
+      "category": "Thailand Cross-Dimension",
+      "test": "Orthogonal Country, Language, and Currency Independence",
+      "expected": "TH+th-TH+THB, TH+en-US+THB, TH+th-TH+USD, PH+th-TH+PHP all accepted and persisted",
+      "actual": "All 4 combinations returned HTTP 200 with matching effective preferences",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-18",
+      "category": "China Essential Non-Regression",
+      "test": "CN + zh-Hans + CNY Essential Smoke",
+      "expected": "CN selector PASS, zh-Hans visible UI PASS, persistence PASS, CNY display PASS, 0 raw keys",
+      "actual": "<html lang='zh-Hans'> with Chinese text rendered, persisted, CNY displayed, 0 raw keys",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-19",
+      "category": "China Cross-Dimension",
+      "test": "China Orthogonal Combinations Smoke",
+      "expected": "CN+en-US+CNY, CN+zh-Hans+USD accepted and persisted",
+      "actual": "All combinations returned HTTP 200 with matching effective preferences",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-20",
+      "category": "Currency Acceptance",
+      "test": "CNY & THB Display Only Acceptance",
+      "expected": "CNY (¥, 2 decimals) and THB (฿, 2 decimals) display supported; transaction/settlement not claimed",
+      "actual": "CNY and THB definitions verified in options with exponent 2; transaction and settlement explicitly NOT CLAIMED",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-21",
+      "category": "Marketplace Compatibility",
+      "test": "Listing / Search Non-Regression",
+      "expected": "Browse and listing detail endpoints functional with GLCC headers",
+      "actual": "/browse and /listing/... returned 200 OK without errors",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-22",
+      "category": "Marketplace Compatibility",
+      "test": "Booking Checkout Surface Read-Only Verification",
+      "expected": "Checkout surface renders without initiating transaction",
+      "actual": "/checkout/... returned 200 OK without initiating payment",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-23",
+      "category": "Locale Metadata",
+      "test": "Timezone & Address Capability",
+      "expected": "CN Asia/Shanghai, TH Asia/Bangkok; free-form address supported",
+      "actual": "Timezones resolved correctly; documented non-blocking postal lookup limitation",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-24",
+      "category": "Payment Authority",
+      "test": "PHP Authority & Charge Currency Immutability",
+      "expected": "Charge currency locked to PHP; attempt to patch chargeCurrency rejected with 400",
+      "actual": "Charge currency verified PHP; injection of chargeCurrency blocked with 400 Bad Request",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-25",
+      "category": "Database Protection",
+      "test": "Zero Production Database Mutations",
+      "expected": "0 migrations, 0 schema mutations, 0 destructive data operations",
+      "actual": "0 database changes executed against production",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-26",
+      "category": "Global Regression",
+      "test": "Frozen v1.1 Baseline Non-Regression",
+      "expected": "ja-JP localization and ar-AE RTL functional; prior markets preserved",
+      "actual": "Japanese text renders under ja-JP; RTL dir rendered under ar-AE; SG, FR, PH markets intact",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-27",
+      "category": "Deferred Governance",
+      "test": "China Deferred Global-MKT Blockers",
+      "expected": "0 GLCC production blockers; 2 v2.0 Global Marketplace deferred blockers documented",
+      "actual": "CN-BLK-001 (ICP) and CN-BLK-002 (Cross-border CAC) deferred; public network operability NOT CLAIMED",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-28",
+      "category": "Commercial Boundary",
+      "test": "GLCC Production Available vs Commercial Active Distinction",
+      "expected": "GLCC Production Available: YES; Commercial Active: NO; v2.0: NOT STARTED",
+      "actual": "China and Thailand GLCC production available; commercial marketplace inactive; v2.0 not started",
+      "status": "PASS"
+    }
+  ]
+}

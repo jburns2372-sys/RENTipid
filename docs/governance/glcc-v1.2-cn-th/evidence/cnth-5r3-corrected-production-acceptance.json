@@ -1,0 +1,174 @@
+{
+  "action": "CNTH-5R3 CORRECTED PRODUCTION ACTIVATION + ACCEPTANCE",
+  "timestamp": "2026-10-07T06:49:48.060Z",
+  "productionUrl": "https://www.rentipid.com.ph",
+  "productionDeploymentId": "dpl_BLvC4y4i21giKNGBoLJszoRNxEQ6",
+  "productionDeployedSha": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+  "deployedShaMatch": "YES",
+  "sections": {
+    "section12": {
+      "name": "PRODUCTION HEALTH & AUTH/RBAC",
+      "healthStatus": "ready",
+      "databaseStatus": "connected",
+      "fatalServerErrors": 0,
+      "authRbacRedirectStatus": 307,
+      "productionHealth": "PASS",
+      "productionAuthRbac": "PASS",
+      "pass": true
+    },
+    "section13": {
+      "name": "PRODUCTION INVENTORY",
+      "countryCount": 46,
+      "localeCount": 47,
+      "fullLocalePacks": 33,
+      "aliases": 12,
+      "currencyCount": 25,
+      "cnPresent": "YES",
+      "thPresent": "YES",
+      "zhHansPresent": "YES",
+      "thTHPresent": "YES",
+      "cnyPresent": "YES",
+      "thbPresent": "YES",
+      "pass": true
+    },
+    "section14": {
+      "name": "CRITICAL THAI PRODUCTION DEFECT RETEST",
+      "thCountrySelector": "PASS",
+      "thTHSelector": "PASS",
+      "thbSelector": "PASS",
+      "thaiVisibleProductionUiWithoutQaOverride": "PASS",
+      "thaiSsrEffectiveLocale": "th-TH",
+      "thaiPersistence": "PASS",
+      "thaiReloadPersistence": "PASS",
+      "pass": true
+    },
+    "section15": {
+      "name": "THAI PRODUCTION SURFACES",
+      "surfacesTested": 17,
+      "blockingFailures": 0,
+      "pass": true
+    },
+    "section16": {
+      "name": "THAI RAW-KEY / FALLBACK / UNICODE SWEEP",
+      "rawKeys": 0,
+      "requiredFallback": 0,
+      "emptyStrings": 0,
+      "unicodeErrors": 0,
+      "placeholderFailures": 0,
+      "pass": true
+    },
+    "section17": {
+      "name": "THAILAND CROSS-DIMENSION ACCEPTANCE",
+      "countryLanguageIndependence": "PASS",
+      "countryCurrencyIndependence": "PASS",
+      "languageCurrencyIndependence": "PASS",
+      "pass": true
+    },
+    "section18": {
+      "name": "CHINA ESSENTIAL PRODUCTION ACCEPTANCE",
+      "countrySelector": "PASS",
+      "chineseVisibleUi": "PASS",
+      "chinesePersistence": "PASS",
+      "chineseReloadPersistence": "PASS",
+      "cnyDisplay": "PASS",
+      "rawKeys": 0,
+      "requiredFallback": 0,
+      "pass": true
+    },
+    "section19": {
+      "name": "CHINA CROSS-DIMENSION SMOKE",
+      "countryLanguageIndependence": "PASS",
+      "countryCurrencyIndependence": "PASS",
+      "languageCurrencyIndependence": "PASS",
+      "pass": true
+    },
+    "section20": {
+      "name": "CURRENCY ACCEPTANCE",
+      "cnyProductionDisplay": "PASS",
+      "thbProductionDisplay": "PASS",
+      "cnyTransactionProcessing": "NOT_CLAIMED",
+      "thbTransactionProcessing": "NOT_CLAIMED",
+      "pass": true
+    },
+    "section21": {
+      "name": "LISTING / SEARCH NON-REGRESSION",
+      "browseStatus": 200,
+      "listingStatus": 200,
+      "listingSearchGlcc": "PASS",
+      "pass": true
+    },
+    "section22": {
+      "name": "BOOKING NON-REGRESSION",
+      "checkoutStatus": 200,
+      "bookingGlcc": "PASS",
+      "pass": true
+    },
+    "section23": {
+      "name": "ADDRESS / TIMEZONE",
+      "chinaTimezone": "PASS",
+      "thailandTimezone": "PASS",
+      "chinaAddressGlcc": "PASS / NON_BLOCKING_LIMITATION",
+      "thailandAddressGlcc": "PASS / NON_BLOCKING_LIMITATION",
+      "limitations": "Free-form address storage and display fully supported. Automated postal code database lookup not available for CN/TH in GLCC.",
+      "pass": true
+    },
+    "section24": {
+      "name": "PAYMENT AUTHORITY NON-REGRESSION",
+      "chargeCurrency": "PHP",
+      "injectionBlocked": true,
+      "paymentAuthority": "UNCHANGED",
+      "transactionCurrencyAuthority": "UNCHANGED",
+      "settlementCurrencyAuthority": "UNCHANGED",
+      "displayTransactionSeparation": "PASS",
+      "displaySettlementSeparation": "PASS",
+      "pass": true
+    },
+    "section25": {
+      "name": "DATABASE PROTECTION",
+      "databaseMigration": "NO",
+      "databaseSchemaChange": "NO",
+      "destructiveDatabaseOperation": "NO",
+      "unexpectedProductionDataMutation": "NO",
+      "pass": true
+    },
+    "section26": {
+      "name": "EXISTING GLOBAL SMOKE REGRESSION",
+      "japaneseLocalization": "PASS",
+      "arabicRtl": "PASS",
+      "singaporeMarket": "PASS",
+      "europeanMarket": "PASS",
+      "philippinesBaseline": "PASS",
+      "existingGlobalProductionRegression": "PASS",
+      "pass": true
+    },
+    "section27": {
+      "name": "CHINA DEFERRED GLOBAL-MKT ITEMS",
+      "chinaGlccProductionBlockers": 0,
+      "chinaGlobalMktV2DeferredBlockers": 2,
+      "blockers": [
+        {
+          "id": "CN-BLK-001",
+          "description": "ICP Filing & Mainland PRC hosting deferred to v2.0 Global Marketplace"
+        },
+        {
+          "id": "CN-BLK-002",
+          "description": "Cross-border data security assessment (CAC compliance) deferred to v2.0 Global Marketplace"
+        }
+      ],
+      "mainlandChinaPublicNetworkOperability": "NOT_CLAIMED",
+      "pass": true
+    },
+    "section28": {
+      "name": "GLCC VS GLOBAL MARKETPLACE STATUS",
+      "chinaGlccProductionAvailable": "YES",
+      "thailandGlccProductionAvailable": "YES",
+      "chinaGlobalMktCommercialActive": "NO",
+      "thailandGlobalMktCommercialActive": "NO",
+      "globalMktV2Status": "NOT STARTED",
+      "pass": true
+    }
+  },
+  "summary": {},
+  "overallStatus": "PASS",
+  "blockingProductionDefects": 0
+}
