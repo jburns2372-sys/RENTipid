@@ -1,0 +1,193 @@
+{
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-2 LEGAL / COMPLIANCE VALIDATION + PREVIEW READINESS",
+  "jurisdiction": "Kingdom of Thailand (TH)",
+  "authoritativeDate": "2026-10-07",
+  "marketActivationStatus": "VALIDATION_REQUIRED",
+  "summary": {
+    "totalComplianceAreasReviewed": 19,
+    "noKnownBlocker": 5,
+    "requiresControl": 8,
+    "requiresLegalReview": 3,
+    "requiresLocalOperationalSetup": 1,
+    "requiresLocalLicenseOrRegistration": 2,
+    "requiresTechnicalArchitectureChange": 0,
+    "potentialMarketBlockers": 0,
+    "unknown": 0,
+    "thailandArchitectureReviewRequired": false
+  },
+  "marketActivationBlockerSummary": [
+    {
+      "requirementId": "TH-REQ-001",
+      "area": "ETDA Digital Platform Service Prior Notification",
+      "classification": "REQUIRES_LOCAL_LICENSE_OR_REGISTRATION",
+      "description": "Under the Royal Decree on Digital Platform Services B.E. 2565, digital platforms facilitating transactions between users must notify the Electronic Transactions Development Agency (ETDA) prior to commencing active operations in Thailand."
+    },
+    {
+      "requirementId": "TH-REQ-002",
+      "area": "OCPB Direct Marketing Registration",
+      "classification": "REQUIRES_LOCAL_LICENSE_OR_REGISTRATION",
+      "description": "Under the Direct Sales and Direct Marketing Act B.E. 2545, online marketplace operators targeting consumers in Thailand must register with the Office of the Consumer Protection Board (OCPB)."
+    },
+    {
+      "requirementId": "TH-REQ-003",
+      "area": "Revenue Department e-Service VAT Monitoring",
+      "classification": "REQUIRES_LOCAL_OPERATIONAL_SETUP",
+      "description": "Cross-border electronic services exceeding 1.8 million Baht in annual gross turnover from Thai consumers must register for 7% VAT under the e-Service tax regime with the Thai Revenue Department."
+    }
+  ],
+  "matrix": [
+    {
+      "itemNumber": 1,
+      "area": "E-Commerce & Digital Marketplace Platform Obligations",
+      "statute": "Royal Decree on Digital Platform Service Businesses B.E. 2565 (2022)",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Annual ETDA notification, transparent terms of service, user notice before changing conditions, takedown of illicit content.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 2,
+      "area": "Electronic Transactions & Digital Signatures",
+      "statute": "Electronic Transactions Act B.E. 2544 (2001) as amended",
+      "riskClassification": "NO_KNOWN_BLOCKER",
+      "technicalImplications": "Legal enforceability of digital lease contracts and electronic signature validation.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 3,
+      "area": "Consumer Protection",
+      "statute": "Consumer Protection Act B.E. 2522 (1979) as amended",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Rental safety standards, fair contract terms, transparent fee disclosures, dispute resolution mechanism.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 4,
+      "area": "Personal Data Protection & Privacy Rights",
+      "statute": "Personal Data Protection Act (PDPA) B.E. 2562 (2019)",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Explicit consent for data collection, privacy policy in Thai, data subject rights fulfillment, 72-hour breach reporting.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 5,
+      "area": "Cross-Border Data Transfer",
+      "statute": "PDPA Sections 28-29 & PDPC Guidelines",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Ensure adequate data protection standards or contractual clauses (SCCs) for cross-border data transfer to Philippine servers.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 6,
+      "area": "Platform / Intermediary Obligations",
+      "statute": "ETDA Platform Rules & MDES Ministerial Notifications",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Displaying merchant ratings, search ranking parameters, platform fees, and refund dispute mechanisms.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 7,
+      "area": "Online Advertising",
+      "statute": "Consumer Protection Act & OCPB Advertising Rules",
+      "riskClassification": "NO_KNOWN_BLOCKER",
+      "technicalImplications": "Clear price display, no deceptive equipment claims, sponsored listing transparency.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 8,
+      "area": "Prohibited / Restricted Listings",
+      "statute": "Thai Penal Code & Special Statutes",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Systemic filtering preventing rental of firearms, surveillance wiretaps, unregistered drones, controlled goods.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 9,
+      "area": "Identity / KYC Verification",
+      "statute": "Anti-Money Laundering Act B.E. 2542 & ETDA Platform Rules",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Provider identity verification to prevent ghost listings and equipment fraud.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 10,
+      "area": "Payment Boundaries",
+      "statute": "Payment Systems Act B.E. 2560 (2017)",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Display-only THB currency; transaction and payout rails strictly maintained in PHP under Philippine financial authority.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 11,
+      "area": "Tax & Electronic Invoicing",
+      "statute": "Revenue Code Amendment (No. 53) - e-Service VAT",
+      "riskClassification": "REQUIRES_LOCAL_OPERATIONAL_SETUP",
+      "technicalImplications": "Track gross revenue from Thai consumers; register for 7% e-Service VAT if annual threshold of 1.8M THB is reached.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 12,
+      "area": "Rental-Category Licensing",
+      "statute": "Commercial Registration Act & Sectoral Licensing",
+      "riskClassification": "REQUIRES_LEGAL_REVIEW",
+      "technicalImplications": "Confirm specialized equipment categories (heavy machinery, broadcasting gear) do not require specific rental licenses.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 13,
+      "area": "Vehicle Rental Controls",
+      "statute": "Land Transport Act B.E. 2522",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Verify valid driver licenses and vehicle insurance if motorized equipment or vehicles are rented.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 14,
+      "area": "Property Rental Controls",
+      "statute": "Civil and Commercial Code Book III (Hire of Property)",
+      "riskClassification": "NO_KNOWN_BLOCKER",
+      "technicalImplications": "Real estate leasing disabled; platform strictly scoped to personal gear and tools.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 15,
+      "area": "Equipment/Tool Rental Restrictions",
+      "statute": "Consumer Protection Act & Thai Industrial Standards (TISI)",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Provider warranty that rented tools and equipment comply with applicable safety standards.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 16,
+      "area": "Complaints / Dispute Resolution",
+      "statute": "ETDA Platform Dispute Standard & OCPB Mediation Rules",
+      "riskClassification": "REQUIRES_LEGAL_REVIEW",
+      "technicalImplications": "Clear dispute resolution timeline, bilingual complaint channels (Thai and English).",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 17,
+      "area": "Record Retention Obligations",
+      "statute": "ETA B.E. 2544 & ETDA Royal Decree",
+      "riskClassification": "NO_KNOWN_BLOCKER",
+      "technicalImplications": "Preservation of electronic rental agreements, payment receipts, and user audit trails for at least 5 years.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 18,
+      "area": "Regulatory Reporting",
+      "statute": "ETDA Annual DPS Reporting Requirements",
+      "riskClassification": "REQUIRES_LEGAL_REVIEW",
+      "technicalImplications": "Annual submission of digital platform metrics (user counts, gross transaction values, complaint counts) to ETDA.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 19,
+      "area": "Market-Entry / Registration Requirements",
+      "statute": "ETDA Royal Decree B.E. 2565 & Direct Sales Act",
+      "riskClassification": "REQUIRES_LOCAL_LICENSE_OR_REGISTRATION",
+      "technicalImplications": "Mandatory prior notification to ETDA and direct marketing registration with OCPB.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    }
+  ]
+}

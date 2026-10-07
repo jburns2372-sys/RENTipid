@@ -1,0 +1,244 @@
+{
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-2 LEGAL / COMPLIANCE VALIDATION + PREVIEW READINESS",
+  "jurisdiction": "Mainland China (CN)",
+  "authoritativeDate": "2026-10-07",
+  "marketActivationStatus": "VALIDATION_REQUIRED",
+  "summary": {
+    "totalComplianceAreasReviewed": 24,
+    "noKnownBlocker": 4,
+    "requiresControl": 9,
+    "requiresLegalReview": 4,
+    "requiresLocalOperationalSetup": 2,
+    "requiresLocalLicenseOrRegistration": 2,
+    "requiresTechnicalArchitectureChange": 1,
+    "potentialMarketBlockers": 2,
+    "unknown": 0,
+    "chinaArchitectureReviewRequired": true
+  },
+  "marketActivationBlockerSummary": [
+    {
+      "blockerId": "CN-BLK-001",
+      "area": "Value-Added Telecommunications Licensing (ICP / EDI)",
+      "classification": "POTENTIAL_MARKET_BLOCKER",
+      "description": "Operating a commercial online marketplace targeting Mainland China requires an ICP License / EDI License (B21 Category) from MIIT, which generally mandates an established PRC commercial corporate presence or qualifying Sino-foreign joint venture."
+    },
+    {
+      "blockerId": "CN-BLK-002",
+      "area": "Cross-Border Data Transfer & Infrastructure Accessibility",
+      "classification": "POTENTIAL_MARKET_BLOCKER",
+      "description": "PIPL/DSL standard contracts or security assessment required for exporting personal information of PRC residents. Standard Vercel edge routing and overseas CDN endpoints may experience connection degradation or blocking under Great Firewall (GFW) filtering without local ICP/edge deployment."
+    }
+  ],
+  "infrastructureAssessment": {
+    "personalInformationHandling": "CONTROL REQUIRED",
+    "crossBorderTransfers": "ARCHITECTURE REVIEW REQUIRED",
+    "dataStorage": "ARCHITECTURE REVIEW REQUIRED",
+    "hosting": "ARCHITECTURE REVIEW REQUIRED",
+    "networkAccessibility": "ARCHITECTURE REVIEW REQUIRED",
+    "thirdPartyInfrastructure": {
+      "cdn": "ARCHITECTURE REVIEW REQUIRED",
+      "vercel": "ARCHITECTURE REVIEW REQUIRED",
+      "authentication": "CONTROL REQUIRED",
+      "storageProviders": "CONTROL REQUIRED",
+      "paymentProviders": "CONTROL REQUIRED",
+      "analytics": "CONTROL REQUIRED",
+      "aiProviders": "CONTROL REQUIRED",
+      "externalApis": "CONTROL REQUIRED"
+    }
+  },
+  "matrix": [
+    {
+      "itemNumber": 1,
+      "area": "Online Marketplace / E-Commerce Platform Duties",
+      "statute": "E-Commerce Law of the PRC (2018)",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Platform operator verification, provider credential review, IP notice-and-takedown interface.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 2,
+      "area": "Consumer Protection",
+      "statute": "Law on the Protection of Consumer Rights and Interests (2013) & 2024 Regs",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Transparent total pricing display without unconsented addons, complaint escalation handling.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 3,
+      "area": "Personal Information / Privacy",
+      "statute": "Personal Information Protection Law (PIPL, 2021)",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Granular explicit consent for collection, separate consent for ID/precise location, localized privacy policy.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 4,
+      "area": "Data Localization",
+      "statute": "Data Security Law (2021) & PIPL Art. 40",
+      "riskClassification": "REQUIRES_TECHNICAL_ARCHITECTURE_CHANGE",
+      "technicalImplications": "Requires PRC in-country data storage if processing thresholds are exceeded; offshore architecture review needed.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 5,
+      "area": "Cross-Border Data Transfer",
+      "statute": "CAC Measures on Standard Contracts for Cross-Border Transfers (2023)",
+      "riskClassification": "POTENTIAL_MARKET_BLOCKER",
+      "technicalImplications": "Requires executing Standard Contractual Clauses (SCC) with CAC filing or security assessment before transferring user data offshore.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 6,
+      "area": "Cybersecurity & Multi-Level Protection",
+      "statute": "Cybersecurity Law (2016) / MLPS 2.0",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Network security logging, access control, vulnerability response, and incident reporting protocols.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 7,
+      "area": "Network & Data Security Management",
+      "statute": "Data Security Law (2021)",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Data categorization, role-based access restrictions, encryption in transit and at rest.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 8,
+      "area": "Platform / Intermediary Obligations",
+      "statute": "SAMR Measures on Online Transactions (2021)",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Displaying business license / provider identity information, public rules transparency.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 9,
+      "area": "Content Moderation",
+      "statute": "CAC Provisions on Network Content Ecosystem (2020)",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Keyword filters, listing pre-moderation, prohibited equipment detection, user reporting.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 10,
+      "area": "Prohibited / Restricted Listings",
+      "statute": "Public Security & Commerce Prohibited Goods Catalogues",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Systemic blocklist preventing rental of weapons, surveillance tech, unregistered drones, controlled substances.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 11,
+      "area": "Online Advertising",
+      "statute": "Advertising Law of the PRC (2021 amend.)",
+      "riskClassification": "NO_KNOWN_BLOCKER",
+      "technicalImplications": "Clear 'Advertisement' labeling on boosted rental listings; no deceptive claims.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 12,
+      "area": "Electronic Contracting",
+      "statute": "Civil Code of the PRC Book III (2021)",
+      "riskClassification": "NO_KNOWN_BLOCKER",
+      "technicalImplications": "Standard digital lease formation, confirmation screen, and immutable agreement archiving.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 13,
+      "area": "Identity / Real-Name Verification (KYC)",
+      "statute": "Cybersecurity Law Art. 24",
+      "riskClassification": "REQUIRES_LOCAL_OPERATIONAL_SETUP",
+      "technicalImplications": "Verification against national identity database or authorized verification provider for PRC residents.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 14,
+      "area": "Payments & Stored-Value Boundaries",
+      "statute": "PBOC Non-Financial Institution Payment Service Rules",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Strictly PHP charge/settlement rails; zero unlicensed handling of CNY funds or stored value accounts.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 15,
+      "area": "Tax & Electronic Invoicing",
+      "statute": "State Taxation Administration E-Fapiao Regulations",
+      "riskClassification": "REQUIRES_LEGAL_REVIEW",
+      "technicalImplications": "Determine platform reporting and withholding duties for cross-border transactions involving Chinese residents.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 16,
+      "area": "Rental-Category Licensing",
+      "statute": "Administrative Licensing Law & Category Codes",
+      "riskClassification": "REQUIRES_LEGAL_REVIEW",
+      "technicalImplications": "Review whether specialized rental categories (e.g. medical, surveying) require provider licensing checks.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 17,
+      "area": "Vehicle-Related Rental Controls",
+      "statute": "Road Traffic Safety Law / Car Rental Measures",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Strict blocking or verification of driver licenses and vehicle registration if vehicles are listed.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 18,
+      "area": "Property-Related Rental Controls",
+      "statute": "Urban Real Estate Management Law / Tenancy Regs",
+      "riskClassification": "NO_KNOWN_BLOCKER",
+      "technicalImplications": "Current scope focuses on gear/equipment; property lease controls disabled.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 19,
+      "area": "Equipment/Tool Rental Restrictions",
+      "statute": "Product Quality Law & Safety Regulations",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Provider warranty of gear safety, condition declaration, and safety instructions.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 20,
+      "area": "Complaints / Dispute Resolution",
+      "statute": "E-Commerce Law Art. 58-63 / SAMR Guidelines",
+      "riskClassification": "REQUIRES_CONTROL",
+      "technicalImplications": "Platform internal dispute resolution mechanism with guaranteed response times.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 21,
+      "area": "Record Retention Obligations",
+      "statute": "E-Commerce Law Art. 31 / CSL Art. 21",
+      "riskClassification": "NO_KNOWN_BLOCKER",
+      "technicalImplications": "Preservation of transaction and contract records for at least 3 years; security logs >= 6 months.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 22,
+      "area": "Regulatory Reporting & Cooperation",
+      "statute": "SAMR / CAC Information Submission Rules",
+      "riskClassification": "REQUIRES_LEGAL_REVIEW",
+      "technicalImplications": "Protocols for responding to lawful statutory requests by market regulation or public security organs.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 23,
+      "area": "Market-Entry Licensing (ICP / EDI)",
+      "statute": "Telecommunications Regulations / MIIT Catalog",
+      "riskClassification": "POTENTIAL_MARKET_BLOCKER",
+      "technicalImplications": "Mandates local ICP commercial filing or EDI license (B21) for operating commercial transaction platform in PRC.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    },
+    {
+      "itemNumber": 24,
+      "area": "Hosting & Infrastructure Restrictions",
+      "statute": "MIIT / CAC Server Hosting Regulations",
+      "riskClassification": "REQUIRES_LOCAL_OPERATIONAL_SETUP",
+      "technicalImplications": "Evaluating domain DNS, SSL, and network accessibility inside the PRC boundary.",
+      "readinessState": "GATED_FOR_LEGAL_REVIEW"
+    }
+  ]
+}

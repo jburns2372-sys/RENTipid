@@ -1,0 +1,89 @@
+{
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-2 LEGAL / COMPLIANCE VALIDATION + PREVIEW READINESS",
+  "document": "CNTH_PREVIEW_READINESS_MANIFEST",
+  "authoritativeDate": "2026-10-07",
+  "readinessStatus": "PREVIEW_READY",
+  "previewExecutionState": "HOLD_PENDING_OWNER_AUTHORIZATION",
+  "candidateCommit": "2d8dbde945b7af12ff99b8ece764e81e601779be",
+  "inventory": {
+    "countries": 46,
+    "languages": 47,
+    "fullPacks": 33,
+    "aliases": 12,
+    "currencies": 25,
+    "canonicalKeys": 2208,
+    "classCControlledKeys": 241
+  },
+  "jurisdictionReadiness": {
+    "china": {
+      "countryCode": "CN",
+      "readiness": "PREVIEW_ELIGIBLE",
+      "legalComplianceStatus": "VALIDATION_REQUIRED",
+      "productionActive": false,
+      "previewEligible": true,
+      "language": "zh-Hans (Reused, 100% coverage)",
+      "currency": "CNY (Display only, ECMA-402 verified)",
+      "timezone": "Asia/Shanghai",
+      "addressReadiness": "PREVIEW_READY",
+      "listingSearchReadiness": "PASS"
+    },
+    "thailand": {
+      "countryCode": "TH",
+      "readiness": "PREVIEW_ELIGIBLE",
+      "legalComplianceStatus": "VALIDATION_REQUIRED",
+      "productionActive": false,
+      "previewEligible": true,
+      "language": "th-TH (2,208 keys, QA_REQUIRED, non-prod-selectable)",
+      "currency": "THB (Display only, ECMA-402 verified)",
+      "timezone": "Asia/Bangkok",
+      "addressReadiness": "PREVIEW_READY",
+      "listingSearchReadiness": "PASS"
+    }
+  },
+  "governanceGateStates": {
+    "classCTechnicalReview": "PASS",
+    "classCLegalApproval": "PENDING",
+    "humanSignoffPackage": "READY",
+    "previewReadinessManifest": "READY",
+    "databaseMigrationRequired": false,
+    "newPreviewSecretsRequired": false,
+    "paymentAuthority": "UNCHANGED",
+    "transactionCurrencyAuthority": "UNCHANGED",
+    "settlementCurrencyAuthority": "UNCHANGED",
+    "previewDeployed": false,
+    "productionModified": false,
+    "frozenFactoryModified": false
+  },
+  "previewExposurePlan": {
+    "deploymentPlatform": "Vercel Preview",
+    "exposureModel": "Controlled QA / Preview Mode",
+    "previewSelectableLocales": ["en-PH", "fil-PH", "en-US", "ja-JP", "zh-Hans", "th-TH"],
+    "previewSelectableCountries": ["PH", "US", "GB", "CA", "AU", "SG", "MY", "ID", "VN", "JP", "KR", "IN", "CN", "TH", "AE", "BR", "EU_30"],
+    "previewSelectableCurrencies": ["PHP", "USD", "GBP", "EUR", "CAD", "AUD", "SGD", "MYR", "IDR", "VND", "JPY", "KRW", "INR", "CNY", "THB", "AED", "BRL", "PLN", "SEK", "DKK", "NOK", "CZK", "HUF", "RON", "CHF"],
+    "productionFirewall": {
+      "cnProductionActive": false,
+      "thProductionActive": false,
+      "thThProductionSelectable": false,
+      "productionTransactionCurrency": "PHP",
+      "productionSettlementCurrency": "PHP"
+    }
+  },
+  "previewTestMatrixPlan": {
+    "plannedAction": "CNTH-3 PREVIEW ACCEPTANCE PASS",
+    "testCasesCount": 28,
+    "categories": [
+      "Preview Health & Boot",
+      "China & Thailand Country Selectors",
+      "Simplified Chinese & Thai Visible UI",
+      "Preference Persistence (Session & Account)",
+      "CNY & THB Display Formatting",
+      "Orthogonal Independence Combinations",
+      "Listing, Search & Booking Lifecycle",
+      "Auth & RBAC Non-Regression",
+      "Raw Key & Fallback Sweeps",
+      "Thai Font, Unicode & Bidi Rendering",
+      "Frozen Baseline (44 Countries, 46 Languages, 23 Currencies) Regression"
+    ]
+  }
+}
