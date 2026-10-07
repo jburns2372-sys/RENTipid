@@ -30,7 +30,9 @@ export class MockPayoutProviderAdapter implements PayoutProviderAdapter {
     'RECONCILIATION',
     'BANK_TRANSFER',
   ]);
-  readonly supportedCurrencies: readonly string[] = Object.freeze(['PHP', 'USD']);
+  readonly supportedCurrencies: readonly string[] = Object.freeze([
+    'PHP', 'USD', 'THB', 'SGD', 'MYR', 'VND', 'IDR',
+  ]);
 
   private payoutAmounts = new Map<string, number>();
   private payoutCurrencies = new Map<string, string>();

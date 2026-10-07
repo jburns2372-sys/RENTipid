@@ -16,26 +16,50 @@ function buildAuthoritativePaymentProfiles(): ReadonlyMap<string, JurisdictionPa
     const currency = country.defaultCurrency || country.defaultDisplayCurrency || 'PHP';
 
     const isPh = code === 'PH';
+    let supportedMethods: readonly string[] = Object.freeze([]);
+    let approvedProviders: readonly string[] = Object.freeze([]);
+    let collectionStatus: 'NOT_CONFIGURED' | 'PARTIAL' | 'READY' = 'NOT_CONFIGURED';
+    let blockers: readonly string[] = Object.freeze([`Domestic payment collection adapter not configured for ${code}`]);
+
+    if (isPh) {
+      collectionStatus = 'PARTIAL';
+      approvedProviders = Object.freeze(['paymongo']);
+      supportedMethods = Object.freeze(['CARD', 'GCASH', 'PAYMAYA', 'BANK']);
+      blockers = Object.freeze([]);
+    } else if (code === 'TH') {
+      supportedMethods = Object.freeze(['CARD', 'PROMPTPAY', 'BANK']);
+      blockers = Object.freeze(['PromptPay payment acquiring merchant agreement and credentials required for TH']);
+    } else if (code === 'SG') {
+      supportedMethods = Object.freeze(['CARD', 'PAYNOW', 'FAST_BANK_TRANSFER']);
+      blockers = Object.freeze(['Singapore MAS-compliant payment acquiring merchant agreement required for SG']);
+    } else if (code === 'MY') {
+      supportedMethods = Object.freeze(['CARD', 'DUITNOW', 'FPX_ONLINE_BANKING']);
+      blockers = Object.freeze(['FPX / DuitNow payment merchant account required for MY']);
+    } else if (code === 'VN') {
+      supportedMethods = Object.freeze(['CARD', 'NAPAS_BANK_TRANSFER', 'MOMO_WALLET']);
+      blockers = Object.freeze(['State Bank of Vietnam licensed payment gateway agreement required for VN']);
+    } else if (code === 'ID') {
+      supportedMethods = Object.freeze(['CARD', 'QRIS', 'VIRTUAL_ACCOUNT']);
+      blockers = Object.freeze(['Bank Indonesia licensed payment gateway agreement required for ID']);
+    }
+
     const profile: JurisdictionPaymentProfile = Object.freeze({
       jurisdictionCode: code,
       jurisdictionName: country.name,
-      collectionStatus: isPh ? 'PARTIAL' : 'NOT_CONFIGURED',
-      approvedProviderIds: isPh ? Object.freeze(['paymongo']) : Object.freeze([]),
+      collectionStatus,
+      approvedProviderIds: approvedProviders,
       supportedTransactionCurrencies: isPh ? Object.freeze(['PHP']) : Object.freeze([currency]),
       defaultTransactionCurrency: isPh ? 'PHP' : currency,
-      supportedPaymentMethods: isPh
-        ? Object.freeze(['CARD', 'GCASH', 'PAYMAYA', 'BANK'])
-        : Object.freeze([]),
+      supportedPaymentMethods: supportedMethods,
       requiresPayerKyc: true,
       webhookRequired: true,
       reconciliationRequired: true,
-      knownBlockers: isPh
-        ? Object.freeze([])
-        : Object.freeze([`Domestic payment collection adapter not configured for ${code}`]),
+      knownBlockers: blockers,
     });
 
     map.set(code, profile);
   }
+
 
   return map;
 }

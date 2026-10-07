@@ -16,23 +16,49 @@ function buildAuthoritativePayoutProfiles(): ReadonlyMap<string, JurisdictionPay
     const currency = country.defaultCurrency || country.defaultDisplayCurrency || 'PHP';
 
     const isPh = code === 'PH';
+    let supportedMethods: readonly string[] = Object.freeze([]);
+    let approvedProviders: readonly string[] = Object.freeze([]);
+    let payoutStatus: 'NOT_CONFIGURED' | 'PARTIAL' | 'READY' = 'NOT_CONFIGURED';
+    let blockers: readonly string[] = Object.freeze([`Automated provider settlement rail not configured for ${code}`]);
+
+    if (isPh) {
+      payoutStatus = 'PARTIAL';
+      approvedProviders = Object.freeze(['manual_ph_bank']);
+      supportedMethods = Object.freeze(['BANK_TRANSFER', 'GCASH']);
+      blockers = Object.freeze(['PH-BLK-001: Automated domestic provider payout rail integration required for GLOBAL-MKT v2.0']);
+    } else if (code === 'TH') {
+      supportedMethods = Object.freeze(['PROMPTPAY', 'DIRECT_BANK_TRANSFER']);
+      blockers = Object.freeze(['Automated Thai bank transfer / PromptPay provider disbursement rail required for TH']);
+    } else if (code === 'SG') {
+      supportedMethods = Object.freeze(['PAYNOW', 'FAST_BANK_TRANSFER']);
+      blockers = Object.freeze(['Automated FAST / PayNow provider disbursement rail required for SG']);
+    } else if (code === 'MY') {
+      supportedMethods = Object.freeze(['DUITNOW', 'INTERBANK_GIRO']);
+      blockers = Object.freeze(['Automated DuitNow / Interbank GIRO disbursement rail required for MY']);
+    } else if (code === 'VN') {
+      supportedMethods = Object.freeze(['NAPAS_DIRECT_TRANSFER', 'DOMESTIC_BANK_TRANSFER']);
+      blockers = Object.freeze(['Automated NAPAS / domestic bank disbursement rail required for VN']);
+    } else if (code === 'ID') {
+      supportedMethods = Object.freeze(['BI_FAST', 'DIRECT_BANK_TRANSFER']);
+      blockers = Object.freeze(['Automated BI-FAST / domestic bank disbursement rail required for ID']);
+    }
+
     const profile: JurisdictionPayoutProfile = Object.freeze({
       jurisdictionCode: code,
       jurisdictionName: country.name,
-      payoutStatus: isPh ? 'PARTIAL' : 'NOT_CONFIGURED',
-      approvedProviderIds: isPh ? Object.freeze(['manual_ph_bank']) : Object.freeze([]),
+      payoutStatus,
+      approvedProviderIds: approvedProviders,
       supportedSettlementCurrencies: isPh ? Object.freeze(['PHP']) : Object.freeze([currency]),
       defaultSettlementCurrency: isPh ? 'PHP' : currency,
-      supportedPayoutMethods: isPh ? Object.freeze(['BANK_TRANSFER', 'GCASH']) : Object.freeze([]),
+      supportedPayoutMethods: supportedMethods,
       requiresProviderPayoutKyc: true,
       settlementHoldingDays: isPh ? 3 : 7,
-      knownBlockers: isPh
-        ? Object.freeze(['PH-BLK-001: Automated domestic provider payout rail integration required for GLOBAL-MKT v2.0'])
-        : Object.freeze([`Automated provider settlement rail not configured for ${code}`]),
+      knownBlockers: blockers,
     });
 
     map.set(code, profile);
   }
+
 
   return map;
 }

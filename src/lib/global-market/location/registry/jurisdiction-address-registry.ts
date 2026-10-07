@@ -134,7 +134,59 @@ function buildAuthoritativeAddressProfiles(): ReadonlyMap<string, AddressProfile
         status: 'READY',
         knownLimitations: ['Building-specific 6-digit postal code system'],
       };
+    } else if (code === 'MY') {
+      // Malaysia — States / Federal Territories & 5-digit postal code
+      profile = {
+        countryCode: 'MY',
+        countryName: name,
+        requiredFields: ['addressLine1', 'locality', 'administrativeAreaLevel1', 'postalCode'],
+        optionalFields: ['addressLine2', 'sublocality', 'coordinates'],
+        postalCodeRequired: true,
+        postalCodeFormat: '^\\d{5}$',
+        administrativeArea1Label: 'State / Federal Territory (Negeri/Wilayah)',
+        localityLabel: 'City / Town (Bandar)',
+        sublocalityLabel: 'District / Mukim',
+        coordinatesRequired: false,
+        psgcSupported: false,
+        status: 'READY',
+        knownLimitations: ['5-digit Pos Malaysia postal code'],
+      };
+    } else if (code === 'VN') {
+      // Vietnam — Province / District / Ward & 5-digit national postal code
+      profile = {
+        countryCode: 'VN',
+        countryName: name,
+        requiredFields: ['addressLine1', 'locality', 'administrativeAreaLevel1', 'postalCode'],
+        optionalFields: ['addressLine2', 'sublocality', 'coordinates'],
+        postalCodeRequired: true,
+        postalCodeFormat: '^\\d{5}$',
+        administrativeArea1Label: 'Province / City (Tỉnh / Thành phố)',
+        localityLabel: 'District (Quận / Huyện)',
+        sublocalityLabel: 'Ward / Commune (Phường / Xã)',
+        coordinatesRequired: false,
+        psgcSupported: false,
+        status: 'READY',
+        knownLimitations: ['5-digit Vietnam national postal code standard'],
+      };
+    } else if (code === 'ID') {
+      // Indonesia — Province / Regency or City / District & 5-digit postal code
+      profile = {
+        countryCode: 'ID',
+        countryName: name,
+        requiredFields: ['addressLine1', 'locality', 'administrativeAreaLevel1', 'postalCode'],
+        optionalFields: ['addressLine2', 'sublocality', 'coordinates'],
+        postalCodeRequired: true,
+        postalCodeFormat: '^\\d{5}$',
+        administrativeArea1Label: 'Province (Provinsi)',
+        localityLabel: 'Regency / City (Kabupaten / Kota)',
+        sublocalityLabel: 'District (Kecamatan)',
+        coordinatesRequired: false,
+        psgcSupported: false,
+        status: 'READY',
+        knownLimitations: ['5-digit Pos Indonesia postal code'],
+      };
     } else {
+
       // Standard International Profile for remaining 40 jurisdictions (EU, Direct Compliance)
       profile = {
         countryCode: code,

@@ -183,7 +183,148 @@ function buildReadinessProfile(countryCode: string, countryName: string): Market
       blockerType: 'LEGAL_REVIEW',
       affectedCapabilities: ['COMPLIANCE'],
     });
+  } else if (countryCode === 'SG') {
+    currentStage = 'REGISTERED';
+    highestProvenStage = 'REGISTERED';
+    isEligibleForLocalAcceptance = false;
+
+    blockers.push({
+      code: 'SG_PAYMENT_PROVIDER_MISSING',
+      title: 'Singapore MAS-Compliant Payment Collection Missing',
+      severity: 'BLOCKER',
+      description: 'PayNow and local card acquiring require production merchant agreement.',
+      remediationAction: 'Execute commercial agreement with Stripe SG or MAS-licensed acquiring provider.',
+      gapCategory: 'PAYMENT_PROVIDER',
+      blockerType: 'EXTERNAL_PROVIDER_REQUIRED',
+      affectedCapabilities: ['PAYMENT'],
+    });
+    blockers.push({
+      code: 'SG_PAYOUT_PROVIDER_MISSING',
+      title: 'Singapore FAST Payout Provider Missing',
+      severity: 'BLOCKER',
+      description: 'FAST / PayNow automated disbursement rail is unconfigured.',
+      remediationAction: 'Onboard automated FAST provider disbursement rail.',
+      gapCategory: 'PAYOUT_PROVIDER',
+      blockerType: 'EXTERNAL_PROVIDER_REQUIRED',
+      affectedCapabilities: ['PAYOUT'],
+    });
+    blockers.push({
+      code: 'SG_LEGAL_VALIDATION_REQUIRED',
+      title: 'Singapore CPFTA & OVR Tax Review Required',
+      severity: 'REQUIRED_BEFORE_PRODUCTION',
+      description: 'Singapore Consumer Protection and Overseas Vendor Registration tax opinion required.',
+      remediationAction: 'Obtain Singapore legal and tax counsel clearance.',
+      gapCategory: 'LEGAL_REVIEW',
+      blockerType: 'LEGAL_REVIEW',
+      affectedCapabilities: ['COMPLIANCE'],
+    });
+  } else if (countryCode === 'MY') {
+    currentStage = 'REGISTERED';
+    highestProvenStage = 'REGISTERED';
+    isEligibleForLocalAcceptance = false;
+
+    blockers.push({
+      code: 'MY_PAYMENT_PROVIDER_MISSING',
+      title: 'Malaysia FPX & DuitNow Payment Collection Missing',
+      severity: 'BLOCKER',
+      description: 'DuitNow and FPX acquiring require merchant acquiring account in Malaysia.',
+      remediationAction: 'Onboard Bank Negara Malaysia compliant payment gateway.',
+      gapCategory: 'PAYMENT_PROVIDER',
+      blockerType: 'EXTERNAL_PROVIDER_REQUIRED',
+      affectedCapabilities: ['PAYMENT'],
+    });
+    blockers.push({
+      code: 'MY_PAYOUT_PROVIDER_MISSING',
+      title: 'Malaysia Interbank GIRO / DuitNow Payout Provider Missing',
+      severity: 'BLOCKER',
+      description: 'Automated DuitNow disbursement rail is unconfigured.',
+      remediationAction: 'Integrate automated Malaysian bank disbursement rail.',
+      gapCategory: 'PAYOUT_PROVIDER',
+      blockerType: 'EXTERNAL_PROVIDER_REQUIRED',
+      affectedCapabilities: ['PAYOUT'],
+    });
+    blockers.push({
+      code: 'MY_LEGAL_VALIDATION_REQUIRED',
+      title: 'Malaysia Consumer Protection & SST Audit Required',
+      severity: 'REQUIRED_BEFORE_PRODUCTION',
+      description: 'Malaysian Consumer Protection Act and Digital Service Tax compliance review required.',
+      remediationAction: 'Obtain Malaysian legal review and tax registration opinion.',
+      gapCategory: 'LEGAL_REVIEW',
+      blockerType: 'LEGAL_REVIEW',
+      affectedCapabilities: ['COMPLIANCE'],
+    });
+  } else if (countryCode === 'VN') {
+    currentStage = 'REGISTERED';
+    highestProvenStage = 'REGISTERED';
+    isEligibleForLocalAcceptance = false;
+
+    blockers.push({
+      code: 'VN_PAYMENT_PROVIDER_MISSING',
+      title: 'Vietnam NAPAS & Domestic Gateway Collection Missing',
+      severity: 'BLOCKER',
+      description: 'State Bank of Vietnam licensed payment gateway is unconfigured.',
+      remediationAction: 'Contract licensed payment intermediary in Vietnam.',
+      gapCategory: 'PAYMENT_PROVIDER',
+      blockerType: 'EXTERNAL_PROVIDER_REQUIRED',
+      affectedCapabilities: ['PAYMENT'],
+    });
+    blockers.push({
+      code: 'VN_PAYOUT_PROVIDER_MISSING',
+      title: 'Vietnam Domestic Payout Rail Missing',
+      severity: 'BLOCKER',
+      description: 'Automated VND domestic bank transfer rail is unconfigured.',
+      remediationAction: 'Integrate automated VND payout disbursement service.',
+      gapCategory: 'PAYOUT_PROVIDER',
+      blockerType: 'EXTERNAL_PROVIDER_REQUIRED',
+      affectedCapabilities: ['PAYOUT'],
+    });
+    blockers.push({
+      code: 'VN_LEGAL_VALIDATION_REQUIRED',
+      title: 'Vietnam E-Commerce Portal Notification & Decree 13 Compliance',
+      severity: 'REQUIRED_BEFORE_PRODUCTION',
+      description: 'Ministry of Industry and Trade (MOIT) portal notification and data privacy review required.',
+      remediationAction: 'Complete MOIT registration and cross-border data transfer filing.',
+      gapCategory: 'LEGAL_REVIEW',
+      blockerType: 'LEGAL_REVIEW',
+      affectedCapabilities: ['COMPLIANCE'],
+    });
+  } else if (countryCode === 'ID') {
+    currentStage = 'REGISTERED';
+    highestProvenStage = 'REGISTERED';
+    isEligibleForLocalAcceptance = false;
+
+    blockers.push({
+      code: 'ID_PAYMENT_PROVIDER_MISSING',
+      title: 'Indonesia QRIS & Virtual Account Payment Collection Missing',
+      severity: 'BLOCKER',
+      description: 'Bank Indonesia licensed payment gateway for QRIS and virtual accounts is unconfigured.',
+      remediationAction: 'Contract Bank Indonesia licensed payment partner (e.g. Xendit, Midtrans).',
+      gapCategory: 'PAYMENT_PROVIDER',
+      blockerType: 'EXTERNAL_PROVIDER_REQUIRED',
+      affectedCapabilities: ['PAYMENT'],
+    });
+    blockers.push({
+      code: 'ID_PAYOUT_PROVIDER_MISSING',
+      title: 'Indonesia BI-FAST Disbursement Provider Missing',
+      severity: 'BLOCKER',
+      description: 'Automated BI-FAST / domestic bank transfer disbursement rail is unconfigured.',
+      remediationAction: 'Integrate automated BI-FAST payout disbursement service.',
+      gapCategory: 'PAYOUT_PROVIDER',
+      blockerType: 'EXTERNAL_PROVIDER_REQUIRED',
+      affectedCapabilities: ['PAYOUT'],
+    });
+    blockers.push({
+      code: 'ID_LEGAL_VALIDATION_REQUIRED',
+      title: 'Indonesia Kominfo PSE Registration & UU PDP Review',
+      severity: 'REQUIRED_BEFORE_PRODUCTION',
+      description: 'Kominfo Foreign PSE registration and Personal Data Protection Law compliance review required.',
+      remediationAction: 'Submit Kominfo PSE registration and obtain legal opinion.',
+      gapCategory: 'LEGAL_REVIEW',
+      blockerType: 'LEGAL_REVIEW',
+      affectedCapabilities: ['COMPLIANCE'],
+    });
   } else {
+
     currentStage = 'REGISTERED';
     highestProvenStage = 'REGISTERED';
     isEligibleForLocalAcceptance = false;

@@ -135,7 +135,51 @@ function buildProviderMapping(countryCode: string, countryName: string): Jurisdi
     });
   }
 
-  // International 45 Countries
+  // Southeast Asia Batch 2 Jurisdictions
+  if (['TH', 'SG', 'MY', 'VN', 'ID'].includes(countryCode)) {
+    const candidateGateway = countryCode === 'TH' ? 'stripe_apac_sandbox'
+      : countryCode === 'SG' ? 'stripe_sg_sandbox'
+      : countryCode === 'MY' ? 'stripe_my_sandbox'
+      : countryCode === 'VN' ? 'vn_napas_gateway'
+      : 'id_qris_gateway';
+
+    const candidateDisbursement = countryCode === 'TH' ? 'th_promptpay_disbursement'
+      : countryCode === 'SG' ? 'sg_fast_disbursement'
+      : countryCode === 'MY' ? 'my_duitnow_disbursement'
+      : countryCode === 'VN' ? 'vn_napas_disbursement'
+      : 'id_bifast_disbursement';
+
+    return Object.freeze({
+      jurisdictionCode: countryCode,
+      countryName,
+      kycProviderId: null,
+      paymentProviderId: null, // Guarded: not yet configured with production credentials
+      payoutProviderId: null, // Guarded: not yet configured with production credentials
+      geocodingProviderId: null,
+      emailProviderId: 'system_mailer',
+      smsProviderId: null,
+      whatsappProviderId: null,
+      pushProviderId: 'pwa_push',
+      taxProviderId: null,
+      kycStatus: 'NOT_CONFIGURED',
+      paymentStatus: 'NOT_CONFIGURED',
+      payoutStatus: 'NOT_CONFIGURED',
+      geocodingStatus: 'NOT_CONFIGURED',
+      notificationStatus: 'NOT_CONFIGURED',
+      explicitProviderGaps: Object.freeze([
+        'KYC_PROVIDER_MISSING',
+        'PAYMENT_PROVIDER_MISSING',
+        'PAYOUT_PROVIDER_MISSING',
+        'GEOCODING_PROVIDER_MISSING',
+        'NOTIFICATION_PROVIDER_MISSING',
+        'TAX_PROVIDER_MISSING',
+        `${countryCode}_ACQUIRING_MERCHANT_AGREEMENT_REQUIRED`,
+        `${countryCode}_DISBURSEMENT_RAIL_INTEGRATION_REQUIRED`,
+      ]),
+    });
+  }
+
+  // International Remaining Jurisdictions
   return Object.freeze({
     jurisdictionCode: countryCode,
     countryName,
@@ -162,6 +206,7 @@ function buildProviderMapping(countryCode: string, countryName: string): Jurisdi
       'TAX_PROVIDER_MISSING',
     ]),
   });
+
 }
 
 const providerMappingsByCode = new Map<string, JurisdictionProviderMapping>();

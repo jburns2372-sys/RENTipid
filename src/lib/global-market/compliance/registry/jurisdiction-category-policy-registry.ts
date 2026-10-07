@@ -147,7 +147,23 @@ function evaluateCategoryForCountry(
     });
   }
 
-  // 4. International 45 Countries (Conservative Policy)
+  // 4. Southeast Asia Batch 2 Specific Vehicle Rules
+  if (['cars-and-motorcycles', 'trucks-and-commercial-vehicles'].includes(slug) && ['TH', 'SG', 'MY', 'VN', 'ID'].includes(countryCode)) {
+    return Object.freeze({
+      categorySlug: slug,
+      jurisdictionCode: countryCode,
+      status: 'CONDITIONALLY_ALLOWED',
+      isAllowedForListing: true,
+      isAllowedForSearch: true,
+      isAllowedForBooking: true,
+      requiresProviderVerification: true,
+      requiresPermitOrLicense: true,
+      reasonCode: 'REGIONAL_VEHICLE_REGISTRATION_MANDATE',
+      userGuidance: 'Vehicle rental requires valid domestic registration and comprehensive commercial rental insurance.',
+    });
+  }
+
+  // 5. International Countries (Conservative Policy)
   if (['aircraft-charter', 'boats', 'heavy-equipment'].includes(slug)) {
     return Object.freeze({
       categorySlug: slug,
@@ -175,6 +191,7 @@ function evaluateCategoryForCountry(
     reasonCode: 'INTERNATIONAL_STANDARD_CATEGORY',
     userGuidance: 'Standard marketplace category under international provider verification.',
   });
+
 }
 
 const bundlesByCountry = new Map<string, CountryCategoryPolicyBundle>();

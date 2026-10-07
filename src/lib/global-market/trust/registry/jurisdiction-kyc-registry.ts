@@ -99,7 +99,104 @@ function buildAuthoritativeKycProfiles(): ReadonlyMap<string, JurisdictionKycPro
           'Commercial activation not authorized',
         ],
       };
+    } else if (code === 'SG') {
+      // Singapore — Singpass / NRIC / FIN
+      profile = {
+        countryCode: 'SG',
+        countryName: name,
+        renterVerificationRequired: false,
+        providerVerificationRequired: true,
+        businessVerificationRequired: true,
+        identityDocumentsRequired: ['NATIONAL_ID', 'PASSPORT', 'DRIVER_LICENSE', 'SELFIE_LIVENESS'],
+        addressProofRequired: true,
+        minimumAge: 18,
+        providerAdapter: 'NOT_CONFIGURED',
+        manualReviewAllowed: true,
+        reverificationPolicy: STANDARD_REVERIFICATION_POLICY,
+        publicationVerificationRequirement: 'APPROVED',
+        paymentVerificationRequirement: 'NOT_REQUIRED',
+        payoutVerificationRequirement: 'APPROVED',
+        status: 'VALIDATION_REQUIRED',
+        blockers: [
+          'Singapore Singpass / automated KYC provider integration pending',
+          'ACRA business registry verification pending',
+          'Commercial activation not authorized',
+        ],
+      };
+    } else if (code === 'MY') {
+      // Malaysia — MyKad / Passport
+      profile = {
+        countryCode: 'MY',
+        countryName: name,
+        renterVerificationRequired: false,
+        providerVerificationRequired: true,
+        businessVerificationRequired: true,
+        identityDocumentsRequired: ['NATIONAL_ID', 'PASSPORT', 'DRIVER_LICENSE', 'SELFIE_LIVENESS'],
+        addressProofRequired: true,
+        minimumAge: 18,
+        providerAdapter: 'NOT_CONFIGURED',
+        manualReviewAllowed: true,
+        reverificationPolicy: STANDARD_REVERIFICATION_POLICY,
+        publicationVerificationRequirement: 'APPROVED',
+        paymentVerificationRequirement: 'NOT_REQUIRED',
+        payoutVerificationRequirement: 'APPROVED',
+        status: 'VALIDATION_REQUIRED',
+        blockers: [
+          'Malaysian MyKad automated verification provider pending',
+          'SSM business registration integration pending',
+          'Commercial activation not authorized',
+        ],
+      };
+    } else if (code === 'VN') {
+      // Vietnam — CCCD / Citizen ID / Passport
+      profile = {
+        countryCode: 'VN',
+        countryName: name,
+        renterVerificationRequired: false,
+        providerVerificationRequired: true,
+        businessVerificationRequired: true,
+        identityDocumentsRequired: ['NATIONAL_ID', 'PASSPORT', 'DRIVER_LICENSE', 'SELFIE_LIVENESS'],
+        addressProofRequired: true,
+        minimumAge: 18,
+        providerAdapter: 'NOT_CONFIGURED',
+        manualReviewAllowed: true,
+        reverificationPolicy: STANDARD_REVERIFICATION_POLICY,
+        publicationVerificationRequirement: 'APPROVED',
+        paymentVerificationRequirement: 'NOT_REQUIRED',
+        payoutVerificationRequirement: 'APPROVED',
+        status: 'VALIDATION_REQUIRED',
+        blockers: [
+          'Vietnam national CCCD chip card verification integration pending',
+          'National business registration portal integration pending',
+          'Commercial activation not authorized',
+        ],
+      };
+    } else if (code === 'ID') {
+      // Indonesia — KTP / Passport
+      profile = {
+        countryCode: 'ID',
+        countryName: name,
+        renterVerificationRequired: false,
+        providerVerificationRequired: true,
+        businessVerificationRequired: true,
+        identityDocumentsRequired: ['NATIONAL_ID', 'PASSPORT', 'DRIVER_LICENSE', 'SELFIE_LIVENESS'],
+        addressProofRequired: true,
+        minimumAge: 18,
+        providerAdapter: 'NOT_CONFIGURED',
+        manualReviewAllowed: true,
+        reverificationPolicy: STANDARD_REVERIFICATION_POLICY,
+        publicationVerificationRequirement: 'APPROVED',
+        paymentVerificationRequirement: 'NOT_REQUIRED',
+        payoutVerificationRequirement: 'APPROVED',
+        status: 'VALIDATION_REQUIRED',
+        blockers: [
+          'Indonesia Dukcapil identity verification gateway pending',
+          'OSS NIB business registration verification pending',
+          'Commercial activation not authorized',
+        ],
+      };
     } else {
+
       // Other 43 Authoritative Jurisdictions (US, SG, JP, EU, etc.)
       profile = {
         countryCode: code,

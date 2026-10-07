@@ -31,7 +31,9 @@ export class MockPaymentProviderAdapter implements PaymentProviderAdapter {
     'RECONCILIATION',
     'CARD',
   ]);
-  readonly supportedCurrencies: readonly string[] = Object.freeze(['PHP', 'USD', 'EUR']);
+  readonly supportedCurrencies: readonly string[] = Object.freeze([
+    'PHP', 'USD', 'EUR', 'THB', 'SGD', 'MYR', 'VND', 'IDR',
+  ]);
 
   private simulatedOutcome: 'SUCCESS' | 'FAILURE' | 'TIMEOUT' = 'SUCCESS';
   private attemptAmounts = new Map<string, number>();
