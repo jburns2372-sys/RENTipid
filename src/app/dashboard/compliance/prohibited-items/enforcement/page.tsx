@@ -9,11 +9,11 @@ const prisma = new PrismaClient();
 export default async function EnforcementQueuePage({
   searchParams,
 }: {
-  searchParams: { status?: string };
+  searchParams: Promise<{ status?: string }>;
 }) {
   await requireSecurityPermission(SECURITY_PERMISSIONS.PROHIBITED_ITEMS_REVIEW_LISTING);
 
-  const statusFilter = searchParams.status;
+  const { status: statusFilter } = (await searchParams) || {};
   
   const cases = await prisma.listingEnforcementCase.findMany({
     where: statusFilter ? { caseStatus: statusFilter } : undefined,

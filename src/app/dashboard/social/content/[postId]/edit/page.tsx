@@ -6,9 +6,10 @@ import { SocialAIAssistant } from '@/lib/social/social-ai-assistant';
 
 const prisma = new PrismaClient();
 
-export default async function EditContentPage({ params }: { params: { postId: string } }) {
+export default async function EditContentPage({ params }: { params: Promise<{ postId: string }> }) {
+  const { postId } = await params;
   const post = await prisma.marketingPost.findUnique({
-    where: { id: params.postId }
+    where: { id: postId }
   });
 
   if (!post) {

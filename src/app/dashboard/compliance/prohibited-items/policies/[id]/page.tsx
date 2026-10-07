@@ -7,15 +7,16 @@ import { notFound } from 'next/navigation';
 
 const prisma = new PrismaClient();
 
-export default async function PolicyEditorPage({ params }: { params: { id: string } }) {
+export default async function PolicyEditorPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   await requireSecurityPermission(SECURITY_PERMISSIONS.PROHIBITED_ITEMS_MANAGE_POLICY);
 
-  const isNew = params.id === 'new';
+  const isNew = id === 'new';
   let policy: any = null;
 
   if (!isNew) {
     policy = await prisma.prohibitedItemPolicy.findUnique({
-      where: { id: params.id }
+      where: { id }
     });
     if (!policy) notFound();
   }

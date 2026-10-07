@@ -7,12 +7,13 @@ import { notFound } from "next/navigation";
 
 const prisma = new PrismaClient();
 
-export default async function PlaybookDetailPage({ params }: { params: { playbookId: string } }) {
+export default async function PlaybookDetailPage({ params }: { params: Promise<{ playbookId: string }> }) {
+  const { playbookId } = await params;
   const authContext = await requireSecurityPermission(
     SECURITY_PERMISSIONS.PLAYBOOK_VIEW
   );
 
-  const playbook = await getPlaybookDetail(prisma, authContext.userId, params.playbookId);
+  const playbook = await getPlaybookDetail(prisma, authContext.userId, playbookId);
   
   if (!playbook) {
     notFound();

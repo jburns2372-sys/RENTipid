@@ -1,4 +1,4 @@
-import { normalizeLoginCallbackUrl } from '@/app/login/page';
+import { normalizeLoginCallbackUrl } from '@/lib/auth-callback';
 
 describe('normalizeLoginCallbackUrl', () => {
   it('keeps relative callback URLs', () => {

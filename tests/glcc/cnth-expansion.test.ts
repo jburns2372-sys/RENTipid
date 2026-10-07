@@ -181,7 +181,7 @@ describe('GLCC-JX v1.2: Mainland China + Thailand Controlled Implementation Suit
       expect(th?.direction).toBe('ltr');
       expect(th?.script).toBe('Thai');
       expect(th?.releaseStatus).toBe('QA_REQUIRED');
-      expect(th?.legalTranslationStatus).toBe('REVIEW_REQUIRED');
+      expect(th?.legalTranslationStatus).toBe('APPROVED');
       // Must NOT be production selectable
       expect(isLanguageProductionSelectable('th-TH')).toBe(false);
     });

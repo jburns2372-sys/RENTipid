@@ -8,7 +8,7 @@ import { redirect } from 'next/navigation';
 
 const prisma = new PrismaClient();
 
-export default async function AdminUsersPage({ searchParams }: { searchParams: { q?: string, role?: string, status?: string } }) {
+export default async function AdminUsersPage({ searchParams }: { searchParams: Promise<{ q?: string, role?: string, status?: string }> }) {
   const session = await getServerSession(authOptions);
   const user = session?.user as any;
 
@@ -16,7 +16,7 @@ export default async function AdminUsersPage({ searchParams }: { searchParams: {
     redirect('/dashboard');
   }
 
-  const { q, role, status } = searchParams;
+  const { q, role, status } = (await searchParams) || {};
 
   const where: any = {};
   if (q) {

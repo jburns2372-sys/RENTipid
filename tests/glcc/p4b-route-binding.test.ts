@@ -14,8 +14,8 @@
  * 9. Optimistic concurrency control (expectedVersion).
  */
 
-import { createPreferencesRouteHandlers } from '../../src/app/api/me/preferences/route';
-import { createGuestPreferencesRouteHandlers } from '../../src/app/api/preferences/route';
+import { createPreferencesRouteHandlers } from '../../src/lib/glcc/me-preferences-handlers';
+import { createGuestPreferencesRouteHandlers } from '../../src/lib/glcc/guest-preferences-handlers';
 import {
   createInMemorySystemSettingReader,
   GLCC_FEATURE_FLAGS,

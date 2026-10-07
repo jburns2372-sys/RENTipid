@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function SocialFeedbackDetailPage({ params }: { params: { id: string } }) {
+export default function SocialFeedbackDetailPage({ params }: { params: Promise<{ id: string }> }) {
   return (
     <div className="p-8 max-w-5xl mx-auto text-gray-100">
       <div className="mb-6 flex items-center justify-between">

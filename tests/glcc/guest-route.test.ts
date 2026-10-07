@@ -30,7 +30,7 @@
 
 import {
   createGuestPreferencesRouteHandlers,
-} from '../../src/app/api/preferences/route';
+} from '../../src/lib/glcc/guest-preferences-handlers';
 import {
   createInMemorySystemSettingReader,
   GLCC_FEATURE_FLAGS,

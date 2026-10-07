@@ -9,11 +9,11 @@ const prisma = new PrismaClient();
 export default async function AppealsQueuePage({
   searchParams,
 }: {
-  searchParams: { status?: string };
+  searchParams: Promise<{ status?: string }>;
 }) {
   await requireSecurityPermission(SECURITY_PERMISSIONS.PROHIBITED_ITEMS_MANAGE_APPEAL);
 
-  const statusFilter = searchParams.status;
+  const { status: statusFilter } = (await searchParams) || {};
   
   const appeals = await prisma.listingPolicyAppeal.findMany({
     where: statusFilter ? { status: statusFilter } : undefined,

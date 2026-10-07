@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, jest } from '@jest/globals';
-import { normalizeLoginCallbackUrl } from '@/app/login/page';
+import { normalizeLoginCallbackUrl } from '@/lib/auth-callback';
 import { logAuthenticationEvent } from '@/lib/security/events/writers/authentication-writer';
 import { processSecurityEvent } from '@/lib/security/events/event-ingestion';
 import { prisma } from '@/lib/prisma';

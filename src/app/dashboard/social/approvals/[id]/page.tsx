@@ -6,9 +6,10 @@ import Link from 'next/link';
 
 const prisma = new PrismaClient();
 
-export default async function ApprovalDetailPage({ params }: { params: { id: string } }) {
+export default async function ApprovalDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const post = await prisma.marketingPost.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       listing: true,
       campaign: true

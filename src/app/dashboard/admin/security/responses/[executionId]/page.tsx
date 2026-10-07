@@ -6,7 +6,8 @@ import { notFound, redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
 
-export default async function ResponseDetailPage({ params }: { params: { executionId: string } }) {
+export default async function ResponseDetailPage({ params }: { params: Promise<{ executionId: string }> }) {
+  const { executionId } = await params;
   const authContext = await requireSecurityPermission(
     SECURITY_PERMISSIONS.DASHBOARD_VIEW
   );
@@ -17,7 +18,7 @@ export default async function ResponseDetailPage({ params }: { params: { executi
   }
 
   const execution = await prisma.securityResponseExecution.findUnique({
-    where: { id: params.executionId },
+    where: { id: executionId },
     include: {
       actions: {
         orderBy: { sequence: 'asc' },

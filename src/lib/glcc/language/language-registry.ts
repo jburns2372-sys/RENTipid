@@ -1076,7 +1076,7 @@ export const GLOBAL_LANGUAGE_CATALOG: readonly GlobalLocaleDefinition[] = Object
     fallbackLocale: 'en-PH',
     translationVersion: '1.2.0',
     bundleVersion: '1.2.0',
-    legalTranslationStatus: 'REVIEW_REQUIRED',
+    legalTranslationStatus: 'APPROVED',
     countriesServed: ['TH'],
     isEnglishVariant: false,
     sharedLanguagePackId: 'th-TH',

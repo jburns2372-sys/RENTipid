@@ -1,7 +1,7 @@
 import {
   getHealthResponse,
   type HealthDatabase,
-} from '@/app/api/health/route';
+} from '@/lib/health';
 
 describe('application health route', () => {
   it('returns ready only after a successful database query', async () => {

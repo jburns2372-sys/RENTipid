@@ -7,11 +7,12 @@ import { notFound } from 'next/navigation';
 
 const prisma = new PrismaClient();
 
-export default async function AppealReviewPage({ params }: { params: { id: string } }) {
+export default async function AppealReviewPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   await requireSecurityPermission(SECURITY_PERMISSIONS.PROHIBITED_ITEMS_MANAGE_APPEAL);
 
   const appeal = await prisma.listingPolicyAppeal.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       enforcementCase: {
         include: {

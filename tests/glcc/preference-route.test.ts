@@ -42,7 +42,7 @@
  * 28. Financial authorities remain untouched: charge currency remains strictly PHP.
  */
 
-import { createPreferencesRouteHandlers } from '../../src/app/api/me/preferences/route';
+import { createPreferencesRouteHandlers } from '../../src/lib/glcc/me-preferences-handlers';
 import {
   createInMemorySystemSettingReader,
   GLCC_FEATURE_FLAGS,

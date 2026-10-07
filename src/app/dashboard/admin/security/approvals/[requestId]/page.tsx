@@ -7,7 +7,8 @@ import { notFound, redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
 
-export default async function ApprovalDetailPage({ params }: { params: { requestId: string } }) {
+export default async function ApprovalDetailPage({ params }: { params: Promise<{ requestId: string }> }) {
+  const { requestId } = await params;
   const authContext = await requireSecurityPermission(
     SECURITY_PERMISSIONS.DASHBOARD_VIEW
   );
@@ -17,7 +18,7 @@ export default async function ApprovalDetailPage({ params }: { params: { request
     redirect("/dashboard/admin/security");
   }
 
-  const approval = await getApprovalDetail(prisma, authContext.userId, params.requestId);
+  const approval = await getApprovalDetail(prisma, authContext.userId, requestId);
   
   if (!approval) {
     notFound();

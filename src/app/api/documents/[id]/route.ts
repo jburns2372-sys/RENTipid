@@ -19,7 +19,7 @@ function isAllowedLegacyDocumentHost(value: string) {
   }
 }
 
-export async function GET(_request: Request, context: RouteContext<'/api/documents/[id]'>) {
+export async function GET(_request: Request, context: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     const sessionUser = session?.user as { id?: string } | undefined;

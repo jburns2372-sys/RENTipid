@@ -5,9 +5,9 @@ import { notFound } from 'next/navigation';
 import { requireSecurityPermission } from '@/lib/security/authorization';
 import { SECURITY_PERMISSIONS } from '@/lib/security/permissions';
 
-export default async function AdminPrivacyRequestDetailPage({ params }: { params: { requestId: string } }) {
+export default async function AdminPrivacyRequestDetailPage({ params }: { params: Promise<{ requestId: string }> }) {
   await requireSecurityPermission(SECURITY_PERMISSIONS.PRIVACY_REQUEST_READ_ALL);
-  const reqId = params.requestId;
+  const { requestId: reqId } = await params;
   
   const req = await prisma.dataSubjectRequest.findUnique({
     where: { id: reqId },

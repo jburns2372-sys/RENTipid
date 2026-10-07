@@ -10,7 +10,8 @@ import { createAuditLog } from '@/lib/audit';
 
 const prisma = new PrismaClient();
 
-export default async function AdminUserProfilePage({ params }: { params: { userId: string } }) {
+export default async function AdminUserProfilePage({ params }: { params: Promise<{ userId: string }> }) {
+  const { userId } = await params;
   const session = await getServerSession(authOptions);
   const user = session?.user as any;
 
@@ -21,7 +22,7 @@ export default async function AdminUserProfilePage({ params }: { params: { userI
   const hasEditPermission = hasPermission(user.role, 'system_settings', 'update');
 
   const targetUser = await prisma.user.findUnique({
-    where: { id: params.userId },
+    where: { id: userId },
     include: {
       profile: true,
       businessProfile: true

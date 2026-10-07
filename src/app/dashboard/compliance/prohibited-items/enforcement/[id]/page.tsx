@@ -7,11 +7,12 @@ import { notFound } from 'next/navigation';
 
 const prisma = new PrismaClient();
 
-export default async function EnforcementCaseReviewPage({ params }: { params: { id: string } }) {
+export default async function EnforcementCaseReviewPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   await requireSecurityPermission(SECURITY_PERMISSIONS.PROHIBITED_ITEMS_REVIEW_LISTING);
 
   const enforcementCase = await prisma.listingEnforcementCase.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       policy: true,
       evaluation: true
