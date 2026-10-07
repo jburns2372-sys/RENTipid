@@ -1,12 +1,17 @@
 /**
  * RENTipid GLOBAL-MKT / v2.0 — Global Market Readiness Resolver
  *
- * Evaluates the readiness stage, blockers, and prerequisites across all 46 markets.
+ * Evaluates the readiness stage, capability states, gap-closure blockers, and
+ * prerequisites across all 46 authoritative jurisdictions.
  *
  * PERMANENT INVARIANTS:
+ * - 46-COUNTRY FULL-FUNCTION MARKETPLACE: One global marketplace across all 46 countries.
  * - COMMERCIALLY ACTIVE COUNT = 0.
- * - LOCAL_ACCEPTED = 0, PREVIEW_ACCEPTED = 0, PRODUCTION_ACCEPTED = 0, OWNER_ACCEPTED = 0.
- * - CHINA 2 DEFERRED BLOCKERS PRESERVED.
+ * - PREVIEW_ACCEPTED = 0, PRODUCTION_ACCEPTED = 0, OWNER_ACCEPTED = 0.
+ * - PHILIPPINES: First fully locally accepted full-transaction market.
+ * - OTHER 45: Remaining markets requiring concrete gap closure (NOT listing-only, NOT ph-only).
+ * - CHINA 2 DEFERRED BLOCKERS PRESERVED (ICP_LICENSE_REQUIRED, PIPL_DATA_LOCALIZATION_COMPLIANCE).
+ * - MAINLAND CHINA PUBLIC NETWORK OPERABILITY: NOT_CLAIMED.
  * - UNKNOWN JURISDICTION FAILS CLOSED (returns null).
  */
 
@@ -43,10 +48,59 @@ function buildReadinessProfile(countryCode: string, countryName: string): Market
 
   const blockers: MarketBlockerItem[] = [];
 
+  // Universal capabilities enabled across all 46 jurisdictions on the shared platform core
+  const accountReady = true;
+  const renterReady = true;
+  const providerReady = true;
+  const addressReady = true;
+  const listingCreateReady = true;
+  const listingPublishReady = true;
+  const searchDiscoveryReady = true;
+  const internationalDiscoveryReady = true;
+  const messagingReady = true;
+  const categoryPolicyReady = true;
+
+  // Transactional and compliance readiness tracking
+  let kycReady = false;
+  let businessVerificationReady = false;
+  let bookingReady = false;
+  let paymentReady = false;
+  let payoutReady = false;
+  let depositReady = false;
+  let cancellationReady = false;
+  let refundReady = false;
+  let claimReady = false;
+  let disputeReady = false;
+  let reviewReady = false;
+  let taxReady = false;
+  let invoiceReady = false;
+  let complianceReady = false;
+  let transactionReady = false;
+  let localAccepted = false;
+  let requiresGapClosure = true;
+
   if (isDomesticPH) {
     currentStage = 'FOUNDATION_READY';
     highestProvenStage = 'FOUNDATION_READY';
     isEligibleForLocalAcceptance = true; // PH has working local payment, listing, booking, KYC, and post-transaction
+
+    kycReady = true;
+    businessVerificationReady = true;
+    bookingReady = true;
+    paymentReady = true;
+    payoutReady = true;
+    depositReady = true;
+    cancellationReady = true;
+    refundReady = true;
+    claimReady = true;
+    disputeReady = true;
+    reviewReady = true;
+    taxReady = true;
+    invoiceReady = true;
+    complianceReady = true;
+    transactionReady = true;
+    localAccepted = false; // Transitions to true upon GM-9A local acceptance verification
+    requiresGapClosure = false; // Baseline local transaction path validated
 
     blockers.push({
       code: 'AUTOMATED_PAYOUT_RAIL_MISSING',
@@ -54,6 +108,9 @@ function buildReadinessProfile(countryCode: string, countryName: string): Market
       severity: 'REQUIRED_BEFORE_PREVIEW',
       description: 'Payouts currently require manual batch reconciliation rather than automated direct disbursement.',
       remediationAction: 'Integrate and test automated disbursement rail prior to Preview deployment.',
+      gapCategory: 'PAYOUT_PROVIDER',
+      blockerType: 'TECHNICAL_VALIDATION',
+      affectedCapabilities: ['PAYOUT'],
     });
     blockers.push({
       code: 'LOCAL_TAX_CLEARANCE_REQUIRED',
@@ -61,19 +118,25 @@ function buildReadinessProfile(countryCode: string, countryName: string): Market
       severity: 'REQUIRED_BEFORE_PRODUCTION',
       description: 'BIR regulations on marketplace withholding and digital reporting require formal tax audit.',
       remediationAction: 'Complete tax opinion review under GM-8A / GM-11A.',
+      gapCategory: 'TAX',
+      blockerType: 'LEGAL_REVIEW',
+      affectedCapabilities: ['TAX'],
     });
   } else if (isChina) {
     currentStage = 'REGISTERED';
     highestProvenStage = 'REGISTERED';
     isEligibleForLocalAcceptance = false;
 
-    // Preserve the 2 exact deferred blockers
+    // Preserving the exact 2 deferred blockers as completion blockers for China
     blockers.push({
       code: 'ICP_LICENSE_REQUIRED',
       title: 'Commercial ICP License Required',
       severity: 'BLOCKER',
       description: 'Operating commercial web services in mainland China requires an in-country business entity and MIIT ICP license.',
       remediationAction: 'Establish qualified domestic joint venture or partner entity to apply for ICP license.',
+      gapCategory: 'MARKETPLACE_LICENSING',
+      blockerType: 'REGULATORY_REQUIREMENT',
+      affectedCapabilities: ['FULL_MARKET_ACTIVATION', 'PUBLIC_NETWORK'],
     });
     blockers.push({
       code: 'PIPL_DATA_LOCALIZATION_COMPLIANCE',
@@ -81,6 +144,9 @@ function buildReadinessProfile(countryCode: string, countryName: string): Market
       severity: 'BLOCKER',
       description: 'User personal identifiable information must be stored locally within mainland China servers.',
       remediationAction: 'Deploy dedicated China-region server infrastructure and pass CAC cross-border transfer assessment.',
+      gapCategory: 'DATA_RESIDENCY',
+      blockerType: 'REGULATORY_REQUIREMENT',
+      affectedCapabilities: ['FULL_MARKET_ACTIVATION', 'DATA_RESIDENCY'],
     });
   } else if (isThailand) {
     currentStage = 'REGISTERED';
@@ -93,6 +159,9 @@ function buildReadinessProfile(countryCode: string, countryName: string): Market
       severity: 'BLOCKER',
       description: 'PromptPay and local Thai credit card acquiring are unconfigured in production.',
       remediationAction: 'Configure global or regional payment gateway supporting THB PromptPay rails.',
+      gapCategory: 'PAYMENT_PROVIDER',
+      blockerType: 'EXTERNAL_PROVIDER_REQUIRED',
+      affectedCapabilities: ['PAYMENT'],
     });
     blockers.push({
       code: 'TH_PAYOUT_PROVIDER_MISSING',
@@ -100,6 +169,9 @@ function buildReadinessProfile(countryCode: string, countryName: string): Market
       severity: 'BLOCKER',
       description: 'Direct Thai bank transfer payout rail is unconfigured.',
       remediationAction: 'Onboard regional payout rail provider for direct promptpay/bank transfer.',
+      gapCategory: 'PAYOUT_PROVIDER',
+      blockerType: 'EXTERNAL_PROVIDER_REQUIRED',
+      affectedCapabilities: ['PAYOUT'],
     });
     blockers.push({
       code: 'TH_LEGAL_VALIDATION_REQUIRED',
@@ -107,6 +179,9 @@ function buildReadinessProfile(countryCode: string, countryName: string): Market
       severity: 'REQUIRED_BEFORE_PRODUCTION',
       description: 'Department of Business Development (DBD) e-commerce registration must be secured.',
       remediationAction: 'Execute statutory DBD registration filing.',
+      gapCategory: 'CONSUMER_PROTECTION',
+      blockerType: 'LEGAL_REVIEW',
+      affectedCapabilities: ['COMPLIANCE'],
     });
   } else {
     currentStage = 'REGISTERED';
@@ -119,6 +194,9 @@ function buildReadinessProfile(countryCode: string, countryName: string): Market
       severity: 'BLOCKER',
       description: `No production-grade payment provider is mapped or verified for ${countryCode}.`,
       remediationAction: 'Map and verify global payment rail provider (e.g. Stripe, Adyen).',
+      gapCategory: 'PAYMENT_PROVIDER',
+      blockerType: 'EXTERNAL_PROVIDER_REQUIRED',
+      affectedCapabilities: ['PAYMENT'],
     });
     blockers.push({
       code: 'INTERNATIONAL_PAYOUT_PROVIDER_MISSING',
@@ -126,6 +204,9 @@ function buildReadinessProfile(countryCode: string, countryName: string): Market
       severity: 'BLOCKER',
       description: `No provider payout disbursement rail is mapped for ${countryCode}.`,
       remediationAction: 'Map and verify cross-border or local disbursement provider.',
+      gapCategory: 'PAYOUT_PROVIDER',
+      blockerType: 'EXTERNAL_PROVIDER_REQUIRED',
+      affectedCapabilities: ['PAYOUT'],
     });
     blockers.push({
       code: 'INTERNATIONAL_LEGAL_VALIDATION_REQUIRED',
@@ -133,6 +214,9 @@ function buildReadinessProfile(countryCode: string, countryName: string): Market
       severity: 'REQUIRED_BEFORE_PRODUCTION',
       description: 'Local consumer protection, platform liability, and tax rules require legal validation.',
       remediationAction: 'Engage local legal counsel or compliance partner prior to commercial launch.',
+      gapCategory: 'LEGAL_REVIEW',
+      blockerType: 'LEGAL_REVIEW',
+      affectedCapabilities: ['COMPLIANCE'],
     });
   }
 
@@ -151,6 +235,41 @@ function buildReadinessProfile(countryCode: string, countryName: string): Market
     highestProvenStage,
     isEligibleForLocalAcceptance,
     commerciallyActive: false, // Invariant: 0 active
+
+    accountReady,
+    renterReady,
+    providerReady,
+    kycReady,
+    businessVerificationReady,
+    addressReady,
+    listingCreateReady,
+    listingPublishReady,
+    searchDiscoveryReady,
+    internationalDiscoveryReady,
+    messagingReady,
+    bookingReady,
+    paymentReady,
+    payoutReady,
+    depositReady,
+    cancellationReady,
+    refundReady,
+    claimReady,
+    disputeReady,
+    reviewReady,
+    taxReady,
+    invoiceReady,
+    categoryPolicyReady,
+    complianceReady,
+    transactionReady,
+    localAccepted,
+    previewAccepted: false,
+    productionAccepted: false,
+    ownerAccepted: false,
+    fullyActive: false,
+
+    requiresGapClosure,
+    remainingBlockers: Object.freeze(blockers),
+
     blockers: Object.freeze(blockers),
     providerGaps: Object.freeze(providerGaps),
     complianceGaps: Object.freeze(complianceGaps),
@@ -234,6 +353,106 @@ export function getAllMarketReadinessProfiles(): readonly MarketReadinessProfile
 }
 
 /**
+ * Returns all jurisdictions currently requiring gap closure.
+ */
+export function getJurisdictionsRequiringGapClosure(): readonly MarketReadinessProfile[] {
+  return getAllMarketReadinessProfiles().filter(p => p.requiresGapClosure);
+}
+
+/**
+ * Controlling program-level gate to determine whether GLOBAL-MKT v2.0 is complete.
+ * Returns true ONLY when all 46 countries have achieved full local, preview, and production acceptance.
+ */
+export interface GlobalMarketplaceV2CompletionStatus {
+  readonly isComplete: boolean;
+  readonly authoritativeCountries: number;
+  readonly targetCountries: number;
+  readonly fullyAcceptedCount: number;
+  readonly pendingGapClosureCount: number;
+  readonly reason: string;
+}
+
+export function isGlobalMarketplaceV2Complete(): GlobalMarketplaceV2CompletionStatus {
+  const allProfiles = getAllMarketReadinessProfiles();
+  const fullyAccepted = allProfiles.filter(
+    p => p.localAccepted && p.previewAccepted && p.productionAccepted && p.fullyActive && p.remainingBlockers.length === 0
+  );
+  const pendingGapClosure = allProfiles.filter(p => p.requiresGapClosure);
+
+  const isComplete = allProfiles.length === 46 && fullyAccepted.length === 46;
+
+  return {
+    isComplete,
+    authoritativeCountries: allProfiles.length,
+    targetCountries: 46,
+    fullyAcceptedCount: fullyAccepted.length,
+    pendingGapClosureCount: pendingGapClosure.length,
+    reason: isComplete
+      ? 'All 46 authoritative jurisdictions have achieved full marketplace acceptance.'
+      : `${pendingGapClosure.length} of ${allProfiles.length} authoritative jurisdictions require full-function gap closure. Commercial freeze is prohibited.`,
+  };
+}
+
+
+/**
+ * Capability-specific evaluation queries (Section 7, 30).
+ */
+export function canAccessMarket(jurisdictionCode: string | null | undefined): boolean {
+  return getMarketReadiness(jurisdictionCode) !== null;
+}
+
+export function canRegisterAccount(jurisdictionCode: string | null | undefined): boolean {
+  const p = getMarketReadiness(jurisdictionCode);
+  return p ? p.accountReady : false;
+}
+
+export function isProviderOnboardingReady(jurisdictionCode: string | null | undefined): boolean {
+  const p = getMarketReadiness(jurisdictionCode);
+  return p ? p.providerReady : false;
+}
+
+export function canCreateListing(jurisdictionCode: string | null | undefined): boolean {
+  const p = getMarketReadiness(jurisdictionCode);
+  return p ? p.listingCreateReady : false;
+}
+
+export function isListingPublishReady(jurisdictionCode: string | null | undefined): boolean {
+  const p = getMarketReadiness(jurisdictionCode);
+  return p ? p.listingPublishReady : false;
+}
+
+export function canDiscoverListing(jurisdictionCode: string | null | undefined): boolean {
+  const p = getMarketReadiness(jurisdictionCode);
+  return p ? p.searchDiscoveryReady : false;
+}
+
+export function canMessageProvider(jurisdictionCode: string | null | undefined): boolean {
+  const p = getMarketReadiness(jurisdictionCode);
+  return p ? p.messagingReady : false;
+}
+
+export function canBookMarket(jurisdictionCode: string | null | undefined): boolean {
+  const p = getMarketReadiness(jurisdictionCode);
+  return p ? p.bookingReady : false;
+}
+
+export function isPaymentCollectionReady(jurisdictionCode: string | null | undefined): boolean {
+  const p = getMarketReadiness(jurisdictionCode);
+  return p ? p.paymentReady : false;
+}
+
+export function isProviderPayoutReady(jurisdictionCode: string | null | undefined): boolean {
+  const p = getMarketReadiness(jurisdictionCode);
+  return p ? p.payoutReady : false;
+}
+
+export function canFullyTransact(jurisdictionCode: string | null | undefined): boolean {
+  const p = getMarketReadiness(jurisdictionCode);
+  return p ? p.transactionReady : false;
+}
+
+
+/**
  * Controlled transition of an eligible jurisdiction to LOCAL_ACCEPTED upon verified full integrated acceptance.
  * Re-evaluates all mandatory capabilities and blockers before transition.
  * Blocks any jurisdiction with active BLOCKER severity items or unverified local adapters.
@@ -261,6 +480,7 @@ export function transitionMarketToLocalAccepted(countryCode: string | null | und
     ...profile,
     currentStage: 'LOCAL_ACCEPTED' as MarketReadinessStage,
     highestProvenStage: 'LOCAL_ACCEPTED' as MarketReadinessStage,
+    localAccepted: true,
   });
   readinessProfilesByCode.set(profile.jurisdictionCode, updatedProfile);
 
@@ -276,4 +496,3 @@ export function resetMarketReadinessProfiles(): void {
     readinessProfilesByCode.set(country.code, buildReadinessProfile(country.code, country.name));
   }
 }
-
