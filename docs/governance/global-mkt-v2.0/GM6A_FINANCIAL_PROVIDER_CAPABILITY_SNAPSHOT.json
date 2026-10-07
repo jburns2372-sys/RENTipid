@@ -1,0 +1,100 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-10-07T18:13:00.000Z",
+  "controllingModule": "GM-6A",
+  "providers": [
+    {
+      "providerId": "paymongo",
+      "providerName": "PayMongo Philippines",
+      "providerType": "GATEWAY",
+      "verificationStatus": "PARTIAL",
+      "environmentTested": "LOCAL_SANDBOX",
+      "collectionCapability": "SUPPORTED",
+      "payoutCapability": "UNSUPPORTED",
+      "supportedCurrencies": ["PHP"],
+      "supportedPaymentMethods": ["CARD", "GCASH", "MAYA", "GRABPAY"],
+      "refundCapability": "PRIMITIVE_EXPOSED",
+      "webhookCapability": "VERIFIED_HMAC_SIGNATURE",
+      "reconciliationCapability": "API_GET_PAYMENT",
+      "knownLimitations": [
+        "Philippines (PH) jurisdiction only",
+        "PHP currency only",
+        "No automated disbursement or payout rail capability",
+        "Sandbox credentials used in local test environments"
+      ]
+    },
+    {
+      "providerId": "mock_gateway",
+      "providerName": "Mock Payment Gateway (TEST ONLY)",
+      "providerType": "MOCK",
+      "verificationStatus": "NOT_CONFIGURED",
+      "environmentTested": "LOCAL_UNIT_TEST",
+      "collectionCapability": "TEST_MOCK_ONLY",
+      "payoutCapability": "UNSUPPORTED",
+      "supportedCurrencies": ["PHP", "USD", "EUR"],
+      "supportedPaymentMethods": ["CARD", "ONLINE"],
+      "refundCapability": "MOCK_SUPPORTED",
+      "webhookCapability": "MOCK_SIGNATURE_VERIFIED",
+      "reconciliationCapability": "MOCK_RECONCILED",
+      "knownLimitations": [
+        "TEST ONLY — Never confers commercial market readiness",
+        "Does not communicate with external banking or card networks"
+      ]
+    },
+    {
+      "providerId": "mock_payout_rail",
+      "providerName": "Mock Payout Rail (TEST ONLY)",
+      "providerType": "MOCK",
+      "verificationStatus": "NOT_CONFIGURED",
+      "environmentTested": "LOCAL_UNIT_TEST",
+      "collectionCapability": "UNSUPPORTED",
+      "payoutCapability": "TEST_MOCK_ONLY",
+      "supportedCurrencies": ["PHP", "USD"],
+      "supportedPaymentMethods": ["BANK_TRANSFER"],
+      "refundCapability": "UNSUPPORTED",
+      "webhookCapability": "UNSUPPORTED",
+      "reconciliationCapability": "MOCK_RECONCILED",
+      "knownLimitations": [
+        "TEST ONLY — Never confers commercial market readiness",
+        "Does not disburse actual fiat funds"
+      ]
+    },
+    {
+      "providerId": "manual_ph_bank",
+      "providerName": "Manual Philippine Bank Disbursement",
+      "providerType": "DIRECT_BANK",
+      "verificationStatus": "PARTIAL",
+      "environmentTested": "OPERATIONAL_RECORD_ONLY",
+      "collectionCapability": "UNSUPPORTED",
+      "payoutCapability": "MANUAL_INSTRUCTION",
+      "supportedCurrencies": ["PHP"],
+      "supportedPaymentMethods": ["BANK_TRANSFER"],
+      "refundCapability": "UNSUPPORTED",
+      "webhookCapability": "NOT_APPLICABLE",
+      "reconciliationCapability": "MANUAL_AUDIT",
+      "knownLimitations": [
+        "Requires manual compliance approval and batch export",
+        "Not an automated real-time payout rail"
+      ]
+    },
+    {
+      "providerId": "mannypay",
+      "providerName": "MannyPay (Separate Workstream)",
+      "providerType": "AGGREGATOR",
+      "verificationStatus": "NOT_CONFIGURED",
+      "environmentTested": "NONE",
+      "collectionCapability": "SEPARATE_WORKSTREAM_PENDING",
+      "payoutCapability": "SEPARATE_WORKSTREAM_PENDING",
+      "supportedCurrencies": [],
+      "supportedPaymentMethods": [],
+      "refundCapability": "UNKNOWN",
+      "webhookCapability": "UNKNOWN",
+      "reconciliationCapability": "UNKNOWN",
+      "knownLimitations": [
+        "Separate authorized workstream pending",
+        "Not registered or active in GLOBAL-MKT v2.0",
+        "Branch code and interfaces remain isolated and unmodified"
+      ]
+    }
+  ]
+}

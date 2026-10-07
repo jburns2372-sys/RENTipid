@@ -1,0 +1,851 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-10-07T10:12:38.234Z",
+  "totalAuthoritativeCountries": 46,
+  "commerciallyActiveCount": 0,
+  "jurisdictions": [
+    {
+      "jurisdictionCode": "PH",
+      "paymentProfileStatus": "PARTIAL",
+      "approvedPaymentProviders": [
+        "paymongo"
+      ],
+      "supportedTransactionCurrencies": [
+        "PHP"
+      ],
+      "supportedPaymentMethods": [
+        "CARD",
+        "GCASH",
+        "PAYMAYA",
+        "BANK"
+      ],
+      "payoutProfileStatus": "PARTIAL",
+      "approvedPayoutProviders": [
+        "manual_ph_bank"
+      ],
+      "supportedSettlementCurrencies": [
+        "PHP"
+      ],
+      "supportedPayoutMethods": [
+        "BANK_TRANSFER",
+        "GCASH"
+      ],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "US",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "USD"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "USD"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "GB",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "GBP"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "GBP"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "CA",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "CAD"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "CAD"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "AU",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "AUD"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "AUD"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "SG",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "SGD"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "SGD"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "MY",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "MYR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "MYR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "ID",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "IDR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "IDR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "VN",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "VND"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "VND"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "JP",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "JPY"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "JPY"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "KR",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "KRW"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "KRW"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "IN",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "INR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "INR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "CN",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "CNY"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "CNY"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": [
+        "ICP_LICENSE_REQUIRED",
+        "PIPL_DATA_LOCALIZATION_COMPLIANCE"
+      ]
+    },
+    {
+      "jurisdictionCode": "TH",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "THB"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "THB"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "AE",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "AED"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "AED"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "BR",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "BRL"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "BRL"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "DE",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "FR",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "IT",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "ES",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "NL",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "BE",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "AT",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "IE",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "PT",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "PL",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "PLN"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "PLN"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "SE",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "SEK"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "SEK"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "DK",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "DKK"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "DKK"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "FI",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "GR",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "CZ",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "CZK"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "CZK"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "RO",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "RON"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "RON"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "HU",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "HUF"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "HUF"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "NO",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "NOK"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "NOK"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "IS",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "LU",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "BG",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "HR",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "CY",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "EE",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "LV",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "LT",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "MT",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "SK",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "SI",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "EUR"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "EUR"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    },
+    {
+      "jurisdictionCode": "LI",
+      "paymentProfileStatus": "NOT_CONFIGURED",
+      "approvedPaymentProviders": [],
+      "supportedTransactionCurrencies": [
+        "CHF"
+      ],
+      "supportedPaymentMethods": [],
+      "payoutProfileStatus": "NOT_CONFIGURED",
+      "approvedPayoutProviders": [],
+      "supportedSettlementCurrencies": [
+        "CHF"
+      ],
+      "supportedPayoutMethods": [],
+      "commerciallyActive": false,
+      "validationRequiredItems": [],
+      "blockers": []
+    }
+  ]
+}
