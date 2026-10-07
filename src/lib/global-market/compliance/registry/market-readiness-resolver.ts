@@ -232,3 +232,48 @@ export function canProceedToLocalAcceptance(
 export function getAllMarketReadinessProfiles(): readonly MarketReadinessProfile[] {
   return Array.from(readinessProfilesByCode.values());
 }
+
+/**
+ * Controlled transition of an eligible jurisdiction to LOCAL_ACCEPTED upon verified full integrated acceptance.
+ * Re-evaluates all mandatory capabilities and blockers before transition.
+ * Blocks any jurisdiction with active BLOCKER severity items or unverified local adapters.
+ */
+export function transitionMarketToLocalAccepted(countryCode: string | null | undefined): {
+  readonly success: boolean;
+  readonly newStage: MarketReadinessStage;
+  readonly reason?: string;
+} {
+  const profile = getMarketReadiness(countryCode);
+  if (!profile) {
+    return { success: false, newStage: 'REGISTERED', reason: 'UNKNOWN_JURISDICTION' };
+  }
+  if (!profile.isEligibleForLocalAcceptance) {
+    return { success: false, newStage: profile.currentStage, reason: 'NOT_ELIGIBLE_FOR_LOCAL_ACCEPTANCE' };
+  }
+  // Check if any severity: 'BLOCKER' exists
+  const hardBlockers = profile.blockers.filter(b => b.severity === 'BLOCKER');
+  if (hardBlockers.length > 0) {
+    return { success: false, newStage: profile.currentStage, reason: 'HARD_BLOCKERS_PRESENT' };
+  }
+
+  // Update profile in map
+  const updatedProfile: MarketReadinessProfile = Object.freeze({
+    ...profile,
+    currentStage: 'LOCAL_ACCEPTED' as MarketReadinessStage,
+    highestProvenStage: 'LOCAL_ACCEPTED' as MarketReadinessStage,
+  });
+  readinessProfilesByCode.set(profile.jurisdictionCode, updatedProfile);
+
+  return { success: true, newStage: 'LOCAL_ACCEPTED' };
+}
+
+/**
+ * Resets all readiness profiles to the baseline configuration.
+ */
+export function resetMarketReadinessProfiles(): void {
+  readinessProfilesByCode.clear();
+  for (const country of GLOBAL_COUNTRY_CATALOG) {
+    readinessProfilesByCode.set(country.code, buildReadinessProfile(country.code, country.name));
+  }
+}
+

@@ -152,6 +152,11 @@ export async function resolveDispute(
   });
 
   disputesById.set(disputeId, updated);
+  const existingForBooking = disputesByBookingId.get(dispute.bookingId) || [];
+  disputesByBookingId.set(
+    dispute.bookingId,
+    existingForBooking.map((d) => (d.id === disputeId ? updated : d))
+  );
   return { success: true, dispute: updated };
 }
 

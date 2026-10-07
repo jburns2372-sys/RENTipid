@@ -251,6 +251,11 @@ export async function resolveClaim(
   });
 
   claimsById.set(claimId, updated);
+  const existingForBooking = claimsByBookingId.get(claim.bookingId) || [];
+  claimsByBookingId.set(
+    claim.bookingId,
+    existingForBooking.map((c) => (c.id === claimId ? updated : c))
+  );
   return { success: true, claim: updated };
 }
 
@@ -280,6 +285,11 @@ export async function escalateClaimToDispute(
   });
 
   claimsById.set(claimId, updated);
+  const existingForBooking = claimsByBookingId.get(claim.bookingId) || [];
+  claimsByBookingId.set(
+    claim.bookingId,
+    existingForBooking.map((c) => (c.id === claimId ? updated : c))
+  );
   return { success: true, claim: updated };
 }
 
