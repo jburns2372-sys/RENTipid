@@ -1,0 +1,102 @@
+{
+  "batchA": {
+    "name": "Batch A — Local Acceptance Candidate",
+    "description": "Markets with complete engine coverage, operational domestic adapters, and immediate GM-9A testing capability.",
+    "countries": [
+      "PH"
+    ],
+    "readinessStage": "FOUNDATION_READY",
+    "commercialActivationEligible": false,
+    "gm9aEligible": true,
+    "notes": "Philippines is the primary test market for GM-9A full integrated local acceptance."
+  },
+  "batchB": {
+    "name": "Batch B — High-Priority Tier 1 Expansion Candidates",
+    "description": "Major jurisdictions with mature commercial frameworks, requiring international payment/payout rails and KYC provider integration.",
+    "countries": [
+      "US",
+      "SG",
+      "JP",
+      "DE",
+      "GB",
+      "AU",
+      "CA"
+    ],
+    "readinessStage": "REGISTERED",
+    "commercialActivationEligible": false,
+    "gm9aEligible": false,
+    "keyPrerequisites": [
+      "Global Payment Provider (e.g. Stripe, Adyen) Onboarding",
+      "Automated Global KYC Provider (e.g. Sumsub, Veriff) Integration",
+      "Subnational Tax Policy Formal Legal Validation (US state sales tax, etc.)"
+    ]
+  },
+  "batchC": {
+    "name": "Batch C — Broad Global Jurisdictions",
+    "description": "Established markets with verified GLCC foundations awaiting provider selection and jurisdiction-specific tax/invoice profiles.",
+    "countries": [
+      "TH",
+      "FR",
+      "IT",
+      "ES",
+      "NL",
+      "CH",
+      "SE",
+      "NO",
+      "DK",
+      "FI",
+      "IE",
+      "AT",
+      "BE",
+      "PL",
+      "PT",
+      "GR",
+      "CZ",
+      "HU",
+      "RO",
+      "KR",
+      "TW",
+      "HK",
+      "MY",
+      "ID",
+      "VN",
+      "IN",
+      "AE",
+      "SA",
+      "QA",
+      "KW",
+      "BH",
+      "OM",
+      "IL",
+      "ZA",
+      "BR",
+      "MX",
+      "AR",
+      "CL",
+      "CO",
+      "PE"
+    ],
+    "readinessStage": "REGISTERED",
+    "commercialActivationEligible": false,
+    "gm9aEligible": false,
+    "keyPrerequisites": [
+      "Provider selection across payment, payout, and KYC",
+      "Statutory invoicing compliance review"
+    ]
+  },
+  "batchD": {
+    "name": "Batch D — Specialized Regulatory & High-Barrier Markets",
+    "description": "Markets with statutory telecommunications licensing, strict data localization, or cross-border restrictions.",
+    "countries": [
+      "CN"
+    ],
+    "readinessStage": "REGISTERED",
+    "commercialActivationEligible": false,
+    "gm9aEligible": false,
+    "keyPrerequisites": [
+      "ICP Commercial License Clearance",
+      "PIPL Data Localization & Security Assessment",
+      "Mainland Network Operability Validation"
+    ]
+  }
+}

@@ -1,0 +1,2618 @@
+[
+  {
+    "countryCode": "PH",
+    "countryName": "Philippines",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "FOUNDATION_READY",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VERIFIED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VERIFIED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VERIFIED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "AUTOMATED_PAYOUT_RAIL_MISSING",
+      "EXTERNAL_AUTOMATED_KYC_PROVIDER_MISSING",
+      "TRANSACTIONAL_SMS_PROVIDER_MISSING",
+      "AUTOMATED_TAX_ENGINE_MISSING"
+    ],
+    "complianceGaps": [
+      "INTERNET_TRANSACTIONS_ACT_EVALUATION"
+    ],
+    "blockers": [
+      "AUTOMATED_PAYOUT_RAIL_MISSING (REQUIRED_BEFORE_PREVIEW): Payouts currently require manual batch reconciliation rather than automated direct disbursement.",
+      "LOCAL_TAX_CLEARANCE_REQUIRED (REQUIRED_BEFORE_PRODUCTION): BIR regulations on marketplace withholding and digital reporting require formal tax audit."
+    ],
+    "eligibleForGM9ALocalAcceptance": true
+  },
+  {
+    "countryCode": "US",
+    "countryName": "United States",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for US.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for US.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "GB",
+    "countryName": "United Kingdom",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for GB.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for GB.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "CA",
+    "countryName": "Canada",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for CA.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for CA.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "AU",
+    "countryName": "Australia",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for AU.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for AU.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "SG",
+    "countryName": "Singapore",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for SG.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for SG.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "MY",
+    "countryName": "Malaysia",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for MY.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for MY.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "ID",
+    "countryName": "Indonesia",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for ID.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for ID.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "VN",
+    "countryName": "Vietnam",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for VN.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for VN.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "JP",
+    "countryName": "Japan",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for JP.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for JP.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "KR",
+    "countryName": "South Korea",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for KR.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for KR.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "IN",
+    "countryName": "India",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for IN.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for IN.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "CN",
+    "countryName": "China",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "ICP_COMMERCIAL_LICENSE_APPLICATION",
+      "PIPL_IN_COUNTRY_SERVER_LOCALIZATION",
+      "CROSS_BORDER_DATA_TRANSFER_SECURITY_ASSESSMENT"
+    ],
+    "blockers": [
+      "ICP_LICENSE_REQUIRED (BLOCKER): Operating commercial web services in mainland China requires an in-country business entity and MIIT ICP license.",
+      "PIPL_DATA_LOCALIZATION_COMPLIANCE (BLOCKER): User personal identifiable information must be stored locally within mainland China servers."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "TH",
+    "countryName": "Thailand",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "PDPA_COMPLIANCE_EVALUATION",
+      "DBD_ECOMMERCE_REGISTRATION_VERIFICATION",
+      "THAI_CONSUMER_PROTECTION_ACT_REVIEW"
+    ],
+    "blockers": [
+      "TH_PAYMENT_PROVIDER_MISSING (BLOCKER): PromptPay and local Thai credit card acquiring are unconfigured in production.",
+      "TH_PAYOUT_PROVIDER_MISSING (BLOCKER): Direct Thai bank transfer payout rail is unconfigured.",
+      "TH_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Department of Business Development (DBD) e-commerce registration must be secured."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "AE",
+    "countryName": "United Arab Emirates",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for AE.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for AE.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "BR",
+    "countryName": "Brazil",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for BR.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for BR.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "DE",
+    "countryName": "Germany",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for DE.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for DE.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "FR",
+    "countryName": "France",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for FR.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for FR.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "IT",
+    "countryName": "Italy",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for IT.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for IT.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "ES",
+    "countryName": "Spain",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for ES.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for ES.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "NL",
+    "countryName": "Netherlands",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for NL.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for NL.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "BE",
+    "countryName": "Belgium",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for BE.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for BE.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "AT",
+    "countryName": "Austria",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for AT.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for AT.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "IE",
+    "countryName": "Ireland",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for IE.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for IE.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "PT",
+    "countryName": "Portugal",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for PT.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for PT.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "PL",
+    "countryName": "Poland",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for PL.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for PL.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "SE",
+    "countryName": "Sweden",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for SE.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for SE.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "DK",
+    "countryName": "Denmark",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for DK.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for DK.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "FI",
+    "countryName": "Finland",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for FI.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for FI.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "GR",
+    "countryName": "Greece",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for GR.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for GR.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "CZ",
+    "countryName": "Czech Republic",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for CZ.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for CZ.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "RO",
+    "countryName": "Romania",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for RO.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for RO.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "HU",
+    "countryName": "Hungary",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for HU.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for HU.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "NO",
+    "countryName": "Norway",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for NO.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for NO.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "IS",
+    "countryName": "Iceland",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for IS.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for IS.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "LU",
+    "countryName": "Luxembourg",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for LU.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for LU.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "BG",
+    "countryName": "Bulgaria",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for BG.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for BG.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "HR",
+    "countryName": "Croatia",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for HR.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for HR.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "CY",
+    "countryName": "Cyprus",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for CY.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for CY.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "EE",
+    "countryName": "Estonia",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for EE.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for EE.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "LV",
+    "countryName": "Latvia",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for LV.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for LV.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "LT",
+    "countryName": "Lithuania",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for LT.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for LT.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "MT",
+    "countryName": "Malta",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for MT.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for MT.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "SK",
+    "countryName": "Slovakia",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for SK.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for SK.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "SI",
+    "countryName": "Slovenia",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for SI.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for SI.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  },
+  {
+    "countryCode": "LI",
+    "countryName": "Liechtenstein",
+    "marketReadinessStage": "REGISTERED",
+    "highestProvenReadinessStage": "REGISTERED",
+    "commerciallyActive": false,
+    "capabilities": {
+      "accountRegistration": "IMPLEMENTED",
+      "renterOnboarding": "IMPLEMENTED",
+      "providerOnboarding": "IMPLEMENTED",
+      "kycVerification": "VALIDATION_REQUIRED",
+      "listingCreate": "IMPLEMENTED",
+      "listingPublish": "IMPLEMENTED",
+      "pricing": "IMPLEMENTED",
+      "searchDiscovery": "IMPLEMENTED",
+      "bookingRental": "IMPLEMENTED",
+      "messaging": "IMPLEMENTED",
+      "paymentCollection": "NOT_CONFIGURED",
+      "providerPayout": "NOT_CONFIGURED",
+      "deposit": "IMPLEMENTED",
+      "cancellation": "IMPLEMENTED",
+      "refund": "IMPLEMENTED",
+      "claim": "IMPLEMENTED",
+      "dispute": "IMPLEMENTED",
+      "review": "IMPLEMENTED",
+      "localization": "IMPLEMENTED",
+      "displayCurrency": "IMPLEMENTED",
+      "taxInvoice": "VALIDATION_REQUIRED",
+      "restrictedCategoryPolicy": "IMPLEMENTED",
+      "compliance": "VALIDATION_REQUIRED",
+      "addressLocation": "IMPLEMENTED"
+    },
+    "providerDependencies": {
+      "payment": [],
+      "payout": [],
+      "kyc": []
+    },
+    "providerGaps": [
+      "KYC_PROVIDER_MISSING",
+      "PAYMENT_PROVIDER_MISSING",
+      "PAYOUT_PROVIDER_MISSING",
+      "GEOCODING_PROVIDER_MISSING",
+      "NOTIFICATION_PROVIDER_MISSING",
+      "TAX_PROVIDER_MISSING"
+    ],
+    "complianceGaps": [
+      "LOCAL_CONSUMER_RIGHTS_RECONCILIATION",
+      "MARKETPLACE_LIABILITY_LEGAL_OPINION",
+      "LOCAL_CROSS_BORDER_PAYMENT_CLEARANCE"
+    ],
+    "blockers": [
+      "INTERNATIONAL_PAYMENT_PROVIDER_MISSING (BLOCKER): No production-grade payment provider is mapped or verified for LI.",
+      "INTERNATIONAL_PAYOUT_PROVIDER_MISSING (BLOCKER): No provider payout disbursement rail is mapped for LI.",
+      "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED (REQUIRED_BEFORE_PRODUCTION): Local consumer protection, platform liability, and tax rules require legal validation."
+    ],
+    "eligibleForGM9ALocalAcceptance": false
+  }
+]

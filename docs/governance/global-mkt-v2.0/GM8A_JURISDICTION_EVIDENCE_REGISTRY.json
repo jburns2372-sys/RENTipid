@@ -1,0 +1,2348 @@
+[
+  {
+    "countryCode": "PH",
+    "countryName": "Philippines",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Sub-threshold individual peer-to-peer sellers may operate under percentage tax exemption",
+        "officialSourceReference": "https://www.bir.gov.ph",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VERIFIED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TIN, REGISTERED_BUSINESS_NAME, OFFICIAL_RECEIPT_NUMBER, VAT_BREAKDOWN",
+        "officialSourceReference": "https://www.bir.gov.ph",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VERIFIED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VERIFIED, Rental marketplace status: ALLOWED",
+        "officialSourceReference": "Republic Act No. 7394 (Consumer Act of the Philippines)",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VERIFIED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "https://docs.paymongo.com",
+        "sourceType": "PROVIDER_DOCS",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "PayMongo global adapter live for domestic PH collection."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VERIFIED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "US",
+    "countryName": "United States",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Subnational state sales tax and marketplace facilitator nexus rules vary across 50 states",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: MIXED_SUBNATIONAL. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "GB",
+    "countryName": "United Kingdom",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "CA",
+    "countryName": "Canada",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: MIXED_SUBNATIONAL. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "AU",
+    "countryName": "Australia",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: GST. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "SG",
+    "countryName": "Singapore",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: GST. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "MY",
+    "countryName": "Malaysia",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: GST. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "ID",
+    "countryName": "Indonesia",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "VN",
+    "countryName": "Vietnam",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "JP",
+    "countryName": "Japan",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "KR",
+    "countryName": "South Korea",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "IN",
+    "countryName": "India",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: GST. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "CN",
+    "countryName": "China",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "Personal Information Protection Law (PIPL)",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: LOCALIZATION_MANDATORY. Public network: NOT_CLAIMED."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "TH",
+    "countryName": "Thailand",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: ALLOWED",
+        "officialSourceReference": "Personal Data Protection Act B.E. 2562 (PDPA)",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "AE",
+    "countryName": "United Arab Emirates",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "BR",
+    "countryName": "Brazil",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "DE",
+    "countryName": "Germany",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "FR",
+    "countryName": "France",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "IT",
+    "countryName": "Italy",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "ES",
+    "countryName": "Spain",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "NL",
+    "countryName": "Netherlands",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "BE",
+    "countryName": "Belgium",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "AT",
+    "countryName": "Austria",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "IE",
+    "countryName": "Ireland",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "PT",
+    "countryName": "Portugal",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "PL",
+    "countryName": "Poland",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "SE",
+    "countryName": "Sweden",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "DK",
+    "countryName": "Denmark",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "FI",
+    "countryName": "Finland",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "GR",
+    "countryName": "Greece",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "CZ",
+    "countryName": "Czech Republic",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "RO",
+    "countryName": "Romania",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "HU",
+    "countryName": "Hungary",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "NO",
+    "countryName": "Norway",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "IS",
+    "countryName": "Iceland",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "LU",
+    "countryName": "Luxembourg",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "BG",
+    "countryName": "Bulgaria",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "HR",
+    "countryName": "Croatia",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "CY",
+    "countryName": "Cyprus",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "EE",
+    "countryName": "Estonia",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "LV",
+    "countryName": "Latvia",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "LT",
+    "countryName": "Lithuania",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "MT",
+    "countryName": "Malta",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "SK",
+    "countryName": "Slovakia",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "SI",
+    "countryName": "Slovenia",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "DAC7 reporting directive requirements apply across EU member states for digital platforms",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  },
+  {
+    "countryCode": "LI",
+    "countryName": "Liechtenstein",
+    "evidenceItems": [
+      {
+        "topic": "TAX_POLICY",
+        "claim": "Cross-border digital service taxation requires local legal reconciliation",
+        "officialSourceReference": "Official National Tax Authority Directory / Statute",
+        "sourceType": "GOVERNMENT_GAZETTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Tax system: VAT. Withholding: undefined."
+      },
+      {
+        "topic": "INVOICING",
+        "claim": "Invoice requirements: TAX_IDENTIFIER, LEGAL_NAME, TAX_RATE_SUMMARY",
+        "officialSourceReference": "National Invoicing Standards",
+        "sourceType": "SECONDARY_STATUTE",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Document issuance authority derived strictly from verified booking transactions."
+      },
+      {
+        "topic": "COMPLIANCE_CONSUMER_PROTECTION",
+        "claim": "Consumer protection status: VALIDATION_REQUIRED, Rental marketplace status: RESTRICTED",
+        "officialSourceReference": "National Consumer Protection / E-Commerce Statute",
+        "sourceType": "REGULATOR",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "Data residency: STANDARD. Public network: OPERABLE."
+      },
+      {
+        "topic": "PAYMENT_COLLECTION",
+        "claim": "Payment provider not configured",
+        "officialSourceReference": "Provider Selection Matrix",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "NOT_CONFIGURED",
+        "notes": "No international payment provider configured."
+      },
+      {
+        "topic": "KYC_IDENTITY",
+        "claim": "KYC provider not configured",
+        "officialSourceReference": "Internal KYC Review SOP / GM-3A",
+        "sourceType": "PLATFORM_CONFIG",
+        "retrievedVerifiedDate": "2026-10-07",
+        "status": "VALIDATION_REQUIRED",
+        "notes": "External automated KYC provider count: 0. Manual internal review adapter operational."
+      }
+    ]
+  }
+]

@@ -1,0 +1,1201 @@
+[
+  {
+    "countryCode": "PH",
+    "countryName": "Philippines",
+    "taxPolicyStatus": "VERIFIED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "REPORTING_ONLY",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TIN",
+      "REGISTERED_BUSINESS_NAME",
+      "OFFICIAL_RECEIPT_NUMBER",
+      "VAT_BREAKDOWN"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Sub-threshold individual peer-to-peer sellers may operate under percentage tax exemption"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_WITHHOLDING_TAX_ESCROW_CLARIFICATION"
+    ],
+    "legalSourceReferences": [
+      "https://www.bir.gov.ph",
+      "Republic Act No. 8424 (National Internal Revenue Code of 1997 as amended)"
+    ]
+  },
+  {
+    "countryCode": "US",
+    "countryName": "United States",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "MIXED_SUBNATIONAL",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Subnational state sales tax and marketplace facilitator nexus rules vary across 50 states"
+    ],
+    "validationRequiredItems": [
+      "SUBNATIONAL_STATE_SALES_TAX_POLICY",
+      "MARKETPLACE_FACILITATOR_STATUTORY_AUDIT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "GB",
+    "countryName": "United Kingdom",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "CA",
+    "countryName": "Canada",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "MIXED_SUBNATIONAL",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "AU",
+    "countryName": "Australia",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "GST",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "SG",
+    "countryName": "Singapore",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "GST",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "MY",
+    "countryName": "Malaysia",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "GST",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "ID",
+    "countryName": "Indonesia",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "VN",
+    "countryName": "Vietnam",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "JP",
+    "countryName": "Japan",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "KR",
+    "countryName": "South Korea",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "IN",
+    "countryName": "India",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "GST",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "CN",
+    "countryName": "China",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "TH",
+    "countryName": "Thailand",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "AE",
+    "countryName": "United Arab Emirates",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "BR",
+    "countryName": "Brazil",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "DE",
+    "countryName": "Germany",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "FR",
+    "countryName": "France",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "IT",
+    "countryName": "Italy",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "ES",
+    "countryName": "Spain",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "NL",
+    "countryName": "Netherlands",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "BE",
+    "countryName": "Belgium",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "AT",
+    "countryName": "Austria",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "IE",
+    "countryName": "Ireland",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "PT",
+    "countryName": "Portugal",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "PL",
+    "countryName": "Poland",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "SE",
+    "countryName": "Sweden",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "DK",
+    "countryName": "Denmark",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "FI",
+    "countryName": "Finland",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "GR",
+    "countryName": "Greece",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "CZ",
+    "countryName": "Czech Republic",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "RO",
+    "countryName": "Romania",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "HU",
+    "countryName": "Hungary",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "NO",
+    "countryName": "Norway",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "IS",
+    "countryName": "Iceland",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "LU",
+    "countryName": "Luxembourg",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "BG",
+    "countryName": "Bulgaria",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "HR",
+    "countryName": "Croatia",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "CY",
+    "countryName": "Cyprus",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "EE",
+    "countryName": "Estonia",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "LV",
+    "countryName": "Latvia",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "LT",
+    "countryName": "Lithuania",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "MT",
+    "countryName": "Malta",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "SK",
+    "countryName": "Slovakia",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "SI",
+    "countryName": "Slovenia",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "DAC7 reporting directive requirements apply across EU member states for digital platforms"
+    ],
+    "validationRequiredItems": [
+      "DAC7_PLATFORM_OPERATOR_REPORTING_INTEGRATION",
+      "LOCAL_VAT_THRESHOLD_ASSESSMENT"
+    ],
+    "legalSourceReferences": []
+  },
+  {
+    "countryCode": "LI",
+    "countryName": "Liechtenstein",
+    "taxPolicyStatus": "VALIDATION_REQUIRED",
+    "taxSystemType": "VAT",
+    "marketplaceTaxResponsibility": "LEGAL_VALIDATION_REQUIRED",
+    "providerTaxResponsibility": "UNKNOWN",
+    "customerTaxResponsibility": "STANDARD",
+    "taxRegistrationRequirementStatus": "UNKNOWN",
+    "withholdingRequirementStatus": "UNKNOWN",
+    "digitalPlatformReportingStatus": "UNKNOWN",
+    "invoiceTaxFieldRequirements": [
+      "TAX_IDENTIFIER",
+      "LEGAL_NAME",
+      "TAX_RATE_SUMMARY"
+    ],
+    "taxCalculationProviderReference": null,
+    "knownLimitations": [
+      "Cross-border digital service taxation requires local legal reconciliation"
+    ],
+    "validationRequiredItems": [
+      "LOCAL_DIGITAL_SERVICES_TAX_REQUIREMENT",
+      "LOCAL_WITHHOLDING_MANDATES"
+    ],
+    "legalSourceReferences": []
+  }
+]
