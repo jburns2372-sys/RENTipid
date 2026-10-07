@@ -1,0 +1,27 @@
+{
+  "artifactType": "PROJECT_OWNER_APPROVAL",
+  "workstream": "RENTipid GLOBAL-MKT / v2.0 GLOBAL MARKETPLACE ACTIVATION",
+  "action": "GM-0 ARCHITECTURE BASELINE, GLOBAL MARKETPLACE GAP AUDIT & MASTER IMPLEMENTATION PLAN KICKOFF",
+  "decision": "PROJECT OWNER APPROVAL OF GM-0 MASTER PLAN",
+  "projectOwner": {
+    "name": "Federico Diagono Jr.",
+    "role": "Project Owner of RENTipid",
+    "approvalDate": "2026-10-07"
+  },
+  "approvedGm0GovernanceCommit": "c5a0a609cb646dfa3bbfb7697a8ebc58af97b88b",
+  "ownerDecision": "I, Federico Diagono Jr., Project Owner of RENTipid, hereby APPROVE the RENTipid GLOBAL-MKT / v2.0 — Global Marketplace Activation Architecture and Master Implementation Plan established under GM-0, governance commit c5a0a609cb646dfa3bbfb7697a8ebc58af97b88b. I confirm the controlling architecture direction that RENTipid shall be developed as ONE GLOBAL MARKETPLACE PLATFORM, with shared global business engines and country differences implemented through jurisdiction profiles, policies, capability configuration, and provider adapters, and not through separate country applications or country-specific marketplace forks. I authorize commencement of GM-1 under the approved master plan.",
+  "controllingArchitectureDirection": {
+    "platformModel": "ONE GLOBAL MARKETPLACE PLATFORM",
+    "forbiddenApproaches": [
+      "Separate country applications (e.g. 46 standalone applications)",
+      "Country-specific marketplace forks",
+      "Duplicated booking engines by country",
+      "Duplicated payment engines by country",
+      "Duplicated listing engines by country"
+    ],
+    "approvedArchitecture": "GLOBAL CORE + JURISDICTION PROFILE + CAPABILITY REGISTRY + POLICY ENGINE + PROVIDER ADAPTERS",
+    "countryCount": 46,
+    "initialCommercialActiveCount": 0
+  },
+  "authorizedNextAction": "GM-1 — GLOBAL JURISDICTION & MARKET CAPABILITY FRAMEWORK"
+}
