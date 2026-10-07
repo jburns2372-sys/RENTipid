@@ -1,0 +1,250 @@
+{
+  "portfolioOverview": "Minimum practical provider portfolio designed to achieve 100% full-lifecycle functionality across Thailand, Singapore, Malaysia, Vietnam, and Indonesia with the smallest vendor surface area. The optimal strategy utilizes Sumsub for unified ASEAN KYC, Xendit (or 2C2P) for unified Southeast Asian acquiring and automated disbursements, while preserving PayMongo for domestic Philippines and keeping MannyPay isolated as SEPARATE_WORKSTREAM_PENDING.",
+  "kycStrategy": {
+    "internalVsFinancialKyc": {
+      "basicPlatformVerification": "RENTipid Internal Manual Verification (ManualInternalKycProviderAdapter) safely satisfies basic renter identity verification, email/phone verification, document upload completeness, and initial provider draft listing creation.",
+      "financialRegulatoryKyc": "Financial & Regulatory KYC governs automated fund disbursement and merchant payouts under MAS, BOT, BNM, SBV, and BI anti-money laundering (AML/CFT) mandates. Internal manual review cannot lawfully satisfy central bank AML/CFT rules without certified vendor tooling and automated sanctions screening.",
+      "boundaryRule": "Internal manual verification must NEVER be used to falsely satisfy legal/regulatory financial KYC obligations."
+    },
+    "recommendedProvider": "Sumsub (Enterprise ASEAN Tier)",
+    "candidateDossiers": [
+      {
+        "providerClass": "KYC",
+        "candidateName": "Sumsub Identity Verification",
+        "vendorEntity": "Sumsub Ltd.",
+        "countriesCovered": [
+          "TH",
+          "SG",
+          "MY",
+          "VN",
+          "ID"
+        ],
+        "capabilities": [
+          "National ID OCR (Thai Pink/Citizen ID, Singpass/NRIC, MyKad, CCCD, e-KTP)",
+          "International Passport Verification with NFC support",
+          "Biometric 3D Liveness Detection & Facial Matching",
+          "Automated AML / PEP / Sanctions Watchlist Screening",
+          "Singapore PDPC compliant data masking",
+          "Webhooks & REST API"
+        ],
+        "limitations": [
+          "Commercial SaaS subscription and minimum monthly commitment required"
+        ],
+        "sandboxAvailability": "Full sandbox environment available immediately via developer portal test credentials",
+        "productionPrerequisites": [
+          "Enterprise master services agreement (MSA)",
+          "Compliance officer verification and billing registration"
+        ],
+        "sharedCoverage": true,
+        "suitabilityRationale": "Single unified API that natively covers all 5 Southeast Asian target jurisdictions without requiring separate country-specific KYC vendor contracts.",
+        "evidenceStatus": "DOCUMENTATION_VERIFIED",
+        "commercialDecisionRequired": true,
+        "estimatedCostModel": "Pay-per-verification (~$1.00 - $1.80 per successful KYC verification)"
+      },
+      {
+        "providerClass": "KYC",
+        "candidateName": "Onfido",
+        "vendorEntity": "Onfido (Entrust Group)",
+        "countriesCovered": [
+          "TH",
+          "SG",
+          "MY",
+          "VN",
+          "ID"
+        ],
+        "capabilities": [
+          "Document OCR (Passports, National IDs across ASEAN)",
+          "Facial Biometric Matching",
+          "AML Screening",
+          "REST API & Mobile SDK"
+        ],
+        "limitations": [
+          "Higher minimum annual spend commitment; slower self-serve onboarding than Sumsub"
+        ],
+        "sandboxAvailability": "Sandbox available with enterprise trial",
+        "productionPrerequisites": [
+          "Enterprise commercial agreement",
+          "Integration audit"
+        ],
+        "sharedCoverage": true,
+        "suitabilityRationale": "Strong enterprise alternative if Sumsub contracting encounters negotiation obstacles.",
+        "evidenceStatus": "DOCUMENTATION_VERIFIED",
+        "commercialDecisionRequired": true,
+        "estimatedCostModel": "Annual enterprise subscription tier"
+      }
+    ]
+  },
+  "paymentStrategy": {
+    "domesticPhPreservation": "PayMongo remains strictly preserved for domestic Philippines (PHP) card and e-wallet checkout. PayMongo is NOT expanded to Southeast Asia without official multi-currency acquiring documentation.",
+    "mannyPayStatus": "MannyPay remains strictly SEPARATE_WORKSTREAM_PENDING. MannyPay is NOT modified and NOT configured as a live adapter.",
+    "recommendedProvider": "Xendit (Southeast Asia Marketplace Rail)",
+    "candidateDossiers": [
+      {
+        "providerClass": "PAYMENT",
+        "candidateName": "Xendit Payment Gateway",
+        "vendorEntity": "Xendit Pte. Ltd.",
+        "countriesCovered": [
+          "TH",
+          "SG",
+          "MY",
+          "VN",
+          "ID"
+        ],
+        "capabilities": [
+          "Indonesia: QRIS, BCA/Mandiri/BRI/BNI Virtual Accounts, Cards",
+          "Thailand: PromptPay QR, Domestic Credit/Debit Cards",
+          "Singapore: PayNow Dynamic QR, Cards",
+          "Malaysia: FPX Online Banking, DuitNow QR, Cards",
+          "Vietnam: NAPAS 247, Domestic Bank Transfers, Cards",
+          "Refunds & Partial Refunds API",
+          "Dynamic Idempotency Keys & Webhooks",
+          "Marketplace Split Payments (XenPlatform)"
+        ],
+        "limitations": [
+          "Requires merchant entity registration in Singapore or local ASEAN operating entity for multi-country settlement"
+        ],
+        "sandboxAvailability": "Instant developer sandbox access via dashboard sign-up with simulated payment webhooks",
+        "productionPrerequisites": [
+          "Xendit Merchant Agreement",
+          "Corporate entity KYC / KYB documentation",
+          "Bank account settlement verification"
+        ],
+        "sharedCoverage": true,
+        "suitabilityRationale": "Xendit provides native payment rails across all 5 Southeast Asian countries under a single unified API architecture, with specialized marketplace features.",
+        "evidenceStatus": "DOCUMENTATION_VERIFIED",
+        "commercialDecisionRequired": true,
+        "estimatedCostModel": "Transaction fee basis (1.5% - 2.9% + fixed fee per local payment method)"
+      },
+      {
+        "providerClass": "PAYMENT",
+        "candidateName": "2C2P Payment Gateway",
+        "vendorEntity": "2C2P Pte. Ltd.",
+        "countriesCovered": [
+          "TH",
+          "SG",
+          "MY",
+          "VN",
+          "ID"
+        ],
+        "capabilities": [
+          "PromptPay, PayNow, FPX, DuitNow, NAPAS, QRIS",
+          "Over 400 payment methods across Southeast Asia",
+          "Multi-currency processing",
+          "Alternative Cash / OTC Payment (123 Service)"
+        ],
+        "limitations": [
+          "Developer onboarding typically requires enterprise sales engagement rather than instant self-serve sandbox"
+        ],
+        "sandboxAvailability": "Available upon enterprise sales contact",
+        "productionPrerequisites": [
+          "Master Merchant Agreement",
+          "Enterprise KYB"
+        ],
+        "sharedCoverage": true,
+        "suitabilityRationale": "Deepest regional licensing footprint in Thailand, Singapore, and Indonesia.",
+        "evidenceStatus": "DOCUMENTATION_VERIFIED",
+        "commercialDecisionRequired": true,
+        "estimatedCostModel": "Enterprise negotiated transaction fee structure"
+      },
+      {
+        "providerClass": "PAYMENT",
+        "candidateName": "Stripe APAC",
+        "vendorEntity": "Stripe Payments Singapore Pte. Ltd.",
+        "countriesCovered": [
+          "SG",
+          "MY",
+          "TH"
+        ],
+        "capabilities": [
+          "Singapore: PayNow, Cards, Apple Pay, Google Pay",
+          "Malaysia: FPX, DuitNow, Cards",
+          "Thailand: PromptPay, Cards",
+          "Marketplace Connect API"
+        ],
+        "limitations": [
+          "Indonesia is in preview (sales-gated)",
+          "Vietnam is NOT supported for merchant acquiring accounts",
+          "Cannot achieve 5-country coverage alone without a secondary gateway"
+        ],
+        "sandboxAvailability": "Instant developer sandbox",
+        "productionPrerequisites": [
+          "Stripe Singapore or Malaysia corporate registration"
+        ],
+        "sharedCoverage": false,
+        "suitabilityRationale": "Top-tier developer experience for SG, MY, TH, but incomplete for ID and VN.",
+        "evidenceStatus": "DOCUMENTATION_VERIFIED",
+        "commercialDecisionRequired": true,
+        "estimatedCostModel": "3.4% + $0.50 (SG) / 3.0% + RM1.00 (MY) / 3.65% (TH)"
+      }
+    ]
+  },
+  "payoutStrategy": {
+    "paymentPayoutSeparation": "Inbound payment collection and outbound provider payout are decoupled. Active bookings, open damage claims, and open disputes strictly place provider payouts on hold. Provider payouts require dedicated local disbursement rails with distinct bank routing validation.",
+    "recommendedProvider": "Xendit XenPlatform Payouts",
+    "candidateDossiers": [
+      {
+        "providerClass": "PAYOUT",
+        "candidateName": "Xendit XenPlatform Disbursements",
+        "vendorEntity": "Xendit Pte. Ltd.",
+        "countriesCovered": [
+          "TH",
+          "SG",
+          "MY",
+          "VN",
+          "ID"
+        ],
+        "capabilities": [
+          "Automated domestic bank transfers to 100+ ASEAN commercial banks",
+          "Thailand: PromptPay / Direct THB Bank Transfer",
+          "Singapore: FAST (Fast And Secure Transfers) in SGD",
+          "Malaysia: DuitNow / Interbank GIRO in MYR",
+          "Vietnam: NAPAS 247 Instant Transfer in VND",
+          "Indonesia: BI-FAST / Real-Time Bank Transfer in IDR",
+          "Batch Disbursements & Scheduled Payouts",
+          "Real-time Payout Status Webhooks & Reconciliation API"
+        ],
+        "limitations": [
+          "Pre-funding payout account balance required in respective local settlement currencies"
+        ],
+        "sandboxAvailability": "Available in Xendit sandbox with simulated bank success/failure callbacks",
+        "productionPrerequisites": [
+          "XenPlatform Payouts service agreement",
+          "Corporate bank account linkage for payout pre-funding"
+        ],
+        "sharedCoverage": true,
+        "suitabilityRationale": "Enables automated direct-to-bank provider payouts across all 5 Southeast Asian markets under a single API contract.",
+        "evidenceStatus": "DOCUMENTATION_VERIFIED",
+        "commercialDecisionRequired": true,
+        "estimatedCostModel": "Fixed fee per transfer (~$0.20 - $0.80 equivalent per disbursement)"
+      },
+      {
+        "providerClass": "PAYOUT",
+        "candidateName": "2C2P Payouts",
+        "vendorEntity": "2C2P Pte. Ltd.",
+        "countriesCovered": [
+          "TH",
+          "SG",
+          "MY",
+          "VN",
+          "ID"
+        ],
+        "capabilities": [
+          "Local bank account disbursements in THB, SGD, MYR, VND, IDR",
+          "E-wallet payouts (TrueMoney, GrabPay, ShopeePay)"
+        ],
+        "limitations": [
+          "Complex corporate onboarding"
+        ],
+        "sandboxAvailability": "Available on request",
+        "productionPrerequisites": [
+          "2C2P disbursement agreement"
+        ],
+        "sharedCoverage": true,
+        "suitabilityRationale": "Strong fallback payout provider across the same 5 countries.",
+        "evidenceStatus": "DOCUMENTATION_VERIFIED",
+        "commercialDecisionRequired": true,
+        "estimatedCostModel": "Negotiated flat rate per payout transaction"
+      }
+    ]
+  }
+}

@@ -1,0 +1,212 @@
+[
+  {
+    "questionId": "Q-TAX-TH-01",
+    "country": "TH",
+    "category": "TAX_INVOICE",
+    "statutoryReference": "Revenue Code Amendment Act (No. 53) B.E. 2564 (VAT on Electronic Services - VES)",
+    "preciseQuestion": "Is RENTipid obligated to register for and remit 7% VAT under Thailand's VES regime if its annual facilitation fee revenue from Thai users exceeds THB 1,800,000?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Configure automated 7% VAT surcharge on platform service fees in THB; register on Thai Revenue Department VES portal.",
+    "actionableConsequenceIfNo": "Service fees remain exempt from Thai output VAT until statutory turnover threshold is reached; log revenue tracking counter."
+  },
+  {
+    "questionId": "Q-TAX-TH-02",
+    "country": "TH",
+    "category": "TAX_INVOICE",
+    "statutoryReference": "Thai Revenue Code Section 3 Tre; Departmental Order Paw. 102/2544",
+    "preciseQuestion": "Are peer-to-peer equipment rental facilitation fees subject to 3% domestic withholding tax (WHT) when deducted from Thai host payouts?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Implement automated 3% WHT ledger deduction for Thai commercial hosts and generate monthly Thai withholding certificates (50 Tawi).",
+    "actionableConsequenceIfNo": "Withholding tax deduction is not applied to individual peer-to-peer hosts; gross rental minus standard platform fee is disbursed."
+  },
+  {
+    "questionId": "Q-COMP-TH-01",
+    "country": "TH",
+    "category": "LICENSING_REGISTRATION",
+    "statutoryReference": "Commercial Registration Act B.E. 2499; Ministry of Commerce Announcement B.E. 2553",
+    "preciseQuestion": "Must RENTipid obtain an e-Commerce Registration Certificate (DBD e-Commerce) from the Department of Business Development before facilitating rentals in Thailand?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Engage Thai legal proxy to register foreign enterprise with DBD and display the DBD Registered trust mark in the application footer.",
+    "actionableConsequenceIfNo": "Platform may operate under general cross-border digital services rules without domestic commercial store registration."
+  },
+  {
+    "questionId": "Q-COMP-TH-02",
+    "country": "TH",
+    "category": "MARKETPLACE_OPERATION",
+    "statutoryReference": "Royal Decree on the Operation of Digital Platform Service Businesses B.E. 2565",
+    "preciseQuestion": "Does RENTipid meet the criteria requiring formal annual notification to the Electronic Transactions Development Agency (ETDA)?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Submit digital platform service business notification to ETDA before exceeding THB 50M gross revenue or 5,000 monthly active users.",
+    "actionableConsequenceIfNo": "Classified as small/exempt platform; maintain standard record-keeping without formal ETDA regulatory filing."
+  },
+  {
+    "questionId": "Q-COMP-TH-03",
+    "country": "TH",
+    "category": "DATA_PRIVACY",
+    "statutoryReference": "Personal Data Protection Act B.E. 2562 (PDPA) Sections 28 and 29",
+    "preciseQuestion": "Does the transfer of Thai user data to AWS Singapore and Vercel infrastructure comply with PDPA cross-border transfer rules under standard contractual clauses?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Incorporate Thai PDPA standard contractual clauses into the Global Terms of Service and Privacy Policy.",
+    "actionableConsequenceIfNo": "Deploy local Thai data storage or obtain explicit unbundled user consent at time of registration."
+  },
+  {
+    "questionId": "Q-TAX-SG-01",
+    "country": "SG",
+    "category": "TAX_INVOICE",
+    "statutoryReference": "Goods and Services Tax Act 1993, Section 8(1) and Fourth Schedule (OVR Regime)",
+    "preciseQuestion": "Is RENTipid required to register under the Overseas Vendor Registration (OVR) regime for 9% GST on B2C platform facilitation fees if global turnover exceeds S$1M and Singapore digital supplies exceed S$100,000?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Implement 9% GST tax rule in jurisdiction-tax-registry for Singapore B2C service fees; file quarterly GST returns with IRAS.",
+    "actionableConsequenceIfNo": "Maintain tax-exempt status in Singapore jurisdiction engine until statutory OVR turnover thresholds are surpassed."
+  },
+  {
+    "questionId": "Q-TAX-SG-02",
+    "country": "SG",
+    "category": "TAX_INVOICE",
+    "statutoryReference": "IRAS e-Tax Guide: GST Invoice Requirements",
+    "preciseQuestion": "Does Singapore permit simplified electronic receipts containing GST registration number and total price inclusive of tax in lieu of full tax invoices for B2C consumer rentals?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Current RENTipid simplified receipt generation engine is legally sufficient for Singapore B2C consumers.",
+    "actionableConsequenceIfNo": "Extend receipt generator to include customer tax identification number and full IRAS tax invoice breakdown."
+  },
+  {
+    "questionId": "Q-COMP-SG-01",
+    "country": "SG",
+    "category": "CONSUMER_PROTECTION",
+    "statutoryReference": "Consumer Protection (Fair Trading) Act 2003 (CPFTA) and Lemon Law Provisions",
+    "preciseQuestion": "Do RENTipid's security deposit forfeiture and cancellation refund schedules comply with CPFTA unfair trade practice prohibitions?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Maintain standard moderate cancellation schedule (100% refund >48h, 50% >24h) for Singapore listings.",
+    "actionableConsequenceIfNo": "Amend cancellation tiers for SG listings to incorporate statutory cooling-off provisions or mandatory mediation clauses."
+  },
+  {
+    "questionId": "Q-COMP-SG-02",
+    "country": "SG",
+    "category": "DATA_PRIVACY",
+    "statutoryReference": "Personal Data Protection Act 2012 (PDPA) and Advisory Guidelines on NRIC Numbers",
+    "preciseQuestion": "Does the automated masking of Singapore NRIC numbers (retaining only the last 4 characters, e.g. SXXXX123A) satisfy PDPC regulatory guidelines for peer-to-peer user verification?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Enforce automated client/server NRIC redaction pattern in KYC adapter; preserve full image exclusively in secure vault.",
+    "actionableConsequenceIfNo": "Prohibit collection of NRIC entirely; restrict Singapore identity verification exclusively to passport or Singpass OAuth."
+  },
+  {
+    "questionId": "Q-TAX-MY-01",
+    "country": "MY",
+    "category": "TAX_INVOICE",
+    "statutoryReference": "Service Tax Act 2018; Service Tax on Digital Services (STDoDS) Regulations 2019",
+    "preciseQuestion": "Must RENTipid register as a Foreign Service Provider (FSP) with Royal Malaysian Customs Department for 8% Service Tax if annual digital services to Malaysian consumers exceed RM 500,000?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Configure 8% Service Tax on Malaysian marketplace platform fees; file bi-monthly SST-02A returns.",
+    "actionableConsequenceIfNo": "Service tax rate remains 0% until platform crosses RM 500,000 annual digital revenue in Malaysia."
+  },
+  {
+    "questionId": "Q-TAX-MY-02",
+    "country": "MY",
+    "category": "TAX_INVOICE",
+    "statutoryReference": "Inland Revenue Board of Malaysia (LHDN) Section 82C Income Tax Act 1967 (MyInvois)",
+    "preciseQuestion": "Is RENTipid required to integrate directly with the LHDN MyInvois API to issue validated e-invoices for domestic Malaysian rentals?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Develop LHDN MyInvois API adapter to submit invoice UUID and QR validation before delivering rental receipts.",
+    "actionableConsequenceIfNo": "Issue standard electronic receipts; Malaysian hosts self-report income on personal/corporate tax returns."
+  },
+  {
+    "questionId": "Q-COMP-MY-01",
+    "country": "MY",
+    "category": "CONSUMER_PROTECTION",
+    "statutoryReference": "Consumer Protection (Electronic Trade Transactions) Regulations 2012",
+    "preciseQuestion": "Does RENTipid comply with Regulation 3 requiring online marketplaces to disclose host business name, registration number, telephone, and full terms prior to contract completion?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Listing details view displays host verified badge, registration reference, and dispute resolution mechanism.",
+    "actionableConsequenceIfNo": "Add mandatory host registration disclosure banner on Malaysian listing and checkout pages."
+  },
+  {
+    "questionId": "Q-COMP-MY-02",
+    "country": "MY",
+    "category": "RESTRICTED_CATEGORIES",
+    "statutoryReference": "Road Transport Act 1987; Commercial Vehicles Licensing Board Act 1987",
+    "preciseQuestion": "Are peer-to-peer private vehicle rentals (peer-to-peer car sharing) prohibited without commercial hire and drive permits in Malaysia?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Enforce category policy in jurisdiction-category-policy-registry marking vehicle rentals in MY as RESTRICTED (requires commercial permit).",
+    "actionableConsequenceIfNo": "Allow general peer-to-peer vehicle rentals subject to standard host insurance validation."
+  },
+  {
+    "questionId": "Q-TAX-VN-01",
+    "country": "VN",
+    "category": "TAX_INVOICE",
+    "statutoryReference": "Circular No. 80/2021/TT-BTC; Law on Tax Administration No. 38/2019/QH14",
+    "preciseQuestion": "Is RENTipid obligated to register directly on the General Department of Taxation foreign supplier portal (etaxvn.gdt.gov.vn) to declare and pay 5% VAT and 5% CIT on Vietnam service fees?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Register for Vietnam Tax Identification Number (TIN) via GDT portal; configure 5% VAT withholding in billing engine.",
+    "actionableConsequenceIfNo": "Taxes are withheld by local commercial acquiring bank or Vietnam business hosts under Foreign Contractor Tax (FCT) rules."
+  },
+  {
+    "questionId": "Q-COMP-VN-01",
+    "country": "VN",
+    "category": "LICENSING_REGISTRATION",
+    "statutoryReference": "Decree No. 52/2013/ND-CP as amended by Decree No. 85/2021/ND-CP on E-Commerce",
+    "preciseQuestion": "Must RENTipid notify the Ministry of Industry and Trade (MOIT) through the online e-commerce management portal (online.gov.vn) before operating a rental marketplace targeting Vietnam?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Engage Vietnamese legal counsel to file e-commerce marketplace notification and display the verified MOIT seal.",
+    "actionableConsequenceIfNo": "Foreign platforms without Vietnamese domains or local legal entity are exempt from domestic MOIT notification."
+  },
+  {
+    "questionId": "Q-COMP-VN-02",
+    "country": "VN",
+    "category": "DATA_PRIVACY",
+    "statutoryReference": "Decree No. 13/2023/ND-CP on Personal Data Protection (PDPD) Article 25",
+    "preciseQuestion": "Is RENTipid required to prepare and file a Cross-Border Data Transfer Impact Assessment (DPIA) dossier with the Department of Cybersecurity (A05) within 60 days of transferring Vietnamese user data abroad?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Execute formal DPIA document (Form No. 04 under Decree 13) and submit to Ministry of Public Security.",
+    "actionableConsequenceIfNo": "Maintain standard user consent in privacy policy without formal administrative DPIA filing."
+  },
+  {
+    "questionId": "Q-TAX-ID-01",
+    "country": "ID",
+    "category": "TAX_INVOICE",
+    "statutoryReference": "Minister of Finance Regulation No. 60/PMK.03/2022 (VAT on Digital Services - PMSE)",
+    "preciseQuestion": "Must RENTipid collect 11% Value Added Tax (PPN) on digital platform fees from Indonesian users only upon formal appointment as a VAT collector by the Director General of Taxes (DJP)?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Indonesian VAT rate remains 0% until formal DJP appointment decree is issued; track sales towards IDR 600M threshold.",
+    "actionableConsequenceIfNo": "Voluntarily apply 11% PPN on all Indonesian marketplace facilitation fees immediately upon launch."
+  },
+  {
+    "questionId": "Q-COMP-ID-01",
+    "country": "ID",
+    "category": "LICENSING_REGISTRATION",
+    "statutoryReference": "Minister of Communication and Informatics Regulation No. 5/2020 (PSE Lingkup Privat)",
+    "preciseQuestion": "Is RENTipid required to register as a Foreign Private Scope Electronic System Operator (PSE Asing) with Kominfo through the OSS system to prevent domain/IP blocking?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Submit Foreign PSE registration via Kominfo Online Single Submission (OSS) portal and obtain Tanda Daftar PSE certificate.",
+    "actionableConsequenceIfNo": "Foreign PSE registration is not enforced for cross-border software platforms below commercial volume thresholds."
+  },
+  {
+    "questionId": "Q-COMP-ID-02",
+    "country": "ID",
+    "category": "DATA_PRIVACY",
+    "statutoryReference": "Law No. 27 of 2022 on Personal Data Protection (UU PDP) Articles 56 and 57",
+    "preciseQuestion": "Does transfer of Indonesian citizens' data to cloud servers in Singapore meet UU PDP transfer standards based on comparable data protection levels or explicit consent?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Standard explicit cross-border consent clause in onboarding flow satisfies UU PDP requirements.",
+    "actionableConsequenceIfNo": "Mandatory Indonesian data localization required for transactional user databases."
+  },
+  {
+    "questionId": "Q-REG-01",
+    "country": "TH, SG, MY, VN, ID",
+    "category": "MARKETPLACE_OPERATION",
+    "statutoryReference": "ASEAN Model Contractual Clauses for Cross Border Data Flows (ASEAN MCCs)",
+    "preciseQuestion": "Can RENTipid implement a single unified ASEAN Terms of Service incorporating the ASEAN MCCs to govern data flows across all 5 jurisdictions?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Consolidate regional legal terms into unified ASEAN schedule with jurisdiction-specific annexes.",
+    "actionableConsequenceIfNo": "Maintain 5 completely separate legal agreements for TH, SG, MY, VN, and ID."
+  },
+  {
+    "questionId": "Q-REG-02",
+    "country": "TH, SG, MY, VN, ID",
+    "category": "PAYMENTS_PAYOUTS",
+    "statutoryReference": "Cross-Border Merchant Acquiring & Exchange Control Regulations",
+    "preciseQuestion": "Can a Singapore-domiciled or Hong Kong-domiciled corporate entity lawfully receive customer payments and execute local host payouts across TH, MY, VN, and ID through an enterprise aggregator like Xendit?",
+    "expectedAnswerFormat": "YES / NO / CONDITIONALLY",
+    "actionableConsequenceIfYes": "Establish central regional merchant treasury without creating domestic corporate subsidiaries in all 5 countries.",
+    "actionableConsequenceIfNo": "Must incorporate local domestic operating entities in Thailand, Malaysia, Vietnam, and Indonesia."
+  }
+]

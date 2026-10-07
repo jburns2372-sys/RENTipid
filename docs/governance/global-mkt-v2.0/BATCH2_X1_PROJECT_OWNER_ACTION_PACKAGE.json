@@ -1,0 +1,103 @@
+[
+  {
+    "decisionId": "DEC-OWNER-001",
+    "category": "VENDOR_SELECTION",
+    "countriesAffected": [
+      "TH",
+      "SG",
+      "MY",
+      "VN",
+      "ID"
+    ],
+    "decisionRequired": "Authorize selection and procurement of an enterprise automated KYC/Identity verification vendor for Southeast Asia.",
+    "recommendedOption": "Sumsub Enterprise ASEAN Tier (Single integration supporting Thai Pink/Citizen ID, Singapore Singpass/NRIC, Malaysian MyKad, Vietnamese CCCD chip card, Indonesian e-KTP, and international passports with biometric 3D liveness).",
+    "alternatives": [
+      "Onfido (Entrust Group) — higher minimum annual commitment and slower onboarding.",
+      "Fragmented local providers (VNPT eKYC for VN, VIDA for ID, CTOS for MY) — results in 5 separate vendor contracts, API schemas, and maintenance overhead."
+    ],
+    "whyDecisionIsRequired": "Central bank regulations across all 5 countries mandate automated sanctions/PEP screening and government-linked identity validation for financial transactions. RENTipid in-house manual verification cannot lawfully satisfy financial KYC rules. Requires commercial SaaS contract approval.",
+    "costCommercialCommitmentIfKnown": "Pay-as-you-go volume model: approximately $1.00 – $1.80 USD per verified identity check, with low or zero upfront commitment.",
+    "whatHappensIfDelayed": "Hosts in TH, SG, MY, VN, and ID remain in BLOCKED KYC state and cannot legally receive rental payouts; Batch 2 cannot progress to Preview.",
+    "nextTechnicalActionAfterDecision": "Antigravity will implement `SumsubKycProviderAdapter` implementing `GlobalKycProviderAdapter` and wire sandbox API keys into `jurisdiction-kyc-registry.ts`."
+  },
+  {
+    "decisionId": "DEC-OWNER-002",
+    "category": "VENDOR_SELECTION",
+    "countriesAffected": [
+      "TH",
+      "SG",
+      "MY",
+      "VN",
+      "ID"
+    ],
+    "decisionRequired": "Authorize master merchant acquiring agreement with a regional Southeast Asian payment gateway.",
+    "recommendedOption": "Xendit (Full ASEAN Gateway covering PromptPay QR in TH, PayNow Dynamic QR in SG, FPX & DuitNow in MY, NAPAS in VN, and QRIS & Virtual Accounts in ID, with card processing).",
+    "alternatives": [
+      "2C2P (Deepest licensing footprint across ASEAN, but requires high-touch enterprise sales onboarding).",
+      "Stripe APAC (Excellent for SG/MY/TH, but leaves ID in preview and VN unsupported, forcing a second gateway integration)."
+    ],
+    "whyDecisionIsRequired": "Local payment acquiring requires licensed merchant onboarding under Bank of Thailand, MAS, Bank Negara Malaysia, State Bank of Vietnam, and Bank Indonesia regulations. Antigravity cannot sign commercial merchant contracts.",
+    "costCommercialCommitmentIfKnown": "Standard interchange + processing fee model (typically 1.5% - 2.9% + fixed local fee per transaction). No fixed upfront hardware cost.",
+    "whatHappensIfDelayed": "Payment collection for THB, SGD, MYR, VND, and IDR remains BLOCKED; renters cannot execute checkouts with domestic payment methods.",
+    "nextTechnicalActionAfterDecision": "Antigravity will implement `XenditPaymentProviderAdapter` implementing `GlobalPaymentProviderAdapter` and configure webhook handlers for payment authorization and capture."
+  },
+  {
+    "decisionId": "DEC-OWNER-003",
+    "category": "COMMERCIAL_CONTRACT",
+    "countriesAffected": [
+      "TH",
+      "SG",
+      "MY",
+      "VN",
+      "ID"
+    ],
+    "decisionRequired": "Authorize disbursement rail integration and local currency bank pre-funding terms for host payouts.",
+    "recommendedOption": "Xendit XenPlatform Automated Disbursements (Enables automated direct host bank transfers in THB via PromptPay, SGD via FAST, MYR via DuitNow, VND via NAPAS 247, and IDR via BI-FAST).",
+    "alternatives": [
+      "2C2P Payouts Rail.",
+      "Manual multi-currency bank wire transfers (Operationally unscalable, high bank fees of $15–$30 per transfer, error-prone)."
+    ],
+    "whyDecisionIsRequired": "Payment collection and provider payouts are strictly decoupled. Outbound host disbursements require dedicated bank clearinghouse connectivity and corporate account linkage.",
+    "costCommercialCommitmentIfKnown": "Fixed low transfer fee per disbursement (approx. $0.20 – $0.80 USD equivalent in local currency).",
+    "whatHappensIfDelayed": "Hosts cannot receive payout disbursements in local currency; payout status remains BLOCKED; full marketplace loop cannot close.",
+    "nextTechnicalActionAfterDecision": "Antigravity will implement `XenditPayoutProviderAdapter` implementing `GlobalPayoutProviderAdapter` with bank routing validation and reconciliation webhook support."
+  },
+  {
+    "decisionId": "DEC-OWNER-004",
+    "category": "LEGAL_ENGAGEMENT",
+    "countriesAffected": [
+      "TH",
+      "SG",
+      "MY",
+      "VN",
+      "ID"
+    ],
+    "decisionRequired": "Engage regional tax and corporate counsel to answer the 14 precise legal and tax questions in `BATCH2_X1_LEGAL_COMPLIANCE_REVIEW_PACKAGE.md`.",
+    "recommendedOption": "Retain a qualified regional Southeast Asian fintech legal counsel (e.g. Rajah & Tann, Baker McKenzie, or Tilleke & Gibbins) to provide written memorandum on non-resident platform tax (VES in TH, OVR GST in SG, STDoDS in MY, Circular 80 in VN, PMK 60 in ID).",
+    "alternatives": [
+      "Engage individual local attorneys in each of the 5 countries separately (higher aggregate cost and administrative friction)."
+    ],
+    "whyDecisionIsRequired": "Statutory tax compliance and legal liability cannot be certified by AI. Clear legal determination of registration thresholds protects RENTipid from regulatory fines and platform blacklisting.",
+    "costCommercialCommitmentIfKnown": "Fixed-scope legal memorandum fee (estimated $5,000 – $12,000 USD for regional 5-country review).",
+    "whatHappensIfDelayed": "Tax calculation and invoice generation must remain conservatively flagged as BLOCKED for real-world transactions.",
+    "nextTechnicalActionAfterDecision": "Antigravity will update `jurisdiction-tax-registry.ts` with definitive VAT/GST rates, threshold triggers, and invoicing schemas based on counsel’s written advice."
+  },
+  {
+    "decisionId": "DEC-OWNER-005",
+    "category": "REGULATORY_FILING",
+    "countriesAffected": [
+      "TH",
+      "VN",
+      "ID"
+    ],
+    "decisionRequired": "Authorize statutory foreign digital platform administrative filings: Thailand DBD e-commerce registration, Vietnam MOIT portal notification, and Indonesia Kominfo Foreign PSE registration.",
+    "recommendedOption": "Instruct local corporate secretarial services or legal proxy to submit required administrative filings through online portals (DBD Thailand, online.gov.vn in Vietnam, and OSS Kominfo in Indonesia).",
+    "alternatives": [
+      "Defer filings until local consumer volume crosses initial pilot thresholds (Risk: potential domain blocking by Kominfo in Indonesia or administrative notice from MOIT in Vietnam)."
+    ],
+    "whyDecisionIsRequired": "Statutory regulations in Indonesia, Vietnam, and Thailand require foreign digital platform notifications to operate legally without domain blocking.",
+    "costCommercialCommitmentIfKnown": "Nominal government filing fees and local proxy handling costs (estimated <$1,500 USD total).",
+    "whatHappensIfDelayed": "Statutory compliance gates remain BLOCKED; commercial launch in TH, VN, and ID cannot be certified.",
+    "nextTechnicalActionAfterDecision": "Antigravity will record filing registration identifiers and trust seals in `jurisdiction-compliance-registry.ts` and UI footer/trust components."
+  }
+]
