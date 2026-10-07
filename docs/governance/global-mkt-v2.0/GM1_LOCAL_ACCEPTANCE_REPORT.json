@@ -1,0 +1,45 @@
+{
+  "reportType": "GM1_LOCAL_ACCEPTANCE_REPORT",
+  "workstream": "RENTipid GLOBAL-MKT / v2.0 GLOBAL MARKETPLACE ACTIVATION",
+  "action": "GM-1 GLOBAL JURISDICTION & MARKET CAPABILITY FRAMEWORK",
+  "reportDate": "2026-10-07",
+  "status": "PASS",
+  "controllingCommit": {
+    "frozenGlccJxV12ApplicationSource": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+    "gm0OwnerApprovalGovernanceCommit": "aabc07fe953dac3643c523f15c6c0d0c29681453",
+    "gm1ApplicationCommit": "aeec8957f08b0660fd035818e22b666502fc077b"
+  },
+  "branch": "feat/global-mkt-v2.0",
+  "metrics": {
+    "authoritativeCountryCount": 46,
+    "globalMktJurisdictionCount": 46,
+    "duplicatedCountryMasterRegistry": false,
+    "marketCapabilitiesDefined": 24,
+    "marketCapabilityStatusesDefined": 7,
+    "activationStatesDefined": 14,
+    "countriesCommerciallyActive": 0,
+    "philippinesCommerciallyActive": false,
+    "chinaCommerciallyActive": false,
+    "thailandCommerciallyActive": false,
+    "chinaDeferredBlockers": 2,
+    "mainlandChinaPublicNetworkOperability": "NOT_CLAIMED",
+    "countryApplicationForksIntroduced": 0
+  },
+  "verificationSummary": {
+    "typecheck": "PASS",
+    "productionBuild": "PASS",
+    "jestUnitTestSuite": "PASS (21/21 passed)",
+    "standaloneRunnerSuite": "PASS (20/20 passed)",
+    "criteriaAThroughS": "PASS (19/19 passed)",
+    "activationSecurity": "PASS",
+    "databaseSchemaChanged": false,
+    "databaseMigrationsCreated": false,
+    "mannyPayModified": false,
+    "payMongoModified": false,
+    "previewModified": false,
+    "productionModified": false,
+    "frozenGlccV12Modified": false,
+    "blockingGm1Defects": 0
+  },
+  "nextPermittedAction": "PROJECT OWNER REVIEW OF GM-1"
+}

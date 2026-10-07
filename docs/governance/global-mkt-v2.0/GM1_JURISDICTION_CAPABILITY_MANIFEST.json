@@ -1,0 +1,61 @@
+{
+  "manifestType": "GM1_JURISDICTION_CAPABILITY_MANIFEST",
+  "workstream": "RENTipid GLOBAL-MKT / v2.0 GLOBAL MARKETPLACE ACTIVATION",
+  "action": "GM-1 GLOBAL JURISDICTION & MARKET CAPABILITY FRAMEWORK",
+  "releaseStatus": "LOCAL_ARCHITECTURAL_BASELINE_ESTABLISHED",
+  "authoritativeCountryCount": 46,
+  "marketCapabilitiesCount": 24,
+  "marketCapabilityStatusesCount": 7,
+  "marketActivationStatesCount": 14,
+  "commerciallyActiveCountryCount": 0,
+  "chinaDeferredBlockersCount": 2,
+  "chinaDeferredBlockers": [
+    "CN-BLK-001: ICP Filing / Commercial Telecommunications License Requirement (MIIT)",
+    "CN-BLK-002: Cross-Border Data Transfer / CAC Security Assessment Requirement"
+  ],
+  "mainlandChinaPublicNetworkOperability": "NOT_CLAIMED",
+  "commits": {
+    "frozenGlccJxV12ApplicationSource": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+    "frozenGlccJxV12GovernanceCommit": "d1afe858d00f23e62b20604dd516f675d9c6563e",
+    "gm0BaselineGovernanceCommit": "c5a0a609cb646dfa3bbfb7697a8ebc58af97b88b",
+    "gm0OwnerApprovalGovernanceCommit": "aabc07fe953dac3643c523f15c6c0d0c29681453",
+    "gm1ApplicationCommit": "aeec8957f08b0660fd035818e22b666502fc077b"
+  },
+  "branch": "feat/global-mkt-v2.0",
+  "worktree": "C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2",
+  "architectureConformity": {
+    "singleGlobalPlatformModel": "PASS",
+    "zeroCountryApplicationForks": "PASS",
+    "duplicatedCountryRegistry": "NO",
+    "failClosedActivationGating": "PASS",
+    "paymentPayoutSeparation": "PASS",
+    "authKycSeparation": "PASS",
+    "moneyAuthoritySeparation": "PASS",
+    "explicitOwnerGateRequired": "PASS"
+  },
+  "databaseSafety": {
+    "prismaSchemaChanged": false,
+    "databaseMigrationsCreated": false,
+    "databaseMutationRequiredForGm1": false
+  },
+  "thirdPartyIntegrationsSafety": {
+    "mannyPayModified": false,
+    "payMongoModified": false,
+    "newKycProviderIntegrated": false,
+    "newPaymentGatewayIntegrated": false,
+    "newPayoutRailIntegrated": false
+  },
+  "environmentsSafety": {
+    "previewModified": false,
+    "productionModified": false
+  },
+  "verificationResults": {
+    "typecheck": "PASS (tsc --noEmit, 0 errors)",
+    "productionBuild": "PASS (next build --webpack, 0 errors, 76 routes)",
+    "jestUnitTestSuite": "PASS (21/21 tests)",
+    "gm1StandaloneSuite": "PASS (20/20 checks)",
+    "criteriaAThroughS": "PASS (19/19 criteria)",
+    "glccCatalogRegression": "PASS (46 countries, 47 languages, 25 currencies intact)",
+    "activationSecurity": "PASS"
+  }
+}
