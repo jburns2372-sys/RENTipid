@@ -20,3 +20,4 @@ export * from './booking';
 export * from './communications';
 export * from './financial';
 export * from './post-transaction';
+export * from './compliance';
