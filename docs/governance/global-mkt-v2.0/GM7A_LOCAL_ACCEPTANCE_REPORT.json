@@ -1,0 +1,79 @@
+{
+  "workstream": "RENTipid GLOBAL-MKT / v2.0 — GLOBAL MARKETPLACE ACTIVATION",
+  "phase": "GM-7A",
+  "action": "GLOBAL DEPOSITS / CANCELLATIONS / REFUNDS / CLAIMS / DISPUTES / REVIEWS",
+  "status": "PASS",
+  "applicationCommit": "0148786051976ccb508247f0fc0fff9300b9ba48",
+  "branch": "feat/global-mkt-v2.0",
+  "timestamp": "2026-10-07T10:50:00Z",
+  "engines": {
+    "globalDepositEngine": "IMPLEMENTED",
+    "globalCancellationEngine": "IMPLEMENTED",
+    "globalRefundEntitlementEngine": "IMPLEMENTED",
+    "globalClaimEngine": "IMPLEMENTED",
+    "globalDisputeEngine": "IMPLEMENTED",
+    "globalReviewReputationEngine": "IMPLEMENTED"
+  },
+  "jurisdictionResolution": {
+    "authoritativeCountries": 46,
+    "resolvedProfiles": 46,
+    "countryForks": 0,
+    "commerciallyActiveCountries": 0,
+    "philippinesCommercialActive": false,
+    "chinaCommercialActive": false,
+    "thailandCommercialActive": false,
+    "chinaDeferredBlockersCount": 2,
+    "mainlandChinaPublicNetworkOperability": "NOT_CLAIMED"
+  },
+  "invariantsAndSecurityGuards": {
+    "cancellationRefundSeparation": "PASS",
+    "refundEntitlementProviderExecutionSeparation": "PASS",
+    "refundAmountAuthority": "PASS",
+    "cumulativeOverRefundProtection": "PASS",
+    "refundIdempotency": "PASS",
+    "depositAuthority": "PASS",
+    "depositProviderCapabilityCheck": "PASS",
+    "claimAuthorization": "PASS",
+    "claimLiabilityIsolation": "PASS",
+    "claimEvidenceSecurity": "PASS",
+    "disputeAuthority": "PASS",
+    "reviewEligibility": "PASS",
+    "reviewAggregateIntegrity": "PASS",
+    "stateTransitionSecurity": "PASS",
+    "paymentIntegration": "PASS",
+    "payoutEligibilityIntegration": "PASS",
+    "financialMoneyContract": "PASS"
+  },
+  "financialAndLedger": {
+    "ledgerCurrentState": "TRANSACTION_RECORD_ONLY + POST_TRANSACTION_EVENT_RECORDS",
+    "currencyContract": "STRICT_INTEGER_MINOR_UNITS_NO_FAKE_FX"
+  },
+  "providerBoundaries": {
+    "paymongoRegression": "PASS",
+    "mannypayStatus": "SEPARATE_WORKSTREAM_PENDING",
+    "mannypayModified": false,
+    "mockProvidersStatus": "TEST_ONLY"
+  },
+  "regressions": {
+    "gm1Regression": "PASS",
+    "gm2Regression": "PASS",
+    "gm3aRegression": "PASS",
+    "gm4aRegression": "PASS",
+    "gm5aRegression": "PASS",
+    "gm6aRegression": "PASS",
+    "glccRegression": "PASS"
+  },
+  "verificationGates": {
+    "typecheck": "PASS",
+    "unitTests": "PASS (7/7 suites, 208/208 tests passed)",
+    "targetedAcceptanceChecks": "PASS (25/25 checks passed)",
+    "build": "PASS (Next.js production build succeeded with webpack)"
+  },
+  "database": {
+    "schemaChange": false,
+    "migrationCreated": false,
+    "productionDatabaseModified": false,
+    "previewDatabaseModified": false
+  },
+  "nextAction": "GM-8A GLOBAL TAX / INVOICE / COMPLIANCE / RESTRICTED CATEGORIES + 46-COUNTRY PROVIDER / CAPABILITY MAPPING"
+}
