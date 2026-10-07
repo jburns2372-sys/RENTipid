@@ -71,6 +71,10 @@ import {
   getLawsByJurisdiction,
 } from '../../src/lib/compliance/registry';
 
+import {
+  resolveEffectiveLocale,
+} from '../../src/lib/glcc/locale-resolver';
+
 describe('GLCC-JX v1.2: Mainland China + Thailand Controlled Implementation Suite', () => {
 
   describe('1. Country Registry (46 Countries)', () => {
@@ -172,7 +176,7 @@ describe('GLCC-JX v1.2: Mainland China + Thailand Controlled Implementation Suit
       expect(isSupportedLanguageTag('zh-CN')).toBe(false); // No duplicate zh-CN
     });
 
-    test('th-TH is registered with pre-production QA_REQUIRED status', () => {
+    test('th-TH is registered with approved PRODUCTION_READY status and is production selectable', () => {
       const th = getLanguageDefinition('th-TH');
       expect(th).not.toBeNull();
       expect(th?.tag).toBe('th-TH');
@@ -180,10 +184,22 @@ describe('GLCC-JX v1.2: Mainland China + Thailand Controlled Implementation Suit
       expect(th?.nativeName).toBe('ไทย');
       expect(th?.direction).toBe('ltr');
       expect(th?.script).toBe('Thai');
-      expect(th?.releaseStatus).toBe('QA_REQUIRED');
+      expect(th?.releaseStatus).toBe('PRODUCTION_READY');
       expect(th?.legalTranslationStatus).toBe('APPROVED');
-      // Must NOT be production selectable
-      expect(isLanguageProductionSelectable('th-TH')).toBe(false);
+      // Must be production selectable
+      expect(isLanguageProductionSelectable('th-TH')).toBe(true);
+    });
+
+    test('Production-mode locale resolver resolves th-TH directly without QA override', () => {
+      const result = resolveEffectiveLocale(
+        {
+          explicitLocale: 'th-TH',
+          resolverMode: 'PRODUCTION',
+        }
+      );
+      expect(result.effectiveLocale).toBe('th-TH');
+      expect(result.isProductionSelectable).toBe(true);
+      expect(result.resolverMode).toBe('PRODUCTION');
     });
   });
 
