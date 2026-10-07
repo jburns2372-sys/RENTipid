@@ -16,4 +16,5 @@ export * from './location';
 export * from './pricing';
 export * from './supply';
 export * from './discovery';
-
+export * from './booking';
+export * from './communications';
