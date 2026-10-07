@@ -1,0 +1,46 @@
+{
+  "batch": "Batch 2 — Southeast Asia",
+  "date": "2026-10-07",
+  "scenarios": [
+    {
+      "scenarioId": "CB-001",
+      "sourceMarket": "PH (Philippines)",
+      "targetMarket": "TH (Thailand)",
+      "interaction": "Cross-Border Listing Discovery & In-App Inquiry",
+      "result": "PASS",
+      "details": "Philippine user discovers Bangkok listing and messages Thai host with contact privacy redaction applied."
+    },
+    {
+      "scenarioId": "CB-002",
+      "sourceMarket": "SG (Singapore)",
+      "targetMarket": "MY (Malaysia)",
+      "interaction": "Cross-Border Listing Discovery & Booking Request",
+      "result": "PASS",
+      "details": "Singapore renter discovers Kuala Lumpur listing; booking policy currency locked to MYR minor units without FX drift."
+    },
+    {
+      "scenarioId": "CB-003",
+      "sourceMarket": "MY (Malaysia)",
+      "targetMarket": "SG (Singapore)",
+      "interaction": "Cross-Border Listing Discovery & Provider Inquiry",
+      "result": "PASS",
+      "details": "Malaysian renter discovers Singapore listing; transaction currency locked to SGD."
+    },
+    {
+      "scenarioId": "CB-004",
+      "sourceMarket": "VN (Vietnam)",
+      "targetMarket": "TH (Thailand)",
+      "interaction": "Cross-Border Search & Discovery",
+      "result": "PASS",
+      "details": "Vietnamese user discovers Thai listing in Bangkok."
+    },
+    {
+      "scenarioId": "CB-005",
+      "sourceMarket": "ID (Indonesia)",
+      "targetMarket": "SG (Singapore)",
+      "interaction": "Cross-Border Discovery & Double-Booking Protection",
+      "result": "PASS",
+      "details": "Indonesian renter verifies date overlap guard on Singapore listing."
+    }
+  ]
+}

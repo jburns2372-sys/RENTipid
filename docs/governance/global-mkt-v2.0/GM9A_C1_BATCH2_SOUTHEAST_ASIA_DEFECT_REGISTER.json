@@ -1,0 +1,36 @@
+{
+  "batch": "Batch 2 — Southeast Asia (TH, SG, MY, VN, ID)",
+  "auditDate": "2026-10-07",
+  "defectsIdentified": 3,
+  "defectsResolved": 3,
+  "defectsDeferred": 0,
+  "defects": [
+    {
+      "defectId": "DEF-B2-001",
+      "title": "Missing Explicit Address Validation Profiles for MY, VN, ID",
+      "severity": "HIGH",
+      "status": "RESOLVED",
+      "description": "jurisdiction-address-registry.ts fell back to universal baseline without explicit postal format regex for Malaysia, Vietnam, and Indonesia.",
+      "remediation": "Added explicit AddressProfile entries for MY (5-digit Pos Malaysia), VN (5-digit national), and ID (5-digit Pos Indonesia) with local administrative subdivisions.",
+      "verification": "Passed in scripts/run-global-mkt-batch2-sea-tests.ts."
+    },
+    {
+      "defectId": "DEF-B2-002",
+      "title": "Mock Financial Adapters Lacked Southeast Asian Currency Coverage",
+      "severity": "MEDIUM",
+      "status": "RESOLVED",
+      "description": "MockPaymentProviderAdapter and MockPayoutProviderAdapter supported only PHP, USD, EUR, failing test harness runs in THB, SGD, MYR, VND, IDR.",
+      "remediation": "Expanded supportedCurrencies in both test-only adapters to include THB, SGD, MYR, VND, IDR.",
+      "verification": "Passed in scripts/run-global-mkt-batch2-sea-tests.ts."
+    },
+    {
+      "defectId": "DEF-B2-003",
+      "title": "Tax Registry Missing Specific Statutory References for Southeast Asia",
+      "severity": "MEDIUM",
+      "status": "RESOLVED",
+      "description": "Tax registry used generic international baseline rather than statutory tax profiles for TH (Revenue Dept 7% VAT), SG (IRAS 9% GST), MY (Customs 8% SST), VN (GDT Circular 80), and ID (DJP PMK 60/2022).",
+      "remediation": "Added explicit evidence-based tax profiles with statutory citations, tax invoice field requirements, and human review items.",
+      "verification": "Passed in scripts/run-gm8a-tests.ts and scripts/run-global-mkt-batch2-sea-tests.ts."
+    }
+  ]
+}

@@ -1,12 +1,14 @@
-# RENTipid GLOBAL-MKT / v2.0 — GM-9A-C1 Project Owner & External Action Register
+# RENTipid GLOBAL-MKT / v2.0 — Owner External Action Register
 
-This register records only real-world actions requiring Project Owner authorization, commercial vendor contracts, legal counsel reviews, or government filings.
+**Scope:** Actions required by Project Owner, Legal, and Finance to unblock commercial activation of Batch 2 markets.  
+**Date:** 2026-10-07  
 
-| Action ID | Title | Affected Countries | Capability | Action Required | Why External / Owner Action Required | Blocking Stage |
-|---|---|---|---|---|---|---|
-| **ACT-001** | Global Multi-Currency Payment Gateway Vendor Selection & Contracting | 40 jurisdictions | `PAYMENT_COLLECTION` | Select and execute commercial acquiring agreement with global payment provider (Stripe / Adyen / 2C2P) supporting international credit cards and European/Asian local payment methods. | Requires corporate legal signature, corporate bank account linkage, and commercial liability commitment. | GM-9A-B2 through GM-9A-B4 Local & Preview Acceptance |
-| **ACT-002** | International Provider Payout Rail Selection & Account Onboarding | 44 jurisdictions | `PROVIDER_PAYOUT` | Establish enterprise disbursement account (e.g. Stripe Connect, Wise Platform, or regional bank disbursement partners) for automated provider settlements. | Requires corporate banking verification, regulatory anti-money laundering (AML) onboarding, and treasury deposit authorization. | GM-9A-B2 through GM-9A-B5 Payout Automation |
-| **ACT-003** | Automated Global Identity / KYC Vendor Contracting | 45 jurisdictions | `KYC_VERIFICATION` | Contract an automated international identity verification service (e.g. Veriff, Sumsub, Stripe Identity) for optical document verification and facial biometric liveness checks across 46 countries. | Requires vendor agreement, billing contract, and data privacy processing agreement (DPA). | GM-9A-B2 through GM-9A-B6 Provider Automated KYC |
-| **ACT-004** | European Union DAC7 and Digital Platform Tax Governance Sign-Off | 30 jurisdictions | `TAX_INVOICE` | Obtain European tax counsel opinion on DAC7 annual platform reporting requirements, VAT liability on platform commission, and appointing an EU fiscal representative. | Statutory compliance sign-off requires qualified legal counsel or licensed tax advisor. | GM-9A-B4 Production Activation |
-| **ACT-005** | Thailand DBD E-Commerce Business Registration Filing | 1 jurisdictions | `MARKETPLACE_LICENSING` | Submit e-commerce registration under Thai Department of Business Development (DBD) for online rental marketplace operations. | Requires corporate government filing with the Thai Ministry of Commerce. | GM-9A-B2 Production Activation |
-| **ACT-006** | China In-Country Partnership & Commercial MIIT ICP License Application | 1 jurisdictions | `MARKETPLACE_LICENSING` | Engage domestic China joint venture entity or operating partner to apply for commercial telecommunications service license (ICP) and CAC data transfer assessment. | Chinese telecom law strictly limits ICP commercial licensing to qualifying domestic entities. | GM-9A-B6 Production Activation |
+---
+
+| Action ID | Category | Target Jurisdictions | Description | Required Sign-Off |
+|---|---|---|---|---|
+| **ACT-001** | Payment Acquiring | TH, SG, MY, VN, ID | Contract regional payment gateway supporting PromptPay (TH), PayNow (SG), FPX (MY), NAPAS (VN), QRIS (ID). | Owner / Finance |
+| **ACT-002** | Payout Disbursement | TH, SG, MY, VN, ID | Set up automated local currency bank disbursement rails (PromptPay, FAST, DuitNow, NAPAS, BI-FAST). | Owner / Banking |
+| **ACT-003** | Automated KYC | TH, SG, MY, VN, ID | Contract enterprise KYC vendor supporting national identity documents (Thai ID, Singpass, MyKad, CCCD, KTP). | Owner / Compliance |
+| **ACT-004** | Tax / E-Invoicing | TH, SG, MY, VN, ID | Secure formal tax opinions on digital platform VAT/GST/SST collection and statutory e-invoicing compliance. | Local Tax Counsel |
+| **ACT-005** | Statutory Registration | TH, SG, MY, VN, ID | Complete official regulatory filings: DBD (TH), CPFTA (SG), MOIT (VN), Kominfo PSE (ID). | Local Legal Counsel |

@@ -1,0 +1,11 @@
+{
+  "batch": "Batch 2 — Southeast Asia (TH, SG, MY, VN, ID)",
+  "executionDate": "2026-10-07",
+  "technicalReadiness": "PASS",
+  "realWorldReadiness": "BLOCKED_EXTERNAL",
+  "overallStatus": "BLOCKED",
+  "acceptedMarkets": 0,
+  "blockedMarkets": 5,
+  "commercialActiveMarkets": 0,
+  "actionItemsRequired": 25
+}
