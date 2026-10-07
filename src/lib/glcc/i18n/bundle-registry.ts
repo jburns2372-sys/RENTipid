@@ -3,7 +3,7 @@
  *
  * Provides authoritative compiled TranslationBundle instances for:
  * - 2 Core Baselines: en-PH, fil-PH
- * - 32 Full Candidates: ja-JP, de-DE, fr-FR, es-ES, ar-AE, ko-KR, pt-BR, zh-Hans, etc.
+ * - 33 Full Candidates: ja-JP, de-DE, fr-FR, es-ES, ar-AE, ko-KR, pt-BR, zh-Hans, th-TH, etc.
  * - 12 Regional Aliases: en-GB, en-CA, en-AU, en-SG, en-IN, en-MY, en-ID, pt-PT, fr-CA, ga-IE, mt-MT, ta-SG
  *
  * All bundles contain 2,208 canonical keys with strict BCP-47 compliance.
@@ -46,6 +46,7 @@ import slSI from './bundles/sl-SI.json';
 import svSE from './bundles/sv-SE.json';
 import viVN from './bundles/vi-VN.json';
 import zhHans from './bundles/zh-Hans.json';
+import thTH from './bundles/th-TH.json';
 
 // Helper to construct typed TranslationBundle
 function toBundle(data: { locale: string; direction?: string; version?: string; messages: Record<string, string> }): TranslationBundle {
@@ -95,6 +96,7 @@ const PRODUCTION_BUNDLE_MAP: Map<string, TranslationBundle> = new Map([
   ['sv-se', toBundle(svSE)],
   ['vi-vn', toBundle(viVN)],
   ['zh-hans', toBundle(zhHans)],
+  ['th-th', toBundle(thTH)],
 ]);
 
 // 12 Regional Shared Aliases mapping to base candidate bundles

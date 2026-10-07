@@ -270,6 +270,85 @@ export const INTERNATIONAL_REGISTER: LegalControlRecord[] = [
     officialName: 'Law No. 13.709/2018 - Lei Geral de Protecao de Dados Pessoais (LGPD)',
     primaryApplication: 'Personal-data protection and rights.',
     status: 'VALIDATION_REQUIRED'
+  },
+  // Mainland China Jurisdictional Register
+  {
+    lawId: 'CN-ECOM',
+    countryOrRegion: 'China',
+    officialName: 'E-Commerce Law of the People\'s Republic of China (2018)',
+    primaryApplication: 'E-commerce platform operator obligations, merchant verification, intellectual property protection, consumer rights, and joint liability.',
+    status: 'VALIDATION_REQUIRED'
+  },
+  {
+    lawId: 'CN-PIPL',
+    countryOrRegion: 'China',
+    officialName: 'Personal Information Protection Law of the People\'s Republic of China (PIPL, 2021)',
+    primaryApplication: 'Personal information processing, consent, cross-border data transfer, and data subject rights.',
+    status: 'VALIDATION_REQUIRED'
+  },
+  {
+    lawId: 'CN-DSL',
+    countryOrRegion: 'China',
+    officialName: 'Data Security Law of the People\'s Republic of China (2021)',
+    primaryApplication: 'Data classification, hierarchical protection, data security management obligations, and national core data rules.',
+    status: 'VALIDATION_REQUIRED'
+  },
+  {
+    lawId: 'CN-CSL',
+    countryOrRegion: 'China',
+    officialName: 'Cybersecurity Law of the People\'s Republic of China (2016)',
+    primaryApplication: 'Network security, critical information infrastructure protection, and user real-name identity verification.',
+    status: 'VALIDATION_REQUIRED'
+  },
+  {
+    lawId: 'CN-CONSUMER',
+    countryOrRegion: 'China',
+    officialName: 'Law of the People\'s Republic of China on the Protection of Consumer Rights and Interests',
+    primaryApplication: 'Consumer safety, fair terms, truth in advertising, and dispute resolution for online platforms.',
+    status: 'VALIDATION_REQUIRED'
+  },
+  {
+    lawId: 'CN-CIVIL-CODE',
+    countryOrRegion: 'China',
+    officialName: 'Civil Code of the People\'s Republic of China (Book III: Contracts)',
+    primaryApplication: 'Formation, execution, and breach remedies for lease contracts and electronic agreements.',
+    status: 'VALIDATION_REQUIRED'
+  },
+  // Thailand Jurisdictional Register
+  {
+    lawId: 'TH-PDPA',
+    countryOrRegion: 'Thailand',
+    officialName: 'Personal Data Protection Act B.E. 2562 (2019)',
+    primaryApplication: 'Data protection principles, consent requirements, cross-border transfer restrictions, and data controller duties.',
+    status: 'VALIDATION_REQUIRED'
+  },
+  {
+    lawId: 'TH-ETA',
+    countryOrRegion: 'Thailand',
+    officialName: 'Electronic Transactions Act B.E. 2544 (2001) as amended',
+    primaryApplication: 'Legal validity of electronic records, electronic signatures, and digital service contracts.',
+    status: 'VALIDATION_REQUIRED'
+  },
+  {
+    lawId: 'TH-DIGITAL-PLATFORM',
+    countryOrRegion: 'Thailand',
+    officialName: 'Royal Decree on the Operation of Digital Platform Service Businesses B.E. 2565 (2022)',
+    primaryApplication: 'Notification to ETDA, digital platform terms of service transparency, user verification, and takedown procedures.',
+    status: 'VALIDATION_REQUIRED'
+  },
+  {
+    lawId: 'TH-CONSUMER',
+    countryOrRegion: 'Thailand',
+    officialName: 'Consumer Protection Act B.E. 2522 (1979) as amended',
+    primaryApplication: 'Protection against unfair contract terms, misleading advertising, and unsafe rental goods.',
+    status: 'VALIDATION_REQUIRED'
+  },
+  {
+    lawId: 'TH-DIRECT-SALES',
+    countryOrRegion: 'Thailand',
+    officialName: 'Direct Sales and Direct Marketing Act B.E. 2545 (2002) as amended',
+    primaryApplication: 'Online marketing registration, return rights, and cooling-off period disclosures for consumers.',
+    status: 'VALIDATION_REQUIRED'
   }
 ];
 

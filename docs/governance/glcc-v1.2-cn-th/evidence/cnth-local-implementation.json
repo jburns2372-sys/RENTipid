@@ -1,0 +1,149 @@
+{
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "executionModel": "GEMINI 3.8 FLASH HIGH",
+  "currentAction": "CNTH-1 CONTROLLED LOCAL IMPLEMENTATION",
+  "timestamp": "2026-10-07T10:35:00.000Z",
+  "frozenBaseline": {
+    "release": "GLOBAL-W1 / GLCC v1.1",
+    "productionApplicationSourceSha": "d3846e327905fe3762c73bc7b26697a19d708fbb",
+    "governanceCommitSha": "d4896edf8262d307215bf5f407416a1924a2b3d6",
+    "frozenTags": [
+      "rentipid-glcc-v1.1-global-frozen",
+      "glcc-v1.1-global"
+    ],
+    "frozenReleaseIntegrity": "PASS",
+    "frozenReleaseModified": false
+  },
+  "workstreamIsolation": {
+    "branch": "feat/glcc-v1.2-cn-th-expansion",
+    "worktree": "RENTipid-GLCC-CNTH",
+    "mannypayBranch": "feat/pay-mp-v1.2-mannypay",
+    "mannypayTouched": false
+  },
+  "inventory": {
+    "countries": {
+      "before": 44,
+      "after": 46,
+      "added": ["CN", "TH"],
+      "duplicates": 0,
+      "cnCountryRecordValid": true,
+      "thCountryRecordValid": true
+    },
+    "currencies": {
+      "before": 23,
+      "after": 25,
+      "added": ["CNY", "THB"],
+      "duplicates": 0,
+      "cnyRecordValid": true,
+      "thbRecordValid": true
+    },
+    "languages": {
+      "before": 46,
+      "after": 47,
+      "added": ["th-TH"],
+      "zhHansReusedForChina": true,
+      "duplicateChineseFullPack": false,
+      "thThReleaseStatus": "QA_REQUIRED",
+      "thThProductionSelectable": false
+    },
+    "bundles": {
+      "fullLocalePacks": {
+        "before": 32,
+        "after": 33,
+        "added": "th-TH"
+      },
+      "sharedRegionalAliases": {
+        "count": 12,
+        "brokenAliases": 0
+      }
+    }
+  },
+  "thaiLocalePackMetrics": {
+    "tag": "th-TH",
+    "canonicalKeysTotal": 2208,
+    "translatedKeys": 2208,
+    "coveragePercentage": 100.0,
+    "missingRequiredKeys": 0,
+    "unknownKeys": 0,
+    "duplicateKeys": 0,
+    "placeholderMismatches": 0,
+    "formatErrors": 0,
+    "unicodeErrors": 0,
+    "invalidStrings": 0,
+    "requiredFallbackCount": 0,
+    "classCTechnicalTranslation": "COMPLETE",
+    "classCLegalApproval": "PENDING"
+  },
+  "chinaLanguageMetrics": {
+    "tag": "zh-Hans",
+    "reusedForChina": true,
+    "countriesServed": ["SG", "CN"],
+    "duplicatePackCreated": false,
+    "classCTechnicalTranslation": "COMPLETE",
+    "classCLegalApproval": "PENDING"
+  },
+  "timezones": {
+    "chinaTimezone": "Asia/Shanghai",
+    "chinaTimezoneStatus": "PASS",
+    "thailandTimezone": "Asia/Bangkok",
+    "thailandTimezoneStatus": "PASS"
+  },
+  "compliance": {
+    "chinaComplianceStatus": "VALIDATION_REQUIRED",
+    "chinaProductionActive": false,
+    "thailandComplianceStatus": "VALIDATION_REQUIRED",
+    "thailandProductionActive": false,
+    "legalSourceVerification": "PENDING"
+  },
+  "runtimeLocalization": {
+    "thThVisibleLocalization": "PASS",
+    "zhHansChinaRuntime": "PASS",
+    "thaiUiRendering": "PASS",
+    "thaiUnicodeErrors": 0
+  },
+  "independenceMatrix": {
+    "countryLanguageIndependence": "PASS",
+    "countryCurrencyIndependence": "PASS",
+    "languageCurrencyIndependence": "PASS"
+  },
+  "monetaryBoundaries": {
+    "paymentAuthority": "UNCHANGED",
+    "transactionCurrencyAuthority": "UNCHANGED",
+    "settlementCurrencyAuthority": "UNCHANGED",
+    "chargeCurrency": "PHP",
+    "settlementCurrency": "PHP"
+  },
+  "databaseImpact": {
+    "schemaChanges": false,
+    "migrationRequired": false
+  },
+  "regressionTests": {
+    "original44Countries": "PASS",
+    "original46Languages": "PASS",
+    "original32FullPacks": "PASS",
+    "original12Aliases": "PASS",
+    "original23Currencies": "PASS",
+    "jaJpRuntime": "PASS",
+    "arAeRtl": "PASS",
+    "authRbacNonRegression": "PASS"
+  },
+  "productionGating": {
+    "previewModified": false,
+    "productionModified": false,
+    "cnProductionActivated": false,
+    "thProductionActivated": false,
+    "thThProductionSelectable": false,
+    "blockingLocalDefects": 0
+  },
+  "gateStatus": {
+    "codeComplete": "PASS",
+    "localFunctional": "PASS",
+    "localDatabaseMigrated": "NOT REQUIRED — VERIFIED",
+    "localRequiredDataSeededSynced": "NOT REQUIRED — VERIFIED",
+    "localAcceptancePass": "PASS",
+    "previewMigrated": "HOLD — PREVIEW PROMOTION PROHIBITED",
+    "previewAcceptancePass": "HOLD",
+    "productionReady": "HOLD",
+    "closedFrozen": "HOLD"
+  }
+}
