@@ -347,24 +347,61 @@ export function executeAdminReview(input: {
 /**
  * Builds a GlobalTrustProfile representation for an account.
  */
-export function buildGlobalTrustProfile(input: {
-  accountId: string;
-  operatingJurisdiction: string;
-  subjectType: SubjectType;
-  identityState?: VerificationState;
-  kycState?: VerificationState;
-  businessVerificationState?: VerificationState;
-  providerVerificationState?: VerificationState;
-  contactVerificationState?: VerificationState;
-  requiredDocuments?: readonly DocumentCategory[];
-  submittedDocuments?: readonly SubmittedDocumentReference[];
-  providerAdapter?: string;
-  providerReference?: string | null;
-  verifiedAt?: string | null;
-  expiresAt?: string | null;
-  reviewAuthority?: string | null;
-  blockingReasons?: readonly string[];
-}): GlobalTrustProfile {
+export function buildGlobalTrustProfile(
+  arg1:
+    | {
+        accountId: string;
+        operatingJurisdiction: string;
+        subjectType: SubjectType;
+        identityState?: VerificationState;
+        kycState?: VerificationState;
+        businessVerificationState?: VerificationState;
+        providerVerificationState?: VerificationState;
+        contactVerificationState?: VerificationState;
+        requiredDocuments?: readonly DocumentCategory[];
+        submittedDocuments?: readonly SubmittedDocumentReference[];
+        providerAdapter?: string;
+        providerReference?: string | null;
+        verifiedAt?: string | null;
+        expiresAt?: string | null;
+        reviewAuthority?: string | null;
+        blockingReasons?: readonly string[];
+      }
+    | string,
+  arg2?: string,
+  arg3?: SubjectType,
+  arg4?: VerificationState
+): GlobalTrustProfile {
+  let input: {
+    accountId: string;
+    operatingJurisdiction: string;
+    subjectType: SubjectType;
+    identityState?: VerificationState;
+    kycState?: VerificationState;
+    businessVerificationState?: VerificationState;
+    providerVerificationState?: VerificationState;
+    contactVerificationState?: VerificationState;
+    requiredDocuments?: readonly DocumentCategory[];
+    submittedDocuments?: readonly SubmittedDocumentReference[];
+    providerAdapter?: string;
+    providerReference?: string | null;
+    verifiedAt?: string | null;
+    expiresAt?: string | null;
+    reviewAuthority?: string | null;
+    blockingReasons?: readonly string[];
+  };
+
+  if (typeof arg1 === 'string') {
+    input = {
+      accountId: arg1,
+      operatingJurisdiction: arg2 || 'PH',
+      subjectType: arg3 || 'INDIVIDUAL',
+      kycState: arg4 || 'NOT_STARTED',
+    };
+  } else {
+    input = arg1;
+  }
+
   const kycProfile = getJurisdictionKycProfile(input.operatingJurisdiction);
   const requiredDocs = input.requiredDocuments || kycProfile?.identityDocumentsRequired || [];
   

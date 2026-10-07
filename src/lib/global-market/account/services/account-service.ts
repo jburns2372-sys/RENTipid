@@ -52,15 +52,16 @@ export function resolveOperatingJurisdiction(countryInput: string | null | undef
   if (!trimmed) return null;
 
   const upper = trimmed.toUpperCase();
+  const cleanCode = upper.startsWith('JUR-') ? upper.substring(4) : upper;
 
   // 1. Direct ISO 3166-1 alpha-2 check against GM-1
-  const directProfile = getJurisdictionProfile(upper);
+  const directProfile = getJurisdictionProfile(cleanCode);
   if (directProfile) {
     return directProfile.countryCode;
   }
 
   // 2. Case-insensitive match against GLCC official names
-  const lowerName = trimmed.toLowerCase();
+  const lowerName = cleanCode.toLowerCase();
   const countryByName = GLOBAL_COUNTRY_CATALOG.find(
     c => c.name.toLowerCase() === lowerName || c.code.toLowerCase() === lowerName
   );

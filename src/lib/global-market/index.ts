@@ -12,4 +12,8 @@ export * from './activation/market-activation-gate';
 export * from './registry/market-capability-registry';
 export * from './account';
 export * from './trust';
+export * from './location';
+export * from './pricing';
+export * from './supply';
+export * from './discovery';
 
