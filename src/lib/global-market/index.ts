@@ -11,4 +11,5 @@ export * from './contracts';
 export * from './activation/market-activation-gate';
 export * from './registry/market-capability-registry';
 export * from './account';
+export * from './trust';
 
