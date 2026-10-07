@@ -1,0 +1,71 @@
+{
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-5R1 TARGETED LOCAL THAI PRODUCTION ELIGIBILITY REMEDIATION",
+  "executionModel": "GEMINI 3.8 FLASH HIGH",
+  "timestamp": "2026-10-07T06:31:00.000Z",
+  "incidentReference": {
+    "failedAction": "CNTH-5 CONTROLLED PRODUCTION ACTIVATION + ACCEPTANCE",
+    "failedStatus": "FAIL-ROLLED-BACK",
+    "failedProductionCandidate": "0734f9930d3b16566f09637b35ca61406b25888a",
+    "failedDeploymentId": "dpl_6FrhmpiGAG1uHSqg4ZP5BdL2TLRt",
+    "rollbackTargetDeploymentId": "dpl_754t6JhqcPjLVzdh5wNBCm6QCBA3",
+    "restoredApplicationSha": "d3846e327905fe3762c73bc7b26697a19d708fbb",
+    "governanceFailureCommit": "1b27ba5d6ed2e794f543ed58d179508ef1bafa0a"
+  },
+  "rootCauseAnalysis": {
+    "rootCauseConfirmed": true,
+    "component": "src/lib/glcc/language/language-registry.ts",
+    "mechanism": "th-TH was registered with releaseStatus 'QA_REQUIRED'. In Preview mode, this allowed resolution via glcc_qa=true, but under Production runtime (VERCEL_ENV=production), the Production Firewall in src/lib/glcc/locale-resolver.ts enforces that only locales with releaseStatus === 'PRODUCTION_READY' are eligible. Consequently, SSR requests with th-TH failed closed to en-PH."
+  },
+  "sourceRemediation": {
+    "targetFile": "src/lib/glcc/language/language-registry.ts",
+    "previousReleaseStatus": "QA_REQUIRED",
+    "correctedReleaseStatus": "PRODUCTION_READY",
+    "legalTranslationStatus": "APPROVED",
+    "productionSelectability": true,
+    "qaOverrideRequired": false
+  },
+  "testEvidence": {
+    "typecheck": "PASS",
+    "productionBuild": "PASS (next build --webpack, 0 errors)",
+    "targetedSuites": [
+      { "name": "tests/glcc/cnth-expansion.test.ts", "tests": 36, "result": "PASS" },
+      { "name": "tests/foundation/health-route.test.ts", "tests": 3, "result": "PASS" },
+      { "name": "tests/glcc/guest-route.test.ts", "tests": 14, "result": "PASS" },
+      { "name": "tests/glcc/preference-route.test.ts", "tests": 19, "result": "PASS" },
+      { "name": "tests/glcc/p4b-route-binding.test.ts", "tests": 20, "result": "PASS" },
+      { "name": "tests/auth/login-page.test.ts", "tests": 10, "result": "PASS" },
+      { "name": "tests/auth/whatsapp-otp-verification-stall.test.ts", "tests": 10, "result": "PASS" }
+    ],
+    "totalTargetedTests": 112,
+    "targetedPassRate": "100%",
+    "localProductionModeResolution": "PASS",
+    "localVisibleLocalization": "PASS"
+  },
+  "invariantsPreserved": {
+    "countries": 46,
+    "languages": 47,
+    "fullLocalePacks": 33,
+    "aliases": 12,
+    "currencies": 25,
+    "thaiCanonicalKeys": 2208,
+    "thaiClassCKeys": 241,
+    "databaseSchemaChange": false,
+    "databaseMigration": false,
+    "paymentAuthority": "UNCHANGED (PHP)"
+  },
+  "remediationCommits": {
+    "correctedApplicationSha": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6"
+  },
+  "gateLifecycle": {
+    "unaffectedGates": [
+      "CNTH-1 (Local Implementation Baseline)",
+      "CNTH-2 (Legal & Compliance Validation)",
+      "Human Legal Sign-Off (Approved by Jonathan Amoroso)"
+    ],
+    "reopenedGateChain": [
+      "CNTH-5R2 (Corrected Preview Activation & Acceptance on 9c69fd0)",
+      "CNTH-5R3 (Corrected Production Activation & Acceptance on 9c69fd0)"
+    ]
+  }
+}
