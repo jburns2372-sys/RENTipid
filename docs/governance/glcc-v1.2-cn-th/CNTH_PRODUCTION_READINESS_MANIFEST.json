@@ -1,0 +1,136 @@
+{
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-4 PRODUCTION READINESS, SOURCE-DELTA AUDIT & EXACT-CANDIDATE CONTROL",
+  "manifestVersion": "1.2.0",
+  "authoritativeDate": "2026-10-07",
+  "executionModel": "GEMINI 3.8 FLASH HIGH",
+  "productionCandidate": {
+    "applicationCommit": "0734f9930d3b16566f09637b35ca61406b25888a",
+    "sourceIdenticalToAcceptedPreview": true,
+    "noSourceChangeAfterPreview": true,
+    "postPreviewRuntimeDiff": 0
+  },
+  "previewVerification": {
+    "deploymentId": "dpl_8teCR6cDZkxKVeMMC8dTqYpbw33G",
+    "deploymentUrl": "https://ren-tipid-rby57rzrq-jburns2372-sys-projects.vercel.app",
+    "deployedSha": "0734f9930d3b16566f09637b35ca61406b25888a",
+    "shaMatch": true,
+    "status": "PREVIEW_ACCEPTED",
+    "blockingPreviewDefects": 0
+  },
+  "governanceBaseline": {
+    "cnth3GovernanceCommit": "ae1c2af84d798cfb7e34cd23a6822dea98292e2b",
+    "frozenV11ApplicationSource": "d3846e327905fe3762c73bc7b26697a19d708fbb",
+    "frozenV11GovernanceCommit": "d4896edf8262d307215bf5f407416a1924a2b3d6",
+    "frozenV11Integrity": "PASS"
+  },
+  "sourceDeltaAudit": {
+    "totalFilesAudited": 32,
+    "classifications": {
+      "CNTH_FEATURE_REQUIRED": 2,
+      "NEXT16_BUILD_COMPATIBILITY_REQUIRED": 24,
+      "TESTABILITY_NONBEHAVIORAL_REQUIRED": 6,
+      "PREEXISTING_DEFECT_CORRECTION": 0,
+      "UNJUSTIFIED_SCOPE_EXPANSION": 0
+    },
+    "auditResult": "PASS",
+    "referenceDocument": "docs/governance/glcc-v1.2-cn-th/CNTH_SOURCE_DELTA_AUDIT.md"
+  },
+  "subsystemAudits": {
+    "healthRoute": {
+      "status": "PASS",
+      "classification": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "evidence": "tests/foundation/health-route.test.ts (3/3 PASS)"
+    },
+    "preferencesRoute": {
+      "status": "PASS",
+      "classification": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "evidence": "tests/glcc/guest-route.test.ts (14/14 PASS), tests/glcc/preference-route.test.ts (19/19 PASS), tests/glcc/p4b-route-binding.test.ts (20/20 PASS)"
+    },
+    "authCallbackAndLogin": {
+      "status": "PASS",
+      "classification": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "evidence": "tests/auth/login-page.test.ts (10/10 PASS), tests/auth/whatsapp-otp-verification-stall.test.ts (10/10 PASS)"
+    },
+    "pageSignatures": {
+      "status": "PASS",
+      "affectedPages": 15,
+      "unjustifiedPageChanges": 0,
+      "evidence": "TypeScript typecheck and Next.js build compilation exit 0"
+    }
+  },
+  "technicalReadiness": {
+    "typecheck": "PASS",
+    "build": "PASS",
+    "targetedRegression": "PASS",
+    "targetedSuitesPassed": 7,
+    "targetedTotalTests": 111,
+    "targetedFailedTests": 0
+  },
+  "marketBlockersDisposition": {
+    "chinaPotentialMarketBlockers": 2,
+    "chinaGlccProductionBlockers": 0,
+    "chinaGlobalMktV2DeferredBlockers": 2,
+    "mainlandChinaPublicNetworkOperability": "NOT_CLAIMED",
+    "items": [
+      {
+        "id": "CN-BLK-001",
+        "title": "MIIT ICP / B21 EDI License",
+        "glccProductionStatus": "NON_BLOCKING",
+        "globalMktV2Status": "BLOCKING_PREREQUISITE"
+      },
+      {
+        "id": "CN-BLK-002",
+        "title": "Cross-Border Data Transfer / CAC SCC",
+        "glccProductionStatus": "NON_BLOCKING",
+        "globalMktV2Status": "BLOCKING_PREREQUISITE"
+      }
+    ]
+  },
+  "addressLimitationsDisposition": {
+    "chinaAddressGlccProductionBlockers": 0,
+    "thailandAddressGlccProductionBlockers": 0,
+    "glccAddressProductionBlockers": 0,
+    "status": "PASS_WITH_DOCUMENTED_NONBLOCKING_LIMITATION",
+    "details": "Standard international free-form address supported for China and Thailand. Automated national postal code lookup deferred to GLOBAL-MKT v2.0."
+  },
+  "productionEnvironment": {
+    "databaseMigrationRequired": false,
+    "databaseSchemaChangeRequired": false,
+    "newProductionSecretsRequired": false,
+    "paymentProviderChangeRequired": false,
+    "mannyPayChangeRequired": false,
+    "productionEnvChangeRequired": false,
+    "productionModified": false,
+    "databaseModified": false
+  },
+  "financialAuthority": {
+    "paymentAuthority": "UNCHANGED",
+    "transactionCurrencyAuthority": "UNCHANGED",
+    "settlementCurrencyAuthority": "UNCHANGED",
+    "chargeCurrency": "PHP",
+    "foreignCurrencies": "DISPLAY_ONLY"
+  },
+  "globalMktCommercialHandoff": {
+    "commercialActivationStatus": "DEFERRED_TO_V2",
+    "chinaGlobalMktCommercialActive": false,
+    "thailandGlobalMktCommercialActive": false,
+    "globalMktV2Status": "NOT_STARTED",
+    "referenceDocument": "docs/governance/glcc-v1.2-cn-th/CNTH_GLOBAL_MKT_V2_HANDOFF.md"
+  },
+  "mobileRelease": {
+    "androidGlobalRelease": "FUTURE GLOBAL-MKT / MOBILE RELEASE WORKSTREAM",
+    "iosGlobalRelease": "FUTURE GLOBAL-MKT / MOBILE RELEASE WORKSTREAM"
+  },
+  "deploymentMethod": {
+    "strategy": "EXACT_COMMIT_WORKTREE_DEPLOYMENT",
+    "targetCommit": "0734f9930d3b16566f09637b35ca61406b25888a",
+    "description": "Clean checkout or git ref pointing to exact application candidate SHA 0734f9930d3b16566f09637b35ca61406b25888a deployed with controlled production activation flags."
+  },
+  "recommendation": {
+    "chinaGlccProductionReadiness": "PASS",
+    "thailandGlccProductionReadiness": "PASS",
+    "overallStatus": "PASS",
+    "nextPermittedAction": "CNTH-5 CONTROLLED PRODUCTION ACTIVATION + ACCEPTANCE"
+  }
+}

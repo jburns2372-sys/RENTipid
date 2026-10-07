@@ -1,0 +1,335 @@
+{
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-4 PRODUCTION READINESS, SOURCE-DELTA AUDIT & EXACT-CANDIDATE CONTROL",
+  "baselineCommit": "2d8dbde945b7af12ff99b8ece764e81e601779be",
+  "previewCandidateCommit": "0734f9930d3b16566f09637b35ca61406b25888a",
+  "totalFilesAudited": 32,
+  "summary": {
+    "CNTH_FEATURE_REQUIRED": 2,
+    "NEXT16_BUILD_COMPATIBILITY_REQUIRED": 24,
+    "TESTABILITY_NONBEHAVIORAL_REQUIRED": 6,
+    "PREEXISTING_DEFECT_CORRECTION": 0,
+    "UNJUSTIFIED_SCOPE_EXPANSION": 0
+  },
+  "runtimeFiles": [
+    {
+      "file": "src/lib/glcc/language/language-registry.ts",
+      "category": "CNTH_FEATURE_REQUIRED",
+      "reason": "Transition Thai (th-TH) legal translation approval status to APPROVED following human counsel decision",
+      "behaviorBefore": "legalTranslationStatus: 'REVIEW_REQUIRED'",
+      "behaviorAfter": "legalTranslationStatus: 'APPROVED'",
+      "testEvidence": "tests/glcc/cnth-expansion.test.ts (35/35 PASS)",
+      "cnthDependency": true,
+      "productionRisk": "LOW (releaseStatus remains QA_REQUIRED, preserving production firewall)",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/lib/health.ts",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Decouple getHealthResponse and HealthDatabase type from route.ts to satisfy Next.js 16 route handler export rules",
+      "behaviorBefore": "Exported from src/app/api/health/route.ts",
+      "behaviorAfter": "Exported from dedicated library module src/lib/health.ts",
+      "testEvidence": "tests/foundation/health-route.test.ts (3/3 PASS)",
+      "cnthDependency": false,
+      "productionRisk": "NONE (identical SQL ping query and HTTP status)",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/api/health/route.ts",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Remove non-handler exports from route handler to satisfy Next.js 16 App Router compiler validation",
+      "behaviorBefore": "Exported getHealthResponse, HealthDatabase, and GET",
+      "behaviorAfter": "Exports only dynamic config and GET handler calling getHealthResponse(prisma)",
+      "testEvidence": "tests/foundation/health-route.test.ts (3/3 PASS), Preview health check (200 OK)",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/lib/glcc/guest-preferences-handlers.ts",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Decouple createGuestPreferencesRouteHandlers from route.ts to satisfy Next.js 16 route handler export rules",
+      "behaviorBefore": "Exported from src/app/api/preferences/route.ts",
+      "behaviorAfter": "Exported from dedicated library module src/lib/glcc/guest-preferences-handlers.ts",
+      "testEvidence": "tests/glcc/guest-route.test.ts (14/14 PASS), tests/glcc/p4b-route-binding.test.ts (20/20 PASS)",
+      "cnthDependency": true,
+      "productionRisk": "NONE (identical request parsing, validation, cookie signing, and response formatting)",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/api/preferences/route.ts",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Export only standard HTTP method handlers from route.ts to satisfy Next.js 16 route handler compiler",
+      "behaviorBefore": "Exported factory function and interfaces alongside GET, PATCH, PUT",
+      "behaviorAfter": "Exports only dynamic config and GET, PATCH, PUT handlers",
+      "testEvidence": "tests/glcc/guest-route.test.ts, Live Preview /api/preferences checks",
+      "cnthDependency": true,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/lib/glcc/me-preferences-handlers.ts",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Decouple createPreferencesRouteHandlers from route.ts to satisfy Next.js 16 route handler export rules",
+      "behaviorBefore": "Exported from src/app/api/me/preferences/route.ts",
+      "behaviorAfter": "Exported from dedicated library module src/lib/glcc/me-preferences-handlers.ts",
+      "testEvidence": "tests/glcc/preference-route.test.ts (19/19 PASS), tests/glcc/p4b-route-binding.test.ts (20/20 PASS)",
+      "cnthDependency": true,
+      "productionRisk": "NONE (identical account preference resolution, RBAC, reconciliation, and audit logging)",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/api/me/preferences/route.ts",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Export only standard HTTP method handlers from route.ts to satisfy Next.js 16 route handler compiler",
+      "behaviorBefore": "Exported factory function and types alongside GET, PATCH, PUT",
+      "behaviorAfter": "Exports only dynamic config and GET, PATCH, PUT handlers",
+      "testEvidence": "tests/glcc/preference-route.test.ts (19/19 PASS)",
+      "cnthDependency": true,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/lib/auth-callback.ts",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Decouple normalizeLoginCallbackUrl from client page component to prevent bundler/page prop typing conflicts",
+      "behaviorBefore": "Exported from src/app/login/page.tsx",
+      "behaviorAfter": "Exported from dedicated library module src/lib/auth-callback.ts",
+      "testEvidence": "tests/auth/login-page.test.ts (10/10 PASS), tests/auth/whatsapp-otp-verification-stall.test.ts (10/10 PASS)",
+      "cnthDependency": false,
+      "productionRisk": "NONE (identical URL validation, same-origin checking, and fallback behavior)",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/login/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Import normalizeLoginCallbackUrl from src/lib/auth-callback.ts",
+      "behaviorBefore": "Defined normalizeLoginCallbackUrl directly in page file",
+      "behaviorAfter": "Imports normalizeLoginCallbackUrl from dedicated helper module",
+      "testEvidence": "tests/auth/login-page.test.ts (10/10 PASS), Live Preview login testing",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/api/documents/[id]/route.ts",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async params promise context signature for Next.js 16 route handler typing",
+      "behaviorBefore": "Used context: RouteContext<'/api/documents/[id]'>",
+      "behaviorAfter": "Uses context: { params: Promise<{ id: string }> }",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/admin/privacy/requests/[requestId]/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async params promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous params: { requestId: string }",
+      "behaviorAfter": "Async params: Promise<{ requestId: string }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/admin/security/alerts/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async searchParams promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous searchParams: { ... }",
+      "behaviorAfter": "Async searchParams: Promise<{ ... }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/admin/security/approvals/[requestId]/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async params promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous params: { requestId: string }",
+      "behaviorAfter": "Async params: Promise<{ requestId: string }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/admin/security/playbooks/[playbookId]/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async params promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous params: { playbookId: string }",
+      "behaviorAfter": "Async params: Promise<{ playbookId: string }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/admin/security/responses/[executionId]/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async params promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous params: { executionId: string }",
+      "behaviorAfter": "Async params: Promise<{ executionId: string }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/admin/users/[userId]/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async params promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous params: { userId: string }",
+      "behaviorAfter": "Async params: Promise<{ userId: string }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/admin/users/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async searchParams promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous searchParams: { ... }",
+      "behaviorAfter": "Async searchParams: Promise<{ ... }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/compliance/prohibited-items/appeals/[id]/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async params promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous params: { id: string }",
+      "behaviorAfter": "Async params: Promise<{ id: string }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/compliance/prohibited-items/appeals/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async searchParams promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous searchParams: { ... }",
+      "behaviorAfter": "Async searchParams: Promise<{ ... }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/compliance/prohibited-items/enforcement/[id]/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async params promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous params: { id: string }",
+      "behaviorAfter": "Async params: Promise<{ id: string }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/compliance/prohibited-items/enforcement/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async searchParams promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous searchParams: { ... }",
+      "behaviorAfter": "Async searchParams: Promise<{ ... }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/compliance/prohibited-items/policies/[id]/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async params promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous params: { id: string }",
+      "behaviorAfter": "Async params: Promise<{ id: string }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/social/approvals/[id]/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async params promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous params: { id: string }",
+      "behaviorAfter": "Async params: Promise<{ id: string }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/social/content/[postId]/edit/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async params promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous params: { postId: string }",
+      "behaviorAfter": "Async params: Promise<{ postId: string }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "src/app/dashboard/social/feedback/[id]/page.tsx",
+      "category": "NEXT16_BUILD_COMPATIBILITY_REQUIRED",
+      "reason": "Adopt async params promise signature required by Next.js 16 page component types",
+      "behaviorBefore": "Synchronous params: { id: string }",
+      "behaviorAfter": "Async params: Promise<{ id: string }>",
+      "testEvidence": "npx tsc --noEmit, next build --webpack",
+      "cnthDependency": false,
+      "productionRisk": "NONE",
+      "recommendation": "KEEP"
+    }
+  ],
+  "testFiles": [
+    {
+      "file": "tests/glcc/cnth-expansion.test.ts",
+      "category": "CNTH_FEATURE_REQUIRED",
+      "reason": "Update expectation for Thai (th-TH) legal translation status to APPROVED",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "tests/foundation/health-route.test.ts",
+      "category": "TESTABILITY_NONBEHAVIORAL_REQUIRED",
+      "reason": "Update import path to import getHealthResponse from @/lib/health",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "tests/glcc/guest-route.test.ts",
+      "category": "TESTABILITY_NONBEHAVIORAL_REQUIRED",
+      "reason": "Update import path to import createGuestPreferencesRouteHandlers from @/lib/glcc/guest-preferences-handlers",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "tests/glcc/preference-route.test.ts",
+      "category": "TESTABILITY_NONBEHAVIORAL_REQUIRED",
+      "reason": "Update import path to import createPreferencesRouteHandlers from @/lib/glcc/me-preferences-handlers",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "tests/glcc/p4b-route-binding.test.ts",
+      "category": "TESTABILITY_NONBEHAVIORAL_REQUIRED",
+      "reason": "Update import paths to import handlers from dedicated @/lib/glcc modules",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "tests/auth/login-page.test.ts",
+      "category": "TESTABILITY_NONBEHAVIORAL_REQUIRED",
+      "reason": "Update import path to import normalizeLoginCallbackUrl from @/lib/auth-callback",
+      "recommendation": "KEEP"
+    },
+    {
+      "file": "tests/auth/whatsapp-otp-verification-stall.test.ts",
+      "category": "TESTABILITY_NONBEHAVIORAL_REQUIRED",
+      "reason": "Update import path to import normalizeLoginCallbackUrl from @/lib/auth-callback",
+      "recommendation": "KEEP"
+    }
+  ]
+}
