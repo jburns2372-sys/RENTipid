@@ -1,0 +1,62 @@
+{
+  "workstream": "RENTipid GLOBAL-MKT / v2.0 — GLOBAL MARKETPLACE ACTIVATION",
+  "phase": "GM-2",
+  "title": "GLOBAL ACCOUNT, RENTER + PROVIDER ONBOARDING",
+  "status": "PASS",
+  "executionModel": "GEMINI 3.8 FLASH HIGH",
+  "date": "2026-10-07",
+  "applicationCommit": "187d0cb5b66e06f5db61d003128c10b5e6de895b",
+  "governanceStatus": "LOCALLY_ACCEPTED",
+  "accountModel": {
+    "architecture": "ONE_GLOBAL_ACCOUNT_IDENTITY",
+    "systemRoleMarketplaceRoleSeparation": "PASS",
+    "renterRole": "IMPLEMENTED",
+    "providerRole": "IMPLEMENTED",
+    "dualRoleSupported": "PASS",
+    "operatingJurisdiction": "IMPLEMENTED",
+    "countryLanguageIndependence": "PASS",
+    "countryCurrencyIndependence": "PASS",
+    "providerIntentAuthorizationSeparation": "PASS",
+    "authKycSeparation": "PASS",
+    "providerPublicationGate": "PASS",
+    "existingUserCompatibility": "PASS"
+  },
+  "database": {
+    "schemaChange": false,
+    "migrationCreated": false,
+    "productionDatabaseModified": false
+  },
+  "jurisdictions": {
+    "authoritativeCount": 46,
+    "resolvedCount": 46,
+    "duplicatedCountryMaster": false,
+    "unknownCountryFailClosed": "PASS",
+    "countryForksIntroduced": 0,
+    "commerciallyActiveCount": 0,
+    "philippinesCommerciallyActive": false,
+    "thailandCommerciallyActive": false,
+    "chinaCommerciallyActive": false,
+    "chinaDeferredBlockers": 2
+  },
+  "verification": {
+    "typecheck": "PASS",
+    "productionEquivalentBuild": "PASS",
+    "jestUnitTests": {
+      "gm1Suite": "21/21 PASS",
+      "gm2Suite": "29/29 PASS"
+    },
+    "targetedRunner": "11/11 PASS",
+    "functionalTests": "PASS",
+    "securityTests": "PASS"
+  },
+  "invariants": {
+    "mannypayModified": false,
+    "paymongoModified": false,
+    "previewModified": false,
+    "productionModified": false,
+    "frozenGlccModified": false,
+    "frozenBaselineCommit": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+    "blockingGm2Defects": 0
+  },
+  "nextPermittedAction": "GM-3 GLOBAL KYC / IDENTITY VERIFICATION ABSTRACTION"
+}
