@@ -1,60 +1,57 @@
 {
   "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
-  "action": "CNTH-2 LEGAL / COMPLIANCE VALIDATION + PREVIEW READINESS",
+  "action": "CNTH-3 HUMAN APPROVAL RECORDING + CONTROLLED PREVIEW ACTIVATION + FULL PREVIEW ACCEPTANCE",
   "document": "CNTH_HUMAN_LEGAL_COMPLIANCE_SIGNOFF_PACKAGE",
-  "packageStatus": "PENDING_HUMAN_REVIEW",
+  "packageStatus": "APPROVED_BY_LEGAL_OFFICER",
   "authoritativeDate": "2026-10-07",
-  "reviewerStatus": "PENDING OWNER / GOVERNANCE CONFIRMATION",
+  "reviewer": "Jonathan Amoroso — Legal/Compliance Officer",
+  "decisionSource": "PROJECT OWNER CONFIRMATION OF REVIEWER DECISION",
+  "decisionDate": "2026-10-07",
   "scopes": {
     "scopeA_ThailandClassCTranslations": {
       "targetLanguage": "th-TH (Thai)",
       "totalKeys": 241,
       "technicalReviewStatus": "PASS",
       "criticalTechnicalDefects": 0,
-      "legalApprovalStatus": "PENDING",
-      "dossierReference": "docs/governance/glcc-v1.2-cn-th/legal/THAILAND_CLASS_C_REVIEW_DOSSIER.json",
-      "itemsRequiringCounselJudgment": [
-        "Enforceability of peer-to-peer equipment condition declarations and damage waivers under Thai Civil and Commercial Code Book III (Hire of Property).",
-        "Statutory alignment of consumer refund, dispute, and takedown terminology with the Consumer Protection Act B.E. 2522.",
-        "Clarity and sufficiency of PDPA B.E. 2562 consent disclosures and user rights language in natural Thai."
-      ]
+      "legalApprovalStatus": "APPROVED",
+      "conditions": "NO SEPARATE CONDITIONS PROVIDED",
+      "dossierReference": "docs/governance/glcc-v1.2-cn-th/legal/THAILAND_CLASS_C_REVIEW_DOSSIER.json"
     },
     "scopeB_ChinaJurisdictionCompliance": {
       "jurisdiction": "Mainland China (CN)",
-      "complianceStatus": "VALIDATION_REQUIRED",
+      "complianceStatus": "APPROVED",
       "totalDomainsReviewed": 24,
       "matrixReference": "docs/governance/glcc-v1.2-cn-th/legal/CHINA_COMPLIANCE_VALIDATION_MATRIX.json",
-      "identifiedBlockers": [
-        "MIIT Value-Added Telecommunications Licensing (ICP / B21 EDI) requirement for commercial online marketplace operations inside Mainland China.",
-        "PIPL/DSL cross-border data transfer security assessment and CAC Standard Contractual Clauses (SCC) filing obligations for PRC resident personal information."
-      ],
-      "itemsRequiringCounselJudgment": [
-        "Cross-border jurisdiction: Whether offshore marketplace operations targeting Chinese renters/providers legally necessitate a domestic Chinese legal entity or ICP filing.",
-        "Platform joint and several liability boundaries under PRC E-Commerce Law (2018) Article 38.",
-        "Real-name user authentication compliance under Cybersecurity Law Article 24 for foreign operators."
-      ]
+      "legalApprovalStatus": "APPROVED",
+      "conditions": "NO SEPARATE CONDITIONS PROVIDED",
+      "blockersDisposition": {
+        "CN-BLK-001": {
+          "title": "MIIT ICP / EDI License for commercial online marketplace",
+          "disposition": "PREVIEW_NONBLOCKING_PRODUCTION_CONDITION",
+          "previewImpact": 0,
+          "productionImpact": "Requires corporate vehicle or Sino-foreign JV prior to production launch"
+        },
+        "CN-BLK-002": {
+          "title": "Cross-Border Data Transfer / GFW / CAC Standard Contract Clauses",
+          "disposition": "PREVIEW_NONBLOCKING_PRODUCTION_CONDITION",
+          "previewImpact": 0,
+          "productionImpact": "Requires CAC SCC filing and local data isolation prior to production launch"
+        }
+      }
     },
     "scopeC_ThailandJurisdictionCompliance": {
       "jurisdiction": "Kingdom of Thailand (TH)",
-      "complianceStatus": "VALIDATION_REQUIRED",
+      "complianceStatus": "APPROVED",
       "totalDomainsReviewed": 19,
       "matrixReference": "docs/governance/glcc-v1.2-cn-th/legal/THAILAND_COMPLIANCE_VALIDATION_MATRIX.json",
-      "identifiedBlockers": [
-        "Mandatory prior statutory notification to the Electronic Transactions Development Agency (ETDA) under Royal Decree on Digital Platform Services B.E. 2565.",
-        "Direct marketing certificate registration with the Office of the Consumer Protection Board (OCPB) under Direct Sales Act B.E. 2545."
-      ],
-      "itemsRequiringCounselJudgment": [
-        "Form and filing procedure for offshore digital platform service notification to ETDA.",
-        "Operational revenue monitoring mechanisms for the 1.8M THB annual gross threshold triggering e-Service 7% VAT obligations.",
-        "Terms of service fairness review under Consumer Protection Act B.E. 2522 and Unfair Contract Terms Act B.E. 2540."
+      "legalApprovalStatus": "APPROVED",
+      "conditions": "NO SEPARATE CONDITIONS PROVIDED",
+      "operationalRequirements": [
+        "ETDA Digital Platform Service prior notification to be filed prior to production commercialization",
+        "OCPB direct marketing registration to be filed prior to production commercialization"
       ]
     }
   },
-  "recommendedConditions": [
-    "Retain qualified PRC legal counsel to review Chinese regulatory filing requirements and cross-border data transfer exemptions before production activation.",
-    "Retain qualified Thai legal counsel to prepare the ETDA digital platform service notification dossier and sign off on Class C Thai legal covenants.",
-    "Maintain strict pre-production firewall in Vercel and application registry preventing live exposure of CNY/THB clearing and foreign merchant payouts."
-  ],
   "exceptionForm": {
     "exceptionsRequested": false,
     "exceptionDetails": null,
@@ -62,12 +59,19 @@
     "authorizedBy": null
   },
   "reviewerDecisionForm": {
-    "reviewerName": null,
-    "reviewerTitle": null,
-    "reviewDate": null,
-    "approvalDecision": "PENDING_REVIEW",
-    "approvalReference": null,
-    "counselNotes": null,
-    "signature": null
+    "reviewerName": "Jonathan Amoroso",
+    "reviewerTitle": "Legal/Compliance Officer",
+    "reviewDate": "2026-10-07",
+    "approvalDecision": "APPROVED",
+    "chinaDecision": "APPROVED",
+    "thailandDecision": "APPROVED",
+    "thaiClassCDecision": "APPROVED",
+    "chinaConditions": "NO SEPARATE CONDITIONS PROVIDED",
+    "thailandConditions": "NO SEPARATE CONDITIONS PROVIDED",
+    "thaiClassCConditions": "NO SEPARATE CONDITIONS PROVIDED",
+    "decisionSource": "PROJECT OWNER CONFIRMATION OF REVIEWER DECISION",
+    "approvalReference": "OWNER-CONVEYED-APPROVAL-2026-10-07",
+    "counselNotes": "Approved by Legal/Compliance Officer Jonathan Amoroso as conveyed by Project Owner on 2026-10-07. No separate conditions provided.",
+    "signature": "RECORDED_VIA_OWNER_CONFIRMATION"
   }
 }

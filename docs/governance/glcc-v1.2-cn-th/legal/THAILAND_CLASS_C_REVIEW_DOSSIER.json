@@ -1,6 +1,6 @@
 {
   "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
-  "action": "CNTH-2 LEGAL / COMPLIANCE VALIDATION + PREVIEW READINESS",
+  "action": "CNTH-3 HUMAN APPROVAL RECORDING + CONTROLLED PREVIEW ACTIVATION + FULL PREVIEW ACCEPTANCE",
   "targetLanguage": "th-TH (Thai)",
   "authoritativeDate": "2026-10-07",
   "metrics": {
@@ -10,7 +10,10 @@
     "criticalTechnicalDefects": 0,
     "placeholderMismatches": 0,
     "technicalReviewResult": "PASS",
-    "legalApprovalStatus": "PENDING"
+    "legalApprovalStatus": "APPROVED",
+    "reviewer": "Jonathan Amoroso — Legal/Compliance Officer",
+    "decisionDate": "2026-10-07",
+    "decisionSource": "PROJECT OWNER CONFIRMATION OF REVIEWER DECISION"
   },
   "entries": [
     {
@@ -40,7 +43,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 2,
@@ -69,7 +72,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 3,
@@ -98,7 +101,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 4,
@@ -127,7 +130,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 5,
@@ -156,7 +159,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 6,
@@ -185,7 +188,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 7,
@@ -214,7 +217,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 8,
@@ -243,7 +246,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 9,
@@ -272,7 +275,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 10,
@@ -301,7 +304,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 11,
@@ -330,7 +333,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 12,
@@ -359,7 +362,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 13,
@@ -388,7 +391,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 14,
@@ -417,7 +420,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 15,
@@ -446,7 +449,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 16,
@@ -475,7 +478,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 17,
@@ -504,7 +507,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 18,
@@ -533,7 +536,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 19,
@@ -562,7 +565,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 20,
@@ -591,7 +594,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 21,
@@ -620,7 +623,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 22,
@@ -649,7 +652,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 23,
@@ -682,7 +685,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 24,
@@ -711,7 +714,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 25,
@@ -740,7 +743,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 26,
@@ -769,7 +772,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 27,
@@ -798,7 +801,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 28,
@@ -827,7 +830,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 29,
@@ -856,7 +859,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 30,
@@ -885,7 +888,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 31,
@@ -914,7 +917,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 32,
@@ -943,7 +946,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 33,
@@ -972,7 +975,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 34,
@@ -1001,7 +1004,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 35,
@@ -1030,7 +1033,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 36,
@@ -1059,7 +1062,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 37,
@@ -1088,7 +1091,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 38,
@@ -1117,7 +1120,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 39,
@@ -1146,7 +1149,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 40,
@@ -1175,7 +1178,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 41,
@@ -1204,7 +1207,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 42,
@@ -1233,7 +1236,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 43,
@@ -1262,7 +1265,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 44,
@@ -1291,7 +1294,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 45,
@@ -1320,7 +1323,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 46,
@@ -1349,7 +1352,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 47,
@@ -1378,7 +1381,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 48,
@@ -1407,7 +1410,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 49,
@@ -1436,7 +1439,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 50,
@@ -1465,7 +1468,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 51,
@@ -1494,7 +1497,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 52,
@@ -1523,7 +1526,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 53,
@@ -1552,7 +1555,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 54,
@@ -1581,7 +1584,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 55,
@@ -1610,7 +1613,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 56,
@@ -1639,7 +1642,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 57,
@@ -1668,7 +1671,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 58,
@@ -1697,7 +1700,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 59,
@@ -1726,7 +1729,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 60,
@@ -1755,7 +1758,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 61,
@@ -1784,7 +1787,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 62,
@@ -1813,7 +1816,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 63,
@@ -1842,7 +1845,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 64,
@@ -1871,7 +1874,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 65,
@@ -1900,7 +1903,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 66,
@@ -1929,7 +1932,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 67,
@@ -1958,7 +1961,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 68,
@@ -1987,7 +1990,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 69,
@@ -2016,7 +2019,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 70,
@@ -2045,7 +2048,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 71,
@@ -2074,7 +2077,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 72,
@@ -2103,7 +2106,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 73,
@@ -2132,7 +2135,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 74,
@@ -2161,7 +2164,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 75,
@@ -2190,7 +2193,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 76,
@@ -2219,7 +2222,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 77,
@@ -2248,7 +2251,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 78,
@@ -2277,7 +2280,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 79,
@@ -2306,7 +2309,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 80,
@@ -2335,7 +2338,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 81,
@@ -2364,7 +2367,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 82,
@@ -2393,7 +2396,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 83,
@@ -2422,7 +2425,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 84,
@@ -2451,7 +2454,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 85,
@@ -2480,7 +2483,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 86,
@@ -2509,7 +2512,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 87,
@@ -2538,7 +2541,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 88,
@@ -2567,7 +2570,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 89,
@@ -2596,7 +2599,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 90,
@@ -2625,7 +2628,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 91,
@@ -2654,7 +2657,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 92,
@@ -2683,7 +2686,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 93,
@@ -2712,7 +2715,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 94,
@@ -2741,7 +2744,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 95,
@@ -2770,7 +2773,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 96,
@@ -2799,7 +2802,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 97,
@@ -2828,7 +2831,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 98,
@@ -2857,7 +2860,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 99,
@@ -2886,7 +2889,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 100,
@@ -2915,7 +2918,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 101,
@@ -2944,7 +2947,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 102,
@@ -2973,7 +2976,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 103,
@@ -3002,7 +3005,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 104,
@@ -3031,7 +3034,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 105,
@@ -3060,7 +3063,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 106,
@@ -3089,7 +3092,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 107,
@@ -3118,7 +3121,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 108,
@@ -3147,7 +3150,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 109,
@@ -3176,7 +3179,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 110,
@@ -3205,7 +3208,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 111,
@@ -3234,7 +3237,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 112,
@@ -3263,7 +3266,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 113,
@@ -3292,7 +3295,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 114,
@@ -3321,7 +3324,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 115,
@@ -3350,7 +3353,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 116,
@@ -3379,7 +3382,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 117,
@@ -3408,7 +3411,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 118,
@@ -3437,7 +3440,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 119,
@@ -3466,7 +3469,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 120,
@@ -3495,7 +3498,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 121,
@@ -3524,7 +3527,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 122,
@@ -3553,7 +3556,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 123,
@@ -3582,7 +3585,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 124,
@@ -3611,7 +3614,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 125,
@@ -3640,7 +3643,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 126,
@@ -3669,7 +3672,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 127,
@@ -3698,7 +3701,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 128,
@@ -3727,7 +3730,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 129,
@@ -3756,7 +3759,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 130,
@@ -3785,7 +3788,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 131,
@@ -3814,7 +3817,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 132,
@@ -3843,7 +3846,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 133,
@@ -3872,7 +3875,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 134,
@@ -3901,7 +3904,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 135,
@@ -3930,7 +3933,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 136,
@@ -3959,7 +3962,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 137,
@@ -3988,7 +3991,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 138,
@@ -4017,7 +4020,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 139,
@@ -4046,7 +4049,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 140,
@@ -4075,7 +4078,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 141,
@@ -4104,7 +4107,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 142,
@@ -4133,7 +4136,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 143,
@@ -4162,7 +4165,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 144,
@@ -4191,7 +4194,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 145,
@@ -4220,7 +4223,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 146,
@@ -4249,7 +4252,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 147,
@@ -4278,7 +4281,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 148,
@@ -4307,7 +4310,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 149,
@@ -4336,7 +4339,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 150,
@@ -4365,7 +4368,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 151,
@@ -4394,7 +4397,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 152,
@@ -4423,7 +4426,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 153,
@@ -4452,7 +4455,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 154,
@@ -4481,7 +4484,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 155,
@@ -4510,7 +4513,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 156,
@@ -4539,7 +4542,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 157,
@@ -4568,7 +4571,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 158,
@@ -4597,7 +4600,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 159,
@@ -4626,7 +4629,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 160,
@@ -4655,7 +4658,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 161,
@@ -4684,7 +4687,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 162,
@@ -4713,7 +4716,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 163,
@@ -4742,7 +4745,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 164,
@@ -4771,7 +4774,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 165,
@@ -4800,7 +4803,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 166,
@@ -4829,7 +4832,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 167,
@@ -4858,7 +4861,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 168,
@@ -4887,7 +4890,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 169,
@@ -4916,7 +4919,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 170,
@@ -4945,7 +4948,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 171,
@@ -4974,7 +4977,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 172,
@@ -5003,7 +5006,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 173,
@@ -5032,7 +5035,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 174,
@@ -5061,7 +5064,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 175,
@@ -5090,7 +5093,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 176,
@@ -5119,7 +5122,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 177,
@@ -5148,7 +5151,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 178,
@@ -5177,7 +5180,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 179,
@@ -5206,7 +5209,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 180,
@@ -5235,7 +5238,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 181,
@@ -5264,7 +5267,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 182,
@@ -5293,7 +5296,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 183,
@@ -5322,7 +5325,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 184,
@@ -5351,7 +5354,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 185,
@@ -5380,7 +5383,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 186,
@@ -5409,7 +5412,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 187,
@@ -5438,7 +5441,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 188,
@@ -5467,7 +5470,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 189,
@@ -5496,7 +5499,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 190,
@@ -5525,7 +5528,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 191,
@@ -5554,7 +5557,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 192,
@@ -5583,7 +5586,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 193,
@@ -5612,7 +5615,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 194,
@@ -5641,7 +5644,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 195,
@@ -5670,7 +5673,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 196,
@@ -5699,7 +5702,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 197,
@@ -5728,7 +5731,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 198,
@@ -5757,7 +5760,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 199,
@@ -5786,7 +5789,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 200,
@@ -5815,7 +5818,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 201,
@@ -5844,7 +5847,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 202,
@@ -5873,7 +5876,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 203,
@@ -5902,7 +5905,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 204,
@@ -5931,7 +5934,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 205,
@@ -5960,7 +5963,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 206,
@@ -5989,7 +5992,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 207,
@@ -6018,7 +6021,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 208,
@@ -6047,7 +6050,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 209,
@@ -6076,7 +6079,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 210,
@@ -6105,7 +6108,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 211,
@@ -6134,7 +6137,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 212,
@@ -6163,7 +6166,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 213,
@@ -6192,7 +6195,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 214,
@@ -6221,7 +6224,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 215,
@@ -6250,7 +6253,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 216,
@@ -6279,7 +6282,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 217,
@@ -6308,7 +6311,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 218,
@@ -6337,7 +6340,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 219,
@@ -6366,7 +6369,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 220,
@@ -6395,7 +6398,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 221,
@@ -6424,7 +6427,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 222,
@@ -6453,7 +6456,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 223,
@@ -6482,7 +6485,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 224,
@@ -6511,7 +6514,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 225,
@@ -6540,7 +6543,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 226,
@@ -6569,7 +6572,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 227,
@@ -6598,7 +6601,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 228,
@@ -6627,7 +6630,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 229,
@@ -6656,7 +6659,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 230,
@@ -6685,7 +6688,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 231,
@@ -6714,7 +6717,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 232,
@@ -6743,7 +6746,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 233,
@@ -6772,7 +6775,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 234,
@@ -6801,7 +6804,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 235,
@@ -6830,7 +6833,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 236,
@@ -6859,7 +6862,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 237,
@@ -6888,7 +6891,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 238,
@@ -6917,7 +6920,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 239,
@@ -6946,7 +6949,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 240,
@@ -6975,7 +6978,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     },
     {
       "itemNumber": 241,
@@ -7004,7 +7007,7 @@
         "criticalTechnicalDefects": 0
       },
       "technicalReviewStatus": "PASS",
-      "legalApprovalStatus": "PENDING"
+      "legalApprovalStatus": "APPROVED"
     }
   ]
 }

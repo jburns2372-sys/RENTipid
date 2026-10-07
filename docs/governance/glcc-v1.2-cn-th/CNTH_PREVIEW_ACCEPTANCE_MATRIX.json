@@ -1,0 +1,197 @@
+{
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-3 HUMAN APPROVAL RECORDING + CONTROLLED PREVIEW ACTIVATION + FULL PREVIEW ACCEPTANCE",
+  "deployment": {
+    "deploymentId": "dpl_8teCR6cDZkxKVeMMC8dTqYpbw33G",
+    "deploymentUrl": "https://ren-tipid-rby57rzrq-jburns2372-sys-projects.vercel.app",
+    "deployedSha": "0734f9930d3b16566f09637b35ca61406b25888a",
+    "status": "READY"
+  },
+  "overallResult": "PASS",
+  "matrix": [
+    {
+      "id": "SEC-14",
+      "category": "Deployment Verification",
+      "test": "One Vercel Preview Candidate Deployed",
+      "expected": "Unique Preview deployment URL, SHA matching preview commit",
+      "actual": "dpl_8teCR6cDZkxKVeMMC8dTqYpbw33G / 0734f9930d3b16566f09637b35ca61406b25888a",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-15",
+      "category": "Preview Health",
+      "test": "Endpoint and Core Routes Health",
+      "expected": "200 OK on /api/health (ready, connected), landing, login, register, 0 fatal 500 errors",
+      "actual": "All 200 OK; database connected; 0 fatal errors; RBAC redirect 307",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-16.1",
+      "category": "China Acceptance",
+      "test": "CN / zh-Hans / CNY Selectors",
+      "expected": "Available in options and selectable",
+      "actual": "Present and selectable in /api/preferences options",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-16.2",
+      "category": "China Acceptance",
+      "test": "Chinese Visible UI & Persistence",
+      "expected": "lang='zh-Hans', visible Simplified Chinese UI, persisted across requests",
+      "actual": "lang='zh-Hans', visible Simplified Chinese text rendered, persisted via rentipid_pref cookie",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-17",
+      "category": "China Acceptance",
+      "test": "China English Independence Case",
+      "expected": "CN + en-US + CNY retains CN country, en-US language, CNY currency without override",
+      "actual": "Effective: CN + en-US + CNY; SSR renders lang='en-US' with English UI",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-18",
+      "category": "China Acceptance",
+      "test": "China Cross-Dimension Matrix",
+      "expected": "Orthogonal independence across CN+zh-Hans+CNY, CN+en-US+CNY, CN+ja-JP+CNY, CN+zh-Hans+USD",
+      "actual": "All 4 combinations validated with 200 OK and matching effective preferences",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-19.1",
+      "category": "Thailand Acceptance",
+      "test": "TH / th-TH / THB Selectors",
+      "expected": "Available in options and selectable",
+      "actual": "Present and selectable in /api/preferences options",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-19.2",
+      "category": "Thailand Acceptance",
+      "test": "Thai Visible UI & Persistence",
+      "expected": "lang='th-TH', visible Thai UI, persisted across requests",
+      "actual": "lang='th-TH', visible Thai text rendered, persisted via rentipid_pref cookie",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-20",
+      "category": "Thailand Acceptance",
+      "test": "Thailand English Independence Case",
+      "expected": "TH + en-US + THB retains TH country, en-US language, THB currency without override",
+      "actual": "Effective: TH + en-US + THB; SSR renders lang='en-US' with English UI",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-21",
+      "category": "Thailand Acceptance",
+      "test": "Thailand Cross-Dimension Matrix",
+      "expected": "Orthogonal independence across TH+th-TH+THB, TH+en-US+THB, TH+ja-JP+THB, TH+th-TH+USD, PH+th-TH+PHP, TH+zh-Hans+THB",
+      "actual": "All 6 combinations validated with 200 OK and matching effective preferences",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-22",
+      "category": "Surfaces Acceptance",
+      "test": "Thai Representative Surfaces (14 Surfaces)",
+      "expected": "14 critical surfaces exercised with 0 blocking failures",
+      "actual": "14/14 surfaces validated; 0 blocking failures",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-23",
+      "category": "Surfaces Acceptance",
+      "test": "Chinese Representative Surfaces (14 Surfaces)",
+      "expected": "14 critical surfaces exercised with 0 blocking failures",
+      "actual": "14/14 surfaces validated; 0 blocking failures",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-24",
+      "category": "Localization Hygiene",
+      "test": "Thai Raw-Key / Fallback / Unicode Sweep",
+      "expected": "0 raw keys, 0 required fallback, 0 Unicode corruption, 0 placeholder failures",
+      "actual": "Raw keys: 0, required fallback: 0, Unicode errors: 0, placeholder failures: 0",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-25",
+      "category": "Localization Hygiene",
+      "test": "Chinese Raw-Key / Fallback Sweep",
+      "expected": "0 raw keys, 0 required fallback, 0 empty strings, 0 placeholder failures",
+      "actual": "Raw keys: 0, required fallback: 0, empty strings: 0, placeholder failures: 0",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-26",
+      "category": "Currency Display",
+      "test": "CNY Currency Profile & Formatting",
+      "expected": "ISO CNY, symbol ¥, exponent 2, non-transactional display",
+      "actual": "CNY present in options, exponent 2, symbol ¥, non-transactional",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-27",
+      "category": "Currency Display",
+      "test": "THB Currency Profile & Formatting",
+      "expected": "ISO THB, symbol ฿, exponent 2, non-transactional display",
+      "actual": "THB present in options, exponent 2, symbol ฿, non-transactional",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-28",
+      "category": "Financial Integrity",
+      "test": "Payment Authority Non-Regression",
+      "expected": "chargeCurrency locked to PHP, injection blocked (400), MannyPay untouched",
+      "actual": "chargeCurrency immutably PHP; injection blocked with 400 Bad Request; MannyPay untouched",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-29",
+      "category": "Marketplace",
+      "test": "Listing & Search Preview Acceptance",
+      "expected": "Browse and listing display render correctly in Preview",
+      "actual": "/browse status 200; /listing/[id] status 200; localized UI renders",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-30",
+      "category": "Marketplace",
+      "test": "Booking Preview Acceptance",
+      "expected": "Booking lifecycle / checkout page functional in Preview",
+      "actual": "/checkout/[bookingId] status 200; display pricing respected; 0 real transactions",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-31",
+      "category": "Address Handling",
+      "test": "China & Thailand Address Compatibility",
+      "expected": "PASS or documented non-blocking limitation",
+      "actual": "PASS / NON_BLOCKING_LIMITATION (free-form addresses supported; no automated national postal API)",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-32",
+      "category": "Timezones",
+      "test": "China & Thailand Timezone Mapping",
+      "expected": "CN -> Asia/Shanghai, TH -> Asia/Bangkok",
+      "actual": "CN: Asia/Shanghai; TH: Asia/Bangkok verified in effective preference",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-33",
+      "category": "Regression Protection",
+      "test": "Frozen v1.1 Global Wave 1 Non-Regression",
+      "expected": "Original 44 countries, 46 languages, 23 currencies, ja-JP localization, ar-AE RTL intact",
+      "actual": "All 44 countries / 46 languages / 23 currencies preserved; ja-JP renders Japanese; ar-AE renders RTL",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-34",
+      "category": "Production Isolation",
+      "test": "Production Environment Firewall",
+      "expected": "Zero changes to Production deployment, database, domain, or environment",
+      "actual": "Production modified: NO, Database modified: NO, CN/TH active in production: NO",
+      "status": "PASS"
+    }
+  ]
+}
