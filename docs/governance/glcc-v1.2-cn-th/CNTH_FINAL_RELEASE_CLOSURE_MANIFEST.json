@@ -1,0 +1,147 @@
+{
+  "manifestVersion": "1.2.0-final-closure",
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-6 FINAL OWNER ACCEPTANCE RECORDING, RELEASE CLOSURE + IMMUTABLE FREEZE",
+  "releaseStatus": "ACCEPTED — CLOSED — FROZEN",
+  "releaseVersion": "GLCC-JX / v1.2",
+  "closureDate": "2026-10-07",
+  "projectOwnerAcceptance": {
+    "projectOwner": "Federico Diagono Jr.",
+    "role": "Project Owner of RENTipid",
+    "decision": "APPROVED",
+    "acceptanceDate": "2026-10-07",
+    "statement": "I, Federico Diagono Jr., Project Owner of RENTipid, hereby give FINAL PROJECT OWNER ACCEPTANCE for GLCC-JX / v1.2 — China + Thailand Jurisdiction Expansion, covering Production application source 9c69fd0128b0f9ef6a2e933d8a6636403a300bf6 and Production deployment dpl_BLvC4y4i21giKNGBoLJszoRNxEQ6. I authorize closure and freeze of GLCC-JX / v1.2 and authorize preparation to proceed to RENTipid GLOBAL-MKT / v2.0 — Global Marketplace Activation."
+  },
+  "legalComplianceCertification": {
+    "officer": "Jonathan Amoroso — Legal/Compliance Officer",
+    "chinaDecision": "APPROVED",
+    "thailandDecision": "APPROVED",
+    "thaiClassCDecision": "APPROVED (241/241 keys)",
+    "approvalDate": "2026-10-06"
+  },
+  "productionRelease": {
+    "applicationSourceSha": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+    "deploymentId": "dpl_BLvC4y4i21giKNGBoLJszoRNxEQ6",
+    "deploymentUrl": "https://ren-tipid-o0tto5xvf-jburns2372-sys-projects.vercel.app",
+    "productionDomain": "https://www.rentipid.com.ph",
+    "deployedShaMatch": "YES",
+    "deploymentState": "READY",
+    "healthStatus": "PASS"
+  },
+  "previewRelease": {
+    "applicationSourceSha": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+    "deploymentId": "dpl_HHUtSYdtQia9SxA6119bLdx8tmqV",
+    "deploymentUrl": "https://ren-tipid-92gy63idn-jburns2372-sys-projects.vercel.app",
+    "status": "PASS"
+  },
+  "incidentAndRollbackHistory": {
+    "firstProductionDeploymentId": "dpl_6FrhmpiGAG1uHSqg4ZP5BdL2TLRt",
+    "firstProductionSha": "0734f9930d3b16566f09637b35ca61406b25888a",
+    "incidentResult": "FAIL-ROLLED-BACK",
+    "incidentRootCause": "th-TH releaseStatus was QA_REQUIRED; failed closed under Production-mode security firewall, causing SSR fallback to en-PH",
+    "rollbackDeploymentId": "dpl_754t6JhqcPjLVzdh5wNBCm6QCBA3",
+    "rollbackSourceSha": "d3846e327905fe3762c73bc7b26697a19d708fbb",
+    "frozenTagsPreserved": [
+      "rentipid-glcc-v1.1-global-frozen",
+      "glcc-v1.1-global"
+    ],
+    "correctiveApplicationCommit": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+    "correctiveChange": "th-TH promoted to releaseStatus: 'PRODUCTION_READY' in language-registry.ts"
+  },
+  "inventory": {
+    "countries": 46,
+    "languages": 47,
+    "fullLocalePacks": 33,
+    "aliases": 12,
+    "currencies": 25,
+    "targetJurisdictions": {
+      "china": {
+        "country": "CN",
+        "language": "zh-Hans",
+        "currency": "CNY",
+        "timezone": "Asia/Shanghai",
+        "glccStatus": "GLCC_PRODUCTION_AVAILABLE"
+      },
+      "thailand": {
+        "country": "TH",
+        "language": "th-TH",
+        "currency": "THB",
+        "timezone": "Asia/Bangkok",
+        "glccStatus": "GLCC_PRODUCTION_AVAILABLE"
+      }
+    }
+  },
+  "thaiReleaseQuality": {
+    "releaseStatus": "PRODUCTION_READY",
+    "productionSelectable": "YES",
+    "qaOverrideRequired": "NO",
+    "canonicalKeys": 2208,
+    "coverage": "100%",
+    "classCApproved": "241 / 241",
+    "requiredFallback": 0,
+    "placeholderMismatches": 0,
+    "unicodeDefects": 0,
+    "rawKeys": 0,
+    "visibleProductionUi": "PASS"
+  },
+  "chinaReleaseQuality": {
+    "countryStatus": "PRODUCTION_AVAILABLE",
+    "languageStatus": "PRODUCTION_AVAILABLE (zh-Hans)",
+    "currencyStatus": "PRODUCTION_AVAILABLE (CNY display)",
+    "crossDimensionIndependence": "PASS",
+    "glccProductionBlockers": 0,
+    "rawKeys": 0,
+    "requiredFallback": 0,
+    "visibleProductionUi": "PASS"
+  },
+  "currencyAndFinancialAuthority": {
+    "chargeCurrency": "PHP",
+    "paymentAuthority": "UNCHANGED",
+    "transactionCurrencyAuthority": "UNCHANGED",
+    "settlementCurrencyAuthority": "UNCHANGED",
+    "cnyTransactionProcessing": "NOT_CLAIMED",
+    "thbTransactionProcessing": "NOT_CLAIMED",
+    "cnySettlement": "NOT_CLAIMED",
+    "thbSettlement": "NOT_CLAIMED",
+    "displaySettlementSeparation": "PASS"
+  },
+  "databaseIntegrity": {
+    "databaseMigration": "NO",
+    "databaseSchemaChange": "NO",
+    "destructiveDatabaseOperation": "NO",
+    "unexpectedProductionDataMutation": "NO"
+  },
+  "deferredGovernance": {
+    "chinaGlccProductionBlockers": 0,
+    "chinaGlobalMktV2DeferredBlockers": 2,
+    "blockers": [
+      {
+        "id": "CN-BLK-001",
+        "description": "ICP Filing & Mainland PRC hosting deferred to v2.0 Global Marketplace"
+      },
+      {
+        "id": "CN-BLK-002",
+        "description": "Cross-border data security assessment (CAC compliance) deferred to v2.0 Global Marketplace"
+      }
+    ],
+    "mainlandChinaPublicNetworkOperability": "NOT_CLAIMED"
+  },
+  "commercialMarketplaceBoundary": {
+    "chinaGlccProductionAvailable": "YES",
+    "thailandGlccProductionAvailable": "YES",
+    "chinaGlobalMktCommercialActive": "NO",
+    "thailandGlobalMktCommercialActive": "NO",
+    "globalMktV2Status": "PREPARATION_AUTHORIZED / IMPLEMENTATION_NOT_STARTED"
+  },
+  "freezeTags": {
+    "primaryTag": "rentipid-glcc-v1.2-cn-th-frozen",
+    "secondaryTag": "glcc-v1.2-cn-th",
+    "targetCommit": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6"
+  },
+  "nextWorkstream": {
+    "name": "RENTipid GLOBAL-MKT / v2.0 — Global Marketplace Activation",
+    "architectureDirection": "ONE GLOBAL MARKETPLACE PLATFORM (Not 46 separate applications)",
+    "preparationStatus": "AUTHORIZED",
+    "implementationStatus": "NOT_STARTED"
+  }
+}

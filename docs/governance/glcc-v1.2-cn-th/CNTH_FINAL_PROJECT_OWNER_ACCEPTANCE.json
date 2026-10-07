@@ -1,0 +1,58 @@
+{
+  "artifactType": "PROJECT_OWNER_FINAL_ACCEPTANCE",
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-6 FINAL OWNER ACCEPTANCE RECORDING, RELEASE CLOSURE + IMMUTABLE FREEZE",
+  "decision": "FINAL PROJECT OWNER ACCEPTANCE",
+  "projectOwner": {
+    "name": "Federico Diagono Jr.",
+    "role": "Project Owner of RENTipid",
+    "acceptanceDate": "2026-10-07"
+  },
+  "statement": "I, Federico Diagono Jr., Project Owner of RENTipid, hereby give FINAL PROJECT OWNER ACCEPTANCE for GLCC-JX / v1.2 — China + Thailand Jurisdiction Expansion, covering Production application source 9c69fd0128b0f9ef6a2e933d8a6636403a300bf6 and Production deployment dpl_BLvC4y4i21giKNGBoLJszoRNxEQ6. I authorize closure and freeze of GLCC-JX / v1.2 and authorize preparation to proceed to RENTipid GLOBAL-MKT / v2.0 — Global Marketplace Activation.",
+  "scopeAccepted": {
+    "releaseVersion": "GLCC-JX / v1.2",
+    "targetJurisdictions": [
+      {
+        "country": "CN",
+        "countryName": "China",
+        "primaryLanguage": "zh-Hans",
+        "currency": "CNY",
+        "status": "GLCC_PRODUCTION_AVAILABLE"
+      },
+      {
+        "country": "TH",
+        "countryName": "Thailand",
+        "primaryLanguage": "th-TH",
+        "currency": "THB",
+        "status": "GLCC_PRODUCTION_AVAILABLE"
+      }
+    ],
+    "productionApplicationSource": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+    "productionDeploymentId": "dpl_BLvC4y4i21giKNGBoLJszoRNxEQ6",
+    "productionDomain": "https://www.rentipid.com.ph",
+    "correctedPreviewDeploymentId": "dpl_HHUtSYdtQia9SxA6119bLdx8tmqV"
+  },
+  "verificationSummary": {
+    "localAcceptance": "PASS",
+    "legalComplianceValidation": "PASS",
+    "humanLegalComplianceReview": "APPROVED (Jonathan Amoroso)",
+    "correctedPreviewAcceptance": "PASS",
+    "productionReadiness": "PASS",
+    "correctedProductionAcceptance": "PASS",
+    "thaiVisibleProductionUiWithoutQaOverride": "PASS",
+    "thaiSsrEffectiveLocale": "th-TH",
+    "thaiBlockingFailures": 0,
+    "chineseVisibleProductionUi": "PASS",
+    "paymentAuthority": "UNCHANGED (PHP only)",
+    "databaseProtection": "PASS (0 migrations, 0 schema changes)",
+    "blockingReleaseDefects": 0
+  },
+  "commercialBoundaryAndNextWorkstream": {
+    "chinaGlobalMktCommercialActive": "NO",
+    "thailandGlobalMktCommercialActive": "NO",
+    "globalMktV2Preparation": "AUTHORIZED",
+    "globalMktV2Implementation": "NOT_STARTED",
+    "architectureDirection": "ONE GLOBAL MARKETPLACE PLATFORM (Not 46 separate applications)"
+  },
+  "finalStatus": "ACCEPTED — CLOSED — FROZEN"
+}
