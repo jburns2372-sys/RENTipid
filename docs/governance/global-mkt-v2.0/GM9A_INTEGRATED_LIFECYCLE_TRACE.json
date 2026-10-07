@@ -1,0 +1,195 @@
+{
+  "workstream": "RENTipid GLOBAL-MKT / v2.0 — GLOBAL MARKETPLACE ACTIVATION",
+  "action": "GM-9A Full Integrated Local Global-Marketplace Acceptance",
+  "candidateSha": "db800839dc382a3580f2125d8901929683f93154",
+  "initialCandidateSha": "4ab5b2ba51e698441c5e8463d9cb0868d486aadd",
+  "governanceBaselineSha": "d65a980131bebab412dfb1f7fd950779c4b11b83",
+  "timestamp": "2026-10-07T19:30:00Z",
+  "testExecutionSummary": {
+    "totalChecks": 27,
+    "passed": 27,
+    "failed": 0,
+    "overallStatus": "PASS"
+  },
+  "marketCohort": {
+    "authoritativeCount": 46,
+    "eligibleForLocalTestingCount": 1,
+    "eligibleJurisdiction": "PH",
+    "blockedCount": 45,
+    "blockedJurisdictionsSample": ["TH", "CN", "SG", "JP", "US", "DE"]
+  },
+  "entities": {
+    "testMarket": {
+      "countryCode": "PH",
+      "currency": "PHP",
+      "defaultLanguage": "fil-PH",
+      "supportedLanguage": "en-US"
+    },
+    "participants": {
+      "renter": {
+        "userId": "usr_renter_ph_001",
+        "email": "renter.ph@example.com",
+        "mobileNumber": "+639171234567",
+        "jurisdiction": "PH",
+        "roles": ["RENTER"],
+        "kycState": "KYC_APPROVED",
+        "onboardingState": "READY"
+      },
+      "provider": {
+        "userId": "usr_provider_ph_002",
+        "email": "provider.ph@example.com",
+        "mobileNumber": "+639187654321",
+        "jurisdiction": "PH",
+        "roles": ["PROVIDER", "RENTER"],
+        "kycState": "KYC_APPROVED",
+        "onboardingState": "APPROVED"
+      },
+      "adminReviewer": {
+        "userId": "adm_compliance_001",
+        "role": "COMPLIANCE_ADMIN"
+      }
+    },
+    "listing": {
+      "id": "lst_drill_ph_101",
+      "providerId": "usr_provider_ph_002",
+      "countryCode": "PH",
+      "jurisdictionCode": "JUR-PH",
+      "categoryId": "cat_tools",
+      "categorySlug": "tools",
+      "title": "Industrial Heavy-Duty Concrete Rotary Hammer Drill",
+      "status": "PUBLISHED",
+      "rates": {
+        "dailyMinorUnits": 250000,
+        "securityDepositMinorUnits": 1000000,
+        "deliveryFeeMinorUnits": 50000,
+        "currency": "PHP"
+      },
+      "location": {
+        "locality": "Makati City",
+        "administrativeAreaLevel1": "Metro Manila",
+        "precision": "LOCALITY_ONLY",
+        "publicAddress": "Makati City, Metro Manila, PH"
+      }
+    },
+    "happyPathBooking": {
+      "id": "book_1791372453643_qtvt5bj",
+      "renterId": "usr_renter_ph_001",
+      "providerId": "usr_provider_ph_002",
+      "listingId": "lst_drill_ph_101",
+      "statusHistory": ["INITIATED", "REQUESTED", "ACCEPTED", "CONFIRMED", "ACTIVE", "COMPLETED"],
+      "finalStatus": "COMPLETED",
+      "pricingSnapshot": {
+        "currency": "PHP",
+        "durationDays": 3,
+        "baseRentalAmountMinorUnits": 750000,
+        "securityDepositAmountMinorUnits": 1000000,
+        "deliveryFeeAmountMinorUnits": 50000,
+        "totalPayableMinorUnits": 1800000
+      }
+    },
+    "payment": {
+      "attemptId": "pay_att_1791372453646_zl42yq",
+      "bookingId": "book_1791372453643_qtvt5bj",
+      "amountMinorUnits": 1800000,
+      "currency": "PHP",
+      "providerId": "mock_gateway",
+      "environment": "SANDBOX",
+      "normalizedStatus": "SUCCEEDED",
+      "reconciliationStatus": "MATCHED"
+    },
+    "payout": {
+      "instructionId": "payout_1791372453647_a8m9xq",
+      "bookingId": "book_1791372453643_qtvt5bj",
+      "providerId": "usr_provider_ph_002",
+      "beneficiary": "bdo_ph_account_12345",
+      "amountMinorUnits": 750000,
+      "settlementCurrency": "PHP",
+      "payoutProviderId": "mock_payout_gateway",
+      "environment": "SANDBOX",
+      "normalizedStatus": "SUCCEEDED",
+      "reconciliationStatus": "MATCHED"
+    },
+    "deposit": {
+      "depositId": "dep_1791372453647_d11",
+      "bookingId": "book_1791372453643_qtvt5bj",
+      "amountMinorUnits": 1000000,
+      "currency": "PHP",
+      "status": "RELEASED",
+      "releasedBy": "usr_provider_ph_002"
+    },
+    "damageClaim": {
+      "claimId": "claim_1791372453650_j81b",
+      "claimNumber": "CLM-PH-453650",
+      "bookingId": "book_1791372453643_qtvt5bj",
+      "claimant": "usr_provider_ph_002",
+      "claimedAmountMinorUnits": 150000,
+      "approvedLiabilityMinorUnits": 150000,
+      "initialStatus": "SUBMITTED",
+      "resolvedStatus": "APPROVED",
+      "decidedBy": "adm_support_002",
+      "payoutHoldTriggered": true,
+      "payoutHoldReleasedAfterResolution": true
+    },
+    "review": {
+      "reviewId": "rev_1791372453651_k11",
+      "bookingId": "book_1791372453643_qtvt5bj",
+      "authorUserId": "usr_renter_ph_001",
+      "targetId": "lst_drill_ph_101",
+      "rating": 5,
+      "moderationStatus": "PUBLISHED",
+      "listingAverageRating": 5.0,
+      "listingTotalReviews": 1
+    },
+    "taxAndInvoice": {
+      "jurisdiction": "PH",
+      "platformFeeVatAmountMinorUnits": 6000,
+      "vatRate": "12%",
+      "receipt": {
+        "invoiceNumber": "REC-PH-453650",
+        "documentType": "RECEIPT",
+        "status": "ISSUED",
+        "totalAmountMinorUnits": 1800000,
+        "currency": "PHP"
+      },
+      "alternateRefundCreditNote": {
+        "creditNoteNumber": "CN-PH-453650",
+        "documentType": "CREDIT_NOTE",
+        "status": "ISSUED",
+        "adjustedAmountMinorUnits": 1800000,
+        "currency": "PHP"
+      }
+    },
+    "alternatePathBooking": {
+      "id": "book_1791372453648_b8aauy1",
+      "renterId": "usr_renter_ph_001",
+      "listingId": "lst_drill_ph_101",
+      "statusHistory": ["INITIATED", "REQUESTED", "ACCEPTED", "CONFIRMED", "CANCELLED"],
+      "finalStatus": "CANCELLED",
+      "cancellationActor": "RENTER",
+      "cancellationPolicy": "POLICY_FLEXIBLE",
+      "refundExecution": {
+        "refundId": "exec_ref_1791372453649_q91z",
+        "refundType": "FULL_CANCELLATION",
+        "refundPercentage": 100,
+        "amountMinorUnits": 1800000,
+        "status": "REFUNDED"
+      }
+    }
+  },
+  "readinessTransitions": {
+    "philippines": {
+      "initialStage": "FOUNDATION_READY",
+      "highestProvenStage": "LOCAL_ACCEPTED",
+      "currentStage": "LOCAL_ACCEPTED",
+      "isEligibleForLocalAcceptance": true,
+      "commerciallyActive": false
+    },
+    "blockedMarketsSummary": {
+      "totalBlocked": 45,
+      "unauthorizedLocalAccepted": 0,
+      "unauthorizedPreviewAccepted": 0,
+      "unauthorizedProductionAccepted": 0,
+      "unauthorizedActive": 0
+    }
+  }
+}

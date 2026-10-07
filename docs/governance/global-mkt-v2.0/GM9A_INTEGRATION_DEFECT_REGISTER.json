@@ -1,0 +1,25 @@
+{
+  "workstream": "RENTipid GLOBAL-MKT / v2.0 — GLOBAL MARKETPLACE ACTIVATION",
+  "action": "GM-9A Full Integrated Local Global-Marketplace Acceptance",
+  "timestamp": "2026-10-07T19:30:00Z",
+  "candidateSha": "db800839dc382a3580f2125d8901929683f93154",
+  "initialCandidateSha": "4ab5b2ba51e698441c5e8463d9cb0868d486aadd",
+  "totalDefectsFound": 1,
+  "totalDefectsCorrected": 1,
+  "blockingDefectsRemaining": 0,
+  "defects": [
+    {
+      "id": "GM9A-DEF-001",
+      "module": "post-transaction",
+      "subsystem": "claim-engine & dispute-engine",
+      "severity": "MEDIUM",
+      "reproduction": "In full integrated lifecycle execution, resolving a damage claim (via resolveClaim) or dispute (via resolveDispute) properly updated claimsById/disputesById, but did not update the secondary booking-indexed lookup map (claimsByBookingId/disputesByBookingId). Consequently, evaluatePayoutHoldStatus(bookingId) retrieved the stale SUBMITTED record and held payout indefinitely even after successful administrative adjudication.",
+      "rootCause": "The secondary booking index maps (claimsByBookingId, disputesByBookingId) were only populated during initial record creation and were not updated with the resolved record during lifecycle transitions.",
+      "fixCommit": "db800839dc382a3580f2125d8901929683f93154",
+      "fixSummary": "Added synchronous update to claimsByBookingId and disputesByBookingId upon resolveClaim, escalateClaimToDispute, and resolveDispute.",
+      "retestStatus": "PASS",
+      "affectedPreviousGate": "GM-7A",
+      "reopenedChain": "GM-7A Post-Transaction Integration and GM-9A Integrated Acceptance Runner"
+    }
+  ]
+}

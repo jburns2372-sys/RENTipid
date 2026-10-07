@@ -1,0 +1,887 @@
+{
+  "workstream": "RENTipid GLOBAL-MKT / v2.0 — GLOBAL MARKETPLACE ACTIVATION",
+  "action": "GM-9A Full Integrated Local Global-Marketplace Acceptance",
+  "candidateSha": "db800839dc382a3580f2125d8901929683f93154",
+  "initialCandidateSha": "4ab5b2ba51e698441c5e8463d9cb0868d486aadd",
+  "timestamp": "2026-10-07T11:32:02.226Z",
+  "totalJurisdictions": 46,
+  "localAcceptedCount": 1,
+  "previewAcceptedCount": 0,
+  "productionAcceptedCount": 0,
+  "ownerAcceptedCount": 0,
+  "activeCount": 0,
+  "matrix": [
+    {
+      "jurisdictionCode": "PH",
+      "countryName": "Philippines",
+      "gm8aReadiness": "FOUNDATION_READY",
+      "gm9aTestEligibility": true,
+      "integratedTestingAttempted": true,
+      "integratedTestingResult": "PASS",
+      "mandatoryBlockers": [
+        "AUTOMATED_PAYOUT_RAIL_MISSING",
+        "LOCAL_TAX_CLEARANCE_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "LOCAL_ACCEPTED",
+      "localAccepted": true,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "US",
+      "countryName": "United States",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "GB",
+      "countryName": "United Kingdom",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "CA",
+      "countryName": "Canada",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "AU",
+      "countryName": "Australia",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "SG",
+      "countryName": "Singapore",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "MY",
+      "countryName": "Malaysia",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "ID",
+      "countryName": "Indonesia",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "VN",
+      "countryName": "Vietnam",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "JP",
+      "countryName": "Japan",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "KR",
+      "countryName": "South Korea",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "IN",
+      "countryName": "India",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "CN",
+      "countryName": "China",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "ICP_LICENSE_REQUIRED",
+        "PIPL_DATA_LOCALIZATION_COMPLIANCE"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "TH",
+      "countryName": "Thailand",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "TH_PAYMENT_PROVIDER_MISSING",
+        "TH_PAYOUT_PROVIDER_MISSING",
+        "TH_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "AE",
+      "countryName": "United Arab Emirates",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "BR",
+      "countryName": "Brazil",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "DE",
+      "countryName": "Germany",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "FR",
+      "countryName": "France",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "IT",
+      "countryName": "Italy",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "ES",
+      "countryName": "Spain",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "NL",
+      "countryName": "Netherlands",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "BE",
+      "countryName": "Belgium",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "AT",
+      "countryName": "Austria",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "IE",
+      "countryName": "Ireland",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "PT",
+      "countryName": "Portugal",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "PL",
+      "countryName": "Poland",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "SE",
+      "countryName": "Sweden",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "DK",
+      "countryName": "Denmark",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "FI",
+      "countryName": "Finland",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "GR",
+      "countryName": "Greece",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "CZ",
+      "countryName": "Czech Republic",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "RO",
+      "countryName": "Romania",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "HU",
+      "countryName": "Hungary",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "NO",
+      "countryName": "Norway",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "IS",
+      "countryName": "Iceland",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "LU",
+      "countryName": "Luxembourg",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "BG",
+      "countryName": "Bulgaria",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "HR",
+      "countryName": "Croatia",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "CY",
+      "countryName": "Cyprus",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "EE",
+      "countryName": "Estonia",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "LV",
+      "countryName": "Latvia",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "LT",
+      "countryName": "Lithuania",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "MT",
+      "countryName": "Malta",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "SK",
+      "countryName": "Slovakia",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "SI",
+      "countryName": "Slovenia",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    },
+    {
+      "jurisdictionCode": "LI",
+      "countryName": "Liechtenstein",
+      "gm8aReadiness": "REGISTERED",
+      "gm9aTestEligibility": false,
+      "integratedTestingAttempted": false,
+      "integratedTestingResult": "BLOCKED_BEFORE_GM9A",
+      "mandatoryBlockers": [
+        "INTERNATIONAL_PAYMENT_PROVIDER_MISSING",
+        "INTERNATIONAL_PAYOUT_PROVIDER_MISSING",
+        "INTERNATIONAL_LEGAL_VALIDATION_REQUIRED"
+      ],
+      "highestAcceptedReadinessState": "REGISTERED",
+      "localAccepted": false,
+      "previewAccepted": false,
+      "productionAccepted": false,
+      "ownerAccepted": false,
+      "active": false
+    }
+  ]
+}
