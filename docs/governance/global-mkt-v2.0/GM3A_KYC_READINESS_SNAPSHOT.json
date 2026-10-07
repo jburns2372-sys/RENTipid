@@ -1,0 +1,1024 @@
+{
+  "version": "2.0.0",
+  "phase": "GM-3A",
+  "totalJurisdictions": 46,
+  "authoritativeCountryCount": 46,
+  "commerciallyActiveCount": 0,
+  "generatedAt": "2026-10-07T16:29:00Z",
+  "jurisdictions": [
+    {
+      "countryCode": "PH",
+      "countryName": "Philippines",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "MANUAL_INTERNAL",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "NATIONAL_ID",
+        "PASSPORT",
+        "DRIVER_LICENSE",
+        "SELFIE_LIVENESS"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "READY",
+      "blockers": [
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "US",
+      "countryName": "United States",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "GB",
+      "countryName": "United Kingdom",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "CA",
+      "countryName": "Canada",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "AU",
+      "countryName": "Australia",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "SG",
+      "countryName": "Singapore",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "MY",
+      "countryName": "Malaysia",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "ID",
+      "countryName": "Indonesia",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "VN",
+      "countryName": "Vietnam",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "JP",
+      "countryName": "Japan",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "KR",
+      "countryName": "South Korea",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "IN",
+      "countryName": "India",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "CN",
+      "countryName": "China",
+      "renterKycRequirement": "MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": false,
+      "documentRequirements": [
+        "NATIONAL_ID",
+        "PASSPORT"
+      ],
+      "paymentVerificationRequirement": "APPROVED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "China ICP Filing / Hosting Requirement (Deferred)",
+        "Cross-Border Data Transfer PIPL Assessment (Deferred)",
+        "Mainland China identity verification provider not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "TH",
+      "countryName": "Thailand",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "NATIONAL_ID",
+        "PASSPORT",
+        "SELFIE_LIVENESS"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated identity verification provider not configured",
+        "Thai DBD business registration registry integration pending",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "AE",
+      "countryName": "United Arab Emirates",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "BR",
+      "countryName": "Brazil",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "DE",
+      "countryName": "Germany",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "FR",
+      "countryName": "France",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "IT",
+      "countryName": "Italy",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "ES",
+      "countryName": "Spain",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "NL",
+      "countryName": "Netherlands",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "BE",
+      "countryName": "Belgium",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "AT",
+      "countryName": "Austria",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "IE",
+      "countryName": "Ireland",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "PT",
+      "countryName": "Portugal",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "PL",
+      "countryName": "Poland",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "SE",
+      "countryName": "Sweden",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "DK",
+      "countryName": "Denmark",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "FI",
+      "countryName": "Finland",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "GR",
+      "countryName": "Greece",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "CZ",
+      "countryName": "Czech Republic",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "RO",
+      "countryName": "Romania",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "HU",
+      "countryName": "Hungary",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "NO",
+      "countryName": "Norway",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "IS",
+      "countryName": "Iceland",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "LU",
+      "countryName": "Luxembourg",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "BG",
+      "countryName": "Bulgaria",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "HR",
+      "countryName": "Croatia",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "CY",
+      "countryName": "Cyprus",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "EE",
+      "countryName": "Estonia",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "LV",
+      "countryName": "Latvia",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "LT",
+      "countryName": "Lithuania",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "MT",
+      "countryName": "Malta",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "SK",
+      "countryName": "Slovakia",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "SI",
+      "countryName": "Slovenia",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    },
+    {
+      "countryCode": "LI",
+      "countryName": "Liechtenstein",
+      "renterKycRequirement": "NOT_MANDATORY",
+      "providerKycRequirement": "MANDATORY",
+      "businessVerificationRequirement": "MANDATORY",
+      "configuredProvider": "NOT_CONFIGURED",
+      "manualReviewAvailable": true,
+      "documentRequirements": [
+        "PASSPORT",
+        "NATIONAL_ID",
+        "DRIVER_LICENSE"
+      ],
+      "paymentVerificationRequirement": "NOT_REQUIRED",
+      "payoutVerificationRequirement": "APPROVED",
+      "readinessStatus": "VALIDATION_REQUIRED",
+      "blockers": [
+        "Local automated KYC provider adapter not configured",
+        "Commercial activation not authorized"
+      ],
+      "commerciallyActive": false
+    }
+  ]
+}

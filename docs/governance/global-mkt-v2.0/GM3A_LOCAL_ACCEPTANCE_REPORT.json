@@ -1,0 +1,81 @@
+{
+  "workstream": "RENTipid GLOBAL-MKT / v2.0 — GLOBAL MARKETPLACE ACTIVATION",
+  "phase": "GM-3A",
+  "title": "GLOBAL TRUST, IDENTITY, KYC + PROVIDER VERIFICATION FRAMEWORK",
+  "status": "PASS",
+  "executionModel": "GEMINI 3.8 FLASH HIGH",
+  "date": "2026-10-07",
+  "applicationCommit": "b1a7a6c8f1edb476a4edd8411a4903f385dc7be8",
+  "governanceStatus": "LOCALLY_ACCEPTED",
+  "trustModel": {
+    "architecture": "GLOBAL_TRUST_CORE",
+    "globalKycAbstraction": "IMPLEMENTED",
+    "individualSubject": "IMPLEMENTED",
+    "businessSubject": "IMPLEMENTED",
+    "verificationStateMachine": "IMPLEMENTED",
+    "documentRequirementContract": "IMPLEMENTED",
+    "kycProviderInterface": "IMPLEMENTED",
+    "manualInternalAdapter": "IMPLEMENTED",
+    "authKycSeparation": "PASS",
+    "contactKycSeparation": "PASS",
+    "identityProviderAuthorizationSeparation": "PASS",
+    "selfApprovalProtection": "PASS",
+    "stateTransitionSecurity": "PASS",
+    "providerPublicationTrustGate": "PASS",
+    "documentAccessSecurity": "PASS"
+  },
+  "database": {
+    "schemaChange": false,
+    "migrationCreated": false,
+    "productionDatabaseModified": false
+  },
+  "jurisdictions": {
+    "authoritativeCount": 46,
+    "kycProfilesResolved": 46,
+    "duplicatedCountryMaster": false,
+    "countryKycEngineForks": 0,
+    "unknownJurisdictionFailClosed": "PASS",
+    "missingKycProfileFailClosed": "PASS",
+    "phTrustFlowRegression": "PASS",
+    "thailandKycProfile": "PASS",
+    "chinaKycProfile": "PASS",
+    "unitedStatesKycProfile": "PASS",
+    "europeanUnionKycProfile": "PASS",
+    "commerciallyActiveCount": 0,
+    "philippinesCommerciallyActive": false,
+    "thailandCommerciallyActive": false,
+    "chinaCommerciallyActive": false,
+    "chinaDeferredBlockers": 2,
+    "mainlandChinaPublicNetworkOperability": "NOT_CLAIMED"
+  },
+  "externalProviders": {
+    "verifiedCount": 0,
+    "notConfiguredCount": 4
+  },
+  "verification": {
+    "typecheck": "PASS",
+    "productionEquivalentBuild": "PASS",
+    "jestUnitTests": {
+      "gm1Suite": "21/21 PASS",
+      "gm2Suite": "29/29 PASS",
+      "gm3aSuite": "26/26 PASS",
+      "totalUnitTests": "76/76 PASS"
+    },
+    "targetedRunner": "12/12 PASS",
+    "gm1Regression": "PASS",
+    "gm2Regression": "PASS",
+    "securityTests": "PASS",
+    "functionalTests": "PASS"
+  },
+  "invariants": {
+    "mannypayModified": false,
+    "paymongoModified": false,
+    "previewModified": false,
+    "productionModified": false,
+    "frozenGlccModified": false,
+    "frozenBaselineCommit": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+    "blockingGm3aDefects": 0,
+    "codexReviewPackage": "READY"
+  },
+  "nextPermittedAction": "GM-4A GLOBAL ADDRESS / LOCATION / LISTING / SEARCH & DISCOVERY"
+}
