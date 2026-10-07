@@ -1,0 +1,74 @@
+{
+  "manifestVersion": "1.0.0",
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-5 CONTROLLED PRODUCTION ACTIVATION + ACCEPTANCE",
+  "status": "FAIL-ROLLED-BACK",
+  "timestamp": "2026-10-07T05:15:00.000Z",
+  "candidate": {
+    "applicationSha": "0734f9930d3b16566f09637b35ca61406b25888a",
+    "deploymentId": "dpl_6FrhmpiGAG1uHSqg4ZP5BdL2TLRt",
+    "deploymentUrl": "https://ren-tipid-69nwwzuzd-jburns2372-sys-projects.vercel.app",
+    "productionDomain": "https://www.rentipid.com.ph"
+  },
+  "restoredKnownGoodBaseline": {
+    "deploymentId": "dpl_754t6JhqcPjLVzdh5wNBCm6QCBA3",
+    "applicationSha": "d3846e327905fe3762c73bc7b26697a19d708fbb",
+    "frozenTags": [
+      "rentipid-glcc-v1.1-global-frozen",
+      "glcc-v1.1-global"
+    ]
+  },
+  "inventory": {
+    "target": {
+      "countries": 46,
+      "languages": 47,
+      "fullLocalePacks": 33,
+      "aliases": 12,
+      "currencies": 25
+    },
+    "currentLiveRestored": {
+      "countries": 44,
+      "languages": 46,
+      "fullLocalePacks": 32,
+      "aliases": 12,
+      "currencies": 23
+    }
+  },
+  "legalComplianceApprovals": {
+    "reviewer": "Jonathan Amoroso — Legal/Compliance Officer",
+    "chinaDecision": "APPROVED",
+    "thailandDecision": "APPROVED",
+    "thaiClassCDecision": "APPROVED (241/241 keys)"
+  },
+  "globalMktCommercialStatus": {
+    "chinaGlccProductionAvailable": "NO (ROLLED BACK)",
+    "thailandGlccProductionAvailable": "NO (ROLLED BACK)",
+    "chinaGlobalMktCommercialActive": "NO",
+    "thailandGlobalMktCommercialActive": "NO",
+    "globalMktV2Status": "NOT STARTED"
+  },
+  "marketBlockers": {
+    "chinaGlccProductionBlockers": 0,
+    "chinaGlobalMktV2DeferredBlockers": 2,
+    "mainlandChinaPublicNetworkOperability": "NOT_CLAIMED"
+  },
+  "paymentAuthority": {
+    "chargeCurrency": "PHP",
+    "authorityStatus": "UNCHANGED",
+    "displaySettlementSeparation": "PASS"
+  },
+  "databaseStatus": {
+    "databaseMigration": "NO",
+    "databaseSchemaChange": "NO",
+    "destructiveDatabaseOperation": "NO"
+  },
+  "blockingDefects": [
+    {
+      "id": "DEF-CNTH-001",
+      "severity": "BLOCKING",
+      "component": "src/lib/glcc/language/language-registry.ts",
+      "description": "th-TH releaseStatus was registered as QA_REQUIRED instead of PRODUCTION_READY, failing closed under Production Firewall to en-PH during SSR rendering",
+      "remediationRequired": "Promote th-TH releaseStatus to PRODUCTION_READY and cycle through LOCAL -> corrected PREVIEW -> corrected PRODUCTION"
+    }
+  ]
+}

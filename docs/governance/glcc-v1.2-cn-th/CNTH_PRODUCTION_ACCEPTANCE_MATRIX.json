@@ -1,0 +1,195 @@
+{
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-5 CONTROLLED PRODUCTION ACTIVATION + ACCEPTANCE",
+  "deployment": {
+    "deploymentId": "dpl_6FrhmpiGAG1uHSqg4ZP5BdL2TLRt",
+    "deploymentUrl": "https://ren-tipid-69nwwzuzd-jburns2372-sys-projects.vercel.app",
+    "productionDomain": "https://www.rentipid.com.ph",
+    "deployedSha": "0734f9930d3b16566f09637b35ca61406b25888a",
+    "status": "READY"
+  },
+  "overallResult": "FAIL-ROLLED-BACK",
+  "rollbackReference": {
+    "deploymentId": "dpl_754t6JhqcPjLVzdh5wNBCm6QCBA3",
+    "applicationSha": "d3846e327905fe3762c73bc7b26697a19d708fbb",
+    "status": "RESTORED"
+  },
+  "matrix": [
+    {
+      "id": "SEC-9-10",
+      "category": "Deployment Verification",
+      "test": "Exact Approved Candidate Deployed to Production",
+      "expected": "Target https://www.rentipid.com.ph, exact SHA 0734f9930d3b16566f09637b35ca61406b25888a, 0 governance commits deployed",
+      "actual": "dpl_6FrhmpiGAG1uHSqg4ZP5BdL2TLRt deployed SHA 0734f9930d3b16566f09637b35ca61406b25888a verified via Vercel deployment API",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-11",
+      "category": "Production Health",
+      "test": "Endpoint and Core Routes Health",
+      "expected": "200 OK on /api/health (ready, connected), landing, login, register, 0 fatal 500 errors",
+      "actual": "All 200 OK; database connected; 0 fatal errors; RBAC redirect 307",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-12",
+      "category": "Production Inventory",
+      "test": "GLCC Complete Dimensional Count",
+      "expected": "46 countries, 47 languages, 33 full locale packs, 12 aliases, 25 currencies; CN/TH/zh-Hans/th-TH/CNY/THB present",
+      "actual": "46 countries, 47 languages, 25 currencies verified on /api/preferences; all target items present",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-13.1",
+      "category": "China Acceptance",
+      "test": "CN / zh-Hans / CNY Selectors",
+      "expected": "Available in options and selectable",
+      "actual": "Present and selectable in /api/preferences options",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-13.2",
+      "category": "China Acceptance",
+      "test": "Chinese Visible UI & Persistence",
+      "expected": "lang='zh-Hans', visible Simplified Chinese UI, persisted across requests",
+      "actual": "lang='zh-Hans', visible Simplified Chinese text rendered, persisted via rentipid_pref cookie",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-14",
+      "category": "China Acceptance",
+      "test": "China Cross-Dimension Matrix",
+      "expected": "Orthogonal independence across CN+zh-Hans+CNY, CN+en-US+CNY, CN+ja-JP+CNY, CN+zh-Hans+USD",
+      "actual": "All 4 combinations validated with 200 OK and matching effective preferences",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-15.1",
+      "category": "Thailand Acceptance",
+      "test": "TH / th-TH / THB Selectors",
+      "expected": "Available in options and selectable",
+      "actual": "Present and selectable in /api/preferences options",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-15.2",
+      "category": "Thailand Acceptance",
+      "test": "Thai Visible UI & Persistence",
+      "expected": "lang='th-TH', visible Thai UI rendered, persisted across requests",
+      "actual": "Preference persisted, but SSR returned lang='en-PH' without Thai text due to candidate th-TH releaseStatus='QA_REQUIRED'",
+      "status": "FAIL"
+    },
+    {
+      "id": "SEC-16",
+      "category": "Thailand Acceptance",
+      "test": "Thailand Cross-Dimension Matrix",
+      "expected": "Orthogonal independence across TH+th-TH+THB, TH+en-US+THB, TH+ja-JP+THB, TH+th-TH+USD, PH+th-TH+PHP, TH+zh-Hans+THB",
+      "actual": "All 6 combinations validated with 200 OK and matching effective preferences",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-17",
+      "category": "Surface Verification",
+      "test": "Thai Representative Surfaces",
+      "expected": "14 core surfaces return 200/307/302 without 500 fatal errors",
+      "actual": "14/14 surfaces executed safely, 0 blocking HTTP errors",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-18",
+      "category": "Surface Verification",
+      "test": "Chinese Representative Surfaces",
+      "expected": "14 core surfaces return 200/307/302 without 500 fatal errors",
+      "actual": "14/14 surfaces executed safely, 0 blocking HTTP errors",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-19",
+      "category": "String Quality",
+      "test": "Thai Raw Key / Unicode / Fallback Sweep",
+      "expected": "0 raw keys, 0 undefined/null/[object Object], 0 U+FFFD Unicode errors, 0 placeholder leaks",
+      "actual": "0 raw keys, 0 undefined/null, 0 Unicode corruption, 0 placeholder leaks detected",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-20",
+      "category": "String Quality",
+      "test": "Chinese Raw Key / Fallback Sweep",
+      "expected": "0 raw keys, 0 undefined/null/[object Object], 0 placeholder leaks",
+      "actual": "0 raw keys, 0 undefined/null, 0 placeholder leaks detected",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-21",
+      "category": "Currency Display",
+      "test": "CNY Currency Display Acceptance",
+      "expected": "CNY registered, minor units 2, non-transactional display only",
+      "actual": "CNY minor units 2, symbol ¥, display-only, transaction/settlement not claimed",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-22",
+      "category": "Currency Display",
+      "test": "THB Currency Display Acceptance",
+      "expected": "THB registered, minor units 2, non-transactional display only",
+      "actual": "THB minor units 2, symbol ฿, display-only, transaction/settlement not claimed",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-23",
+      "category": "Payment Non-Regression",
+      "test": "Strict Financial Separation",
+      "expected": "chargeCurrency immutably locked to PHP, injection prohibited (400 Bad Request)",
+      "actual": "chargeCurrency locked to PHP, injection of prohibited field returned 400 Bad Request",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-24",
+      "category": "Marketplace Compatibility",
+      "test": "Listing / Search Read-Only Verification",
+      "expected": "Browse and listing detail endpoints functional with GLCC headers",
+      "actual": "/browse and /listing/... returned 200 OK without errors",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-25",
+      "category": "Marketplace Compatibility",
+      "test": "Booking Checkout Surface Read-Only Verification",
+      "expected": "Checkout surface renders without initiating transaction",
+      "actual": "/checkout/... returned 200 OK without initiating payment",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-26",
+      "category": "Locale Metadata",
+      "test": "Timezone & Address Capability",
+      "expected": "CN Asia/Shanghai, TH Asia/Bangkok; free-form address supported",
+      "actual": "Timezones resolved correctly; documented non-blocking postal lookup limitation",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-27",
+      "category": "Global Regression",
+      "test": "Frozen v1.1 Baseline Non-Regression",
+      "expected": "ja-JP localization and ar-AE RTL functional; prior markets preserved",
+      "actual": "Japanese text renders under ja-JP; RTL dir rendered under ar-AE; 44 prior countries intact",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-30",
+      "category": "Database Protection",
+      "test": "Zero Production Database Mutations",
+      "expected": "0 migrations, 0 schema mutations, 0 destructive data operations",
+      "actual": "0 database changes executed against production",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-31",
+      "category": "Production Rollback",
+      "test": "Controlled Production Rollback Execution",
+      "expected": "On blocking defect, execute rollback to dpl_754t6JhqcPjLVzdh5wNBCm6QCBA3",
+      "actual": "Rollback executed via Vercel CLI to dpl_754t6JhqcPjLVzdh5wNBCm6QCBA3; verified live on https://www.rentipid.com.ph",
+      "status": "PASS"
+    }
+  ]
+}
