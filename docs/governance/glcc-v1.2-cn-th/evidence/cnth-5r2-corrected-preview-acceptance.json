@@ -1,0 +1,67 @@
+{
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-5R2 CORRECTED PREVIEW ACTIVATION + TARGETED PREVIEW ACCEPTANCE",
+  "executionModel": "GEMINI 3.8 FLASH HIGH",
+  "timestamp": "2026-10-07T06:38:00.000Z",
+  "application": {
+    "correctedApplicationSha": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+    "supersededPreviewApplicationSha": "0734f9930d3b16566f09637b35ca61406b25888a",
+    "supersededScope": "SUPERSEDED FOR THAI PRODUCTION-ELIGIBILITY PATH ONLY"
+  },
+  "deployment": {
+    "platform": "Vercel Preview",
+    "deploymentId": "dpl_HHUtSYdtQia9SxA6119bLdx8tmqV",
+    "deploymentUrl": "https://ren-tipid-92gy63idn-jburns2372-sys-projects.vercel.app",
+    "deployedSha": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+    "deployedShaMatch": true,
+    "status": "READY"
+  },
+  "criticalTest": {
+    "zeroQaOverrideEnforced": true,
+    "qaBypassCookieSent": false,
+    "thCountrySelector": "PASS",
+    "thThSelector": "PASS",
+    "thbSelector": "PASS",
+    "thaiVisibleUiWithoutQaOverride": "PASS",
+    "htmlSsrEffectiveLocale": "th-TH",
+    "thaiPersistence": "PASS",
+    "thaiReloadPersistence": "PASS"
+  },
+  "testExecutionResults": {
+    "previewHealth": "PASS",
+    "previewAuthRbac": "PASS",
+    "fatalServerErrors": 0,
+    "thaiSurfacesTested": 14,
+    "thaiBlockingFailures": 0,
+    "thaiRawKeys": 0,
+    "thaiRequiredFallback": 0,
+    "thaiEmptyRequiredStrings": 0,
+    "thaiUnicodeErrors": 0,
+    "thaiPlaceholderFailures": 0,
+    "thailandCountryLanguageIndependence": "PASS",
+    "thailandCountryCurrencyIndependence": "PASS",
+    "thailandLanguageCurrencyIndependence": "PASS",
+    "cnSelector": "PASS",
+    "zhHansVisibleUi": "PASS",
+    "chinesePersistence": "PASS",
+    "cnyDisplay": "PASS",
+    "zhHansRawKeys": 0,
+    "zhHansRequiredFallback": 0,
+    "countries": 46,
+    "languages": 47,
+    "fullLocalePacks": 33,
+    "aliases": 12,
+    "currencies": 25,
+    "databaseSchemaChange": "NO",
+    "databaseMigration": "NO",
+    "paymentProviderChange": "NO",
+    "paymentAuthority": "UNCHANGED",
+    "transactionCurrencyAuthority": "UNCHANGED",
+    "settlementCurrencyAuthority": "UNCHANGED",
+    "blockingCorrectedPreviewDefects": 0
+  },
+  "summary": {
+    "actionStatus": "PASS",
+    "nextPermittedAction": "CNTH-5R3 CORRECTED PRODUCTION ACTIVATION + ACCEPTANCE"
+  }
+}

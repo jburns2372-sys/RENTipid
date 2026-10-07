@@ -1,0 +1,103 @@
+{
+  "workstream": "GLCC-JX / v1.2 CHINA + THAILAND EXPANSION",
+  "action": "CNTH-5R2 CORRECTED PREVIEW ACTIVATION + TARGETED PREVIEW ACCEPTANCE",
+  "oldPreviewAcceptance": "SUPERSEDED FOR THAI PRODUCTION-ELIGIBILITY PATH ONLY",
+  "correctedPreviewApplication": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+  "deployment": {
+    "deploymentId": "dpl_HHUtSYdtQia9SxA6119bLdx8tmqV",
+    "deploymentUrl": "https://ren-tipid-92gy63idn-jburns2372-sys-projects.vercel.app",
+    "deployedSha": "9c69fd0128b0f9ef6a2e933d8a6636403a300bf6",
+    "status": "READY"
+  },
+  "overallResult": "PASS",
+  "matrix": [
+    {
+      "id": "SEC-9-10",
+      "category": "Deployment Verification",
+      "test": "Corrected Application Source Deployed to Preview",
+      "expected": "Exact SHA 9c69fd0128b0f9ef6a2e933d8a6636403a300bf6 verified via Vercel API",
+      "actual": "dpl_HHUtSYdtQia9SxA6119bLdx8tmqV / 9c69fd0128b0f9ef6a2e933d8a6636403a300bf6 confirmed",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-11",
+      "category": "Preview Health",
+      "test": "Endpoint and Core Routes Health",
+      "expected": "200 OK on /api/health (ready, connected), landing, login, register; RBAC redirect 307",
+      "actual": "All 200 OK, database connected, 0 fatal server errors, RBAC redirect 307",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-12.1",
+      "category": "Critical Remediation",
+      "test": "Zero QA Override Enforcement",
+      "expected": "No glcc_qa=true cookie or param sent during acceptance",
+      "actual": "Strict zero QA override maintained; no glcc_qa header or cookie transmitted",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-12.2",
+      "category": "Critical Remediation",
+      "test": "Thai Visible UI Rendering Without QA Override",
+      "expected": "lang='th-TH', visible Thai localization text rendered on SSR pages",
+      "actual": "lang='th-TH' rendered, Thai characters detected across home page, SSR effective locale th-TH",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-12.3",
+      "category": "Critical Remediation",
+      "test": "Thai Preference Persistence & Reload",
+      "expected": "Persisted in signed cookie and effective across reload without QA override",
+      "actual": "Persisted in rentipid_pref cookie, reload confirmed effectivePreference th-TH",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-13",
+      "category": "Surface Verification",
+      "test": "14 Representative Surfaces with Thai Localization",
+      "expected": "14 core surfaces return 200/307/302 without 500 fatal errors",
+      "actual": "14/14 surfaces executed safely, 0 blocking failures",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-14",
+      "category": "String Quality",
+      "test": "Thai Raw Key, Fallback, and Unicode Sweep",
+      "expected": "0 raw keys, 0 undefined/null, 0 Unicode corruption, 0 placeholder leaks",
+      "actual": "0 raw keys, 0 undefined/null, 0 Unicode corruption, 0 placeholder leaks detected",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-15",
+      "category": "Multi-Dimensional Independence",
+      "test": "Thai Cross-Dimension Matrix",
+      "expected": "TH+th-TH+THB, TH+en-US+THB, TH+th-TH+USD, PH+th-TH+PHP",
+      "actual": "All 4 combinations validated with 200 OK and matching effective preferences",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-16",
+      "category": "Essential China Non-Regression",
+      "test": "Mainland China Core Dimension Check",
+      "expected": "CN+zh-Hans+CNY selector, visible UI, persistence, CNY display ¥, 0 raw keys",
+      "actual": "lang='zh-Hans' rendered with Chinese text, symbol ¥, 0 raw keys, persistence confirmed",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-17",
+      "category": "Inventory Invariants",
+      "test": "GLCC Complete Dimensional Count",
+      "expected": "46 countries, 47 languages, 33 full locale packs, 12 aliases, 25 currencies; th-TH PRODUCTION_READY",
+      "actual": "All 46/47/25 verified; th-TH registered and PRODUCTION_READY",
+      "status": "PASS"
+    },
+    {
+      "id": "SEC-18",
+      "category": "Payment & Database Non-Regression",
+      "test": "Financial Authority & Schema Immutability",
+      "expected": "chargeCurrency PHP, 0 DB migrations, 0 DB schema mutations, MannyPay untouched",
+      "actual": "chargeCurrency locked to PHP, 0 migrations, 0 schema mutations, MannyPay untouched",
+      "status": "PASS"
+    }
+  ]
+}
