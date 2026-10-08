@@ -1,0 +1,103 @@
+{
+  "workstream": "RENTipid GLOBAL-MKT / v2.0",
+  "date": "2026-10-08",
+  "globalTarget": 46,
+  "countriesLocallyAccepted": 1,
+  "batch2Accepted": false,
+  "globalComplete": false,
+  "freezePermitted": false,
+  "countries": [
+    {
+      "country": "TH",
+      "fullLocalLifecycle": "BLOCKED"
+    },
+    {
+      "country": "SG",
+      "fullLocalLifecycle": "BLOCKED"
+    },
+    {
+      "country": "MY",
+      "fullLocalLifecycle": "BLOCKED"
+    },
+    {
+      "country": "VN",
+      "fullLocalLifecycle": "BLOCKED"
+    },
+    {
+      "country": "ID",
+      "fullLocalLifecycle": "BLOCKED"
+    }
+  ],
+  "credentials": {
+    "sumsub": "MISSING",
+    "xenditPayment": "MISSING",
+    "xenditPayout": "MISSING"
+  },
+  "sandboxVerified": {
+    "sumsub": false,
+    "xenditPayment": false,
+    "xenditPayout": false
+  },
+  "externalSubmissions": 0,
+  "bindingAgreements": 0,
+  "governmentFilings": 0,
+  "notAuthorized": [
+    "Binding commercial contracts",
+    "Production activation",
+    "Real payouts",
+    "Pre-funding",
+    "Government filing",
+    "Government fees",
+    "Production credentials activation"
+  ],
+  "actions": [
+    {
+      "id": "EXT-001",
+      "action": "Obtain Sumsub sandbox credentials, approved levels, server authorizer/document resolver and persistent sandbox storage.",
+      "owner": "PROJECT_OWNER_AND_ENGINEERING",
+      "status": "PENDING"
+    },
+    {
+      "id": "EXT-002",
+      "action": "Obtain Xendit country/entity/channel confirmation and sandbox payment credentials/configuration.",
+      "owner": "PROJECT_OWNER_VENDOR_AND_ENGINEERING",
+      "status": "PENDING"
+    },
+    {
+      "id": "EXT-003",
+      "action": "Obtain separately scoped sandbox payout credentials, verified beneficiary/authority resolvers and storage.",
+      "owner": "PROJECT_OWNER_VENDOR_AND_ENGINEERING",
+      "status": "PENDING"
+    },
+    {
+      "id": "EXT-004",
+      "action": "Send nonbinding counsel questions/proposal request and obtain responses to all 21 preserved questions.",
+      "owner": "PROJECT_OWNER_AND_COUNSEL",
+      "status": "PREPARED_NOT_SENT"
+    },
+    {
+      "id": "EXT-005",
+      "action": "Have counsel validate TH/VN/ID preparation drafts and identify separate filing/fee authority needed.",
+      "owner": "PROJECT_OWNER_AND_COUNSEL",
+      "status": "PREPARATION_ONLY"
+    },
+    {
+      "id": "EXT-006",
+      "action": "Run real isolated sandbox KYC/payment/payout validation per country/channel with sanitized evidence.",
+      "owner": "ENGINEERING_AND_VENDOR",
+      "status": "BLOCKED_BY_CREDENTIALS_AND_COVERAGE"
+    },
+    {
+      "id": "EXT-007",
+      "action": "Close legal/compliance/onboarding gaps and test complete local/cross-border lifecycle including captured-payment refunds.",
+      "owner": "ENGINEERING_COUNSEL_AND_PROJECT_OWNER",
+      "status": "BLOCKED"
+    },
+    {
+      "id": "EXT-008",
+      "action": "Request separate final Project Owner acceptance only after complete lifecycle/external evidence audit.",
+      "owner": "PROJECT_OWNER",
+      "status": "NOT_REQUESTED"
+    }
+  ]
+}

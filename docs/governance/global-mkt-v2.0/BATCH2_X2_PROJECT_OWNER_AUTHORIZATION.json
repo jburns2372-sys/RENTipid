@@ -1,0 +1,42 @@
+{
+  "workstream": "RENTipid GLOBAL-MKT / v2.0",
+  "recordedDate": "2026-10-08",
+  "source": "Project Owner instructions in workstream conversation",
+  "originalGrantDate": null,
+  "status": "PREPARATION_DUE_DILIGENCE_AUTHORIZED",
+  "finalProjectOwnerAcceptance": false,
+  "batch2Accepted": false,
+  "globalTarget": 46,
+  "fullFunctionCountriesAccepted": 1,
+  "decisions": [
+    {
+      "decisionId": "DEC-OWNER-001",
+      "authorization": "Sumsub preferred KYC candidate for TH, SG, MY, VN, ID."
+    },
+    {
+      "decisionId": "DEC-OWNER-002",
+      "authorization": "Xendit preferred payment candidate for TH, SG, MY, VN, ID."
+    },
+    {
+      "decisionId": "DEC-OWNER-003",
+      "authorization": "Xendit/XenPlatform preferred payout candidate."
+    },
+    {
+      "decisionId": "DEC-OWNER-004",
+      "authorization": "Preparation/submission of legal, tax and compliance questions and solicitation of professional-service proposals."
+    },
+    {
+      "decisionId": "DEC-OWNER-005",
+      "authorization": "Preparation only of potential statutory filing documents for TH, VN and ID."
+    }
+  ],
+  "notAuthorized": [
+    "Binding commercial contracts",
+    "Production activation",
+    "Real payouts",
+    "Pre-funding",
+    "Government filing",
+    "Government fees",
+    "Production credentials activation"
+  ]
+}
