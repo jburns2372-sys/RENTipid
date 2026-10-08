@@ -7,6 +7,7 @@
 
 import { type PayoutLifecycleState } from './payout-lifecycle';
 import { type ProviderVerificationStatus } from './payment-provider';
+import type { PayoutExecutionStore } from './payout-execution-store';
 
 export const PAYOUT_PROVIDER_CAPABILITIES = [
   'CREATE_PAYOUT',
@@ -35,6 +36,7 @@ export interface BeneficiaryValidationResult {
 }
 
 export interface CreatePayoutInput {
+  readonly jurisdictionCode?: string;
   readonly payoutId: string;
   readonly bookingId: string;
   readonly providerId: string;
@@ -78,6 +80,8 @@ export interface PayoutProviderAdapter {
   readonly verificationStatus: ProviderVerificationStatus;
   readonly capabilities: readonly PayoutProviderCapability[];
   readonly supportedCurrencies: readonly string[];
+  readonly executionStore?: PayoutExecutionStore;
+  authorizePayout?(input: CreatePayoutInput): Promise<void>;
 
   validateBeneficiary(input: BeneficiaryValidationInput): Promise<BeneficiaryValidationResult>;
   createPayout(input: CreatePayoutInput): Promise<CreatePayoutOutput>;

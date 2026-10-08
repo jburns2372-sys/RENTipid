@@ -47,6 +47,7 @@ import {
   processPaymentWebhook,
   reconcilePaymentWithProvider,
   evaluatePayoutEligibility,
+  createEligiblePayoutContext,
   createPayoutInstruction,
   reconcilePayoutWithProvider,
   MANNYPAY_PROVIDER_ID,
@@ -305,7 +306,8 @@ async function runVerification() {
     'valid_mock_signature'
   );
   assert(
-    mismatchResult.success === false && mismatchResult.error?.includes('WEBHOOK_AMOUNT_MISMATCH'),
+    mismatchResult.success === false && mismatchResult.error?.includes('WEBHOOK_MONEY_MISMATCH') &&
+      mismatchResult.paymentAttempt?.reconciliationStatus === 'MISMATCH',
     '11. Webhook Amount Mismatch Quarantine',
     `Amount mismatch quarantined: ${mismatchResult.paymentAttempt?.reconciliationStatus === 'MISMATCH'}`
   );
@@ -391,17 +393,8 @@ async function runVerification() {
   );
 
   // 16. Beneficiary Redirection Tampering Blocked
-  const samplePayoutContext: EligiblePayoutContext = {
-    bookingId: 'book_gm6a_runner_001',
-    bookingReference: 'RENT-PH-888999',
-    providerId: 'provider_dan',
-    jurisdictionCode: 'PH',
-    eligibleSettlementTrigger: 'BOOKING_COMPLETED',
-    payoutAmountMinorUnits: 270000,
-    settlementCurrency: 'PHP',
-    amountAuthorityReference: 'payout_auth_001',
-    isSettled: false,
-  };
+  // Batch 2-X3 enforces the booking service's actual payout authority reference.
+  const samplePayoutContext: EligiblePayoutContext = createEligiblePayoutContext(sampleBookingRecord);
   let beneficiaryTamperBlocked = false;
   try {
     await createPayoutInstruction({

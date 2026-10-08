@@ -8,6 +8,8 @@
 import { type PaymentProviderAdapter } from '../contracts/payment-provider';
 import { type PayoutProviderAdapter } from '../contracts/payout-provider';
 import { PayMongoGlobalAdapter } from '../adapters/paymongo-global-adapter';
+import { XenditPaymentProviderAdapter } from '../adapters/xendit-payment-adapter';
+import { XenditPayoutProviderAdapter } from '../adapters/xendit-payout-adapter';
 import { MockPaymentProviderAdapter } from '../adapters/mock-payment-provider-adapter';
 import { MockPayoutProviderAdapter } from '../adapters/mock-payout-provider-adapter';
 import { MANNYPAY_PROVIDER_ID, MANNYPAY_STATUS } from '../adapters/mannypay-boundary';
@@ -19,6 +21,10 @@ class GlobalFinancialProviderRegistry {
   constructor() {
     // Register verified / partial production adapters
     this.registerPaymentAdapter(new PayMongoGlobalAdapter());
+    this.registerPaymentAdapter(new XenditPaymentProviderAdapter());
+
+    // Register payout adapters
+    this.registerPayoutAdapter(new XenditPayoutProviderAdapter());
 
     // Register test adapters (clearly identified as MOCK)
     this.registerPaymentAdapter(new MockPaymentProviderAdapter());

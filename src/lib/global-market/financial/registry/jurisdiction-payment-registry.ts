@@ -27,18 +27,23 @@ function buildAuthoritativePaymentProfiles(): ReadonlyMap<string, JurisdictionPa
       supportedMethods = Object.freeze(['CARD', 'GCASH', 'PAYMAYA', 'BANK']);
       blockers = Object.freeze([]);
     } else if (code === 'TH') {
+      approvedProviders = Object.freeze(['xendit']); // Technical candidate only; readiness remains NOT_CONFIGURED.
       supportedMethods = Object.freeze(['CARD', 'PROMPTPAY', 'BANK']);
       blockers = Object.freeze(['PromptPay payment acquiring merchant agreement and credentials required for TH']);
     } else if (code === 'SG') {
+      approvedProviders = Object.freeze(['xendit']);
       supportedMethods = Object.freeze(['CARD', 'PAYNOW', 'FAST_BANK_TRANSFER']);
       blockers = Object.freeze(['Singapore MAS-compliant payment acquiring merchant agreement required for SG']);
     } else if (code === 'MY') {
+      approvedProviders = Object.freeze(['xendit']);
       supportedMethods = Object.freeze(['CARD', 'DUITNOW', 'FPX_ONLINE_BANKING']);
       blockers = Object.freeze(['FPX / DuitNow payment merchant account required for MY']);
     } else if (code === 'VN') {
+      approvedProviders = Object.freeze(['xendit']);
       supportedMethods = Object.freeze(['CARD', 'NAPAS_BANK_TRANSFER', 'MOMO_WALLET']);
       blockers = Object.freeze(['State Bank of Vietnam licensed payment gateway agreement required for VN']);
     } else if (code === 'ID') {
+      approvedProviders = Object.freeze(['xendit']);
       supportedMethods = Object.freeze(['CARD', 'QRIS', 'VIRTUAL_ACCOUNT']);
       blockers = Object.freeze(['Bank Indonesia licensed payment gateway agreement required for ID']);
     }

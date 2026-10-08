@@ -51,7 +51,7 @@ function buildAuthoritativeKycProfiles(): ReadonlyMap<string, JurisdictionKycPro
         blockers: ['Commercial activation not authorized'],
       };
     } else if (code === 'TH') {
-      // Thailand — Conservative GLCC baseline
+      // Thailand — Conservative GLCC baseline (Sumsub adapter approved under DEC-OWNER-001)
       profile = {
         countryCode: 'TH',
         countryName: name,
@@ -61,7 +61,7 @@ function buildAuthoritativeKycProfiles(): ReadonlyMap<string, JurisdictionKycPro
         identityDocumentsRequired: ['NATIONAL_ID', 'PASSPORT', 'SELFIE_LIVENESS'],
         addressProofRequired: true,
         minimumAge: 20, // Legal majority age in Thailand
-        providerAdapter: 'NOT_CONFIGURED',
+        providerAdapter: 'SUMSUB',
         manualReviewAllowed: true,
         reverificationPolicy: STANDARD_REVERIFICATION_POLICY,
         publicationVerificationRequirement: 'APPROVED',
@@ -69,7 +69,7 @@ function buildAuthoritativeKycProfiles(): ReadonlyMap<string, JurisdictionKycPro
         payoutVerificationRequirement: 'APPROVED',
         status: 'VALIDATION_REQUIRED',
         blockers: [
-          'Local automated identity verification provider not configured',
+          'Sumsub sandbox credentials required (SUMSUB_APP_TOKEN / SUMSUB_SECRET_KEY)',
           'Thai DBD business registration registry integration pending',
           'Commercial activation not authorized',
         ],
@@ -100,7 +100,7 @@ function buildAuthoritativeKycProfiles(): ReadonlyMap<string, JurisdictionKycPro
         ],
       };
     } else if (code === 'SG') {
-      // Singapore — Singpass / NRIC / FIN
+      // Singapore — Singpass / NRIC / FIN (Sumsub adapter approved under DEC-OWNER-001)
       profile = {
         countryCode: 'SG',
         countryName: name,
@@ -110,7 +110,7 @@ function buildAuthoritativeKycProfiles(): ReadonlyMap<string, JurisdictionKycPro
         identityDocumentsRequired: ['NATIONAL_ID', 'PASSPORT', 'DRIVER_LICENSE', 'SELFIE_LIVENESS'],
         addressProofRequired: true,
         minimumAge: 18,
-        providerAdapter: 'NOT_CONFIGURED',
+        providerAdapter: 'SUMSUB',
         manualReviewAllowed: true,
         reverificationPolicy: STANDARD_REVERIFICATION_POLICY,
         publicationVerificationRequirement: 'APPROVED',
@@ -118,13 +118,13 @@ function buildAuthoritativeKycProfiles(): ReadonlyMap<string, JurisdictionKycPro
         payoutVerificationRequirement: 'APPROVED',
         status: 'VALIDATION_REQUIRED',
         blockers: [
-          'Singapore Singpass / automated KYC provider integration pending',
+          'Sumsub sandbox credentials required (SUMSUB_APP_TOKEN / SUMSUB_SECRET_KEY)',
           'ACRA business registry verification pending',
           'Commercial activation not authorized',
         ],
       };
     } else if (code === 'MY') {
-      // Malaysia — MyKad / Passport
+      // Malaysia — MyKad / Passport (Sumsub adapter approved under DEC-OWNER-001)
       profile = {
         countryCode: 'MY',
         countryName: name,
@@ -134,7 +134,7 @@ function buildAuthoritativeKycProfiles(): ReadonlyMap<string, JurisdictionKycPro
         identityDocumentsRequired: ['NATIONAL_ID', 'PASSPORT', 'DRIVER_LICENSE', 'SELFIE_LIVENESS'],
         addressProofRequired: true,
         minimumAge: 18,
-        providerAdapter: 'NOT_CONFIGURED',
+        providerAdapter: 'SUMSUB',
         manualReviewAllowed: true,
         reverificationPolicy: STANDARD_REVERIFICATION_POLICY,
         publicationVerificationRequirement: 'APPROVED',
@@ -142,13 +142,13 @@ function buildAuthoritativeKycProfiles(): ReadonlyMap<string, JurisdictionKycPro
         payoutVerificationRequirement: 'APPROVED',
         status: 'VALIDATION_REQUIRED',
         blockers: [
-          'Malaysian MyKad automated verification provider pending',
+          'Sumsub sandbox credentials required (SUMSUB_APP_TOKEN / SUMSUB_SECRET_KEY)',
           'SSM business registration integration pending',
           'Commercial activation not authorized',
         ],
       };
     } else if (code === 'VN') {
-      // Vietnam — CCCD / Citizen ID / Passport
+      // Vietnam — CCCD / Citizen ID / Passport (Sumsub adapter approved under DEC-OWNER-001)
       profile = {
         countryCode: 'VN',
         countryName: name,
@@ -158,7 +158,7 @@ function buildAuthoritativeKycProfiles(): ReadonlyMap<string, JurisdictionKycPro
         identityDocumentsRequired: ['NATIONAL_ID', 'PASSPORT', 'DRIVER_LICENSE', 'SELFIE_LIVENESS'],
         addressProofRequired: true,
         minimumAge: 18,
-        providerAdapter: 'NOT_CONFIGURED',
+        providerAdapter: 'SUMSUB',
         manualReviewAllowed: true,
         reverificationPolicy: STANDARD_REVERIFICATION_POLICY,
         publicationVerificationRequirement: 'APPROVED',
@@ -166,13 +166,13 @@ function buildAuthoritativeKycProfiles(): ReadonlyMap<string, JurisdictionKycPro
         payoutVerificationRequirement: 'APPROVED',
         status: 'VALIDATION_REQUIRED',
         blockers: [
-          'Vietnam national CCCD chip card verification integration pending',
+          'Sumsub sandbox credentials required (SUMSUB_APP_TOKEN / SUMSUB_SECRET_KEY)',
           'National business registration portal integration pending',
           'Commercial activation not authorized',
         ],
       };
     } else if (code === 'ID') {
-      // Indonesia — KTP / Passport
+      // Indonesia — KTP / Passport (Sumsub adapter approved under DEC-OWNER-001)
       profile = {
         countryCode: 'ID',
         countryName: name,
@@ -182,7 +182,7 @@ function buildAuthoritativeKycProfiles(): ReadonlyMap<string, JurisdictionKycPro
         identityDocumentsRequired: ['NATIONAL_ID', 'PASSPORT', 'DRIVER_LICENSE', 'SELFIE_LIVENESS'],
         addressProofRequired: true,
         minimumAge: 18,
-        providerAdapter: 'NOT_CONFIGURED',
+        providerAdapter: 'SUMSUB',
         manualReviewAllowed: true,
         reverificationPolicy: STANDARD_REVERIFICATION_POLICY,
         publicationVerificationRequirement: 'APPROVED',
@@ -190,7 +190,7 @@ function buildAuthoritativeKycProfiles(): ReadonlyMap<string, JurisdictionKycPro
         payoutVerificationRequirement: 'APPROVED',
         status: 'VALIDATION_REQUIRED',
         blockers: [
-          'Indonesia Dukcapil identity verification gateway pending',
+          'Sumsub sandbox credentials required (SUMSUB_APP_TOKEN / SUMSUB_SECRET_KEY)',
           'OSS NIB business registration verification pending',
           'Commercial activation not authorized',
         ],

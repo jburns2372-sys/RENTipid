@@ -49,6 +49,11 @@ export interface IKycProviderAdapter {
   readonly providerId: string;
   readonly providerName: string;
   readonly isConfigured: boolean;
+  createVerificationSession?(verificationId: string, accountId: string): Promise<{
+    readonly verificationId: string;
+    readonly sessionToken: string;
+    readonly expiresAt: string;
+  }>;
 
   createVerification(input: CreateVerificationInput): Promise<KycVerificationResult>;
   getVerification(verificationId: string): Promise<KycVerificationResult>;

@@ -43,6 +43,9 @@ function buildAuthoritativePayoutProfiles(): ReadonlyMap<string, JurisdictionPay
       blockers = Object.freeze(['Automated BI-FAST / domestic bank disbursement rail required for ID']);
     }
 
+    // Technical candidate routing only: readiness remains NOT_CONFIGURED.
+    if (['TH', 'SG', 'MY', 'VN', 'ID'].includes(code)) approvedProviders = Object.freeze(['xendit_payout']);
+
     const profile: JurisdictionPayoutProfile = Object.freeze({
       jurisdictionCode: code,
       jurisdictionName: country.name,

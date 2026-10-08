@@ -41,6 +41,9 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+/.rentipid-sandbox/
+/batch2_x3_prompt.txt
+/original_user_request.txt
 next-env.d.ts
 
 /src/generated/prisma

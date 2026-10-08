@@ -5,3 +5,4 @@
 export * from './kyc-provider-adapter.interface';
 export * from './manual-internal-adapter';
 export * from './external-provider-stubs';
+export * from './sumsub-kyc-adapter';

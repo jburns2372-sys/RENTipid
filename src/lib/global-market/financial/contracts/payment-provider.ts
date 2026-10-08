@@ -6,6 +6,7 @@
  */
 
 import { type PaymentLifecycleState } from './payment-lifecycle';
+import { type PaymentExecutionStore } from './payment-execution-store';
 
 export const PAYMENT_PROVIDER_CAPABILITIES = [
   'CREATE_PAYMENT',
@@ -35,6 +36,7 @@ export type ProviderVerificationStatus =
   | 'UNKNOWN';
 
 export interface CreatePaymentSessionInput {
+  readonly jurisdictionCode?: string;
   readonly bookingId: string;
   readonly bookingReference: string;
   readonly amountMinorUnits: number;
@@ -66,6 +68,7 @@ export interface ProviderPaymentStatusResult {
 export interface NormalizedWebhookEvent {
   readonly eventId: string;
   readonly eventType: string;
+  readonly providerTransactionId?: string;
   readonly providerReference: string;
   readonly bookingId?: string;
   readonly normalizedStatus: PaymentLifecycleState;
@@ -81,6 +84,7 @@ export interface PaymentProviderAdapter {
   readonly verificationStatus: ProviderVerificationStatus;
   readonly capabilities: readonly PaymentProviderCapability[];
   readonly supportedCurrencies: readonly string[];
+  readonly executionStore?: PaymentExecutionStore;
 
   createPaymentSession(input: CreatePaymentSessionInput): Promise<CreatePaymentSessionOutput>;
   retrievePaymentStatus(providerReference: string): Promise<ProviderPaymentStatusResult>;

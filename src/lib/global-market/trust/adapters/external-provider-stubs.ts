@@ -13,6 +13,21 @@ import {
   type KycVerificationResult,
   type WebhookProcessingResult,
 } from './kyc-provider-adapter.interface';
+import { getJurisdictionKycProfile } from '../registry/jurisdiction-kyc-registry';
+
+const configuredAdapters = new Map<string, IKycProviderAdapter>();
+export function registerKycProviderAdapter(adapter: IKycProviderAdapter): void {
+  if (adapter.providerId !== 'SUMSUB') throw new Error('KYC_PROVIDER_REGISTRATION_NOT_AUTHORIZED');
+  configuredAdapters.set(adapter.providerId,adapter);
+}
+export function resolveJurisdictionKycAdapter(country: string,preferredProviderId?: string): IKycProviderAdapter {
+  const profile = getJurisdictionKycProfile(country);
+  if (!profile || profile.providerAdapter === 'NOT_CONFIGURED' ||
+      (preferredProviderId !== undefined && preferredProviderId.trim().toUpperCase() !== profile.providerAdapter)) throw new Error('JURISDICTION_KYC_PROVIDER_MISMATCH');
+  const adapter = getKycProviderAdapter(profile.providerAdapter);
+  if (!adapter.isConfigured) throw new Error('KYC_PROVIDER_NOT_CONFIGURED');
+  return adapter;
+}
 
 export class UnconfiguredExternalKycAdapter implements IKycProviderAdapter {
   readonly providerId: string;
@@ -84,6 +99,13 @@ export function getKycProviderAdapter(providerId: string): IKycProviderAdapter {
     // Return manual adapter
     const { ManualInternalKycAdapter } = require('./manual-internal-adapter');
     return new ManualInternalKycAdapter();
+  }
+
+  if (normalized === 'SUMSUB') {
+    const configured = configuredAdapters.get(normalized);
+    if (configured) return configured;
+    const { SumsubKycProviderAdapter } = require('./sumsub-kyc-adapter');
+    return new SumsubKycProviderAdapter();
   }
 
   const knownName = KNOWN_EXTERNAL_KYC_PROVIDERS[normalized] || `External Provider (${providerId})`;
