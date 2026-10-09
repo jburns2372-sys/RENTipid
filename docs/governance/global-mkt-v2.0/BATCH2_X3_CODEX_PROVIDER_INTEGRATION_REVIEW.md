@@ -20,7 +20,9 @@ Xendit regressions cover restart idempotency/receipts, wrong country/currency/bu
 
 ## Limits / external blockers
 
-All credentials MISSING; actual sandbox verification NO. Documentation support != SANDBOX_VERIFIED. Valid configuration at most yields SANDBOX_CONFIGURED, never automatic Production readiness. Required server callbacks, Sumsub level policies and private-document resolution must also be configured.
+Historical closeout on 2026-10-08: all credentials MISSING; actual sandbox verification NO. Update 2026-10-09: Sumsub credentials PRESENT and scoped Individual API/genuine callback integration VERIFIED, as recorded in BATCH2_X3_SUMSUB_SANDBOX_EVIDENCE.md and the external checklist JSON. Digest-algorithm/testMode metadata and genuine HTTP duplicate redelivery remain unverified, as do full KYC/document/business/country lifecycle checks. Xendit account approval PENDING; both Xendit real sandbox verifications remain NO. Documentation support != SANDBOX_VERIFIED. Valid runtime configuration at most yields SANDBOX_CONFIGURED, never automatic Production readiness.
+
+Pre-approval Xendit callback preparation: separate Node POST routes /api/webhooks/xendit/payment and /api/webhooks/xendit/payout dispatch only to the existing global orchestrators. Missing configuration -> 503; invalid callback token -> 401; bounded raw body and generic errors prevent disclosure. Xendit uses x-callback-token verification, not a fabricated Sumsub-style HMAC. Payout callback configuration is separate from permission to create payouts; missing trusted resolvers still block creation. Exact environment and post-approval validation requirements are in BATCH2_X3_XENDIT_SANDBOX_CHECKLIST.md. Fixture tests never load local secrets or contact provider APIs.
 
 Dedicated local SQLite is durable for a persistent sandbox host, NOT approved Production multi-instance/serverless infrastructure. Later authorized infrastructure/persistence/concurrency/backup review is required.
 

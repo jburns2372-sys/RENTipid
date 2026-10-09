@@ -147,3 +147,25 @@ Response PENDING; expected YES / NO / CONDITIONALLY.
 ## Deliverables and approval gates
 
 Attach owner authorization, both vendor drafts and TH/VN/ID preparation packages. Require dated qualified opinion, verified sources, assumptions/conditions, proposed remediation and evidence per question. No counsel submission/retention, legal/tax clearance or government filing happened in this closeout. Binding engagement, filings and fees require separate owner approval. Full lifecycle remains BLOCKED.
+
+## 2026-10-09 pre-Xendit update: existing research only
+
+Package READY for counsel review, NOT legal clearance. All 21 precise questions above and the original X1 JSON are unchanged. No new legal research, law/rate/threshold conclusion, filing or counsel response is invented. Original proposed technical consequences are conditional hypotheses, not executable tax/registration policy.
+
+| Country | Existing source/question provenance | Required counsel closure |
+| --- | --- | --- |
+| TH | X1 Q-TAX-TH-01/02, Q-COMP-TH-01/02/03; existing CNTH_OFFICIAL_LEGAL_SOURCE_REGISTER.json TH-SRC-001 through TH-SRC-007 | Confirm actual entity/marketplace/funds-flow applicability, VAT/WHT, notifications/registration and transfer basis before any filing, tax activation or Production launch |
+| SG | X1 Q-TAX-SG-01/02, Q-COMP-SG-01/02 cite GST Act/IRAS guides, CPFTA and PDPA/NRIC guidance | Obtain dated primary-source excerpts and qualified applicability opinion; do not infer NRIC collection is lawful merely from masking or apply a tax exemption from thresholds alone |
+| MY | X1 Q-TAX-MY-01/02, Q-COMP-MY-01/02 cite Service Tax/STDoDS, LHDN/MyInvois, electronic-trade and vehicle statutes; existing global register notes PDPA amendments | Verify instruments/amendments/effective dates, service classification, invoice obligations, disclosures, category permits and cross-border-data facts |
+| VN | X1 Q-TAX-VN-01, Q-COMP-VN-01/02 cite tax administration/Circular 80, Decrees 52/85 and Decree 13; existing global register separately references Law 122/2025/QH15 | Reconcile the existing differing references and current effective law with counsel; determine notification versus registration and data-transfer dossier applicability; no automatic filing or tax rate |
+| ID | X1 Q-TAX-ID-01, Q-COMP-ID-01/02 cite PMSE VAT regulation, foreign PSE and UU PDP | Verify currently applicable instruments, authority names, appointment/rate conditions, foreign-entity registration and cross-border safeguards; historical 11% question is not asserted as a current rate |
+
+Source provenance: [unchanged X1 questions](BATCH2_X1_LEGAL_COMPLIANCE_REVIEW_PACKAGE.json), [existing global legal register](../../legal-compliance/Global_Legal_Compliance_Register_v1.md), and [existing CN/TH official-source register](../glcc-v1.2-cn-th/legal/CNTH_OFFICIAL_LEGAL_SOURCE_REGISTER.json).
+
+The TH register records official authority roots [ETDA](https://www.etda.or.th), [PDPC](https://www.pdpc.or.th), [OCPB](https://www.ocpb.go.th), [Revenue Department](https://www.rd.go.th) and [Bank of Thailand](https://www.bot.or.th). These are inherited source-register pointers, not fresh retrieval or instrument-level clearance. For SG/MY/ID the X1 package cites instrument/authority names but does not supply instrument-level retrieved official URLs/excerpts. VN portal references likewise do not establish legal applicability. Explicit source/effective-date gaps remain OPEN for counsel; no verification date is advanced by copying research.
+
+Provide counsel a factual annex: actual contracting entity/domicile, five country/provider/channel confirmations, separate payment/payout funds flow, deposit/refund/claim rules, revenue/users, synthetic-only KYC evidence, real data storage/transfer locations and subprocessor/retention inventory. Missing facts remain TO BE PROVIDED. Sumsub scoped Sandbox verification and pending Xendit account approval are engineering facts, not legal approval.
+
+Q-REG-01 and Q-REG-02 remain PENDING. Country advice must address local and cross-border lifecycles separately; a unified ASEAN document or aggregator account does not prove all-country legal coverage. Preserve TH/VN/ID preparation-only drafts; statutory submissions and fees require separate owner authorization.
+
+No country scope change: 46/46 full-function target, accepted 1/46, five SEA full local lifecycles BLOCKED, Batch 2 NOT ACCEPTED, global complete NO, freeze NO. No Batch 3, deployment, binding agreement, government filing or Production action.

@@ -4,13 +4,13 @@ Date: 2026-10-08. Workstream: RENTipid GLOBAL-MKT / v2.0.
 Target: 46/46 full-function countries. TH/SG/MY/VN/ID are an implementation wave only.
 Preparation/due diligence only; NOT Final Project Owner Acceptance, Batch 2 acceptance, legal clearance or Production activation. PH remains 1/46 locally accepted; all five SEA full local lifecycles remain BLOCKED. Global complete NO; freeze NO.
 
-Sumsub and Xendit payment/payout credentials: MISSING (presence checked without printing values). All sandbox verified: NO. Structured evidence is in the paired JSON.
+Update 2026-10-09: Sumsub Sandbox credentials PRESENT; scoped Individual API and genuine callback integration VERIFIED. Xendit payment/payout credentials MISSING and account approval PENDING; Xendit sandbox verification NO. See the paired JSON and [Sumsub evidence](BATCH2_X3_SUMSUB_SANDBOX_EVIDENCE.md). VERIFIED does not mean full KYC lifecycle, business verification, all-country coverage or legal/Production readiness.
 
-## EXT-001 — PENDING
+## EXT-001 — VERIFIED_SCOPED_RESIDUAL_CHECKS_PENDING
 
-Obtain Sumsub sandbox credentials, approved levels, server authorizer/document resolver and persistent sandbox storage.
+Preserve verified Sumsub Individual API and genuine callback evidence. Still obtain genuine digest-algorithm/testMode metadata and HTTP duplicate-redelivery evidence; configure private-document resolution and validate the complete KYC lifecycle.
 
-Responsible: PROJECT_OWNER_AND_ENGINEERING. Evidence: PENDING.
+Responsible: PROJECT_OWNER_AND_ENGINEERING. Evidence: BATCH2_X3_SUMSUB_SANDBOX_EVIDENCE.md.
 
 ## EXT-002 — PENDING
 
@@ -56,4 +56,4 @@ Responsible: PROJECT_OWNER. Evidence: PENDING.
 
 Only nonbinding due diligence/proposals are authorized; binding retention/agreements, government filings/fees, Production activation, real payout and pre-funding remain prohibited. No external action was submitted by this closeout.
 
-Next action: Project Owner obtains Sumsub and separately scoped Xendit payment/payout sandbox credentials plus country/channel eligibility confirmation through approved secret channels.
+Next action: WAIT FOR XENDIT APPROVAL, THEN RUN REAL XENDIT SANDBOX VALIDATION using [the prepared checklist](BATCH2_X3_XENDIT_SANDBOX_CHECKLIST.md). Sumsub residual checks and all legal/full-lifecycle blockers remain open independently. No Preview/Production deployment or another country batch is authorized.

@@ -1,6 +1,6 @@
 {
   "workstream": "RENTipid GLOBAL-MKT / v2.0",
-  "date": "2026-10-08",
+  "date": "2026-10-09",
   "globalTarget": 46,
   "countriesLocallyAccepted": 1,
   "batch2Accepted": false,
@@ -29,16 +29,56 @@
     }
   ],
   "credentials": {
-    "sumsub": "MISSING",
+    "sumsub": "PRESENT",
     "xenditPayment": "MISSING",
     "xenditPayout": "MISSING"
   },
   "sandboxVerified": {
-    "sumsub": false,
+    "sumsub": true,
     "xenditPayment": false,
     "xenditPayout": false
   },
   "externalSubmissions": 0,
+  "sumsubVerificationEvidence": {
+    "status": "VERIFIED",
+    "scope": "Individual KYC API smoke and genuine applicantCreated callback; not full KYC lifecycle or country acceptance",
+    "date": "2026-10-09",
+    "level": "RENTipid-SEA-Provider-KYC",
+    "syntheticJurisdiction": "TH",
+    "apiAuthentication": "PASS",
+    "applicantCreation": "PASS",
+    "webSdkAccessToken": "PASS",
+    "statusRetrieval": "PASS",
+    "genuineCallback": "PASS",
+    "callbackHttpStatus": 200,
+    "sandboxModeTrueAccepted": true,
+    "testModeTrueAccepted": false,
+    "persistedStateVersionObserved": 1,
+    "freshProcessPersistence": "PASS",
+    "durableReceiptReplay": "PASS",
+    "receiptFingerprintConflict": "REJECTED",
+    "knownSecretsOrSyntheticIdentifiersInLogs": false,
+    "genuineDigestAlgorithm": "NOT_RETAINED",
+    "genuineTestModeAbsentVersusFalse": "NOT_RETAINED",
+    "genuineHttpDuplicateRedelivery": "NOT_VERIFIED",
+    "fullSandboxKycLifecycleComplete": false,
+    "evidenceDocument": "BATCH2_X3_SUMSUB_SANDBOX_EVIDENCE.md"
+  },
+  "xenditAccountApproval": "PENDING",
+  "preXenditFixtureValidation": {
+    "date": "2026-10-09",
+    "xenditAndRoutingChecksPassed": 29,
+    "includingSumsubRegressionChecksPassed": 43,
+    "failed": 0,
+    "typecheck": "PASS",
+    "localPaymentCallbackWithoutCredentials": 503,
+    "localPayoutCallbackWithoutCredentials": 503,
+    "realXenditApiCalls": 0,
+    "capturedRefundTransportImplemented": false,
+    "legalPackageStatus": "READY_FOR_COUNSEL_NOT_CLEARED",
+    "preservedLegalQuestions": 21
+  },
+  "xenditPreparationChecklist": "BATCH2_X3_XENDIT_SANDBOX_CHECKLIST.md",
   "bindingAgreements": 0,
   "governmentFilings": 0,
   "notAuthorized": [
@@ -53,9 +93,9 @@
   "actions": [
     {
       "id": "EXT-001",
-      "action": "Obtain Sumsub sandbox credentials, approved levels, server authorizer/document resolver and persistent sandbox storage.",
+      "action": "Preserve verified Individual Sumsub API/genuine callback evidence; complete residual delivery metadata, HTTP redelivery, private-document resolver and full KYC lifecycle checks.",
       "owner": "PROJECT_OWNER_AND_ENGINEERING",
-      "status": "PENDING"
+      "status": "VERIFIED_SCOPED_RESIDUAL_CHECKS_PENDING"
     },
     {
       "id": "EXT-002",
@@ -83,7 +123,7 @@
     },
     {
       "id": "EXT-006",
-      "action": "Run real isolated sandbox KYC/payment/payout validation per country/channel with sanitized evidence.",
+      "action": "Preserve scoped Sumsub verification; after Xendit approval run real sandbox payment/payout validation per country/channel with sanitized evidence.",
       "owner": "ENGINEERING_AND_VENDOR",
       "status": "BLOCKED_BY_CREDENTIALS_AND_COVERAGE"
     },
