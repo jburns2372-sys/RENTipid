@@ -16,6 +16,9 @@ export interface SumsubConfig {
   readonly webhookSecret?:string;
   readonly baseUrl?:string;
   readonly environment?:'sandbox' | 'production';
+  /** RENTipid-owned stable sandbox namespace, provisioned by its deployment administrator.
+   * Not Sumsub clientId; never derived from an applicant, webhook or guessed default.
+   * Changing it changes external applicant IDs and must not reuse an existing store. */
   readonly tenantId?:string;
   readonly statePath?:string;
   readonly levels?:Partial<Readonly<Record<'INDIVIDUAL' | 'BUSINESS',SumsubLevelPolicy>>>;
@@ -51,17 +54,24 @@ export class SumsubKycProviderAdapter implements IKycProviderAdapter {
     this.environment = config?.environment ?? process.env.SUMSUB_ENVIRONMENT ?? '';
     this.tenantId = config?.tenantId ?? process.env.SUMSUB_SANDBOX_TENANT_ID ?? '';
     this.statePath = config?.statePath ?? process.env.SUMSUB_SANDBOX_STATE_PATH ?? '';
-    this.levels = config?.levels ? JSON.parse(JSON.stringify(config.levels)) as SumsubConfig['levels'] : undefined;
+    this.levels = config?.levels ? JSON.parse(JSON.stringify(config.levels)) as SumsubConfig['levels'] : {
+      INDIVIDUAL:{ name:process.env.SUMSUB_INDIVIDUAL_LEVEL_NAME ?? 'RENTipid-SEA-Provider-KYC',documents:identityDocuments }
+    };
     this.authorize = config?.authorizeAccountOperation; this.documentResolver = config?.resolveDocument;
   }
   get isConfigured():boolean {
+    return this.isWebhookConfigured && typeof this.authorize === 'function';
+  }
+  /** Signed callbacks authenticate by the sandbox webhook secret, not an end-user session.
+   * Account operations still require the explicit authenticated server authorizer. */
+  get isWebhookConfigured():boolean {
     try {
       const url = new URL(this.baseUrl);
       return this.environment === 'sandbox' && /^sbx:[A-Za-z0-9_.:-]+$/.test(this.appToken) &&
         !!this.secretKey.trim() && this.secretKey.trim() === this.secretKey && !!this.webhookSecret.trim() &&
         this.webhookSecret.trim() === this.webhookSecret && this.webhookSecret !== this.secretKey &&
-        /^[A-Za-z0-9_-]+$/.test(this.tenantId) && isSandboxKycStatePath(this.statePath) && typeof this.authorize === 'function' &&
-        Object.values(this.levels ?? {}).some(level => !!level?.name && Array.isArray(level.documents) && level.documents.every(doc => DOCUMENT_CATEGORIES.includes(doc))) &&
+        /^[A-Za-z0-9_-]+$/.test(this.tenantId) && isSandboxKycStatePath(this.statePath) &&
+        Object.values(this.levels ?? {}).some(level => typeof level?.name === 'string' && !!level.name.trim() && Array.isArray(level.documents) && level.documents.every(doc => DOCUMENT_CATEGORIES.includes(doc))) &&
         url.protocol === 'https:' && url.hostname === 'api.sumsub.com' && !url.port && !url.username && !url.password &&
         url.pathname === '/' && !url.search && !url.hash;
     } catch { return false; }
@@ -72,7 +82,7 @@ export class SumsubKycProviderAdapter implements IKycProviderAdapter {
     return this.isConfigured ? 'SANDBOX_CONFIGURED':'NOT_CONFIGURED';
   }
   get executionStore():SandboxKycExecutionStore | undefined {
-    if (!this.isConfigured) return undefined;
+    if (!this.isWebhookConfigured) return undefined;
     return this.store ??= new SandboxKycExecutionStore(this.statePath,this.tenantId);
   }
   close() { this.store?.close(); this.store = undefined; }
@@ -84,6 +94,7 @@ export class SumsubKycProviderAdapter implements IKycProviderAdapter {
     if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('INVALID_SUMSUB_RESPONSE'); return value as Data;
   }
   private async authorizeOperation(accountId:string,operation:'CREATE' | 'SESSION' | 'SUBMIT' | 'REVERIFY'):Promise<void> {
+    if (!this.isConfigured) throw new Error('SUMSUB_NOT_CONFIGURED');
     this.requireStore();
     try { if (await this.authorize!(accountId,operation) === true) return; } catch { /* sanitized */ }
     throw new Error('SUMSUB_ACCOUNT_OPERATION_UNAUTHORIZED');
@@ -181,12 +192,12 @@ export class SumsubKycProviderAdapter implements IKycProviderAdapter {
   }
   async cancelVerification(id:string):Promise<boolean> { this.binding(id); return false; /* Deactivation is not cancellation; never fabricate it. */ }
   verifyWebhook(payload:string | Buffer,signature:string,secret?:string):boolean {
-    if (!this.isConfigured || (secret !== undefined && secret !== this.webhookSecret) || !/^[a-fA-F0-9]{64}$/.test(signature)) return false;
+    if (!this.isWebhookConfigured || (secret !== undefined && secret !== this.webhookSecret) || !/^[a-fA-F0-9]{64}$/.test(signature)) return false;
     const expected = crypto.createHmac('sha256',this.webhookSecret).update(payload).digest();
     const actual = Buffer.from(signature,'hex'); return expected.length === actual.length && crypto.timingSafeEqual(expected,actual);
   }
   async handleWebhook(payload:unknown,headers:Record<string,string>):Promise<WebhookProcessingResult> {
-    if (!this.isConfigured || (!Buffer.isBuffer(payload) && typeof payload !== 'string')) return { handled:false,eventType:'INVALID_SIGNATURE',error:'Raw bytes and configured sandbox credentials required.' };
+    if (!this.isWebhookConfigured || (!Buffer.isBuffer(payload) && typeof payload !== 'string')) return { handled:false,eventType:'INVALID_SIGNATURE',error:'Raw bytes and configured sandbox credentials required.' };
     const getHeader = (name:string) => {
       const found = Object.entries(headers).filter(([key]) => key.toLowerCase() === name); return found.length === 1 ? found[0][1]:'';
     };
@@ -199,15 +210,20 @@ export class SumsubKycProviderAdapter implements IKycProviderAdapter {
     if (!crypto.timingSafeEqual(expected,Buffer.from(signature,'hex'))) return { handled:false,eventType:'INVALID_SIGNATURE' };
     try {
       const data = this.object(JSON.parse(raw.toString('utf8')));
+      // Sandbox deliveries are real sandbox events; Webhook Manager test sends are not.
+      if (data.sandboxMode !== true || data.testMode === true ||
+          (data.testMode !== undefined && typeof data.testMode !== 'boolean')) return { handled:false,eventType:'INVALID_EVENT_MODE' };
       const binding = typeof data.applicantId === 'string' ? this.binding(data.applicantId):null;
       if (!binding || data.externalUserId !== binding.externalUserId || typeof data.type !== 'string' ||
           !['applicantCreated','applicantPending','applicantReviewed','applicantOnHold','applicantReset','applicantActivated','applicantDeactivated','applicantPersonalInfoChanged'].includes(data.type) || data.testMode === true) throw new Error('INVALID_SUMSUB_EVENT_BINDING');
       const correlation = typeof data.correlationId === 'string' && /^[A-Za-z0-9_-]{1,128}$/.test(data.correlationId) ? data.correlationId:null;
       const timestamp = typeof data.createdAtMs === 'number' && Number.isSafeInteger(data.createdAtMs) && data.createdAtMs > 0 ? String(data.createdAtMs):
         typeof data.createdAtMs === 'string' && /^\d{10,17}$/.test(data.createdAtMs) ? data.createdAtMs:
+        typeof data.createdAtMs === 'string' && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}$/.test(data.createdAtMs) && Number.isFinite(Date.parse(data.createdAtMs.replace(' ','T') + 'Z')) ? data.createdAtMs:
         typeof data.createdAt === 'string' && Number.isFinite(Date.parse(data.createdAt.replace(' ','T').replace(/\+0000$/,'Z'))) ? data.createdAt:null;
       if (!correlation && !timestamp) throw new Error('MISSING_STABLE_SUMSUB_EVENT_IDENTITY');
-      const key = hash([binding.verificationId,data.type,correlation ?? timestamp]);
+      // One originating request can produce several events with the same correlationId.
+      const key = hash([binding.verificationId,data.type,correlation,timestamp]);
       const fingerprint = hash([data.applicantId,data.externalUserId,data.type,data.reviewStatus,data.reviewResult,data.attemptId,data.createdAtMs ?? data.createdAt]);
       const replay = this.requireStore().replay(key,fingerprint,binding.verificationId);
       if (replay) return { handled:true,eventType:'DUPLICATE_EVENT_IGNORED',verificationResult:replay };

@@ -13,7 +13,7 @@ export const kycConfig = (statePath:string):SumsubConfig => ({
   levels:{ INDIVIDUAL:{ name:'sandbox-individual',documents:individualDocuments },BUSINESS:{ name:'sandbox-business',documents:['BUSINESS_REGISTRATION','ADDRESS_PROOF','TAX_REGISTRATION'] } }
 });
 export function signEvent(data:unknown,algorithm = 'sha256') {
-  const raw = Buffer.from(JSON.stringify(data,null,2));
+  const raw = Buffer.from(JSON.stringify({ sandboxMode:true,...data as Record<string,unknown> },null,2));
   return { raw,headers:{ 'X-Payload-Digest-Alg':algorithm === 'sha512' ? 'HMAC_SHA512_HEX':'HMAC_SHA256_HEX',
     'X-Payload-Digest':crypto.createHmac(algorithm,'testonly-webhook-secret').update(raw).digest('hex') } };
 }

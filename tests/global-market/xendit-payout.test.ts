@@ -31,7 +31,9 @@ test('Xendit payout safety (mocked HTTP; separate sandbox SQLite)',async t => {
       for (const changes of [{ secretKey:'' },{ webhookToken:'' },{ businessId:'' },{ environment:'production' as const },{ secretKey:'xnd_production_live' },
         { baseUrl:'https://evil.example' },{ statePath:'' },{ statePath:join(tmpdir(),'production.sqlite') },{ resolveBeneficiary:undefined },{ resolvePayoutAuthority:undefined },{ webhookToken:cfg.secretKey }]) {
         const adapter = new XenditPayoutProviderAdapter({ ...cfg,...changes });
-        assert.equal(adapter.isConfigured,false); assert.equal(adapter.verifyWebhookSignature({},'',headers),false);
+        assert.equal(adapter.isConfigured,false);
+        // Missing creation authority does not invalidate authentication for already-bound callbacks.
+        assert.equal(adapter.verifyWebhookSignature({},'',headers),adapter.isWebhookConfigured);
         await assert.rejects(adapter.createPayout({ payoutId:'payout',bookingId:'booking',providerId:'owner',jurisdictionCode:'TH',amountMinorUnits:50000,currency:'THB',
           beneficiaryReference:'beneficiary-owner',description:'Test',idempotencyKey:'key' }),/NOT_CONFIGURED/);
       }

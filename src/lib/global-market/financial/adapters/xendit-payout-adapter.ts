@@ -104,12 +104,15 @@ export class XenditPayoutProviderAdapter implements PayoutProviderAdapter {
     this.beneficiaryResolver = config?.resolveBeneficiary; this.authorityResolver = config?.resolvePayoutAuthority;
   }
   get isConfigured(): boolean {
+    return this.isWebhookConfigured && typeof this.beneficiaryResolver === 'function' && typeof this.authorityResolver === 'function';
+  }
+  /** Callback authentication is independent of server authority to initiate a payout. */
+  get isWebhookConfigured(): boolean {
     try {
       const url = new URL(this.baseUrl);
       return this.environment === 'sandbox' && /^xnd_development_[A-Za-z0-9_-]+$/.test(this.secretKey) &&
         !!this.webhookToken.trim() && this.webhookToken.trim() === this.webhookToken && this.webhookToken !== this.secretKey &&
         /^[A-Za-z0-9_-]+$/.test(this.businessId) && isSandboxPayoutStatePath(this.statePath) &&
-        typeof this.beneficiaryResolver === 'function' && typeof this.authorityResolver === 'function' &&
         url.protocol === 'https:' && url.hostname === 'api.xendit.co' && !url.port && !url.username && !url.password &&
         url.pathname === '/' && !url.search && !url.hash;
     } catch { return false; }
@@ -121,7 +124,7 @@ export class XenditPayoutProviderAdapter implements PayoutProviderAdapter {
     return this.isConfigured ? 'SANDBOX_CONFIGURED' : 'NOT_CONFIGURED';
   }
   get executionStore(): SandboxPayoutExecutionStore | undefined {
-    if (!this.isConfigured) return undefined;
+    if (!this.isWebhookConfigured) return undefined;
     return this.store ??= new SandboxPayoutExecutionStore(this.statePath);
   }
   close() { this.store?.close(); this.store = undefined; }
@@ -135,6 +138,7 @@ export class XenditPayoutProviderAdapter implements PayoutProviderAdapter {
     return value as Data;
   }
   private async beneficiary(input: BeneficiaryValidationInput): Promise<XenditPayoutBeneficiary> {
+    if (!this.isConfigured) throw new Error('XENDIT_PAYOUT_NOT_CONFIGURED');
     this.requireStore();
     if (!COUNTRY_CURRENCY[input.jurisdictionCode] || COUNTRY_CURRENCY[input.jurisdictionCode] !== input.currency ||
         !input.providerId.trim() || !input.beneficiaryReference.trim()) throw new Error('INVALID_PAYOUT_BENEFICIARY_AUTHORITY');
@@ -161,6 +165,7 @@ export class XenditPayoutProviderAdapter implements PayoutProviderAdapter {
     catch { return { isValid: false, reason: 'PAYOUT_BENEFICIARY_NOT_AUTHORIZED_OR_CONFIGURED' }; }
   }
   async authorizePayout(input: CreatePayoutInput): Promise<void> {
+    if (!this.isConfigured) throw new Error('XENDIT_PAYOUT_NOT_CONFIGURED');
     const store = this.requireStore();
     const existing = store.getByBooking(input.bookingId);
     if (existing?.providerReference && (store.getOperationByReference(existing.providerReference) as OwnedPayout | null)?.businessId !== this.businessId) {
@@ -244,7 +249,7 @@ export class XenditPayoutProviderAdapter implements PayoutProviderAdapter {
     return result;
   }
   verifyWebhookSignature(_payload: unknown, signature: string, headers?: Record<string,string>): boolean {
-    if (!this.isConfigured) return false;
+    if (!this.isWebhookConfigured) return false;
     const tokens = Object.entries(headers ?? {}).filter(([key]) => key.toLowerCase() === 'x-callback-token');
     if (tokens.length !== 1 || !tokens[0][1] || (signature && signature !== tokens[0][1])) return false;
     const expected = Buffer.from(this.webhookToken); const actual = Buffer.from(tokens[0][1]);
