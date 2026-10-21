@@ -54,3 +54,8 @@ Plan only. Three technically separate waves are the smallest safe separation of 
 ## 3. Acceptance and closure
 
 Evidence gaps are not new coding tasks unless actual state demonstrates a defect. Current risk scores and 15 treatment authorizations remain unchanged; zero residual risk accepted. Future COMPLETED/ACCEPTED/CLOSED applies only after each affected chain passes; VERSION FROZEN is not authorized. Scope expands only by explicit reviewed delta. The only recommended immediate next remediation package is ISO-C2-M1 above, pending separate execution instruction.
+
+
+## 4. M1 execution checkpoint — 2026-10-22
+
+Historical planning sections above remain the accepted C2-R1 baseline. Subsequent Project Owner resume instruction authorizes the first eligible technical wave and limited enforcement artifact reopening. ISO-C2-M1 implemented and locally accepted at d012cdb982f86b34a3d7ed306743dc222584a287: 23 targeted checks passed on Node v24.22.0. See ISO_C2_M1_COMPLETION_REPORT.md. RSK-08 operating/enforcement evidence remains open; no residual acceptance. M2/M3 not started and not authorized by this execution; stop after this checkpoint.

@@ -32,3 +32,8 @@ YES below means a later affected gate must be satisfied after authorization; it 
 Middleware/route parameter changes can alter live behavior even without schema changes; Preview and Production cannot be inherited as unaffected for Wave 3. A restore drill mutates an isolated database even when no Production mutation or app migration occurs. Cloud API access and backup-provider configuration are unproven; a mock AWS audit cannot establish live conformity. A script directory does not make an execution harmless or prove deployment invariance. Limited frozen-artifact reopening is required for the confirmed changes; historical accepted unaffected gates remain inherited.
 
 Other candidate changes (new quota storage, deployment config, cloud controls, provider APIs or customer data) are outside this plan and require a new delta assessment before execution. End-to-end accepted suites are not rerun just because documents changed. Wave-specific negative cases are new/affected validation, not duplicate technical evidence.
+
+
+## 4. Executed M1 delta
+
+M1 alone now has Code Complete, Local Functional and Local Acceptance PASS — EXECUTED. Application DB migration and seed/sync PASS — REUSED / UNAFFECTED; Preview migration/acceptance and Production-ready/deployment/verification N/A — NOT APPLICABLE. Only two CI workflows, bounded audit tooling/policy and standalone Node contract fixtures changed. No DB/application/deployment delta or TypeScript change. No broad reruns. M2/M3 remain future, unexecuted. Full gate dispositions and remaining remote enforcement evidence: ISO_C2_M1_COMPLETION_REPORT.md.

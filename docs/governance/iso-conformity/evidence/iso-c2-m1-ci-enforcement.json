@@ -1,0 +1,111 @@
+{
+  "projectId": "RENTIPID-ISO-CONFORMITY-001",
+  "version": "v1.0",
+  "workPackage": "ISO-C2-M1",
+  "recordedAt": "2026-10-21T18:57:22.632Z",
+  "authoritativeBaseline": "999af0e",
+  "technicalCommit": "d012cdb982f86b34a3d7ed306743dc222584a287",
+  "authorization": "Project Owner resume instruction: execute only first eligible accepted technical wave; limited Phase 5I enforcement artifact reopening.",
+  "status": "PASS",
+  "acceptanceScope": "Local technical acceptance only; not independent owner acceptance, overall risk closure or remote enforcement proof",
+  "wave": "ISO-C2-M1 — CI GATE ENFORCEMENT + EXECUTION RUNTIME ALIGNMENT",
+  "risksAddressed": [
+    "RSK-08"
+  ],
+  "defectsCorrected": [
+    "DEF-TOOL-01"
+  ],
+  "files": [
+    {
+      "path": ".github/workflows/security-supply-chain.yml",
+      "sha256": "4a3d09983c80ece6f886e385dd008cd2dd739d42f94ae91ffc13bff9ac3cf13d"
+    },
+    {
+      "path": ".github/workflows/glcc-ci.yml",
+      "sha256": "9eac60c977f42eddd677331b3168b41edf820e26b7291342853368615e55cc9b"
+    },
+    {
+      "path": "scripts/security/check-ci-audit.cjs",
+      "sha256": "f278c79e7b693436028e48707ca140d7148708316f7f5685c756fcb0b6ec5ce4"
+    },
+    {
+      "path": "scripts/security/ci-audit-policy.json",
+      "sha256": "0145502e46808affba7bc5d72ff97ae732afc7f85327e89b426a7a275e0fdfb3"
+    },
+    {
+      "path": "tests/security/iso-c2-m1-ci.contract.cjs",
+      "sha256": "23f0b6f6d2c0f4e15cba72a2027b856d72780602ace04bca493002faf6c1f854"
+    }
+  ],
+  "validation": {
+    "command": "npm exec --yes --package=node@24 -- node --test tests/security/iso-c2-m1-ci.contract.cjs",
+    "runtime": "v24.22.0",
+    "exitCode": 0,
+    "passed": 23,
+    "failed": 0,
+    "skipped": 0,
+    "cases": [
+      "workflow YAML and runtime contract",
+      "real isolated Jest passing/failing/empty-selection exits",
+      "mandatory guard nonzero exit prevents test effects",
+      "clean and explicitly excepted audit counts",
+      "runtime/unrelated/mixed/critical/over-ceiling findings rejected",
+      "invalid/error/status/count audit reports fail closed",
+      "audit CLI pass/exception/nonzero/error propagation and sanitized output"
+    ],
+    "auditMode": "Controlled reports only; no live vulnerability scan or fresh dependency-safety claim",
+    "typecheck": "N/A — NOT APPLICABLE; no TypeScript/application code changes",
+    "syntaxAndScope": "Parsed both workflows, policy JSON and Node tooling; git diff --check passed"
+  },
+  "exceptionPolicy": {
+    "source": "docs/security/level5/bundles/phase5i/PHASE5I_SUPPLY_CHAIN_SECURITY_EVIDENCE.md#dependency-audit",
+    "developmentFamilies": [
+      "eslint",
+      "jest",
+      "postcss",
+      "sharp"
+    ],
+    "maximumHigh": 30,
+    "maximumModerate": 4,
+    "criteria": "Every affected installation must be dev:true in the frozen lock and reachable within a named family development dependency graph; runtime/shared runtime instances and unrelated families rejected. Zero critical/low/info exceptions. No dependency upgrades or new risk acceptance.",
+    "limitation": "Historical evidence supplies aggregate counts/families, not advisory IDs; this is a bounded family/count policy, not an advisory identity baseline. New out-of-scope findings require review; no blanket suppression."
+  },
+  "lifecycleGates": {
+    "codeComplete": "PASS — EXECUTED",
+    "localFunctional": "PASS — EXECUTED",
+    "localDatabaseMigrated": "PASS — REUSED / UNAFFECTED",
+    "localRequiredDataSeededSynced": "PASS — REUSED / UNAFFECTED",
+    "localAcceptancePass": "PASS — EXECUTED",
+    "previewMigrated": "N/A — NOT APPLICABLE",
+    "previewAcceptancePass": "N/A — NOT APPLICABLE",
+    "productionReady": "N/A — NOT APPLICABLE",
+    "productionDeploymentVerification": "N/A — NOT APPLICABLE",
+    "completed": "PASS — EXECUTED",
+    "accepted": "PASS — EXECUTED",
+    "closed": "N/A — NOT APPLICABLE",
+    "versionFrozen": "N/A — NOT APPLICABLE"
+  },
+  "databaseModified": false,
+  "migrationRequired": false,
+  "seedSyncRequired": false,
+  "remoteCiExecuted": false,
+  "branchProtectionVerified": false,
+  "previewModified": false,
+  "productionModified": false,
+  "remainingEvidence": [
+    "GitHub workflow execution and required-check/branch-protection enforcement",
+    "Recurring dependency triage and named Engineering accountability",
+    "All unrelated human/legal/provider/operational tracks remain open; Xendit approval pending"
+  ],
+  "residualRisk": {
+    "risk": "RSK-08",
+    "score": "3 x 4 = 12 (HIGH)",
+    "status": "PARTIAL — local tooling corrected; operating evidence outstanding",
+    "accepted": false
+  },
+  "otherWavesStarted": false,
+  "isoC3Started": false,
+  "versionFrozen": false,
+  "certificationClaimed": false,
+  "nextAction": "Obtain authorized GitHub CI execution and branch-protection enforcement evidence for RSK-08."
+}

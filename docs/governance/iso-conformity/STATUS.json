@@ -4,20 +4,21 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "Combined Technical Security + Privacy + Cloud + SDLC Conformity Verification",
+  "phaseName": "Bounded remediation — CI Gate Enforcement and Runtime Alignment",
   "status": "PASS",
-  "phaseGate": "C2 VERIFICATION AND BOUNDED REMEDIATION PLAN ACCEPTED",
-  "timestamp": "2026-10-22T02:27:00Z",
+  "phaseGate": "ISO-C2-M1 LOCAL TECHNICAL ACCEPTANCE PASS — REMOTE ENFORCEMENT EVIDENCE OPEN",
+  "timestamp": "2026-10-21T18:57:22.632Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
-    "headSha": "47f54aae5bfc99b7ba97f94347c7bfb232627a5a",
+    "headSha": "999af0e",
     "acceptedIsoC1Sha": "a6c6258cc6606c04d2a24574cb1f9f06d09c2aea",
     "projectOwnerDecisionSha": "47f54aae5bfc99b7ba97f94347c7bfb232627a5a",
     "applicationCommitSha": "83b8f4dabadc243b01ab8e5f50746bf281ecf62b",
-    "governanceCommitSha": "47f54aae5bfc99b7ba97f94347c7bfb232627a5a",
-    "worktreeClean": false,
-    "worktreeStateNote": "Initial C2-R1 inspection: two modified governance roll-ups and eight untracked C2 reports only. Review corrections are governance-only; checkpoint cleanliness verified separately."
+    "governanceCommitSha": "999af0e",
+    "worktreeClean": true,
+    "worktreeStateNote": "M1 initial baseline verified once: required branch, exact 999af0e HEAD, clean worktree. Final checkpoint state verified separately; technicalCommitSha identifies this delta.",
+    "technicalCommitSha": "d012cdb982f86b34a3d7ed306743dc222584a287"
   },
   "scope": {
     "proposedScope": "Design, development, operation, maintenance, security, privacy management, support, and continual improvement of the RENTipid global rental marketplace and its supporting information systems, cloud infrastructure, data processing services, and relevant operational processes.",
@@ -134,8 +135,8 @@
     "currentApplicationDatabasePreviewProductionModified": false
   },
   "lifecycleGates": {
-    "codeComplete": "PASS — REUSED / UNAFFECTED",
-    "localFunctional": "PASS — REUSED / UNAFFECTED",
+    "codeComplete": "PASS — EXECUTED",
+    "localFunctional": "PASS — EXECUTED",
     "localDatabaseMigrated": "PASS — REUSED / UNAFFECTED",
     "localRequiredDataSeededSynced": "PASS — REUSED / UNAFFECTED",
     "localAcceptancePass": "PASS — EXECUTED",
@@ -145,7 +146,7 @@
     "productionDeploymentVerification": "N/A — NOT APPLICABLE",
     "completed": "PASS — EXECUTED",
     "accepted": "PASS — EXECUTED",
-    "closed": "PASS — EXECUTED",
+    "closed": "N/A — NOT APPLICABLE",
     "versionFrozen": "N/A — NOT APPLICABLE"
   },
   "blockers": [
@@ -157,7 +158,7 @@
       "status": "PENDING ACCOUNT APPROVAL"
     }
   ],
-  "nextRecommendedPackage": "ISO-C2-M1 — CI GATE ENFORCEMENT + EXECUTION RUNTIME ALIGNMENT",
+  "nextRecommendedPackage": "NONE AUTHORIZED — stop after ISO-C2-M1",
   "independentReviewHistory": [
     {
       "workPackage": "ISO-C0-R1",
@@ -227,5 +228,102 @@
     "residualRisksAccepted": 0,
     "isoC3Started": false,
     "versionFrozen": false
-  }
+  },
+  "remediationExecution": {
+    "projectId": "RENTIPID-ISO-CONFORMITY-001",
+    "version": "v1.0",
+    "workPackage": "ISO-C2-M1",
+    "recordedAt": "2026-10-21T18:57:22.632Z",
+    "authoritativeBaseline": "999af0e",
+    "technicalCommit": "d012cdb982f86b34a3d7ed306743dc222584a287",
+    "authorization": "Project Owner resume instruction: execute only first eligible accepted technical wave; limited Phase 5I enforcement artifact reopening.",
+    "status": "PASS",
+    "acceptanceScope": "Local technical acceptance only; not independent owner acceptance, overall risk closure or remote enforcement proof",
+    "wave": "ISO-C2-M1 — CI GATE ENFORCEMENT + EXECUTION RUNTIME ALIGNMENT",
+    "risksAddressed": [
+      "RSK-08"
+    ],
+    "defectsCorrected": [
+      "DEF-TOOL-01"
+    ],
+    "files": [
+      ".github/workflows/security-supply-chain.yml",
+      ".github/workflows/glcc-ci.yml",
+      "scripts/security/check-ci-audit.cjs",
+      "scripts/security/ci-audit-policy.json",
+      "tests/security/iso-c2-m1-ci.contract.cjs"
+    ],
+    "validation": {
+      "command": "npm exec --yes --package=node@24 -- node --test tests/security/iso-c2-m1-ci.contract.cjs",
+      "runtime": "v24.22.0",
+      "exitCode": 0,
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        "workflow YAML and runtime contract",
+        "real isolated Jest passing/failing/empty-selection exits",
+        "mandatory guard nonzero exit prevents test effects",
+        "clean and explicitly excepted audit counts",
+        "runtime/unrelated/mixed/critical/over-ceiling findings rejected",
+        "invalid/error/status/count audit reports fail closed",
+        "audit CLI pass/exception/nonzero/error propagation and sanitized output"
+      ],
+      "auditMode": "Controlled reports only; no live vulnerability scan or fresh dependency-safety claim",
+      "typecheck": "N/A — NOT APPLICABLE; no TypeScript/application code changes",
+      "syntaxAndScope": "Parsed both workflows, policy JSON and Node tooling; git diff --check passed"
+    },
+    "exceptionPolicy": {
+      "source": "docs/security/level5/bundles/phase5i/PHASE5I_SUPPLY_CHAIN_SECURITY_EVIDENCE.md#dependency-audit",
+      "developmentFamilies": [
+        "eslint",
+        "jest",
+        "postcss",
+        "sharp"
+      ],
+      "maximumHigh": 30,
+      "maximumModerate": 4,
+      "criteria": "Every affected installation must be dev:true in the frozen lock and reachable within a named family development dependency graph; runtime/shared runtime instances and unrelated families rejected. Zero critical/low/info exceptions. No dependency upgrades or new risk acceptance.",
+      "limitation": "Historical evidence supplies aggregate counts/families, not advisory IDs; this is a bounded family/count policy, not an advisory identity baseline. New out-of-scope findings require review; no blanket suppression."
+    },
+    "lifecycleGates": {
+      "codeComplete": "PASS — EXECUTED",
+      "localFunctional": "PASS — EXECUTED",
+      "localDatabaseMigrated": "PASS — REUSED / UNAFFECTED",
+      "localRequiredDataSeededSynced": "PASS — REUSED / UNAFFECTED",
+      "localAcceptancePass": "PASS — EXECUTED",
+      "previewMigrated": "N/A — NOT APPLICABLE",
+      "previewAcceptancePass": "N/A — NOT APPLICABLE",
+      "productionReady": "N/A — NOT APPLICABLE",
+      "productionDeploymentVerification": "N/A — NOT APPLICABLE",
+      "completed": "PASS — EXECUTED",
+      "accepted": "PASS — EXECUTED",
+      "closed": "N/A — NOT APPLICABLE",
+      "versionFrozen": "N/A — NOT APPLICABLE"
+    },
+    "databaseModified": false,
+    "migrationRequired": false,
+    "seedSyncRequired": false,
+    "remoteCiExecuted": false,
+    "branchProtectionVerified": false,
+    "previewModified": false,
+    "productionModified": false,
+    "remainingEvidence": [
+      "GitHub workflow execution and required-check/branch-protection enforcement",
+      "Recurring dependency triage and named Engineering accountability",
+      "All unrelated human/legal/provider/operational tracks remain open; Xendit approval pending"
+    ],
+    "residualRisk": {
+      "risk": "RSK-08",
+      "score": "3 x 4 = 12 (HIGH)",
+      "status": "PARTIAL — local tooling corrected; operating evidence outstanding",
+      "accepted": false
+    },
+    "otherWavesStarted": false,
+    "isoC3Started": false,
+    "versionFrozen": false,
+    "certificationClaimed": false,
+    "nextAction": "Obtain authorized GitHub CI execution and branch-protection enforcement evidence for RSK-08."
+  },
+  "nextAction": "Obtain authorized GitHub CI execution and branch-protection enforcement evidence for RSK-08."
 }

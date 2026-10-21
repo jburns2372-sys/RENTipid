@@ -180,3 +180,8 @@ Exactly 15 owner-authorized risks, one primary disposition per risk. Counts belo
 | Backup monitoring candidate | RSK-22 / TRT-F02 | OPERATING EVIDENCE GAP | Actual deployed backup monitoring unproven; no specific wrong alarm/config established |
 
 Original claimed hook/drift/restore defects are respectively a documentation gap, a documentation gap, and an operating evidence gap. DEF-TOOL-02 is a separately discovered real assurance-harness defect, not proof a new restore implementation is absent. Retention automation (TRT-B05) is approved deferred and was not one of the four accepted C1 technical items. Existing ingestion failure handling is not a new queue requirement. Candidate counts: 1 confirmed runtime defect, 2 documentation gaps, 1 operating evidence gap; no duplicate addition to the 15-risk totals. Additional confirmed tooling defects are catalogued separately above.
+
+
+## 4. Subsequent M1 evidence delta
+
+The classifications and source selectors above describe accepted C2-R1 historical findings. DEF-TOOL-01 / RSK-08 source repair and local acceptance are now evidenced by d012cdb982f86b34a3d7ed306743dc222584a287, ISO_C2_M1_COMPLETION_REPORT.md and evidence/iso-c2-m1-ci-enforcement.json. Failure/empty-selection suppression removed; runtime aligned; historical development exception bounded and counted. Remote enforcement, named accountability and recurring triage remain open; RSK-08 stays PARTIAL with residual 12 HIGH, not accepted. No other finding or historical maturity/count is reclassified by this scoped local proof.

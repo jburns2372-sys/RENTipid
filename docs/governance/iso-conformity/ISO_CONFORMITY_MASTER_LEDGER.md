@@ -133,3 +133,8 @@ Owner decision source: Project Owner instruction dated 2026-10-22; accepted C1 p
 ## 12. ISO-C2-R1 verification checkpoint
 
 Verification ACCEPTED after evidence corrections at base 47f54aae5bfc99b7ba97f94347c7bfb232627a5a. Current 30-domain distribution: 2 operating, 11 implemented, 8 partial, 0 wholly absent control domains, 7 human and 2 provider; CTRL-10 downgraded for current CI enforcement defect. Four areas: Technical 1/6/3/0, Privacy 0/3/2/0, Cloud 0/0/1/0, SDLC 1/2/2/0 (operating/implemented/partial/gap). Confirmed defects: 1 runtime, 2 tooling, 0 deployed configuration. Primary risk evidence counts: 2 operating gaps, 2 documentation gaps, 2 human gaps, 6 external/legal; one further documentation candidate RSK-18 yields 3 deduplicated documentation gaps. All 15 treatment-authorized risks reviewed, no score changes or residual acceptance. Three bounded future waves, next only ISO-C2-M1 — CI GATE ENFORCEMENT + EXECUTION RUNTIME ALIGNMENT, subject to separate execution instruction. No remediation/deployment/freeze or ISO-C3; historical C0/C1/D1 records remain historical.
+
+
+## 13. ISO-C2-M1 local technical checkpoint
+
+Project Owner authorized first eligible technical wave only from 999af0e. DEF-TOOL-01 / RSK-08 locally repaired at d012cdb982f86b34a3d7ed306743dc222584a287; 23 targeted Node 24 checks passed. No runtime/DB/deployment delta. Other accepted gates reused as recorded in ISO_CONFORMITY_GATE_LEDGER.md. RSK-08 remains PARTIAL with unchanged risk score and open remote CI/branch-protection/cadence evidence. No residual acceptance, overall closure, ISO-C3, next wave, tag or freeze. See ISO_C2_M1_COMPLETION_REPORT.md.

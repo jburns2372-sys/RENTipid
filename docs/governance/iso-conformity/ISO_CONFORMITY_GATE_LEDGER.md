@@ -100,3 +100,26 @@ Reviewer: Codex. No build, typecheck, application/security test, migration, seed
 | VERSION FROZEN | N/A — NOT APPLICABLE | Prohibited; no tag/freeze |
 
 Codex reviewer. See ISO_C2_DELTA_IMPACT_MATRIX.md for future gates: mandatory CI pass/fail enforcement, recovery harness success evidence, and registration protection are not inherited as proven. Future changed technical claims reopen their minimum affected chain; no need to rerun accepted application builds/tests for this governance delta. Wave 3 requires Preview and Production-ready/deployment/verification; Wave 2 requires isolated synthetic DB mutation; all three require limited artifact/module reopening before execution. No remediation or ISO-C3 work performed.
+
+
+## 7. ISO-C2-M1 bounded technical lifecycle
+
+Baseline 999af0e; technical commit d012cdb982f86b34a3d7ed306743dc222584a287. Owner resume instruction authorizes Wave 1 only.
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — EXECUTED |
+| localFunctional | PASS — EXECUTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — EXECUTED |
+| previewMigrated | N/A — NOT APPLICABLE |
+| previewAcceptancePass | N/A — NOT APPLICABLE |
+| productionReady | N/A — NOT APPLICABLE |
+| productionDeploymentVerification | N/A — NOT APPLICABLE |
+| completed | PASS — EXECUTED |
+| accepted | PASS — EXECUTED |
+| closed | N/A — NOT APPLICABLE |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+23 targeted Node 24 contract checks passed. Migration/seed evidence reused with no schema/data delta; Preview/Production are inapplicable to CI-only changes. Completed/accepted are local technical criteria only; risk/control closure remains open. Remote enforcement not verified. No broader acceptance, new wave or freeze. See ISO_C2_M1_COMPLETION_REPORT.md and evidence/iso-c2-m1-ci-enforcement.json.
