@@ -3,20 +3,21 @@
   "program": "RENTipid ISO Compliance & Conformity Program",
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
-  "currentPhase": "ISO-C1",
-  "phaseName": "Integrated Risk + SoA + Asset/Data/PII/Supplier Baseline",
+  "currentPhase": "ISO-C2",
+  "phaseName": "Combined Technical Security + Privacy + Cloud + SDLC Conformity Verification",
   "status": "PASS",
-  "phaseGate": "RISK / SoA / INFORMATION BASELINE ACCEPTED",
-  "timestamp": "2026-10-22T01:35:00Z",
+  "phaseGate": "C2 VERIFICATION AND BOUNDED REMEDIATION PLAN ACCEPTED",
+  "timestamp": "2026-10-22T02:27:00Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
-    "headSha": "2e9b0b8c38d6822c6bad126ffa70939475870be5",
-    "acceptedIsoC0Sha": "2e9b0b8c38d6822c6bad126ffa70939475870be5",
+    "headSha": "47f54aae5bfc99b7ba97f94347c7bfb232627a5a",
+    "acceptedIsoC1Sha": "a6c6258cc6606c04d2a24574cb1f9f06d09c2aea",
+    "projectOwnerDecisionSha": "47f54aae5bfc99b7ba97f94347c7bfb232627a5a",
     "applicationCommitSha": "83b8f4dabadc243b01ab8e5f50746bf281ecf62b",
-    "governanceCommitSha": "2e9b0b8c38d6822c6bad126ffa70939475870be5",
+    "governanceCommitSha": "47f54aae5bfc99b7ba97f94347c7bfb232627a5a",
     "worktreeClean": false,
-    "worktreeStateNote": "Initial R1 inspection: four modified governance roll-ups and nine untracked C1 artifacts only; checkpoint cleanliness verified separately."
+    "worktreeStateNote": "Initial C2-R1 inspection: two modified governance roll-ups and eight untracked C2 reports only. Review corrections are governance-only; checkpoint cleanliness verified separately."
   },
   "scope": {
     "proposedScope": "Design, development, operation, maintenance, security, privacy management, support, and continual improvement of the RENTipid global rental marketplace and its supporting information systems, cloud infrastructure, data processing services, and relevant operational processes.",
@@ -38,8 +39,8 @@
     "passReusedUnaffected": 24,
     "domainsAssessed": 30,
     "provenOperatingConformity": 2,
-    "provenImplemented": 12,
-    "partial": 7,
+    "provenImplemented": 11,
+    "partial": 8,
     "gaps": 0,
     "requiresHumanEvidence": 7,
     "requiresExternalProviderEvidence": 2
@@ -60,6 +61,78 @@
     "humanOrganizationalActionsIdentified": 5,
     "externalLegalActionsIdentified": 3
   },
+  "isoC2Metrics": {
+    "risksEvaluated": 15,
+    "domainCounts": {
+      "technicalSecurity": {
+        "operating": 1,
+        "implemented": 6,
+        "partial": 3,
+        "gaps": 0,
+        "human": 2,
+        "external": 1
+      },
+      "privacyPims": {
+        "operating": 0,
+        "implemented": 3,
+        "partial": 2,
+        "gaps": 0
+      },
+      "cloudSupplier": {
+        "operating": 0,
+        "implemented": 0,
+        "partial": 1,
+        "gaps": 0,
+        "external": 1
+      },
+      "sdlcChangeManagement": {
+        "operating": 1,
+        "implemented": 2,
+        "partial": 2,
+        "gaps": 0,
+        "human": 5
+      }
+    },
+    "riskPrimaryClassifications": {
+      "codeRuntimeDefect": 1,
+      "ciToolingDefect": 2,
+      "configurationDefect": 0,
+      "operatingEvidenceGap": 2,
+      "documentationGap": 2,
+      "humanOrganizationalGap": 2,
+      "externalProviderDependency": 4,
+      "legalCounselDependency": 2,
+      "alreadyControlled": 0
+    },
+    "conditionalTechnicalItemsEvaluated": 4,
+    "actualC1ConditionalItemIds": [
+      "TRT-B01",
+      "TRT-C02",
+      "TRT-D02",
+      "TRT-F02"
+    ],
+    "candidateDispositions": {
+      "confirmedRuntimeDefect": 1,
+      "documentationGap": 2,
+      "operatingEvidenceGap": 1
+    },
+    "confirmedCodeRuntimeDefects": 1,
+    "confirmedCiToolingDefects": 2,
+    "confirmedConfigurationDefects": 0,
+    "operatingEvidenceGaps": 2,
+    "documentationGaps": 3,
+    "humanOrganizationalGaps": 2,
+    "externalLegalDependencies": 6,
+    "alreadyControlled": 0,
+    "findingCountUnit": "One primary finding per 15 authorized risks, plus separate C1 RSK-18 documentation candidate; deduplicated total 16. Candidate disposition totals are a separate four-item view.",
+    "confirmedRemediationWaves": 3,
+    "databaseImpactForFutureTechnicalWave": true,
+    "databaseMigrationImpact": false,
+    "previewRevalidationRequiredForRuntimeWave": true,
+    "productionDeploymentVerificationRequiredForRuntimeWave": true,
+    "frozenModuleReopenRequiredForFutureWaves": true,
+    "currentApplicationDatabasePreviewProductionModified": false
+  },
   "lifecycleGates": {
     "codeComplete": "PASS — REUSED / UNAFFECTED",
     "localFunctional": "PASS — REUSED / UNAFFECTED",
@@ -70,7 +143,6 @@
     "previewAcceptancePass": "N/A — NOT APPLICABLE",
     "productionReady": "N/A — NOT APPLICABLE",
     "productionDeploymentVerification": "N/A — NOT APPLICABLE",
-    "phaseGateStatus": "PASS",
     "completed": "PASS — EXECUTED",
     "accepted": "PASS — EXECUTED",
     "closed": "PASS — EXECUTED",
@@ -85,7 +157,7 @@
       "status": "PENDING ACCOUNT APPROVAL"
     }
   ],
-  "nextRecommendedPackage": "ISO-C2 — COMBINED TECHNICAL SECURITY + PRIVACY + CLOUD CONTROL VERIFICATION (NOT STARTED)",
+  "nextRecommendedPackage": "ISO-C2-M1 — CI GATE ENFORCEMENT + EXECUTION RUNTIME ALIGNMENT",
   "independentReviewHistory": [
     {
       "workPackage": "ISO-C0-R1",
@@ -94,39 +166,16 @@
       "finalStatus": "ACCEPTED",
       "commitSha": "2e9b0b8c38d6822c6bad126ffa70939475870be5",
       "technicalGatesRerun": 0
+    },
+    {
+      "workPackage": "ISO-C1-R1",
+      "reviewer": "Codex",
+      "status": "PASS",
+      "finalStatus": "ACCEPTED",
+      "commitSha": "a6c6258cc6606c04d2a24574cb1f9f06d09c2aea",
+      "technicalGatesRerun": 0
     }
   ],
-  "independentReview": {
-    "workPackage": "ISO-C1-R1",
-    "reviewer": "Codex",
-    "status": "PASS",
-    "finalStatus": "ACCEPTED",
-    "projectOwnerDecisionRiskIds": [
-      "RSK-03",
-      "RSK-05",
-      "RSK-06",
-      "RSK-08",
-      "RSK-09",
-      "RSK-12",
-      "RSK-14",
-      "RSK-15",
-      "RSK-17",
-      "RSK-21",
-      "RSK-22",
-      "RSK-23",
-      "RSK-24",
-      "RSK-26",
-      "RSK-30"
-    ],
-    "technicalGatesRerun": 0,
-    "treatmentsExecuted": 0,
-    "isoC2Started": false,
-    "riskAcceptanceRecorded": false,
-    "riskScoresAreEstimates": true,
-    "soaCoreDomains": 30,
-    "soaSupportingBoundaryRows": 2,
-    "technicalItemsAreConditionalCandidates": true
-  },
   "projectOwnerDecision": {
     "decisionDate": "2026-10-22",
     "decision": "APPROVED",
@@ -162,32 +211,21 @@
     "minimumAffectedLifecycleChainOnly": true,
     "deferralsLimitedToDocumentedScope": true,
     "namedPersonAssignmentsRemainFutureEvidence": true,
-    "isoC2Started": false,
+    "isoC2Started": true,
     "technicalRemediationPerformed": false
   },
-  "ownerDecisionIndependentReview": {
-    "workPackage": "ISO-C1-D1",
+  "independentReview": {
+    "workPackage": "ISO-C2-R1",
     "reviewer": "Codex",
     "status": "PASS",
-    "ownerDecisionStatus": "ACCEPTED",
-    "acceptedBaseline": "a6c6258cc6606c04d2a24574cb1f9f06d09c2aea",
-    "riskScoresUnchanged": true,
+    "verificationStatus": "ACCEPTED",
+    "baselineCommit": "47f54aae5bfc99b7ba97f94347c7bfb232627a5a",
+    "inspectionOnly": true,
     "technicalGatesRerun": 0,
-    "decisionRecord": "docs/governance/iso-conformity/PROJECT_OWNER_DECISION_ISO_C1_RISK_TREATMENT.md",
-    "lifecycle": {
-      "codeComplete": "PASS — REUSED / UNAFFECTED",
-      "localFunctional": "PASS — REUSED / UNAFFECTED",
-      "localDatabaseMigrated": "PASS — REUSED / UNAFFECTED",
-      "localRequiredDataSeededSynced": "PASS — REUSED / UNAFFECTED",
-      "localAcceptancePass": "PASS — EXECUTED",
-      "previewMigrated": "N/A — NOT APPLICABLE",
-      "previewAcceptancePass": "N/A — NOT APPLICABLE",
-      "productionReady": "N/A — NOT APPLICABLE",
-      "productionDeploymentVerification": "N/A — NOT APPLICABLE",
-      "completed": "PASS — EXECUTED",
-      "accepted": "PASS — EXECUTED",
-      "closed": "PASS — EXECUTED",
-      "versionFrozen": "N/A — NOT APPLICABLE"
-    }
+    "technicalRemediationPerformed": false,
+    "riskScoresUnchanged": true,
+    "residualRisksAccepted": 0,
+    "isoC3Started": false,
+    "versionFrozen": false
   }
 }

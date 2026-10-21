@@ -35,7 +35,7 @@ In accordance with ISO/IEC 27001:2022 requirement 6.1.3 d), this Statement of Ap
 | **SOA-07** | Source Control & Branching | **YES** | Protect code integrity and release traceability | `PROVEN — IMPLEMENTED` | IMPLEMENTED | NOT_PROVEN | `EVD-02`, `EVD-13` (Git worktree, Git workflow; signing not asserted) | Engineering Lead | Remote GitHub branch protection rule export | `RSK-05`, `RSK-25` | `Wave E` |
 | **SOA-08** | Secure SDLC | **YES** | Prevent security vulnerabilities during engineering | `PROVEN — IMPLEMENTED` | IMPLEMENTED | NOT_PROVEN | `EVD-01`, `EVD-07`, TypeScript strictness, Zod validation | Engineering Lead | Static application security testing (SAST) logs | `RSK-04`, `RSK-08` | `Wave E` |
 | **SOA-09** | Change Management | **YES** | Control modifications to software, schema, and config | `PROVEN — OPERATING CONFORMITY` | IMPLEMENTED | OPERATING | `EVD-07` (RENTipid Universal Promotion Standard) | Governance Lead | Dated historical operation only; ongoing evidence required | `RSK-25` | Universal Promotion Standard |
-| **SOA-10** | CI/CD Pipelines | **YES** | Ensure build integrity, automated testing, and safe deploy | `PROVEN — IMPLEMENTED` | IMPLEMENTED | NOT_PROVEN | `EVD-02`, package configs, Vercel build integration | Engineering Lead | Automated deployment gate pass evidence | `RSK-25` | `Wave E` |
+| **SOA-10** | CI/CD Pipelines | **YES** | Ensure build integrity, automated testing, and safe deploy | `PARTIAL` | PARTIAL | NOT_PROVEN | EVD-02/13 historical evidence; DEF-TOOL-01 current fail-open test command and runtime contract in ISO_C2_SDLC_CHANGE_CONTROL_VERIFICATION.md Section 2 | Engineering Lead | Fail-closed CI enforcement proof after approved scoped repair | `RSK-25` | `Wave E` |
 | **SOA-11** | Environment Separation | **YES** | Isolate local dev, preview staging, and live production | `PROVEN — OPERATING CONFORMITY` | IMPLEMENTED | OPERATING | `EVD-08` (Dated Preview isolation restoration report) | Cloud Ops Lead | Dated historical operation only; ongoing evidence required | `RSK-09`, `RSK-10` | Isolation Standard |
 | **SOA-12** | Database Security | **YES** | Prevent unauthorized access, tampering, or SQL injection | `PROVEN — IMPLEMENTED` | IMPLEMENTED | NOT_PROVEN | `EVD-08`, `EVD-09` (Prisma parameterization, ownership) | Database Admin | DB connection encryption audit | `RSK-10` | `TRT-B02` |
 | **SOA-13** | Logging & Telemetry | **YES** | Provide audit trail for security events and forensics | `PROVEN — IMPLEMENTED` | IMPLEMENTED | SYNTHETIC_ONLY | `EVD-10` (Sanitized audit events, Phase 5J synthetic suite) | SOC Lead | Live recurring operational log streams | `RSK-11`, `RSK-19` | `TRT-D01`, `TRT-D03` |
@@ -75,12 +75,12 @@ In accordance with ISO/IEC 27001:2022 requirement 6.1.3 d), this Statement of Ap
 * **Not Applicable:** **0**; no exclusion approved.
 * **Conformity Distribution Across 30 Core Domains Only:**
   * `PROVEN — OPERATING CONFORMITY`: **2** (`SOA-09`, `SOA-11`)
-  * `PROVEN — IMPLEMENTED`: **12** (`SOA-03`, `SOA-04`, `SOA-06`, `SOA-07`, `SOA-08`, `SOA-10`, `SOA-12`, `SOA-13`, `SOA-14`, `SOA-21`, `SOA-22`, `SOA-25`)
-  * `PARTIAL`: **7** (`SOA-15`, `SOA-17`, `SOA-18`, `SOA-19`, `SOA-24`, `SOA-26`, `SOA-30`)
+  * `PROVEN — IMPLEMENTED`: **11** (`SOA-03`, `SOA-04`, `SOA-06`, `SOA-07`, `SOA-08`, `SOA-12`, `SOA-13`, `SOA-14`, `SOA-21`, `SOA-22`, `SOA-25`)
+  * `PARTIAL`: **8** (`SOA-10`, `SOA-15`, `SOA-17`, `SOA-18`, `SOA-19`, `SOA-24`, `SOA-26`, `SOA-30`)
   * `GAPS`: **0** (Retention automation is an approved v1 deferral)
   * `REQUIRES HUMAN EVIDENCE`: **7** (`SOA-01`, `SOA-02`, `SOA-05`, `SOA-20`, `SOA-27`, `SOA-28`, `SOA-29`)
   * `REQUIRES EXTERNAL PROVIDER EVIDENCE`: **2** (`SOA-16`, `SOA-23`)
-* **Integrity Validation:** Exactly matches Codex-reviewed ISO-C0 baseline counts.
+* **Integrity Validation:** Current C2-R1 assessment supersedes the historical C0/C1 distribution for CTRL-10 only; historic records remain unchanged.
 
 ## 4. Scope and licensed-source limits
 

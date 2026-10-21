@@ -43,3 +43,7 @@ This register tracks all third-party external dependencies, cloud vendors, and p
 ## 4. ISO-C1-R1 reconciliation
 
 The supplier register tracks 10 historical/planned/conditional identities, not 10 approved subprocessors. Preserve Azure alongside later Neon evidence. Cloudflare R2 is an unimplemented candidate, not an active DNS/WAF provider. SMTP vendor unresolved; Resend/SendGrid not presumed. Xendit pending, Sumsub scoped smoke limits, MannyPay separate/paused and unverified contractual/attestation/legal dependencies remain explicit. No external validation or contract execution occurred; ISO-C2 NOT STARTED.
+
+## 5. C2-R1 dependency boundaries
+
+Xendit account approval remains external (RSK-14/15); real GLOBAL-MKT Batch 2 sandbox/full lifecycle evidence is blocked, not an internal ISO code defect. Sumsub smoke does not close RSK-17 full lifecycle/fraud assurance. Applicable supplier terms/attestations (RSK-26) and counsel opinions (RSK-12/30) remain external/legal. Historical Azure and later Neon hosting records require actual current configuration evidence; no active AWS/RDS/CloudWatch or Resend/SendGrid/Cloudflare WAF service assumed. No integrations/provider settings changed, validated or activated; MannyPay remains separate/paused. None blocks the present repository-only governance checkpoint or offline CI source repair planning.

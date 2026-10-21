@@ -50,7 +50,7 @@ Every treatment action is classified into one or more operational categories:
 
 | Action ID | Associated Risks | Treatment Action Statement | Classification | Responsible Role | Target Phase |
 |---|---|---|---|---|---|
-| **TRT-B01** | `RSK-05` | Candidate: inspect existing scanner enforcement before proposing any new pre-commit/CI hook | `TECHNICAL_REMEDIATION_NEEDED` | Engineering Lead | `ISO-C2` |
+| **TRT-B01** | `RSK-05` | Define required prevention/enforcement architecture and acceptance evidence before prescribing a local secret hook | `DOCUMENTATION_NEEDED` | Engineering Lead | `ISO-C2` |
 | **TRT-B02** | `RSK-10`, `RSK-11` | Verify scoped Phase 5F coverage; do not claim encryption of all PII/payment tokens | `ALREADY_IMPLEMENTED` | Security Lead | `ISO-C2` |
 | **TRT-B03** | `RSK-12`, `RSK-30` | Obtain specialized legal counsel guidance on cross-border data transfer mechanisms for high-tier markets | `LEGAL_COUNSEL_DECISION_NEEDED` | DPO / Legal Counsel | `ISO-C1` / `ISO-C2` |
 | **TRT-B04** | `RSK-28` | Establish formal operational tracking ledger for incoming Data Subject Rights (DSR) requests | `DOCUMENTATION_NEEDED` / `OPERATING_EVIDENCE_NEEDED` | DPO | `ISO-C3` |
@@ -64,7 +64,7 @@ Every treatment action is classified into one or more operational categories:
 | Action ID | Associated Risks | Treatment Action Statement | Classification | Responsible Role | Target Phase |
 |---|---|---|---|---|---|
 | **TRT-C01** | `RSK-04`, `RSK-16` | Execute concurrency and BOLA contract stress tests on booking and transaction mutation services | `ALREADY_IMPLEMENTED` / `OPERATING_EVIDENCE_NEEDED` | Engineering Lead | `ISO-C2` |
-| **TRT-C02** | `RSK-06` | Candidate: assess broad public API limits; propose scoped changes only after a verified gap | `TECHNICAL_REMEDIATION_NEEDED` | Cloud Ops Lead | `ISO-C2` |
+| **TRT-C02** | `RSK-06` | Confirmed DEF-RUNTIME-01: scoped registration guard before expensive effects; Wave 3, separately authorized with runtime promotion | `TECHNICAL_REMEDIATION_NEEDED` | Cloud Ops Lead | `ISO-C2` |
 | **TRT-C03** | `RSK-07` | Reuse accepted product-specific authentication/replay fixtures; Xendit is callback-token, not HMAC | `ALREADY_IMPLEMENTED` | Engineering Lead | `ISO-C2` |
 | **TRT-C04** | `RSK-14`, `RSK-15` | Secure Xendit live merchant sandbox approval for full end-to-end payment and payout validation | `EXTERNAL_PROVIDER_EVIDENCE_NEEDED` | Finance Lead | `GLOBAL-MKT Batch 2` |
 
@@ -76,7 +76,7 @@ Every treatment action is classified into one or more operational categories:
 | Action ID | Associated Risks | Treatment Action Statement | Classification | Responsible Role | Target Phase |
 |---|---|---|---|---|---|
 | **TRT-D01** | `RSK-11` | Reuse accepted synthetic telemetry tests; collect operating evidence separately without redundant reruns | `ALREADY_IMPLEMENTED` | SOC Lead | `ISO-C2` |
-| **TRT-D02** | `RSK-18` | Candidate: determine evidence-integrity requirements before proposing checksums; no proven cryptographic immutability | `TECHNICAL_REMEDIATION_NEEDED` | Engineering Lead | `ISO-C2` |
+| **TRT-D02** | `RSK-18` | Determine and document evidence-integrity requirement/acceptance basis; Object.freeze is not a cryptographic checksum and absence alone proves no defect | `DOCUMENTATION_NEEDED` | Engineering Lead | `ISO-C2` |
 | **TRT-D03** | `RSK-19` | Inspect existing SecurityEventIngestionFailure/recovery evidence before prescribing a duplicate queue | `ALREADY_IMPLEMENTED / OPERATING_EVIDENCE_NEEDED` | Cloud Ops Lead | `ISO-C2` |
 | **TRT-D04** | `RSK-20` | Conduct quarterly SOC alert tuning, rule performance review, and false-positive suppression | `OPERATING_EVIDENCE_NEEDED` | SOC Lead | `ISO-C3` |
 | **TRT-D05** | `RSK-20`, `RSK-27` | Conduct structured incident response tabletop simulation (data breach & unauthorized access) | `HUMAN_EVIDENCE_NEEDED` | CISO / SOC Lead | `ISO-C3` |
@@ -88,7 +88,7 @@ Every treatment action is classified into one or more operational categories:
 
 | Action ID | Associated Risks | Treatment Action Statement | Classification | Responsible Role | Target Phase |
 |---|---|---|---|---|---|
-| **TRT-E01** | `RSK-08`, `RSK-25` | Establish dependency and release-integrity review cadence using inherited SBOM and promotion evidence | `OPERATING_EVIDENCE_NEEDED` | Engineering Lead | `ISO-C3` |
+| **TRT-E01** | `RSK-08`, `RSK-25` | Confirmed DEF-TOOL-01 CI enforcement repair in Wave 1; preserve dependency-exception policy and gather operating review cadence separately | `TECHNICAL_REMEDIATION_NEEDED / OPERATING_EVIDENCE_NEEDED` | Engineering Lead | `ISO-C3` |
 | **TRT-E02** | `RSK-09` | Reconcile actual cloud inventory; obtain deployed configuration/drift evidence; no AWS service presumed | `DOCUMENTATION_NEEDED / OPERATING_EVIDENCE_NEEDED` | Cloud Ops Lead | `ISO-C2` |
 | **TRT-E03** | `RSK-13`, `RSK-17` | Document fail-closed KYC outage handling; no unauthorized manual identity bypass or alternate provider | `DOCUMENTATION_NEEDED` | Operations Lead | `ISO-C1` |
 | **TRT-E04** | `RSK-26` | Collect applicable provider/account/contract/assurance evidence; distinguish planned/historical identities and standard terms | `EXTERNAL_PROVIDER_EVIDENCE_NEEDED` | DPO / Legal Counsel | `ISO-C1` / `ISO-C3` |
@@ -100,21 +100,17 @@ Every treatment action is classified into one or more operational categories:
 
 | Action ID | Associated Risks | Treatment Action Statement | Classification | Responsible Role | Target Phase |
 |---|---|---|---|---|---|
-| **TRT-F01** | `RSK-21`, `RSK-23` | Plan later separately authorized restore drill for actual database/backup provider; no available AWS snapshot assumed | `OPERATING_EVIDENCE_NEEDED` | Database Admin | `ISO-C3` |
-| **TRT-F02** | `RSK-22` | Conditional candidate: identify actual backup monitoring gap before proposing alerts for verified provider | `TECHNICAL_REMEDIATION_NEEDED` | Cloud Ops Lead | `ISO-C2` |
+| **TRT-F01** | `RSK-21`, `RSK-23` | Confirmed DEF-TOOL-02 synthetic harness repair in Wave 2; later actual-provider operating restore exercise requires separate authorization | `TECHNICAL_REMEDIATION_NEEDED / OPERATING_EVIDENCE_NEEDED` | Database Admin | `ISO-C3` |
+| **TRT-F02** | `RSK-22` | Obtain actual deployed backup-monitoring/freshness configuration/evidence; absence of CloudWatch export alone establishes no defect | `OPERATING_EVIDENCE_NEEDED` | Cloud Ops Lead | `ISO-C2` |
 | **TRT-F03** | `RSK-24` | Plan later authorized continuity exercise for evidenced topology; multi-zone failover not presumed | `HUMAN_EVIDENCE_NEEDED / OPERATING_EVIDENCE_NEEDED` | Cloud Ops Lead | `ISO-C3` |
 
 ---
 
-## 4. Reviewed metrics and boundaries
+## 4. Current C2-R1 reconciliation (C1 history preserved)
 
-25 treatment actions: A4/B5/C4/D5/E4/F3. Categories overlap.
+25 existing treatment IDs retained. Accepted C1 historically identified four conditional items: TRT-B01, TRT-C02, TRT-D02, TRT-F02. They are evaluated in the C2 evidence map, not replaced by retention/drift/restore-script inventions. Current confirmed technical actions are TRT-C02 (runtime), TRT-E01 (CI enforcement) and TRT-F01 (assurance harness): three bounded waves. Current row classifications can overlap operating/documentary follow-up; the four historical C1 candidate count is not a current confirmed-defect count.
 
-- Technical remediation candidates: **4** (TRT-B01, TRT-C02, TRT-D02, TRT-F02); verify gaps and obtain authorization before implementation. B01 first inspects existing scanner enforcement. None is asserted as a confirmed new defect.
-- Human/organizational actions: **5** (TRT-A02, TRT-A03, TRT-A04, TRT-D05, TRT-F03).
-- External/legal actions: **3** (TRT-B03, TRT-C04, TRT-E04).
-
-Approved retention deferral is not a mandatory new worker. Existing ingestion-failure handling must be considered before proposing a duplicate queue; cloud evidence collection is verification, not a proven coding defect. Every risk maps to treatment IDs in risk-register Section 4. Every treatment inherits its associated risks' evidence selectors; the action statement identifies evidence to collect, not an accomplished task. Responsible roles are proposed custodians under ISO_CONTROL_OWNERSHIP_MATRIX.md. Only Project Owner accepts residual risk or reopens approved retention deferral. No treatments executed or ISO-C2 started. Listed phases are planning targets; accepted technical checks are reused unless affected.
+B01/D02 now require documented requirement/evidence basis; F02 requires operating configuration/monitoring evidence. E02 remains cloud inventory/configuration evidence, not presumed custom script. Retention B05 remains manual/approved deferred. Existing ingestion failure/recovery D03 prevents a duplicate queue prescription. Owner D1 approves treatment, methodology and role accountability; no risk score reduced, no residual accepted, no new named staff assigned. The detailed execution plan and lifecycle impacts are ISO_C2_CONSOLIDATED_REMEDIATION_PLAN.md and ISO_C2_DELTA_IMPACT_MATRIX.md. No treatment or ISO-C3 execution performed.
 
 ## Licensed-source boundary
 

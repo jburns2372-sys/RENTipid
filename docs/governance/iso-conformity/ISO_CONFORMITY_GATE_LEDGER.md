@@ -78,3 +78,25 @@ Governance artifact checks are PASS — EXECUTED. Unaffected prior technical evi
 | VERSION FROZEN | N/A — NOT APPLICABLE | Explicitly prohibited; no freeze/tag |
 
 Reviewer: Codex. No build, typecheck, application/security test, migration, seed, provider or Preview/Production validation rerun. Inherited evidence retains original limits. Counts and pending owner decisions are in STATUS.json and ISO_C1_COMPLETION_REPORT.md. ISO-C2 NOT STARTED.
+
+---
+
+## 6. ISO-C2-R1 verification lifecycle disposition
+
+| Gate | Disposition | Evidence / boundary |
+|---|---|---|
+| CODE COMPLETE | PASS — REUSED / UNAFFECTED | Unchanged application source; scoped accepted technical evidence only. Newly found CI/harness/registration issues are open and not claimed repaired |
+| LOCAL FUNCTIONAL | PASS — REUSED / UNAFFECTED | Historical accepted scoped execution retained; no new whole-platform or mandatory CI-enforcement PASS asserted |
+| LOCAL DATABASE MIGRATED | PASS — REUSED / UNAFFECTED | No schema/migration delta or fresh DB access |
+| LOCAL REQUIRED DATA SEEDED/SYNCED | PASS — REUSED / UNAFFECTED | No seed/sync delta or fresh data verification |
+| LOCAL ACCEPTANCE PASS | PASS — EXECUTED | Independent source/document inspection, classification correction, 15 risk/scope and actual four C1 candidates, reference/count/JSON/secret checks |
+| PREVIEW MIGRATED | N/A — NOT APPLICABLE | Current documentation only |
+| PREVIEW ACCEPTANCE PASS | N/A — NOT APPLICABLE | Current documentation only; future runtime wave requires validation |
+| PRODUCTION-READY | N/A — NOT APPLICABLE | Not a runtime release |
+| PRODUCTION DEPLOYMENT/VERIFICATION | N/A — NOT APPLICABLE | No deployment performed/authorized now |
+| COMPLETED | PASS — EXECUTED | C2-R1 verification deliverables only |
+| ACCEPTED | PASS — EXECUTED | Verification and bounded plan, not fixed defects or full conformity |
+| CLOSED | PASS — EXECUTED | This review package only; defects/risks/evidence tracks remain open |
+| VERSION FROZEN | N/A — NOT APPLICABLE | Prohibited; no tag/freeze |
+
+Codex reviewer. See ISO_C2_DELTA_IMPACT_MATRIX.md for future gates: mandatory CI pass/fail enforcement, recovery harness success evidence, and registration protection are not inherited as proven. Future changed technical claims reopen their minimum affected chain; no need to rerun accepted application builds/tests for this governance delta. Wave 3 requires Preview and Production-ready/deployment/verification; Wave 2 requires isolated synthetic DB mutation; all three require limited artifact/module reopening before execution. No remediation or ISO-C3 work performed.
