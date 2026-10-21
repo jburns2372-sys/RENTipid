@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - 'feat/iso-conformity-v1.0'
       - 'fix/glcc*'
   pull_request:
     branches:

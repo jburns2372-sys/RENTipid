@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - 'feat/iso-conformity-v1.0'
   pull_request:
     branches:
       - main
