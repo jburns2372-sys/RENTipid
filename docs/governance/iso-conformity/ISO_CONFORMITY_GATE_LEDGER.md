@@ -165,3 +165,47 @@ Baseline 999af0e; technical commit d012cdb982f86b34a3d7ed306743dc222584a287. Own
 | versionFrozen | N/A — NOT APPLICABLE |
 
 Two-line trigger syntax/event-preservation validation PASS — EXECUTED; accepted 23 local M1 checks not rerun. Main protection configuration/read-back PASS — EXECUTED. GitHub security run 39658807274 and GLCC run 39658807135: FAIL — EXECUTED; real audit failure propagates. Required status checks and strict mode DEFERRED under the explicit deadlock safeguard. Completion means bounded work/evidence complete, not CI acceptance or RSK-08 closure. See ISO_C2_M1_GITHUB_CI_AND_BRANCH_PROTECTION_EVIDENCE.md.
+
+
+## 10. ISO-C2-M1-E3 runtime dependency / CI delta
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — EXECUTED |
+| localFunctional | PASS — EXECUTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | FAIL |
+| previewMigrated | PASS — REUSED / UNAFFECTED |
+| previewAcceptancePass | BLOCKED |
+| productionReady | BLOCKED |
+| productionDeploymentVerification | BLOCKED |
+| completed | BLOCKED |
+| accepted | BLOCKED |
+| closed | BLOCKED |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Code/local functional validation executed for runtime dependency changes: build/typecheck, 14 GLCC assertions, 23 CI contracts, 104 focused tests and image/telemetry smoke pass. Local acceptance FAIL because unchanged audit rejects 33 entries. DB migration/seed reused, no data operations. Preview/Production validation required before runtime promotion, currently blocked and forbidden in E3. No checkpoint while audit fails. Evidence: ISO_C2_M1_CI_FAILURE_ROOT_CAUSE_AND_REMEDIATION.md.
+
+---
+
+## 11. ISO-C2-M1-E4 remaining dependency blocker resolution lifecycle
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — EXECUTED |
+| localFunctional | PASS — EXECUTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | FAIL |
+| previewMigrated | PASS — REUSED / UNAFFECTED |
+| previewAcceptancePass | BLOCKED |
+| productionReady | BLOCKED |
+| productionDeploymentVerification | BLOCKED |
+| completed | BLOCKED |
+| accepted | BLOCKED |
+| closed | BLOCKED |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Evaluation of 5 remaining dependency chains completed: braces (upstream unpatched), sprintf-js (upstream unpatched, 19 moderate findings exceed cap), nodemailer (blocked by NextAuth 4.x peer contract), deepmerge-ts (blocked by Prisma 6.x contract), d3-color (blocked by d3-interpolate contract). Typecheck, Prisma validation, Prisma generation, and GLCC CI-equivalent pass. Audit policy fails closed (exit 1). Per Task 12 & 15 directives, candidate remains uncommitted and unpushed. Dirty E3 delta preserved. Evidence: ISO_C2_M1_DEPENDENCY_BLOCKER_RESOLUTION.md.
+

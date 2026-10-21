@@ -148,3 +148,8 @@ Authenticated operating-evidence collection completed with package BLOCKED. Requ
 ## 15. ISO-C2-M1-E2 activation and main protection
 
 Owner-authorized two-line workflow activation at 98494bf8cc17dd9bb798bb6deb06065d81079035 produced actual failed runs 39658807274 (security) and 39658807135 (GLCC). Node 24 and audit fail-closed propagation verified. Non-check main protections applied and separately read back; main unmerged. Required checks/strict mode deliberately deferred: M1 absent from main and no successful candidate contexts. Package FAIL, configuration/evidence review complete. RSK-08 PARTIAL — CONFIGURATION REMEDIATION REMAINS; score unchanged, residual not accepted. No application/DB/deployment/next-wave changes. See ISO_C2_M1_GITHUB_CI_AND_BRANCH_PROTECTION_EVIDENCE.md. Next: Authorize a bounded review and remediation of the failed dependency audit and CI baseline/fixture prerequisites.
+
+
+## 16. ISO-C2-M1-E3 partial bounded remediation
+
+Actual original failed logs inspected; audit reproduced all 65 package entries. Safe dependency candidate clears criticals and 49 original package entries, but 14 high/19 moderate remain across five chains, including unpatched braces/sprintf-js and three major compatibility paths. GLCC CI now references accepted current in-memory regression, not obsolete pre-P11 expectations. Frozen source unchanged; local functional/build/typecheck checks pass. Package BLOCKED, local security acceptance FAIL, runtime Preview/Production revalidation required later. No checkpoint/push, main protection/check change, deployment, risk acceptance or next wave. See ISO_C2_M1_CI_FAILURE_ROOT_CAUSE_AND_REMEDIATION.md.

@@ -1,0 +1,116 @@
+{
+  "runtime": "v24.22.0",
+  "npm": "10.9.7",
+  "isolation": "Fresh npm ci in ignored full-source candidate; no .env files, no shared node_modules mutation; root package/lock copied byte-for-byte from tested candidate",
+  "audit": {
+    "command": "node scripts/security/check-ci-audit.cjs",
+    "exit": 1,
+    "counts": {
+      "info": 0,
+      "low": 0,
+      "moderate": 19,
+      "high": 14,
+      "critical": 0,
+      "total": 33
+    },
+    "policyUnchanged": true
+  },
+  "glcc": {
+    "command": "npm run test:glcc:ci",
+    "exit": 0,
+    "assertions": 14,
+    "runner": "scripts/test-glcc-targeted.ts",
+    "baselineEvidence": "docs/governance/global-mkt-v2.0/BATCH2_X3_CODEX_PROVIDER_INTEGRATION_REVIEW.md#final-validation"
+  },
+  "ciContract": {
+    "command": "node --test tests/security/iso-c2-m1-ci.contract.cjs",
+    "exit": 0,
+    "passed": 23,
+    "reasonRevalidated": "Dependency/Jest/YAML parser changes can materially affect contracts"
+  },
+  "targetedTests": {
+    "passed": 104,
+    "suites": 3,
+    "exit": 0,
+    "files": [
+      "tests/auth/ancillary-email-password-flows.test.ts",
+      "tests/security/uploads/upload-security.test.ts",
+      "tests/glcc/global-w1-j-localization-remediation.test.ts"
+    ],
+    "fixture": "Temporary candidate-only Jest config rejects DB configuration and mocks network/database access to throw; repository database guard unchanged"
+  },
+  "runtimeSmoke": {
+    "exit": 0,
+    "checks": [
+      "sharp WebP resize and AVIF encoding",
+      "applicationinsights module exports setup; telemetry not started"
+    ]
+  },
+  "clientGeneration": {
+    "command": "node node_modules/prisma/build/index.js generate",
+    "exit": 0,
+    "databaseConnected": false
+  },
+  "build": {
+    "command": "NEXTAUTH_URL=https://www.rentipid.com.ph node node_modules/next/dist/bin/next build --webpack",
+    "exit": 0
+  },
+  "typecheck": {
+    "command": "node node_modules/typescript/bin/tsc --noEmit",
+    "exit": 0
+  },
+  "previewRequiredBeforeRuntimePromotion": true,
+  "productionRequiredBeforeRuntimeClosure": true,
+  "databaseModified": false,
+  "migrationRequired": false,
+  "seedSyncRequired": false,
+  "currentSharedNodeModulesReplaced": false,
+  "technicalCommit": null,
+  "governanceCommit": null,
+  "push": "NOT_RUN",
+  "checkpointBoundary": "Task 12 requires local remediation validation to pass; audit fails, so validated partial changes/evidence remain uncommitted and unpushed",
+  "candidateFiles": [
+    {
+      "path": "package.json",
+      "sha256": "5c539457c2de092ba446f838a22a092267d2f274fef15c7513dbf362dd5939c4"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "336069b4d6360a496e58be07ba132ef01639f69911f305a0e3e88bc6542aa10d"
+    }
+  ],
+  "evidenceLogs": [
+    {
+      "localPath": ".rentipid-sandbox/iso-c2-m1-e3/audit-policy-validation.log",
+      "sha256": "1e12f892aad3296c618c408d5fbd7b9a697bc0222a0bebbea6dad827e7015dbd"
+    },
+    {
+      "localPath": ".rentipid-sandbox/iso-c2-m1-e3/glcc-validation.log",
+      "sha256": "e2d1789f306beada965ea1c5a1498490eae2066a29db46d8b6dbcc63dd5c6011"
+    },
+    {
+      "localPath": ".rentipid-sandbox/iso-c2-m1-e3/ci-contract-validation.log",
+      "sha256": "d3336902afbaa9f235fa517fe3ee1423fd213d09113b38ba7b8b13dd34de452e"
+    },
+    {
+      "localPath": ".rentipid-sandbox/iso-c2-m1-e3/targeted-tests-validation.log",
+      "sha256": "70d32eb234d811fa83a9ecea0085abd7ccbc21be05d0e34d9ad44c5740942685"
+    },
+    {
+      "localPath": ".rentipid-sandbox/iso-c2-m1-e3/runtime-smoke-validation.log",
+      "sha256": "653667c0f9889403bc7ee3d115170e5feee505a5796b76f2cf3c016d1eb3510d"
+    },
+    {
+      "localPath": ".rentipid-sandbox/iso-c2-m1-e3/prisma-client-generation.log",
+      "sha256": "2fad46bc790945860f5fbc80f1e3c5fa7d0bd492b6dd71594890e3a02bab34a0"
+    },
+    {
+      "localPath": ".rentipid-sandbox/iso-c2-m1-e3/build-validation.log",
+      "sha256": "3311d69a44214b1facfcf69df5c3b0ba4616ce9fcb8eae65dfb007f264fb2e67"
+    },
+    {
+      "localPath": ".rentipid-sandbox/iso-c2-m1-e3/typecheck-validation.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

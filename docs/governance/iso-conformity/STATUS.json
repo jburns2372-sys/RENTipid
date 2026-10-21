@@ -4,10 +4,10 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "M1 CI activation and main branch protection remediation",
-  "status": "FAIL",
-  "phaseGate": "M1-E2 ACTIVATION AND MAIN PROTECTION VERIFIED — REAL CI FAILED; REQUIRED CHECKS DEFERRED",
-  "timestamp": "2026-10-21T19:10:23.114Z",
+  "phaseName": "Project Owner Decision ISO-C2-M1-D1 — Upstream tooling disposition and mail treatment authorization",
+  "status": "PASS",
+  "phaseGate": "PROJECT OWNER DECISION ISO-C2-M1-D1 RECORDED",
+  "timestamp": "2026-10-22T03:51:00.000Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
@@ -16,8 +16,8 @@
     "projectOwnerDecisionSha": "47f54aae5bfc99b7ba97f94347c7bfb232627a5a",
     "applicationCommitSha": "83b8f4dabadc243b01ab8e5f50746bf281ecf62b",
     "governanceCommitSha": "999af0e",
-    "worktreeClean": true,
-    "worktreeStateNote": "M1 initial baseline verified once: required branch, exact 999af0e HEAD, clean worktree. Final checkpoint state verified separately; technicalCommitSha identifies this delta.",
+    "worktreeClean": false,
+    "worktreeStateNote": "ISO-C2-M1-D1 decision recorded: dirty E3/E4 technical delta preserved; governance records committed separately.",
     "technicalCommitSha": "d012cdb982f86b34a3d7ed306743dc222584a287"
   },
   "scope": {
@@ -135,16 +135,16 @@
     "currentApplicationDatabasePreviewProductionModified": false
   },
   "lifecycleGates": {
-    "codeComplete": "PASS — REUSED / UNAFFECTED",
-    "localFunctional": "PASS — REUSED / UNAFFECTED",
+    "codeComplete": "PASS — EXECUTED",
+    "localFunctional": "PASS — EXECUTED",
     "localDatabaseMigrated": "PASS — REUSED / UNAFFECTED",
     "localRequiredDataSeededSynced": "PASS — REUSED / UNAFFECTED",
-    "localAcceptancePass": "PASS — REUSED / UNAFFECTED",
-    "previewMigrated": "N/A — NOT APPLICABLE",
-    "previewAcceptancePass": "N/A — NOT APPLICABLE",
-    "productionReady": "N/A — NOT APPLICABLE",
-    "productionDeploymentVerification": "N/A — NOT APPLICABLE",
-    "completed": "PASS — EXECUTED",
+    "localAcceptancePass": "FAIL",
+    "previewMigrated": "PASS — REUSED / UNAFFECTED",
+    "previewAcceptancePass": "BLOCKED",
+    "productionReady": "BLOCKED",
+    "productionDeploymentVerification": "BLOCKED",
+    "completed": "BLOCKED",
     "accepted": "BLOCKED",
     "closed": "BLOCKED",
     "versionFrozen": "N/A — NOT APPLICABLE"
@@ -158,19 +158,19 @@
       "status": "PENDING ACCOUNT APPROVAL"
     },
     {
-      "id": "BLK-M1-E2-CI-01",
-      "type": "CI_GATE_FAILURE",
-      "description": "Real security audit failed (65 findings including 3 critical); GLCC runner assertions and isolated-fixture guard prerequisites failed.",
-      "status": "REVIEW REQUIRED — no bypass or broader remediation authorized"
-    },
-    {
       "id": "BLK-M1-E2-CHECK-01",
       "type": "REQUIRED_CHECK_DEFERRED",
       "description": "M1 workflows and dependencies must first be present through a separately authorized reviewed main integration; prove reliable main-targeted PR runs and successful exact contexts with a valid safely isolated CI prerequisite design, then enable those observed contexts (GitHub Actions app 15368) with strict/up-to-date enforcement. Do not merge in E2.",
       "status": "DEFERRED — MAIN CHECK DEADLOCK SAFEGUARD"
+    },
+    {
+      "id": "BLK-M1-E3-SEC-01",
+      "type": "SECURITY_REMEDIATION_BLOCKER",
+      "description": "SECURITY REMEDIATION BLOCKER: resolve unpatched braces/sprintf-js chains and approve compatibility work for Nodemailer, Prisma/deepmerge-ts and d3-color before CI can pass.",
+      "status": "OPEN — AUDIT FAIL; NO EXEMPTION"
     }
   ],
-  "nextRecommendedPackage": "Bounded failed-CI audit/prerequisite review — separate authorization; no next C2 remediation wave",
+  "nextRecommendedPackage": "Resolve exact E3 security blockers; no next C2 remediation wave or required-check activation",
   "independentReviewHistory": [
     {
       "workPackage": "ISO-C0-R1",
@@ -337,7 +337,7 @@
     "certificationClaimed": false,
     "nextAction": "Obtain authorized GitHub CI execution and branch-protection enforcement evidence for RSK-08."
   },
-  "nextAction": "Authorize a bounded review and remediation of the failed dependency audit and CI baseline/fixture prerequisites.",
+  "nextAction": "SECURITY REMEDIATION BLOCKER: resolve unpatched braces/sprintf-js chains and approve compatibility work for Nodemailer, Prisma/deepmerge-ts and d3-color before CI can pass.",
   "githubEnforcementEvidence": {
     "workPackage": "ISO-C2-M1-E1",
     "status": "BLOCKED",
@@ -716,5 +716,162 @@
       "versionFrozen": "N/A — NOT APPLICABLE"
     },
     "nextAction": "Authorize a bounded review and remediation of the failed dependency audit and CI baseline/fixture prerequisites."
+  },
+  "ciFailureRemediation": {
+    "package": "ISO-C2-M1-E3",
+    "baseline": "0063ae08a577f88c89213e0342704e509d7a3858",
+    "recordedAt": "2026-10-21T19:31:38.079Z",
+    "status": "BLOCKED",
+    "deltaClassification": "RUNTIME_DEPENDENCY",
+    "before": {
+      "info": 0,
+      "low": 0,
+      "moderate": 34,
+      "high": 28,
+      "critical": 3,
+      "total": 65
+    },
+    "after": {
+      "info": 0,
+      "low": 0,
+      "moderate": 19,
+      "high": 14,
+      "critical": 0,
+      "total": 33
+    },
+    "uniqueBeforeChains": 23,
+    "uniqueAfterChains": 5,
+    "baselinePackageEntriesCleared": 49,
+    "newlyReportedAggregates": 17,
+    "confirmedMajorCompatibilityChains": 3,
+    "noUpstreamFixChains": 2,
+    "policyWeakened": false,
+    "newExceptions": false,
+    "glccGenuineFunctionalDefect": false,
+    "frozenGlccModuleReopened": false,
+    "validation": {
+      "runtime": "v24.22.0",
+      "npm": "10.9.7",
+      "isolation": "Fresh npm ci in ignored full-source candidate; no .env files, no shared node_modules mutation; root package/lock copied byte-for-byte from tested candidate",
+      "audit": {
+        "command": "node scripts/security/check-ci-audit.cjs",
+        "exit": 1,
+        "counts": {
+          "info": 0,
+          "low": 0,
+          "moderate": 19,
+          "high": 14,
+          "critical": 0,
+          "total": 33
+        },
+        "policyUnchanged": true
+      },
+      "glcc": {
+        "command": "npm run test:glcc:ci",
+        "exit": 0,
+        "assertions": 14,
+        "runner": "scripts/test-glcc-targeted.ts",
+        "baselineEvidence": "docs/governance/global-mkt-v2.0/BATCH2_X3_CODEX_PROVIDER_INTEGRATION_REVIEW.md#final-validation"
+      },
+      "ciContract": {
+        "command": "node --test tests/security/iso-c2-m1-ci.contract.cjs",
+        "exit": 0,
+        "passed": 23,
+        "reasonRevalidated": "Dependency/Jest/YAML parser changes can materially affect contracts"
+      },
+      "targetedTests": {
+        "passed": 104,
+        "suites": 3,
+        "exit": 0,
+        "files": [
+          "tests/auth/ancillary-email-password-flows.test.ts",
+          "tests/security/uploads/upload-security.test.ts",
+          "tests/glcc/global-w1-j-localization-remediation.test.ts"
+        ],
+        "fixture": "Temporary candidate-only Jest config rejects DB configuration and mocks network/database access to throw; repository database guard unchanged"
+      },
+      "runtimeSmoke": {
+        "exit": 0,
+        "checks": [
+          "sharp WebP resize and AVIF encoding",
+          "applicationinsights module exports setup; telemetry not started"
+        ]
+      },
+      "clientGeneration": {
+        "command": "node node_modules/prisma/build/index.js generate",
+        "exit": 0,
+        "databaseConnected": false
+      },
+      "build": {
+        "command": "NEXTAUTH_URL=https://www.rentipid.com.ph node node_modules/next/dist/bin/next build --webpack",
+        "exit": 0
+      },
+      "typecheck": {
+        "command": "node node_modules/typescript/bin/tsc --noEmit",
+        "exit": 0
+      },
+      "previewRequiredBeforeRuntimePromotion": true,
+      "productionRequiredBeforeRuntimeClosure": true,
+      "databaseModified": false,
+      "migrationRequired": false,
+      "seedSyncRequired": false,
+      "currentSharedNodeModulesReplaced": false,
+      "technicalCommit": null,
+      "governanceCommit": null,
+      "push": "NOT_RUN",
+      "checkpointBoundary": "Task 12 requires local remediation validation to pass; audit fails, so validated partial changes/evidence remain uncommitted and unpushed",
+      "candidateFiles": [
+        {
+          "path": "package.json",
+          "sha256": "5c539457c2de092ba446f838a22a092267d2f274fef15c7513dbf362dd5939c4"
+        },
+        {
+          "path": "package-lock.json",
+          "sha256": "336069b4d6360a496e58be07ba132ef01639f69911f305a0e3e88bc6542aa10d"
+        }
+      ],
+      "evidenceLogs": [
+        {
+          "localPath": ".rentipid-sandbox/iso-c2-m1-e3/audit-policy-validation.log",
+          "sha256": "1e12f892aad3296c618c408d5fbd7b9a697bc0222a0bebbea6dad827e7015dbd"
+        },
+        {
+          "localPath": ".rentipid-sandbox/iso-c2-m1-e3/glcc-validation.log",
+          "sha256": "e2d1789f306beada965ea1c5a1498490eae2066a29db46d8b6dbcc63dd5c6011"
+        },
+        {
+          "localPath": ".rentipid-sandbox/iso-c2-m1-e3/ci-contract-validation.log",
+          "sha256": "d3336902afbaa9f235fa517fe3ee1423fd213d09113b38ba7b8b13dd34de452e"
+        },
+        {
+          "localPath": ".rentipid-sandbox/iso-c2-m1-e3/targeted-tests-validation.log",
+          "sha256": "70d32eb234d811fa83a9ecea0085abd7ccbc21be05d0e34d9ad44c5740942685"
+        },
+        {
+          "localPath": ".rentipid-sandbox/iso-c2-m1-e3/runtime-smoke-validation.log",
+          "sha256": "653667c0f9889403bc7ee3d115170e5feee505a5796b76f2cf3c016d1eb3510d"
+        },
+        {
+          "localPath": ".rentipid-sandbox/iso-c2-m1-e3/prisma-client-generation.log",
+          "sha256": "2fad46bc790945860f5fbc80f1e3c5fa7d0bd492b6dd71594890e3a02bab34a0"
+        },
+        {
+          "localPath": ".rentipid-sandbox/iso-c2-m1-e3/build-validation.log",
+          "sha256": "3311d69a44214b1facfcf69df5c3b0ba4616ce9fcb8eae65dfb007f264fb2e67"
+        },
+        {
+          "localPath": ".rentipid-sandbox/iso-c2-m1-e3/typecheck-validation.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    "technicalCommit": null,
+    "governanceCommit": null,
+    "push": "NOT_RUN",
+    "worktreeClean": false,
+    "checkpointWithheldReason": "Governance decision recorded; technical implementation deferred to ISO-C2-M1-E5",
+    "riskScoreChanged": false,
+    "residualRiskAccepted": false,
+    "nextAction": "ISO-C2-M1-E5 — APPLY NARROW TOOLING DISPOSITIONS + RESOLVE DEEPMERGE/D3 + PREPARE NODEMAILER REMEDIATION"
   }
 }

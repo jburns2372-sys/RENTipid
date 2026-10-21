@@ -88,7 +88,7 @@ Every treatment action is classified into one or more operational categories:
 
 | Action ID | Associated Risks | Treatment Action Statement | Classification | Responsible Role | Target Phase |
 |---|---|---|---|---|---|
-| **TRT-E01** | `RSK-08`, `RSK-25` | M1-E2 activation and main PR/admin/force-push/deletion protections verified; real audit and GLCC runs failed. Required checks deferred until reliable main workflow availability and successful observed contexts. Separately authorize failed-CI triage; preserve audit exceptions/DB guards and gather cadence evidence | `GITHUB_CONFIGURATION_REMEDIATION_REQUIRED / OPERATING_EVIDENCE_NEEDED` | Engineering Lead | `ISO-C3` |
+| **TRT-E01** | `RSK-08`, `RSK-25` | E3 bounded safe dependency/CI candidate validated except unchanged audit FAIL (0 critical/14 high/19 moderate); resolve five security chains before checkpoint/real CI. No new exceptions; required main checks still deferred. See ISO_C2_M1_CI_FAILURE_ROOT_CAUSE_AND_REMEDIATION.md | `GITHUB_CONFIGURATION_REMEDIATION_REQUIRED / OPERATING_EVIDENCE_NEEDED` | Engineering Lead | `ISO-C3` |
 | **TRT-E02** | `RSK-09` | Reconcile actual cloud inventory; obtain deployed configuration/drift evidence; no AWS service presumed | `DOCUMENTATION_NEEDED / OPERATING_EVIDENCE_NEEDED` | Cloud Ops Lead | `ISO-C2` |
 | **TRT-E03** | `RSK-13`, `RSK-17` | Document fail-closed KYC outage handling; no unauthorized manual identity bypass or alternate provider | `DOCUMENTATION_NEEDED` | Operations Lead | `ISO-C1` |
 | **TRT-E04** | `RSK-26` | Collect applicable provider/account/contract/assurance evidence; distinguish planned/historical identities and standard terms | `EXTERNAL_PROVIDER_EVIDENCE_NEEDED` | DPO / Legal Counsel | `ISO-C1` / `ISO-C3` |
@@ -125,3 +125,8 @@ TRT-E01 RSK-08 local implementation is accepted, but PARTIAL — GITHUB CONFIGUR
 ## M1-E2 subsequent treatment state
 
 TRT-E01 RSK-08: activation and major main protections implemented; real runs failed, so no operating-conformity acceptance. Required checks/strict enforcement deferred with explicit safe enablement condition in the GitHub evidence report. C: PARTIAL — CONFIGURATION REMEDIATION REMAINS; residual score unchanged/unaccepted. RSK-25 not closed. Next: Authorize a bounded review and remediation of the failed dependency audit and CI baseline/fixture prerequisites.
+
+
+## M1-E3 treatment state
+
+RSK-08 remains PARTIAL — REMEDIATION IN PROGRESS. No scores or residual acceptance changed; RSK-25 not closed. Local safe dependency candidate is not operating conformity. Exact upstream/compatibility blockers and every audit finding are recorded in ISO_C2_M1_CI_FAILURE_ROOT_CAUSE_AND_REMEDIATION.md. Required-check enforcement and main protections unchanged; no next wave.

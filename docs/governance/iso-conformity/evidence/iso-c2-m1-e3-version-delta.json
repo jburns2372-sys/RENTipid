@@ -1,0 +1,944 @@
+[
+  {
+    "key": "node_modules/@azure-rest/core-client",
+    "before": "2.7.0",
+    "after": "2.9.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@azure/monitor-opentelemetry",
+    "before": "1.18.1",
+    "after": "1.20.1",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@azure/monitor-opentelemetry-exporter",
+    "before": "1.0.0-beta.42",
+    "after": "1.0.0-beta.46",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@emnapi/runtime",
+    "before": "1.11.2",
+    "after": "1.11.3",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@grpc/grpc-js",
+    "before": "1.14.4",
+    "after": "1.14.6",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@hono/node-server",
+    "before": "1.19.17",
+    "after": "2.1.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-darwin-arm64",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-darwin-x64",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-libvips-darwin-arm64",
+    "before": "1.2.4",
+    "after": "1.3.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-libvips-darwin-x64",
+    "before": "1.2.4",
+    "after": "1.3.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-libvips-linux-arm",
+    "before": "1.2.4",
+    "after": "1.3.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-libvips-linux-arm64",
+    "before": "1.2.4",
+    "after": "1.3.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-libvips-linux-ppc64",
+    "before": "1.2.4",
+    "after": "1.3.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-libvips-linux-riscv64",
+    "before": "1.2.4",
+    "after": "1.3.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-libvips-linux-s390x",
+    "before": "1.2.4",
+    "after": "1.3.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-libvips-linux-x64",
+    "before": "1.2.4",
+    "after": "1.3.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-libvips-linuxmusl-arm64",
+    "before": "1.2.4",
+    "after": "1.3.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-libvips-linuxmusl-x64",
+    "before": "1.2.4",
+    "after": "1.3.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-linux-arm",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-linux-arm64",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-linux-ppc64",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-linux-riscv64",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-linux-s390x",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-linux-x64",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-linuxmusl-arm64",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-linuxmusl-x64",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-wasm32",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-win32-arm64",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-win32-ia32",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@img/sharp-win32-x64",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@istanbuljs/load-nyc-config/node_modules/js-yaml",
+    "before": "3.15.0",
+    "after": "3.15.2",
+    "dev": true
+  },
+  {
+    "key": "node_modules/@jest/core/node_modules/brace-expansion",
+    "before": "2.1.2",
+    "after": "2.1.7",
+    "dev": true
+  },
+  {
+    "key": "node_modules/@jest/reporters/node_modules/brace-expansion",
+    "before": "2.1.2",
+    "after": "2.1.7",
+    "dev": true
+  },
+  {
+    "key": "node_modules/@modelcontextprotocol/sdk",
+    "before": "1.29.0",
+    "after": "1.32.1",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@next/env",
+    "before": "16.2.12",
+    "after": "16.3.8",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@next/eslint-plugin-next",
+    "before": "16.2.12",
+    "after": "16.3.8",
+    "dev": true
+  },
+  {
+    "key": "node_modules/@next/swc-darwin-arm64",
+    "before": "16.2.12",
+    "after": "16.3.8",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@next/swc-darwin-x64",
+    "before": "16.2.12",
+    "after": "16.3.8",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@next/swc-linux-arm64-gnu",
+    "before": "16.2.12",
+    "after": "16.3.8",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@next/swc-linux-arm64-musl",
+    "before": "16.2.12",
+    "after": "16.3.8",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@next/swc-linux-x64-gnu",
+    "before": "16.2.12",
+    "after": "16.3.8",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@next/swc-linux-x64-musl",
+    "before": "16.2.12",
+    "after": "16.3.8",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@next/swc-win32-arm64-msvc",
+    "before": "16.2.12",
+    "after": "16.3.8",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@next/swc-win32-x64-msvc",
+    "before": "16.2.12",
+    "after": "16.3.8",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/api",
+    "before": "1.9.1",
+    "after": "1.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/api-logs",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/configuration",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/configuration/node_modules/@opentelemetry/core",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/context-async-hooks",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/core",
+    "before": "2.10.0",
+    "after": "2.12.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-logs-otlp-grpc",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-logs-otlp-http",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-logs-otlp-proto",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-metrics-otlp-grpc",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-metrics-otlp-http",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-metrics-otlp-http/node_modules/@opentelemetry/core",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-metrics-otlp-http/node_modules/@opentelemetry/resources",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-metrics-otlp-http/node_modules/@opentelemetry/sdk-metrics",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-metrics-otlp-proto",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-prometheus",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-prometheus/node_modules/@opentelemetry/core",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-prometheus/node_modules/@opentelemetry/resources",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-prometheus/node_modules/@opentelemetry/sdk-metrics",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-trace-otlp-grpc",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-trace-otlp-http",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-trace-otlp-proto",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-zipkin",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-zipkin/node_modules/@opentelemetry/core",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/exporter-zipkin/node_modules/@opentelemetry/resources",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/instrumentation",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/instrumentation-bunyan",
+    "before": "0.62.0",
+    "after": "0.66.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/instrumentation-http",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/instrumentation-http/node_modules/@opentelemetry/core",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/instrumentation-mongodb",
+    "before": "0.70.0",
+    "after": "0.74.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/instrumentation-mysql",
+    "before": "0.63.0",
+    "after": "0.67.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/instrumentation-pg",
+    "before": "0.69.0",
+    "after": "0.73.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/instrumentation-redis",
+    "before": "0.65.0",
+    "after": "0.69.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/instrumentation-winston",
+    "before": "0.61.0",
+    "after": "0.65.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/otlp-exporter-base",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/otlp-exporter-base/node_modules/@opentelemetry/core",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/otlp-grpc-exporter-base",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/otlp-grpc-exporter-base/node_modules/@opentelemetry/core",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/otlp-transformer",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/otlp-transformer/node_modules/@opentelemetry/core",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/otlp-transformer/node_modules/@opentelemetry/resources",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/otlp-transformer/node_modules/@opentelemetry/sdk-metrics",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/propagator-b3",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/propagator-b3/node_modules/@opentelemetry/core",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/propagator-jaeger",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/propagator-jaeger/node_modules/@opentelemetry/core",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/resource-detector-azure",
+    "before": "0.25.0",
+    "after": "0.29.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/resources",
+    "before": "2.10.0",
+    "after": "2.12.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-logs",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-logs/node_modules/@opentelemetry/core",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-logs/node_modules/@opentelemetry/resources",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-metrics",
+    "before": "2.10.0",
+    "after": "2.12.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-node",
+    "before": "0.218.0",
+    "after": "0.221.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-node/node_modules/@opentelemetry/core",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-node/node_modules/@opentelemetry/resources",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-node/node_modules/@opentelemetry/sdk-metrics",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-node/node_modules/@opentelemetry/sdk-trace-base",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-node/node_modules/@opentelemetry/sdk-trace-node",
+    "before": "2.7.1",
+    "after": "2.10.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-trace-base",
+    "before": "2.10.0",
+    "after": "2.12.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-trace-node",
+    "before": "2.10.0",
+    "after": "2.12.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-trace-node/node_modules/@opentelemetry/context-async-hooks",
+    "before": "2.10.0",
+    "after": "2.12.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sdk-trace-web",
+    "before": "2.10.0",
+    "after": "2.12.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/sql-common",
+    "before": "0.41.2",
+    "after": "0.42.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@opentelemetry/winston-transport",
+    "before": "0.27.0",
+    "after": "0.31.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@swc/helpers",
+    "before": "0.5.15",
+    "after": "0.5.23",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@ts-morph/common/node_modules/brace-expansion",
+    "before": "5.0.8",
+    "after": "5.0.12",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@typescript-eslint/typescript-estree/node_modules/brace-expansion",
+    "before": "5.0.8",
+    "after": "5.0.12",
+    "dev": true
+  },
+  {
+    "key": "node_modules/@typespec/ts-http-runtime",
+    "before": "0.3.6",
+    "after": "0.3.9",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@vercel/blob/node_modules/undici",
+    "before": "6.28.0",
+    "after": "6.29.1",
+    "dev": false
+  },
+  {
+    "key": "node_modules/@xmldom/xmldom",
+    "before": "0.9.10",
+    "after": "0.9.12",
+    "dev": true
+  },
+  {
+    "key": "node_modules/applicationinsights",
+    "before": "3.15.1",
+    "after": "3.17.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/baseline-browser-mapping",
+    "before": "2.10.42",
+    "after": "2.11.30",
+    "dev": false
+  },
+  {
+    "key": "node_modules/body-parser/node_modules/content-type",
+    "before": "2.0.0",
+    "after": "2.1.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/brace-expansion",
+    "before": "1.1.16",
+    "after": "1.1.21",
+    "dev": true
+  },
+  {
+    "key": "node_modules/browserslist",
+    "before": "4.28.4",
+    "after": "4.29.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/caniuse-lite",
+    "before": "1.0.30001800",
+    "after": "1.0.30001818",
+    "dev": false
+  },
+  {
+    "key": "node_modules/content-disposition",
+    "before": "1.1.0",
+    "after": "2.0.1",
+    "dev": false
+  },
+  {
+    "key": "node_modules/default-browser",
+    "before": "5.5.0",
+    "after": "5.5.1",
+    "dev": false
+  },
+  {
+    "key": "node_modules/electron-to-chromium",
+    "before": "1.5.387",
+    "after": "1.5.463",
+    "dev": false
+  },
+  {
+    "key": "node_modules/es-module-lexer",
+    "before": "2.3.1",
+    "after": "3.0.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/eslint-config-next",
+    "before": "16.2.12",
+    "after": "16.3.8",
+    "dev": true
+  },
+  {
+    "key": "node_modules/eventsource-parser",
+    "before": "3.1.0",
+    "after": "3.1.1",
+    "dev": false
+  },
+  {
+    "key": "node_modules/express",
+    "before": "5.2.1",
+    "after": "5.3.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/express-rate-limit",
+    "before": "8.5.2",
+    "after": "8.7.1",
+    "dev": false
+  },
+  {
+    "key": "node_modules/fast-uri",
+    "before": "3.1.4",
+    "after": "3.1.9",
+    "dev": false
+  },
+  {
+    "key": "node_modules/glob/node_modules/brace-expansion",
+    "before": "5.0.8",
+    "after": "5.0.12",
+    "dev": true
+  },
+  {
+    "key": "node_modules/handlebars",
+    "before": "4.7.9",
+    "after": "4.7.10",
+    "dev": true
+  },
+  {
+    "key": "node_modules/hono",
+    "before": "4.12.27",
+    "after": "4.13.13",
+    "dev": false
+  },
+  {
+    "key": "node_modules/import-in-the-middle",
+    "before": "3.3.3",
+    "after": "3.5.2",
+    "dev": false
+  },
+  {
+    "key": "node_modules/ip-address",
+    "before": "10.2.0",
+    "after": "10.7.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/jest-cli/node_modules/brace-expansion",
+    "before": "2.1.2",
+    "after": "2.1.7",
+    "dev": true
+  },
+  {
+    "key": "node_modules/jest-runtime/node_modules/brace-expansion",
+    "before": "2.1.2",
+    "after": "2.1.7",
+    "dev": true
+  },
+  {
+    "key": "node_modules/jose",
+    "before": "6.2.3",
+    "after": "6.2.13",
+    "dev": false
+  },
+  {
+    "key": "node_modules/js-yaml",
+    "before": "4.3.0",
+    "after": "4.3.2",
+    "dev": true
+  },
+  {
+    "key": "node_modules/media-typer",
+    "before": "1.1.0",
+    "after": "1.1.1",
+    "dev": false
+  },
+  {
+    "key": "node_modules/nanoid",
+    "before": "3.3.16",
+    "after": "3.3.20",
+    "dev": false
+  },
+  {
+    "key": "node_modules/negotiator",
+    "before": "1.0.0",
+    "after": "1.1.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/next",
+    "before": "16.2.12",
+    "after": "16.3.8",
+    "dev": false
+  },
+  {
+    "key": "node_modules/node-releases",
+    "before": "2.0.50",
+    "after": "2.0.59",
+    "dev": false
+  },
+  {
+    "key": "node_modules/open",
+    "before": "11.0.0",
+    "after": "11.0.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/postcss-selector-parser",
+    "before": "7.1.4",
+    "after": "7.1.7",
+    "dev": false
+  },
+  {
+    "key": "node_modules/powershell-utils",
+    "before": "0.1.0",
+    "after": "0.2.1",
+    "dev": false
+  },
+  {
+    "key": "node_modules/protobufjs",
+    "before": "7.6.5",
+    "after": "7.6.6",
+    "dev": false
+  },
+  {
+    "key": "node_modules/proxy-addr",
+    "before": "2.0.7",
+    "after": "2.0.8",
+    "dev": false
+  },
+  {
+    "key": "node_modules/qs",
+    "before": "6.15.3",
+    "after": "6.16.1",
+    "dev": false
+  },
+  {
+    "key": "node_modules/shadcn",
+    "before": "4.15.0",
+    "after": "4.22.1",
+    "dev": false
+  },
+  {
+    "key": "node_modules/sharp",
+    "before": "0.34.5",
+    "after": "0.35.5",
+    "dev": false
+  },
+  {
+    "key": "node_modules/source-map-js",
+    "before": "1.2.1",
+    "after": "1.2.2",
+    "dev": false
+  },
+  {
+    "key": "node_modules/type-is/node_modules/content-type",
+    "before": "2.0.0",
+    "after": "2.1.0",
+    "dev": false
+  },
+  {
+    "key": "node_modules/undici",
+    "before": "7.28.0",
+    "after": "7.30.1",
+    "dev": false
+  },
+  {
+    "key": "node_modules/update-browserslist-db",
+    "before": "1.2.3",
+    "after": "1.3.4",
+    "dev": false
+  },
+  {
+    "key": "node_modules/wsl-utils",
+    "before": "0.3.1",
+    "after": "1.0.1",
+    "dev": false
+  },
+  {
+    "key": "node_modules/yaml",
+    "before": "2.9.0",
+    "after": "2.9.1",
+    "dev": false
+  }
+]
