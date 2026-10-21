@@ -1,4 +1,6 @@
-# ISO-C2-M1-E1 — GitHub CI execution and branch protection evidence
+# ISO-C2-M1 — GitHub CI execution and branch protection evidence
+
+**Current checkpoint: ISO-C2-M1-E2 — FAIL: both actual CI runs failed; non-check main protections verified; required checks DEFERRED. The E1 record below is historical.**
 
 Project: RENTIPID-ISO-CONFORMITY-001 / v1.0. Executor: Codex. Evidence observed: 2026-10-21T19:03:53.026Z.
 
@@ -79,3 +81,76 @@ Completed means this evidence collection is complete. Operating acceptance/closu
 RSK-08 inherent 4 x 4 = 16 HIGH; residual 3 x 4 = 12 HIGH, unchanged. Local tooling is implemented; operating enforcement is incomplete and demonstrated configuration remediation is required, selecting **C: PARTIAL — GITHUB CONFIGURATION REMEDIATION REQUIRED** exclusively. Named Engineering accountability and recurring triage evidence remain open; unrelated operating/legal/provider tracks remain unchanged.
 
 Next action: Authorize a bounded M1 CI activation and main-branch protection remediation package.
+
+
+## ISO-C2-M1-E2 — Authorized activation and main protection remediation
+
+Recorded 2026-10-21T19:10:23.114Z. Baseline e2a74088fa20ff0c1162068c9a6259b21f51b631; activation commit [98494bf8cc17dd9bb798bb6deb06065d81079035](https://github.com/jburns2372-sys/RENTipid/commit/98494bf8cc17dd9bb798bb6deb06065d81079035). Package result **FAIL** because the real CI gates failed; configuration/evidence review **PASS — EXECUTED**. RSK-08 selects **C: PARTIAL — CONFIGURATION REMEDIATION REMAINS**, not A or B; no successful CI execution exists for this activation candidate.
+
+### Trigger determination and minimum activation
+
+Before E2, security push matched main only, GLCC push matched main and fix/glcc*, and both pull_request filters matched main. No path filters or workflow_dispatch; ISO push therefore did not match. A PR targeting main could select these PR workflows from its candidate, but PR creation was unnecessary and not used. E2 added only feat/iso-conformity-v1.0 to both push branch lists. Main/PR behavior and job bodies remain unchanged. No deployment event or manual bypass was introduced. The Azure deployment workflow retains main-only push/path filters and was not triggered.
+
+Targeted local syntax/contract validation parsed both YAMLs and compared them with E1: only the two exact ISO push entries differ; all jobs and other events match. The 23 accepted local checks were not rerun because the trigger-only delta does not invalidate them. No TypeScript/application change: typecheck N/A. Commit uses exactly fix(iso-c2): activate M1 GitHub CI verification.
+
+### Actual GitHub executions at the activation SHA
+
+| Workflow / observed check context | Run / job | Event and branch | Runtime | Result |
+|---|---|---|---|---|
+| Security Supply Chain Validation / supply-chain-validation | [39658807274](https://github.com/jburns2372-sys/RENTipid/actions/runs/39658807274), job 119426091625 | push, feat/iso-conformity-v1.0 | Node v24.21.0; npm 11.19.0 | FAILURE |
+| GLCC Localization Quality Gate / Localization Acceptance CI | [39658807135](https://github.com/jburns2372-sys/RENTipid/actions/runs/39658807135), job 119426091424 | push, feat/iso-conformity-v1.0 | Node v24.22.0; npm 11.19.1 | FAILURE |
+
+Both runs use SHA 98494bf8cc17dd9bb798bb6deb06065d81079035, started 2026-10-21T19:07:12Z. Security job started 19:07:15Z and completed 19:08:16Z; GLCC job started 19:07:15Z and completed 19:08:00Z. Both statuses completed, conclusions failure. Runtime logs explicitly resolve package.json as 24.x and show the versions above; patch differences are valid under the existing 24.x contract. GitHub's notice about the pinned actions' own Node 20 metadata is distinct from the observed project command runtime; no action upgrade was attempted.
+
+Security: frozen-lockfile installation succeeded. Run Dependency Audit actually executed and failed with exit 1. Its structured output was total 65, critical 3, high 28, moderate 34, low/info 0, policy pass false. This is the observed audit summary, not a package/advisory-level triage or an assertion that every report entry is exploitable. The historical exception remains unchanged and cannot accept these results. CI contract, focused tests, SBOM and manifest steps were skipped after failure. The job/run conclusion stayed failure: real fail-closed propagation observed.
+
+GLCC: frozen-lockfile installation and Prisma client generation succeeded; generation is not a database migration or connection. The quality-gate runner failed on fil-PH/ja-JP release-status expectations and three hardcoded Country / Operating Jurisdiction registration labels, then Jest setup rejected ALLOW_TEST_DATABASE_MUTATION absent/not true. Logs report 49 failed suites, zero executed tests, six diagnostics, exit 1. This demonstrates the current runner/prerequisite mismatch and guard rejection; it does not establish 49 functional regressions or justify changes to frozen GLCC behavior. No database credential, service, mutation allowance, migration or seed was provisioned. These new remote findings require a separately scoped review; no application assertion, guard, dependency or exception was weakened to obtain green CI.
+
+Observed exact contexts are supply-chain-validation and Localization Acceptance CI, provided by GitHub Actions app 15368, **both failing**. Successful eligible required contexts: NONE. A failed observed context is not treated as a successfully validated required check.
+
+### Applied main protection and independent read-back
+
+The authenticated GitHub branch-protection API applied the authorized supported controls. An initial personal-repository payload with explicit organization-only bypass allowances was rejected with 422; those unsupported fields were omitted, not replaced by a bypass. Separate GET reads confirmed the resulting controls (not just the mutation response):
+
+| Setting | Read-back result |
+|---|---|
+| main protected | true |
+| Pull request required | true |
+| Minimum approvals | 1 |
+| Dismiss stale approvals | true |
+| Latest push approved by someone else | true |
+| Conversation resolution | true |
+| Enforce administrators | true |
+| Force pushes allowed | false |
+| Branch deletion allowed | false |
+| Unrestricted bypass allowances | none configured; controlled administrator ability to change settings remains |
+| Required status checks | DEFERRED; no requirement configured |
+| Strict/up-to-date status-check mode | DEFERRED with required checks |
+
+Read-back endpoint: [main protection](https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection). [GitHub API semantics](https://docs.github.com/en/rest/branches/branch-protection#update-branch-protection) define these protection fields. Main remains at b44ed7854c07c73903578556515c2752157bc7d6, unchanged and unmerged. This package uses classic branch protection; no ruleset is required in addition to an effective classic policy.
+
+Required-check deadlock risk: YES if enabled now. Main still lacks M1 workflows and their supporting tooling; arbitrary future PR branches cannot be assumed to produce these contexts. Also neither candidate run succeeded. Required checks were therefore not enabled; no other protection was weakened. Exact enablement condition: M1 workflows and dependencies must first be present through a separately authorized reviewed main integration; prove reliable main-targeted PR runs and successful exact contexts with a valid safely isolated CI prerequisite design, then enable those observed contexts (GitHub Actions app 15368) with strict/up-to-date enforcement. Do not merge in E2.
+
+### Lifecycle, remaining work and decision
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — REUSED / UNAFFECTED |
+| localFunctional | PASS — REUSED / UNAFFECTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — REUSED / UNAFFECTED |
+| previewMigrated | N/A — NOT APPLICABLE |
+| previewAcceptancePass | N/A — NOT APPLICABLE |
+| productionReady | N/A — NOT APPLICABLE |
+| productionDeploymentVerification | N/A — NOT APPLICABLE |
+| completed | PASS — EXECUTED |
+| accepted | BLOCKED |
+| closed | BLOCKED |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Completed refers only to this bounded activation, protection configuration and evidence collection; CI operating acceptance and risk/control closure remain blocked. Application/local acceptance stays inherited within its original scope. Real GitHub workflow execution result FAIL and audit gate result FAIL are recorded separately and are not converted into local passes. Source-only setup success and active PR protections cannot establish full operating conformity.
+
+RSK-08 inherent 16 HIGH, residual 12 HIGH unchanged; no residual acceptance, full conformity claim, ISO certification, closure, version freeze or Wave 2. No application functionality, database, Preview or Production changes. No deployment, main merge, tag, schema/migration/seed/provider operation. Governance checkpoint pushes naturally match the newly authorized ISO push trigger; the definitive evidence above is pinned to the technical activation SHA, not an invented success from a later docs push.
+
+Next action: Authorize a bounded review and remediation of the failed dependency audit and CI baseline/fixture prerequisites.

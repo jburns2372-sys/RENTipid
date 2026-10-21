@@ -143,3 +143,8 @@ Project Owner authorized first eligible technical wave only from 999af0e. DEF-TO
 ## 14. ISO-C2-M1-E1 GitHub enforcement evidence
 
 Authenticated operating-evidence collection completed with package BLOCKED. Required branch and baseline commits verified remotely. M1 workflow design remains implemented; zero qualifying GitHub runs, no workflow_dispatch, default main has only Azure deployment workflow. main and all inventoried branches unprotected; repository/inherited rulesets and main applicable rules empty. RSK-08: PARTIAL — GITHUB CONFIGURATION REMEDIATION REQUIRED; residual score unchanged and unaccepted. No next wave, deployment, settings mutation or freeze. See ISO_C2_M1_GITHUB_CI_AND_BRANCH_PROTECTION_EVIDENCE.md. Next action: Authorize a bounded M1 CI activation and main-branch protection remediation package.
+
+
+## 15. ISO-C2-M1-E2 activation and main protection
+
+Owner-authorized two-line workflow activation at 98494bf8cc17dd9bb798bb6deb06065d81079035 produced actual failed runs 39658807274 (security) and 39658807135 (GLCC). Node 24 and audit fail-closed propagation verified. Non-check main protections applied and separately read back; main unmerged. Required checks/strict mode deliberately deferred: M1 absent from main and no successful candidate contexts. Package FAIL, configuration/evidence review complete. RSK-08 PARTIAL — CONFIGURATION REMEDIATION REMAINS; score unchanged, residual not accepted. No application/DB/deployment/next-wave changes. See ISO_C2_M1_GITHUB_CI_AND_BRANCH_PROTECTION_EVIDENCE.md. Next: Authorize a bounded review and remediation of the failed dependency audit and CI baseline/fixture prerequisites.

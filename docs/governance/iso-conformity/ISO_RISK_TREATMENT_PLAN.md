@@ -88,7 +88,7 @@ Every treatment action is classified into one or more operational categories:
 
 | Action ID | Associated Risks | Treatment Action Statement | Classification | Responsible Role | Target Phase |
 |---|---|---|---|---|---|
-| **TRT-E01** | `RSK-08`, `RSK-25` | DEF-TOOL-01 local M1 repair accepted; M1-E1 confirms GitHub activation and main protection/required-check configuration gaps. Separately authorize configuration remediation; preserve existing audit exception and gather operating cadence evidence | `GITHUB_CONFIGURATION_REMEDIATION_REQUIRED / OPERATING_EVIDENCE_NEEDED` | Engineering Lead | `ISO-C3` |
+| **TRT-E01** | `RSK-08`, `RSK-25` | M1-E2 activation and main PR/admin/force-push/deletion protections verified; real audit and GLCC runs failed. Required checks deferred until reliable main workflow availability and successful observed contexts. Separately authorize failed-CI triage; preserve audit exceptions/DB guards and gather cadence evidence | `GITHUB_CONFIGURATION_REMEDIATION_REQUIRED / OPERATING_EVIDENCE_NEEDED` | Engineering Lead | `ISO-C3` |
 | **TRT-E02** | `RSK-09` | Reconcile actual cloud inventory; obtain deployed configuration/drift evidence; no AWS service presumed | `DOCUMENTATION_NEEDED / OPERATING_EVIDENCE_NEEDED` | Cloud Ops Lead | `ISO-C2` |
 | **TRT-E03** | `RSK-13`, `RSK-17` | Document fail-closed KYC outage handling; no unauthorized manual identity bypass or alternate provider | `DOCUMENTATION_NEEDED` | Operations Lead | `ISO-C1` |
 | **TRT-E04** | `RSK-26` | Collect applicable provider/account/contract/assurance evidence; distinguish planned/historical identities and standard terms | `EXTERNAL_PROVIDER_EVIDENCE_NEEDED` | DPO / Legal Counsel | `ISO-C1` / `ISO-C3` |
@@ -120,3 +120,8 @@ EXACT STANDARD MAPPING — REQUIRES LICENSED STANDARD VERIFICATION. Every editio
 ## M1-E1 scoped treatment evidence
 
 TRT-E01 RSK-08 local implementation is accepted, but PARTIAL — GITHUB CONFIGURATION REMEDIATION REQUIRED. Source/local acceptance is not rolled back. Main ruleset/protection and a bounded safe workflow activation path require separate authorization; no GitHub settings changed here. No implication of RSK-25 closure or accepted residual risk. See ISO_C2_M1_GITHUB_CI_AND_BRANCH_PROTECTION_EVIDENCE.md.
+
+
+## M1-E2 subsequent treatment state
+
+TRT-E01 RSK-08: activation and major main protections implemented; real runs failed, so no operating-conformity acceptance. Required checks/strict enforcement deferred with explicit safe enablement condition in the GitHub evidence report. C: PARTIAL — CONFIGURATION REMEDIATION REMAINS; residual score unchanged/unaccepted. RSK-25 not closed. Next: Authorize a bounded review and remediation of the failed dependency audit and CI baseline/fixture prerequisites.

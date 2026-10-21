@@ -4,10 +4,10 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "M1 GitHub CI execution and branch protection operating evidence",
-  "status": "BLOCKED",
-  "phaseGate": "ISO-C2-M1-E1 EVIDENCE COLLECTED — CI ACTIVATION AND BRANCH PROTECTION REMEDIATION REQUIRED",
-  "timestamp": "2026-10-21T19:03:53.026Z",
+  "phaseName": "M1 CI activation and main branch protection remediation",
+  "status": "FAIL",
+  "phaseGate": "M1-E2 ACTIVATION AND MAIN PROTECTION VERIFIED — REAL CI FAILED; REQUIRED CHECKS DEFERRED",
+  "timestamp": "2026-10-21T19:10:23.114Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
@@ -158,14 +158,19 @@
       "status": "PENDING ACCOUNT APPROVAL"
     },
     {
-      "id": "BLK-M1-GH-01",
-      "type": "GITHUB_CONFIGURATION",
-      "description": "M1 workflows not runnable through authorized current triggers; no qualifying runs; main unprotected and no rulesets/required status checks.",
-      "impact": "RSK-08 operating conformity cannot pass; source/local M1 acceptance unaffected",
-      "status": "REMEDIATION REQUIRED — NOT EXECUTED"
+      "id": "BLK-M1-E2-CI-01",
+      "type": "CI_GATE_FAILURE",
+      "description": "Real security audit failed (65 findings including 3 critical); GLCC runner assertions and isolated-fixture guard prerequisites failed.",
+      "status": "REVIEW REQUIRED — no bypass or broader remediation authorized"
+    },
+    {
+      "id": "BLK-M1-E2-CHECK-01",
+      "type": "REQUIRED_CHECK_DEFERRED",
+      "description": "M1 workflows and dependencies must first be present through a separately authorized reviewed main integration; prove reliable main-targeted PR runs and successful exact contexts with a valid safely isolated CI prerequisite design, then enable those observed contexts (GitHub Actions app 15368) with strict/up-to-date enforcement. Do not merge in E2.",
+      "status": "DEFERRED — MAIN CHECK DEADLOCK SAFEGUARD"
     }
   ],
-  "nextRecommendedPackage": "M1 CI activation and GitHub enforcement configuration remediation — authorization required; no Wave 2",
+  "nextRecommendedPackage": "Bounded failed-CI audit/prerequisite review — separate authorization; no next C2 remediation wave",
   "independentReviewHistory": [
     {
       "workPackage": "ISO-C0-R1",
@@ -332,7 +337,7 @@
     "certificationClaimed": false,
     "nextAction": "Obtain authorized GitHub CI execution and branch-protection enforcement evidence for RSK-08."
   },
-  "nextAction": "Authorize a bounded M1 CI activation and main-branch protection remediation package.",
+  "nextAction": "Authorize a bounded review and remediation of the failed dependency audit and CI baseline/fixture prerequisites.",
   "githubEnforcementEvidence": {
     "workPackage": "ISO-C2-M1-E1",
     "status": "BLOCKED",
@@ -444,5 +449,272 @@
     },
     "nextAction": "Authorize a bounded M1 CI activation and main-branch protection remediation package.",
     "evidenceDocument": "ISO_C2_M1_GITHUB_CI_AND_BRANCH_PROTECTION_EVIDENCE.md"
+  },
+  "githubCiActivationEvidence": {
+    "workPackage": "ISO-C2-M1-E2",
+    "recordedAt": "2026-10-21T19:10:23.114Z",
+    "status": "FAIL",
+    "evidenceConfigurationReview": "PASS — EXECUTED",
+    "baseline": "e2a74088fa20ff0c1162068c9a6259b21f51b631",
+    "technicalCommit": "98494bf8cc17dd9bb798bb6deb06065d81079035",
+    "authorization": "Project Owner E2 bounded CI activation and main protection authorization",
+    "activationDelta": "One exact ISO branch push-filter entry in each existing M1 workflow; jobs/main/PR filters unchanged; no dispatch",
+    "targetedValidation": "Both workflow YAMLs parsed; compared with E1 baseline: only exact ISO push filters changed; jobs and other events identical",
+    "localAcceptedChecksRerun": 0,
+    "typecheck": "N/A — NOT APPLICABLE; no TypeScript/application change",
+    "runs": [
+      {
+        "id": 39658807274,
+        "name": "Security Supply Chain Validation",
+        "sha": "98494bf8cc17dd9bb798bb6deb06065d81079035",
+        "branch": "feat/iso-conformity-v1.0",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "failure",
+        "startedAt": "2026-10-21T19:07:12Z",
+        "updatedAt": "2026-10-21T19:08:17Z",
+        "url": "https://github.com/jburns2372-sys/RENTipid/actions/runs/39658807274",
+        "jobs": [
+          {
+            "id": 119426091625,
+            "name": "supply-chain-validation",
+            "status": "completed",
+            "conclusion": "failure",
+            "startedAt": "2026-10-21T19:07:15Z",
+            "completedAt": "2026-10-21T19:08:16Z",
+            "url": "https://github.com/jburns2372-sys/RENTipid/actions/runs/39658807274/job/119426091625",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Checkout Repository",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Setup Node.js",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Enforce Frozen Lockfile",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run Dependency Audit",
+                "status": "completed",
+                "conclusion": "failure"
+              },
+              {
+                "name": "CI Enforcement Contract",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Focused Tests",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Generate SBOM",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Generate Build Manifest",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Upload SBOM",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Upload Build Manifest",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Post Setup Node.js",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Post Checkout Repository",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 39658807135,
+        "name": "GLCC Localization Quality Gate",
+        "sha": "98494bf8cc17dd9bb798bb6deb06065d81079035",
+        "branch": "feat/iso-conformity-v1.0",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "failure",
+        "startedAt": "2026-10-21T19:07:12Z",
+        "updatedAt": "2026-10-21T19:08:01Z",
+        "url": "https://github.com/jburns2372-sys/RENTipid/actions/runs/39658807135",
+        "jobs": [
+          {
+            "id": 119426091424,
+            "name": "Localization Acceptance CI",
+            "status": "completed",
+            "conclusion": "failure",
+            "startedAt": "2026-10-21T19:07:15Z",
+            "completedAt": "2026-10-21T19:08:00Z",
+            "url": "https://github.com/jburns2372-sys/RENTipid/actions/runs/39658807135/job/119426091424",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Checkout Repository",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Setup Node.js",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Enforce Frozen Lockfile",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Generate Prisma Client",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run GLCC Localization CI Gate",
+                "status": "completed",
+                "conclusion": "failure"
+              },
+              {
+                "name": "Post Setup Node.js",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Post Checkout Repository",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "nodeRuntimes": {
+      "security": "v24.21.0",
+      "glcc": "v24.22.0"
+    },
+    "nodeRuntimeVerified": true,
+    "securityAuditGateExecuted": true,
+    "securityAuditGateResult": "FAIL",
+    "auditSummary": {
+      "total": 65,
+      "critical": 3,
+      "high": 28,
+      "moderate": 34,
+      "low": 0,
+      "info": 0,
+      "processExit": 1
+    },
+    "auditScope": "Real GitHub npm audit summary at the run time; no individual package/advisory triage performed; exception policy unchanged",
+    "glccFailure": "Release-status assertions for fil-PH and ja-JP, three hardcoded registration UI string findings, then database safety guard rejects absent ALLOW_TEST_DATABASE_MUTATION; 49 suites fail before tests, 0 tests executed; runner reports six diagnostics and exits 1",
+    "observedCheckContexts": [
+      {
+        "name": "supply-chain-validation",
+        "jobId": 119426091625,
+        "conclusion": "failure",
+        "appId": 15368,
+        "eligibleAsSuccessfulRequiredContext": false
+      },
+      {
+        "name": "Localization Acceptance CI",
+        "jobId": 119426091424,
+        "conclusion": "failure",
+        "appId": 15368,
+        "eligibleAsSuccessfulRequiredContext": false
+      }
+    ],
+    "successfulEligibleContexts": [],
+    "mainProtection": {
+      "readBackVerified": true,
+      "url": "https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection",
+      "mainHead": "b44ed7854c07c73903578556515c2752157bc7d6",
+      "protected": true,
+      "pullRequestRequired": true,
+      "minimumApprovals": 1,
+      "dismissStaleReviews": true,
+      "requireLastPushApproval": true,
+      "conversationResolutionRequired": true,
+      "enforceAdmins": true,
+      "forcePushesAllowed": false,
+      "deletionsAllowed": false,
+      "unrestrictedBypassConfigured": false,
+      "bypassRisk": "CONTROLLED",
+      "supportNote": "Personal repository: explicit organization-only bypass allowances rejected with HTTP 422, then omitted; supported protection applied and independently read back. No bypass exception is configured. Repository administrator retains authority to change settings."
+    },
+    "requiredChecks": "DEFERRED",
+    "strictMode": "DEFERRED — no status-check requirement configured",
+    "requiredCheckDeadlockRisk": true,
+    "requiredCheckEnablementCondition": "M1 workflows and dependencies must first be present through a separately authorized reviewed main integration; prove reliable main-targeted PR runs and successful exact contexts with a valid safely isolated CI prerequisite design, then enable those observed contexts (GitHub Actions app 15368) with strict/up-to-date enforcement. Do not merge in E2.",
+    "classification": "PARTIAL — CONFIGURATION REMEDIATION REMAINS",
+    "risk": "RSK-08",
+    "riskScore": "3 x 4 = 12 (HIGH)",
+    "riskScoreChanged": false,
+    "residualRiskAccepted": false,
+    "mainMerged": false,
+    "applicationFunctionalityModified": false,
+    "databaseModified": false,
+    "migrationRequired": false,
+    "seedRequired": false,
+    "previewModified": false,
+    "productionModified": false,
+    "nextWaveStarted": false,
+    "versionFrozen": false,
+    "certificationClaimed": false,
+    "lifecycleGates": {
+      "codeComplete": "PASS — REUSED / UNAFFECTED",
+      "localFunctional": "PASS — REUSED / UNAFFECTED",
+      "localDatabaseMigrated": "PASS — REUSED / UNAFFECTED",
+      "localRequiredDataSeededSynced": "PASS — REUSED / UNAFFECTED",
+      "localAcceptancePass": "PASS — REUSED / UNAFFECTED",
+      "previewMigrated": "N/A — NOT APPLICABLE",
+      "previewAcceptancePass": "N/A — NOT APPLICABLE",
+      "productionReady": "N/A — NOT APPLICABLE",
+      "productionDeploymentVerification": "N/A — NOT APPLICABLE",
+      "completed": "PASS — EXECUTED",
+      "accepted": "BLOCKED",
+      "closed": "BLOCKED",
+      "versionFrozen": "N/A — NOT APPLICABLE"
+    },
+    "nextAction": "Authorize a bounded review and remediation of the failed dependency audit and CI baseline/fixture prerequisites."
   }
 }

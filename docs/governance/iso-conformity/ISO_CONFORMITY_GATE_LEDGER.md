@@ -144,3 +144,24 @@ Baseline 999af0e; technical commit d012cdb982f86b34a3d7ed306743dc222584a287. Own
 | versionFrozen | N/A — NOT APPLICABLE |
 
 23 accepted M1 local checks reused; no rerun. Remote workflow source inspection PASS — EXECUTED; actual M1 security/audit execution not evidenced. Evidence collection completed; operating acceptance/closure BLOCKED. Confirmed missing activation path and main protection/rulesets require separately authorized configuration remediation. All application/DB/environment gates unaffected; no settings/workflow/application changes. Evidence: ISO_C2_M1_GITHUB_CI_AND_BRANCH_PROTECTION_EVIDENCE.md.
+
+
+## 9. ISO-C2-M1-E2 bounded lifecycle
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — REUSED / UNAFFECTED |
+| localFunctional | PASS — REUSED / UNAFFECTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — REUSED / UNAFFECTED |
+| previewMigrated | N/A — NOT APPLICABLE |
+| previewAcceptancePass | N/A — NOT APPLICABLE |
+| productionReady | N/A — NOT APPLICABLE |
+| productionDeploymentVerification | N/A — NOT APPLICABLE |
+| completed | PASS — EXECUTED |
+| accepted | BLOCKED |
+| closed | BLOCKED |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Two-line trigger syntax/event-preservation validation PASS — EXECUTED; accepted 23 local M1 checks not rerun. Main protection configuration/read-back PASS — EXECUTED. GitHub security run 39658807274 and GLCC run 39658807135: FAIL — EXECUTED; real audit failure propagates. Required status checks and strict mode DEFERRED under the explicit deadlock safeguard. Completion means bounded work/evidence complete, not CI acceptance or RSK-08 closure. See ISO_C2_M1_GITHUB_CI_AND_BRANCH_PROTECTION_EVIDENCE.md.
