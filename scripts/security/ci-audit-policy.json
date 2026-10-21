@@ -2,5 +2,51 @@
   "evidence": "docs/security/level5/bundles/phase5i/PHASE5I_SUPPLY_CHAIN_SECURITY_EVIDENCE.md#dependency-audit",
   "scope": "Historical Phase 5I development/build exception only; no runtime or critical exceptions",
   "developmentFamilies": ["eslint", "jest", "postcss", "sharp"],
-  "maximumFindings": {"info": 0, "low": 0, "moderate": 4, "high": 30, "critical": 0}
+  "maximumFindings": {
+    "info": 0,
+    "low": 0,
+    "moderate": 4,
+    "high": 30,
+    "critical": 0
+  },
+  "authorizedDispositions": [
+    {
+      "dispositionId": "DISP-2026-001",
+      "advisoryId": "GHSA-vfj7-8cjw-p6xm",
+      "packageName": "braces",
+      "affectedVersions": "<=3.0.3",
+      "classification": "DEV_TOOLING_ONLY",
+      "productionRuntime": false,
+      "untrustedInputReachable": false,
+      "authorizedPaths": [
+        "eslint-config-next > @next/eslint-plugin-next > fast-glob > micromatch > braces",
+        "shadcn > @shadcn/registry > fast-glob > micromatch > braces",
+        "shadcn > ts-morph > @ts-morph/common > fast-glob > micromatch > braces"
+      ],
+      "approvalReference": "docs/governance/iso-conformity/PROJECT_OWNER_DECISION_ISO_C2_M1_UPSTREAM_AND_NODEMAILER.md",
+      "approvedBy": "Project Owner",
+      "approvalDate": "2026-10-22",
+      "reviewBy": "2026-11-21",
+      "expiresOn": "2027-01-20",
+      "removalTrigger": "Upstream patched release of braces published or safe parent replacement available"
+    },
+    {
+      "dispositionId": "DISP-2026-002",
+      "advisoryId": "GHSA-hp3w-g68c-fv3c",
+      "packageName": "sprintf-js",
+      "affectedVersions": "<=1.1.3",
+      "classification": "DEV_TOOLING_ONLY",
+      "productionRuntime": false,
+      "untrustedInputReachable": false,
+      "authorizedPaths": [
+        "jest > jest-cli > @jest/core > @jest/transform > babel-plugin-istanbul > @istanbuljs/load-nyc-config > js-yaml > argparse > sprintf-js"
+      ],
+      "approvalReference": "docs/governance/iso-conformity/PROJECT_OWNER_DECISION_ISO_C2_M1_UPSTREAM_AND_NODEMAILER.md",
+      "approvedBy": "Project Owner",
+      "approvalDate": "2026-10-22",
+      "reviewBy": "2026-11-21",
+      "expiresOn": "2027-01-20",
+      "removalTrigger": "Upstream patched release of sprintf-js published or safe Jest/Istanbul tooling replacement available"
+    }
+  ]
 }

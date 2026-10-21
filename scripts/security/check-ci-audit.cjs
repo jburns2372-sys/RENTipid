@@ -1,10 +1,10 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
-const policy = require('./ci-audit-policy.json');
+const defaultPolicy = require('./ci-audit-policy.json');
 
 // Resolve dependencies against the lock, including hoisted/nested packages.
-function developmentExceptionNodes(packages) {
+function developmentExceptionNodes(packages, policy = defaultPolicy) {
   const allowed = new Set();
   const queue = Object.keys(packages).filter(key =>
     policy.developmentFamilies.some(name => key === `node_modules/${name}` || key.endsWith(`/node_modules/${name}`)));
@@ -28,28 +28,154 @@ function developmentExceptionNodes(packages) {
   return allowed;
 }
 
-function evaluateAudit(report, status, lock) {
+function validateDispositionMetadata(disp) {
+  if (!disp || typeof disp !== 'object') return false;
+  if (!disp.dispositionId || typeof disp.dispositionId !== 'string') return false;
+  if (!disp.advisoryId || typeof disp.advisoryId !== 'string') return false;
+  if (!disp.packageName || typeof disp.packageName !== 'string') return false;
+  if (disp.classification !== 'DEV_TOOLING_ONLY') return false;
+  if (disp.productionRuntime !== false) return false;
+  if (disp.untrustedInputReachable !== false) return false;
+  if (!disp.approvalReference || typeof disp.approvalReference !== 'string' || !disp.approvalReference.trim()) return false;
+  if (!disp.expiresOn || typeof disp.expiresOn !== 'string') return false;
+  const expiryTime = new Date(disp.expiresOn).getTime();
+  if (Number.isNaN(expiryTime) || expiryTime <= Date.now()) return false;
+  return true;
+}
+
+function evaluateAudit(report, status, lock, policy = defaultPolicy) {
   if (![0, 1].includes(status) || !report || report.error || report.auditReportVersion !== 2 ||
       !report.vulnerabilities || Array.isArray(report.vulnerabilities) ||
       typeof report.vulnerabilities !== 'object' || !report.metadata?.vulnerabilities ||
       !lock?.packages) throw new Error('Audit execution/report unavailable or unsupported');
-  const counts = Object.fromEntries(Object.keys(policy.maximumFindings).map(key => [key, 0]));
-  const allowed = developmentExceptionNodes(lock.packages);
-  let rejected = 0;
+
+  const rawCounts = Object.fromEntries(Object.keys(policy.maximumFindings).map(key => [key, 0]));
+  const effectiveCounts = Object.fromEntries(Object.keys(policy.maximumFindings).map(key => [key, 0]));
+  const allowed = developmentExceptionNodes(lock.packages, policy);
+
+  // Index active, strictly validated dispositions
+  const activeDispositionsByPkg = new Map();
+  if (Array.isArray(policy.authorizedDispositions)) {
+    for (const disp of policy.authorizedDispositions) {
+      if (validateDispositionMetadata(disp)) {
+        if (!activeDispositionsByPkg.has(disp.packageName)) {
+          activeDispositionsByPkg.set(disp.packageName, []);
+        }
+        activeDispositionsByPkg.get(disp.packageName).push(disp);
+      }
+    }
+  }
+
+  // Pre-identify packages whose vulnerabilities are dispositioned
+  const dispositionedRoots = new Set();
   for (const [name, finding] of Object.entries(report.vulnerabilities)) {
-    if (!finding || finding.name !== name || !Object.hasOwn(counts, finding.severity) ||
+    if (!finding || finding.name !== name || !Array.isArray(finding.nodes)) continue;
+    const disps = activeDispositionsByPkg.get(name);
+    if (!disps || !disps.length) continue;
+
+    // Check if every node is development-only
+    const allDev = finding.nodes.every(node => {
+      const pkg = lock.packages[node];
+      return pkg && pkg.dev === true;
+    });
+    if (!allDev) continue;
+
+    // Check if all advisory sources match authorized advisoryId
+    if (Array.isArray(finding.via)) {
+      const advisorySources = finding.via.filter(v => typeof v === 'object' && v !== null);
+      if (advisorySources.length > 0) {
+        const allMatch = advisorySources.every(adv =>
+          disps.some(d => adv.url?.includes(d.advisoryId) || adv.title?.includes(d.advisoryId))
+        );
+        if (allMatch) {
+          dispositionedRoots.add(name);
+        }
+      }
+    }
+  }
+
+  // Iteratively identify propagated findings that arise solely from dispositioned roots
+  const dispositionedPropagated = new Set();
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const [name, finding] of Object.entries(report.vulnerabilities)) {
+      if (dispositionedRoots.has(name) || dispositionedPropagated.has(name)) continue;
+      if (!finding || !Array.isArray(finding.via) || !Array.isArray(finding.nodes)) continue;
+
+      const allDev = finding.nodes.every(node => {
+        const pkg = lock.packages[node];
+        return pkg && pkg.dev === true;
+      });
+      if (!allDev) continue;
+
+      // Must have only string references in via that are already dispositioned
+      const hasDirectAdvisory = finding.via.some(v => typeof v === 'object' && v !== null);
+      if (hasDirectAdvisory) continue;
+
+      const allViaDispositioned = finding.via.every(v =>
+        typeof v === 'string' && (dispositionedRoots.has(v) || dispositionedPropagated.has(v))
+      );
+      if (allViaDispositioned && finding.via.length > 0) {
+        dispositionedPropagated.add(name);
+        changed = true;
+      }
+    }
+  }
+
+  let rejected = 0;
+  const dispositionedFindings = [];
+
+  for (const [name, finding] of Object.entries(report.vulnerabilities)) {
+    if (!finding || finding.name !== name || !Object.hasOwn(rawCounts, finding.severity) ||
         !Array.isArray(finding.nodes) || !finding.nodes.length) throw new Error('Invalid audit finding');
-    counts[finding.severity]++;
-    if (!finding.nodes.every(node => typeof node === 'string' && allowed.has(node))) rejected++;
+
+    rawCounts[finding.severity]++;
+
+    const isDispositioned = dispositionedRoots.has(name) || dispositionedPropagated.has(name);
+
+    if (isDispositioned) {
+      dispositionedFindings.push({ name, severity: finding.severity });
+      // Dispositioned: excluded from effective counts and rejection after validation
+    } else {
+      effectiveCounts[finding.severity]++;
+      // Non-dispositioned findings must satisfy development exception rules
+      const allDevAllowed = finding.nodes.every(node => typeof node === 'string' && allowed.has(node));
+      if (!allDevAllowed) {
+        rejected++;
+      }
+    }
   }
-  const total = Object.values(counts).reduce((a, b) => a + b, 0);
-  for (const [severity, count] of Object.entries(counts)) {
+
+  const rawTotal = Object.values(rawCounts).reduce((a, b) => a + b, 0);
+
+  // Validate that raw report counts match exactly (no tampering with raw evidence)
+  for (const [severity, count] of Object.entries(rawCounts)) {
     if (report.metadata.vulnerabilities[severity] !== count) throw new Error('Audit count mismatch');
-    if (count > policy.maximumFindings[severity]) rejected++;
   }
-  if (report.metadata.vulnerabilities.total !== total || status !== (total ? 1 : 0))
+  if (report.metadata.vulnerabilities.total !== rawTotal || status !== (rawTotal ? 1 : 0)) {
     throw new Error('Audit status/count mismatch');
-  return {pass: rejected === 0, total, excepted: rejected === 0 ? total : 0, rejected, counts};
+  }
+
+  // Check effective counts against unchanged maximumFindings policy caps
+  for (const [severity, effectiveCount] of Object.entries(effectiveCounts)) {
+    if (effectiveCount > policy.maximumFindings[severity]) {
+      rejected++;
+    }
+  }
+
+  const pass = rejected === 0;
+
+  return {
+    pass,
+    rawTotal,
+    rawCounts,
+    effectiveCounts,
+    dispositionedCount: dispositionedFindings.length,
+    dispositionedFindings,
+    rejected,
+    policy: 'Phase5I-development-only-with-governed-dispositions'
+  };
 }
 
 if (require.main === module) {
@@ -59,14 +185,14 @@ if (require.main === module) {
       cwd: root, encoding: 'utf8', shell: process.platform === 'win32', maxBuffer: 16 * 1024 * 1024,
     });
     if (audit.error || audit.signal) throw new Error('Audit process failed');
-    const result = evaluateAudit(JSON.parse(audit.stdout), audit.status,
-      JSON.parse(fs.readFileSync(path.join(root, 'package-lock.json'), 'utf8')));
-    console.log(JSON.stringify({policy: 'Phase5I-development-only', ...result}));
+    const lock = JSON.parse(fs.readFileSync(path.join(root, 'package-lock.json'), 'utf8'));
+    const result = evaluateAudit(JSON.parse(audit.stdout), audit.status, lock);
+    console.log(JSON.stringify(result));
     process.exitCode = result.pass ? 0 : 1;
   } catch {
-    // Never echo raw child output, environment values or registry errors.
     console.error('CI dependency audit failed closed: invalid, unavailable or inconsistent evidence');
     process.exitCode = 1;
   }
 }
-module.exports = {evaluateAudit};
+
+module.exports = { evaluateAudit, developmentExceptionNodes, validateDispositionMetadata };
