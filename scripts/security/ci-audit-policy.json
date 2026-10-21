@@ -1,0 +1,6 @@
+{
+  "evidence": "docs/security/level5/bundles/phase5i/PHASE5I_SUPPLY_CHAIN_SECURITY_EVIDENCE.md#dependency-audit",
+  "scope": "Historical Phase 5I development/build exception only; no runtime or critical exceptions",
+  "developmentFamilies": ["eslint", "jest", "postcss", "sharp"],
+  "maximumFindings": {"info": 0, "low": 0, "moderate": 4, "high": 30, "critical": 0}
+}

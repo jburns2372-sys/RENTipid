@@ -21,16 +21,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: 'package.json'
 
       - name: Enforce Frozen Lockfile
         run: npm ci
 
       - name: Run Dependency Audit
-        run: npm audit || true
+        run: node scripts/security/check-ci-audit.cjs
+
+      - name: CI Enforcement Contract
+        run: node --test tests/security/iso-c2-m1-ci.contract.cjs
 
       - name: Focused Tests
-        run: npm run test:soc:integration -- --passWithNoTests || true
+        run: npm run test:soc:integration
 
       - name: Generate SBOM
         run: npx @cyclonedx/cyclonedx-npm --output-format JSON --output-file bom.json
