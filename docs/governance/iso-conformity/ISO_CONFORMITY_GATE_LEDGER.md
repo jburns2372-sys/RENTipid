@@ -209,3 +209,26 @@ Code/local functional validation executed for runtime dependency changes: build/
 
 Evaluation of 5 remaining dependency chains completed: braces (upstream unpatched), sprintf-js (upstream unpatched, 19 moderate findings exceed cap), nodemailer (blocked by NextAuth 4.x peer contract), deepmerge-ts (blocked by Prisma 6.x contract), d3-color (blocked by d3-interpolate contract). Typecheck, Prisma validation, Prisma generation, and GLCC CI-equivalent pass. Audit policy fails closed (exit 1). Per Task 12 & 15 directives, candidate remains uncommitted and unpushed. Dirty E3 delta preserved. Evidence: ISO_C2_M1_DEPENDENCY_BLOCKER_RESOLUTION.md.
 
+---
+
+## 12. ISO-C2-M1-E5 tooling dispositions and remediation progress lifecycle
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — EXECUTED |
+| localFunctional | PASS — EXECUTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | BLOCKED |
+| previewMigrated | PASS — REUSED / UNAFFECTED |
+| previewAcceptancePass | BLOCKED |
+| productionReady | BLOCKED |
+| productionDeploymentVerification | BLOCKED |
+| completed | PASS — EXECUTED (E5 Subpackage) |
+| accepted | BLOCKED (M1 Overall Security Gate) |
+| closed | BLOCKED |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+E5 subpackage validation PASS: governed dispositions for braces (`DISP-2026-001`) and sprintf-js (`DISP-2026-002`) active; deepmerge-ts (`8.0.0`) and d3-color (`3.1.0`) FIXED via tested overrides; shadcn relocated to devDependencies. Typecheck, build, 9/9 disposition contract assertions, Prisma validation/client generation, and GLCC regression pass. M1 overall security gate remains BLOCKED solely by unresolved Nodemailer. Remediation design completed in `ISO_C2_M1_NODEMAILER_AUTH_REMEDIATION_DESIGN.md`. Checkpoint authorized per Task 12 & 14 directives.
+
+

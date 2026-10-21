@@ -4,20 +4,20 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "Project Owner Decision ISO-C2-M1-D1 — Upstream tooling disposition and mail treatment authorization",
+  "phaseName": "M1 tooling dispositions, deepmerge/d3 resolution, and nodemailer remediation design",
   "status": "PASS",
-  "phaseGate": "PROJECT OWNER DECISION ISO-C2-M1-D1 RECORDED",
-  "timestamp": "2026-10-22T03:51:00.000Z",
+  "phaseGate": "E5 SUBPACKAGE VALIDATION PASS — REMEDIATION DESIGN COMPLETED",
+  "timestamp": "2026-10-22T04:10:00.000Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
-    "headSha": "999af0e",
+    "headSha": "c2860905efd51e711bf3c430354a078ed7b81f7d",
     "acceptedIsoC1Sha": "a6c6258cc6606c04d2a24574cb1f9f06d09c2aea",
-    "projectOwnerDecisionSha": "47f54aae5bfc99b7ba97f94347c7bfb232627a5a",
+    "projectOwnerDecisionSha": "c2860905efd51e711bf3c430354a078ed7b81f7d",
     "applicationCommitSha": "83b8f4dabadc243b01ab8e5f50746bf281ecf62b",
-    "governanceCommitSha": "999af0e",
+    "governanceCommitSha": "c2860905efd51e711bf3c430354a078ed7b81f7d",
     "worktreeClean": false,
-    "worktreeStateNote": "ISO-C2-M1-D1 decision recorded: dirty E3/E4 technical delta preserved; governance records committed separately.",
+    "worktreeStateNote": "E5 technical remediations and governance designs verified; checkpoint commit sequence ready.",
     "technicalCommitSha": "d012cdb982f86b34a3d7ed306743dc222584a287"
   },
   "scope": {
@@ -869,9 +869,9 @@
     "governanceCommit": null,
     "push": "NOT_RUN",
     "worktreeClean": false,
-    "checkpointWithheldReason": "Governance decision recorded; technical implementation deferred to ISO-C2-M1-E5",
+    "checkpointWithheldReason": null,
     "riskScoreChanged": false,
     "residualRiskAccepted": false,
-    "nextAction": "ISO-C2-M1-E5 — APPLY NARROW TOOLING DISPOSITIONS + RESOLVE DEEPMERGE/D3 + PREPARE NODEMAILER REMEDIATION"
+    "nextAction": "ISO-C2-M1-E6 — EXECUTE NODEMAILER REMEDIATION OPTION B (TARGETED 10.2.0 UPGRADE & AUDIT CLOSURE)"
   }
 }
