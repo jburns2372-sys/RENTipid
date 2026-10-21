@@ -110,4 +110,22 @@ PASS after documentation-only corrections. Inherited items: 24; reused unchanged
 
 ## 9. ISO-C1-R1 accepted documentary baseline
 
-assetsRegistered: 25; dataCategoriesRegistered: 21; suppliersRegistered: 10; risksRegistered: 30; lowRisks: 6; moderateRisks: 9; highRisks: 15; criticalRisks: 0; riskAcceptanceRequiringProjectOwner: 15; soaApplicable: 32; soaNotApplicable: 0; technicalRemediationItemsIdentified: 4; humanOrganizationalActionsIdentified: 5; externalLegalActionsIdentified: 3. Treatment actions: 25. Core domains remain 30 (2 operating, 12 implemented, 7 partial, 0 gaps, 7 human, 2 provider). The 32 applicable SoA rows are 30 core plus 2 supporting obligations; no exclusions approved. Four technical candidates are conditional, not proven new defects or authority to implement. Scores are conservative assessment estimates, not human acceptance. Owner decisions remain pending for RSK-03, RSK-05, RSK-06, RSK-08, RSK-09, RSK-12, RSK-14, RSK-15, RSK-17, RSK-21, RSK-22, RSK-23, RSK-24, RSK-26, RSK-30. C1 documentary acceptance does not accept risks, execute treatment, freeze version or start C2.
+assetsRegistered: 25; dataCategoriesRegistered: 21; suppliersRegistered: 10; risksRegistered: 30; lowRisks: 6; moderateRisks: 9; highRisks: 15; criticalRisks: 0; riskAcceptanceRequiringProjectOwner: 15; soaApplicable: 32; soaNotApplicable: 0; technicalRemediationItemsIdentified: 4; humanOrganizationalActionsIdentified: 5; externalLegalActionsIdentified: 3. Treatment actions: 25. Core domains remain 30 (2 operating, 12 implemented, 7 partial, 0 gaps, 7 human, 2 provider). The 32 applicable SoA rows are 30 core plus 2 supporting obligations; no exclusions approved. Four technical candidates are conditional, not proven new defects or authority to implement. Scores are conservative assessment estimates, not human acceptance. C1 documentary acceptance does not accept risks, execute treatment, freeze version or start C2.
+
+## 10. Project Owner Decision — ISO-C1 Risk Treatment Authorization (2026-10-22)
+
+APPROVED. The Project Owner formally rendered the risk treatment decision on October 22, 2026:
+1. Authorized **TREATMENT, not risk acceptance**, for all 15 designated risks: `RSK-03`, `RSK-05`, `RSK-06`, `RSK-08`, `RSK-09`, `RSK-12`, `RSK-14`, `RSK-15`, `RSK-17`, `RSK-21`, `RSK-22`, `RSK-23`, `RSK-24`, `RSK-26`, `RSK-30`.
+2. Explicitly determined that **no residual risk is accepted at this stage**.
+3. Mandated that `ISO-C2` verify existing controls first and reuse accepted evidence where unaffected.
+4. Mandated that risks requiring remediation proceed through the minimum affected implementation and validation chain.
+5. Confirmed that existing approved deferrals remain valid only within their documented scope and do not constitute blanket acceptance.
+6. Approved the current ISO conformity risk-assessment convention (`ISO_RISK_METHODOLOGY.md`) for continued use.
+7. Approved role-based accountability assignments (`ISO_CONTROL_OWNERSHIP_MATRIX.md`).
+8. Reaffirmed the controlling Non-Repetition Rule (`PASS — REUSED / UNAFFECTED`).
+See controlled decision record: `PROJECT_OWNER_DECISION_ISO_C1_RISK_TREATMENT.md`.
+
+
+## 11. ISO-C1-D1 independent review and checkpoint boundary
+
+Owner decision source: Project Owner instruction dated 2026-10-22; accepted C1 predecessor `a6c6258cc6606c04d2a24574cb1f9f06d09c2aea`. Codex independently verified exactly the 15 risk IDs in PROJECT_OWNER_DECISION_ISO_C1_RISK_TREATMENT.md, zero residual acceptance, unchanged risk scores and unchanged core-domain maturity. Methodology and role-based accountability are approved; named-person allocation remains required where not evidenced. Risk reduction/reclassification requires new evidence and the minimum affected lifecycle chain only. The controlling non-repetition rule remains PASS — REUSED / UNAFFECTED. Lifecycle dispositions for this decision delta are recorded in that decision document Section 4. D1 documentary review/acceptance/closure does not close risks, complete conformity, certify ISO, freeze version or start ISO-C2. No technical gate rerun or remediation performed.
