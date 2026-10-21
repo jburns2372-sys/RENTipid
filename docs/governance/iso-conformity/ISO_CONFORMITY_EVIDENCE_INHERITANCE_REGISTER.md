@@ -1,0 +1,60 @@
+# RENTipid ISO Conformity Evidence Inheritance Register
+
+**Document ID:** `RENTIPID-ISO-CONFORMITY-001-EIR`  
+**Program:** RENTipid ISO Compliance & Conformity Program  
+**Project ID:** `RENTIPID-ISO-CONFORMITY-001`  
+**Version:** `v1.0`  
+**Status:** `ACTIVE — EVIDENCE INHERITED & FROZEN`  
+
+---
+
+## 1. Controlling Non-Repetition & Delta Evidence Rule
+
+Under the C0 controlling program rule recorded in the ISO_CONFORMITY_MASTER_LEDGER.md:
+> **Controlling Rule:** A gate does not require re-execution if that gate was already passed, accepted, and remains unaffected by the current delta. In that case it is satisfied by inherited evidence and recorded as `PASS — REUSED / UNAFFECTED`, not rerun.
+
+No build, test suite, migration, seed, scan, or environment test is rerun simply to generate duplicate artifacts. Prior verified technical and operational facts are inherited directly into the conformity baseline.
+
+---
+
+## 2. Inherited Evidence Item Inventory (24 Canonical Items)
+
+| Item ID | Control / Evidence Domain | Source Path in Repository | Exact Evidence Reference | Evidence Type | Original Acceptance Status | Still Valid? | Delta Impact? | Resulting Gate Disposition |
+|---|---|---|---|---|---|---|---|---|
+| **EVD-01** | Platform Architecture & Core Foundation | `docs/governance/RENTipid-Master-Plan.md` | Sections 1 NON-NEGOTIABLE MASTER GATE and 2 MASTER EXECUTION PRINCIPLE | Architecture / Policy | Policy/design baseline; no whole-platform completion inferred | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-02** | Next.js Shell & TypeScript Strictness | `tsconfig.json`, `docs/governance/global-mkt-v2.0/BATCH2_X3_CODEX_PROVIDER_INTEGRATION_REVIEW.md` | Final validation: typecheck PASS and required webpack build PASS, application commit 168f67b0b3215de9f957f9feaf34931c75fecf7a | Source Code & Build Config | Accepted scoped source/build evidence, not global completion | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-03** | Authentication, Sessions & Password Hashing | `docs/releases/rentipid-unified-auth-production-2026-09-19/PRODUCTION_COMPLETION_REPORT.md` | Sections 2 Authoritative Baseline and 3 Promotion Gates Evidence Summary | Source Code & Tests | Historical auth acceptance; 85/85 tests, bounded to that release | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-04** | Role-Based Access Control (RBAC & PBAC) | `docs/final-documentation/00-WORKING-REGISTRIES/RENTipid_ROLE_AND_PERMISSION_REGISTRY.md` | Application Roles; SOC Permission Families; Enforced Principles | Working Registry | Frozen registry; vocabulary-only limitations retained | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-05** | Security Control Baseline & Policies | `docs/final-documentation/00-WORKING-REGISTRIES/RENTipid_SECURITY_CONTROL_REGISTRY.md` | Control family table; Non-controls | Working Registry | Frozen registry; readiness is not deployment | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-06** | Cryptographic Protection & Envelope Encryption | `docs/security/level5/bundles/phase5f/PHASE5F_E_ENCRYPTED_ONLY_ROTATION_EVIDENCE.md`, `docs/governance/phase-closure-integrity/RENTIPID_PHASE5F_FREEZE_REVIEW.md` | FOCUSED_TEST_TOTAL=42; SYNTHETIC_DATA_ONLY=true; Revalidation Evidence: 59 tests passed | Security Engineering Artifacts | Historical engineering acceptance; no real-key/Production execution | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-07** | Universal Promotion Standard & Hard Gates | `docs/governance/RENTipid-Universal-Promotion-Standard.md`, `docs/releases/rentipid-unified-auth-production-2026-09-19/PRODUCTION_COMPLETION_REPORT.md` | Promotion standard plus completion report Sections 2-3 (runtime SHA, deployment ID, completed gates) | Governance Policy | Policy plus actual historical promotion record; no current revalidation | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-08** | Database Isolation & Safety Controls | `docs/security/LOCAL_TEST_DATABASE_SAFETY.md`, `docs/releases/post-freeze-preview-isolation-2026-09-19/PREVIEW_ISOLATION_RESTORATION_REPORT.md` | Fail-Closed Behavior and Guarded Commands; isolation report Sections 2-3 | Security Policy & Guard | Safety design plus dated operational restoration evidence | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-09** | Database Schema & Data Ownership | `docs/final-documentation/00-WORKING-REGISTRIES/RENTipid_DATABASE_AND_DATA_OWNERSHIP_REGISTRY.md` | Schema authority; Data domain table; Safety boundaries | Working Registry | Frozen inventory baseline; model counts do not prove live records | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-10** | Telemetry, Audit Logs & Serializers | `docs/final-documentation/00-WORKING-REGISTRIES/RENTipid_AUDIT_AND_SECURITY_EVENT_REGISTRY.md`, `docs/security/level5/bundles/phase5j/PHASE5J_DETECTION_ENGINEERING_EVIDENCE.md` | Audit/telemetry stores; Security-event lifecycle; SYNTHETIC_INPUT_COUNT=14 and PRODUCTION_DATA_ACCESSED=false | Working Registry | Implemented logging and synthetic evidence only; continuous operation not proven | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-11** | Autonomous SOC & Alert Detection Rules | `docs/security/level5/bundles/phase5j/PHASE5J_DETECTION_ENGINEERING_EVIDENCE.md`, `docs/security/soc-phase6a/PHASE6A_LIVE_THREAT_MAP_EVIDENCE.md` | DETECTION_RULE_COUNT=32; FOCUSED_TEST_TOTAL=26; Phase 6A NEXT STEPS | Architecture & Code | Engineering acceptance; production map activation remains future work | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-12** | Incident Simulation & Rollback Controls | `docs/governance/phase-closure/GATE4I_CLOSURE_REPORT.md`, `tests/security/responses/gate4i-controlled-response-simulation.integration.test.ts` | Operating level Simulation/Advisory/Reversible; Accepted baseline b29bf5f313582f66230fb7f2df685c6eaf806fb8 | Test Evidence & Runbooks | Accepted controlled simulation, not a human tabletop or live incident | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-13** | Software Supply Chain & SBOM | `docs/security/level5/bundles/phase5i/PHASE5I_SUPPLY_CHAIN_SECURITY_EVIDENCE.md` | Supply Chain Controls; Dependency Audit; Historical Registry Assurance Note | Security Evidence | Historical acceptance retains 30 high development/build findings and deferred remote enforcement verification | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-14** | Cloud Infrastructure & Deployment Guides | `docs/aws-deployment-readiness-report.md`, `docs/aws-lightsail-deployment-guide.md` | Current Status; Deferred Issues; guide Sections A-D | Architecture & Guides | Historical readiness/design only; AWS deployment not proven | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-15** | Backup, Recovery & RTO/RPO Baseline | `docs/aws-backup-and-restore-plan.md`, `docs/backup-and-restore.md` | Database Backup; Restore Procedure; Database Backups | Operational Plan | Plans only; enabled schedules and successful restores not evidenced | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-16** | Deployment Rollback & Continuity | `docs/aws-deployment-rollback-plan.md` | Sections 1-6 (rollback procedure) | Operational Plan | Procedure only; executed continuity exercise not evidenced | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-17** | Privacy Management System v1.0 Baseline | `docs/final-documentation/privacy-module/RENTIPID_PRIVACY_MODULE_V1_FINAL_CLOSURE_CERTIFICATE.md` | Requirements Reconciliation; Retention Governance; Approved Limitations; Final Acceptance Determination | PIMS Baseline & Registries | Accepted defined v1 scope with approved deferrals; no permanent source immutability inferred | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-18** | Data Protection Officer (DPO) Appointment | `docs/final-documentation/privacy-module/RENTIPID_DPO_APPOINTMENT_MEMORANDUM_2026-08-05.md`, `docs/final-documentation/privacy-module/RENTIPID_PRIVACY_MODULE_V1_FINAL_CLOSURE_CERTIFICATE.md` | appointed DPO; acknowledgement; Governance DPO Registration=REGISTRATION_PENDING | Organizational Policy | Recorded appointment only; registration incomplete, no new human signature asserted | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-19** | Data Retention & Disposal Schedule | `docs/final-documentation/privacy-module/RETENTION_AND_DISPOSAL_MATRIX.md`, `docs/final-documentation/privacy-module/RENTIPID_PRIVACY_MODULE_V1_FINAL_CLOSURE_CERTIFICATE.md` | RET-01 IMPLEMENTATION_STATUS=NOT_IMPLEMENTED; Retention Governance MANUAL_GOVERNED_PROCESS and V1_DEFERRED_APPROVED | Privacy Register | Approved manual v1 retention baseline; automation deferred, not a newly discovered unapproved defect | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-20** | Processor & Subprocessor Governance | `docs/final-documentation/privacy-module/PROCESSOR_SUBPROCESSOR_REGISTRY.md` | PROC-01 Vercel PLAN=PRO; PROC-02 Azure; ACCOUNT_SPECIFIC_NEGOTIATED_DPA=NOT_SEPARATELY_VERIFIED | Privacy Register | Historical processor/standard-terms record; later hosting evidence must be reconciled, not flattened into current inventory | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-21** | KYC Verification Integration (Sumsub) | `docs/governance/global-mkt-v2.0/BATCH2_X3_SUMSUB_SANDBOX_EVIDENCE.md`, `docs/governance/global-mkt-v2.0/BATCH2_X3_CODEX_PROVIDER_INTEGRATION_REVIEW.md` | Observed real Sandbox evidence; Outstanding evidence / limits; commits 168f67b0b3215de9f957f9feaf34931c75fecf7a and 4604ad1becaefe1d951965ce7f71951f3bca8bd2 | Source Code & Evidence | Individual synthetic API/genuine callback smoke verified; not full KYC/country lifecycle or Production | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-22** | Payment Webhook Security & Idempotency | `docs/governance/global-mkt-v2.0/BATCH2_X3_XENDIT_SANDBOX_CHECKLIST.md`, `docs/governance/global-mkt-v2.0/BATCH2_X3_CODEX_PROVIDER_INTEGRATION_REVIEW.md` | Callback preparation; Reproducible fixture harness; application commit 83b8f4dabadc243b01ab8e5f50746bf281ecf62b | Source Code & Evidence | Callback-token authentication, 43 combined fixture passes; real Xendit sandbox verification NO | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-23** | Global Market Jurisdictional Compliance | `docs/governance/global-mkt-v2.0/GM8A_46_COUNTRY_COMPLIANCE_MATRIX.md`, `docs/governance/global-mkt-v2.0/GM8A_LOCAL_ACCEPTANCE_REPORT.md` | Country table UNKNOWN/VALIDATION_REQUIRED and China blockers; acceptance Gate Verification Summary | Compliance Architecture | Accepted local architecture; not legal clearance, operating cross-border conformity or 46-country acceptance | YES | NO | `PASS — REUSED / UNAFFECTED` |
+| **EVD-24** | ISMS Risk & Operations Runbook Baseline | `docs/security/level5/bundles/phase5m/PHASE5M_ISMS_RISK_AND_CONTROL_REGISTER.md`, `docs/security/level5/bundles/phase5m/PHASE5M_PRIVACY_ISMS_EVIDENCE.md`, `docs/security/level5/bundles/phase5m/PHASE5M_ISMS_OPERATIONS_RUNBOOK.md` | Risk table RISK-001 through RISK-015; FOCUSED_TEST_TOTAL=24; PRODUCTION_RESOURCE_MUTATED=false | ISMS Operating Artifacts | Engineering/register baseline; ACCEPT/COMPLETED cells are not signed management approval or recurring operating evidence | YES | NO | `PASS — REUSED / UNAFFECTED` |
+
+---
+
+## 3. Summary of Inherited Evidence Dispositions
+
+* **Total Canonical Evidence Items Inherited:** **24**
+* **Items Marked `PASS — REUSED / UNAFFECTED`:** **24**
+* **Items Requiring Re-execution:** **0**
+* **Integrity Validation:** All source paths in the inventory exist as tracked files in repository worktree `C:\Users\user\Documents\JD SOFTWARE PROJECTS\RENTipid-GLOBAL-MKT-V2` and were confirmed prior to inheritance.
+
+## 4. Independent review limits (ISO-C0-R1)
+
+All inventory sources are pinned to accepted Git tree `ff38d32a42d5cc289f5293c3e1e7243a4b3574cb`. `PASS — REUSED / UNAFFECTED` means the identified, scoped historical evidence is inherited unchanged; it does not upgrade policies, plans, fixtures or partial sandbox results to operating conformity. The acceptance column records the actual evidence scope and limitations, rather than asserting universal freeze/completion. No accepted test, build, scan, migration, seed, deployment or provider validation was rerun.

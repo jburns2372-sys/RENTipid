@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "program": "RENTipid ISO Compliance & Conformity Program",
+  "projectId": "RENTIPID-ISO-CONFORMITY-001",
+  "version": "v1.0",
+  "currentPhase": "ISO-C0",
+  "phaseName": "Migration + Scope + Governance + Evidence Inheritance",
+  "status": "PASS",
+  "phaseGate": "CONFORMITY BASELINE ESTABLISHED",
+  "timestamp": "2026-10-22T00:50:00Z",
+  "baseline": {
+    "repository": "RENTipid-GLOBAL-MKT-V2",
+    "branch": "feat/iso-conformity-v1.0",
+    "headSha": "ff38d32a42d5cc289f5293c3e1e7243a4b3574cb",
+    "applicationCommitSha": "83b8f4dabadc243b01ab8e5f50746bf281ecf62b",
+    "governanceCommitSha": "ff38d32a42d5cc289f5293c3e1e7243a4b3574cb",
+    "worktreeClean": false,
+    "sourceBranch": "feat/global-mkt-v2.0",
+    "worktreeStateNote": "Initial R1 inspection: only nine untracked ISO-C0 governance files; checkpoint cleanliness verified separately after commit."
+  },
+  "scope": {
+    "proposedScope": "Design, development, operation, maintenance, security, privacy management, support, and continual improvement of the RENTipid global rental marketplace and its supporting information systems, cloud infrastructure, data processing services, and relevant operational processes.",
+    "primaryStandards": [
+      "ISO/IEC 27001",
+      "ISO/IEC 27701"
+    ],
+    "supportingStandards": [
+      "ISO/IEC 27017",
+      "ISO/IEC 27018",
+      "ISO 22301",
+      "ISO/IEC 20000-1",
+      "ISO 9001"
+    ],
+    "certificationClaimed": false
+  },
+  "metrics": {
+    "inheritedEvidenceItems": 24,
+    "passReusedUnaffected": 24,
+    "domainsAssessed": 30,
+    "provenOperatingConformity": 2,
+    "provenImplemented": 12,
+    "partial": 7,
+    "gaps": 0,
+    "requiresHumanEvidence": 7,
+    "requiresExternalProviderEvidence": 2
+  },
+  "lifecycleGates": {
+    "codeComplete": "PASS — REUSED / UNAFFECTED",
+    "localFunctional": "PASS — REUSED / UNAFFECTED",
+    "localDatabaseMigrated": "PASS — REUSED / UNAFFECTED",
+    "localRequiredDataSeededSynced": "PASS — REUSED / UNAFFECTED",
+    "localAcceptancePass": "PASS — EXECUTED",
+    "previewMigrated": "N/A — NOT APPLICABLE",
+    "previewAcceptancePass": "N/A — NOT APPLICABLE",
+    "productionReady": "N/A — NOT APPLICABLE",
+    "productionDeploymentVerification": "N/A — NOT APPLICABLE",
+    "phaseGateStatus": "PASS"
+  },
+  "blockers": [
+    {
+      "id": "BLK-EXT-01",
+      "type": "EXTERNAL_PROVIDER",
+      "description": "Xendit Account Approval for real Sandbox Payment & Payout execution (GLOBAL-MKT Batch 2 dependency)",
+      "impact": "GLOBAL-MKT Batch 2 live sandbox execution paused; does not block ISO-C1 governance packaging",
+      "status": "PENDING ACCOUNT APPROVAL"
+    }
+  ],
+  "nextRecommendedPackage": "ISO-C1 — INTEGRATED RISK + SOA + ASSET/DATA/PII/SUPPLIER BASELINE",
+  "independentReview": {
+    "workPackage": "ISO-C0-R1",
+    "reviewer": "Codex",
+    "status": "PASS",
+    "finalStatus": "ACCEPTED",
+    "sourceTree": "ff38d32a42d5cc289f5293c3e1e7243a4b3574cb",
+    "technicalGatesRerun": 0,
+    "isoC1Started": false,
+    "corrections": [
+      "Specific evidence references and scoped historical acceptance",
+      "Operating logging downgraded to implemented",
+      "Cross-border controls partial; privacy/legal unknowns preserved",
+      "Retention automation is an approved v1 deferral, classified partial",
+      "Human domains counted separately: seven",
+      "Provider authentication, hosting, contractual and lifecycle claims corrected"
+    ]
+  }
+}
