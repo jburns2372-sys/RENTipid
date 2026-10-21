@@ -185,3 +185,8 @@ Original claimed hook/drift/restore defects are respectively a documentation gap
 ## 4. Subsequent M1 evidence delta
 
 The classifications and source selectors above describe accepted C2-R1 historical findings. DEF-TOOL-01 / RSK-08 source repair and local acceptance are now evidenced by d012cdb982f86b34a3d7ed306743dc222584a287, ISO_C2_M1_COMPLETION_REPORT.md and evidence/iso-c2-m1-ci-enforcement.json. Failure/empty-selection suppression removed; runtime aligned; historical development exception bounded and counted. Remote enforcement, named accountability and recurring triage remain open; RSK-08 stays PARTIAL with residual 12 HIGH, not accepted. No other finding or historical maturity/count is reclassified by this scoped local proof.
+
+
+## 5. ISO-C2-M1-E1 GitHub operating evidence
+
+2026-10-21T19:03:53.026Z: authenticated GitHub inspection confirms both baseline commits on origin; zero Actions runs for their SHAs/ISO branch. Pushed workflow syntax, fail-closed design and configured Node 24 contract verified; runtime execution unobserved. No manual dispatch; default main lacks both M1 workflows. main protection returns 404 Branch not protected; repository/inherited rulesets and applicable main rules empty. All 22 inventoried branches unprotected. Only observed governance-SHA check is Vercel Preview Comments ID 119422291335 (not qualifying). RSK-08 selects C: PARTIAL — GITHUB CONFIGURATION REMEDIATION REQUIRED; residual 12 HIGH unchanged, not accepted. See ISO_C2_M1_GITHUB_CI_AND_BRANCH_PROTECTION_EVIDENCE.md for exact API references, required settings and local gate reuse. No Wave 2.

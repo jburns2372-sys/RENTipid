@@ -4,10 +4,10 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "Bounded remediation — CI Gate Enforcement and Runtime Alignment",
-  "status": "PASS",
-  "phaseGate": "ISO-C2-M1 LOCAL TECHNICAL ACCEPTANCE PASS — REMOTE ENFORCEMENT EVIDENCE OPEN",
-  "timestamp": "2026-10-21T18:57:22.632Z",
+  "phaseName": "M1 GitHub CI execution and branch protection operating evidence",
+  "status": "BLOCKED",
+  "phaseGate": "ISO-C2-M1-E1 EVIDENCE COLLECTED — CI ACTIVATION AND BRANCH PROTECTION REMEDIATION REQUIRED",
+  "timestamp": "2026-10-21T19:03:53.026Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
@@ -135,18 +135,18 @@
     "currentApplicationDatabasePreviewProductionModified": false
   },
   "lifecycleGates": {
-    "codeComplete": "PASS — EXECUTED",
-    "localFunctional": "PASS — EXECUTED",
+    "codeComplete": "PASS — REUSED / UNAFFECTED",
+    "localFunctional": "PASS — REUSED / UNAFFECTED",
     "localDatabaseMigrated": "PASS — REUSED / UNAFFECTED",
     "localRequiredDataSeededSynced": "PASS — REUSED / UNAFFECTED",
-    "localAcceptancePass": "PASS — EXECUTED",
+    "localAcceptancePass": "PASS — REUSED / UNAFFECTED",
     "previewMigrated": "N/A — NOT APPLICABLE",
     "previewAcceptancePass": "N/A — NOT APPLICABLE",
     "productionReady": "N/A — NOT APPLICABLE",
     "productionDeploymentVerification": "N/A — NOT APPLICABLE",
     "completed": "PASS — EXECUTED",
-    "accepted": "PASS — EXECUTED",
-    "closed": "N/A — NOT APPLICABLE",
+    "accepted": "BLOCKED",
+    "closed": "BLOCKED",
     "versionFrozen": "N/A — NOT APPLICABLE"
   },
   "blockers": [
@@ -156,9 +156,16 @@
       "description": "Xendit Account Approval for real Sandbox Payment & Payout execution (GLOBAL-MKT Batch 2 dependency)",
       "impact": "GLOBAL-MKT Batch 2 live sandbox execution paused; does not block ISO-C1/C2 governance and technical verification",
       "status": "PENDING ACCOUNT APPROVAL"
+    },
+    {
+      "id": "BLK-M1-GH-01",
+      "type": "GITHUB_CONFIGURATION",
+      "description": "M1 workflows not runnable through authorized current triggers; no qualifying runs; main unprotected and no rulesets/required status checks.",
+      "impact": "RSK-08 operating conformity cannot pass; source/local M1 acceptance unaffected",
+      "status": "REMEDIATION REQUIRED — NOT EXECUTED"
     }
   ],
-  "nextRecommendedPackage": "NONE AUTHORIZED — stop after ISO-C2-M1",
+  "nextRecommendedPackage": "M1 CI activation and GitHub enforcement configuration remediation — authorization required; no Wave 2",
   "independentReviewHistory": [
     {
       "workPackage": "ISO-C0-R1",
@@ -325,5 +332,117 @@
     "certificationClaimed": false,
     "nextAction": "Obtain authorized GitHub CI execution and branch-protection enforcement evidence for RSK-08."
   },
-  "nextAction": "Obtain authorized GitHub CI execution and branch-protection enforcement evidence for RSK-08."
+  "nextAction": "Authorize a bounded M1 CI activation and main-branch protection remediation package.",
+  "githubEnforcementEvidence": {
+    "workPackage": "ISO-C2-M1-E1",
+    "status": "BLOCKED",
+    "evidenceCollection": "PASS — EXECUTED",
+    "recordedAt": "2026-10-21T19:03:53.026Z",
+    "repository": "jburns2372-sys/RENTipid",
+    "branch": "feat/iso-conformity-v1.0",
+    "technicalCommit": "d012cdb982f86b34a3d7ed306743dc222584a287",
+    "governanceBaseline": "aa1a0a202872ef72217125756de73f4513f470e0",
+    "githubAuth": "PASS",
+    "authenticatedAccount": "jburns2372-sys",
+    "repositoryAdminAccess": true,
+    "remoteCommitsPresent": true,
+    "initialWorktreeClean": true,
+    "workflows": [
+      {
+        "name": "Security Supply Chain Validation",
+        "path": ".github/workflows/security-supply-chain.yml",
+        "expectedCheck": "supply-chain-validation",
+        "runId": null,
+        "conclusion": null,
+        "manualDispatch": false
+      },
+      {
+        "name": "GLCC Localization Quality Gate",
+        "path": ".github/workflows/glcc-ci.yml",
+        "expectedCheck": "Localization Acceptance CI",
+        "runId": null,
+        "conclusion": null,
+        "manualDispatch": false
+      }
+    ],
+    "workflowExecutionVerified": false,
+    "securityAuditGateExecuted": false,
+    "configuredRuntimeAlignmentVerified": true,
+    "githubRuntimeObserved": false,
+    "failClosedDesignVerified": true,
+    "localTestsRerun": 0,
+    "actionsEnabled": true,
+    "actionsAllowed": "all",
+    "defaultBranch": "main",
+    "mainHead": "b44ed7854c07c73903578556515c2752157bc7d6",
+    "defaultBranchWorkflowPaths": [
+      ".github/workflows/azure-deploy.yml"
+    ],
+    "branchRunCount": 0,
+    "technicalCommitRunCount": 0,
+    "governanceCommitRunCount": 0,
+    "otherCheck": {
+      "id": 119422291335,
+      "name": "Vercel Preview Comments",
+      "conclusion": "success",
+      "url": "https://vercel.com/github",
+      "qualifiesForM1": false
+    },
+    "repositoryRulesets": [],
+    "mainApplicableRules": [],
+    "mainProtection": {
+      "httpStatus": 404,
+      "message": "Branch not protected"
+    },
+    "branchInventory": {
+      "returned": 22,
+      "protectedBranches": 0
+    },
+    "requiredStatusCheckEnforcement": "FAIL",
+    "forcePushProtection": "FAIL",
+    "bypassRisk": "GAP",
+    "configurationChangeRequired": true,
+    "configurationGaps": [
+      "M1 workflows absent from default branch and neither supports workflow_dispatch; branch push does not match their triggers; no authorized dispatch path or existing qualifying run.",
+      "main unprotected with no active repository/inherited rulesets or applicable rules: no required PRs, required checks, force-push/deletion restrictions or administrator/bypass controls."
+    ],
+    "requiredSettings": [
+      "In Settings > Rules > Rulesets, establish an Active branch ruleset targeting main (and every confirmed integration/release/Production branch); require pull requests with at least one independent approval and dismiss stale approvals.",
+      "Require status checks supply-chain-validation and Localization Acceptance CI after their exact contexts are observed in real M1 runs; require branches up to date before merging. These names are expected from remote YAML, not observed check contexts.",
+      "Block force pushes and branch deletion; leave no unrestricted bypass actors, including administrators. Any separately approved emergency bypass must be explicitly scoped and audited; none is evidenced now.",
+      "Separately authorize a reviewed CI-only activation path that makes these workflows runnable on the accepted feature SHA (for example default-branch registration plus workflow_dispatch). No broad feature merge, source edit, dummy commit, PR or workflow trigger is performed by E1; retain isolated DB guard prerequisites."
+    ],
+    "conformityClassification": "PARTIAL — GITHUB CONFIGURATION REMEDIATION REQUIRED",
+    "risk": "RSK-08",
+    "riskScore": "3 x 4 = 12 (HIGH)",
+    "riskScoreChanged": false,
+    "residualRiskAccepted": false,
+    "applicationModified": false,
+    "toolingModified": false,
+    "databaseModified": false,
+    "previewModified": false,
+    "productionModified": false,
+    "settingsModified": false,
+    "workflowTriggered": false,
+    "nextWaveStarted": false,
+    "versionFrozen": false,
+    "certificationClaimed": false,
+    "lifecycleGates": {
+      "codeComplete": "PASS — REUSED / UNAFFECTED",
+      "localFunctional": "PASS — REUSED / UNAFFECTED",
+      "localDatabaseMigrated": "PASS — REUSED / UNAFFECTED",
+      "localRequiredDataSeededSynced": "PASS — REUSED / UNAFFECTED",
+      "localAcceptancePass": "PASS — REUSED / UNAFFECTED",
+      "previewMigrated": "N/A — NOT APPLICABLE",
+      "previewAcceptancePass": "N/A — NOT APPLICABLE",
+      "productionReady": "N/A — NOT APPLICABLE",
+      "productionDeploymentVerification": "N/A — NOT APPLICABLE",
+      "completed": "PASS — EXECUTED",
+      "accepted": "BLOCKED",
+      "closed": "BLOCKED",
+      "versionFrozen": "N/A — NOT APPLICABLE"
+    },
+    "nextAction": "Authorize a bounded M1 CI activation and main-branch protection remediation package.",
+    "evidenceDocument": "ISO_C2_M1_GITHUB_CI_AND_BRANCH_PROTECTION_EVIDENCE.md"
+  }
 }

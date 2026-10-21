@@ -123,3 +123,24 @@ Baseline 999af0e; technical commit d012cdb982f86b34a3d7ed306743dc222584a287. Own
 | versionFrozen | N/A — NOT APPLICABLE |
 
 23 targeted Node 24 contract checks passed. Migration/seed evidence reused with no schema/data delta; Preview/Production are inapplicable to CI-only changes. Completed/accepted are local technical criteria only; risk/control closure remains open. Remote enforcement not verified. No broader acceptance, new wave or freeze. See ISO_C2_M1_COMPLETION_REPORT.md and evidence/iso-c2-m1-ci-enforcement.json.
+
+
+## 8. ISO-C2-M1-E1 operating-evidence lifecycle
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — REUSED / UNAFFECTED |
+| localFunctional | PASS — REUSED / UNAFFECTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — REUSED / UNAFFECTED |
+| previewMigrated | N/A — NOT APPLICABLE |
+| previewAcceptancePass | N/A — NOT APPLICABLE |
+| productionReady | N/A — NOT APPLICABLE |
+| productionDeploymentVerification | N/A — NOT APPLICABLE |
+| completed | PASS — EXECUTED |
+| accepted | BLOCKED |
+| closed | BLOCKED |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+23 accepted M1 local checks reused; no rerun. Remote workflow source inspection PASS — EXECUTED; actual M1 security/audit execution not evidenced. Evidence collection completed; operating acceptance/closure BLOCKED. Confirmed missing activation path and main protection/rulesets require separately authorized configuration remediation. All application/DB/environment gates unaffected; no settings/workflow/application changes. Evidence: ISO_C2_M1_GITHUB_CI_AND_BRANCH_PROTECTION_EVIDENCE.md.

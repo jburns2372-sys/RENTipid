@@ -138,3 +138,8 @@ Verification ACCEPTED after evidence corrections at base 47f54aae5bfc99b7ba97f94
 ## 13. ISO-C2-M1 local technical checkpoint
 
 Project Owner authorized first eligible technical wave only from 999af0e. DEF-TOOL-01 / RSK-08 locally repaired at d012cdb982f86b34a3d7ed306743dc222584a287; 23 targeted Node 24 checks passed. No runtime/DB/deployment delta. Other accepted gates reused as recorded in ISO_CONFORMITY_GATE_LEDGER.md. RSK-08 remains PARTIAL with unchanged risk score and open remote CI/branch-protection/cadence evidence. No residual acceptance, overall closure, ISO-C3, next wave, tag or freeze. See ISO_C2_M1_COMPLETION_REPORT.md.
+
+
+## 14. ISO-C2-M1-E1 GitHub enforcement evidence
+
+Authenticated operating-evidence collection completed with package BLOCKED. Required branch and baseline commits verified remotely. M1 workflow design remains implemented; zero qualifying GitHub runs, no workflow_dispatch, default main has only Azure deployment workflow. main and all inventoried branches unprotected; repository/inherited rulesets and main applicable rules empty. RSK-08: PARTIAL — GITHUB CONFIGURATION REMEDIATION REQUIRED; residual score unchanged and unaccepted. No next wave, deployment, settings mutation or freeze. See ISO_C2_M1_GITHUB_CI_AND_BRANCH_PROTECTION_EVIDENCE.md. Next action: Authorize a bounded M1 CI activation and main-branch protection remediation package.
