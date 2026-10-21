@@ -55,4 +55,26 @@ All packages in the RENTipid ecosystem must account for every promotion gate. Un
 
 ## 4. R1 checkpoint boundary
 
-Governance artifact checks are PASS — EXECUTED. Unaffected prior technical evidence is PASS — REUSED / UNAFFECTED, within its original scope and limitations. No build, typecheck, tests, scans, migrations, seeds, provider calls or deployments were rerun. Preview/Production deployment gates are N/A — NOT APPLICABLE for this documentation-only delta. Source branch/head remain the inherited baseline; the isolated checkpoint branch is `feat/iso-conformity-v1.0`. Exact checkpoint SHA is recorded by Git after commit, avoiding self-referential commit metadata. ISO-C1 has not started.
+Governance artifact checks are PASS — EXECUTED. Unaffected prior technical evidence is PASS — REUSED / UNAFFECTED, within its original scope and limitations. No build, typecheck, tests, scans, migrations, seeds, provider calls or deployments were rerun. Preview/Production deployment gates are N/A — NOT APPLICABLE for this documentation-only delta. Source branch/head remain the inherited baseline; the isolated checkpoint branch is `feat/iso-conformity-v1.0`. Exact checkpoint SHA is recorded by Git after commit, avoiding self-referential commit metadata.
+
+---
+
+## 5. ISO-C1-R1 lifecycle disposition
+
+| Gate | Disposition | Evidence / boundary |
+|---|---|---|
+| CODE COMPLETE | PASS — REUSED / UNAFFECTED | EVD-02 and accepted C0; no source delta |
+| LOCAL FUNCTIONAL | PASS — REUSED / UNAFFECTED | EVD-03/21 scoped prior acceptance; no fresh whole-platform claim |
+| LOCAL DATABASE MIGRATED | PASS — REUSED / UNAFFECTED | C0 gate ledger / EVD-03 historical migration evidence; no schema delta |
+| LOCAL REQUIRED DATA SEEDED/SYNCED | PASS — REUSED / UNAFFECTED | C0 gate ledger / EVD-03 historical reference data; no seed delta |
+| LOCAL ACCEPTANCE PASS | PASS — EXECUTED | Codex document review, 30 risk recalculations, path/ID/metric/JSON checks, governance scope and new-document secret checks |
+| PREVIEW MIGRATED | N/A — NOT APPLICABLE | No deployed delta |
+| PREVIEW ACCEPTANCE PASS | N/A — NOT APPLICABLE | No deployed delta |
+| PRODUCTION-READY | N/A — NOT APPLICABLE | Not a release package |
+| PRODUCTION DEPLOYMENT/VERIFICATION | N/A — NOT APPLICABLE | No deployment authorized/performed |
+| COMPLETED | PASS — EXECUTED | C1 documentary review complete after corrections |
+| ACCEPTED | PASS — EXECUTED | Documentary baseline only; no residual-risk acceptance |
+| CLOSED | PASS — EXECUTED | C1-R1 scope only; unresolved actions remain tracked |
+| VERSION FROZEN | N/A — NOT APPLICABLE | Explicitly prohibited; no freeze/tag |
+
+Reviewer: Codex. No build, typecheck, application/security test, migration, seed, provider or Preview/Production validation rerun. Inherited evidence retains original limits. Counts and pending owner decisions are in STATUS.json and ISO_C1_COMPLETION_REPORT.md. ISO-C2 NOT STARTED.

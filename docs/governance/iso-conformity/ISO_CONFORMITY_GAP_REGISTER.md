@@ -71,3 +71,7 @@ To prevent fragmented one-off edits, remediation will be executed strictly by gr
 ## 5. Independent reconciliation
 
 `EVD-17` is authoritative for approved v1 retention deferral; GAP-01 is PARTIAL, not an unapproved technical gap. CTRL-26 remains PARTIAL because `EVD-23` records UNKNOWN/VALIDATION_REQUIRED. CTRL-30 remains PARTIAL because `EVD-24` is a runbook/register, not a completed recurring improvement cycle. CTRL-01 and CTRL-29 are separate leadership/review domains and both require human evidence; GAP-11 covers their shared missing management-review evidence. Overall counts are domain counts in the control baseline, not the number of rows in this register. No missing artifact is proof that an activity never occurred; it is an evidence requirement.
+
+## 6. ISO-C1-R1 traceability
+
+C0 core maturity remains unchanged. ISO_RISK_TREATMENT_PLAN.md contains 25 actions: 4 conditional technical candidates, 5 human/organizational actions, 3 external/legal actions (overlapping categories). They are not four proven new defects. Retention automation remains approved deferred; ingestion failure/recovery already has implementation evidence. Current cloud/backups require inventory/operating evidence rather than assumed AWS services. All 30 risks map to treatment IDs in ISO_RISK_REGISTER.md Section4. No treatment performed; no inherited technical gate invalidated.

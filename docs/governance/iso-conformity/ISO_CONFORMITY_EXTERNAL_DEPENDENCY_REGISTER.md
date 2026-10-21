@@ -37,5 +37,9 @@ This register tracks all third-party external dependencies, cloud vendors, and p
 * **Root Cause:** Awaiting Xendit compliance team review and sandbox activation for live payout testing.
 * **Scope Isolation:**
   * **GLOBAL-MKT v2.0:** Batch 2 remains in `OPEN — NOT YET FULL LOCAL-LIFECYCLE ACCEPTED` state awaiting approval.
-  * **ISO Conformity Program:** C0 does not authorize starting `ISO-C1` (Integrated Risk, SoA, Asset, and Supplier Baseline) or `ISO-C2` (Technical and SDLC Verification); both remain planned.
+  * **ISO Conformity Program:** ISO-C1 governance packaging drafted; external blocker DEP-01 does not block ISO-C1 governance or ISO-C2 technical verification.
   * **Cross-Stream Rule:** When Xendit approval is received, the Project Owner may authorize priority execution of the real sandbox payment/payout suite under GLOBAL-MKT v2.0 without invalidating ISO-C0 or ISO-C1.
+
+## 4. ISO-C1-R1 reconciliation
+
+The supplier register tracks 10 historical/planned/conditional identities, not 10 approved subprocessors. Preserve Azure alongside later Neon evidence. Cloudflare R2 is an unimplemented candidate, not an active DNS/WAF provider. SMTP vendor unresolved; Resend/SendGrid not presumed. Xendit pending, Sumsub scoped smoke limits, MannyPay separate/paused and unverified contractual/attestation/legal dependencies remain explicit. No external validation or contract execution occurred; ISO-C2 NOT STARTED.

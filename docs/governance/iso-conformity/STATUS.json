@@ -3,20 +3,20 @@
   "program": "RENTipid ISO Compliance & Conformity Program",
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
-  "currentPhase": "ISO-C0",
-  "phaseName": "Migration + Scope + Governance + Evidence Inheritance",
+  "currentPhase": "ISO-C1",
+  "phaseName": "Integrated Risk + SoA + Asset/Data/PII/Supplier Baseline",
   "status": "PASS",
-  "phaseGate": "CONFORMITY BASELINE ESTABLISHED",
-  "timestamp": "2026-10-22T00:50:00Z",
+  "phaseGate": "RISK / SoA / INFORMATION BASELINE ACCEPTED",
+  "timestamp": "2026-10-22T01:35:00Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
-    "headSha": "ff38d32a42d5cc289f5293c3e1e7243a4b3574cb",
+    "headSha": "2e9b0b8c38d6822c6bad126ffa70939475870be5",
+    "acceptedIsoC0Sha": "2e9b0b8c38d6822c6bad126ffa70939475870be5",
     "applicationCommitSha": "83b8f4dabadc243b01ab8e5f50746bf281ecf62b",
-    "governanceCommitSha": "ff38d32a42d5cc289f5293c3e1e7243a4b3574cb",
+    "governanceCommitSha": "2e9b0b8c38d6822c6bad126ffa70939475870be5",
     "worktreeClean": false,
-    "sourceBranch": "feat/global-mkt-v2.0",
-    "worktreeStateNote": "Initial R1 inspection: only nine untracked ISO-C0 governance files; checkpoint cleanliness verified separately after commit."
+    "worktreeStateNote": "Initial R1 inspection: four modified governance roll-ups and nine untracked C1 artifacts only; checkpoint cleanliness verified separately."
   },
   "scope": {
     "proposedScope": "Design, development, operation, maintenance, security, privacy management, support, and continual improvement of the RENTipid global rental marketplace and its supporting information systems, cloud infrastructure, data processing services, and relevant operational processes.",
@@ -44,6 +44,22 @@
     "requiresHumanEvidence": 7,
     "requiresExternalProviderEvidence": 2
   },
+  "isoC1Metrics": {
+    "assetsRegistered": 25,
+    "dataCategoriesRegistered": 21,
+    "suppliersRegistered": 10,
+    "risksRegistered": 30,
+    "lowRisks": 6,
+    "moderateRisks": 9,
+    "highRisks": 15,
+    "criticalRisks": 0,
+    "riskAcceptanceRequiringProjectOwner": 15,
+    "soaApplicable": 32,
+    "soaNotApplicable": 0,
+    "technicalRemediationItemsIdentified": 4,
+    "humanOrganizationalActionsIdentified": 5,
+    "externalLegalActionsIdentified": 3
+  },
   "lifecycleGates": {
     "codeComplete": "PASS — REUSED / UNAFFECTED",
     "localFunctional": "PASS — REUSED / UNAFFECTED",
@@ -54,33 +70,61 @@
     "previewAcceptancePass": "N/A — NOT APPLICABLE",
     "productionReady": "N/A — NOT APPLICABLE",
     "productionDeploymentVerification": "N/A — NOT APPLICABLE",
-    "phaseGateStatus": "PASS"
+    "phaseGateStatus": "PASS",
+    "completed": "PASS — EXECUTED",
+    "accepted": "PASS — EXECUTED",
+    "closed": "PASS — EXECUTED",
+    "versionFrozen": "N/A — NOT APPLICABLE"
   },
   "blockers": [
     {
       "id": "BLK-EXT-01",
       "type": "EXTERNAL_PROVIDER",
       "description": "Xendit Account Approval for real Sandbox Payment & Payout execution (GLOBAL-MKT Batch 2 dependency)",
-      "impact": "GLOBAL-MKT Batch 2 live sandbox execution paused; does not block ISO-C1 governance packaging",
+      "impact": "GLOBAL-MKT Batch 2 live sandbox execution paused; does not block ISO-C1/C2 governance and technical verification",
       "status": "PENDING ACCOUNT APPROVAL"
     }
   ],
-  "nextRecommendedPackage": "ISO-C1 — INTEGRATED RISK + SOA + ASSET/DATA/PII/SUPPLIER BASELINE",
+  "nextRecommendedPackage": "ISO-C2 — COMBINED TECHNICAL SECURITY + PRIVACY + CLOUD CONTROL VERIFICATION (NOT STARTED)",
+  "independentReviewHistory": [
+    {
+      "workPackage": "ISO-C0-R1",
+      "reviewer": "Codex",
+      "status": "PASS",
+      "finalStatus": "ACCEPTED",
+      "commitSha": "2e9b0b8c38d6822c6bad126ffa70939475870be5",
+      "technicalGatesRerun": 0
+    }
+  ],
   "independentReview": {
-    "workPackage": "ISO-C0-R1",
+    "workPackage": "ISO-C1-R1",
     "reviewer": "Codex",
     "status": "PASS",
     "finalStatus": "ACCEPTED",
-    "sourceTree": "ff38d32a42d5cc289f5293c3e1e7243a4b3574cb",
+    "projectOwnerDecisionRiskIds": [
+      "RSK-03",
+      "RSK-05",
+      "RSK-06",
+      "RSK-08",
+      "RSK-09",
+      "RSK-12",
+      "RSK-14",
+      "RSK-15",
+      "RSK-17",
+      "RSK-21",
+      "RSK-22",
+      "RSK-23",
+      "RSK-24",
+      "RSK-26",
+      "RSK-30"
+    ],
     "technicalGatesRerun": 0,
-    "isoC1Started": false,
-    "corrections": [
-      "Specific evidence references and scoped historical acceptance",
-      "Operating logging downgraded to implemented",
-      "Cross-border controls partial; privacy/legal unknowns preserved",
-      "Retention automation is an approved v1 deferral, classified partial",
-      "Human domains counted separately: seven",
-      "Provider authentication, hosting, contractual and lifecycle claims corrected"
-    ]
+    "treatmentsExecuted": 0,
+    "isoC2Started": false,
+    "riskAcceptanceRecorded": false,
+    "riskScoresAreEstimates": true,
+    "soaCoreDomains": 30,
+    "soaSupportingBoundaryRows": 2,
+    "technicalItemsAreConditionalCandidates": true
   }
 }
