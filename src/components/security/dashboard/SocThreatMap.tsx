@@ -194,11 +194,7 @@ export function SocThreatMap() {
                                         fill="#0f172a"
                                         stroke="#334155"
                                         strokeWidth={0.5}
-                                        style={{
-                                            default: { outline: "none" },
-                                            hover: { fill: "#1e293b", outline: "none" },
-                                            pressed: { outline: "none" },
-                                        }}
+                                        className="outline-none hover:fill-[#1e293b] focus:fill-[#1e293b] active:fill-[#0f172a]"
                                     />
                                 ))
                             }
