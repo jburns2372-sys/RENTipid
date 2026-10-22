@@ -1,0 +1,107 @@
+{
+  "package": "ISO-C2-M1-D2-E7-R6",
+  "status": "PASS",
+  "executor": "ANTIGRAVITY / GEMINI 3.8 FLASH HIGH",
+  "ownerAuthorization": "RECORDED - explicit D2/R6 authorization in session",
+  "technicalBaseline": "e3b03e7d6928e1d7d0a2f4da8e80556da85f9bc6",
+  "governanceBaseline": "e1be29a0081bf4ebbf206ad69b7f525547343e06",
+  "timestamp": "2026-10-22T10:00:00.000Z",
+  "legacySqlFiles": 64,
+  "legacyBytesPreserved": true,
+  "installationBaselineUnchanged": true,
+  "installationMigrations": [
+    "20260916000000_installation_baseline",
+    "20260925000000_add_user_global_preference",
+    "20261022000000_installation_postgresql_objects"
+  ],
+  "postgres": "16.15",
+  "node": "24",
+  "freshInstall": "PASS",
+  "migrationLedger": "PASS - installation track only; checksums verified",
+  "schemaObjects": "PASS",
+  "prismaValidate": "PASS",
+  "prismaDiff": "PASS - No difference detected",
+  "restrictedRole": "PASS",
+  "guardAndInstallationContracts": {
+    "passed": 17,
+    "failed": 0
+  },
+  "soc403RootCause": {
+    "file": "src/lib/security/cases/incident-case-writers.service.ts",
+    "guard": "requireIncidentCasePermission",
+    "cause": "Headless Jest integration test harness lacked session AAL2 assurance context required by requireIncidentCasePermission following Phase 7 MFA session-bound hardening; getCurrentSessionAal2() returned null, denying authorized SOC_ANALYST access.",
+    "rootCauseClass": "TEST_AUTH_CONTEXT",
+    "actorAccessEntitlement": "YES - SOC_ANALYST with Verified status is authorized under production RBAC",
+    "negativeTestsPreserved": "YES - unauthenticated (401), renter (403), provider (403), finance (403), analyst supervisor-attempt (403), spoofed caller (403) all pass"
+  },
+  "socExactCommand": "npm run test:soc:integration",
+  "socLocalExecution": {
+    "command": "npm run test:soc:integration",
+    "exitCode": 0,
+    "passedTests": 57,
+    "failedTests": 0,
+    "totalTests": 57,
+    "durationSeconds": 2.328
+  },
+  "socDisposableReproduction": {
+    "database": "rentipid_test_soc_disposable",
+    "freshInstallationBeforeRun": true,
+    "passedTests": 57,
+    "failedTests": 0,
+    "totalTests": 57
+  },
+  "technicalCommit": {
+    "sha": "e3b03e7d6928e1d7d0a2f4da8e80556da85f9bc6",
+    "shortSha": "e3b03e7",
+    "message": "fix(iso-c2): complete fresh install SOC authorization support",
+    "branch": "feat/iso-conformity-v1.0"
+  },
+  "githubActionsValidation": {
+    "runId": "39758791746",
+    "workflow": "Security Supply Chain Validation",
+    "status": "completed",
+    "conclusion": "success",
+    "jobId": "119757468527",
+    "jobName": "supply-chain-validation",
+    "duration": "1m49s",
+    "nodeVersion": "24",
+    "frozenLockfile": "PASS",
+    "dependencyAudit": {
+      "pass": true,
+      "rawTotal": 29,
+      "dispositionedCount": 29,
+      "effectiveCritical": 0,
+      "effectiveHigh": 0,
+      "effectiveModerate": 0
+    },
+    "ciEnforcementContract": {
+      "passed": 23,
+      "failed": 0
+    },
+    "restrictedRole": "PASS",
+    "ephemeralSchema": "PASS",
+    "ciDatabaseSafetyContracts": {
+      "passed": 17,
+      "failed": 0
+    },
+    "focusedSocTests": {
+      "pass": true,
+      "passedTests": 57,
+      "failedTests": 0,
+      "totalTests": 57,
+      "durationSeconds": 0.98
+    },
+    "artifacts": [
+      "sbom",
+      "build-manifest"
+    ]
+  },
+  "glccQualityGate": {
+    "runId": "39738923109",
+    "status": "PASS - REUSED / UNAFFECTED"
+  },
+  "rsk08": "PROVEN — IMPLEMENTED / GITHUB CI OPERATING EVIDENCE VERIFIED / MAIN REQUIRED-CHECK ENFORCEMENT PENDING",
+  "mainRequiredChecks": "PENDING",
+  "residualRiskAccepted": false,
+  "nextAction": "ENABLE AND VERIFY EXACT REQUIRED MAIN STATUS CHECKS"
+}

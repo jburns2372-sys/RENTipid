@@ -4,21 +4,21 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "M1-E6-R1 Nodemailer 10.x security migration & local M1 closure",
+  "phaseName": "M1 D2 / E7-R6 SOC authorization contract remediation & GitHub CI operating evidence",
   "status": "PASS",
-  "phaseGate": "M1 LOCAL ACCEPTANCE: PASS — EXECUTED",
-  "timestamp": "2026-10-22T02:40:00.000Z",
+  "phaseGate": "M1 GITHUB OPERATING EVIDENCE: PASS — EXECUTED",
+  "timestamp": "2026-10-22T10:00:00.000Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
-    "headSha": "2461f9acbad2e7bdc2911bc00b321950aaa60a9d",
+    "headSha": "e3b03e7d6928e1d7d0a2f4da8e80556da85f9bc6",
     "acceptedIsoC1Sha": "a6c6258cc6606c04d2a24574cb1f9f06d09c2aea",
     "projectOwnerDecisionSha": "c2860905efd51e711bf3c430354a078ed7b81f7d",
     "applicationCommitSha": "83b8f4dabadc243b01ab8e5f50746bf281ecf62b",
-    "governanceCommitSha": "c2fea8820c81ae0f51291c47fc3a635390527011",
-    "worktreeClean": true,
-    "worktreeStateNote": "Technical commit 2461f9a created. Governance evidence captured in this commit.",
-    "technicalCommitSha": "2461f9acbad2e7bdc2911bc00b321950aaa60a9d"
+    "governanceCommitSha": "e1be29a0081bf4ebbf206ad69b7f525547343e06",
+    "worktreeClean": false,
+    "worktreeStateNote": "Technical commit e3b03e7 pushed and verified in GitHub Actions run 39758791746; governance evidence checkpoint in progress.",
+    "technicalCommitSha": "e3b03e7d6928e1d7d0a2f4da8e80556da85f9bc6"
   },
   "scope": {
     "proposedScope": "Design, development, operation, maintenance, security, privacy management, support, and continual improvement of the RENTipid global rental marketplace and its supporting information systems, cloud infrastructure, data processing services, and relevant operational processes.",
@@ -1302,5 +1302,31 @@
       "production": "REQUIRED LATER"
     },
     "evidenceDocument": "ISO_C2_M1_REACT_SIMPLE_MAPS_REACT19_REMEDIATION.md"
+  },
+  "isoC2M1D2E7R6": {
+    "package": "ISO-C2-M1-D2-E7-R6",
+    "status": "PASS",
+    "ownerAuthorization": "RECORDED - explicit D2/R6 authorization in session",
+    "technicalBaseline": "e3b03e7d6928e1d7d0a2f4da8e80556da85f9bc6",
+    "governanceBaseline": "e1be29a0081bf4ebbf206ad69b7f525547343e06",
+    "legacyBytesPreserved": true,
+    "freshInstall": "PASS",
+    "prismaDiff": "PASS - No difference detected",
+    "soc403RootCause": "Headless Jest integration test harness lacked session AAL2 assurance context required by requireIncidentCasePermission",
+    "soc403RootCauseClass": "TEST_AUTH_CONTEXT",
+    "socExitCode": 0,
+    "socPassedTests": 57,
+    "socTotalTests": 57,
+    "technicalCommit": "e3b03e7",
+    "newGithubRun": "39758791746",
+    "githubSecurityWorkflow": "SUCCESS",
+    "githubEffectiveCritical": 0,
+    "githubEffectiveHigh": 0,
+    "glccRun": "39738923109",
+    "glccStatus": "PASS - REUSED / UNAFFECTED",
+    "rsk08": "PROVEN — IMPLEMENTED / GITHUB CI OPERATING EVIDENCE VERIFIED / MAIN REQUIRED-CHECK ENFORCEMENT PENDING",
+    "mainRequiredChecks": "PENDING",
+    "residualRiskAccepted": false,
+    "nextAction": "ENABLE AND VERIFY EXACT REQUIRED MAIN STATUS CHECKS"
   }
 }

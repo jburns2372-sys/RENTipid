@@ -1,0 +1,78 @@
+{
+  "package": "ISO-C2-M1-D2-E7-R5",
+  "status": "BLOCKED",
+  "executor": "CODEX",
+  "ownerAuthorization": "RECORDED - explicit D2 authorization in session",
+  "technicalBaseline": "e51bc5580f3073db534cd8bc10ea93a263e9acc1",
+  "governanceBaseline": "e1be29a0081bf4ebbf206ad69b7f525547343e06",
+  "timestamp": "2026-10-22T09:09:41.182596+00:00",
+  "legacySqlFiles": 64,
+  "legacyBytesPreserved": true,
+  "installationBaselineUnchanged": true,
+  "installationMigrations": [
+    "20260916000000_installation_baseline",
+    "20260925000000_add_user_global_preference",
+    "20261022000000_installation_postgresql_objects"
+  ],
+  "postgres": "16.14",
+  "node": "24.22.0",
+  "databases": [
+    "rentipid_iso_fresh_install_test",
+    "rentipid_test_soc"
+  ],
+  "freshInstall": "PASS",
+  "migrationLedger": "PASS - installation track only; checksums verified",
+  "schemaObjects": "PASS",
+  "prismaValidate": "PASS",
+  "prismaDiff": "PASS - No difference detected",
+  "restrictedRole": "PASS",
+  "guardAndInstallationContracts": {
+    "passed": 17,
+    "failed": 0
+  },
+  "classifierDispatcherAndExistingGuardTests": {
+    "passed": 32,
+    "failed": 0
+  },
+  "socExactCommand": "npm run test:soc:integration",
+  "socExitCode": 1,
+  "broadSocObservation": {
+    "failedSuites": 154,
+    "passedSuites": 242,
+    "totalSuites": 396,
+    "failedTests": 1072,
+    "passedTests": 3713,
+    "totalTests": 4785,
+    "limitations": [
+      "Snapshot lacked git and playwright.preview.config.ts during this broad run; not a clean GitHub operating result.",
+      "API tests require @azure/storage-blob, absent from the root installation.",
+      "Do not attribute every broad-run failure to the migration correction."
+    ]
+  },
+  "isolatedFailureReproduction": {
+    "command": "npm run test:soc:integration -- --runTestsByPath tests/security/cases/gate4f-slice-c4-case-api.integration.test.ts",
+    "freshInstallationBeforeRun": true,
+    "failed": 7,
+    "passed": 50,
+    "total": 57,
+    "failure": "Authorized case listing/filtering/detail/pagination expects HTTP 200 (or missing-case 404), receives HTTP 403; downstream payload assertions fail."
+  },
+  "ciTooling": "Changed but not run on GitHub: guarded dual-track installer, read-only verifier, exact SOC npm command retained; isolated service namespace and runner Node 24; git test-tools image added, shell syntax checked only.",
+  "persistentDatabasesAccessed": false,
+  "previewOrProductionModified": false,
+  "technicalCommit": null,
+  "newGithubRun": null,
+  "governanceCommit": null,
+  "rsk08": "PROVEN - IMPLEMENTED / OPERATING ENFORCEMENT PENDING",
+  "mainRequiredChecks": "PENDING",
+  "residualRiskAccepted": false,
+  "artifactDirectory": "C:\\Users\\user\\Documents\\JD SOFTWARE PROJECTS\\RENTipid\\scratch\\iso-r5",
+  "artifactSha256": {
+    "fresh-install.log": "5110dd1a94f2b79f7c3157e390fb82d59879160e41dd153635591fb1e1ffdb7e",
+    "contracts.log": "f3c8d67f5bcdddf5fd0a807ac9e1c42820f33a374f130553c15cf7f1eaef41fa",
+    "soc-final.log": "ce9b594a9f999b7ac5fd81b5d7f12393bf2e5448bcc06ab01ab5457aac4bd82f",
+    "api-reproduction.log": "41f98402d001f8836007ddb1790c55c9a09478a62d304f1b8e06ef8991c6b6bb",
+    "api-reproduction-setup.log": "e446bdfe1d06a2a1dc718622bfae01abdb1920e553f30b53c5e449bcba52abf5"
+  },
+  "nextAction": "Authorize bounded SOC authorization/test-prerequisite diagnosis; reproduce and resolve confirmed HTTP 403 expectations before checkpoint, push, or GitHub security verification."
+}
