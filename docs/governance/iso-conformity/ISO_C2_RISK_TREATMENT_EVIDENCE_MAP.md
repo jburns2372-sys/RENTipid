@@ -112,12 +112,12 @@ Exactly 15 owner-authorized risks, one primary disposition per risk. Counts belo
 
 ### RSK-21
 
-- Primary classification: **CI/CD / TOOLING DEFECT**.
+- Primary classification: **CI/CD / TOOLING DEFECT** (`PROVEN — IMPLEMENTED`).
 - Baseline inherent: 3 x 5 = 15 (HIGH); residual: 3 x 5 = 15 (HIGH) (unchanged).
-- Evidence: scripts/security/phase5l-backup-restore-drill.ts run lines 84-107; tests/security/resilience/phase5l-backup-restore.test.ts.
-- Existing controls / limits: Synthetic guard/checksum mechanism exists; restore failures can be swallowed and success metrics are unmeasured.
-- Remaining treatment: DEF-TOOL-02 / Wave 2: fail closed, bind targets, measure/report only proved assertions; actual deployed recovery evidence remains open.
-- Lifecycle: Harness code/local functional/local acceptance affected; isolated synthetic DB mutation required for positive proof, no app migration/seed or live cloud access. All other gates retain PASS — REUSED / UNAFFECTED or N/A — NOT APPLICABLE for the present documentation delta; future affected gates require execution, not a premature PASS.
+- Evidence: scripts/security/phase5l-backup-restore-drill.ts; tests/security/resilience/phase5l-backup-restore.test.ts; ISO_C2_M2_SYNTHETIC_RECOVERY_OPERATING_EVIDENCE.md.
+- Existing controls / limits: DEF-TOOL-02 repaired under M2: fail-closed pg_dump/pg_restore command execution, credential sanitization, and true measured source-vs-target state metrics (tables, rows, financial sums, relations, orphans, SHA-256 fingerprints) verified on PostgreSQL 16 (23/23 tests PASS). Actual live provider snapshot and PITR evidence remains open under operational governance.
+- Remaining treatment: Wave 2 synthetic recovery assurance complete; operational provider restore drill remains open under governance.
+- Lifecycle: Harness code/local functional/local acceptance PASS — EXECUTED. Isolated disposable DB used; fixtures cleaned. App DB migration and seed REUSED / UNAFFECTED. Preview/Production deployment N/A — NOT APPLICABLE.
 - Custodian: `ROLE ASSIGNMENT REQUIRED` (Cloud Ops); named assignment remains where required. Authority: PROJECT_OWNER_DECISION_ISO_C1_RISK_TREATMENT.md; treatment authorized, risk open, no residual acceptance.
 
 ### RSK-22
@@ -132,11 +132,11 @@ Exactly 15 owner-authorized risks, one primary disposition per risk. Counts belo
 
 ### RSK-23
 
-- Primary classification: **OPERATING EVIDENCE GAP**.
+- Primary classification: **OPERATING EVIDENCE GAP** (`PARTIAL`).
 - Baseline inherent: 3 x 5 = 15 (HIGH); residual: 3 x 5 = 15 (HIGH) (unchanged).
-- Evidence: Phase 5L synthetic recovery evidence; EVD-15 plans; current harness limitation DEF-TOOL-02.
-- Existing controls / limits: A historical synthetic drill exists; current deployed-topology restore assurance is not established.
-- Remaining treatment: TRT-F01: later authorized operational restore exercise after harness repair and target approval; not an application defect.
+- Evidence: Phase 5L synthetic recovery evidence; ISO_C2_M2_SYNTHETIC_RECOVERY_OPERATING_EVIDENCE.md; EVD-15 plans.
+- Existing controls / limits: Synthetic recovery assurance harness repaired and verified under M2. Actual deployed-topology periodic and provider (Neon / AWS / Azure) restore assurance remains open and unperformed.
+- Remaining treatment: TRT-F01: later authorized operational restore exercise for actual provider after harness repair; not an application defect.
 - Lifecycle: Future actual restore drill mutates approved isolated DB; no production/Preview mutation inferred or authorized. All other gates retain PASS — REUSED / UNAFFECTED or N/A — NOT APPLICABLE for the present documentation delta; future affected gates require execution, not a premature PASS.
 - Custodian: `ROLE ASSIGNMENT REQUIRED` (Database Admin); named assignment remains where required. Authority: PROJECT_OWNER_DECISION_ISO_C1_RISK_TREATMENT.md; treatment authorized, risk open, no residual acceptance.
 
@@ -224,5 +224,9 @@ Work Package ISO-C2-M1-D2-E7-R6 resolved the fresh-install SOC API authorization
 ## ISO-C2-M1-E8-R1 Main required-check enforcement & operating conformity verification (2026-10-22)
 
 Work Package ISO-C2-M1-E8-R1 reconciled authoritative technical baseline `e3b03e7d539850f24f3445efe7435b0b27559845` and governance baseline `2525ec4cef851afb14466479c42bbf83ba7343ee`. Reconciled GitHub Actions operating evidence: Security run `39758791746` (conclusion: success, context: `supply-chain-validation`, App ID: 15368) and GLCC run `39738923109` (conclusion: success, context: `Localization Acceptance CI`, App ID: 15368, reused / unaffected). Workflow pull request triggers confirmed on `main` branch with zero deadlock risk. Classic branch protection on `main` was updated via GitHub REST API to strictly require both exact check contexts with `strict: true` (requiring branches to be up to date before merging). Independent API read-back verified: PR requirement ACTIVE (1 approval, stale reviews dismissed, last push approval required), admin enforcement ACTIVE (`enforce_admins: true`), force push and deletion BLOCKED, bypass actors NONE, and both required status checks strictly enforced. RSK-08 classified as **PROVEN — OPERATING CONFORMITY**. Milestone ISO-C2-M1 classified as **PASS — OPERATING CONTROL VERIFIED**. No residual risk accepted. Overall ISO certification is not claimed. See [Enforcement Evidence](ISO_C2_M1_MAIN_REQUIRED_CHECK_ENFORCEMENT.md).
+
+## ISO-C2-M2-D1-E1 Synthetic Recovery Harness Failure Propagation & Measured Evidence (2026-10-22)
+
+Work Package ISO-C2-M2-D1-E1 executed under Project Owner authorization for a narrow reopen of the Phase 5L synthetic recovery surface. Confirmed defect DEF-TOOL-02 was remediated in `scripts/security/phase5l-backup-restore-drill.ts` and `tests/security/resilience/phase5l-backup-restore.test.ts`. External `pg_dump` and `pg_restore` (with `--exit-on-error`) process execution was made fail-closed; error messages and credentials sanitized; and hardcoded success metrics were replaced with real dynamic queries measuring table counts, row counts, financial column totals, foreign key constraints, and orphan relations. Full test battery passed: 23/23 contract and integration tests (including isolated PostgreSQL 16 positive recovery and negative collision tests). Typecheck PASS (0 errors). Technical commit `3d00df1` pushed to `feat/iso-conformity-v1.0`. RSK-21 classified as **PROVEN — IMPLEMENTED** (synthetic recovery assurance verified; provider snapshot/PITR evidence pending). RSK-23 remains **PARTIAL** (synthetic drill passed; real periodic provider restore drill pending). No residual risk accepted. See [M2 Operating Evidence](ISO_C2_M2_SYNTHETIC_RECOVERY_OPERATING_EVIDENCE.md).
 
 

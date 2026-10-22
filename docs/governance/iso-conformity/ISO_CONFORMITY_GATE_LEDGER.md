@@ -273,4 +273,24 @@ Work Package ISO-C2-M1-D2-E7-R6 resolved the fresh-install SOC API authorization
 
 Work Package ISO-C2-M1-E8-R1 reconciled authoritative technical baseline `e3b03e7d539850f24f3445efe7435b0b27559845` and governance baseline `2525ec4cef851afb14466479c42bbf83ba7343ee`. Reconciled GitHub Actions operating evidence: Security run `39758791746` (conclusion: success, context: `supply-chain-validation`, App ID: 15368) and GLCC run `39738923109` (conclusion: success, context: `Localization Acceptance CI`, App ID: 15368, reused / unaffected). Workflow pull request triggers confirmed on `main` branch with zero deadlock risk. Classic branch protection on `main` was updated via GitHub REST API to strictly require both exact check contexts with `strict: true` (requiring branches to be up to date before merging). Independent API read-back verified: PR requirement ACTIVE (1 approval, stale reviews dismissed, last push approval required), admin enforcement ACTIVE (`enforce_admins: true`), force push and deletion BLOCKED, bypass actors NONE, and both required status checks strictly enforced. RSK-08 classified as **PROVEN — OPERATING CONFORMITY**. Milestone ISO-C2-M1 classified as **PASS — OPERATING CONTROL VERIFIED**. No residual risk accepted. Overall ISO certification is not claimed. See [Enforcement Evidence](ISO_C2_M1_MAIN_REQUIRED_CHECK_ENFORCEMENT.md).
 
+## 14. ISO-C2-M2-D1-E1 Synthetic Recovery Harness Failure Propagation & Measured Evidence (2026-10-22)
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — EXECUTED |
+| localFunctional | PASS — EXECUTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — EXECUTED |
+| previewMigrated | N/A — NOT APPLICABLE |
+| previewAcceptancePass | N/A — NOT APPLICABLE |
+| productionReady | N/A — NOT APPLICABLE |
+| productionDeploymentVerification | N/A — NOT APPLICABLE |
+| completed | PASS — EXECUTED (M2) |
+| accepted | PASS — EXECUTED (M2) |
+| closed | CLOSED (M2 REOPEN REFROZEN) |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Work Package ISO-C2-M2-D1-E1 remediated DEF-TOOL-02 under explicit Project Owner authorization. Implemented fail-closed process execution for `pg_dump` and `pg_restore` (with `--exit-on-error`), credential sanitization, and true measured source-vs-target database state metrics (tables, rows, financial sums, foreign key relations, orphan relations, SHA-256 fingerprints). Executed isolated PostgreSQL 16 positive recovery (85 rows, 2,725,000.00 financial sum, 0 differences) and negative failure propagation (exit 1 on collision) alongside 21 unit/contract tests (23/23 PASS). Typecheck PASS (0 errors). Technical commit `3d00df1` pushed to `feat/iso-conformity-v1.0`. RSK-21 classified as PROVEN — IMPLEMENTED. RSK-23 remains PARTIAL. Phase 5L synthetic recovery surface marked CORRECTED / ACCEPTED FOR M2 EVIDENCE and authorized reopen closed / refrozen. See [M2 Operating Evidence](ISO_C2_M2_SYNTHETIC_RECOVERY_OPERATING_EVIDENCE.md).
+
 
