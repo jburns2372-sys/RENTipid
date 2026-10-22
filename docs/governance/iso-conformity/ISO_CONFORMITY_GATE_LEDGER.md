@@ -317,6 +317,27 @@ Work Package ISO-C2-M3-D2-E2 promoted candidate `dca5479` / deployment `72515606
 
 Work Package ISO-C2-M3-D3-E3 promoted exact application candidate `dca547904791535ca44485747065961dbf8fc421` (source deployment `dpl_HqiN1awwSPk3VkGYzfoiPaeJ1nR7` / `7251560631`) to Production via Vercel Production Promotion under explicit Project Owner authorization. Verified deployment `dpl_2733akwjwf1NGvcVGxggoCCUGjuB` `● Ready` with direct URL `https://ren-tipid-cjeiwwle4-jburns2372-sys-projects.vercel.app` and canonical aliases `https://ren-tipid-jburns2372-sys-projects.vercel.app` and `https://www.rentipid.com.ph`. Main merge was not required and not performed. Target database is Neon PostgreSQL branch `rentipid-production` (`holy-shape-01357429` / `br-proud-sunset-ap0ofil2`). Production database migration: `N/A — NOT REQUIRED / NO SCHEMA CHANGE`. Health check verified `HTTP 200 OK`, `{"status":"ready","database":"connected"}`. Bounded runtime verification executed using synthetic identity `iso-c2-m3-prod-1792672640027@example.invalid`: below-threshold Attempt 1 returned `201 Created`; in-quota Attempts 2-5 returned `409 Conflict` (limiter allowed; duplicate user detected by downstream logic) with points accumulating in PostgreSQL `"AuthRateLimit"`; over-threshold Attempt 6 returned `429 Too Many Requests` with header `Retry-After: 3593` and sanitized message. Proved zero side effects on blocked request (0 user records, 0 credentials, 0 password hashes, 0 audit logs, 0 emails dispatched). Rate limiter PostgreSQL `"AuthRateLimit"` backend confirmed; HMAC-SHA256 pseudonymous keys confirmed with zero raw PII; zero secrets logged; real customer data was not used; unrelated Production environment untouched. Retained single bounded synthetic record as documented test data. RSK-06 classified as PROVEN — OPERATING CONFORMITY. Milestone ISO-C2-M3 classified as PASS — OPERATING CONTROL VERIFIED. M3 authorized reopen and implementation is CLOSED. See [M3 Evidence](ISO_C2_M3_REGISTRATION_PRE_EFFECT_RATE_LIMITING_EVIDENCE.md).
 
+## 16. ISO-C2-M4-D1-E1 Automated Backup Freshness & Monitoring Operational Evidence (2026-10-22)
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — REUSED / UNAFFECTED |
+| localFunctional | PASS — REUSED / UNAFFECTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — REUSED / UNAFFECTED |
+| previewMigrated | N/A — NOT APPLICABLE |
+| previewAcceptancePass | N/A — NOT APPLICABLE |
+| productionReady | N/A — NOT APPLICABLE |
+| productionDeploymentVerification | N/A — NOT APPLICABLE |
+| completed | PASS — EXECUTED (M4 OPERATING EVIDENCE) |
+| accepted | PASS — EXECUTED (M4 OPERATING EVIDENCE) |
+| closed | CLOSED (M4 OPERATING EVIDENCE RECORDED) |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Work Package ISO-C2-M4-D1-E1 executed under Project Owner authorization for read-only operational evidence collection for ISO-C2-M4 / RSK-22 / TRT-F02. Production database provider was verified as Neon Serverless PostgreSQL (`holy-shape-01357429`, branch `rentipid-production` / `br-proud-sunset-ap0ofil2`, `aws-us-east-1`, PostgreSQL 17, `protected: true`). Read-only inspection verified: continuous multi-AZ WAL backup streaming to distributed Safekeepers/Pageservers; continuous Point-In-Time Recovery (PITR) active; history retention configured at 21,600 seconds (6 hours); discrete snapshots: 0. Backup freshness measured at < 1 minute (real-time continuous replication; observation at `2026-10-22T13:03:59Z`). Retention evaluated as PARTIAL (6-hour continuous window active; 30-day archival recommended in runbook unconfigured). Proactive failure monitoring and automated alert notifications evaluated as GAP (no automated monitor or notification channels configured). Operational roles identified as `Database Administrator` and `Cloud Operations Lead` (`REQUIRES HUMAN EVIDENCE` for named assignments). Zero customer data was accessed; zero database, backup, or monitoring configurations were modified. No restore drill was performed or authorized under M4. RSK-22 classified as PARTIAL. RSK-23 remains PARTIAL — UNCHANGED. Milestone ISO-C2-M4 operating evidence recorded and closed. See [M4 Operating Evidence](ISO_C2_M4_BACKUP_FRESHNESS_MONITORING_OPERATING_EVIDENCE.md).
+
+
 
 
 

@@ -122,13 +122,13 @@ Exactly 15 owner-authorized risks, one primary disposition per risk. Counts belo
 
 ### RSK-22
 
-- Primary classification: **OPERATING EVIDENCE GAP**.
+- Primary classification: **OPERATING EVIDENCE GAP** (`PARTIAL`).
 - Baseline inherent: 3 x 5 = 15 (HIGH); residual: 3 x 5 = 15 (HIGH) (unchanged).
-- Evidence: EVD-15 plans; Phase 5L CLOUD_VERIFICATION_PENDING; dated Azure/Neon evidence.
-- Existing controls / limits: Enabled backup schedule/freshness/monitoring for actual provider not established.
-- Remaining treatment: TRT-F02: obtain actual configuration/monitoring records; do not invent CloudWatch or assert configuration defect.
-- Lifecycle: Evidence acceptance only; later monitoring change must be scoped separately. All other gates retain PASS — REUSED / UNAFFECTED or N/A — NOT APPLICABLE for the present documentation delta; future affected gates require execution, not a premature PASS.
-- Custodian: `ROLE ASSIGNMENT REQUIRED` (Database Admin); named assignment remains where required. Authority: PROJECT_OWNER_DECISION_ISO_C1_RISK_TREATMENT.md; treatment authorized, risk open, no residual acceptance.
+- Evidence: EVD-15 plans; ISO_C2_M4_BACKUP_FRESHNESS_MONITORING_OPERATING_EVIDENCE.md; authenticated Neon read-back (`holy-shape-01357429`, branch `rentipid-production`).
+- Existing controls / limits: Continuous multi-AZ WAL backup streaming and 6-hour continuous PITR window operational (< 1 min freshness). Proactive backup failure monitoring and automated alerts unconfigured; discrete snapshots 0; multi-day archival unconfigured.
+- Remaining treatment: TRT-F02: configure proactive backup health monitor / alert channel and evaluate extended snapshot schedule; operational evidence collected under M4.
+- Lifecycle: Operating evidence recorded under ISO-C2-M4-D1-E1; application and database code PASS — REUSED / UNAFFECTED; future monitoring implementation must be scoped separately.
+- Custodian: `ROLE ASSIGNMENT REQUIRED` (Database Admin / Cloud Ops Lead); named assignment remains where required. Authority: PROJECT_OWNER_DECISION_ISO_C1_RISK_TREATMENT.md; treatment authorized, risk open, no residual acceptance.
 
 ### RSK-23
 
