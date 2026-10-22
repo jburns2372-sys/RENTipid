@@ -1,0 +1,354 @@
+
+> rentipid@0.1.0 typecheck
+> tsc --noEmit
+
+src/app/api/admin/security/events/route.ts(78,25): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'SecurityEventWhereInput'.
+src/app/api/admin/security/events/route.ts(96,28): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'SecurityEventFindManyArgs'.
+src/app/api/ai/chat/route.ts(132,33): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonObject'.
+src/app/api/ai/chat/route.ts(135,85): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonObject'.
+src/app/api/ai/chat/route.ts(138,81): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonObject'.
+src/app/api/soc/dashboard/route.ts(6,10): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEnvironment'.
+src/app/api/soc/dashboard/route.ts(6,31): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityLifecycle'.
+src/app/api/soc/dashboard/route.ts(6,50): error TS2305: Module '"@prisma/client"' has no exported member 'SecuritySeverity'.
+src/app/api/soc/dashboard/route.ts(6,68): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityProcessingStatus'.
+src/app/api/soc/intelligence/behavioral-risk/[assessmentId]/route.ts(5,10): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEnvironment'.
+src/app/api/soc/intelligence/behavioral-risk/[assessmentId]/route.ts(5,31): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityLifecycle'.
+src/app/api/soc/intelligence/behavioral-risk/history/route.ts(5,10): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEnvironment'.
+src/app/api/soc/intelligence/behavioral-risk/history/route.ts(5,31): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityLifecycle'.
+src/app/api/soc/intelligence/behavioral-risk/latest/route.ts(5,10): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEnvironment'.
+src/app/api/soc/intelligence/behavioral-risk/latest/route.ts(5,31): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityLifecycle'.
+src/app/api/soc/responses/execute/route.ts(5,10): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityResponseActionType'.
+src/app/api/soc/threat-map/route.ts(7,10): error TS2305: Module '"@prisma/client"' has no exported member 'SecuritySeverity'.
+src/app/browse/page.tsx(20,29): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'ListingWhereInput'.
+src/app/browse/page.tsx(25,21): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'ListingWhereInput'.
+src/app/dashboard/admin/security/alerts/actions.ts(4,10): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityAlertReviewStatus'.
+src/app/dashboard/admin/security/events-table.tsx(65,64): error TS2322: Type 'unknown' is not assignable to type 'Key | null | undefined'.
+src/app/dashboard/admin/security/events-table.tsx(65,72): error TS2322: Type 'unknown' is not assignable to type 'string | number | readonly string[] | undefined'.
+src/app/dashboard/admin/security/events-table.tsx(65,82): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/app/dashboard/admin/security/events-table.tsx(69,59): error TS2322: Type 'unknown' is not assignable to type 'Key | null | undefined'.
+src/app/dashboard/admin/security/events-table.tsx(69,67): error TS2322: Type 'unknown' is not assignable to type 'string | number | readonly string[] | undefined'.
+src/app/dashboard/admin/security/events-table.tsx(69,77): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/app/dashboard/admin/security/events-table.tsx(73,61): error TS2322: Type 'unknown' is not assignable to type 'Key | null | undefined'.
+src/app/dashboard/admin/security/events-table.tsx(73,69): error TS2322: Type 'unknown' is not assignable to type 'string | number | readonly string[] | undefined'.
+src/app/dashboard/admin/security/events-table.tsx(73,79): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/app/dashboard/admin/security/events-table.tsx(77,69): error TS2322: Type 'unknown' is not assignable to type 'Key | null | undefined'.
+src/app/dashboard/admin/security/events-table.tsx(77,77): error TS2322: Type 'unknown' is not assignable to type 'string | number | readonly string[] | undefined'.
+src/app/dashboard/admin/security/events-table.tsx(77,87): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/app/dashboard/profile/page.tsx(34,36): error TS2339: Property 'global_address' does not exist on type 'ExtendedUserProfile'.
+src/app/dashboard/profile/page.tsx(35,19): error TS2339: Property 'global_address' does not exist on type 'ExtendedUserProfile'.
+src/app/dashboard/profile/page.tsx(35,85): error TS2339: Property 'global_address' does not exist on type 'ExtendedUserProfile'.
+src/app/dashboard/profile/page.tsx(35,172): error TS2339: Property 'global_address' does not exist on type 'ExtendedUserProfile'.
+src/app/dashboard/profile/page.tsx(42,44): error TS2339: Property 'global_business_address' does not exist on type 'ExtendedBusinessProfile'.
+src/app/dashboard/profile/page.tsx(43,23): error TS2339: Property 'global_business_address' does not exist on type 'ExtendedBusinessProfile'.
+src/app/dashboard/profile/page.tsx(43,102): error TS2339: Property 'global_business_address' does not exist on type 'ExtendedBusinessProfile'.
+src/app/dashboard/profile/page.tsx(43,202): error TS2339: Property 'global_business_address' does not exist on type 'ExtendedBusinessProfile'.
+src/app/dashboard/profile/page.tsx(92,67): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/@prisma/client/default"' has no exported member 'User'.
+src/app/dashboard/provider/listings/import/actions.ts(8,3): error TS2305: Module '"@prisma/client"' has no exported member 'ListingImportResolutionType'.
+src/app/dashboard/provider/listings/import/actions.ts(9,3): error TS2305: Module '"@prisma/client"' has no exported member 'ListingImportAuditEventType'.
+src/app/dashboard/provider/listings/import/actions.ts(10,3): error TS2305: Module '"@prisma/client"' has no exported member 'ListingImportAssetStatus'.
+src/components/profile/ProfileFormClient.tsx(7,18): error TS2305: Module '"@prisma/client"' has no exported member 'User'.
+src/components/profile/ProfileFormClient.tsx(34,53): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'UserProfileGetPayload'.
+src/components/profile/ProfileFormClient.tsx(41,57): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'BusinessProfileGetPayload'.
+src/components/profile/ProfileFormClient.tsx(59,37): error TS2339: Property 'first_name' does not exist on type 'ExtendedUserProfile'.
+src/components/profile/ProfileFormClient.tsx(60,36): error TS2339: Property 'last_name' does not exist on type 'ExtendedUserProfile'.
+src/components/profile/ProfileFormClient.tsx(61,39): error TS2339: Property 'display_name' does not exist on type 'ExtendedUserProfile'.
+src/components/profile/ProfileFormClient.tsx(67,44): error TS2339: Property 'business_name' does not exist on type 'ExtendedBusinessProfile'.
+src/components/profile/ProfileFormClient.tsx(73,97): error TS2339: Property 'global_address' does not exist on type 'ExtendedUserProfile'.
+src/components/profile/ProfileFormClient.tsx(74,117): error TS2339: Property 'global_business_address' does not exist on type 'ExtendedBusinessProfile'.
+src/components/security/responses/ResponseDetailClient.tsx(8,10): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityExecutionStatus'.
+src/lib/ai/analytics/SupportInteractionTelemetry.ts(26,34): error TS2339: Property 'PrismaClientKnownRequestError' does not exist on type 'typeof Prisma'.
+src/lib/ai/analytics/SupportInteractionTelemetry.ts(26,67): error TS18046: 'error' is of type 'unknown'.
+src/lib/ai/analytics/SupportInteractionTelemetry.ts(143,47): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'AiInteractionEventUncheckedCreateInput'.
+src/lib/ai/broker/AiSessionBroker.ts(9,34): error TS2339: Property 'PrismaClientKnownRequestError' does not exist on type 'typeof Prisma'.
+src/lib/ai/broker/AiSessionBroker.ts(9,67): error TS18046: 'error' is of type 'unknown'.
+src/lib/ai/broker/AiSessionBroker.ts(143,37): error TS2339: Property 'TransactionIsolationLevel' does not exist on type 'typeof Prisma'.
+src/lib/ai/cases/AiCasePlatform.ts(38,34): error TS2339: Property 'PrismaClientKnownRequestError' does not exist on type 'typeof Prisma'.
+src/lib/ai/cases/AiCasePlatform.ts(38,67): error TS18046: 'error' is of type 'unknown'.
+src/lib/ai/context/canonical-authority-integrity.ts(59,69): error TS2339: Property 'chunks' does not exist on type '{}'.
+src/lib/ai/conversations/AiConversationContinuity.ts(74,39): error TS2339: Property 'PrismaClientKnownRequestError' does not exist on type 'typeof Prisma'.
+src/lib/ai/conversations/AiConversationContinuity.ts(74,73): error TS18046: 'error' is of type 'unknown'.
+src/lib/ai/conversations/AiConversationContinuity.ts(106,26): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonObject'.
+src/lib/ai/knowledge/synchronizer.ts(35,39): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/ai/knowledge/synchronizer.ts(36,26): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/ai/knowledge/synchronizer.ts(62,38): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'JsonValue'.
+src/lib/ai/knowledge/synchronizer.ts(92,19): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'JsonValue'.
+src/lib/ai/knowledge/synchronizer.ts(95,22): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'JsonValue'.
+src/lib/ai/mediation/MediationService.ts(1,24): error TS2305: Module '"@prisma/client"' has no exported member 'AiMediationRequest'.
+src/lib/ai/proactive/ProactiveSupportService.ts(81,34): error TS2339: Property 'PrismaClientKnownRequestError' does not exist on type 'typeof Prisma'.
+src/lib/ai/proactive/ProactiveSupportService.ts(81,67): error TS18046: 'error' is of type 'unknown'.
+src/lib/ai/proactive/ProactiveSupportService.ts(276,37): error TS2339: Property 'TransactionIsolationLevel' does not exist on type 'typeof Prisma'.
+src/lib/ai/proactive/ProactiveSupportService.ts(408,37): error TS2339: Property 'TransactionIsolationLevel' does not exist on type 'typeof Prisma'.
+src/lib/ai/specialists/feature-control.ts(82,66): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string | null | undefined'.
+src/lib/ai/tools/AiToolGateway.ts(25,34): error TS2339: Property 'PrismaClientKnownRequestError' does not exist on type 'typeof Prisma'.
+src/lib/ai/tools/AiToolGateway.ts(25,67): error TS18046: 'error' is of type 'unknown'.
+src/lib/audit.ts(3,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEnvironment'.
+src/lib/audit.ts(4,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityLifecycle'.
+src/lib/auth/unified/rate-limiter.ts(34,37): error TS2339: Property 'sql' does not exist on type 'typeof Prisma'.
+src/lib/glcc/checkout-fx-service.ts(124,39): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/checkout-fx-service.ts(253,33): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/checkout-fx-service.ts(254,31): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/finance-authority-guards.ts(79,33): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/finance-authority-guards.ts(80,35): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/finance-authority-guards.ts(114,28): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/finance-authority-guards.ts(115,33): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/finance-authority-guards.ts(116,31): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/finance-authority-guards.ts(117,34): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/finance-authority-guards.ts(137,27): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/finance-authority-guards.ts(138,28): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/finance-authority-guards.ts(139,32): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/finance-authority-guards.ts(147,25): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(21,70): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/glcc/fx-math.ts(24,21): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(26,21): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(28,21): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(32,21): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(40,69): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/glcc/fx-math.ts(41,29): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(56,23): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(74,36): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/glcc/fx-math.ts(80,26): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(87,29): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(88,62): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(107,34): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/glcc/fx-math.ts(130,32): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(131,33): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(138,27): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(142,41): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(143,18): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(153,32): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(161,36): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(190,45): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/glcc/fx-math.ts(190,73): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/glcc/fx-math.ts(191,27): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(192,27): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(199,45): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/glcc/fx-math.ts(199,73): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/glcc/fx-math.ts(200,27): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(201,27): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(209,30): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/glcc/fx-math.ts(210,32): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/glcc/fx-math.ts(212,24): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/glcc/fx-math.ts(212,50): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(214,29): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-math.ts(215,29): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-provider-adapter.ts(35,46): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/glcc/fx-provider-adapter.ts(65,29): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-quote-service.ts(302,40): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-quote-service.ts(304,39): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/glcc/fx-quote-service.ts(309,38): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/insurance/admin/InsuranceAdminService.ts(1,29): error TS2305: Module '"@prisma/client"' has no exported member 'User'.
+src/lib/insurance/admin/InsuranceAdminService.ts(1,35): error TS2305: Module '"@prisma/client"' has no exported member 'InsurancePartner'.
+src/lib/insurance/admin/InsuranceAdminService.ts(1,53): error TS2305: Module '"@prisma/client"' has no exported member 'InsuranceProduct'.
+src/lib/insurance/admin/InsuranceAdminService.ts(1,71): error TS2305: Module '"@prisma/client"' has no exported member 'InsuranceConfig'.
+src/lib/insurance/claims/PrismaInsuranceClaimRepository.ts(92,22): error TS2339: Property 'JsonNull' does not exist on type 'typeof Prisma'.
+src/lib/insurance/claims/PrismaInsuranceClaimRepository.ts(184,31): error TS2339: Property 'PrismaClientKnownRequestError' does not exist on type 'typeof Prisma'.
+src/lib/insurance/claims/PrismaInsuranceClaimRepository.ts(185,7): error TS18046: 'error' is of type 'unknown'.
+src/lib/insurance/finance/InsuranceCancellationService.ts(1,24): error TS2305: Module '"@prisma/client"' has no exported member 'InsurancePolicy'.
+src/lib/insurance/finance/InsuranceFinanceService.ts(1,24): error TS2305: Module '"@prisma/client"' has no exported member 'InsurancePolicy'.
+src/lib/insurance/finance/InsuranceReconciliationService.ts(1,24): error TS2305: Module '"@prisma/client"' has no exported member 'InsurancePolicy'.
+src/lib/insurance/finance/InsuranceReconciliationService.ts(1,41): error TS2305: Module '"@prisma/client"' has no exported member 'InsuranceReconciliationLog'.
+src/lib/insurance/transaction/PrismaInsuranceTransactionRepository.ts(72,26): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/insurance/transaction/PrismaInsuranceTransactionRepository.ts(284,36): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/insurance/transaction/PrismaInsuranceTransactionRepository.ts(415,31): error TS2339: Property 'PrismaClientKnownRequestError' does not exist on type 'typeof Prisma'.
+src/lib/insurance/transaction/PrismaInsuranceTransactionRepository.ts(416,7): error TS18046: 'error' is of type 'unknown'.
+src/lib/insurance/transaction/runtime.ts(1,10): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEnvironment'.
+src/lib/insurance/transaction/runtime.ts(1,31): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityLifecycle'.
+src/lib/listingbridge/authorization/rights-confirmation.ts(49,34): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/authorization/rights-confirmation.ts(50,32): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/authorization/rights-confirmation.ts(57,34): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/authorization/rights-confirmation.ts(58,32): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/authorization/rights-confirmation.ts(73,54): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'JsonValue'.
+src/lib/listingbridge/authorization/rights-confirmation.ts(81,31): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/authorization/rights-confirmation.ts(154,57): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/authorization/rights-confirmation.ts(155,55): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/authorization/rights-confirmation.ts(162,57): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/authorization/rights-confirmation.ts(163,55): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/authorization/rights-confirmation.ts(175,54): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/authorization/rights-confirmation.ts(209,44): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'JsonValue'.
+src/lib/listingbridge/authorization/rights-confirmation.ts(209,72): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'JsonObject'.
+src/lib/listingbridge/repository/listing-import-repository.ts(156,64): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/repository/listing-import-repository.ts(156,90): error TS2339: Property 'JsonNull' does not exist on type 'typeof Prisma'.
+src/lib/listingbridge/repository/listing-import-repository.ts(179,60): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/repository/listing-import-repository.ts(179,86): error TS2339: Property 'JsonNull' does not exist on type 'typeof Prisma'.
+src/lib/listingbridge/repository/listing-import-repository.ts(194,60): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/repository/listing-import-repository.ts(194,86): error TS2339: Property 'JsonNull' does not exist on type 'typeof Prisma'.
+src/lib/listingbridge/repository/listing-import-repository.ts(246,68): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/repository/listing-import-repository.ts(247,25): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonObject'.
+src/lib/listingbridge/repository/listing-import-repository.ts(262,58): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/repository/listing-import-repository.ts(264,73): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/listingbridge/repository/listing-import-repository.ts(265,75): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/payments/payment-action-log-writer.ts(38,39): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/payments/payment-action-log-writer.ts(43,48): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/payments/payment-action-log-writer.ts(44,48): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/payments/payment-action-log-writer.ts(52,31): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/payments/payment-action-log-writer.ts(69,39): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/payments/payment-action-log-writer.ts(70,39): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/prohibited-items/prohibited-items.service.ts(1,24): error TS2305: Module '"@prisma/client"' has no exported member 'ProhibitedItemPolicy'.
+src/lib/security/approvals/security-response-approval-api.ts(3,32): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityResponseActionType'.
+src/lib/security/approvals/security-response-approval.service.ts(1,18): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityApprovalStatus'.
+src/lib/security/approvals/security-response-approval.service.ts(1,42): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityApprovalEventType'.
+src/lib/security/approvals/security-response-approval.service.ts(1,69): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityApprovalGrantState'.
+src/lib/security/approvals/security-response-approval.service.ts(1,97): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityResponseActionType'.
+src/lib/security/cases/incident-case-api.ts(4,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCase'.
+src/lib/security/cases/incident-case-api.ts(5,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseEvidence'.
+src/lib/security/cases/incident-case-api.ts(6,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseEvidenceSource'.
+src/lib/security/cases/incident-case-api.ts(7,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseEvidenceType'.
+src/lib/security/cases/incident-case-api.ts(8,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseHistory'.
+src/lib/security/cases/incident-case-api.ts(9,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseNote'.
+src/lib/security/cases/incident-case-api.ts(10,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseNoteType'.
+src/lib/security/cases/incident-case-api.ts(11,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseOrigin'.
+src/lib/security/cases/incident-case-api.ts(12,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseSeverity'.
+src/lib/security/cases/incident-case-api.ts(13,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseStatus'.
+src/lib/security/cases/incident-case-api.ts(151,20): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'IncidentCaseSelect'.
+src/lib/security/cases/incident-case-api.ts(240,20): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'IncidentCaseSelect'.
+src/lib/security/cases/incident-case-api.ts(242,27): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'IncidentCaseGetPayload'.
+src/lib/security/cases/incident-case-api.ts(246,29): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'IncidentCaseGetPayload'.
+src/lib/security/cases/incident-case-api.ts(367,29): error TS2339: Property 'PrismaClientKnownRequestError' does not exist on type 'typeof Prisma'.
+src/lib/security/cases/incident-case-api.ts(368,5): error TS18046: 'error' is of type 'unknown'.
+src/lib/security/cases/incident-case-api.ts(376,29): error TS2339: Property 'PrismaClientKnownRequestError' does not exist on type 'typeof Prisma'.
+src/lib/security/cases/incident-case-api.ts(377,5): error TS18046: 'error' is of type 'unknown'.
+src/lib/security/cases/incident-case-api.ts(558,27): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'IncidentCaseWhereInput'.
+src/lib/security/cases/incident-case-writers.service.ts(2,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseEvidenceSource'.
+src/lib/security/cases/incident-case-writers.service.ts(3,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseEvidenceType'.
+src/lib/security/cases/incident-case-writers.service.ts(4,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseHistoryReason'.
+src/lib/security/cases/incident-case-writers.service.ts(5,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseNoteType'.
+src/lib/security/cases/incident-case-writers.service.ts(6,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseOrigin'.
+src/lib/security/cases/incident-case-writers.service.ts(7,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseSeverity'.
+src/lib/security/cases/incident-case-writers.service.ts(8,3): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseStatus'.
+src/lib/security/cases/incident-case-writers.service.ts(452,39): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'IncidentCaseUpdateManyMutationInput'.
+src/lib/security/dashboard/soc-command-center-read.service.ts(1,32): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEnvironment'.
+src/lib/security/dashboard/soc-command-center-read.service.ts(1,53): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityLifecycle'.
+src/lib/security/dashboard/soc-command-center-read.service.ts(1,72): error TS2305: Module '"@prisma/client"' has no exported member 'SecuritySeverity'.
+src/lib/security/dashboard/soc-command-center-read.service.ts(1,90): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityProcessingStatus'.
+src/lib/security/dashboard/soc-command-center-read.service.ts(1,116): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseStatus'.
+src/lib/security/dashboard/soc-command-center-read.service.ts(1,136): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEventClassification'.
+src/lib/security/dashboard/soc-command-center-read.service.ts(1,165): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEventSource'.
+src/lib/security/dashboard/soc-command-center-read.service.ts(16,29): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'SecurityEventWhereInput'.
+src/lib/security/dashboard/soc-command-center-read.service.ts(86,29): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'SecurityEventWhereInput'.
+src/lib/security/events/adapters/ai-bot-log-adapter.ts(12,10): error TS2305: Module '"@prisma/client"' has no exported member 'AIBotLog'.
+src/lib/security/events/adapters/api-security-adapter.ts(12,10): error TS2305: Module '"@prisma/client"' has no exported member 'ApiSecurityLog'.
+src/lib/security/events/adapters/audit-log-adapter.ts(12,10): error TS2305: Module '"@prisma/client"' has no exported member 'AuditLog'.
+src/lib/security/events/adapters/authentication-security-log-adapter.ts(2,10): error TS2305: Module '"@prisma/client"' has no exported member 'AuthenticationSecurityLog'.
+src/lib/security/events/adapters/booking-status-history-adapter.ts(12,10): error TS2305: Module '"@prisma/client"' has no exported member 'BookingStatusHistory'.
+src/lib/security/events/adapters/payment-action-log-adapter.ts(12,10): error TS2305: Module '"@prisma/client"' has no exported member 'PaymentActionLog'.
+src/lib/security/events/adapters/payment-reconciliation-log-adapter.ts(12,10): error TS2305: Module '"@prisma/client"' has no exported member 'PaymentReconciliationLog'.
+src/lib/security/events/adapters/payment-webhook-log-adapter.ts(12,10): error TS2305: Module '"@prisma/client"' has no exported member 'PaymentWebhookLog'.
+src/lib/security/events/adapters/system-error-log-adapter.ts(12,10): error TS2305: Module '"@prisma/client"' has no exported member 'SystemErrorLog'.
+src/lib/security/events/adapters/system-setting-adapter.ts(12,10): error TS2305: Module '"@prisma/client"' has no exported member 'SystemSetting'.
+src/lib/security/events/adapters/trust-safety-adapters.ts(12,10): error TS2305: Module '"@prisma/client"' has no exported member 'DamageClaim'.
+src/lib/security/events/adapters/trust-safety-adapters.ts(12,23): error TS2305: Module '"@prisma/client"' has no exported member 'DisputeCase'.
+src/lib/security/events/adapters/trust-safety-adapters.ts(12,36): error TS2305: Module '"@prisma/client"' has no exported member 'InspectionReport'.
+src/lib/security/events/adapters/verification-document-adapter.ts(12,10): error TS2305: Module '"@prisma/client"' has no exported member 'VerificationDocument'.
+src/lib/security/events/event-ingestion.ts(97,77): error TS2339: Property 'DbNull' does not exist on type 'typeof Prisma'.
+src/lib/security/events/event-ingestion.ts(97,123): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/security/events/event-ingestion.ts(141,41): error TS2339: Property 'PrismaClientKnownRequestError' does not exist on type 'typeof Prisma'.
+src/lib/security/events/event-ingestion.ts(141,74): error TS18046: 'createError' is of type 'unknown'.
+src/lib/security/events/jobs/recovery.ts(1,24): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEventSource'.
+src/lib/security/events/taxonomy.ts(2,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEventSource'.
+src/lib/security/events/taxonomy.ts(3,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityDomain'.
+src/lib/security/events/taxonomy.ts(4,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEventClassification'.
+src/lib/security/events/taxonomy.ts(5,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecuritySeverity'.
+src/lib/security/events/taxonomy.ts(6,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityLifecycle'.
+src/lib/security/events/taxonomy.ts(7,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityProcessingStatus'.
+src/lib/security/events/taxonomy.ts(8,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEnvironment'.
+src/lib/security/financial.ts(17,59): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/security/financial.ts(18,31): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/security/financial.ts(23,64): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/security/financial.ts(23,81): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/security/financial.ts(36,25): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/security/financial.ts(53,25): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/security/financial.ts(63,44): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/security/financial.ts(64,44): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'Decimal'.
+src/lib/security/financial.ts(98,31): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/security/financial.ts(101,82): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/security/financial.ts(102,82): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/security/intelligence/behavioral-risk.persistence.ts(1,32): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEnvironment'.
+src/lib/security/intelligence/behavioral-risk.persistence.ts(1,53): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityLifecycle'.
+src/lib/security/intelligence/behavioral-risk.persistence.ts(24,37): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'BehavioralRiskAssessmentGetPayload'.
+src/lib/security/intelligence/behavioral-risk.persistence.ts(248,33): error TS2339: Property 'PrismaClientKnownRequestError' does not exist on type 'typeof Prisma'.
+src/lib/security/intelligence/behavioral-risk.persistence.ts(248,66): error TS18046: 'error' is of type 'unknown'.
+src/lib/security/intelligence/behavioral-risk.persistence.ts(292,5): error TS2322: Type 'unknown[]' is not assignable to type 'string[]'.
+  Type 'unknown' is not assignable to type 'string'.
+src/lib/security/intelligence/behavioral-risk.queries.ts(1,24): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEnvironment'.
+src/lib/security/intelligence/behavioral-risk.queries.ts(1,45): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityLifecycle'.
+src/lib/security/playbooks/security-response-playbook-api.ts(18,10): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityResponseActionType'.
+src/lib/security/playbooks/security-response-playbook-api.ts(18,38): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityResponseReversibility'.
+src/lib/security/playbooks/security-response-playbook-api.ts(18,69): error TS2305: Module '"@prisma/client"' has no exported member 'SecuritySeverity'.
+src/lib/security/playbooks/security-response-playbook.service.ts(1,18): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityPlaybookStatus'.
+src/lib/security/playbooks/security-response-playbook.service.ts(1,42): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityResponseActionType'.
+src/lib/security/playbooks/security-response-playbook.service.ts(1,70): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityResponseReversibility'.
+src/lib/security/playbooks/security-response-playbook.service.ts(1,101): error TS2305: Module '"@prisma/client"' has no exported member 'SecuritySeverity'.
+src/lib/security/playbooks/security-response-playbook.service.ts(138,22): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'SecurityResponsePlaybookUpdateInput'.
+src/lib/security/playbooks/security-response-playbook.service.ts(288,27): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'SecurityResponseStepUpdateInput'.
+src/lib/security/reports/reporting.service.ts(142,78): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'DateTimeFilter'.
+src/lib/security/reports/reporting.service.ts(153,11): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'SecurityEventWhereInput'.
+src/lib/security/reports/reporting.service.ts(166,59): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'IncidentCaseWhereInput'.
+src/lib/security/reports/reporting.service.ts(175,59): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'SecurityResponseExecutionWhereInput'.
+src/lib/security/reports/reporting.service.ts(179,59): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'SecurityResponseApprovalRequestWhereInput'.
+src/lib/security/reports/reporting.service.ts(183,55): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'DetectionRuleWhereInput'.
+src/lib/security/reports/reporting.service.ts(187,65): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'BehavioralRiskAssessmentWhereInput'.
+src/lib/security/responses/execution.service.ts(1,32): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityExecutionStatus'.
+src/lib/security/responses/execution.service.ts(1,57): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityResponseActionType'.
+src/lib/security/responses/execution.service.ts(1,85): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityApprovalGrantState'.
+src/lib/security/rules/alert-generator.service.ts(2,17): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionRule'.
+src/lib/security/rules/alert-generator.service.ts(2,32): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEvent'.
+src/lib/security/rules/alert-generator.service.ts(2,47): error TS2305: Module '"@prisma/client"' has no exported member 'RuleEvaluationLog'.
+src/lib/security/rules/alert-generator.service.ts(3,3): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionDeduplicationStrategy'.
+src/lib/security/rules/alert-generator.service.ts(3,35): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionCorrelationSubject'.
+src/lib/security/rules/alert-generator.service.ts(4,3): error TS2305: Module '"@prisma/client"' has no exported member 'AlertEvidenceRole'.
+src/lib/security/rules/alert-generator.service.ts(4,22): error TS2305: Module '"@prisma/client"' has no exported member 'SecuritySeverity'.
+src/lib/security/rules/alert-generator.service.ts(305,40): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/security/rules/alert-generator.service.ts(308,58): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/security/rules/alert-generator.service.ts(308,96): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/security/rules/alert-generator.service.ts(310,65): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/security/rules/alert-generator.service.ts(311,63): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/security/rules/alert-review.service.ts(1,24): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityAlertReviewStatus'.
+src/lib/security/rules/alert-review.service.ts(1,51): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityAlert'.
+src/lib/security/rules/alert-review.service.ts(1,66): error TS2305: Module '"@prisma/client"' has no exported member 'SecuritySeverity'.
+src/lib/security/rules/alert-review.service.ts(1,84): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEventClassification'.
+src/lib/security/rules/alert-review.service.ts(1,121): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEnvironment'.
+src/lib/security/rules/alert-review.service.ts(67,25): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'SecurityAlertWhereInput'.
+src/lib/security/rules/dsl/schema.ts(2,10): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityDomain'.
+src/lib/security/rules/dsl/schema.ts(2,26): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEventClassification'.
+src/lib/security/rules/dsl/schema.ts(2,55): error TS2305: Module '"@prisma/client"' has no exported member 'SecuritySeverity'.
+src/lib/security/rules/evaluator-worker.service.ts(5,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEnvironment'.
+src/lib/security/rules/evaluator-worker.service.ts(6,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityLifecycle'.
+src/lib/security/rules/evaluator-worker.service.ts(7,3): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionRuleStatus'.
+src/lib/security/rules/evaluator-worker.service.ts(8,3): error TS2305: Module '"@prisma/client"' has no exported member 'RuleEvaluationOutcome'.
+src/lib/security/rules/evaluator-worker.service.ts(126,34): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/@prisma/client/default"' has no exported member 'DetectionRule'.
+src/lib/security/rules/evaluator-worker.service.ts(280,34): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/@prisma/client/default"' has no exported member 'DetectionRule'.
+src/lib/security/rules/evaluator-worker.service.ts(287,54): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'SecurityEventWhereInput'.
+src/lib/security/rules/evaluator-worker.service.ts(344,34): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/@prisma/client/default"' has no exported member 'DetectionRule'.
+src/lib/security/rules/evaluator-worker.service.ts(352,61): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'RuleEvaluationLogCreateManyInput'.
+src/lib/security/rules/rule-initialization.service.ts(1,32): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionRuleStatus'.
+src/lib/security/rules/rule-initialization.service.ts(1,53): error TS2305: Module '"@prisma/client"' has no exported member 'SecuritySeverity'.
+src/lib/security/rules/rule-initialization.service.ts(1,71): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionCorrelationSubject'.
+src/lib/security/rules/rule-initialization.service.ts(1,100): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionDeduplicationStrategy'.
+src/lib/security/rules/rule-initialization.service.ts(1,132): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionConfidenceFormula'.
+src/lib/security/rules/rule-initialization.service.ts(1,160): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionRuleCreatorType'.
+src/lib/security/rules/rule-initialization.service.ts(29,26): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/security/rules/rule-initialization.service.ts(349,64): error TS2339: Property 'JsonNull' does not exist on type 'typeof Prisma'.
+src/lib/security/rules/rule-validation.service.ts(2,3): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionCorrelationSubject'.
+src/lib/security/rules/rule-validation.service.ts(3,3): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionDeduplicationStrategy'.
+src/lib/security/rules/rule-validation.service.ts(4,3): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionConfidenceFormula'.
+src/lib/security/rules/rule-validation.service.ts(5,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecuritySeverity'.
+src/lib/security/rules/rule-validation.service.ts(6,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityDomain'.
+src/lib/security/rules/rule-validation.service.ts(7,3): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEventClassification'.
+src/lib/security/rules/rule.service.ts(1,32): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionRuleStatus'.
+src/lib/security/rules/rule.service.ts(1,53): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionRuleCreatorType'.
+src/lib/security/rules/rule.service.ts(1,79): error TS2305: Module '"@prisma/client"' has no exported member 'DetectionRule'.
+src/lib/security/rules/rule.service.ts(56,71): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/security/rules/rule.service.ts(131,69): error TS2694: Namespace '"C:/Users/user/Documents/JD SOFTWARE PROJECTS/RENTipid-GLOBAL-MKT-V2/.rentipid-sandbox/iso-c2-m1-e6-p1/node_modules/.prisma/client/default".Prisma' has no exported member 'InputJsonValue'.
+src/lib/security/serializers.ts(74,14): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/security/serializers.ts(74,32): error TS2339: Property 'Decimal' does not exist on type 'typeof Prisma'.
+src/lib/security/serializers.ts(75,20): error TS2339: Property 'toNumber' does not exist on type '{}'.
+src/lib/security/simulations/simulation.service.ts(4,15): error TS2305: Module '"@prisma/client"' has no exported member 'ApiSecurityLog'.
+src/lib/security/simulations/simulation.service.ts(5,10): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityEnvironment'.
+src/lib/security/simulations/simulation.service.ts(5,31): error TS2305: Module '"@prisma/client"' has no exported member 'SecurityLifecycle'.
+src/lib/social/social-analytics-service.ts(1,24): error TS2305: Module '"@prisma/client"' has no exported member 'SocialAttributionStatus'.
+src/lib/social/social-feedback-service.ts(1,24): error TS2305: Module '"@prisma/client"' has no exported member 'SocialFeedbackStatus'.
+src/lib/social/social-feedback-service.ts(1,46): error TS2305: Module '"@prisma/client"' has no exported member 'SocialFeedbackSeverity'.
+src/lib/social/social-feedback-service.ts(1,70): error TS2305: Module '"@prisma/client"' has no exported member 'SocialFeedbackSentiment'.
+src/lib/social/social-feedback-service.ts(1,95): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseSeverity'.
+src/lib/social/social-feedback-service.ts(1,117): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseOrigin'.
+src/lib/social/social-feedback-service.ts(1,137): error TS2305: Module '"@prisma/client"' has no exported member 'IncidentCaseStatus'.

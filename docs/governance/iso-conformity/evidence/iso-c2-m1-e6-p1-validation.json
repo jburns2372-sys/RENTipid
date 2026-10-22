@@ -1,0 +1,232 @@
+{
+  "package": "ISO-C2-M1-E6-P1",
+  "status": "PASS",
+  "executor": "CODEX",
+  "recordedAt": "2026-10-22T01:24:45.578Z",
+  "versions": {
+    "react": {
+      "before": "19.2.4",
+      "after": "19.2.4"
+    },
+    "react-dom": {
+      "before": "19.2.4",
+      "after": "19.2.4"
+    },
+    "react-simple-maps": {
+      "before": "3.0.0",
+      "after": "5.0.5"
+    },
+    "d3-color": {
+      "before": "3.1.0",
+      "after": "3.1.0"
+    },
+    "d3-interpolate": {
+      "before": "2.0.1",
+      "after": "3.0.1"
+    },
+    "d3-zoom": {
+      "before": "2.0.0",
+      "after": "3.0.0"
+    },
+    "d3-geo": {
+      "before": "2.0.2",
+      "after": "3.1.1"
+    }
+  },
+  "versionChanges": [
+    {
+      "path": "node_modules/@opentelemetry/api",
+      "before": "1.10.0",
+      "after": "1.9.1"
+    },
+    {
+      "path": "node_modules/@types/d3-geo",
+      "before": "2.0.7",
+      "after": null
+    },
+    {
+      "path": "node_modules/@types/d3-zoom",
+      "before": "2.0.7",
+      "after": null
+    },
+    {
+      "path": "node_modules/@types/react-simple-maps",
+      "before": "3.0.6",
+      "after": null
+    },
+    {
+      "path": "node_modules/d3-array",
+      "before": "2.12.1",
+      "after": "3.2.4"
+    },
+    {
+      "path": "node_modules/d3-dispatch",
+      "before": "2.0.0",
+      "after": "3.0.1"
+    },
+    {
+      "path": "node_modules/d3-drag",
+      "before": "2.0.0",
+      "after": "3.0.0"
+    },
+    {
+      "path": "node_modules/d3-ease",
+      "before": "2.0.0",
+      "after": "3.0.1"
+    },
+    {
+      "path": "node_modules/d3-geo",
+      "before": "2.0.2",
+      "after": "3.1.1"
+    },
+    {
+      "path": "node_modules/d3-interpolate",
+      "before": "2.0.1",
+      "after": "3.0.1"
+    },
+    {
+      "path": "node_modules/d3-selection",
+      "before": "2.0.0",
+      "after": "3.0.0"
+    },
+    {
+      "path": "node_modules/d3-timer",
+      "before": "2.0.0",
+      "after": "3.0.1"
+    },
+    {
+      "path": "node_modules/d3-transition",
+      "before": "2.0.0",
+      "after": "3.0.1"
+    },
+    {
+      "path": "node_modules/d3-zoom",
+      "before": "2.0.0",
+      "after": "3.0.0"
+    },
+    {
+      "path": "node_modules/internmap",
+      "before": "1.0.1",
+      "after": "2.0.3"
+    },
+    {
+      "path": "node_modules/react-simple-maps",
+      "before": "3.0.0",
+      "after": "5.0.5"
+    },
+    {
+      "path": "node_modules/@types/topojson-specification",
+      "before": null,
+      "after": "1.0.5"
+    },
+    {
+      "path": "node_modules/react-simple-maps/node_modules/@types/d3-geo",
+      "before": null,
+      "after": "3.1.1"
+    },
+    {
+      "path": "node_modules/react-simple-maps/node_modules/@types/d3-zoom",
+      "before": null,
+      "after": "3.0.9"
+    }
+  ],
+  "oldReactPeer": "^16.8.0 || 17.x || 18.x",
+  "newReactPeer": "^16.8.0 || 17.x || 18.x || 19.x",
+  "node": "24.22.0",
+  "npm": "10.9.7",
+  "strictResolution": {
+    "exit": 0,
+    "legacyPeerMode": false,
+    "initialShellNode": "22.22.2 (engine warning; clean acceptance used Node 24)"
+  },
+  "cleanCi": {
+    "exit": 0,
+    "node": "24.22.0",
+    "legacyPeerMode": false,
+    "envFilesCopied": false,
+    "sharedNodeModulesModified": false
+  },
+  "npmLsAll": {
+    "exit": 0,
+    "invalidPeers": [],
+    "optionalWasmExtraneous": [
+      "extraneous: @emnapi/runtime@1.11.3 C:\\Users\\user\\Documents\\JD SOFTWARE PROJECTS\\RENTipid-GLOBAL-MKT-V2\\.rentipid-sandbox\\iso-c2-m1-e6-p1\\node_modules\\@emnapi\\runtime",
+      "extraneous: @img/sharp-wasm32@0.35.5 C:\\Users\\user\\Documents\\JD SOFTWARE PROJECTS\\RENTipid-GLOBAL-MKT-V2\\.rentipid-sandbox\\iso-c2-m1-e6-p1\\node_modules\\@img\\sharp-wasm32"
+    ]
+  },
+  "mapTests": {
+    "exit": 0,
+    "pass": 3,
+    "fail": 0,
+    "skipped": 0,
+    "actualPackage": true
+  },
+  "typecheck": {
+    "firstExit": 2,
+    "reason": "fresh install missing generated Prisma client",
+    "correction": "standard build Prisma generate step; no database operation",
+    "finalExit": 0
+  },
+  "normalBuild": {
+    "exit": 1,
+    "reason": "Turbopack inferred parent root and rejected pre-existing external node_modules junction"
+  },
+  "webpackBuild": {
+    "exit": 0,
+    "staticPages": 79,
+    "compiledCssInteractionSelectors": {
+      "hover": true,
+      "focus": true,
+      "active": true
+    },
+    "normalBuildFailurePreserved": true
+  },
+  "audit": {
+    "strictBaseline": {
+      "critical": 0,
+      "high": 11,
+      "moderate": 20
+    },
+    "strictCandidate": {
+      "critical": 0,
+      "high": 11,
+      "moderate": 20
+    },
+    "newAdvisoryPackages": [],
+    "newRuntimeCriticalHigh": [],
+    "strictPolicyEffective": {
+      "critical": 0,
+      "high": 2,
+      "moderate": 0
+    },
+    "remainingHigh": [
+      "nodemailer",
+      "next-auth (propagated Nodemailer peer)"
+    ],
+    "policyModified": false
+  },
+  "databaseModified": false,
+  "overallM1": "BLOCKED - NODEMAILER E6 PENDING",
+  "technicalCommit": "b77b9404672583347cf43746af29f67da2a986bd",
+  "push": "TO_EXECUTE_AFTER_CHECKPOINT",
+  "fingerprints": {
+    "package.json": "a1591e9fdecced66d93e01988f764cf9c079fbe70d1ed0cb339604b9add370aa",
+    "package-lock.json": "ab901145cf42b29e3f05bbb3b9f6a790c06692dad3e57c84aff3826855807100",
+    "src/components/security/dashboard/SocThreatMap.tsx": "09241171da90ce950f2dcad7c883e384dfbc90045277d63b7fd27012f51510a6",
+    "tests/security/ui/soc-threat-map.react19.contract.cjs": "8b0f0f9ac998a403500c5c69f60ccf05c4811cf98604a8e4bc34ced9c2314989"
+  },
+  "telemetryNormalizationSmoke": {
+    "pass": true,
+    "networkStarted": false
+  },
+  "governanceCommit": "containing evidence commit",
+  "lifecycle": {
+    "codeComplete": "PASS EXECUTED",
+    "localFunctional": "PASS EXECUTED - MAP DELTA",
+    "databaseMigrated": "PASS REUSED / UNAFFECTED",
+    "requiredDataSeededSynced": "PASS REUSED / UNAFFECTED",
+    "overallM1LocalAcceptance": "BLOCKED - NODEMAILER E6 PENDING",
+    "preview": "REQUIRED LATER",
+    "production": "REQUIRED LATER"
+  }
+}

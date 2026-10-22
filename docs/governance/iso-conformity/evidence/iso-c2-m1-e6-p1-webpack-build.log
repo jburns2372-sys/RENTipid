@@ -1,0 +1,419 @@
+▲ Next.js 16.3.8 (webpack)
+node.exe : (node:9856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:7 char:1
++ & $taskNode24 node_modules/next/dist/bin/next build --webpack *> ../e ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:9856) War... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\user\Documents\JD SOFTWARE 
+PROJECTS\RENTipid-GLOBAL-MKT-V2\package-lock.json as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the 
+lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+ Detected additional lockfiles: 
+   * C:\Users\user\Documents\JD SOFTWARE 
+PROJECTS\RENTipid-GLOBAL-MKT-V2\.rentipid-sandbox\iso-c2-m1-e6-p1\package-lock.json
+
+✓ Running next.config.ts took 35ms
+
+  Creating an optimized production build ...
+(node:1972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24068) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21208) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+write ECONNABORTED
+
+Retrying 1/3...
+✓ Compiled successfully in 4.8min
+  Running TypeScript ...
+  Finished TypeScript in 71s ...
+  Collecting page data using 15 workers ...
+(node:29184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11344) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:47020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:57056) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:35008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:31728) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:45504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:44800) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43436) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42188) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:52928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  Generating static pages using 15 workers (0/79) ...
+  Generating static pages using 15 workers (19/79) 
+  Generating static pages using 15 workers (39/79) 
+  Generating static pages using 15 workers (59/79) 
+✓ Generating static pages using 15 workers (79/79) in 6.9s
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /account/delete
+├ ƒ /account/sessions
+├ ƒ /api/account/connected-methods
+├ ƒ /api/account/sessions
+├ ƒ /api/account/sessions/[sessionId]
+├ ƒ /api/account/sessions/logout-others
+├ ƒ /api/address/autocomplete
+├ ƒ /api/address/details
+├ ƒ /api/address/ph/barangays
+├ ƒ /api/address/ph/cities
+├ ƒ /api/address/ph/resolve-city
+├ ƒ /api/admin/ai-customer-service/analytics
+├ ƒ /api/admin/categories
+├ ƒ /api/admin/disputes/[id]/resolve
+├ ƒ /api/admin/documents/[id]/approve
+├ ƒ /api/admin/documents/[id]/reject
+├ ƒ /api/admin/documents/verify
+├ ƒ /api/admin/listings
+├ ƒ /api/admin/listings/[id]
+├ ƒ /api/admin/listings/[id]/approve
+├ ƒ /api/admin/listings/[id]/publish
+├ ƒ /api/admin/listings/[id]/reject
+├ ƒ /api/admin/listings/[id]/unpublish
+├ ƒ /api/admin/listings/verify
+├ ƒ /api/admin/security/cases
+├ ƒ /api/admin/security/cases/[caseId]
+├ ƒ /api/admin/security/cases/[caseId]/assignment
+├ ƒ /api/admin/security/cases/[caseId]/evidence
+├ ƒ /api/admin/security/cases/[caseId]/notes
+├ ƒ /api/admin/security/cases/[caseId]/status
+├ ƒ /api/admin/security/events
+├ ƒ /api/admin/users/[userId]/profile
+├ ƒ /api/admin/verify
+├ ƒ /api/ai/chat
+├ ƒ /api/ai/feedback
+├ ƒ /api/ai/mediation/provider
+├ ƒ /api/ai/mediation/renter
+├ ƒ /api/ai/suggestions
+├ ƒ /api/auth/[...nextauth]
+├ ƒ /api/auth/email-verification/resend
+├ ƒ /api/auth/email-verification/verify
+├ ƒ /api/auth/link
+├ ƒ /api/auth/logout
+├ ƒ /api/auth/methods
+├ ƒ /api/auth/mfa/activate
+├ ƒ /api/auth/mfa/enroll
+├ ƒ /api/auth/mfa/verify
+├ ƒ /api/auth/oauth/intent
+├ ƒ /api/auth/oauth/link-intent
+├ ƒ /api/auth/otp
+├ ƒ /api/auth/password-recovery
+├ ƒ /api/auth/password-reset
+├ ƒ /api/auth/register
+├ ƒ /api/auth/unlink
+├ ƒ /api/bookings
+├ ƒ /api/bookings/[id]/agreement
+├ ƒ /api/bookings/[id]/claims
+├ ƒ /api/bookings/[id]/claims/respond
+├ ƒ /api/bookings/[id]/inspection
+├ ƒ /api/bookings/[id]/inspection/renter-confirm
+├ ƒ /api/bookings/[id]/provider-agreement
+├ ƒ /api/bookings/[id]/status
+├ ƒ /api/bookings/[id]/turnover
+├ ƒ /api/documents/[id]
+├ ƒ /api/documents/upload
+├ ƒ /api/finance/upload
+├ ƒ /api/fx/estimate
+├ ƒ /api/health
+├ ƒ /api/insurance/offers
+├ ƒ /api/insurance/orders
+├ ƒ /api/insurance/orders/[id]/issuance
+├ ƒ /api/insurance/policies/[id]
+├ ƒ /api/insurance/select
+├ ƒ /api/listings
+├ ƒ /api/listings/[id]
+├ ƒ /api/listings/[id]/documents
+├ ƒ /api/listings/[id]/photos
+├ ƒ /api/listings/[id]/submit
+├ ƒ /api/listings/[id]/withdraw
+├ ƒ /api/me/preferences
+├ ƒ /api/payments
+├ ƒ /api/preferences
+├ ƒ /api/privacy/consent
+├ ƒ /api/privacy/cookies
+├ ƒ /api/privacy/correction
+├ ƒ /api/privacy/deletion
+├ ƒ /api/privacy/escalate
+├ ƒ /api/privacy/export
+├ ƒ /api/privacy/requests
+├ ƒ /api/profile
+├ ƒ /api/profile/change-password
+├ ƒ /api/profile/photo
+├ ƒ /api/soc/approvals/[requestId]
+├ ƒ /api/soc/approvals/approve
+├ ƒ /api/soc/approvals/cancel
+├ ƒ /api/soc/approvals/list
+├ ƒ /api/soc/approvals/reject
+├ ƒ /api/soc/approvals/revoke
+├ ƒ /api/soc/approvals/submit
+├ ƒ /api/soc/dashboard
+├ ƒ /api/soc/intelligence/behavioral-risk/[assessmentId]
+├ ƒ /api/soc/intelligence/behavioral-risk/history
+├ ƒ /api/soc/intelligence/behavioral-risk/latest
+├ ƒ /api/soc/playbooks/[playbookId]
+├ ƒ /api/soc/playbooks/activate
+├ ƒ /api/soc/playbooks/draft-create
+├ ƒ /api/soc/playbooks/draft-update
+├ ƒ /api/soc/playbooks/list
+├ ƒ /api/soc/playbooks/review-submit
+├ ƒ /api/soc/playbooks/step-add
+├ ƒ /api/soc/playbooks/step-remove
+├ ƒ /api/soc/playbooks/step-reorder
+├ ƒ /api/soc/playbooks/step-update
+├ ƒ /api/soc/playbooks/version-create
+├ ƒ /api/soc/reports/export
+├ ƒ /api/soc/responses/[executionId]
+├ ƒ /api/soc/responses/[executionId]/rollback
+├ ƒ /api/soc/responses/execute
+├ ƒ /api/soc/responses/list
+├ ƒ /api/soc/threat-map
+├ ƒ /api/social/analytics
+├ ƒ /api/social/feedback
+├ ƒ /api/social/feedback/[id]
+├ ƒ /api/webhooks/insurance/[partner]
+├ ƒ /api/webhooks/paymongo
+├ ƒ /api/webhooks/paymongo/health
+├ ƒ /api/webhooks/sumsub
+├ ƒ /api/webhooks/xendit/payment
+├ ƒ /api/webhooks/xendit/payout
+├ ƒ /beta-guide
+├ ƒ /browse
+├ ƒ /checkout/[bookingId]
+├ ƒ /contact
+├ ƒ /dashboard/admin
+├ ƒ /dashboard/admin/account-deletions
+├ ƒ /dashboard/admin/ai-customer-service
+├ ƒ /dashboard/admin/ai-logs
+├ ƒ /dashboard/admin/ai-settings
+├ ƒ /dashboard/admin/ai-v1-check
+├ ƒ /dashboard/admin/beta-dashboard
+├ ƒ /dashboard/admin/beta-invitations
+├ ƒ /dashboard/admin/beta-readiness
+├ ƒ /dashboard/admin/beta-users
+├ ƒ /dashboard/admin/bookings
+├ ƒ /dashboard/admin/categories
+├ ƒ /dashboard/admin/compliance
+├ ƒ /dashboard/admin/disputes
+├ ƒ /dashboard/admin/disputes/[id]
+├ ƒ /dashboard/admin/feedback
+├ ƒ /dashboard/admin/feedback/[id]
+├ ƒ /dashboard/admin/incident-response
+├ ƒ /dashboard/admin/issues
+├ ƒ /dashboard/admin/launch-announcements
+├ ƒ /dashboard/admin/listings
+├ ƒ /dashboard/admin/listings/[id]
+├ ƒ /dashboard/admin/listings/[id]/promote
+├ ƒ /dashboard/admin/marketing
+├ ƒ /dashboard/admin/marketing/campaigns/[id]
+├ ƒ /dashboard/admin/marketing/campaigns/new
+├ ƒ /dashboard/admin/mobile-analytics
+├ ƒ /dashboard/admin/privacy
+├ ƒ /dashboard/admin/privacy/consents
+├ ƒ /dashboard/admin/privacy/policies
+├ ƒ /dashboard/admin/privacy/requests
+├ ƒ /dashboard/admin/privacy/requests/[requestId]
+├ ƒ /dashboard/admin/reports
+├ ƒ /dashboard/admin/security
+├ ƒ /dashboard/admin/security/alerts
+├ ƒ /dashboard/admin/security/approvals
+├ ƒ /dashboard/admin/security/approvals/[requestId]
+├ ƒ /dashboard/admin/security/cases
+├ ƒ /dashboard/admin/security/cases/[caseId]
+├ ƒ /dashboard/admin/security/intelligence/behavioral-risk
+├ ƒ /dashboard/admin/security/maintenance
+├ ƒ /dashboard/admin/security/playbooks
+├ ƒ /dashboard/admin/security/playbooks/[playbookId]
+├ ƒ /dashboard/admin/security/reports
+├ ƒ /dashboard/admin/security/responses
+├ ƒ /dashboard/admin/security/responses/[executionId]
+├ ƒ /dashboard/admin/security/rules
+├ ƒ /dashboard/admin/security/simulations
+├ ƒ /dashboard/admin/social-accounts
+├ ƒ /dashboard/admin/sop
+├ ƒ /dashboard/admin/sop/refund-review
+├ ƒ /dashboard/admin/support
+├ ƒ /dashboard/admin/support-readiness
+├ ƒ /dashboard/admin/support/[id]
+├ ƒ /dashboard/admin/system-logs
+├ ƒ /dashboard/admin/uat
+├ ƒ /dashboard/admin/uat/[id]
+├ ƒ /dashboard/admin/users
+├ ƒ /dashboard/admin/users/[userId]
+├ ƒ /dashboard/business
+├ ƒ /dashboard/business/listings/[id]/promote
+├ ƒ /dashboard/business/marketing
+├ ƒ /dashboard/business/social-accounts
+├ ƒ /dashboard/compliance
+├ ƒ /dashboard/compliance/listings
+├ ƒ /dashboard/compliance/listings/[id]
+├ ƒ /dashboard/compliance/prohibited-items
+├ ƒ /dashboard/compliance/prohibited-items/appeals
+├ ƒ /dashboard/compliance/prohibited-items/appeals/[id]
+├ ƒ /dashboard/compliance/prohibited-items/enforcement
+├ ƒ /dashboard/compliance/prohibited-items/enforcement/[id]
+├ ƒ /dashboard/compliance/prohibited-items/policies
+├ ƒ /dashboard/compliance/prohibited-items/policies/[id]
+├ ƒ /dashboard/finance
+├ ƒ /dashboard/finance/deposits
+├ ƒ /dashboard/finance/gateway-transactions
+├ ƒ /dashboard/finance/live-pilot-training
+├ ƒ /dashboard/finance/live-webhook-monitor
+├ ƒ /dashboard/finance/payout-batches
+├ ƒ /dashboard/finance/payout-readiness
+├ ƒ /dashboard/finance/payouts
+├ ƒ /dashboard/finance/payouts/[id]
+├ ƒ /dashboard/finance/reconciliation
+├ ƒ /dashboard/finance/reconciliation/[id]
+├ ƒ /dashboard/finance/refund-readiness
+├ ƒ /dashboard/finance/refunds
+├ ƒ /dashboard/finance/refunds/[id]
+├ ƒ /dashboard/finance/settlements
+├ ƒ /dashboard/kyc
+├ ƒ /dashboard/privacy
+├ ƒ /dashboard/profile
+├ ƒ /dashboard/provider
+├ ƒ /dashboard/provider/bookings
+├ ƒ /dashboard/provider/bookings/[id]
+├ ƒ /dashboard/provider/bookings/[id]/claims
+├ ƒ /dashboard/provider/bookings/[id]/claims/new
+├ ƒ /dashboard/provider/bookings/[id]/inspection
+├ ƒ /dashboard/provider/bookings/[id]/return-inspection
+├ ƒ /dashboard/provider/bookings/[id]/turnover
+├ ƒ /dashboard/provider/ledger
+├ ƒ /dashboard/provider/listings
+├ ƒ /dashboard/provider/listings/[id]
+├ ƒ /dashboard/provider/listings/[id]/edit
+├ ƒ /dashboard/provider/listings/[id]/promote
+├ ƒ /dashboard/provider/listings/import
+├ ƒ /dashboard/provider/listings/new
+├ ƒ /dashboard/provider/marketing
+├ ƒ /dashboard/provider/onboarding-checklist
+├ ƒ /dashboard/provider/payouts
+├ ƒ /dashboard/provider/payouts/[id]/statement
+├ ƒ /dashboard/provider/social-accounts
+├ ƒ /dashboard/renter
+├ ƒ /dashboard/renter/bookings
+├ ƒ /dashboard/renter/bookings/[id]
+├ ƒ /dashboard/renter/bookings/[id]/claims
+├ ƒ /dashboard/renter/bookings/[id]/inspection
+├ ƒ /dashboard/renter/bookings/[id]/refund-request
+├ ƒ /dashboard/renter/onboarding-checklist
+├ ƒ /dashboard/renter/payments/[id]/receipt
+├ ƒ /dashboard/security
+├ ƒ /dashboard/social/accounts
+├ ƒ /dashboard/social/analytics
+├ ƒ /dashboard/social/approvals
+├ ƒ /dashboard/social/approvals/[id]
+├ ƒ /dashboard/social/content
+├ ƒ /dashboard/social/content/[postId]/edit
+├ ƒ /dashboard/social/content/new
+├ ƒ /dashboard/social/feedback
+├ ƒ /dashboard/social/feedback/[id]
+├ ƒ /dashboard/social/schedule
+├ ƒ /dashboard/super-admin
+├ ƒ /dashboard/super-admin/ai-logs
+├ ƒ /dashboard/super-admin/ai-settings
+├ ƒ /dashboard/super-admin/app-version
+├ ƒ /dashboard/super-admin/aws-deployment-dry-run
+├ ƒ /dashboard/super-admin/aws-operations-monitor
+├ ƒ /dashboard/super-admin/beta-categories
+├ ƒ /dashboard/super-admin/beta-controls
+├ ƒ /dashboard/super-admin/beta-dashboard
+├ ƒ /dashboard/super-admin/beta-invitations
+├ ƒ /dashboard/super-admin/beta-readiness
+├ ƒ /dashboard/super-admin/beta-users
+├ ƒ /dashboard/super-admin/data-cleanup
+├ ƒ /dashboard/super-admin/deposit-policy-review
+├ ƒ /dashboard/super-admin/finance-approval-settings
+├ ƒ /dashboard/super-admin/launch-categories
+├ ƒ /dashboard/super-admin/launch-controls
+├ ƒ /dashboard/super-admin/launch-monitor
+├ ƒ /dashboard/super-admin/legal-finance-review
+├ ƒ /dashboard/super-admin/legal-policy-readiness
+├ ƒ /dashboard/super-admin/live-payment-execution
+├ ƒ /dashboard/super-admin/live-payment-pilot
+├ ƒ /dashboard/super-admin/live-payment-runbook
+├ ƒ /dashboard/super-admin/live-pilot-smoke-test
+├ ƒ /dashboard/super-admin/live-pilot-training
+├ ƒ /dashboard/super-admin/marketing
+├ ƒ /dashboard/super-admin/mobile-readiness
+├ ƒ /dashboard/super-admin/payment-launch
+├ ƒ /dashboard/super-admin/payment-production-readiness
+├ ƒ /dashboard/super-admin/payment-readiness
+├ ƒ /dashboard/super-admin/paymongo-activation
+├ ƒ /dashboard/super-admin/phase19b-dry-run
+├ ƒ /dashboard/super-admin/pilot-participants
+├ ƒ /dashboard/super-admin/production-domain-readiness
+├ ƒ /dashboard/super-admin/release-candidate
+├ ƒ /dashboard/super-admin/reports
+├ ƒ /dashboard/super-admin/social-accounts
+├ ƒ /dashboard/super-admin/social-launch
+├ ƒ /dashboard/super-admin/social-readiness
+├ ƒ /dashboard/super-admin/system-backup
+├ ƒ /dashboard/super-admin/system-logs
+├ ƒ /dashboard/super-admin/v1-analytics
+├ ƒ /dashboard/super-admin/v1-launch
+├ ƒ /dashboard/super-admin/v1-smoke-test
+├ ƒ /feedback
+├ ƒ /forgot-password
+├ ƒ /help
+├ ƒ /help/ads-recommendations-transparency
+├ ƒ /help/complaints-appeals
+├ ƒ /help/intellectual-property
+├ ƒ /help/marketplace-safety
+├ ƒ /help/privacy
+├ ƒ /help/trust-safety-legal
+├ ƒ /help/trust-safety-legal/global-legal-compliance
+├ ƒ /how-it-works
+├ ƒ /install-app
+├ ƒ /listing/[id]
+├ ƒ /login
+├ ƒ /mfa-challenge
+├ ƒ /mfa-enroll
+├ ƒ /privacy
+├ ƒ /privacy/admin
+├ ƒ /privacy/cookies
+├ ƒ /privacy/request
+├ ƒ /prohibited-items
+├ ƒ /register
+├ ƒ /register/business
+├ ƒ /register/individual
+├ ƒ /reset-password
+├ ƒ /safety
+├ ƒ /support
+├ ƒ /terms
+├ ƒ /unauthorized
+└ ƒ /verify-email
+
+
+ƒ Proxy (Middleware)
+
+ƒ  (Dynamic)  server-rendered on demand
+

@@ -1,0 +1,21 @@
+node.exe : (node:17004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:5 char:1
++ & $taskNode24 --test tests/security/ui/soc-threat-map.react19.contrac ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:17004) Wa... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37948) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[32m✔ React 19 renders the bundled world, geography styles, graticule and projected threat marker [90m(933.4168ms)[39m[39m
+[32m✔ zoom buttons, pan gesture and reset preserve the controlled map view [90m(622.7497ms)[39m[39m
+[32m✔ empty and unauthorized states remain visible without fabricating markers [90m(264.835ms)[39m[39m
+[34mℹ tests 3[39m
+[34mℹ suites 0[39m
+[34mℹ pass 3[39m
+[34mℹ fail 0[39m
+[34mℹ cancelled 0[39m
+[34mℹ skipped 0[39m
+[34mℹ todo 0[39m
+[34mℹ duration_ms 31074.738[39m

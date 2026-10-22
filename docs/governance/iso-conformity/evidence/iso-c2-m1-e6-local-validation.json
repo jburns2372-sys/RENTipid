@@ -1,0 +1,180 @@
+{
+  "package": "ISO-C2-M1-E6",
+  "status": "BLOCKED",
+  "recordedAt": "2026-10-22T01:02:26.888Z",
+  "acceptedTechnical": "b91e90b304c7ac964223df41400f93ca863b6956",
+  "acceptedGovernance": "aebeb6c5325bd486fcd3e95f8ade3c5babeeec58",
+  "installedNodemailer": "7.0.7",
+  "lockedNodemailer": "7.0.7",
+  "selectedNodemailer": "10.2.0",
+  "nextAuth": "4.24.15",
+  "optionalPeer": "^7.0.7",
+  "candidateOverride": {
+    "next-auth@4.24.15": {
+      "nodemailer": "$nodemailer"
+    }
+  },
+  "cleanCi": {
+    "exit": 1,
+    "node": "24.22.0",
+    "code": "ERESOLVE",
+    "conflictingPackage": "react-simple-maps@3.0.0",
+    "expectedReact": "^16.8.0 || 17.x || 18.x",
+    "actualReact": "19.2.4",
+    "legacyPeerMode": false
+  },
+  "candidateResolution": "FAIL",
+  "candidateRestored": true,
+  "sourceModified": false,
+  "databaseModified": false,
+  "initialNoOpInheritedBaselineLegacySetting": true,
+  "actualGateExecuted": {
+    "command": "node scripts/security/check-ci-audit.cjs",
+    "exit": 1
+  },
+  "gateEvaluationFromPreservedRawReport": {
+    "pass": false,
+    "rawTotal": 29,
+    "rawCounts": {
+      "info": 0,
+      "low": 0,
+      "moderate": 19,
+      "high": 10,
+      "critical": 0
+    },
+    "effectiveCounts": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 1,
+      "critical": 0
+    },
+    "dispositionedCount": 28,
+    "dispositionedFindings": [
+      {
+        "name": "@istanbuljs/load-nyc-config",
+        "severity": "moderate"
+      },
+      {
+        "name": "@jest/core",
+        "severity": "moderate"
+      },
+      {
+        "name": "@jest/expect",
+        "severity": "moderate"
+      },
+      {
+        "name": "@jest/globals",
+        "severity": "moderate"
+      },
+      {
+        "name": "@jest/reporters",
+        "severity": "moderate"
+      },
+      {
+        "name": "@jest/transform",
+        "severity": "moderate"
+      },
+      {
+        "name": "@next/eslint-plugin-next",
+        "severity": "high"
+      },
+      {
+        "name": "@shadcn/registry",
+        "severity": "high"
+      },
+      {
+        "name": "@ts-morph/common",
+        "severity": "high"
+      },
+      {
+        "name": "argparse",
+        "severity": "moderate"
+      },
+      {
+        "name": "babel-jest",
+        "severity": "moderate"
+      },
+      {
+        "name": "babel-plugin-istanbul",
+        "severity": "moderate"
+      },
+      {
+        "name": "braces",
+        "severity": "high"
+      },
+      {
+        "name": "eslint-config-next",
+        "severity": "high"
+      },
+      {
+        "name": "fast-glob",
+        "severity": "high"
+      },
+      {
+        "name": "jest",
+        "severity": "moderate"
+      },
+      {
+        "name": "jest-circus",
+        "severity": "moderate"
+      },
+      {
+        "name": "jest-cli",
+        "severity": "moderate"
+      },
+      {
+        "name": "jest-config",
+        "severity": "moderate"
+      },
+      {
+        "name": "jest-resolve-dependencies",
+        "severity": "moderate"
+      },
+      {
+        "name": "jest-runner",
+        "severity": "moderate"
+      },
+      {
+        "name": "jest-runtime",
+        "severity": "moderate"
+      },
+      {
+        "name": "jest-snapshot",
+        "severity": "moderate"
+      },
+      {
+        "name": "js-yaml",
+        "severity": "moderate"
+      },
+      {
+        "name": "micromatch",
+        "severity": "high"
+      },
+      {
+        "name": "shadcn",
+        "severity": "high"
+      },
+      {
+        "name": "sprintf-js",
+        "severity": "moderate"
+      },
+      {
+        "name": "ts-morph",
+        "severity": "high"
+      }
+    ],
+    "rejected": 1,
+    "policy": "Phase5I-development-only-with-governed-dispositions"
+  },
+  "downstreamValidation": "NOT_RUN: stopped at clean dependency resolution blocker",
+  "technicalCommit": null,
+  "governanceCommit": null,
+  "push": "NOT_RUN",
+  "residualRiskAccepted": false,
+  "hashes": {
+    "package.json": "113353fb8bc4a8b4257b61c8f4c7b1872a13bd6c7aa7ae9739743aa6af8c3e58",
+    "package-lock.json": "89308e3d0971f7e0e50f724ded93a96f441179acf8c00f887a6d629164ba83d4",
+    ".npmrc": "396ca02c1af47fc6fb7222d4378a4fc797a91f814b39631da305410f73926592"
+  }
+}

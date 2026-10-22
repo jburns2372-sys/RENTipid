@@ -4,21 +4,21 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "M1 tooling dispositions, deepmerge/d3 resolution, and nodemailer remediation design",
+  "phaseName": "M1 E6-P1 React 19 map peer prerequisite resolved",
   "status": "PASS",
-  "phaseGate": "E5 SUBPACKAGE VALIDATION PASS — REMEDIATION DESIGN COMPLETED",
-  "timestamp": "2026-10-22T04:10:00.000Z",
+  "phaseGate": "E6-P1 PASS - OVERALL M1 BLOCKED; NODEMAILER E6 PENDING",
+  "timestamp": "2026-10-22T01:24:45.614Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
-    "headSha": "c2860905efd51e711bf3c430354a078ed7b81f7d",
+    "headSha": "b77b9404672583347cf43746af29f67da2a986bd",
     "acceptedIsoC1Sha": "a6c6258cc6606c04d2a24574cb1f9f06d09c2aea",
     "projectOwnerDecisionSha": "c2860905efd51e711bf3c430354a078ed7b81f7d",
     "applicationCommitSha": "83b8f4dabadc243b01ab8e5f50746bf281ecf62b",
-    "governanceCommitSha": "c2860905efd51e711bf3c430354a078ed7b81f7d",
+    "governanceCommitSha": "aebeb6c5325bd486fcd3e95f8ade3c5babeeec58",
     "worktreeClean": false,
-    "worktreeStateNote": "E5 technical remediations and governance designs verified; checkpoint commit sequence ready.",
-    "technicalCommitSha": "d012cdb982f86b34a3d7ed306743dc222584a287"
+    "worktreeStateNote": "Captured after P1 technical commit, before governance checkpoint; preserved E6 evidence and P1 governance pending this commit. Final cleanliness verified separately.",
+    "technicalCommitSha": "b77b9404672583347cf43746af29f67da2a986bd"
   },
   "scope": {
     "proposedScope": "Design, development, operation, maintenance, security, privacy management, support, and continual improvement of the RENTipid global rental marketplace and its supporting information systems, cloud infrastructure, data processing services, and relevant operational processes.",
@@ -166,11 +166,11 @@
     {
       "id": "BLK-M1-E3-SEC-01",
       "type": "SECURITY_REMEDIATION_BLOCKER",
-      "description": "SECURITY REMEDIATION BLOCKER: resolve unpatched braces/sprintf-js chains and approve compatibility work for Nodemailer, Prisma/deepmerge-ts and d3-color before CI can pass.",
-      "status": "OPEN — AUDIT FAIL; NO EXEMPTION"
+      "description": "E6-P1 map peer prerequisite resolved. E5 D3/deepmerge fixes and narrow tooling dispositions retained. Nodemailer E6 pending; strict effective High includes Nodemailer and its NextAuth aggregate. No new map advisory.",
+      "status": "OPEN - NODEMAILER E6 PENDING"
     }
   ],
-  "nextRecommendedPackage": "Resolve exact E3 security blockers; no next C2 remediation wave or required-check activation",
+  "nextRecommendedPackage": "RESUME ISO-C2-M1-E6 NODEMAILER REMEDIATION",
   "independentReviewHistory": [
     {
       "workPackage": "ISO-C0-R1",
@@ -873,5 +873,434 @@
     "riskScoreChanged": false,
     "residualRiskAccepted": false,
     "nextAction": "ISO-C2-M1-E6 — EXECUTE NODEMAILER REMEDIATION OPTION B (TARGETED 10.2.0 UPGRADE & AUDIT CLOSURE)"
+  },
+  "nodemailer10xRemediation": {
+    "package": "ISO-C2-M1-E6",
+    "status": "BLOCKED",
+    "recordedAt": "2026-10-22T01:02:26.888Z",
+    "acceptedTechnical": "b91e90b304c7ac964223df41400f93ca863b6956",
+    "acceptedGovernance": "aebeb6c5325bd486fcd3e95f8ade3c5babeeec58",
+    "installedNodemailer": "7.0.7",
+    "lockedNodemailer": "7.0.7",
+    "selectedNodemailer": "10.2.0",
+    "nextAuth": "4.24.15",
+    "optionalPeer": "^7.0.7",
+    "candidateOverride": {
+      "next-auth@4.24.15": {
+        "nodemailer": "$nodemailer"
+      }
+    },
+    "cleanCi": {
+      "exit": 1,
+      "node": "24.22.0",
+      "code": "ERESOLVE",
+      "conflictingPackage": "react-simple-maps@3.0.0",
+      "expectedReact": "^16.8.0 || 17.x || 18.x",
+      "actualReact": "19.2.4",
+      "legacyPeerMode": false
+    },
+    "candidateResolution": "FAIL",
+    "candidateRestored": true,
+    "sourceModified": false,
+    "databaseModified": false,
+    "initialNoOpInheritedBaselineLegacySetting": true,
+    "actualGateExecuted": {
+      "command": "node scripts/security/check-ci-audit.cjs",
+      "exit": 1
+    },
+    "gateEvaluationFromPreservedRawReport": {
+      "pass": false,
+      "rawTotal": 29,
+      "rawCounts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 19,
+        "high": 10,
+        "critical": 0
+      },
+      "effectiveCounts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 1,
+        "critical": 0
+      },
+      "dispositionedCount": 28,
+      "dispositionedFindings": [
+        {
+          "name": "@istanbuljs/load-nyc-config",
+          "severity": "moderate"
+        },
+        {
+          "name": "@jest/core",
+          "severity": "moderate"
+        },
+        {
+          "name": "@jest/expect",
+          "severity": "moderate"
+        },
+        {
+          "name": "@jest/globals",
+          "severity": "moderate"
+        },
+        {
+          "name": "@jest/reporters",
+          "severity": "moderate"
+        },
+        {
+          "name": "@jest/transform",
+          "severity": "moderate"
+        },
+        {
+          "name": "@next/eslint-plugin-next",
+          "severity": "high"
+        },
+        {
+          "name": "@shadcn/registry",
+          "severity": "high"
+        },
+        {
+          "name": "@ts-morph/common",
+          "severity": "high"
+        },
+        {
+          "name": "argparse",
+          "severity": "moderate"
+        },
+        {
+          "name": "babel-jest",
+          "severity": "moderate"
+        },
+        {
+          "name": "babel-plugin-istanbul",
+          "severity": "moderate"
+        },
+        {
+          "name": "braces",
+          "severity": "high"
+        },
+        {
+          "name": "eslint-config-next",
+          "severity": "high"
+        },
+        {
+          "name": "fast-glob",
+          "severity": "high"
+        },
+        {
+          "name": "jest",
+          "severity": "moderate"
+        },
+        {
+          "name": "jest-circus",
+          "severity": "moderate"
+        },
+        {
+          "name": "jest-cli",
+          "severity": "moderate"
+        },
+        {
+          "name": "jest-config",
+          "severity": "moderate"
+        },
+        {
+          "name": "jest-resolve-dependencies",
+          "severity": "moderate"
+        },
+        {
+          "name": "jest-runner",
+          "severity": "moderate"
+        },
+        {
+          "name": "jest-runtime",
+          "severity": "moderate"
+        },
+        {
+          "name": "jest-snapshot",
+          "severity": "moderate"
+        },
+        {
+          "name": "js-yaml",
+          "severity": "moderate"
+        },
+        {
+          "name": "micromatch",
+          "severity": "high"
+        },
+        {
+          "name": "shadcn",
+          "severity": "high"
+        },
+        {
+          "name": "sprintf-js",
+          "severity": "moderate"
+        },
+        {
+          "name": "ts-morph",
+          "severity": "high"
+        }
+      ],
+      "rejected": 1,
+      "policy": "Phase5I-development-only-with-governed-dispositions"
+    },
+    "downstreamValidation": "NOT_RUN: stopped at clean dependency resolution blocker",
+    "technicalCommit": null,
+    "governanceCommit": null,
+    "push": "NOT_RUN",
+    "residualRiskAccepted": false,
+    "hashes": {
+      "package.json": "113353fb8bc4a8b4257b61c8f4c7b1872a13bd6c7aa7ae9739743aa6af8c3e58",
+      "package-lock.json": "89308e3d0971f7e0e50f724ded93a96f441179acf8c00f887a6d629164ba83d4",
+      ".npmrc": "396ca02c1af47fc6fb7222d4378a4fc797a91f814b39631da305410f73926592"
+    },
+    "evidenceDocument": "ISO_C2_M1_NODEMAILER_10X_REMEDIATION_EVIDENCE.md",
+    "riskStatus": "PARTIAL - REMEDIATION IN PROGRESS",
+    "ownerDecisionRequired": false,
+    "nextAction": "RESUME ISO-C2-M1-E6 NODEMAILER REMEDIATION",
+    "lifecycle": {
+      "codeComplete": "BLOCKED",
+      "localFunctional": "BLOCKED",
+      "localAcceptance": "BLOCKED",
+      "localDatabaseMigrated": "PASS REUSED / UNAFFECTED",
+      "localRequiredDataSeededSynced": "PASS REUSED / UNAFFECTED",
+      "previewAcceptance": "REQUIRED LATER",
+      "productionVerification": "REQUIRED LATER"
+    },
+    "prisma": "PASS REUSED / UNAFFECTED",
+    "d3": "PASS REUSED / UNAFFECTED",
+    "mapPeerBlockerResolved": true
+  },
+  "mapReact19Prerequisite": {
+    "package": "ISO-C2-M1-E6-P1",
+    "status": "PASS",
+    "executor": "CODEX",
+    "recordedAt": "2026-10-22T01:24:45.578Z",
+    "versions": {
+      "react": {
+        "before": "19.2.4",
+        "after": "19.2.4"
+      },
+      "react-dom": {
+        "before": "19.2.4",
+        "after": "19.2.4"
+      },
+      "react-simple-maps": {
+        "before": "3.0.0",
+        "after": "5.0.5"
+      },
+      "d3-color": {
+        "before": "3.1.0",
+        "after": "3.1.0"
+      },
+      "d3-interpolate": {
+        "before": "2.0.1",
+        "after": "3.0.1"
+      },
+      "d3-zoom": {
+        "before": "2.0.0",
+        "after": "3.0.0"
+      },
+      "d3-geo": {
+        "before": "2.0.2",
+        "after": "3.1.1"
+      }
+    },
+    "versionChanges": [
+      {
+        "path": "node_modules/@opentelemetry/api",
+        "before": "1.10.0",
+        "after": "1.9.1"
+      },
+      {
+        "path": "node_modules/@types/d3-geo",
+        "before": "2.0.7",
+        "after": null
+      },
+      {
+        "path": "node_modules/@types/d3-zoom",
+        "before": "2.0.7",
+        "after": null
+      },
+      {
+        "path": "node_modules/@types/react-simple-maps",
+        "before": "3.0.6",
+        "after": null
+      },
+      {
+        "path": "node_modules/d3-array",
+        "before": "2.12.1",
+        "after": "3.2.4"
+      },
+      {
+        "path": "node_modules/d3-dispatch",
+        "before": "2.0.0",
+        "after": "3.0.1"
+      },
+      {
+        "path": "node_modules/d3-drag",
+        "before": "2.0.0",
+        "after": "3.0.0"
+      },
+      {
+        "path": "node_modules/d3-ease",
+        "before": "2.0.0",
+        "after": "3.0.1"
+      },
+      {
+        "path": "node_modules/d3-geo",
+        "before": "2.0.2",
+        "after": "3.1.1"
+      },
+      {
+        "path": "node_modules/d3-interpolate",
+        "before": "2.0.1",
+        "after": "3.0.1"
+      },
+      {
+        "path": "node_modules/d3-selection",
+        "before": "2.0.0",
+        "after": "3.0.0"
+      },
+      {
+        "path": "node_modules/d3-timer",
+        "before": "2.0.0",
+        "after": "3.0.1"
+      },
+      {
+        "path": "node_modules/d3-transition",
+        "before": "2.0.0",
+        "after": "3.0.1"
+      },
+      {
+        "path": "node_modules/d3-zoom",
+        "before": "2.0.0",
+        "after": "3.0.0"
+      },
+      {
+        "path": "node_modules/internmap",
+        "before": "1.0.1",
+        "after": "2.0.3"
+      },
+      {
+        "path": "node_modules/react-simple-maps",
+        "before": "3.0.0",
+        "after": "5.0.5"
+      },
+      {
+        "path": "node_modules/@types/topojson-specification",
+        "before": null,
+        "after": "1.0.5"
+      },
+      {
+        "path": "node_modules/react-simple-maps/node_modules/@types/d3-geo",
+        "before": null,
+        "after": "3.1.1"
+      },
+      {
+        "path": "node_modules/react-simple-maps/node_modules/@types/d3-zoom",
+        "before": null,
+        "after": "3.0.9"
+      }
+    ],
+    "oldReactPeer": "^16.8.0 || 17.x || 18.x",
+    "newReactPeer": "^16.8.0 || 17.x || 18.x || 19.x",
+    "node": "24.22.0",
+    "npm": "10.9.7",
+    "strictResolution": {
+      "exit": 0,
+      "legacyPeerMode": false,
+      "initialShellNode": "22.22.2 (engine warning; clean acceptance used Node 24)"
+    },
+    "cleanCi": {
+      "exit": 0,
+      "node": "24.22.0",
+      "legacyPeerMode": false,
+      "envFilesCopied": false,
+      "sharedNodeModulesModified": false
+    },
+    "npmLsAll": {
+      "exit": 0,
+      "invalidPeers": [],
+      "optionalWasmExtraneous": [
+        "extraneous: @emnapi/runtime@1.11.3 C:\\Users\\user\\Documents\\JD SOFTWARE PROJECTS\\RENTipid-GLOBAL-MKT-V2\\.rentipid-sandbox\\iso-c2-m1-e6-p1\\node_modules\\@emnapi\\runtime",
+        "extraneous: @img/sharp-wasm32@0.35.5 C:\\Users\\user\\Documents\\JD SOFTWARE PROJECTS\\RENTipid-GLOBAL-MKT-V2\\.rentipid-sandbox\\iso-c2-m1-e6-p1\\node_modules\\@img\\sharp-wasm32"
+      ]
+    },
+    "mapTests": {
+      "exit": 0,
+      "pass": 3,
+      "fail": 0,
+      "skipped": 0,
+      "actualPackage": true
+    },
+    "typecheck": {
+      "firstExit": 2,
+      "reason": "fresh install missing generated Prisma client",
+      "correction": "standard build Prisma generate step; no database operation",
+      "finalExit": 0
+    },
+    "normalBuild": {
+      "exit": 1,
+      "reason": "Turbopack inferred parent root and rejected pre-existing external node_modules junction"
+    },
+    "webpackBuild": {
+      "exit": 0,
+      "staticPages": 79,
+      "compiledCssInteractionSelectors": {
+        "hover": true,
+        "focus": true,
+        "active": true
+      },
+      "normalBuildFailurePreserved": true
+    },
+    "audit": {
+      "strictBaseline": {
+        "critical": 0,
+        "high": 11,
+        "moderate": 20
+      },
+      "strictCandidate": {
+        "critical": 0,
+        "high": 11,
+        "moderate": 20
+      },
+      "newAdvisoryPackages": [],
+      "newRuntimeCriticalHigh": [],
+      "strictPolicyEffective": {
+        "critical": 0,
+        "high": 2,
+        "moderate": 0
+      },
+      "remainingHigh": [
+        "nodemailer",
+        "next-auth (propagated Nodemailer peer)"
+      ],
+      "policyModified": false
+    },
+    "databaseModified": false,
+    "overallM1": "BLOCKED - NODEMAILER E6 PENDING",
+    "technicalCommit": "b77b9404672583347cf43746af29f67da2a986bd",
+    "push": "TO_EXECUTE_AFTER_CHECKPOINT",
+    "fingerprints": {
+      "package.json": "a1591e9fdecced66d93e01988f764cf9c079fbe70d1ed0cb339604b9add370aa",
+      "package-lock.json": "ab901145cf42b29e3f05bbb3b9f6a790c06692dad3e57c84aff3826855807100",
+      "src/components/security/dashboard/SocThreatMap.tsx": "09241171da90ce950f2dcad7c883e384dfbc90045277d63b7fd27012f51510a6",
+      "tests/security/ui/soc-threat-map.react19.contract.cjs": "8b0f0f9ac998a403500c5c69f60ccf05c4811cf98604a8e4bc34ced9c2314989"
+    },
+    "telemetryNormalizationSmoke": {
+      "pass": true,
+      "networkStarted": false
+    },
+    "governanceCommit": "containing evidence commit",
+    "lifecycle": {
+      "codeComplete": "PASS EXECUTED",
+      "localFunctional": "PASS EXECUTED - MAP DELTA",
+      "databaseMigrated": "PASS REUSED / UNAFFECTED",
+      "requiredDataSeededSynced": "PASS REUSED / UNAFFECTED",
+      "overallM1LocalAcceptance": "BLOCKED - NODEMAILER E6 PENDING",
+      "preview": "REQUIRED LATER",
+      "production": "REQUIRED LATER"
+    },
+    "evidenceDocument": "ISO_C2_M1_REACT_SIMPLE_MAPS_REACT19_REMEDIATION.md"
   }
 }
