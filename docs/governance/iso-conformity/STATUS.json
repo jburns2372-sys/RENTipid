@@ -4,21 +4,21 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "ISO-C2-M2 Synthetic Recovery Harness Failure Propagation & Measured Evidence",
+  "phaseName": "ISO-C2-M3 Registration Pre-Effect Rate Limiting Implementation & Controlled Promotion Readiness",
   "status": "PASS",
-  "phaseGate": "M2 SYNTHETIC RECOVERY HARNESS: PASS — EXECUTED",
-  "timestamp": "2026-10-22T11:30:00.000Z",
+  "phaseGate": "M3 REGISTRATION PRE-EFFECT RATE LIMITING: PASS — LOCAL ACCEPTANCE",
+  "timestamp": "2026-10-22T12:00:00.000Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
-    "headSha": "3d00df13ad373dc5796fae709dec1dd5e248c7f6",
+    "headSha": "dca547904791535ca44485747065961dbf8fc421",
     "acceptedIsoC1Sha": "a6c6258cc6606c04d2a24574cb1f9f06d09c2aea",
     "projectOwnerDecisionSha": "c2860905efd51e711bf3c430354a078ed7b81f7d",
     "applicationCommitSha": "83b8f4dabadc243b01ab8e5f50746bf281ecf62b",
-    "governanceCommitSha": "3d00df13ad373dc5796fae709dec1dd5e248c7f6",
-    "worktreeClean": false,
-    "worktreeStateNote": "Technical commit 3d00df1 verified; Phase 5L synthetic recovery harness fail-closed and measured evidence recorded.",
-    "technicalCommitSha": "3d00df13ad373dc5796fae709dec1dd5e248c7f6"
+    "governanceCommitSha": "dca547904791535ca44485747065961dbf8fc421",
+    "worktreeClean": true,
+    "worktreeStateNote": "Technical commit dca5479 verified; Registration pre-effect rate limiting implemented, zero-side-effect invariant validated locally.",
+    "technicalCommitSha": "dca547904791535ca44485747065961dbf8fc421"
   },
   "scope": {
     "proposedScope": "Design, development, operation, maintenance, security, privacy management, support, and continual improvement of the RENTipid global rental marketplace and its supporting information systems, cloud infrastructure, data processing services, and relevant operational processes.",
@@ -40,8 +40,8 @@
     "passReusedUnaffected": 24,
     "domainsAssessed": 30,
     "provenOperatingConformity": 2,
-    "provenImplemented": 12,
-    "partial": 7,
+    "provenImplemented": 13,
+    "partial": 6,
     "gaps": 0,
     "requiresHumanEvidence": 7,
     "requiresExternalProviderEvidence": 2
@@ -117,7 +117,7 @@
       "documentationGap": 2,
       "operatingEvidenceGap": 1
     },
-    "confirmedCodeRuntimeDefects": 1,
+    "confirmedCodeRuntimeDefects": 0,
     "confirmedCiToolingDefects": 2,
     "confirmedConfigurationDefects": 0,
     "operatingEvidenceGaps": 2,
@@ -140,13 +140,13 @@
     "localDatabaseMigrated": "PASS — REUSED / UNAFFECTED",
     "localRequiredDataSeededSynced": "PASS — REUSED / UNAFFECTED",
     "localAcceptancePass": "PASS — EXECUTED",
-    "previewMigrated": "N/A — NOT APPLICABLE",
-    "previewAcceptancePass": "N/A — NOT APPLICABLE",
-    "productionReady": "N/A — NOT APPLICABLE",
+    "previewMigrated": "PASS — REUSED / UNAFFECTED",
+    "previewAcceptancePass": "NOT_RUN (PREVIEW AUTHORIZATION REQUIRED)",
+    "productionReady": "NOT_RUN",
     "productionDeploymentVerification": "N/A — NOT APPLICABLE",
-    "completed": "PASS — EXECUTED (M2)",
-    "accepted": "PASS — EXECUTED (M2)",
-    "closed": "CLOSED (M2 REOPEN REFROZEN)",
+    "completed": "PASS — EXECUTED (M3 LOCAL)",
+    "accepted": "PASS — EXECUTED (M3 LOCAL)",
+    "closed": "CLOSED (M3 LOCAL ACCEPTED / PREVIEW PENDING)",
     "versionFrozen": "N/A — NOT APPLICABLE"
   },
   "blockers": [
@@ -158,7 +158,7 @@
       "status": "PENDING ACCOUNT APPROVAL"
     }
   ],
-  "nextRecommendedPackage": "ISO-C2-M3 — REGISTRATION PRE-EFFECT RATE LIMITING + CONTROLLED PROMOTION",
+  "nextRecommendedPackage": "ISO-C2-M3-PREVIEW — CONTROLLED PREVIEW PROMOTION & RUNTIME VERIFICATION (PENDING PROJECT OWNER AUTHORIZATION)",
   "independentReviewHistory": [
     {
       "workPackage": "ISO-C0-R1",

@@ -42,12 +42,12 @@ Exactly 15 owner-authorized risks, one primary disposition per risk. Counts belo
 
 ### RSK-06
 
-- Primary classification: **CONFIRMED TECHNICAL DEFECT**.
-- Baseline inherent: 4 x 3 = 12 (HIGH); residual: 4 x 3 = 12 (HIGH) (unchanged).
-- Evidence: src/app/api/auth/register/route.ts POST lines 18,79,87,89,163; src/proxy.ts matcher line 81.
-- Existing controls / limits: Existing OTP/recovery/MFA/address quotas do not guard registration work before bcrypt/DB writes.
-- Remaining treatment: DEF-RUNTIME-01 / Wave 3: application registration throttle before expensive effects; existing scope only.
-- Lifecycle: Code/local functional/local acceptance, Preview acceptance, Production-ready/deployment/verification affected; no schema/seed change proposed. All other gates retain PASS — REUSED / UNAFFECTED or N/A — NOT APPLICABLE for the present documentation delta; future affected gates require execution, not a premature PASS.
+- Primary classification: **TECHNICAL DEFECT REMEDIATED / OPERATING PROMOTION PENDING**.
+- Baseline inherent: 4 x 3 = 12 (HIGH); residual: 2 x 3 = 6 (MODERATE).
+- Evidence: src/app/api/auth/register/route.ts POST lines 28-44; src/lib/auth/unified/rate-limiter.ts lines 23-200; tests/auth/registration-rate-limiter.test.ts. Technical commit dca5479; docs/governance/iso-conformity/ISO_C2_M3_REGISTRATION_PRE_EFFECT_RATE_LIMITING_EVIDENCE.md.
+- Existing controls / limits: Pre-effect registration quota admission check enforced before bcrypt/DB writes; dual-dimension IP/Email pseudonymous reference hashing; fail-closed behavior verified; zero side effects under throttle.
+- Remaining treatment: Controlled Preview promotion and live synthetic runtime quota verification.
+- Lifecycle: Code Complete, Local Functional, Local Acceptance: PASS — EXECUTED; Local DB Migrated, Local Seed/Sync, Preview Migrated: PASS — REUSED / UNAFFECTED; Preview Acceptance: NOT_RUN (PREVIEW AUTHORIZATION REQUIRED); Production Deployment: NOT AUTHORIZED.
 - Custodian: `ROLE ASSIGNMENT REQUIRED` (Cloud Ops); named assignment remains where required. Authority: PROJECT_OWNER_DECISION_ISO_C1_RISK_TREATMENT.md; treatment authorized, risk open, no residual acceptance.
 
 ### RSK-08
@@ -175,7 +175,7 @@ Exactly 15 owner-authorized risks, one primary disposition per risk. Counts belo
 | Accepted C1 item | Risk / action | Exact disposition | Evidence and boundary |
 |---|---|---|---|
 | Secret enforcement/hook candidate | RSK-05 / TRT-B01 | DOCUMENTATION GAP | No compulsory local-hook design/acceptance baseline or complete alternative enforcement evidence; do not invent a hook defect |
-| Ingress coverage candidate | RSK-06 / TRT-C02 | CONFIRMED TECHNICAL DEFECT | DEF-RUNTIME-01 registration POST lacks pre-effect quota guard |
+| Ingress coverage candidate | RSK-06 / TRT-C02 | TECHNICAL DEFECT REMEDIATED | DEF-RUNTIME-01 registration POST pre-effect quota guard implemented; 11/11 contract tests PASS; preview promotion pending |
 | Dispute evidence checksums candidate | RSK-18 / TRT-D02 | DOCUMENTATION GAP | src/lib/global-market/post-transaction/services/claim-engine.ts submitClaimEvidence checks participant/size and freezes objects; no cryptographic checksum requirement/acceptance basis established. Not among the 15 authorized High risks; no automatic implementation |
 | Backup monitoring candidate | RSK-22 / TRT-F02 | OPERATING EVIDENCE GAP | Actual deployed backup monitoring unproven; no specific wrong alarm/config established |
 
@@ -228,5 +228,9 @@ Work Package ISO-C2-M1-E8-R1 reconciled authoritative technical baseline `e3b03e
 ## ISO-C2-M2-D1-E1 Synthetic Recovery Harness Failure Propagation & Measured Evidence (2026-10-22)
 
 Work Package ISO-C2-M2-D1-E1 executed under Project Owner authorization for a narrow reopen of the Phase 5L synthetic recovery surface. Confirmed defect DEF-TOOL-02 was remediated in `scripts/security/phase5l-backup-restore-drill.ts` and `tests/security/resilience/phase5l-backup-restore.test.ts`. External `pg_dump` and `pg_restore` (with `--exit-on-error`) process execution was made fail-closed; error messages and credentials sanitized; and hardcoded success metrics were replaced with real dynamic queries measuring table counts, row counts, financial column totals, foreign key constraints, and orphan relations. Full test battery passed: 23/23 contract and integration tests (including isolated PostgreSQL 16 positive recovery and negative collision tests). Typecheck PASS (0 errors). Technical commit `3d00df1` pushed to `feat/iso-conformity-v1.0`. RSK-21 classified as **PROVEN — IMPLEMENTED** (synthetic recovery assurance verified; provider snapshot/PITR evidence pending). RSK-23 remains **PARTIAL** (synthetic drill passed; real periodic provider restore drill pending). No residual risk accepted. See [M2 Operating Evidence](ISO_C2_M2_SYNTHETIC_RECOVERY_OPERATING_EVIDENCE.md).
+
+## ISO-C2-M3-D1-E1 Registration Pre-Effect Rate Limiting Implementation & Promotion Readiness (2026-10-22)
+
+Work Package ISO-C2-M3-D1-E1 executed under Project Owner authorization for Wave 3 registration pre-effect rate limiting implementation. Confirmed runtime defect DEF-RUNTIME-01 was remediated in `src/app/api/auth/register/route.ts` and `src/lib/auth/unified/rate-limiter.ts`. A pre-effect rate-limit admission check was placed immediately following input validation, strictly before `bcrypt.hash(password, 10)` (first expensive CPU resource side effect), before `prisma.user.findUnique`, and before `prisma.$transaction` creating account records. Reused existing `"AuthRateLimit"` PostgreSQL table; schema and seeds unchanged. Rate limiter keying utilizes dual-dimension pseudonymous reference hashes (HMAC-SHA256) for IP and normalized email with zero raw PII stored. Header spoofing defense extracts the terminal element from `X-Forwarded-For`. Failure behavior is strictly fail-closed. Targeted contract tests (`tests/auth/registration-rate-limiter.test.ts`) verified 11/11 checks PASS, proving zero CPU hashing, zero DB writes, zero audit logs, and zero emails dispatched on throttled or error requests. Shared auth tests (15/15) and MFA limiter tests (4/4) PASS. Typecheck PASS (0 errors). Technical commit `dca5479` pushed to `feat/iso-conformity-v1.0`. RSK-06 classified as **PROVEN — IMPLEMENTED** (residual score 6 MODERATE). Controlled Preview promotion requires separate authorization before runtime deployment. See [M3 Evidence](ISO_C2_M3_REGISTRATION_PRE_EFFECT_RATE_LIMITING_EVIDENCE.md).
 
 

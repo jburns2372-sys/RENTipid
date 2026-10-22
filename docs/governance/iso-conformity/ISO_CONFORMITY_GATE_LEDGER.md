@@ -293,4 +293,24 @@ Work Package ISO-C2-M1-E8-R1 reconciled authoritative technical baseline `e3b03e
 
 Work Package ISO-C2-M2-D1-E1 remediated DEF-TOOL-02 under explicit Project Owner authorization. Implemented fail-closed process execution for `pg_dump` and `pg_restore` (with `--exit-on-error`), credential sanitization, and true measured source-vs-target database state metrics (tables, rows, financial sums, foreign key relations, orphan relations, SHA-256 fingerprints). Executed isolated PostgreSQL 16 positive recovery (85 rows, 2,725,000.00 financial sum, 0 differences) and negative failure propagation (exit 1 on collision) alongside 21 unit/contract tests (23/23 PASS). Typecheck PASS (0 errors). Technical commit `3d00df1` pushed to `feat/iso-conformity-v1.0`. RSK-21 classified as PROVEN — IMPLEMENTED. RSK-23 remains PARTIAL. Phase 5L synthetic recovery surface marked CORRECTED / ACCEPTED FOR M2 EVIDENCE and authorized reopen closed / refrozen. See [M2 Operating Evidence](ISO_C2_M2_SYNTHETIC_RECOVERY_OPERATING_EVIDENCE.md).
 
+## 15. ISO-C2-M3-D1-E1 Registration Pre-Effect Rate Limiting Implementation & Promotion Readiness (2026-10-22)
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — EXECUTED |
+| localFunctional | PASS — EXECUTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — EXECUTED |
+| previewMigrated | PASS — REUSED / UNAFFECTED |
+| previewAcceptancePass | NOT_RUN (PREVIEW AUTHORIZATION REQUIRED) |
+| productionReady | NOT_RUN |
+| productionDeploymentVerification | N/A — NOT APPLICABLE |
+| completed | PASS — EXECUTED (M3 LOCAL) |
+| accepted | PASS — EXECUTED (M3 LOCAL) |
+| closed | CLOSED (M3 LOCAL ACCEPTED / PREVIEW PENDING) |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Work Package ISO-C2-M3-D1-E1 remediated DEF-RUNTIME-01 / TRT-C02 under explicit Project Owner authorization. Implemented pre-effect registration rate limiting in `src/app/api/auth/register/route.ts` and `src/lib/auth/unified/rate-limiter.ts` executing immediately following input validation and strictly preceding `bcrypt.hash(password, 10)` (first expensive CPU resource side effect), before `prisma.user.findUnique`, and before `prisma.$transaction` creating account records. Reused existing `"AuthRateLimit"` PostgreSQL table; schema and seeds unchanged. Rate limiter keying utilizes dual-dimension pseudonymous reference hashes (HMAC-SHA256) for IP and normalized email with zero raw PII stored. Header spoofing defense extracts the terminal element from `X-Forwarded-For`. Failure behavior is strictly fail-closed. Targeted contract tests (`tests/auth/registration-rate-limiter.test.ts`) verified 11/11 checks PASS, proving zero CPU hashing, zero DB writes, zero audit logs, and zero emails dispatched on throttled or error requests. Shared auth tests (15/15) and MFA limiter tests (4/4) PASS. Typecheck PASS (0 errors). Technical commit `dca5479` pushed to `feat/iso-conformity-v1.0`. RSK-06 classified as PROVEN — IMPLEMENTED (residual score 6 MODERATE). Controlled Preview promotion requires separate authorization before runtime deployment. See [M3 Evidence](ISO_C2_M3_REGISTRATION_PRE_EFFECT_RATE_LIMITING_EVIDENCE.md).
+
 
