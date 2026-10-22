@@ -19,10 +19,12 @@ test('ephemeral service and step-scoped guarded schema/test setup', () => {
   assert.deepEqual(scoped.map(step => step.name), ['Prepare Ephemeral CI Test Schema', 'Focused Tests']);
   for (const step of scoped) {
     assert.equal(step.env.ALLOW_TEST_DATABASE_MUTATION, 'true');
+    assert.equal(step.shell, 'bash scripts/db/run-ci-database-step.sh {0}');
+    assert.equal(step.env.CI_POSTGRES_CONTAINER, '${{ job.services.postgres.id }}');
     assert.equal(step.env.DATABASE_URL, step.env.DIRECT_URL);
     assert.match(step.env.DATABASE_URL, /^postgresql:\/\/rentipid_test_user:ci_test_only@127\.0\.0\.1:\$\{\{ job.services.postgres.ports\[5432\] \}\}\/rentipid_test_soc\?schema=public$/);
   }
-  assert.match(scoped[0].run, /npm run test:db:migrate\s+npx prisma generate/);
+  assert.match(scoped[0].run, /npm run test:db:guard\s+npm run db:install\s+npx prisma generate/);
   assert.equal(scoped[1].run, 'npm run test:soc:integration');
   const role = job.steps.find(step => step.name === 'Create Restricted CI Test Role');
   assert.match(role.run, /NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS/);

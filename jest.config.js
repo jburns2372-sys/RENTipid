@@ -8,7 +8,7 @@ const config = {
   coverageProvider: 'v8',
   testEnvironment: 'node',
   setupFiles: ['<rootDir>/tests/setup.ts'],
-  testPathIgnorePatterns: ['/node_modules/', '/tests/e2e/'],
+  testPathIgnorePatterns: ['/node_modules/', '/tests/e2e/', '/.rentipid-sandbox/'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },

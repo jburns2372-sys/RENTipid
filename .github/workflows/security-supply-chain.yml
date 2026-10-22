@@ -61,19 +61,25 @@ jobs:
           SQL
 
       - name: Prepare Ephemeral CI Test Schema
+        shell: bash scripts/db/run-ci-database-step.sh {0}
         env:
+          CI_POSTGRES_CONTAINER: ${{ job.services.postgres.id }}
           DATABASE_URL: postgresql://rentipid_test_user:ci_test_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/rentipid_test_soc?schema=public
           DIRECT_URL: postgresql://rentipid_test_user:ci_test_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/rentipid_test_soc?schema=public
           ALLOW_TEST_DATABASE_MUTATION: 'true'
         run: |
-          npm run test:db:migrate
+          npm run test:db:guard
+          npm run db:install
           npx prisma generate
+          node scripts/db/verify-fresh-install.cjs
 
       - name: CI Test Database Safety Contract
-        run: node --test tests/security/iso-c2-m1-ci-database.contract.cjs
+        run: node --test tests/security/iso-c2-m1-ci-database.contract.cjs tests/security/iso-c2-m1-installation.contract.cjs
 
       - name: Focused Tests
+        shell: bash scripts/db/run-ci-database-step.sh {0}
         env:
+          CI_POSTGRES_CONTAINER: ${{ job.services.postgres.id }}
           DATABASE_URL: postgresql://rentipid_test_user:ci_test_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/rentipid_test_soc?schema=public
           DIRECT_URL: postgresql://rentipid_test_user:ci_test_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/rentipid_test_soc?schema=public
           ALLOW_TEST_DATABASE_MUTATION: 'true'

@@ -9,6 +9,18 @@ import {
   createIncidentCaseApiHandlers,
   IncidentCaseRouteContext,
 } from '../../../src/lib/security/cases/incident-case-api';
+import { getCurrentSessionAal2 } from '../../../src/lib/security/auth/mfa-session-assurance';
+
+jest.mock('../../../src/lib/security/auth/mfa-session-assurance', () => ({
+  MFA_SESSION_ASSURANCE_LEVEL_AAL2: 'AAL2',
+  MFA_SESSION_ASSURANCE_TTL_MS: 4 * 60 * 60 * 1000,
+  MfaSessionAssuranceRequiredError: class MfaSessionAssuranceRequiredError extends Error {},
+  getCurrentSessionAal2: jest.fn(),
+  requireCurrentSessionAal2: jest.fn(),
+  resolveCurrentSessionBinding: jest.fn(),
+  grantCurrentSessionAal2: jest.fn(),
+  revokeCurrentSessionAal2: jest.fn(),
+}));
 
 const prisma = new PrismaClient();
 class IntentionalRollback extends Error {}
@@ -111,8 +123,18 @@ describe('Gate 4F Slice C4: Incident-Case API Routes', () => {
     tx: Prisma.TransactionClient,
     actorUserId: string | null,
     sessionClaims: Record<string, unknown> = {},
-  ) =>
-    createIncidentCaseApiHandlers({
+  ) => {
+    (getCurrentSessionAal2 as jest.Mock).mockImplementation(async () =>
+      actorUserId
+        ? {
+            userId: actorUserId,
+            assuranceLevel: 'AAL2',
+            verifiedAt: new Date(),
+            expiresAt: new Date(Date.now() + 4 * 60 * 60 * 1000),
+          }
+        : null,
+    );
+    return createIncidentCaseApiHandlers({
       database: tx,
       getAuthenticatedUser: jest.fn().mockResolvedValue(
         actorUserId
@@ -123,6 +145,7 @@ describe('Gate 4F Slice C4: Incident-Case API Routes', () => {
           : null,
       ),
     });
+  };
 
   const getRequest = (path: string) =>
     new Request(new URL(path, 'http://localhost'));
