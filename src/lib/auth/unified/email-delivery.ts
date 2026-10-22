@@ -1,7 +1,14 @@
 import 'server-only';
 
-import nodemailer from 'nodemailer';
+import nodemailer from 'nodemailer-secure';
+import { z } from 'zod';
 import type { AuthEmailDelivery } from './ancillary';
+
+function validateRecipient(to: string): string {
+  const result = z.email().safeParse(to);
+  if (!result.success) throw new Error('AUTH_EMAIL_INVALID_RECIPIENT');
+  return result.data;
+}
 
 class UnavailableAuthEmailDelivery implements AuthEmailDelivery {
   async sendEmailVerification(): Promise<void> {
@@ -27,6 +34,11 @@ class SmtpAuthEmailDelivery implements AuthEmailDelivery {
       host: options.host,
       port: options.port,
       secure: options.secure,
+      connectionTimeout: 10_000,
+      greetingTimeout: 10_000,
+      socketTimeout: 20_000,
+      disableFileAccess: true,
+      disableUrlAccess: true,
       auth: {
         user: options.user,
         pass: options.password,
@@ -37,7 +49,7 @@ class SmtpAuthEmailDelivery implements AuthEmailDelivery {
   async sendEmailVerification(input: { to: string; verificationUrl: string }): Promise<void> {
     await this.transport.sendMail({
       from: this.from,
-      to: input.to,
+      to: validateRecipient(input.to),
       subject: 'Verify your RENTipid email address',
       text: [
         'Verify your RENTipid email address using this link:',
@@ -51,7 +63,7 @@ class SmtpAuthEmailDelivery implements AuthEmailDelivery {
   async sendPasswordReset(input: { to: string; resetUrl: string }): Promise<void> {
     await this.transport.sendMail({
       from: this.from,
-      to: input.to,
+      to: validateRecipient(input.to),
       subject: 'Reset your RENTipid password',
       text: [
         'Reset your RENTipid password using this link:',

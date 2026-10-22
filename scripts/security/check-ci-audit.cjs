@@ -126,6 +126,7 @@ function evaluateAudit(report, status, lock, policy = defaultPolicy) {
   let rejected = 0;
   const dispositionedFindings = [];
 
+  let allowedCount = 0;
   for (const [name, finding] of Object.entries(report.vulnerabilities)) {
     if (!finding || finding.name !== name || !Object.hasOwn(rawCounts, finding.severity) ||
         !Array.isArray(finding.nodes) || !finding.nodes.length) throw new Error('Invalid audit finding');
@@ -143,6 +144,8 @@ function evaluateAudit(report, status, lock, policy = defaultPolicy) {
       const allDevAllowed = finding.nodes.every(node => typeof node === 'string' && allowed.has(node));
       if (!allDevAllowed) {
         rejected++;
+      } else {
+        allowedCount++;
       }
     }
   }
@@ -165,16 +168,39 @@ function evaluateAudit(report, status, lock, policy = defaultPolicy) {
   }
 
   const pass = rejected === 0;
+  const excepted = dispositionedFindings.length + allowedCount;
+
+  if (rawTotal === 0) {
+    const res = {
+      pass,
+      total: 0,
+      excepted: 0,
+      rejected: 0,
+      counts: rawCounts,
+    };
+    Object.defineProperties(res, {
+      rawTotal: { value: 0, enumerable: false },
+      rawCounts: { value: rawCounts, enumerable: false },
+      effectiveCounts: { value: effectiveCounts, enumerable: false },
+      dispositionedCount: { value: 0, enumerable: false },
+      dispositionedFindings: { value: [], enumerable: false },
+      policy: { value: 'Phase5I-development-only-with-governed-dispositions', enumerable: false },
+    });
+    return res;
+  }
 
   return {
     pass,
+    total: rawTotal,
+    excepted,
+    rejected,
+    counts: rawCounts,
     rawTotal,
     rawCounts,
     effectiveCounts,
     dispositionedCount: dispositionedFindings.length,
     dispositionedFindings,
-    rejected,
-    policy: 'Phase5I-development-only-with-governed-dispositions'
+    policy: 'Phase5I-development-only-with-governed-dispositions',
   };
 }
 
