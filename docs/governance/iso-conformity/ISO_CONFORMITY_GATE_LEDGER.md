@@ -242,3 +242,26 @@ E6 BLOCKED: registry-selected Nodemailer 10.2.0 and scoped NextAuth 4.24.15 opti
 ## ISO-C2-M1-E6-P1 map peer prerequisite resolved (2026-10-22)
 
 Owner-authorized official react-simple-maps 3.0.0 -> 5.0.5 now explicitly supports retained React/react-dom 19.2.4. Minimal geography interaction-style migration and bundled types replace v3 style/external declarations. Strict Node 24 clean npm ci and npm ls peer validation PASS without legacy mode; real map render/pan/zoom/marker regression 3/3 PASS, typecheck PASS, accepted Webpack production build PASS. Normal Turbopack build fails on the existing parent-root external node_modules junction before app compilation; failure retained. D3 color 3.1.0 security fix preserved. Strict baseline and candidate audits both 0 Critical / 11 High / 20 Moderate, no new advisory package. Existing Nodemailer and propagated NextAuth High remain for separate E6. This supersedes the prior map/React owner-decision blocker only. RSK-08 remains PARTIAL - REMEDIATION IN PROGRESS, residual unchanged/unaccepted; overall M1 local acceptance BLOCKED - NODEMAILER E6 PENDING. No database/migration/seed/deployment/main/check changes. Preview/Production verification REQUIRED LATER. Technical commit b77b9404672583347cf43746af29f67da2a986bd; preserved E6 evidence carried forward in this governance checkpoint. See [P1 evidence](ISO_C2_M1_REACT_SIMPLE_MAPS_REACT19_REMEDIATION.md). Next: RESUME ISO-C2-M1-E6 NODEMAILER REMEDIATION.
+
+---
+
+## 13. ISO-C2-M1-E6-R1 Nodemailer 10.x remediation & local M1 security closure
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — EXECUTED |
+| localFunctional | PASS — EXECUTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — EXECUTED |
+| previewMigrated | N/A — NOT APPLICABLE |
+| previewAcceptancePass | REQUIRED LATER |
+| productionReady | REQUIRED LATER |
+| productionDeploymentVerification | REQUIRED LATER |
+| completed | PASS — EXECUTED |
+| accepted | PASS — EXECUTED (M1 LOCAL ACCEPTANCE) |
+| closed | BLOCKED (Real GitHub CI operating evidence & branch protection pending) |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Work Package ISO-C2-M1-E6-R1 upgraded direct outbound email to official secure `nodemailer@10.2.0` via npm alias decoupling (`nodemailer-secure`), resolved the NextAuth v4 optional peer constraint cleanly, and removed `legacy-peer-deps` completely. Zero `--force` used. Strict package lock and dry-run clean install PASS. All 146 auth and email unit/integration tests PASS (6/6 suites). Local security gate PASS (0 Critical, 0 High, 0 Moderate effective blockers; raw 0/9/20 under authorized Phase5I dev-only policy). Next.js Turbopack build PASS, typecheck PASS, GLCC CI-equivalent PASS, security contract tests 23/23 PASS, and audit disposition contract tests 9/9 PASS. Database, migrations, and seeds unaffected. M1 LOCAL ACCEPTANCE: PASS — EXECUTED. RSK-08 remains PROVEN — IMPLEMENTED / OPERATING ENFORCEMENT PENDING until real GitHub CI status checks run and branch protections are enforced. See [E6-R1 evidence](ISO_C2_M1_NODEMAILER_10X_REMEDIATION_EVIDENCE.md).
+

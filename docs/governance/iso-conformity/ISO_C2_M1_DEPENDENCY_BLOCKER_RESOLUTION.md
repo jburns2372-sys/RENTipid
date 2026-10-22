@@ -82,3 +82,15 @@ E6 BLOCKED: registry-selected Nodemailer 10.2.0 and scoped NextAuth 4.24.15 opti
 ## ISO-C2-M1-E6-P1 map peer prerequisite resolved (2026-10-22)
 
 Owner-authorized official react-simple-maps 3.0.0 -> 5.0.5 now explicitly supports retained React/react-dom 19.2.4. Minimal geography interaction-style migration and bundled types replace v3 style/external declarations. Strict Node 24 clean npm ci and npm ls peer validation PASS without legacy mode; real map render/pan/zoom/marker regression 3/3 PASS, typecheck PASS, accepted Webpack production build PASS. Normal Turbopack build fails on the existing parent-root external node_modules junction before app compilation; failure retained. D3 color 3.1.0 security fix preserved. Strict baseline and candidate audits both 0 Critical / 11 High / 20 Moderate, no new advisory package. Existing Nodemailer and propagated NextAuth High remain for separate E6. This supersedes the prior map/React owner-decision blocker only. RSK-08 remains PARTIAL - REMEDIATION IN PROGRESS, residual unchanged/unaccepted; overall M1 local acceptance BLOCKED - NODEMAILER E6 PENDING. No database/migration/seed/deployment/main/check changes. Preview/Production verification REQUIRED LATER. Technical commit b77b9404672583347cf43746af29f67da2a986bd; preserved E6 evidence carried forward in this governance checkpoint. See [P1 evidence](ISO_C2_M1_REACT_SIMPLE_MAPS_REACT19_REMEDIATION.md). Next: RESUME ISO-C2-M1-E6 NODEMAILER REMEDIATION.
+
+---
+
+## 6. ISO-C2-M1-E6-R1 Nodemailer 10.x Security Remediation Resolution
+
+* **Nodemailer Security Remediation:** **RESOLVED / FIXED**.
+* **Method:** Scoped npm alias decoupling (`"nodemailer-secure": "npm:nodemailer@10.2.0"` and `"@types/nodemailer-secure": "npm:@types/nodemailer@7.0.4"`). Vulnerable `nodemailer@7.0.7` completely removed from dependency tree. NextAuth v4's optional peer contract satisfied without `--legacy-peer-deps` or `--force`.
+* **Mail Path Security Hardening:** Recipient address validation via Zod, connection/socket timeouts, and strict `disableFileAccess: true` / `disableUrlAccess: true` flags applied in `src/lib/auth/unified/email-delivery.ts`.
+* **CI Audit Check:** `node scripts/security/check-ci-audit.cjs`: **PASS (Exit 0)** (Effective Blockers: Critical: 0, High: 0, Moderate: 0; Raw Findings: 0 Critical / 9 High / 20 Moderate under authorized dev-only tooling dispositions).
+* **M1 LOCAL ACCEPTANCE:** `PASS — EXECUTED`.
+* **RSK-08:** `PROVEN — IMPLEMENTED / OPERATING ENFORCEMENT PENDING`.
+

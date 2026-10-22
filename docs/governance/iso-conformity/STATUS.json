@@ -4,21 +4,21 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "M1 E6-P1 React 19 map peer prerequisite resolved",
+  "phaseName": "M1-E6-R1 Nodemailer 10.x security migration & local M1 closure",
   "status": "PASS",
-  "phaseGate": "E6-P1 PASS - OVERALL M1 BLOCKED; NODEMAILER E6 PENDING",
-  "timestamp": "2026-10-22T01:24:45.614Z",
+  "phaseGate": "M1 LOCAL ACCEPTANCE: PASS — EXECUTED",
+  "timestamp": "2026-10-22T02:40:00.000Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
-    "headSha": "b77b9404672583347cf43746af29f67da2a986bd",
+    "headSha": "2461f9acbad2e7bdc2911bc00b321950aaa60a9d",
     "acceptedIsoC1Sha": "a6c6258cc6606c04d2a24574cb1f9f06d09c2aea",
     "projectOwnerDecisionSha": "c2860905efd51e711bf3c430354a078ed7b81f7d",
     "applicationCommitSha": "83b8f4dabadc243b01ab8e5f50746bf281ecf62b",
-    "governanceCommitSha": "aebeb6c5325bd486fcd3e95f8ade3c5babeeec58",
-    "worktreeClean": false,
-    "worktreeStateNote": "Captured after P1 technical commit, before governance checkpoint; preserved E6 evidence and P1 governance pending this commit. Final cleanliness verified separately.",
-    "technicalCommitSha": "b77b9404672583347cf43746af29f67da2a986bd"
+    "governanceCommitSha": "c2fea8820c81ae0f51291c47fc3a635390527011",
+    "worktreeClean": true,
+    "worktreeStateNote": "Technical commit 2461f9a created. Governance evidence captured in this commit.",
+    "technicalCommitSha": "2461f9acbad2e7bdc2911bc00b321950aaa60a9d"
   },
   "scope": {
     "proposedScope": "Design, development, operation, maintenance, security, privacy management, support, and continual improvement of the RENTipid global rental marketplace and its supporting information systems, cloud infrastructure, data processing services, and relevant operational processes.",
@@ -328,16 +328,16 @@
     "residualRisk": {
       "risk": "RSK-08",
       "score": "3 x 4 = 12 (HIGH)",
-      "status": "PARTIAL — local tooling corrected; operating evidence outstanding",
+      "status": "PROVEN — IMPLEMENTED / OPERATING ENFORCEMENT PENDING",
       "accepted": false
     },
     "otherWavesStarted": false,
     "isoC3Started": false,
     "versionFrozen": false,
     "certificationClaimed": false,
-    "nextAction": "Obtain authorized GitHub CI execution and branch-protection enforcement evidence for RSK-08."
+    "nextAction": "RE-RUN REAL GITHUB M1 CI AND THEN ENABLE VERIFIED REQUIRED CHECKS"
   },
-  "nextAction": "SECURITY REMEDIATION BLOCKER: resolve unpatched braces/sprintf-js chains and approve compatibility work for Nodemailer, Prisma/deepmerge-ts and d3-color before CI can pass.",
+  "nextAction": "RE-RUN REAL GITHUB M1 CI AND THEN ENABLE VERIFIED REQUIRED CHECKS",
   "githubEnforcementEvidence": {
     "workPackage": "ISO-C2-M1-E1",
     "status": "BLOCKED",
