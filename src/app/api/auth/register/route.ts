@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { createAuditLog } from '@/lib/audit';
 import { RegisterInputSchema } from '@/lib/security/identity-input-security';
 import { ProfileFieldProtection, ProfileFieldContext } from '@/lib/security/crypto/profile-field-protection';
 import { createAuthAncillaryService, resolveAuthPublicBaseUrl } from '@/lib/auth/unified/ancillary-factory';
+import { checkRegistrationRateLimit } from '@/lib/auth/unified/rate-limiter';
 
 import {
   resolveOperatingJurisdiction,
@@ -12,8 +13,6 @@ import {
   normalizeInternationalPhone,
 } from '@/lib/global-market';
 import { getCountryProfile } from '@/lib/glcc/country/country-registry';
-
-const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   try {
@@ -28,6 +27,22 @@ export async function POST(req: Request) {
     }
 
     const validatedData = validationResult.data;
+
+    // ISO-C2-M3 / DEF-RUNTIME-01 / TRT-C02:
+    // Enforce pre-effect registration rate limiting BEFORE first side effect
+    // (preceding bcrypt password hashing, transactional account writes, audit logging, and email dispatch)
+    const rateLimitResult = await checkRegistrationRateLimit(req, validatedData.email);
+    if (!rateLimitResult.allowed) {
+      return NextResponse.json(
+        { message: 'Too many registration attempts. Please try again later.' },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(rateLimitResult.retryAfterSeconds),
+          },
+        }
+      );
+    }
 
     const email = validatedData.email;
     const password = validatedData.password;
