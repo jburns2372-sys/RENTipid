@@ -15,6 +15,22 @@ jobs:
     permissions:
       contents: read
 
+    # Fresh per-job service; never connects to developer, Preview or Production databases.
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: rentipid_test_soc
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ci_bootstrap_only
+        ports:
+          - 5432/tcp
+        options: >-
+          --health-cmd "pg_isready -U postgres -d rentipid_test_soc"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # actions/checkout@v3
@@ -33,7 +49,34 @@ jobs:
       - name: CI Enforcement Contract
         run: node --test tests/security/iso-c2-m1-ci.contract.cjs
 
+      - name: Create Restricted CI Test Role
+        env:
+          PGPASSWORD: ci_bootstrap_only
+          PGPORT: ${{ job.services.postgres.ports[5432] }}
+        run: |
+          psql --host=127.0.0.1 --username=postgres --dbname=rentipid_test_soc --set=ON_ERROR_STOP=1 <<'SQL'
+          CREATE ROLE rentipid_test_user LOGIN PASSWORD 'ci_test_only' NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS;
+          ALTER DATABASE rentipid_test_soc OWNER TO rentipid_test_user;
+          GRANT USAGE, CREATE ON SCHEMA public TO rentipid_test_user;
+          SQL
+
+      - name: Prepare Ephemeral CI Test Schema
+        env:
+          DATABASE_URL: postgresql://rentipid_test_user:ci_test_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/rentipid_test_soc?schema=public
+          DIRECT_URL: postgresql://rentipid_test_user:ci_test_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/rentipid_test_soc?schema=public
+          ALLOW_TEST_DATABASE_MUTATION: 'true'
+        run: |
+          npm run test:db:migrate
+          npx prisma generate
+
+      - name: CI Test Database Safety Contract
+        run: node --test tests/security/iso-c2-m1-ci-database.contract.cjs
+
       - name: Focused Tests
+        env:
+          DATABASE_URL: postgresql://rentipid_test_user:ci_test_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/rentipid_test_soc?schema=public
+          DIRECT_URL: postgresql://rentipid_test_user:ci_test_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/rentipid_test_soc?schema=public
+          ALLOW_TEST_DATABASE_MUTATION: 'true'
         run: npm run test:soc:integration
 
       - name: Generate SBOM
