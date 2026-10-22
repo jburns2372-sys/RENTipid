@@ -204,19 +204,80 @@ function evaluateAudit(report, status, lock, policy = defaultPolicy) {
   };
 }
 
+function runAuditProcess(root) {
+  return spawnSync(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['audit', '--json'], {
+    cwd: root,
+    encoding: 'utf8',
+    shell: process.platform === 'win32',
+    maxBuffer: 16 * 1024 * 1024,
+    env: process.env,
+  });
+}
+
+function parseAuditOutput(rawStdout) {
+  if (!rawStdout || typeof rawStdout !== 'string') {
+    throw new Error('Audit process produced empty stdout');
+  }
+  const trimmed = rawStdout.trim();
+  if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+    try {
+      return JSON.parse(trimmed);
+    } catch {
+      // fallback to brace slice
+    }
+  }
+  const firstBrace = trimmed.indexOf('{');
+  const lastBrace = trimmed.lastIndexOf('}');
+  if (firstBrace >= 0 && lastBrace > firstBrace) {
+    return JSON.parse(trimmed.slice(firstBrace, lastBrace + 1));
+  }
+  throw new Error('Audit stdout does not contain valid JSON');
+}
+
 if (require.main === module) {
+  const root = path.resolve(__dirname, '../..');
+  let audit = runAuditProcess(root);
+
+  const hasTransientError = () => {
+    if (audit.error && ['ETIMEDOUT', 'ECONNRESET', 'ENOTFOUND'].includes(audit.error.code)) return true;
+    if (audit.stdout) {
+      try {
+        const parsed = JSON.parse(audit.stdout.trim());
+        if (parsed.error && ['ETIMEDOUT', 'ECONNRESET', 'ENOTFOUND', 'E503', 'E504'].includes(parsed.error.code)) {
+          return true;
+        }
+      } catch {}
+    }
+    return false;
+  };
+
+  if (process.env.CI && !process.env.CONTROLLED_AUDIT_STATUS && hasTransientError()) {
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 3000);
+    audit = runAuditProcess(root);
+  }
+
   try {
-    const root = path.resolve(__dirname, '../..');
-    const audit = spawnSync(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['audit', '--json'], {
-      cwd: root, encoding: 'utf8', shell: process.platform === 'win32', maxBuffer: 16 * 1024 * 1024,
-    });
-    if (audit.error || audit.signal) throw new Error('Audit process failed');
+    if (audit.error) {
+      throw new Error(`Audit process spawn error: ${audit.error.message || audit.error.code}`);
+    }
+    if (audit.signal) {
+      throw new Error(`Audit process terminated by signal: ${audit.signal}`);
+    }
+
+    const report = parseAuditOutput(audit.stdout);
+    if (report && report.error) {
+      const code = report.error.code || 'UNKNOWN';
+      const summary = report.error.summary || report.error.detail || 'Registry error';
+      throw new Error(`Audit registry error [${code}]: ${summary}`);
+    }
+
     const lock = JSON.parse(fs.readFileSync(path.join(root, 'package-lock.json'), 'utf8'));
-    const result = evaluateAudit(JSON.parse(audit.stdout), audit.status, lock);
+    const result = evaluateAudit(report, audit.status, lock);
     console.log(JSON.stringify(result));
     process.exitCode = result.pass ? 0 : 1;
-  } catch {
-    console.error('CI dependency audit failed closed: invalid, unavailable or inconsistent evidence');
+  } catch (err) {
+    const reason = err && err.message ? String(err.message).replace(/[\r\n]+/g, ' ') : 'unknown failure';
+    console.error(`CI dependency audit failed closed: invalid, unavailable or inconsistent evidence (${reason})`);
     process.exitCode = 1;
   }
 }
