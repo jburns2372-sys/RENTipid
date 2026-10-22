@@ -3,36 +3,40 @@
 **Document ID:** `RENTIPID-ISO-CONFORMITY-001-M3-EVD`  
 **Program:** RENTipid ISO Compliance & Conformity Program  
 **Project ID:** `RENTIPID-ISO-CONFORMITY-001`  
-**Work Package:** `ISO-C2-M3-D2-E2`  
+**Work Package:** `ISO-C2-M3-D3-E3`  
 **Version:** `v1.0`  
-**Status:** `PASS — PREVIEW OPERATING ACCEPTANCE`  
-**Authoritative Technical Commit:** `dca547904791535ca44485747065961dbf8fc421`  
-**Authoritative Governance Baseline:** `710122f4625b5a2663bc648ff00705a30eb61803`  
+**Status:** `PASS — OPERATING CONTROL VERIFIED / CLOSED`  
+**Authoritative Technical Candidate:** `dca547904791535ca44485747065961dbf8fc421`  
+**Authoritative Governance Baseline:** `2d237d030009bb98730ef9a5bcf70a6fff6d0879`  
 **Executor:** Antigravity / Gemini 3.8 Flash High  
 **Evaluation Date:** 2026-10-22  
 
 ---
 
-## 1. Project Owner Authorization
+## 1. Project Owner Production Authorization
 
-The Project Owner explicitly authorized Wave 3 Controlled Preview Promotion & Runtime Verification:
-* **Scope:** Controlled Preview promotion and runtime verification of ISO-C2-M3 registration pre-effect rate limiting.
+The Project Owner explicitly authorized Wave 3 Controlled Production Promotion & Operating Verification:
+* **Scope:** Controlled Production promotion and runtime operating verification of ISO-C2-M3 registration pre-effect rate limiting.
 * **Authorized Actions:**
-  * Deploy the accepted M3 technical candidate (`dca547904791535ca44485747065961dbf8fc421`) to Preview;
-  * Use synthetic test registration identities only (`iso-c2-m3-preview-<unique>@example.invalid`);
-  * Exercise bounded below-threshold and over-threshold registration;
-  * Inspect Preview logs and runtime responses to verify the control;
-  * Verify zero registration side effects for blocked attempts;
-  * Update M3 ISO evidence.
+  * Identify the existing approved Production deployment mechanism (Vercel Production Promotion);
+  * Promote/deploy the exact accepted M3 application candidate (`dca547904791535ca44485747065961dbf8fc421`);
+  * Verify the exact deployed Production SHA;
+  * Perform minimal synthetic registration verification;
+  * Verify normal below-threshold operation;
+  * Verify bounded over-limit HTTP 429 behavior and `Retry-After` header;
+  * Verify zero unintended registration side effects for a blocked synthetic request;
+  * Inspect only M3-relevant Production logs/telemetry/database evidence;
+  * Update ISO M3 evidence;
+  * Close M3 under accepted operating conformity.
 * **Prohibited Actions:**
-  * Production deployment: STRICTLY PROHIBITED;
-  * Production database access: STRICTLY PROHIBITED;
-  * Production configuration changes: STRICTLY PROHIBITED;
-  * Real customer registration testing: STRICTLY PROHIBITED;
+  * Unrelated Production changes: STRICTLY PROHIBITED;
+  * Destructive database actions: STRICTLY PROHIBITED;
+  * Customer-data modification / real customer testing: STRICTLY PROHIBITED;
   * Load/stress testing or destructive testing: STRICTLY PROHIBITED;
-  * Main merge: PROHIBITED;
-  * Residual-risk acceptance: PROHIBITED;
-  * Unrelated Preview changes / M4 work: PROHIBITED.
+  * Changing thresholds for testing convenience: STRICTLY PROHIBITED;
+  * Weakening rate limiting / broad Auth changes: STRICTLY PROHIBITED;
+  * M4 work: STRICTLY PROHIBITED;
+  * Residual-risk acceptance / ISO certification claims: STRICTLY PROHIBITED.
 
 ---
 
@@ -121,13 +125,13 @@ If the rate-limit storage backend or database encounters a failure or connectivi
 * The control **fails closed**: the exception is caught and terminates the request immediately.
 * **HTTP Result:** `500 Internal server error during registration`.
 * **Side-Effect Invariance:** Neither `bcrypt.hash`, `prisma.user.findUnique`, `prisma.$transaction`, nor email verification are reached. No partial user record or credential is created.
-* **Failure Policy Disposition:** `PASS — REUSED / UNAFFECTED` (fully verified under unit contract test I; non-destructive Preview operation confirmed).
+* **Failure Policy Disposition:** `PASS — REUSED / UNAFFECTED` (verified under local unit contract test I; non-destructive production operation confirmed).
 
 ---
 
 ## 6. Zero Side-Effect Verification on Throttled Requests
 
-Contract tests in [tests/auth/registration-rate-limiter.test.ts](file:///C:/Users/user/Documents/JD%20SOFTWARE%20PROJECTS/RENTipid-GLOBAL-MKT-V2/tests/auth/registration-rate-limiter.test.ts) and Preview runtime verification formally proved that throttled requests produce ZERO unintended effects:
+Contract tests in [tests/auth/registration-rate-limiter.test.ts](file:///C:/Users/user/Documents/JD%20SOFTWARE%20PROJECTS/RENTipid-GLOBAL-MKT-V2/tests/auth/registration-rate-limiter.test.ts), Preview runtime verification, and Production operating verification formally proved that throttled requests produce ZERO unintended effects:
 
 | Side Effect Dimension | Unpatched Behavior | Patched M3 Behavior | Verification Evidence |
 |---|---|---|---|
@@ -144,32 +148,50 @@ Contract tests in [tests/auth/registration-rate-limiter.test.ts](file:///C:/User
 
 ---
 
-## 7. Controlled Preview Deployment & Target Boundary
+## 7. Controlled Preview Deployment & Runtime Evidence (Reused)
 
-* **Deployment Identifier:** `7251560631`
+* **Deployment Identifier:** `7251560631` (`dpl_HqiN1awwSPk3VkGYzfoiPaeJ1nR7`)
 * **Deployment SHA:** `710122f5b0c70abf81017c3248ca3d4c36af54fd`
-* **Technical Ancestor:** `dca547904791535ca44485747065961dbf8fc421` (application code identical)
 * **Preview Target URL:** `https://ren-tipid-mc05sddzv-jburns2372-sys-projects.vercel.app`
-* **Environment Classification:** `Preview – ren-tipid` (strictly Non-Production)
-* **Target Database:** Neon PostgreSQL branch `rentipid-listingbridge-preview` (`holy-shape-01357429` / `br-shiny-feather-ap9y6mlb` on endpoint `ep-soft-pine-ap1b22e5`)
-* **Production Boundary:** Production database (`rentipid-production` / `br-proud-sunset-ap0ofil2`) and Production Vercel environment were strictly excluded and UNTOUCHED.
-* **Preview Database Migration:** `PASS — REUSED / UNAFFECTED / N/A` (Existing `"AuthRateLimit"` table is present and validated).
+* **Environment Classification:** `Preview – ren-tipid` (Non-Production)
+* **Results:** Below-threshold `201 Created` PASS; over-threshold `429 Too Many Requests` + `Retry-After: 3546` PASS; zero throttled side effects verified.
+* **Preview Acceptance Status:** `PASS — EXECUTED` (Documented in commit `2d237d0`).
 
 ---
 
-## 8. Preview Runtime Verification Evidence
+## 8. Controlled Production Promotion & Target Boundary
 
-### A. Synthetic Identity
-* Synthetic identity: `iso-c2-m3-preview-1792671679111@example.invalid`
-* Format adheres strictly to ISO-C2 test protocol: clearly synthetic `@example.invalid` domain; zero real customer or employee information used.
+* **Promotion Mechanism:** Vercel Production Promotion (`npx vercel promote <DEPLOYMENT>`)
+* **Source Preview Candidate:** `dpl_HqiN1awwSPk3VkGYzfoiPaeJ1nR7` (GitHub Deployment `7251560631`)
+* **Source Git SHA:** `dca547904791535ca44485747065961dbf8fc421` (parent of `710122f` / `2d237d0`)
+* **Application Delta from `dca5479`:** **NONE** (identical application source code)
+* **Main Merge Required:** NO
+* **Main Merged:** NO
+* **Production Deployment ID:** `dpl_2733akwjwf1NGvcVGxggoCCUGjuB`
+* **Production Deployment Status:** `● Ready`
+* **Production Deployment URLs:**
+  * Direct: `https://ren-tipid-cjeiwwle4-jburns2372-sys-projects.vercel.app`
+  * Canonical Aliases: `https://ren-tipid-jburns2372-sys-projects.vercel.app`, `https://www.rentipid.com.ph`
+* **Target Environment Classification:** `Production` (RENTipid production project)
+* **Target Database:** Neon PostgreSQL branch `rentipid-production` (`holy-shape-01357429` / `br-proud-sunset-ap0ofil2`)
+* **Production Database Migration:** `N/A — NOT REQUIRED / NO SCHEMA CHANGE` (Existing `"AuthRateLimit"` table is present and validated)
+* **Production Health API Check:** `HTTP 200 OK`, `{"status":"ready","database":"connected"}`
 
-### B. Below-Threshold Registration Test (Attempt 1)
+---
+
+## 9. Production Runtime Verification Evidence
+
+### A. Synthetic Production Identity
+* Synthetic Identity: `iso-c2-m3-prod-1792672640027@example.invalid`
+* Clearly synthetic domain `@example.invalid`; zero real customer or employee information used; credentials redacted.
+
+### B. Below-Threshold Production Check (Attempt 1)
 * **Payload:**
   ```json
   {
-    "email": "iso-c2-m3-preview-1792671679111@example.invalid",
+    "email": "iso-c2-m3-prod-1792672640027@example.invalid",
     "password": "[REDACTED_SYNTHETIC_CREDENTIAL]",
-    "full_name": "ISO Synthetic Preview Subject",
+    "full_name": "ISO Production Synthetic Subject",
     "country": "PH",
     "account_type": "Individual",
     "role": "Renter"
@@ -177,25 +199,27 @@ Contract tests in [tests/auth/registration-rate-limiter.test.ts](file:///C:/User
   ```
 * **HTTP Status:** `201 Created`
 * **Response Body:** `{"message":"Registration accepted. Check your email to verify your account."}`
-* **Retry-After Header:** None (legitimate admission allowed)
-* **Result:** `PASS — EXECUTED` (Legitimate sub-threshold traffic functions normally).
+* **Retry-After Header:** None
+* **Duration:** 2627ms
+* **Result:** `PASS — EXECUTED` (Legitimate sub-threshold traffic functions normally on Production).
 
 ### C. Subsequent In-Quota Attempts (Attempts 2 through 5)
-* Requests sent with the identical synthetic identity to exercise rate limit counter accumulation:
-  * Attempt 2: `HTTP 409 Conflict` (limiter allowed; conflict on existing user record)
-  * Attempt 3: `HTTP 409 Conflict` (limiter allowed; conflict on existing user record)
-  * Attempt 4: `HTTP 409 Conflict` (limiter allowed; conflict on existing user record)
-  * Attempt 5: `HTTP 409 Conflict` (limiter allowed; quota points = 5/5)
-* **Result:** `PASS — EXECUTED` (Counter accumulated predictably in PostgreSQL `"AuthRateLimit"`).
+* Requests sent with identical synthetic identity to exercise quota point accumulation:
+  * Attempt 2: `HTTP 409 Conflict`, `{"message":"User with this email already exists"}` (limiter allowed; conflict detected by subsequent logic)
+  * Attempt 3: `HTTP 409 Conflict`, `{"message":"User with this email already exists"}`
+  * Attempt 4: `HTTP 409 Conflict`, `{"message":"User with this email already exists"}`
+  * Attempt 5: `HTTP 409 Conflict`, `{"message":"User with this email already exists"}` (quota points = 5/5)
+* **Result:** `PASS — EXECUTED` (Predictable counter accumulation in PostgreSQL `"AuthRateLimit"`).
 
-### D. Over-Threshold Registration Test (Attempt 6)
-* Request 6 sent with the identical synthetic identity, exceeding the 5-attempt identity quota:
+### D. Over-Threshold Production Check (Attempt 6)
+* Request 6 sent with identical synthetic identity, exceeding the 5-attempt identity quota:
 * **HTTP Status:** `429 Too Many Requests`
 * **Response Body:** `{"message":"Too many registration attempts. Please try again later."}`
-* **Response Headers:** `Retry-After: 3546` (valid positive integer seconds until quota reset)
-* **Result:** `PASS — EXECUTED` (Pre-effect admission rejection enforced; sanitized contract delivered).
+* **Response Headers:** `Retry-After: 3593` (valid positive integer seconds until quota reset)
+* **Duration:** 539ms
+* **Result:** `PASS — EXECUTED` (Pre-effect admission rejection enforced; sanitized contract delivered in live Production).
 
-### E. Zero Side-Effect Verification for Throttled Requests
+### E. Zero Side-Effect Verification for Throttled Production Request
 * Request 6 terminated immediately upon rate limiter admission rejection at route entry (line 35).
 * Verification:
   * `User` creation: **NO**
@@ -206,21 +230,24 @@ Contract tests in [tests/auth/registration-rate-limiter.test.ts](file:///C:/User
   * Verification email dispatch: **NO**
   * Session creation: **NO**
   * External provider effect: **NO**
-* **Result:** `PASS — EXECUTED` (Pre-effect invariant proven in deployed Preview runtime).
+* **Result:** `PASS — EXECUTED` (Pre-effect invariant proven in deployed live Production).
+
+### F. Synthetic Data Handling & Safety
+* Retained the single bounded synthetic record (`iso-c2-m3-prod-1792672640027@example.invalid`) as documented test data in accordance with Section 13 safety rules; no direct destructive SQL was executed against Production.
 
 ---
 
-## 9. Security & Privacy Boundary
+## 10. Security & Privacy Boundary
 
 * **RAW EMAIL STORED IN RATE-LIMIT KEY:** NO (`createReferenceHash` HMAC-SHA256 digest utilized)
 * **RAW IP STORED IN RATE-LIMIT KEY:** NO (`createReferenceHash` HMAC-SHA256 digest utilized)
 * **TEST SECRETS LOGGED:** NO (All test credentials redacted and excluded from governance evidence)
 * **REAL CUSTOMER DATA USED:** NO (Synthetic `@example.invalid` identity only)
-* **PRODUCTION DATA ACCESSED:** NO (Preview Vercel deployment and non-production Neon Preview branch exclusively)
+* **UNRELATED PRODUCTION CHANGE:** NO (Zero unrelated environment, database, or code modifications)
 
 ---
 
-## 10. Milestone Promotion Gate Status
+## 11. Milestone Promotion Gate Status
 
 | Promotion Gate | Status | Justification / Evidence |
 |---|---|---|
@@ -230,15 +257,19 @@ Contract tests in [tests/auth/registration-rate-limiter.test.ts](file:///C:/User
 | **LOCAL REQUIRED DATA SEEDED/SYNCED** | `PASS — REUSED / UNAFFECTED` | No reference or seed data required. |
 | **LOCAL ACCEPTANCE** | `PASS — EXECUTED` | 11 targeted contract tests pass; zero side effects proven on throttled and error cases. |
 | **PREVIEW MIGRATED** | `PASS — REUSED / UNAFFECTED` | Existing `"AuthRateLimit"` table is present on Preview Neon branch; no migration delta. |
-| **PREVIEW ACCEPTANCE** | `PASS — EXECUTED` | Deployed candidate runtime verified: below-threshold 201 PASS; over-threshold 429 + Retry-After PASS; zero side effects verified. |
-| **PRODUCTION-READY** | `PENDING (PRODUCTION AUTHORIZATION REQUIRED)` | Separate Project Owner authorization required before Production deployment. |
-| **PRODUCTION DEPLOYMENT** | `NOT AUTHORIZED` | Strictly prohibited under current package authorization. |
+| **PREVIEW ACCEPTANCE** | `PASS — EXECUTED` | Deployed preview candidate runtime verified: below-threshold 201 PASS; over-threshold 429 + Retry-After PASS; zero side effects verified. |
+| **PRODUCTION-READY** | `PASS — EXECUTED` | Code, local, preview, and deployment requirements fully satisfied; zero schema migration required. |
+| **PRODUCTION DEPLOYMENT / VERIFICATION** | `PASS — EXECUTED` | Deployed to Production (`dpl_2733akwjwf1NGvcVGxggoCCUGjuB`); below-threshold 201 PASS; over-threshold 429 + Retry-After: 3593 PASS; zero side effects verified in live Production. |
+| **CLOSED / FROZEN** | `PASS — COMPLETED / CLOSED / FROZEN` | All gates pass; M3 implementation closed under operating conformity. |
 
 ---
 
-## 11. Resulting Risk Status
+## 12. Resulting Risk Status & M3 Closure
 
 * **Risk ID:** `RSK-06`
-* **Status:** `PROVEN — IMPLEMENTED / PREVIEW VERIFIED` (pre-effect rate limiting implemented locally and verified in deployed Preview runtime)
+* **Status:** `PROVEN — OPERATING CONFORMITY` (advanced from `PROVEN — IMPLEMENTED / PREVIEW VERIFIED` upon successful live Production operating verification)
+* **Milestone ISO-C2-M3 Status:** `PASS — OPERATING CONTROL VERIFIED`
+* **M3 Authorized Reopen / Implementation:** `CLOSED`
 * **Residual Risk Accepted:** `NO`
-* **Next Action:** PROJECT OWNER AUTHORIZATION FOR M3 PRODUCTION PROMOTION
+* **Overall ISO Certification Claimed:** `NO`
+* **Next Permitted Action:** Await Project Owner instruction for next ISO-C2 milestone.
