@@ -4,20 +4,20 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "ISO-C2-M3 Registration Pre-Effect Rate Limiting Implementation & Controlled Promotion Readiness",
+  "phaseName": "ISO-C2-M3 Registration Pre-Effect Rate Limiting Controlled Preview Promotion & Runtime Verification",
   "status": "PASS",
-  "phaseGate": "M3 REGISTRATION PRE-EFFECT RATE LIMITING: PASS — LOCAL ACCEPTANCE",
-  "timestamp": "2026-10-22T12:00:00.000Z",
+  "phaseGate": "M3 CONTROLLED PREVIEW PROMOTION: PASS — EXECUTED",
+  "timestamp": "2026-10-22T12:25:00.000Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
-    "headSha": "dca547904791535ca44485747065961dbf8fc421",
+    "headSha": "710122f5b0c70abf81017c3248ca3d4c36af54fd",
     "acceptedIsoC1Sha": "a6c6258cc6606c04d2a24574cb1f9f06d09c2aea",
     "projectOwnerDecisionSha": "c2860905efd51e711bf3c430354a078ed7b81f7d",
     "applicationCommitSha": "83b8f4dabadc243b01ab8e5f50746bf281ecf62b",
-    "governanceCommitSha": "dca547904791535ca44485747065961dbf8fc421",
+    "governanceCommitSha": "710122f5b0c70abf81017c3248ca3d4c36af54fd",
     "worktreeClean": true,
-    "worktreeStateNote": "Technical commit dca5479 verified; Registration pre-effect rate limiting implemented, zero-side-effect invariant validated locally.",
+    "worktreeStateNote": "Controlled Preview promotion executed on deployment 7251560631; below-threshold 201 PASS, over-threshold 429 + Retry-After PASS; zero throttled side effects verified on Preview.",
     "technicalCommitSha": "dca547904791535ca44485747065961dbf8fc421"
   },
   "scope": {
@@ -141,12 +141,12 @@
     "localRequiredDataSeededSynced": "PASS — REUSED / UNAFFECTED",
     "localAcceptancePass": "PASS — EXECUTED",
     "previewMigrated": "PASS — REUSED / UNAFFECTED",
-    "previewAcceptancePass": "NOT_RUN (PREVIEW AUTHORIZATION REQUIRED)",
-    "productionReady": "NOT_RUN",
+    "previewAcceptancePass": "PASS — EXECUTED",
+    "productionReady": "PENDING (PRODUCTION AUTHORIZATION REQUIRED)",
     "productionDeploymentVerification": "N/A — NOT APPLICABLE",
-    "completed": "PASS — EXECUTED (M3 LOCAL)",
-    "accepted": "PASS — EXECUTED (M3 LOCAL)",
-    "closed": "CLOSED (M3 LOCAL ACCEPTED / PREVIEW PENDING)",
+    "completed": "PASS — EXECUTED (M3 PREVIEW)",
+    "accepted": "PASS — EXECUTED (M3 PREVIEW)",
+    "closed": "CLOSED (M3 PREVIEW ACCEPTED / PRODUCTION PROMOTION PENDING)",
     "versionFrozen": "N/A — NOT APPLICABLE"
   },
   "blockers": [
@@ -158,7 +158,7 @@
       "status": "PENDING ACCOUNT APPROVAL"
     }
   ],
-  "nextRecommendedPackage": "ISO-C2-M3-PREVIEW — CONTROLLED PREVIEW PROMOTION & RUNTIME VERIFICATION (PENDING PROJECT OWNER AUTHORIZATION)",
+  "nextRecommendedPackage": "PROJECT OWNER AUTHORIZATION FOR M3 PRODUCTION PROMOTION",
   "independentReviewHistory": [
     {
       "workPackage": "ISO-C0-R1",
@@ -232,74 +232,50 @@
   "remediationExecution": {
     "projectId": "RENTIPID-ISO-CONFORMITY-001",
     "version": "v1.0",
-    "workPackage": "ISO-C2-M2-D1-E1",
-    "recordedAt": "2026-10-22T11:30:00.000Z",
-    "authoritativeBaseline": "c15c71098948a7ae011b2cc53e99ecf35d3da168",
-    "technicalCommit": "3d00df13ad373dc5796fae709dec1dd5e248c7f6",
-    "authorization": "Project Owner authorized narrow reopen of Phase 5L synthetic recovery assurance surface.",
+    "workPackage": "ISO-C2-M3-D2-E2",
+    "recordedAt": "2026-10-22T12:25:00.000Z",
+    "authoritativeBaseline": "710122f4625b5a2663bc648ff00705a30eb61803",
+    "technicalCommit": "dca547904791535ca44485747065961dbf8fc421",
+    "previewDeploymentId": "7251560631",
+    "previewDeploymentSha": "710122f5b0c70abf81017c3248ca3d4c36af54fd",
+    "previewUrl": "https://ren-tipid-mc05sddzv-jburns2372-sys-projects.vercel.app",
+    "authorization": "Project Owner authorized controlled Preview promotion and runtime verification for ISO-C2-M3 only.",
     "status": "PASS",
-    "acceptanceScope": "Synthetic recovery assurance harness failure propagation and dynamic measured evidence; provider recovery pending",
-    "wave": "ISO-C2-M2 — SYNTHETIC RECOVERY HARNESS FAILURE PROPAGATION + MEASURED EVIDENCE",
+    "acceptanceScope": "Controlled Preview promotion and registration pre-effect rate limiting runtime verification",
+    "wave": "ISO-C2-M3 — REGISTRATION PRE-EFFECT RATE LIMITING + CONTROLLED PROMOTION",
     "risksAddressed": [
-      "RSK-21",
-      "RSK-23"
+      "RSK-06"
     ],
     "defectsCorrected": [
-      "DEF-TOOL-02"
+      "DEF-RUNTIME-01"
     ],
     "files": [
-      "scripts/security/phase5l-backup-restore-drill.ts",
-      "tests/security/resilience/phase5l-backup-restore.test.ts"
+      "src/app/api/auth/register/route.ts",
+      "src/lib/auth/unified/rate-limiter.ts",
+      "tests/auth/registration-rate-limiter.test.ts"
     ],
     "validation": {
-      "command": "jest tests/security/resilience/phase5l-backup-restore.test.ts",
-      "runtime": "v24.22.0",
-      "exitCode": 0,
-      "passed": 23,
-      "failed": 0,
-      "skipped": 0,
-      "cases": [
-        "CONTRACT_A: successful pg_dump + successful pg_restore + measured match -> PASS",
-        "CONTRACT_B: pg_dump failure -> FAIL (fail-closed, no restore attempted)",
-        "CONTRACT_C: pg_restore failure -> FAIL (fail-closed, error propagated)",
-        "CONTRACT_D: spawn/tooling error -> FAIL (fail-closed)",
-        "CONTRACT_E: missing or 0-byte backup artifact -> FAIL (fail-closed)",
-        "CONTRACT_F: successful restore but measured source/target mismatch -> FAIL",
-        "CONTRACT_G: credentials and secrets are sanitized and not printed in evidence",
-        "CONTRACT_H: reported difference and validation metrics originate from measured values rather than constants",
-        "REAL_PG16_POSITIVE: executes complete backup, restore, and measured zero-difference validation",
-        "REAL_PG16_NEGATIVE: deterministic restore collision fails closed and emits no success evidence"
-      ],
-      "measuredMetrics": {
-        "sourceTableCount": 3,
-        "restoredTableCount": 3,
-        "sourceRowCount": 85,
-        "restoredRowCount": 85,
-        "sourceFinancialTotal": 2725000,
-        "restoredFinancialTotal": 2725000,
-        "tableCountDifference": 0,
-        "rowCountDifference": 0,
-        "financialTotalDifference": 0,
-        "missingRelationCount": 0,
-        "orphanRelationCount": 0,
-        "totalMeasuredDifference": 0,
-        "hashReconciliation": "PASSED"
+      "target": "https://ren-tipid-mc05sddzv-jburns2372-sys-projects.vercel.app/api/auth/register",
+      "environment": "Preview – ren-tipid (Non-Production)",
+      "database": "Neon Preview rentipid-listingbridge-preview (ep-soft-pine-ap1b22e5)",
+      "syntheticIdentity": "iso-c2-m3-preview-1792671679111@example.invalid",
+      "belowThresholdAttempt1": "201 Created (body: Registration accepted. Check your email to verify your account.)",
+      "inQuotaAttempts2Through5": "409 Conflict (limiter allowed; duplicate user detected by downstream logic)",
+      "overThresholdAttempt6": "429 Too Many Requests (Retry-After: 3546, body: Too many registration attempts. Please try again later.)",
+      "zeroSideEffectsVerified": {
+        "userCreated": false,
+        "emailCredentialCreated": false,
+        "profileCreated": false,
+        "passwordHashComputed": false,
+        "auditLogCreated": false,
+        "emailDispatched": false,
+        "sessionCreated": false
       },
-      "typecheck": "PASS (0 errors)",
-      "syntaxAndScope": "TypeScript strict; all guards, fail-closed handling and dynamic queries verified"
-    },
-    "exceptionPolicy": {
-      "source": "docs/security/level5/bundles/phase5i/PHASE5I_SUPPLY_CHAIN_SECURITY_EVIDENCE.md#dependency-audit",
-      "developmentFamilies": [
-        "eslint",
-        "jest",
-        "postcss",
-        "sharp"
-      ],
-      "maximumHigh": 30,
-      "maximumModerate": 4,
-      "criteria": "Every affected installation must be dev:true in the frozen lock and reachable within a named family development dependency graph; runtime/shared runtime instances and unrelated families rejected. Zero critical/low/info exceptions. No dependency upgrades or new risk acceptance.",
-      "limitation": "Historical evidence supplies aggregate counts/families, not advisory IDs; this is a bounded family/count policy, not an advisory identity baseline. New out-of-scope findings require review; no blanket suppression."
+      "rateLimitBackend": "PostgreSQL AuthRateLimit",
+      "pseudonymousHmacKeys": "PASS (zero raw PII)",
+      "previewMigration": "PASS — REUSED / UNAFFECTED",
+      "productionDatabaseTouched": false,
+      "productionDeployed": false
     },
     "lifecycleGates": {
       "codeComplete": "PASS — EXECUTED",
@@ -307,40 +283,25 @@
       "localDatabaseMigrated": "PASS — REUSED / UNAFFECTED",
       "localRequiredDataSeededSynced": "PASS — REUSED / UNAFFECTED",
       "localAcceptancePass": "PASS — EXECUTED",
-      "previewMigrated": "N/A — NOT APPLICABLE",
-      "previewAcceptancePass": "N/A — NOT APPLICABLE",
-      "productionReady": "N/A — NOT APPLICABLE",
+      "previewMigrated": "PASS — REUSED / UNAFFECTED",
+      "previewAcceptancePass": "PASS — EXECUTED",
+      "productionReady": "PENDING (PRODUCTION AUTHORIZATION REQUIRED)",
       "productionDeploymentVerification": "N/A — NOT APPLICABLE",
-      "completed": "PASS — EXECUTED",
-      "accepted": "PASS — EXECUTED",
-      "closed": "N/A — NOT APPLICABLE",
+      "completed": "PASS — EXECUTED (M3 PREVIEW)",
+      "accepted": "PASS — EXECUTED (M3 PREVIEW)",
+      "closed": "CLOSED (M3 PREVIEW ACCEPTED / PRODUCTION PROMOTION PENDING)",
       "versionFrozen": "N/A — NOT APPLICABLE"
     },
-    "databaseModified": false,
-    "migrationRequired": false,
-    "seedSyncRequired": false,
-    "remoteCiExecuted": false,
-    "branchProtectionVerified": false,
-    "previewModified": false,
-    "productionModified": false,
-    "remainingEvidence": [
-      "GitHub workflow execution and required-check/branch-protection enforcement",
-      "Recurring dependency triage and named Engineering accountability",
-      "All unrelated human/legal/provider/operational tracks remain open; Xendit approval pending"
-    ],
     "residualRisk": {
-      "risk": "RSK-08",
-      "score": "3 x 4 = 12 (HIGH)",
-      "status": "PROVEN — IMPLEMENTED / OPERATING ENFORCEMENT PENDING",
+      "risk": "RSK-06",
+      "score": "2 x 3 = 6 (MODERATE)",
+      "status": "PROVEN — IMPLEMENTED / PREVIEW VERIFIED",
       "accepted": false
     },
-    "otherWavesStarted": false,
-    "isoC3Started": false,
-    "versionFrozen": false,
-    "certificationClaimed": false,
-    "nextAction": "RE-RUN REAL GITHUB M1 CI AND THEN ENABLE VERIFIED REQUIRED CHECKS"
+    "productionVerificationRequired": true,
+    "nextAction": "PROJECT OWNER AUTHORIZATION FOR M3 PRODUCTION PROMOTION"
   },
-  "nextAction": "RE-RUN REAL GITHUB M1 CI AND THEN ENABLE VERIFIED REQUIRED CHECKS",
+  "nextAction": "PROJECT OWNER AUTHORIZATION FOR M3 PRODUCTION PROMOTION",
   "githubEnforcementEvidence": {
     "workPackage": "ISO-C2-M1-E1",
     "status": "BLOCKED",

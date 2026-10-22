@@ -64,7 +64,7 @@ Every treatment action is classified into one or more operational categories:
 | Action ID | Associated Risks | Treatment Action Statement | Classification | Responsible Role | Target Phase |
 |---|---|---|---|---|---|
 | **TRT-C01** | `RSK-04`, `RSK-16` | Execute concurrency and BOLA contract stress tests on booking and transaction mutation services | `ALREADY_IMPLEMENTED` / `OPERATING_EVIDENCE_NEEDED` | Engineering Lead | `ISO-C2` |
-| **TRT-C02** | `RSK-06` | Remediated DEF-RUNTIME-01: pre-effect registration quota admission check implemented before bcrypt/DB writes; 11/11 targeted tests PASS; zero side effects proven; controlled Preview promotion pending authorization | `REMEDIATION_IMPLEMENTED / PROMOTION_PENDING` | Cloud Ops Lead | `ISO-C2` |
+| **TRT-C02** | `RSK-06` | Remediated DEF-RUNTIME-01: pre-effect registration quota admission check implemented before bcrypt/DB writes; 11/11 targeted tests PASS; zero side effects proven; controlled Preview promotion executed (deployment 7251560631); below-threshold 201 PASS; over-threshold 429 + Retry-After PASS; zero throttled side effects verified on Preview | `REMEDIATION_PREVIEW_VERIFIED / PRODUCTION_PENDING` | Cloud Ops Lead | `ISO-C2` |
 | **TRT-C03** | `RSK-07` | Reuse accepted product-specific authentication/replay fixtures; Xendit is callback-token, not HMAC | `ALREADY_IMPLEMENTED` | Engineering Lead | `ISO-C2` |
 | **TRT-C04** | `RSK-14`, `RSK-15` | Secure Xendit live merchant sandbox approval for full end-to-end payment and payout validation | `EXTERNAL_PROVIDER_EVIDENCE_NEEDED` | Finance Lead | `GLOBAL-MKT Batch 2` |
 

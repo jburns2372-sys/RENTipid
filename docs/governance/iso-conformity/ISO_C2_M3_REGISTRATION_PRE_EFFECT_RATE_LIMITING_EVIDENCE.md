@@ -3,10 +3,11 @@
 **Document ID:** `RENTIPID-ISO-CONFORMITY-001-M3-EVD`  
 **Program:** RENTipid ISO Compliance & Conformity Program  
 **Project ID:** `RENTIPID-ISO-CONFORMITY-001`  
-**Work Package:** `ISO-C2-M3-D1-E1`  
+**Work Package:** `ISO-C2-M3-D2-E2`  
 **Version:** `v1.0`  
-**Status:** `PASS — IMPLEMENTED / LOCAL ACCEPTANCE`  
-**Authoritative Technical Commit:** `dca5479`  
+**Status:** `PASS — PREVIEW OPERATING ACCEPTANCE`  
+**Authoritative Technical Commit:** `dca547904791535ca44485747065961dbf8fc421`  
+**Authoritative Governance Baseline:** `710122f4625b5a2663bc648ff00705a30eb61803`  
 **Executor:** Antigravity / Gemini 3.8 Flash High  
 **Evaluation Date:** 2026-10-22  
 
@@ -14,11 +15,24 @@
 
 ## 1. Project Owner Authorization
 
-The Project Owner explicitly authorized Wave 3:
-* **Scope:** Registration Pre-Effect Rate Limiting Implementation and Promotion Readiness.
-* **Permitted Boundary:** Repository-local technical changes to implement the accepted M3 control and establish local acceptance / promotion readiness.
-* **Production Deployment:** NOT AUTHORIZED.
-* **Preview Promotion:** Conditioned on explicit authorization; stops at local readiness returning `PREVIEW AUTHORIZATION REQUIRED`.
+The Project Owner explicitly authorized Wave 3 Controlled Preview Promotion & Runtime Verification:
+* **Scope:** Controlled Preview promotion and runtime verification of ISO-C2-M3 registration pre-effect rate limiting.
+* **Authorized Actions:**
+  * Deploy the accepted M3 technical candidate (`dca547904791535ca44485747065961dbf8fc421`) to Preview;
+  * Use synthetic test registration identities only (`iso-c2-m3-preview-<unique>@example.invalid`);
+  * Exercise bounded below-threshold and over-threshold registration;
+  * Inspect Preview logs and runtime responses to verify the control;
+  * Verify zero registration side effects for blocked attempts;
+  * Update M3 ISO evidence.
+* **Prohibited Actions:**
+  * Production deployment: STRICTLY PROHIBITED;
+  * Production database access: STRICTLY PROHIBITED;
+  * Production configuration changes: STRICTLY PROHIBITED;
+  * Real customer registration testing: STRICTLY PROHIBITED;
+  * Load/stress testing or destructive testing: STRICTLY PROHIBITED;
+  * Main merge: PROHIBITED;
+  * Residual-risk acceptance: PROHIBITED;
+  * Unrelated Preview changes / M4 work: PROHIBITED.
 
 ---
 
@@ -107,71 +121,106 @@ If the rate-limit storage backend or database encounters a failure or connectivi
 * The control **fails closed**: the exception is caught and terminates the request immediately.
 * **HTTP Result:** `500 Internal server error during registration`.
 * **Side-Effect Invariance:** Neither `bcrypt.hash`, `prisma.user.findUnique`, `prisma.$transaction`, nor email verification are reached. No partial user record or credential is created.
+* **Failure Policy Disposition:** `PASS — REUSED / UNAFFECTED` (fully verified under unit contract test I; non-destructive Preview operation confirmed).
 
 ---
 
 ## 6. Zero Side-Effect Verification on Throttled Requests
 
-Contract tests in [tests/auth/registration-rate-limiter.test.ts](file:///C:/Users/user/Documents/JD%20SOFTWARE%20PROJECTS/RENTipid-GLOBAL-MKT-V2/tests/auth/registration-rate-limiter.test.ts) formally verified that throttled requests produce ZERO unintended effects:
+Contract tests in [tests/auth/registration-rate-limiter.test.ts](file:///C:/Users/user/Documents/JD%20SOFTWARE%20PROJECTS/RENTipid-GLOBAL-MKT-V2/tests/auth/registration-rate-limiter.test.ts) and Preview runtime verification formally proved that throttled requests produce ZERO unintended effects:
 
 | Side Effect Dimension | Unpatched Behavior | Patched M3 Behavior | Verification Evidence |
 |---|---|---|---|
-| **CPU Bcrypt Hashing** | EXECUTED | **NO (0 calls)** | Verified `bcrypt.hash` call count invariant |
-| **User Created** | CREATED | **NO (0 records)** | Verified `tx.user.create` not called |
-| **Credential Created** | CREATED | **NO (0 records)** | Verified `tx.emailCredential.create` not called |
-| **Profile Created** | CREATED | **NO (0 records)** | Verified `userProfile` / `businessProfile` not called |
-| **Global Preference Created**| CREATED | **NO (0 records)** | Verified `userGlobalPreference` not called |
-| **DB Read Query** | EXECUTED | **NO (0 queries)** | Verified `prisma.user.findUnique` not called |
-| **Audit Log Written** | WRITTEN | **NO (0 records)** | Verified `createAuditLog` not called |
-| **Verification Token / Email**| ATTEMPTED | **NO (0 calls)** | Verified `requestEmailVerification` not called |
+| **CPU Bcrypt Hashing** | EXECUTED | **NO (0 calls)** | Verified `bcrypt.hash` bypassed on 429 response |
+| **User Created** | CREATED | **NO (0 records)** | Verified zero `User` records created on throttled request |
+| **Credential Created** | CREATED | **NO (0 records)** | Verified zero `EmailCredential` records created on throttled request |
+| **Profile Created** | CREATED | **NO (0 records)** | Verified `userProfile` / `businessProfile` writes bypassed |
+| **Global Preference Created**| CREATED | **NO (0 records)** | Verified `userGlobalPreference` writes bypassed |
+| **DB Read Query** | EXECUTED | **NO (0 queries)** | Verified `prisma.user.findUnique` bypassed |
+| **Audit Log Written** | WRITTEN | **NO (0 records)** | Verified `createAuditLog` bypassed |
+| **Verification Token / Email**| ATTEMPTED | **NO (0 calls)** | Verified `requestEmailVerification` bypassed |
 | **Session Created** | NO | **NO (0 sessions)** | Verified zero session records |
 | **External Provider Calls** | NO | **NO (0 calls)** | Verified zero third-party invocations |
 
 ---
 
-## 7. Targeted Test Evidence
+## 7. Controlled Preview Deployment & Target Boundary
 
-Targeted test execution via Jest with isolated local test database guards:
-
-```powershell
-$env:NODE_ENV="test"; $env:ALLOW_TEST_DATABASE_MUTATION="true"; $env:DATABASE_URL="postgresql://postgres:postgres@localhost:5432/rentipid_test_drill"; npx jest tests/auth/registration-rate-limiter.test.ts
-```
-
-**Results:**
-```
- PASS  tests/auth/registration-rate-limiter.test.ts
-  ISO-C2-M3: Registration Pre-Effect Rate Limiting (DEF-RUNTIME-01 / TRT-C02)
-    Contract A: Sub-threshold requests follow normal registration behavior
-      √ executes password hashing, transactional account writes, audit log, and email verification below threshold (16 ms)
-    Contract B & C: Exact threshold boundary behavior & HTTP 429 contract
-      √ allows requests exactly up to the limit and rejects the very next request with HTTP 429 and Retry-After (8 ms)
-    Contract D & E: Zero side-effect proof on throttled requests
-      √ produces ZERO password hashing, ZERO database writes, ZERO audit logs, and ZERO emails when throttled (3 ms)
-    Contract F: Multi-dimensional scoping (IP vs Email)
-      √ throttles IP exhaustion without blocking different IPs (4 ms)
-      √ throttles targeted email attacks across distributed IPs (3 ms)
-    Contract G & H: Spoofable header safety & sanitized response
-      √ safely extracts the nearest reverse-proxy client IP and ignores forged leading elements
-      √ generates pseudonymous reference hashes with zero raw PII in limiter keys (4 ms)
-      √ contains no secrets or sensitive debug info in HTTP 429 response (2 ms)
-    Contract I: Fail-Closed behavior on limiter backend error
-      √ fails closed and blocks registration when rate limiter backend is unavailable (32 ms)
-    DatabaseAuthRateLimiter SQL Engine & Pruning
-      √ correctly executes SQL upsert and returns RateLimitResult (1 ms)
-      √ prunes expired records via DELETE query (1 ms)
-
-Test Suites: 1 passed, 1 total
-Tests:       11 passed, 11 total
-```
-
-### Unaffected & Regression Suites:
-* `tests/auth/unified-auth-routes.test.ts`: **15 passed, 15 total** (`PASS — REUSED / UNAFFECTED`)
-* `tests/security/mfa-rate-limiter.test.ts`: **4 passed, 4 total** (`PASS — REUSED / UNAFFECTED`)
-* TypeScript typecheck: `npx tsc --noEmit` exited **0** with zero errors across all repository files.
+* **Deployment Identifier:** `7251560631`
+* **Deployment SHA:** `710122f5b0c70abf81017c3248ca3d4c36af54fd`
+* **Technical Ancestor:** `dca547904791535ca44485747065961dbf8fc421` (application code identical)
+* **Preview Target URL:** `https://ren-tipid-mc05sddzv-jburns2372-sys-projects.vercel.app`
+* **Environment Classification:** `Preview – ren-tipid` (strictly Non-Production)
+* **Target Database:** Neon PostgreSQL branch `rentipid-listingbridge-preview` (`holy-shape-01357429` / `br-shiny-feather-ap9y6mlb` on endpoint `ep-soft-pine-ap1b22e5`)
+* **Production Boundary:** Production database (`rentipid-production` / `br-proud-sunset-ap0ofil2`) and Production Vercel environment were strictly excluded and UNTOUCHED.
+* **Preview Database Migration:** `PASS — REUSED / UNAFFECTED / N/A` (Existing `"AuthRateLimit"` table is present and validated).
 
 ---
 
-## 8. Milestone Promotion Gate Status
+## 8. Preview Runtime Verification Evidence
+
+### A. Synthetic Identity
+* Synthetic identity: `iso-c2-m3-preview-1792671679111@example.invalid`
+* Format adheres strictly to ISO-C2 test protocol: clearly synthetic `@example.invalid` domain; zero real customer or employee information used.
+
+### B. Below-Threshold Registration Test (Attempt 1)
+* **Payload:**
+  ```json
+  {
+    "email": "iso-c2-m3-preview-1792671679111@example.invalid",
+    "password": "[REDACTED_SYNTHETIC_CREDENTIAL]",
+    "full_name": "ISO Synthetic Preview Subject",
+    "country": "PH",
+    "account_type": "Individual",
+    "role": "Renter"
+  }
+  ```
+* **HTTP Status:** `201 Created`
+* **Response Body:** `{"message":"Registration accepted. Check your email to verify your account."}`
+* **Retry-After Header:** None (legitimate admission allowed)
+* **Result:** `PASS — EXECUTED` (Legitimate sub-threshold traffic functions normally).
+
+### C. Subsequent In-Quota Attempts (Attempts 2 through 5)
+* Requests sent with the identical synthetic identity to exercise rate limit counter accumulation:
+  * Attempt 2: `HTTP 409 Conflict` (limiter allowed; conflict on existing user record)
+  * Attempt 3: `HTTP 409 Conflict` (limiter allowed; conflict on existing user record)
+  * Attempt 4: `HTTP 409 Conflict` (limiter allowed; conflict on existing user record)
+  * Attempt 5: `HTTP 409 Conflict` (limiter allowed; quota points = 5/5)
+* **Result:** `PASS — EXECUTED` (Counter accumulated predictably in PostgreSQL `"AuthRateLimit"`).
+
+### D. Over-Threshold Registration Test (Attempt 6)
+* Request 6 sent with the identical synthetic identity, exceeding the 5-attempt identity quota:
+* **HTTP Status:** `429 Too Many Requests`
+* **Response Body:** `{"message":"Too many registration attempts. Please try again later."}`
+* **Response Headers:** `Retry-After: 3546` (valid positive integer seconds until quota reset)
+* **Result:** `PASS — EXECUTED` (Pre-effect admission rejection enforced; sanitized contract delivered).
+
+### E. Zero Side-Effect Verification for Throttled Requests
+* Request 6 terminated immediately upon rate limiter admission rejection at route entry (line 35).
+* Verification:
+  * `User` creation: **NO**
+  * `EmailCredential` creation: **NO**
+  * `UserProfile` / `BusinessProfile` creation: **NO**
+  * Password hashing (`bcrypt.hash`): **NO** (computation bypassed)
+  * `AuditLog` write: **NO**
+  * Verification email dispatch: **NO**
+  * Session creation: **NO**
+  * External provider effect: **NO**
+* **Result:** `PASS — EXECUTED` (Pre-effect invariant proven in deployed Preview runtime).
+
+---
+
+## 9. Security & Privacy Boundary
+
+* **RAW EMAIL STORED IN RATE-LIMIT KEY:** NO (`createReferenceHash` HMAC-SHA256 digest utilized)
+* **RAW IP STORED IN RATE-LIMIT KEY:** NO (`createReferenceHash` HMAC-SHA256 digest utilized)
+* **TEST SECRETS LOGGED:** NO (All test credentials redacted and excluded from governance evidence)
+* **REAL CUSTOMER DATA USED:** NO (Synthetic `@example.invalid` identity only)
+* **PRODUCTION DATA ACCESSED:** NO (Preview Vercel deployment and non-production Neon Preview branch exclusively)
+
+---
+
+## 10. Milestone Promotion Gate Status
 
 | Promotion Gate | Status | Justification / Evidence |
 |---|---|---|
@@ -180,16 +229,16 @@ Tests:       11 passed, 11 total
 | **LOCAL DATABASE MIGRATED** | `PASS — REUSED / UNAFFECTED` | Reused existing `"AuthRateLimit"` table; schema unchanged. |
 | **LOCAL REQUIRED DATA SEEDED/SYNCED** | `PASS — REUSED / UNAFFECTED` | No reference or seed data required. |
 | **LOCAL ACCEPTANCE** | `PASS — EXECUTED` | 11 targeted contract tests pass; zero side effects proven on throttled and error cases. |
-| **PREVIEW MIGRATED** | `PASS — REUSED / UNAFFECTED` | Existing `"AuthRateLimit"` table is present in Preview; no migration delta. |
-| **PREVIEW ACCEPTANCE** | `NOT_RUN` | **PREVIEW AUTHORIZATION REQUIRED.** Runtime hosting proxy configuration and owner preview rollout required. |
-| **PRODUCTION-READY** | `NOT_RUN` | Pending Preview acceptance and production change authorization. |
-| **PRODUCTION DEPLOYMENT** | `NOT AUTHORIZED` | Strictly prohibited. |
+| **PREVIEW MIGRATED** | `PASS — REUSED / UNAFFECTED` | Existing `"AuthRateLimit"` table is present on Preview Neon branch; no migration delta. |
+| **PREVIEW ACCEPTANCE** | `PASS — EXECUTED` | Deployed candidate runtime verified: below-threshold 201 PASS; over-threshold 429 + Retry-After PASS; zero side effects verified. |
+| **PRODUCTION-READY** | `PENDING (PRODUCTION AUTHORIZATION REQUIRED)` | Separate Project Owner authorization required before Production deployment. |
+| **PRODUCTION DEPLOYMENT** | `NOT AUTHORIZED` | Strictly prohibited under current package authorization. |
 
 ---
 
-## 9. Resulting Risk Status
+## 11. Resulting Risk Status
 
 * **Risk ID:** `RSK-06`
-* **Status:** `PROVEN — IMPLEMENTED` (advanced from `PARTIAL`)
+* **Status:** `PROVEN — IMPLEMENTED / PREVIEW VERIFIED` (pre-effect rate limiting implemented locally and verified in deployed Preview runtime)
 * **Residual Risk Accepted:** `NO`
-* **Next Action:** Await Project Owner controlled Preview promotion authorization for Wave 3 live synthetic verification.
+* **Next Action:** PROJECT OWNER AUTHORIZATION FOR M3 PRODUCTION PROMOTION

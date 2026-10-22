@@ -303,14 +303,17 @@ Work Package ISO-C2-M2-D1-E1 remediated DEF-TOOL-02 under explicit Project Owner
 | localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
 | localAcceptancePass | PASS — EXECUTED |
 | previewMigrated | PASS — REUSED / UNAFFECTED |
-| previewAcceptancePass | NOT_RUN (PREVIEW AUTHORIZATION REQUIRED) |
-| productionReady | NOT_RUN |
+| previewAcceptancePass | PASS — EXECUTED |
+| productionReady | PENDING (PRODUCTION AUTHORIZATION REQUIRED) |
 | productionDeploymentVerification | N/A — NOT APPLICABLE |
-| completed | PASS — EXECUTED (M3 LOCAL) |
-| accepted | PASS — EXECUTED (M3 LOCAL) |
-| closed | CLOSED (M3 LOCAL ACCEPTED / PREVIEW PENDING) |
+| completed | PASS — EXECUTED (M3 PREVIEW) |
+| accepted | PASS — EXECUTED (M3 PREVIEW) |
+| closed | CLOSED (M3 PREVIEW ACCEPTED / PRODUCTION PROMOTION PENDING) |
 | versionFrozen | N/A — NOT APPLICABLE |
 
 Work Package ISO-C2-M3-D1-E1 remediated DEF-RUNTIME-01 / TRT-C02 under explicit Project Owner authorization. Implemented pre-effect registration rate limiting in `src/app/api/auth/register/route.ts` and `src/lib/auth/unified/rate-limiter.ts` executing immediately following input validation and strictly preceding `bcrypt.hash(password, 10)` (first expensive CPU resource side effect), before `prisma.user.findUnique`, and before `prisma.$transaction` creating account records. Reused existing `"AuthRateLimit"` PostgreSQL table; schema and seeds unchanged. Rate limiter keying utilizes dual-dimension pseudonymous reference hashes (HMAC-SHA256) for IP and normalized email with zero raw PII stored. Header spoofing defense extracts the terminal element from `X-Forwarded-For`. Failure behavior is strictly fail-closed. Targeted contract tests (`tests/auth/registration-rate-limiter.test.ts`) verified 11/11 checks PASS, proving zero CPU hashing, zero DB writes, zero audit logs, and zero emails dispatched on throttled or error requests. Shared auth tests (15/15) and MFA limiter tests (4/4) PASS. Typecheck PASS (0 errors). Technical commit `dca5479` pushed to `feat/iso-conformity-v1.0`. RSK-06 classified as PROVEN — IMPLEMENTED (residual score 6 MODERATE). Controlled Preview promotion requires separate authorization before runtime deployment. See [M3 Evidence](ISO_C2_M3_REGISTRATION_PRE_EFFECT_RATE_LIMITING_EVIDENCE.md).
+
+Work Package ISO-C2-M3-D2-E2 promoted candidate `dca5479` / deployment `7251560631` to Vercel Preview (`https://ren-tipid-mc05sddzv-jburns2372-sys-projects.vercel.app`) under Project Owner authorization. Verified against isolated Preview database branch `rentipid-listingbridge-preview` (`holy-shape-01357429`) with zero schema migration required. Executed runtime verification with synthetic identity `iso-c2-m3-preview-1792671679111@example.invalid`: below-threshold Attempt 1 returned `201 Created`; in-quota Attempts 2-5 returned `409 Conflict` (limiter allowed; duplicate user detected by downstream logic); over-threshold Attempt 6 returned `429 Too Many Requests` with header `Retry-After: 3546` and sanitized body. Proved zero side effects on blocked request (0 user records, 0 credentials, 0 password hashes, 0 audit logs, 0 emails dispatched). Rate limiter PostgreSQL `"AuthRateLimit"` storage confirmed; HMAC-SHA256 pseudonymous keys confirmed with zero raw PII; zero secrets logged; Production environment and database untouched. RSK-06 classified as PROVEN — IMPLEMENTED / PREVIEW VERIFIED. Preview acceptance: PASS — EXECUTED. Production promotion requires separate Project Owner authorization. See [M3 Evidence](ISO_C2_M3_REGISTRATION_PRE_EFFECT_RATE_LIMITING_EVIDENCE.md).
+
 
 
