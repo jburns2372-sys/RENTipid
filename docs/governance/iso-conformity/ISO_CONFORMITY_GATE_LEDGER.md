@@ -397,6 +397,27 @@ Work Package ISO-C2-M4-D3 formally enacted Project Owner policy decisions codify
 
 Work Package ISO-C2-M4-D4-R1 executed under explicit Project Owner authorization to reconcile the M4 backup monitoring model with Neon's actual provider-native architecture following the block in Codex package `ISO-C2-M4-D4-E1`. Authenticated Neon access confirmed read-only for `j.burns2372@gmail.com` under organization `org-sweet-fog-42432629` (`Vercel: jburns2372-sys' projects`). Production provider target re-verified: Project `holy-shape-01357429` (`neon-camel-bell`), branch `br-proud-sunset-ap0ofil2` (`rentipid-production`), region `aws-us-east-1`, PostgreSQL 17, plan `scale_v3`, branch status `ready` (`protected: true`), and current history retention 21,600 seconds (6 hours). Max plan retention natively supports 2,592,000 seconds (30 days). Control plane API audit verified: `RECOVERABLE POINT TIMESTAMP: NOT EXPOSED BY PROVIDER API`; `branch.updated_at` reflects only control-plane metadata changes and is NOT a database recoverability or WAL timestamp; and `PROVIDER OPERATION FAILURE SIGNAL: NOT RELIABLE FOR M4` (operations list tracks compute wake/sleep lifecycle). Point-in-time recovery capability is PROVEN via continuous WAL streaming across the configured history window. Formally amended the 30-minute threshold to `MONITORING EVIDENCE FRESHNESS THRESHOLD: <= 30 MINUTES` (alerting and failing closed if valid provider health evidence is not acquired within 30 minutes). Controlling requirements reaffirmed: RPO <= 60 minutes, monitoring cadence 15 minutes, retention >= 30 days. Clarified boundary: M4/RSK-22 proves operational monitoring; RSK-23 proves actual restore execution under Phase ISO-C3. Defined exact RSK-22 operating acceptance criteria for `PROVEN — OPERATING CONFORMITY`. Zero production, database, or provider configurations were modified; zero restore drills were executed; zero customer data accessed. RSK-22 remains PARTIAL; RSK-23 remains PARTIAL — UNCHANGED. See [M4 Continuity Policy Decision](ISO_C2_M4_CONTINUITY_POLICY_DECISION.md) and [M4 Remediation Design](ISO_C2_M4_BACKUP_MONITORING_REMEDIATION_DESIGN.md).
 
+## 20. ISO-C2-M4-D4-E2 Backup Monitoring Implementation & Retention Remediation Operating Evidence (2026-10-23)
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — EXECUTED |
+| localFunctional | PASS — EXECUTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — EXECUTED |
+| previewMigrated | N/A — NOT APPLICABLE |
+| previewAcceptancePass | N/A — NOT APPLICABLE |
+| productionReady | PASS — EXECUTED |
+| productionDeploymentVerification | N/A — NOT APPLICABLE |
+| completed | PASS — EXECUTED |
+| accepted | PASS — EXECUTED |
+| closed | CLOSED (IMPLEMENTATION & EVIDENCE RECORDED) |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Work Package ISO-C2-M4-D4-E2 completed the technical implementation of the backup monitoring control from authorized pre-existing WIP. Pinned GitHub Actions workflow `.github/workflows/backup-freshness-monitor.yml`, `scripts/security/backup-monitor-actions.mjs`, and `scripts/security/check-backup-freshness.mjs` implemented and tested with 49/49 contract tests passing (alert state machine, monitor checks, YAML workflow constraints). Evaluates strictly provider-native fields on Neon Control Plane API (`current_state == 'ready'`, `protected == true`, `history_retention_seconds >= 2592000`) and enforces 30-minute monitoring evidence freshness window. Neon project history retention remediated from 6 hours to 30 days (`2,592,000 seconds`) under Scale plan (`scale_v3`) with independent read-back PASS. Dedicated project-scoped automation identity `rentipid-backup-monitoring` (ID 3459133) created and `NEON_API_KEY` stored in GitHub repository secrets. Deduplicated GitHub issue alert mechanism implemented (`[ISO-C2-M4] Production backup/PITR monitoring alert`). Technical candidate `ba0a474` pushed to `feat/iso-conformity-v1.0`. Scheduled workflow execution operates from repository default branch (`main`); promotion to `main` remains required for live scheduled execution. Zero customer data accessed; zero production DB modifications; zero restore/PITR drills executed. RSK-22 classified as **PARTIAL — IMPLEMENTED / RETENTION CORRECTED / SCHEDULED OPERATION PENDING MAIN ACTIVATION**. RSK-23 remains **PARTIAL — UNCHANGED**. No residual risk accepted. See [M4 Implementation Evidence](ISO_C2_M4_BACKUP_MONITORING_IMPLEMENTATION_EVIDENCE.md).
+
+
 
 
 

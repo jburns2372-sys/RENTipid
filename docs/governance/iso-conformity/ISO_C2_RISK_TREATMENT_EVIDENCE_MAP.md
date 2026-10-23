@@ -122,13 +122,13 @@ Exactly 15 owner-authorized risks, one primary disposition per risk. Counts belo
 
 ### RSK-22
 
-- Primary classification: **OPERATING EVIDENCE GAP** (`PARTIAL`).
+- Primary classification: **OPERATING EVIDENCE GAP** (`PARTIAL — IMPLEMENTED / RETENTION CORRECTED / SCHEDULED OPERATION PENDING MAIN ACTIVATION`).
 - Baseline inherent: 3 x 5 = 15 (HIGH); residual: 3 x 5 = 15 (HIGH) (unchanged).
-- Evidence: EVD-15 plans; ISO_C2_M4_BACKUP_FRESHNESS_MONITORING_OPERATING_EVIDENCE.md; authenticated Neon read-back (`holy-shape-01357429`, branch `rentipid-production`).
-- Existing controls / limits: Continuous multi-AZ WAL backup streaming and 6-hour continuous PITR window operational (< 1 min freshness). Proactive backup failure monitoring and automated alerts unconfigured; discrete snapshots 0; multi-day archival unconfigured.
-- Remaining treatment: TRT-F02: configure proactive backup health monitor / alert channel and evaluate extended snapshot schedule; operational evidence collected under M4.
-- Lifecycle: Operating evidence recorded under ISO-C2-M4-D1-E1; application and database code PASS — REUSED / UNAFFECTED; future monitoring implementation must be scoped separately.
-- Custodian: `ROLE ASSIGNMENT REQUIRED` (Database Admin / Cloud Ops Lead); named assignment remains where required. Authority: PROJECT_OWNER_DECISION_ISO_C1_RISK_TREATMENT.md; treatment authorized, risk open, no residual acceptance.
+- Evidence: EVD-15 plans; ISO_C2_M4_BACKUP_FRESHNESS_MONITORING_OPERATING_EVIDENCE.md; ISO_C2_M4_CONTINUITY_POLICY_DECISION.md; ISO_C2_M4_BACKUP_MONITORING_REMEDIATION_DESIGN.md; ISO_C2_M4_BACKUP_MONITORING_IMPLEMENTATION_EVIDENCE.md; authenticated Neon read-back (`holy-shape-01357429`, branch `rentipid-production`).
+- Existing controls / limits: Continuous multi-AZ WAL backup streaming active; 30-day retention remediated on Neon Scale plan (`history_retention_seconds: 2592000`, read-back PASS); monitoring workflow (`.github/workflows/backup-freshness-monitor.yml`) and scripts implemented and tested (49/49 contract tests PASS); dedicated project-scoped automation identity created (`rentipid-backup-monitoring`, ID 3459133) and stored in GitHub secret `NEON_API_KEY`.
+- Remaining treatment: TRT-F02: activate scheduled workflow on repository default branch (`main`) via controlled merge and observe operating scheduled runs.
+- Lifecycle: Code complete and local acceptance PASS — EXECUTED; 49 contract tests PASS; database schema and seed REUSED / UNAFFECTED; preview/production app deployment N/A — NOT APPLICABLE; scheduled operation pending main promotion.
+- Custodian: `Database Administrator` (Backup Control Owner), `Cloud Operations Lead` (Monitoring/Alert Response Owner), `Security Operations / ISO Governance` (Security Oversight); formally enacted by Project Owner. Authority: PROJECT_OWNER_DECISION_ISO_C1_RISK_TREATMENT.md; treatment authorized, risk open, no residual acceptance.
 
 ### RSK-23
 
