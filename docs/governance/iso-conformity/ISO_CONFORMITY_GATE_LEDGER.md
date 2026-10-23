@@ -337,6 +337,27 @@ Work Package ISO-C2-M3-D3-E3 promoted exact application candidate `dca5479047915
 
 Work Package ISO-C2-M4-D1-E1 executed under Project Owner authorization for read-only operational evidence collection for ISO-C2-M4 / RSK-22 / TRT-F02. Production database provider was verified as Neon Serverless PostgreSQL (`holy-shape-01357429`, branch `rentipid-production` / `br-proud-sunset-ap0ofil2`, `aws-us-east-1`, PostgreSQL 17, `protected: true`). Read-only inspection verified: continuous multi-AZ WAL backup streaming to distributed Safekeepers/Pageservers; continuous Point-In-Time Recovery (PITR) active; history retention configured at 21,600 seconds (6 hours); discrete snapshots: 0. Backup freshness measured at < 1 minute (real-time continuous replication; observation at `2026-10-22T13:03:59Z`). Retention evaluated as PARTIAL (6-hour continuous window active; 30-day archival recommended in runbook unconfigured). Proactive failure monitoring and automated alert notifications evaluated as GAP (no automated monitor or notification channels configured). Operational roles identified as `Database Administrator` and `Cloud Operations Lead` (`REQUIRES HUMAN EVIDENCE` for named assignments). Zero customer data was accessed; zero database, backup, or monitoring configurations were modified. No restore drill was performed or authorized under M4. RSK-22 classified as PARTIAL. RSK-23 remains PARTIAL — UNCHANGED. Milestone ISO-C2-M4 operating evidence recorded and closed. See [M4 Operating Evidence](ISO_C2_M4_BACKUP_FRESHNESS_MONITORING_OPERATING_EVIDENCE.md).
 
+## 17. ISO-C2-M4-D2 Backup Monitoring & Alerting Remediation Design + Governance Reconciliation (2026-10-23)
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — REUSED / UNAFFECTED |
+| localFunctional | PASS — REUSED / UNAFFECTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — REUSED / UNAFFECTED |
+| previewMigrated | N/A — NOT APPLICABLE |
+| previewAcceptancePass | N/A — NOT APPLICABLE |
+| productionReady | N/A — NOT APPLICABLE |
+| productionDeploymentVerification | N/A — NOT APPLICABLE |
+| completed | PASS — EXECUTED (M4-D2 DESIGN COMPLETE) |
+| accepted | PASS — EXECUTED (DESIGN RECORDED) |
+| closed | CLOSED (DESIGN & RECONCILIATION BASELINE) |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Work Package ISO-C2-M4-D2 delivered the remediation design and governance reconciliation for backup freshness monitoring and alerting (`RSK-22` / `TRT-F02`). Evaluated continuity requirements across repository governance: RPO and RTO are `NOT_DEFINED`; freshness requirement is `DEFINED_BUT_NONCONTROLLING` (daily runbook baseline vs live continuous replication); retention requirement is `CONFLICTING / DEFINED_BUT_NONCONTROLLING` (30-day runbook recommendation vs 6-hour live PITR window); retention compliance evaluated as `UNDETERMINED`. Derived minimum monitored signal from Neon Management Control Plane API (`current_state == 'ready'`, `history_retention_seconds`, operations failure count, calculated recoverable point age) with zero serverless compute spin-up costs. Confirmed existing alert channels are `NONE` (`HUMAN/OPERATIONAL DESTINATION REQUIRED`). Designed fail-closed operational rules ensuring inability to measure backup health triggers critical alerts. Evaluated three architectures and unanimously selected Option 1 (Scheduled GitHub Actions Workflow `.github/workflows/backup-freshness-monitor.yml`) for its zero production footprint, zero financial cost, and complete ISO auditability. Classified remediation under `E. MULTIPLE OF B/C/D REQUIRED` (Project Owner policy decision required for RPO/retention thresholds; Human operational evidence required for named personnel assignments and notification destination). RSK-22 remains `PARTIAL`; RSK-23 remains `PARTIAL — UNCHANGED`. Zero production, database, or provider configurations were modified. See [M4-D2 Design Document](ISO_C2_M4_BACKUP_MONITORING_REMEDIATION_DESIGN.md).
+
+
 
 
 
