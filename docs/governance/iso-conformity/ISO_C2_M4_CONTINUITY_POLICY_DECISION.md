@@ -30,14 +30,16 @@ The Project Owner formally enacts the following controlling requirements:
 * **Adopted RPO:** **$\le$ 60 MINUTES**
 * **Operational Contract:** At all times during normal production operations, RENTipid shall maintain a provider-supported recoverable database point no more than 60 minutes behind current operation, except during a formally recorded and isolated third-party cloud provider outage.
 
-### 2.2 Backup / PITR Freshness Threshold
-* **Healthy State:** Latest recoverable point age $\le$ **30 minutes**.
-* **Stale / Alert State:** Latest recoverable point age > **30 minutes**.
-* **Rationale:** The 30-minute operational alerting threshold deliberately provides a 30-minute safety margin before the 60-minute RPO can be breached.
+### 2.2 Provider-Native Monitoring Evidence Freshness Threshold (Amended)
+* **Reconciliation Context:** In Neon's serverless PostgreSQL architecture, data changes stream continuously as Write-Ahead Logs (WAL) to multi-AZ Safekeepers and Pageservers, enabling Point-In-Time Recovery (PITR) across the entire configured retention window (`history_retention_seconds`). Neon's Management Control Plane API does **not** expose a discrete snapshot generation timestamp or "latest recoverable point timestamp" (`RECOVERABLE POINT TIMESTAMP: NOT EXPOSED BY PROVIDER API`). Control-plane metadata field `branch.updated_at` reflects only control-plane metadata modifications and **IS NOT A DATABASE RECOVERABILITY OR WAL COMMIT TIMESTAMP**.
+* **Amended Threshold Definition:** The previously defined 30-minute backup freshness threshold is formally amended to **`MONITORING EVIDENCE FRESHNESS THRESHOLD: <= 30 MINUTES`**.
+* **Operational Contract:** The monitoring system must successfully execute and obtain valid provider health evidence at least once within every 30-minute window.
+* **Fail-Closed Alert Condition:** If no valid provider evidence has been obtained for more than 30 minutes: **`ALERT / FAIL CLOSED`**.
+* **Boundary Clarification:** This 30-minute value represents the maximum allowable age of active provider health evidence; it must **never** be misrepresented or claimed as a Neon "latest recoverable backup timestamp".
 
 ### 2.3 Automated Monitoring Frequency
 * **Cadence:** **EVERY 15 MINUTES** (`*/15 * * * *`).
-* **Operational Contract:** Backup and Point-In-Time Recovery (PITR) health shall be evaluated continuously via automated scheduling. Polling every 15 minutes ensures at least two automated inspection opportunities before any 30-minute freshness breach occurs.
+* **Operational Contract:** Provider continuity and control-plane health shall be evaluated continuously via automated scheduling. Polling every 15 minutes guarantees at least two automated inspection opportunities within every 30-minute monitoring evidence freshness window before an alert triggers.
 
 ### 2.4 Production Backup & PITR Retention Requirement
 * **Adopted Requirement:** **$\ge$ 30 DAYS** (`2,592,000 seconds`).
@@ -54,7 +56,7 @@ The Project Owner formally enacts the following controlling requirements:
 
 ## 3. Approved Monitoring & Alerting Architecture
 
-The Project Owner formally approves the architecture recommended in Work Package `ISO-C2-M4-D2`:
+The Project Owner formally approves the reconciled provider-native architecture for Work Package `ISO-C2-M4`:
 
 ### 3.1 Monitoring Execution Model
 * **Mechanism:** Scheduled GitHub Actions Workflow.
@@ -63,20 +65,26 @@ The Project Owner formally approves the architecture recommended in Work Package
 * **Target Interface:** Neon Management Control Plane REST API (`https://console.neon.tech/api/v2/projects/{project_id}/branches/{branch_id}`).
 * **Operational Isolation:** Probe operates strictly on the cloud control plane. No SQL connections are made; zero serverless compute wakeups are triggered; zero database credentials are required or exposed.
 
-### 3.2 Monitored Signals & Pass/Fail Criteria
-The monitoring probe must evaluate the following signals:
+### 3.2 Provider-Native Monitored Signals & Pass/Fail Criteria
+The monitoring probe must evaluate strictly provider-supported fields:
 
-1. **Neon Branch State:** Expected `ready` (Alert if `current_state != 'ready'`).
-2. **Backup Freshness Age:** Expected $\le 30\text{ minutes}$ (Alert if $> 30\text{ minutes}$).
-3. **Configured History Retention:** Expected $\ge 30\text{ days}$ (Flag non-compliant until provider configuration is updated).
-4. **Provider Operations Health:** Expected latest operations `status == 'finished'` and `failures_count == 0` (Alert if failure detected).
-5. **Provider Measurement Availability:** Inability to measure health due to API timeout, network error, or invalid credentials must immediately fail closed and trigger an alert.
+1. **Project Identity Match:** Exact match (`project_id == 'holy-shape-01357429'`).
+2. **Branch Identity Match:** Exact match (`branch_id == 'br-proud-sunset-ap0ofil2'`).
+3. **Branch Control-Plane State:** Expected `ready` (Alert if `current_state != 'ready'`).
+4. **Branch Protection State:** Expected `protected == true`.
+5. **Configured History Retention:** Expected `history_retention_seconds >= 2,592,000` (Flag non-compliant until provider configuration is updated).
+6. **API Access & Authentication:** Successful authenticated HTTP 200 response from Neon Management API.
+7. **Provider Response Schema:** Valid JSON response with all required branch metadata fields.
+8. **Provider Operations Signal Review:** Evaluated against `GET /projects/{project_id}/operations`. Finding: Neon operations list tracks asynchronous control-plane operations (e.g. `start_compute`, `suspend_compute`) rather than storage/WAL persistence. Recorded finding: `PROVIDER OPERATION FAILURE SIGNAL: NOT RELIABLE FOR M4`.
+9. **Monitoring Evidence Freshness Age:** Age of last successful monitoring execution $\le$ 30 minutes. (Alert / fail-closed if $> 30\text{ minutes}$).
+
+Zero fabricated restore timestamps. Zero reliance on `branch.updated_at`, deployment timestamps, or application activity as backup freshness metrics.
 
 ### 3.3 Alerting Mechanism & Notification Channel
 * **Primary Control Channel:** GitHub Actions workflow execution status (native fail-closed non-zero exit code).
 * **Persistent Operational Alert Record:** **Deduplicated GitHub Issue** in the RENTipid repository (`jburns2372-sys/RENTipid`).
   * **Labels:** `iso-backup-monitoring`, `operational-risk`
-  * **Deduplication Rule:** The automation shall create or update **exactly ONE open issue** for any active backup degradation incident rather than creating redundant issues every 15 minutes.
+  * **Deduplication Rule:** The automation shall create or update **exactly ONE open issue** for any active backup degradation or monitoring outage incident rather than creating redundant issues every 15 minutes.
   * **Auto-Resolution Rule:** The workflow shall automatically close or resolve the tracking issue when consecutive healthy evidence is re-established, recording the recovery timestamp and audit trace.
 
 ---
@@ -118,25 +126,48 @@ A read-only investigation of the active Neon PostgreSQL provider environment est
 
 ---
 
-## 7. Multi-Dimensional Governance Dispositions
+## 7. RPO Evidence Model & RSK-22 / RSK-23 Boundary
 
-| Control Element | Current State | Required Target | Compliance Status | Action Required |
-|---|---|---|---|---|
-| **RPO** | $\le 60$ minutes | $\le 60$ minutes | **COMPLIANT** | Monitored by automation |
-| **Freshness Threshold** | Measured < 1 min | $\le 30$ minutes | **COMPLIANT** | Continuous WAL streaming |
-| **Monitoring Cadence** | None | Every 15 minutes | **PENDING IMPLEMENTATION** | Deploy GitHub workflow |
-| **History Retention** | 6 hours | 30 days | **NON-COMPLIANT (FAIL)** | Commercial authorization & provider config |
-| **Alert Destination** | None | GitHub Issues | **APPROVED** | Implement in workflow |
-| **Control Ownership** | Designated | Role assigned | **COMPLIANT** | Formally enacted by Owner |
+A clear architectural and governance separation is maintained between monitoring capability and restore drill execution:
 
-### Risk Register Dispositions:
-* **`RSK-22` (Backup Freshness & Monitoring):** Remains **`PARTIAL`**. While policy, thresholds, and architecture are now formally adopted, implementation of the monitor and provider retention remediation remain pending.
-* **`RSK-23` (Disaster Recovery Restore Drills):** Remains **`PARTIAL — UNCHANGED`**. No restore drill is conducted in M4.
+### 7.1 What M4 / RSK-22 Proves:
+* Provider-native PITR/history capability is enabled and operational;
+* Required history retention ($\ge 30$ days) is configured;
+* Provider/control-plane health is monitored continuously (every 15 minutes);
+* Inability to establish provider health triggers fail-closed alert;
+* Monitoring evidence age remains $\le 30$ minutes.
+
+M4 does **not** alone prove a completed restore, and must not claim to do so.
+
+### 7.2 What RSK-23 Proves:
+* Actual restore / Point-In-Time Recovery execution assurance;
+* Verification of database recovery consistency against live provider backups;
+* Governed strictly under later phase `ISO-C3` (operational provider restore drills).
+
+### 7.3 Risk Register Dispositions:
+* **`RSK-22` (Backup Freshness & Monitoring):** Remains **`PARTIAL`**.
+* **`RSK-23` (Disaster Recovery Restore Drills):** Remains **`PARTIAL — UNCHANGED`**.
 * **Residual Risk Acceptance:** **`NO`** (Zero residual risk accepted).
 
 ---
 
-## 8. Next Authorized Work Package Boundary
+## 8. RSK-22 Acceptance Model for Operating Conformity
+
+To transition `RSK-22` from `PARTIAL` to **`PROVEN — OPERATING CONFORMITY`**, the following concrete evidence is strictly required:
+
+1. **30-Day Retention Configured:** Live Neon production branch `br-proud-sunset-ap0ofil2` configured with `history_retention_seconds: 2592000`.
+2. **Provider Target Verified:** Control plane confirms project `holy-shape-01357429` and branch `br-proud-sunset-ap0ofil2`.
+3. **Monitoring Workflow Implemented:** `.github/workflows/backup-freshness-monitor.yml` and `scripts/monitoring/check-backup-freshness.ts` implemented and committed.
+4. **Active on Default Branch:** Monitoring workflow present on `main` branch.
+5. **Scheduled Runs Observed:** Real GitHub Actions scheduled cron runs observed and recorded.
+6. **Alert Path Verified:** Deduplicated GitHub Issue creation on failure and auto-resolution on healthy recovery verified.
+7. **Operating Run Evidence:** At least one healthy scheduled operating run successfully recorded.
+8. **Failure/Unknown Contract Proven:** Automated monitor demonstrably fails closed (exit code 1) on missing API key, network timeout, unhealthy branch state, or retention breach.
+9. **Zero Silent Failures:** No scenario exists where monitoring failure is suppressed or converted to PASS.
+
+---
+
+## 9. Next Authorized Work Package Boundary
 
 To execute the decisions enacted in this baseline, the Project Owner may authorize:
 

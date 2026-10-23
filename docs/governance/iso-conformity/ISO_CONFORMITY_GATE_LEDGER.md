@@ -377,6 +377,27 @@ Work Package ISO-C2-M4-D2 delivered the remediation design and governance reconc
 
 Work Package ISO-C2-M4-D3 formally enacted Project Owner policy decisions codifying internal continuity requirements: Production Database RPO <= 60 minutes; backup freshness threshold <= 30 minutes; automated monitoring cadence every 15 minutes; and minimum backup/PITR retention >= 30 days. Current Neon retention (6 hours) classified as FAIL (non-compliant with newly adopted requirement), with resolution to be handled under a separate provider configuration package. Approved scheduled GitHub Actions workflow (`.github/workflows/backup-freshness-monitor.yml`) querying the Neon Management Control Plane API read-only. Approved persistent alert mechanism via deduplicated GitHub Issues (labels: `iso-backup-monitoring`, `operational-risk`). Formally assigned operational role accountability: Backup Control Owner (`Database Administrator`), Monitoring/Alert Owner (`Cloud Operations Lead`), and Security Oversight (`Security Operations / ISO Governance`); human evidence marked COMPLETE — PROJECT OWNER ROLE ASSIGNMENT. Investigated provider capability: Neon Scale plan (`scale_v3`) natively supports up to 30 days retention via configuration alone with zero plan change required; recorded commercial authorization gate for metered WAL storage consumption ($0.20/GB-month). Identified credential requirement: read-only `NEON_API_KEY` required in GitHub repository secrets. RSK-22 remains PARTIAL; RSK-23 remains PARTIAL — UNCHANGED. Zero production, database, or provider configurations modified. See [M4-D3 Policy Decision](ISO_C2_M4_CONTINUITY_POLICY_DECISION.md).
 
+## 19. ISO-C2-M4-D4-R1 Neon Provider-Native Monitoring Model Reconciliation + Authenticated Provider Evidence (2026-10-23)
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | N/A — RECONCILIATION & GOVERNANCE ONLY |
+| localFunctional | PASS — REUSED / UNAFFECTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — REUSED / UNAFFECTED |
+| previewMigrated | N/A — NOT APPLICABLE |
+| previewAcceptancePass | N/A — NOT APPLICABLE |
+| productionReady | N/A — NOT APPLICABLE |
+| productionDeploymentVerification | N/A — NOT APPLICABLE |
+| completed | PASS — EXECUTED (MODEL RECONCILED) |
+| accepted | PASS — EXECUTED (PROVIDER EVIDENCE VALIDATED) |
+| closed | CLOSED (RECONCILIATION BASELINE) |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Work Package ISO-C2-M4-D4-R1 executed under explicit Project Owner authorization to reconcile the M4 backup monitoring model with Neon's actual provider-native architecture following the block in Codex package `ISO-C2-M4-D4-E1`. Authenticated Neon access confirmed read-only for `j.burns2372@gmail.com` under organization `org-sweet-fog-42432629` (`Vercel: jburns2372-sys' projects`). Production provider target re-verified: Project `holy-shape-01357429` (`neon-camel-bell`), branch `br-proud-sunset-ap0ofil2` (`rentipid-production`), region `aws-us-east-1`, PostgreSQL 17, plan `scale_v3`, branch status `ready` (`protected: true`), and current history retention 21,600 seconds (6 hours). Max plan retention natively supports 2,592,000 seconds (30 days). Control plane API audit verified: `RECOVERABLE POINT TIMESTAMP: NOT EXPOSED BY PROVIDER API`; `branch.updated_at` reflects only control-plane metadata changes and is NOT a database recoverability or WAL timestamp; and `PROVIDER OPERATION FAILURE SIGNAL: NOT RELIABLE FOR M4` (operations list tracks compute wake/sleep lifecycle). Point-in-time recovery capability is PROVEN via continuous WAL streaming across the configured history window. Formally amended the 30-minute threshold to `MONITORING EVIDENCE FRESHNESS THRESHOLD: <= 30 MINUTES` (alerting and failing closed if valid provider health evidence is not acquired within 30 minutes). Controlling requirements reaffirmed: RPO <= 60 minutes, monitoring cadence 15 minutes, retention >= 30 days. Clarified boundary: M4/RSK-22 proves operational monitoring; RSK-23 proves actual restore execution under Phase ISO-C3. Defined exact RSK-22 operating acceptance criteria for `PROVEN — OPERATING CONFORMITY`. Zero production, database, or provider configurations were modified; zero restore drills were executed; zero customer data accessed. RSK-22 remains PARTIAL; RSK-23 remains PARTIAL — UNCHANGED. See [M4 Continuity Policy Decision](ISO_C2_M4_CONTINUITY_POLICY_DECISION.md) and [M4 Remediation Design](ISO_C2_M4_BACKUP_MONITORING_REMEDIATION_DESIGN.md).
+
+
 
 
 
