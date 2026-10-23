@@ -417,6 +417,27 @@ Work Package ISO-C2-M4-D4-R1 executed under explicit Project Owner authorization
 
 Work Package ISO-C2-M4-D4-E2 completed the technical implementation of the backup monitoring control from authorized pre-existing WIP. Pinned GitHub Actions workflow `.github/workflows/backup-freshness-monitor.yml`, `scripts/security/backup-monitor-actions.mjs`, and `scripts/security/check-backup-freshness.mjs` implemented and tested with 49/49 contract tests passing (alert state machine, monitor checks, YAML workflow constraints). Evaluates strictly provider-native fields on Neon Control Plane API (`current_state == 'ready'`, `protected == true`, `history_retention_seconds >= 2592000`) and enforces 30-minute monitoring evidence freshness window. Neon project history retention remediated from 6 hours to 30 days (`2,592,000 seconds`) under Scale plan (`scale_v3`) with independent read-back PASS. Dedicated project-scoped automation identity `rentipid-backup-monitoring` (ID 3459133) created and `NEON_API_KEY` stored in GitHub repository secrets. Deduplicated GitHub issue alert mechanism implemented (`[ISO-C2-M4] Production backup/PITR monitoring alert`). Technical candidate `ba0a474` pushed to `feat/iso-conformity-v1.0`. Scheduled workflow execution operates from repository default branch (`main`); promotion to `main` remains required for live scheduled execution. Zero customer data accessed; zero production DB modifications; zero restore/PITR drills executed. RSK-22 classified as **PARTIAL — IMPLEMENTED / RETENTION CORRECTED / SCHEDULED OPERATION PENDING MAIN ACTIVATION**. RSK-23 remains **PARTIAL — UNCHANGED**. No residual risk accepted. See [M4 Implementation Evidence](ISO_C2_M4_BACKUP_MONITORING_IMPLEMENTATION_EVIDENCE.md).
 
+## 21. ISO-C2-M4-D5-R1 Main / Production Baseline Synchronization Precondition (2026-10-24)
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — EXECUTED |
+| localFunctional | PASS — EXECUTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — EXECUTED |
+| previewMigrated | PASS — EXECUTED (`dpl_22iby5YD3gmKPvtvr1LJ1zvXi7NZ` Ready) |
+| previewAcceptancePass | PASS — EXECUTED |
+| productionReady | PAUSED — HUMAN APPROVAL & CI GATE REQUIRED |
+| productionDeploymentVerification | PENDING MAIN MERGE |
+| completed | BLOCKED (PR #1 AWAITING HUMAN APPROVAL) |
+| accepted | PENDING REVIEW |
+| closed | PAUSED |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Work Package ISO-C2-M4-D5-R1 executed under explicit Project Owner authorization to eliminate source-control drift between default branch `origin/main` (`b44ed78`) and the authoritative Production application candidate `dca547904791535ca44485747065961dbf8fc421` (resolving to `dca54797dec2bf75a21b1406bfed2f73d6329e75`) as an authorized precondition for M4 backup monitoring activation. Vercel project `ren-tipid` has `productionBranch: 'main'`. Isolated branch `iso-c2-main-production-sync` created from `origin/main` and synchronized to `dca5479` across all deployment-affecting paths (`src/`, `prisma/`, `public/`, `seed-data/`, `apps/`, `package.json`, `package-lock.json`, `next.config.ts`, `tsconfig.json`, `postcss.config.mjs`, `vercel.json`, `.vercelignore`, `.npmrc`, `components.json`, `scripts/`, `tests/`, `.github/workflows/`). Verified exact runtime file equivalence (`DIFF: NONE`). Excluded all six M4 backup monitoring files (`M4 ACTIVATION INCLUDED: NO`). Database safety verified (`NEW DATABASE MIGRATION: NO`). PR #1 created (`https://github.com/jburns2372-sys/RENTipid/pull/1`). Vercel Preview deployment `dpl_22iby5YD3gmKPvtvr1LJ1zvXi7NZ` compiled and reached `● Ready`. Check `Localization Acceptance CI` passed (37s). Check `supply-chain-validation` failed due to live npm audit advisory `GHSA-2464-fhr4-w9xw` on `next@16.3.8`. PR #1 requires independent human review approval (`reviewDecision: "REVIEW_REQUIRED"`). Under protected branch rules, Antigravity cannot self-approve and admin bypass is prohibited. Merge to `main` is paused awaiting human approval and CI resolution. RSK-22 remains **PARTIAL — IMPLEMENTED / RETENTION CORRECTED / SCHEDULED OPERATION PENDING MAIN ACTIVATION**. RSK-23 remains **PARTIAL — UNCHANGED**. No residual risk accepted. See [Main Production Baseline Sync Evidence](ISO_C2_MAIN_PRODUCTION_BASELINE_SYNCHRONIZATION_EVIDENCE.md).
+
+
 
 
 
