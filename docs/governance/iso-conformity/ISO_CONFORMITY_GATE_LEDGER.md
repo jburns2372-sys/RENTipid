@@ -357,6 +357,27 @@ Work Package ISO-C2-M4-D1-E1 executed under Project Owner authorization for read
 
 Work Package ISO-C2-M4-D2 delivered the remediation design and governance reconciliation for backup freshness monitoring and alerting (`RSK-22` / `TRT-F02`). Evaluated continuity requirements across repository governance: RPO and RTO are `NOT_DEFINED`; freshness requirement is `DEFINED_BUT_NONCONTROLLING` (daily runbook baseline vs live continuous replication); retention requirement is `CONFLICTING / DEFINED_BUT_NONCONTROLLING` (30-day runbook recommendation vs 6-hour live PITR window); retention compliance evaluated as `UNDETERMINED`. Derived minimum monitored signal from Neon Management Control Plane API (`current_state == 'ready'`, `history_retention_seconds`, operations failure count, calculated recoverable point age) with zero serverless compute spin-up costs. Confirmed existing alert channels are `NONE` (`HUMAN/OPERATIONAL DESTINATION REQUIRED`). Designed fail-closed operational rules ensuring inability to measure backup health triggers critical alerts. Evaluated three architectures and unanimously selected Option 1 (Scheduled GitHub Actions Workflow `.github/workflows/backup-freshness-monitor.yml`) for its zero production footprint, zero financial cost, and complete ISO auditability. Classified remediation under `E. MULTIPLE OF B/C/D REQUIRED` (Project Owner policy decision required for RPO/retention thresholds; Human operational evidence required for named personnel assignments and notification destination). RSK-22 remains `PARTIAL`; RSK-23 remains `PARTIAL — UNCHANGED`. Zero production, database, or provider configurations were modified. See [M4-D2 Design Document](ISO_C2_M4_BACKUP_MONITORING_REMEDIATION_DESIGN.md).
 
+## 18. ISO-C2-M4-D3 Project Owner Continuity Policy Decision & Monitoring/Alerting Baseline (2026-10-23)
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — REUSED / UNAFFECTED |
+| localFunctional | PASS — REUSED / UNAFFECTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — REUSED / UNAFFECTED |
+| previewMigrated | N/A — NOT APPLICABLE |
+| previewAcceptancePass | N/A — NOT APPLICABLE |
+| productionReady | N/A — NOT APPLICABLE |
+| productionDeploymentVerification | N/A — NOT APPLICABLE |
+| completed | PASS — EXECUTED (POLICY ADOPTED) |
+| accepted | PASS — EXECUTED (POLICY CODIFIED) |
+| closed | CLOSED (POLICY DECISION BASELINE) |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Work Package ISO-C2-M4-D3 formally enacted Project Owner policy decisions codifying internal continuity requirements: Production Database RPO <= 60 minutes; backup freshness threshold <= 30 minutes; automated monitoring cadence every 15 minutes; and minimum backup/PITR retention >= 30 days. Current Neon retention (6 hours) classified as FAIL (non-compliant with newly adopted requirement), with resolution to be handled under a separate provider configuration package. Approved scheduled GitHub Actions workflow (`.github/workflows/backup-freshness-monitor.yml`) querying the Neon Management Control Plane API read-only. Approved persistent alert mechanism via deduplicated GitHub Issues (labels: `iso-backup-monitoring`, `operational-risk`). Formally assigned operational role accountability: Backup Control Owner (`Database Administrator`), Monitoring/Alert Owner (`Cloud Operations Lead`), and Security Oversight (`Security Operations / ISO Governance`); human evidence marked COMPLETE — PROJECT OWNER ROLE ASSIGNMENT. Investigated provider capability: Neon Scale plan (`scale_v3`) natively supports up to 30 days retention via configuration alone with zero plan change required; recorded commercial authorization gate for metered WAL storage consumption ($0.20/GB-month). Identified credential requirement: read-only `NEON_API_KEY` required in GitHub repository secrets. RSK-22 remains PARTIAL; RSK-23 remains PARTIAL — UNCHANGED. Zero production, database, or provider configurations modified. See [M4-D3 Policy Decision](ISO_C2_M4_CONTINUITY_POLICY_DECISION.md).
+
+
 
 
 
