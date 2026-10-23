@@ -1,0 +1,24 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const YAML = require('yaml');
+const file = '.github/workflows/backup-freshness-monitor.yml';
+test('workflow parses and restricts triggers, permissions, cadence and secrets',()=>{
+  const doc=YAML.parseDocument(fs.readFileSync(file,'utf8'),{uniqueKeys:true});
+  assert.deepEqual(doc.errors,[]);
+  const w=doc.toJS();
+  assert.deepEqual(Object.keys(w.on).sort(),['schedule','workflow_dispatch']);
+  assert.equal(w.on.schedule[0].cron,'7,22,37,52 * * * *');
+  assert.deepEqual(w.permissions,{contents:'read',actions:'read',issues:'write'});
+  assert.equal(w.concurrency['cancel-in-progress'],false);
+  assert.equal(w.jobs.monitor.env.NEON_PROJECT_ID,'holy-shape-01357429');
+  assert.equal(w.jobs.monitor.env.NEON_BRANCH_ID,'br-proud-sunset-ap0ofil2');
+  assert(w.jobs.monitor.if.includes("refs/heads/main"));
+  const steps=w.jobs.monitor.steps;
+  const provider=steps.find(s=>s.name==='Collect provider evidence');
+  assert.equal(provider.env.NEON_API_KEY,'${{ secrets.NEON_API_KEY }}');
+  assert.equal(provider['continue-on-error'],undefined);
+  assert.equal(steps.find(s=>s.name==='Enforce evidence freshness and reconcile incident').if,'always()');
+  assert.equal(steps.filter(s=>s.env?.NEON_API_KEY).length,1);
+  for(const step of steps.filter(s=>s.uses)) assert.match(step.uses,/@[a-f0-9]{40}$/);
+});
