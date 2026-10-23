@@ -1,0 +1,258 @@
+import { resolveDomainIntent } from '@/lib/ai/specialists/intent-resolver';
+import { CANONICAL_PROHIBITED_POLICIES } from '@/lib/prohibited-items/canonical-policies';
+import { CANONICAL_CATEGORIES } from '@/lib/categories/canonical-categories';
+
+export type RentipidQuestionClass =
+  | 'STATIC_RENTIPID_KNOWLEDGE'
+  | 'LIVE_RENTIPID_STATE'
+  | 'CONSEQUENTIAL_ACTION'
+  | 'OUT_OF_SCOPE_OR_UNSUPPORTED'
+  | 'AMBIGUOUS';
+
+export type CustomerQuestionIntent =
+  | 'BOOKING_PROCESS'
+  | 'PROVIDER_PAYMENT_PROCESS'
+  | 'LISTING_CREATION'
+  | 'CATEGORY_ELIGIBILITY'
+  | 'GENERAL_REGISTRATION'
+  | 'PROVIDER_ONBOARDING'
+  | 'GENERAL_RENTIPID'
+  | 'OUT_OF_SCOPE';
+
+export type ProviderContext = 'EXISTING_PROVIDER' | 'PROVIDER_ONBOARDING' | 'UNSPECIFIED';
+
+export interface ConversationContextMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+export interface RentipidQuestionClassification {
+  kind: RentipidQuestionClass;
+  effectiveQuestion: string;
+  usedConversationContext: boolean;
+  domains: readonly string[];
+  intent: CustomerQuestionIntent;
+  providerContext: ProviderContext;
+  requestedCategoryTerms: readonly string[];
+}
+
+const LIVE_STATE_PATTERNS = [
+  /\bmy\b.{0,50}\b(?:account|booking|payment|kyc|verification|claim|dispute|listing|payout|refund|deposit|transaction)\b.{0,35}\b(?:result|status|state|failed|pending|approved|verified|paid|processed|completed|cancelled|canceled|refunded)\b/i,
+  /\b(?:is|was|has|have|did|where)\b.{0,25}\bmy\b.{0,35}\b(?:approved|verified|paid|processed|completed|cancelled|canceled|refunded|payout|refund|status)\b/i,
+  /\b(?:booking|payment|kyc|claim|dispute|listing|payout|refund|deposit|transaction)\s*(?:id|number|#)?\s*[-a-z]*\d[-a-z0-9]*/i,
+];
+
+const AMBIGUOUS_FOLLOW_UP =
+  /^(?:and\s+)?(?:what|which|where|when|why|how|does|do|is|are|can)\b.{0,80}\b(?:it|that|this|they|them|those|documents?|requirements?|long|time|cost|next)\b[?.!]*$/i;
+
+const EXISTING_PROVIDER =
+  /\b(?:already|currently)\s+(?:(?:have|using)\s+)?(?:an?\s+)?(?:active\s+|registered\s+)?provider(?:\s+account|\s+profile)?\b|\bexisting\s+provider\b|\bprovider\s+(?:account|profile)\s+is\s+(?:active|approved|verified)\b/i;
+const PROVIDER_ONBOARDING =
+  /\b(?:become|register|sign\s*up|join|apply)\b.{0,35}\bprovider\b|\bnew\s+provider\b/i;
+const CATEGORY_ELIGIBILITY =
+  /\b(?:categor(?:y|ies)|allowed|eligible|prohibited|restricted|banned|forbidden|not\s+allowed|bawal|ipinagbabawal|pwede|can(?:not|\s+not|\s*['’]?\s*t)\s+list|can\s+i\s+(?:list|rent\s*out|offer)|types?\s+of\s+rentals?)\b|\b(?:item|type|rental|category)\b.{0,25}\bsupported\b|\bsupported\b.{0,25}\b(?:item|type|rental|category)\b/i;
+const CREATE_LISTING =
+  /\b(?:create|add|make|start|publish|list|offer|put)\b.{0,45}\b(?:listing|rental|item|equipment|something|another)\b|\b(?:list|rent\s*out|offer)\s+(?:(?:an?|another|my)\s+)?(?:item|rental|something)\b/i;
+const PROVIDER_PAYMENT =
+  /\b(?:providers?|rental\s+earnings?)\b.{0,45}\b(?:paid|payment|payout|earnings?|receive)\b|\b(?:paid|payment|payout|earnings?|receive)\b.{0,45}\bproviders?\b|\breceive\b.{0,35}\brental\s+payment\b/i;
+const BOOKING_PROCESS =
+  /\b(?:booking\s+process|how\b.{0,30}\bbook(?:ing)?|what\s+happens\b.{0,30}\bbook|reserve\b.{0,35}\b(?:item|rental|something)|book\b.{0,35}\b(?:item|rental|something))\b/i;
+const REGISTRATION =
+  /\b(?:register|registration|sign\s*up|signup|create\s+(?:a|an|my)\s+(?:rentipid\s+)?account|join\s+rentipid)\b/i;
+const CONSEQUENTIAL_ACTION =
+  /^(?:please\s+)?(?:cancel|change|modify|extend|approve|reject|release|send|issue|process|pay|refund|delete)\s+(?:my|the|this|booking|payment|order|reservation|transaction|\d)\b|\b(?:do|perform|complete)\s+(?:it|this)\s+(?:now|for\s+me)\b/i;
+
+function providerContextFor(
+  prompt: string,
+  conversationContext: readonly ConversationContextMessage[],
+): ProviderContext {
+  if (EXISTING_PROVIDER.test(prompt)) return 'EXISTING_PROVIDER';
+  if (PROVIDER_ONBOARDING.test(prompt)) return 'PROVIDER_ONBOARDING';
+  const priorProviderStatement = [...conversationContext]
+    .reverse()
+    .find(message => message.role === 'user' && EXISTING_PROVIDER.test(message.content));
+  return priorProviderStatement ? 'EXISTING_PROVIDER' : 'UNSPECIFIED';
+}
+
+function categoryTerms(prompt: string): string[] {
+  const normalized = prompt
+    .replace(/[?.!]/g, '')
+    .replace(/\bfor\s+rent\b/gi, '')
+    .trim();
+
+  // If the question is asking generally about what is allowed/prohibited/restricted/banned (without naming specific items)
+  if (
+    /\b(?:list|summary|show|tell|all|overview|catalogue|catalog)\b.{0,30}\b(?:prohibited|restricted|banned|forbidden|not\s+allowed)\b/i.test(normalized) ||
+    /\b(?:prohibited|restricted|banned|forbidden|not\s+allowed)\b.{0,30}\b(?:list|summary|overview|catalogue|catalog|full\s+summary|items?)\b/i.test(normalized) ||
+    /\b(?:what|which)\s+(?:items?|things?|rentals?|types?|categories|category)?\s*(?:are|is|can|cannot|cant|can\s*['’]?\s*t|aren\s*['’]?\s*t|are\s+not|do\s+not|am\s+i\s+not)\b/i.test(normalized) ||
+    /\b(?:what|which)\s+(?:can|cannot|cant|can\s*['’]?\s*t|do|are|am\s+i)\s+(?:i|we|users?|providers?|not)\s+(?:list|rent|offer|not\s+list|allowed\s+to\s+rent)\b/i.test(normalized) ||
+    /\bwhat\s+(?:am\s+i\s+not|cannot\s+be|is\s+banned|is\s+not\s+allowed)\b/i.test(normalized) ||
+    /^(?:ano\s+(?:ang\s+)?)?(?:mga\s+)?bawal(?:\s+na)?\s+(?:item|items|gamit|bagay|iparenta|i-list|ilist)/i.test(prompt) ||
+    /strictly\s+forbidden/i.test(prompt) ||
+    /kung[\s_-]*ano[\s_-]*ano/i.test(prompt)
+  ) {
+    return [];
+  }
+
+  // Check known canonical prohibited policies & canonical categories first
+  const qLower = prompt.toLowerCase();
+  for (const policy of CANONICAL_PROHIBITED_POLICIES) {
+    const slugNorm = policy.slug.replace(/[-_]+/g, ' ').toLowerCase();
+    const nameNorm = policy.name.toLowerCase();
+    if (qLower.includes(policy.slug) || qLower.includes(slugNorm) || qLower.includes(nameNorm)) {
+      return [policy.slug];
+    }
+  }
+
+  for (const category of CANONICAL_CATEGORIES) {
+    const slugNorm = category.slug.replace(/[-_]+/g, ' ').toLowerCase();
+    const nameNorm = category.name.toLowerCase();
+    if (qLower.includes(category.slug) || qLower.includes(slugNorm) || qLower.includes(nameNorm)) {
+      return [category.name];
+    }
+  }
+
+  if (/\b(?:laptop|laptops|gadget|gadgets|camera|cameras|dslr|lenses|drone|drones|tablet|tablets|projector|projectors|playstation|gaming console|sound equipment|electronics)\b/i.test(qLower)) {
+    return ['Cameras and Gadgets'];
+  }
+  if (/\b(?:heavy equipment|heavy machinery)\b/i.test(qLower)) {
+    return ['Heavy Equipment'];
+  }
+  if (/\b(?:generator|generators|welding|drill|drills|scaffolding|scaffoldings|ladder|ladders|contractors|construction equipment)\b/i.test(qLower)) {
+    return ['Construction Equipment'];
+  }
+  if (/\b(?:power tool|power tools|tool|tools)\b/i.test(qLower)) {
+    return ['Tools'];
+  }
+  if (/\b(?:condo|condos|condominium|condominiums|apartment|apartments|real estate|house|room|rooms)\b/i.test(qLower)) {
+    return ['Condominiums'];
+  }
+
+  const match = normalized.match(/\b(?:list|rent\s*out|offer|allow(?:ed)?|ban(?:ned)?|restrict(?:ed)?|prohibit(?:ed)?|forbidden)\s+(.+)$/i);
+  if (!match) {
+    const tagalogMatch = prompt.match(/\b(?:bawal|pwede)\s+(?:ba\s+)?(?:ang\s+|magpa-rent\s+ng\s+|mag-rent\s+ng\s+|iparenta\s+ang\s+)?(.+?)(?:\s+(?:sa|on)\s+rentipid|\?|$)/i);
+    if (tagalogMatch && tagalogMatch[1] && !/^(?:mga|ano|item|items)$/i.test(tagalogMatch[1].trim())) {
+      return [tagalogMatch[1].trim()];
+    }
+    return [];
+  }
+  return match[1]
+    .split(/\s*(?:,|\band\b|\bor\b)\s*/i)
+    .map(value => value
+      .replace(/^(?:a|an|the|my|of)\s+/i, '')
+      .replace(/\s+(?:on|in|through|via)\s+(?:the\s+)?rentipid(?:\s+(?:app|marketplace|platform))?$/i, '')
+      .replace(/^(?:on|in|through|via)\s+(?:the\s+)?rentipid(?:\s+(?:app|marketplace|platform))?$/i, '')
+      .replace(/\s+(?:property|properties|category|categories|item|items|rental|rentals|listing|listings)$/i, '')
+      .trim())
+    .filter(value => value.length > 1 && !/^(?:item|items|something|another\s+item|prohibited|restricted|banned|forbidden|not\s+allowed|allowed|rentipid|on\s+rentipid|prohibited\s+items?|banned\s+items?)$/i.test(value));
+}
+
+function customerIntent(prompt: string): CustomerQuestionIntent {
+  if (CATEGORY_ELIGIBILITY.test(prompt) && !/\bhow\s+(?:can|do)\s+i\b/i.test(prompt)) return 'CATEGORY_ELIGIBILITY';
+  if (CREATE_LISTING.test(prompt)) return 'LISTING_CREATION';
+  if (CATEGORY_ELIGIBILITY.test(prompt)) return 'CATEGORY_ELIGIBILITY';
+  if (PROVIDER_PAYMENT.test(prompt)) return 'PROVIDER_PAYMENT_PROCESS';
+  if (BOOKING_PROCESS.test(prompt)) return 'BOOKING_PROCESS';
+  if (PROVIDER_ONBOARDING.test(prompt)) return 'PROVIDER_ONBOARDING';
+  if (REGISTRATION.test(prompt)) return 'GENERAL_REGISTRATION';
+  return 'GENERAL_RENTIPID';
+}
+
+function lastUserContext(context: readonly ConversationContextMessage[]): string | undefined {
+  return [...context]
+    .reverse()
+    .find(message => message.role === 'user' && message.content.trim())
+    ?.content.trim()
+    .slice(0, 800);
+}
+
+function looksAmbiguous(prompt: string): boolean {
+  const words = prompt.trim().match(/[a-z0-9]+/gi) ?? [];
+  return words.length <= 3
+    || AMBIGUOUS_FOLLOW_UP.test(prompt.trim())
+    || /\b(?:documents?|requirements?|how long|how much|what next|next step)\b/i.test(prompt)
+    || /\b(?:it|that|this|those|them|same one|what about)\b/i.test(prompt);
+}
+
+export function isLiveRentipidQuestion(prompt: string): boolean {
+  return LIVE_STATE_PATTERNS.some(pattern => pattern.test(prompt));
+}
+
+export function classifyRentipidQuestion(
+  prompt: string,
+  conversationContext: readonly ConversationContextMessage[] = [],
+): RentipidQuestionClassification {
+  const trimmed = prompt.trim();
+  let effectiveQuestion = trimmed;
+  let domains = resolveDomainIntent(trimmed);
+  let usedConversationContext = false;
+  const providerContext = providerContextFor(trimmed, conversationContext);
+
+  if ((domains.length === 0 && looksAmbiguous(trimmed))
+    || (providerContext === 'EXISTING_PROVIDER' && CREATE_LISTING.test(trimmed))) {
+    const previousUserQuestion = lastUserContext(conversationContext);
+    if (previousUserQuestion && previousUserQuestion !== trimmed) {
+      effectiveQuestion = `${previousUserQuestion}\nFollow-up: ${trimmed}`;
+      domains = resolveDomainIntent(effectiveQuestion);
+      usedConversationContext = true;
+    }
+  }
+
+  const intent = customerIntent(effectiveQuestion);
+  const intentDomains: Partial<Record<CustomerQuestionIntent, readonly string[]>> = {
+    BOOKING_PROCESS: ['Marketplace'],
+    PROVIDER_PAYMENT_PROCESS: ['Payments', 'Finance'],
+    LISTING_CREATION: ['Marketplace'],
+    CATEGORY_ELIGIBILITY: ['Marketplace'],
+    GENERAL_REGISTRATION: ['Core', 'Profile'],
+    PROVIDER_ONBOARDING: ['Core', 'Profile'],
+  };
+  domains = [...new Set([...domains, ...(intentDomains[intent] ?? [])])];
+  const requestedCategoryTerms = intent === 'CATEGORY_ELIGIBILITY' ? categoryTerms(trimmed) : [];
+
+  if (CONSEQUENTIAL_ACTION.test(trimmed)) {
+    return {
+      kind: 'CONSEQUENTIAL_ACTION',
+      effectiveQuestion,
+      usedConversationContext,
+      domains,
+      intent,
+      providerContext,
+      requestedCategoryTerms,
+    };
+  }
+
+  if (isLiveRentipidQuestion(effectiveQuestion)) {
+    return {
+      kind: 'LIVE_RENTIPID_STATE',
+      effectiveQuestion,
+      usedConversationContext,
+      domains,
+      intent,
+      providerContext,
+      requestedCategoryTerms,
+    };
+  }
+
+  if (domains.length > 0) {
+    return {
+      kind: 'STATIC_RENTIPID_KNOWLEDGE',
+      effectiveQuestion,
+      usedConversationContext,
+      domains,
+      intent,
+      providerContext,
+      requestedCategoryTerms,
+    };
+  }
+
+  return {
+    kind: looksAmbiguous(trimmed) ? 'AMBIGUOUS' : 'OUT_OF_SCOPE_OR_UNSUPPORTED',
+    effectiveQuestion: trimmed,
+    usedConversationContext: false,
+    domains: [],
+    intent: 'OUT_OF_SCOPE',
+    providerContext,
+    requestedCategoryTerms: [],
+  };
+}

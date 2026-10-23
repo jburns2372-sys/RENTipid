@@ -2,8 +2,23 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { t } from '@/lib/glcc/i18n';
 
-export default function PhotoUploader({ listingId, existingPhotos, isEditable }: { listingId: string, existingPhotos: any[], isEditable: boolean }) {
+interface PhotoItem {
+  id: string;
+  file_path: string;
+  is_cover?: boolean | null;
+}
+
+export default function PhotoUploader({
+  listingId,
+  existingPhotos,
+  isEditable,
+}: {
+  listingId: string;
+  existingPhotos: PhotoItem[];
+  isEditable: boolean;
+}) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -27,10 +42,10 @@ export default function PhotoUploader({ listingId, existingPhotos, isEditable }:
         router.refresh();
       } else {
         const data = await res.json();
-        setError(data.message || 'Upload failed');
+        setError(data.message || t('photoUploader.errorFailed'));
       }
-    } catch (err) {
-      setError('An error occurred during upload');
+    } catch {
+      setError(t('photoUploader.errorGeneric'));
     } finally {
       setLoading(false);
       e.target.value = ''; // Reset input
@@ -38,7 +53,7 @@ export default function PhotoUploader({ listingId, existingPhotos, isEditable }:
   };
 
   const handleDelete = async (photoId: string) => {
-    if (!confirm('Remove this photo?')) return;
+    if (!confirm(t('photoUploader.confirmDelete'))) return;
     setLoading(true);
     
     try {
@@ -60,20 +75,21 @@ export default function PhotoUploader({ listingId, existingPhotos, isEditable }:
       {error && <div className="bg-red-50 text-red-600 p-2 rounded text-sm mb-4">{error}</div>}
       
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4">
-        {existingPhotos.map((photo, index) => (
+        {existingPhotos.map((photo) => (
           <div key={photo.id} className="relative group rounded border overflow-hidden aspect-video bg-gray-100">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={photo.file_path} alt="Listing Photo" className="w-full h-full object-cover" />
             
             {photo.is_cover && (
               <span className="absolute top-2 left-2 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
-                COVER
+                {t('photoUploader.coverBadge')}
               </span>
             )}
 
             {isEditable && (
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center space-x-2">
                 <button onClick={() => handleDelete(photo.id)} disabled={loading} className="bg-red-600 text-white p-1.5 rounded text-xs hover:bg-red-700">
-                  Delete
+                  {t('photoUploader.deleteButton')}
                 </button>
               </div>
             )}
@@ -82,8 +98,8 @@ export default function PhotoUploader({ listingId, existingPhotos, isEditable }:
 
         {isEditable && existingPhotos.length < 10 && (
           <label className="border-2 border-dashed border-gray-300 rounded aspect-video flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition">
-            <span className="text-gray-400 font-medium mb-1">{loading ? 'Uploading...' : 'Add Photo'}</span>
-            <span className="text-xs text-gray-400">JPG, PNG (Max 5MB)</span>
+            <span className="text-gray-400 font-medium mb-1">{loading ? t('photoUploader.uploading') : t('photoUploader.addPhoto')}</span>
+            <span className="text-xs text-gray-400">{t('photoUploader.formatHelp')}</span>
             <input type="file" className="hidden" accept="image/jpeg, image/png, image/webp" onChange={handleUpload} disabled={loading} />
           </label>
         )}

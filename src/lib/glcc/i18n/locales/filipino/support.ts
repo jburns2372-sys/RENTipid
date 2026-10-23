@@ -1,0 +1,48 @@
+/**
+ * RENTipid GLCC v1.0.1 — Filipino Domain Bundle: support
+ */
+
+import { SUPPORT_KEYS } from '../../contracts/support';
+
+export const SUPPORT_FIL_PH: Record<(typeof SUPPORT_KEYS)[number], string> = {
+  "support.safeTestingEnvironment": "Ligtas na Kapaligiran sa Pagsubok",
+  "support.realPaymentsAreOff": "Naka-OFF ang mga totoong Pagbabayad.",
+  "support.socialPostingIsOff": "Naka-OFF ang Social Posting.",
+  "support.yourMission": "Ang Iyong Misyon",
+  "support.feedbackTool": "Tool para sa Feedback",
+  "support.howToGetStarted": "Paano magsimula:",
+  "support.register": "Magrehistro:",
+  "support.useYourBetaInvitation": "Gamitin ang iyong beta invitation code.",
+  "support.verify": "Magberipika:",
+  "support.submitMockKycDocuments": "Isumite ang mga mock KYC document (maaari kang gumamit ng mga pansubok na larawan).",
+  "support.listOrBook": "Ilista o Mag-book:",
+  "support.tryListingAnItem": "Subukang maglista ng gamit sa mga pinaganang kategorya (Mga Gamit, Kagamitan sa Kaganapan) o mag-book ng umiiral na gamit.",
+  "support.supportDesk": "Desk ng Suporta",
+  "support.contact": "Makipag-ugnayan",
+  "support.thisIsAPlaceholder": "Ito ay pansamantalang pahina para sa Contact module. Ang buong functionality ay ipapatupad sa mga susunod na yugto.",
+  "support.moduleContentArea": "Lugar ng Nilalaman ng Module",
+  "support.contentPendingPhase2": "Nilalaman nakabinbin sa Yugto 2/3",
+  "support.betaFeedback": "Feedback sa Beta",
+  "support.helpUsImproveRentipid": "Tulungan kaming pahusayin ang RENTipid sa pamamagitan ng pag-uulat ng mga isyu o pagmumungkahi ng mga feature.",
+  "support.reportABug": "Mag-ulat ng Bug",
+  "support.featureSuggestion": "Mungkahi ng Feature",
+  "support.uiDesignProblem": "Problema sa UI/Disenyo",
+  "support.confusingWorkflow": "Nakakalitong Daloy ng Gawain",
+  "support.generalAppwide": "Pangkalahatan / Buong App",
+  "support.listings": "Mga Listahan",
+  "support.bookingsEscrow": "Mga Booking at Escrow",
+  "support.inspectionsDamageClaims": "Mga Inspeksyon at Claim sa Pinsala",
+  "support.marketingSocial": "Marketing at Social",
+  "support.aiAssistant": "AI Assistant",
+  "support.describeWhatHappenedOr": "Ilarawan kung ano ang nangyari o ano ang iyong napansin",
+  "support.supportTickets": "Mga Ticket sa Suporta",
+  "support.needHelpOpenA": "Kailangan ng tulong? Magbukas ng ticket at tutulungan ka ng aming beta team.",
+  "support.accountAccess": "Pag-access sa Account",
+  "support.kycVerification": "KYC at Beripikasyon",
+  "support.listingManagement": "Pamamahala ng Listahan",
+  "support.bookingEscrow": "Booking at Escrow",
+  "support.damageClaimsDisputes": "Mga Claim sa Pinsala at Pagtatalo",
+  "support.details": "Mga Detalye",
+  "support.briefSubject": "Maikling paksa",
+  "support.pleaseProvideAsMuch": "Mangyaring magbigay ng mas maraming detalye hangga't maaari...",
+};

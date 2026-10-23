@@ -1,34 +1,96 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { createAuditLog } from '@/lib/audit';
+import { RegisterInputSchema } from '@/lib/security/identity-input-security';
+import { ProfileFieldProtection, ProfileFieldContext } from '@/lib/security/crypto/profile-field-protection';
+import { createAuthAncillaryService, resolveAuthPublicBaseUrl } from '@/lib/auth/unified/ancillary-factory';
+import { checkRegistrationRateLimit } from '@/lib/auth/unified/rate-limiter';
 
-const prisma = new PrismaClient();
+import {
+  resolveOperatingJurisdiction,
+  canRegisterInJurisdiction,
+  normalizeInternationalPhone,
+} from '@/lib/global-market';
+import { getCountryProfile } from '@/lib/glcc/country/country-registry';
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { 
-      email, 
-      password, 
-      full_name, 
-      mobile_number, 
-      account_type, 
-      role,
-      address,
-      city,
-      province,
-      country,
-      business_name,
-      business_registration_number,
-      authorized_representative
-    } = body;
-
-    if (!email || !password || !full_name) {
-      return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
+    const body = await req.json().catch(() => null);
+    if (!body) {
+      return NextResponse.json({ message: 'Malformed JSON' }, { status: 400 });
     }
 
-    // Check if user already exists
+    const validationResult = RegisterInputSchema.safeParse(body);
+    if (!validationResult.success) {
+      return NextResponse.json({ message: 'Invalid registration input' }, { status: 400 });
+    }
+
+    const validatedData = validationResult.data;
+
+    // ISO-C2-M3 / DEF-RUNTIME-01 / TRT-C02:
+    // Enforce pre-effect registration rate limiting BEFORE first side effect
+    // (preceding bcrypt password hashing, transactional account writes, audit logging, and email dispatch)
+    const rateLimitResult = await checkRegistrationRateLimit(req, validatedData.email);
+    if (!rateLimitResult.allowed) {
+      return NextResponse.json(
+        { message: 'Too many registration attempts. Please try again later.' },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(rateLimitResult.retryAfterSeconds),
+          },
+        }
+      );
+    }
+
+    const email = validatedData.email;
+    const password = validatedData.password;
+    const full_name = validatedData.full_name;
+    const mobile_number_raw = validatedData.mobile_number || null;
+    const account_type = validatedData.account_type;
+    const role = validatedData.role;
+    
+    const address = validatedData.address || null;
+    const city = validatedData.city || null;
+    const province = validatedData.province || null;
+    const country = validatedData.country || null;
+    const business_name = validatedData.business_name || null;
+    const business_registration_number = validatedData.business_registration_number || null;
+    const authorized_representative = validatedData.authorized_representative || null;
+
+    // GM-2: Resolve Operating Jurisdiction strictly against GM-1 framework
+    const operatingJurisdiction = resolveOperatingJurisdiction(country) || 'PH';
+    const regCheck = canRegisterInJurisdiction(operatingJurisdiction);
+    if (!regCheck.allowed) {
+      return NextResponse.json(
+        { message: regCheck.reason || 'Registration is not permitted in this jurisdiction' },
+        { status: 403 }
+      );
+    }
+
+    // GM-2: Country-aware phone normalization
+    let mobile_number = mobile_number_raw;
+    if (mobile_number_raw) {
+      const phoneRes = normalizeInternationalPhone(mobile_number_raw, operatingJurisdiction);
+      if (phoneRes.valid && phoneRes.e164) {
+        mobile_number = phoneRes.e164;
+      }
+    }
+
+    let userAddressEncrypted: string | null = null;
+    let businessAddressEncrypted: string | null = null;
+    let businessRegistrationNumberEncrypted: string | null = null;
+
+    if (address) {
+      userAddressEncrypted = ProfileFieldProtection.protect(address, ProfileFieldContext.USER_ADDRESS);
+      businessAddressEncrypted = ProfileFieldProtection.protect(address, ProfileFieldContext.BUSINESS_ADDRESS);
+    }
+    
+    if (business_registration_number) {
+      businessRegistrationNumberEncrypted = ProfileFieldProtection.protect(business_registration_number, ProfileFieldContext.BUSINESS_REGISTRATION_NUMBER);
+    }
+
     const existingUser = await prisma.user.findUnique({
       where: { email }
     });
@@ -39,54 +101,90 @@ export async function POST(req: Request) {
 
     const password_hash = await bcrypt.hash(password, 10);
 
-    const user = await prisma.user.create({
-      data: {
-        email,
-        full_name,
-        mobile_number,
-        password_hash,
-        account_type: account_type || 'Individual',
-        role: role || 'Renter',
-        status: 'Pending',
-      }
-    });
+    const user = await prisma.$transaction(async (tx) => {
+      const createdUser = await tx.user.create({
+        data: {
+          email,
+          full_name,
+          mobile_number,
+          password_hash,
+          account_type,
+          role,
+          status: 'Pending',
+        }
+      });
 
-    if (account_type === 'Business') {
-      await prisma.businessProfile.create({
+      await tx.emailCredential.create({
         data: {
-          user_id: user.id,
-          business_name: business_name || full_name,
-          business_registration_number,
-          business_address: address,
-          authorized_representative: authorized_representative || full_name,
-          verification_status: 'Pending'
-        }
+          user_id: createdUser.id,
+          normalized_email: email,
+          password_hash,
+          is_verified: false,
+          password_changed_at: new Date(),
+        },
       });
-    } else {
-      await prisma.userProfile.create({
+
+      // GM-2: Initialize UserGlobalPreference with operating jurisdiction
+      const glccCountry = getCountryProfile(operatingJurisdiction);
+      await tx.userGlobalPreference.create({
         data: {
-          user_id: user.id,
-          address,
-          city,
-          province,
-          country,
-          verification_status: 'Pending'
-        }
+          user_id: createdUser.id,
+          country_code: operatingJurisdiction,
+          language_tag: glccCountry?.defaultLanguageTag || 'en-PH',
+          display_currency: glccCountry?.defaultDisplayCurrency || 'PHP',
+          is_manual_display_override: false,
+        },
       });
-    }
+
+      if (account_type === 'Business') {
+        await tx.businessProfile.create({
+          data: {
+            user_id: createdUser.id,
+            business_name: business_name || full_name,
+            business_registration_number: null,
+            business_registration_number_encrypted: businessRegistrationNumberEncrypted,
+            business_address: null,
+            business_address_encrypted: businessAddressEncrypted,
+            authorized_representative: authorized_representative || full_name,
+            verification_status: 'Pending'
+          }
+        });
+      } else {
+        await tx.userProfile.create({
+          data: {
+            user_id: createdUser.id,
+            address: null,
+            address_encrypted: userAddressEncrypted,
+            city: city || '',
+            province: province || '',
+            country: operatingJurisdiction,
+            verification_status: 'Pending'
+          }
+        });
+      }
+
+      return createdUser;
+    });
 
     await createAuditLog({
       actor_user_id: user.id,
       action: 'USER_REGISTERED',
       module: 'Authentication',
       target_id: user.id,
-      details: `Registered as ${role}`
+      details: 'Registered as ' + role
     });
 
-    return NextResponse.json({ message: 'User registered successfully', userId: user.id }, { status: 201 });
+    const forwardedFor = req.headers?.get?.('x-forwarded-for');
+    await createAuthAncillaryService().requestEmailVerification({
+      email,
+      baseUrl: resolveAuthPublicBaseUrl(req.url || 'http://localhost:3000/api/auth/register'),
+      rawIp: forwardedFor?.split(',')[0]?.trim() || null,
+    }).catch(() => undefined);
+
+    return NextResponse.json({ message: 'Registration accepted. Check your email to verify your account.' }, { status: 201 });
 
   } catch (error) {
     console.error('Registration error:', error);
-    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ message: 'Internal server error during registration' }, { status: 500 });
   }
 }

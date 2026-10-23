@@ -4,9 +4,11 @@ import React, { useState, useEffect } from 'react';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useTranslation } from '@/lib/glcc/i18n';
 
 export default function NewDamageClaimPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
+  const { t } = useTranslation();
   const [bookingId, setBookingId] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -41,20 +43,20 @@ export default function NewDamageClaimPage({ params }: { params: Promise<{ id: s
     }
   };
 
-  if (!bookingId) return <div className="p-10 text-center">Loading...</div>;
+  if (!bookingId) return <div className="p-10 text-center">{t('common.loading')}</div>;
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-4xl">
       <div className="mb-6">
         <Link href={`/dashboard/provider/bookings/${bookingId}`} className="text-blue-600 hover:underline text-sm font-medium">
-          &larr; Back to Booking
+          &larr; {t('provider.backToBooking')}
         </Link>
       </div>
 
       <div className="flex justify-between items-center mb-8 border-b pb-4">
         <div>
-          <h1 className="text-3xl font-bold text-red-600">File a Damage Claim</h1>
-          <p className="text-gray-500">Report an issue to deduct from the renter's security deposit.</p>
+          <h1 className="text-3xl font-bold text-red-600">{t('provider.fileADamageClaim')}</h1>
+          <p className="text-gray-500">{t('provider.reportAnIssueTo')}</p>
         </div>
         <AIAssistantButton context="Damage Evidence Bot" />
       </div>
@@ -66,58 +68,58 @@ export default function NewDamageClaimPage({ params }: { params: Promise<{ id: s
       <form onSubmit={handleSubmit} className="space-y-8">
         
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-          <h2 className="text-xl font-bold mb-4 border-b pb-2">Claim Details</h2>
+          <h2 className="text-xl font-bold mb-4 border-b pb-2">{t('provider.claimDetails')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-1">Claim Type *</label>
+              <label className="block text-sm font-bold text-gray-700 mb-1">{t('provider.claimType')} *</label>
               <select name="claim_type" required className="w-full border p-2 rounded text-sm mb-4">
-                <option value="Damage">Damage</option>
-                <option value="Missing Item">Missing Item</option>
-                <option value="Late Return">Late Return</option>
-                <option value="Cleaning Fee">Cleaning Fee</option>
-                <option value="Excess Usage">Excess Usage</option>
-                <option value="Other">Other</option>
+                <option value="Damage">{t('provider.damage')}</option>
+                <option value="Missing Item">{t('provider.missingItem')}</option>
+                <option value="Late Return">{t('provider.lateReturn')}</option>
+                <option value="Cleaning Fee">{t('provider.cleaningFee')}</option>
+                <option value="Excess Usage">{t('provider.excessUsage')}</option>
+                <option value="Other">{t('provider.other')}</option>
               </select>
 
-              <label className="block text-sm font-bold text-gray-700 mb-1">Requested Deduction (₱) *</label>
-              <input type="number" step="0.01" min="0" name="requested_deduction_amount" required placeholder="Amount to deduct from deposit" className="w-full border p-2 rounded text-sm mb-4" />
+              <label className="block text-sm font-bold text-gray-700 mb-1">{t('provider.requestedDeduction')} (₱) *</label>
+              <input type="number" step="0.01" min="0" name="requested_deduction_amount" required placeholder={t('provider.amountToDeductFrom')} className="w-full border p-2 rounded text-sm mb-4" />
             </div>
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-1">Detailed Description *</label>
-              <textarea name="claim_description" required placeholder="Describe what happened and why you are charging this amount..." className="w-full border p-3 rounded text-sm h-32"></textarea>
+              <label className="block text-sm font-bold text-gray-700 mb-1">{t('provider.detailedDescription')} *</label>
+              <textarea name="claim_description" required placeholder={t('provider.describeWhatHappenedAnd')} className="w-full border p-3 rounded text-sm h-32"></textarea>
             </div>
           </div>
         </div>
 
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-          <h2 className="text-xl font-bold mb-4 border-b pb-2">Evidence Photos</h2>
-          <p className="text-xs text-gray-500 mb-4">Please upload clear evidence of the damage. We will automatically link your Pre-Rental and Post-Rental inspection photos for the admin's reference.</p>
+          <h2 className="text-xl font-bold mb-4 border-b pb-2">{t('provider.evidencePhotos')}</h2>
+          <p className="text-xs text-gray-500 mb-4">{t('provider.pleaseUploadClearEvidence')}</p>
           
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-1">Evidence Photo 1 *</label>
+              <label className="block text-sm font-bold text-gray-700 mb-1">{t('provider.evidencePhoto1')} *</label>
               <input type="file" name="photo_1" accept="image/*" required className="w-full text-xs mb-2" />
-              <input type="text" name="caption_1" placeholder="Caption (e.g. deep scratch)" className="w-full border p-1 rounded text-xs" />
+              <input type="text" name="caption_1" placeholder={t('provider.captionEGDeep')} className="w-full border p-1 rounded text-xs" />
             </div>
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-1">Evidence Photo 2 (Optional)</label>
+              <label className="block text-sm font-bold text-gray-700 mb-1">{t('provider.evidencePhoto2Optional')}</label>
               <input type="file" name="photo_2" accept="image/*" className="w-full text-xs mb-2" />
-              <input type="text" name="caption_2" placeholder="Caption" className="w-full border p-1 rounded text-xs" />
+              <input type="text" name="caption_2" placeholder={t('provider.caption')} className="w-full border p-1 rounded text-xs" />
             </div>
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-1">Evidence Photo 3 (Optional)</label>
+              <label className="block text-sm font-bold text-gray-700 mb-1">{t('provider.evidencePhoto3Optional')}</label>
               <input type="file" name="photo_3" accept="image/*" className="w-full text-xs mb-2" />
-              <input type="text" name="caption_3" placeholder="Caption" className="w-full border p-1 rounded text-xs" />
+              <input type="text" name="caption_3" placeholder={t('provider.caption')} className="w-full border p-1 rounded text-xs" />
             </div>
           </div>
         </div>
 
         <div className="flex justify-end space-x-4">
           <Link href={`/dashboard/provider/bookings/${bookingId}`} className="bg-white border border-gray-300 text-gray-700 font-bold py-3 px-8 rounded-xl hover:bg-gray-50 transition">
-            Cancel
+            {t('common.cancel')}
           </Link>
           <button type="submit" disabled={loading} className="bg-red-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-red-700 transition disabled:opacity-50">
-            {loading ? 'Submitting Claim...' : 'Submit Claim & Hold Deposit'}
+            {loading ? t('common.loading') : 'Submit Claim & Hold Deposit'}
           </button>
         </div>
       </form>

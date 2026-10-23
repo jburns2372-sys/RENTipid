@@ -1,32 +1,23 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const { PrismaClient } = require('@prisma/client');
-const bcrypt = require('bcryptjs');
+const { upsertSeededEmailPasswordUser } = require('../src/lib/auth/seed/upsert-seeded-user');
 
 const prisma = new PrismaClient();
 
 async function main() {
-  const email = 'superadmin@rentipid.local';
-  const password = 'password123';
-  const password_hash = await bcrypt.hash(password, 10);
+  const email = process.env.RESET_ADMIN_EMAIL || 'superadmin@rentipid.local';
+  const plainPassword = process.env.RESET_ADMIN_PASSWORD || 'password123';
 
-  const admin = await prisma.user.upsert({
-    where: { email },
-    update: {
-      password_hash,
-      role: 'Super Admin',
-      status: 'Verified',
-    },
-    create: {
-      email,
-      full_name: 'Super Admin User',
-      account_type: 'Individual',
-      role: 'Super Admin',
-      status: 'Verified',
-      password_hash,
-      is_test_data: false,
-    }
+  await upsertSeededEmailPasswordUser(prisma, {
+    email,
+    fullName: 'Super Admin User',
+    accountType: 'Individual',
+    role: 'Super Admin',
+    status: 'Verified',
+    plainPassword,
   });
 
-  console.log('Password reset successfully for:', admin.email);
+  console.log('Password reset successfully for:', email);
 }
 
 main()

@@ -8,7 +8,9 @@ export class SocialCommandLayer {
   
   static getAdapter(platform: string) {
     // For Phase 8, always return the Mock Adapter
-    return new MockSocialAdapter(platform as SocialPlatform);
+    const adapter = new MockSocialAdapter();
+    adapter.platformId = platform as SocialPlatform;
+    return adapter;
   }
 
   static async requestApproval(postId: string, userId: string) {
@@ -79,7 +81,7 @@ export class SocialCommandLayer {
     const adapter = this.getAdapter(post.platform);
     
     // In Phase 8, this calls the mock adapter
-    const result = await adapter.publishPostPlaceholder(postId);
+    const result = await adapter.publishPost(post, "mock_account", `idemp_${postId}`);
 
     if (result.success) {
       await prisma.marketingPost.update({

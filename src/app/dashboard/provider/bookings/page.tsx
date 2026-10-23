@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import { getServerSession } from "next-auth/next";
@@ -5,10 +6,12 @@ import { authOptions } from "@/lib/auth";
 import { PrismaClient } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 const prisma = new PrismaClient();
 
 export default async function ProviderBookingsPage() {
+  const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
   const user = session?.user as any;
 
@@ -32,7 +35,7 @@ export default async function ProviderBookingsPage() {
   return (
     <div className="container mx-auto py-12 px-4 max-w-6xl">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Booking Requests</h1>
+        <h1 className="text-3xl font-bold">{t('renter.bookings.title')}</h1>
         <AIAssistantButton context="Provider Bookings Dashboard" />
       </div>
 
@@ -41,12 +44,12 @@ export default async function ProviderBookingsPage() {
           <table className="w-full text-left text-sm">
             <thead className="bg-gray-50 text-gray-600 border-b">
               <tr>
-                <th className="p-4 font-semibold">Listing</th>
-                <th className="p-4 font-semibold">Renter</th>
-                <th className="p-4 font-semibold">Dates</th>
-                <th className="p-4 font-semibold">Amount</th>
-                <th className="p-4 font-semibold">Status</th>
-                <th className="p-4 font-semibold text-right">Action</th>
+                <th className="p-4 font-semibold">{t('providerListings.colListing')}</th>
+                <th className="p-4 font-semibold">{t('common.user')}</th>
+                <th className="p-4 font-semibold">{t('renter.bookings.colDates')}</th>
+                <th className="p-4 font-semibold">{t('renter.bookings.colEstimatedAmount')}</th>
+                <th className="p-4 font-semibold">{t('providerListings.colStatus')}</th>
+                <th className="p-4 font-semibold text-right">{t('providerListings.colActions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -61,7 +64,7 @@ export default async function ProviderBookingsPage() {
                           {booking.listing.photos?.[0] ? (
                             <img src={booking.listing.photos[0].file_path} alt="cover" className="w-full h-full object-cover" />
                           ) : (
-                            <span className="text-[10px] text-gray-400 flex items-center justify-center h-full">No Img</span>
+                            <span className="text-[10px] text-gray-400 flex items-center justify-center h-full">{t('provider.noImg')}</span>
                           )}
                         </div>
                         <span className="font-bold text-gray-900 line-clamp-2">{booking.listing.title}</span>
@@ -73,7 +76,7 @@ export default async function ProviderBookingsPage() {
                     </td>
                     <td className="p-4 text-gray-600">
                       <div>{booking.start_date.toLocaleDateString()}</div>
-                      <div className="text-xs">to {booking.end_date.toLocaleDateString()}</div>
+                      <div className="text-xs">{t('common.to')} {booking.end_date.toLocaleDateString()}</div>
                     </td>
                     <td className="p-4">
                       <div className="font-bold text-gray-900">₱{booking.estimated_total_amount.toLocaleString()}</div>
@@ -93,7 +96,7 @@ export default async function ProviderBookingsPage() {
                     </td>
                     <td className="p-4 text-right">
                       <Link href={`/dashboard/provider/bookings/${booking.id}`} className="text-blue-600 font-semibold hover:underline">
-                        Manage
+                        {t('providerListings.actionManage')}
                       </Link>
                     </td>
                   </tr>
@@ -104,7 +107,7 @@ export default async function ProviderBookingsPage() {
         </div>
       ) : (
         <div className="text-center py-20 bg-gray-50 rounded-xl border border-dashed text-gray-500">
-          <p className="text-lg">You do not have any booking requests yet.</p>
+          <p className="text-lg">{t('provider.youDoNotHave')}</p>
         </div>
       )}
     </div>

@@ -64,6 +64,13 @@ export interface SecurityEventIngestionResult {
   duplicate?: boolean;
   errorCode?: string;
   errorMessage?: string;
+  evaluated?: boolean;
+  matched?: boolean;
+  persisted?: boolean;
+  deduplicated?: boolean;
+  cooldownSuppressed?: boolean;
+  failed?: boolean;
+  criticalFailed?: boolean;
 }
 
 export interface SecurityEventQueryFilter {

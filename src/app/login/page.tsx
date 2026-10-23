@@ -1,133 +1,520 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import RentipidLogo from '@/components/brand/RentipidLogo';
+import { useTranslation } from '@/lib/glcc/i18n/context';
+import { normalizeLoginCallbackUrl } from '@/lib/auth-callback';
 
-function LoginForm() {
+type AuthMethodInfo = { method: string; enabled: boolean; configured: boolean };
+
+function useAuthMethods() {
+  const [methods, setMethods] = useState<AuthMethodInfo[]>([]);
+  useEffect(() => {
+    fetch('/api/auth/methods')
+      .then((r) => r.json())
+      .then((data) => setMethods(data.methods || []))
+      .catch(() => setMethods([]));
+  }, []);
+  const isEnabled = useCallback(
+    (id: string) => methods.some((m) => m.method === id && m.enabled),
+    [methods],
+  );
+  return { methods, isEnabled, loaded: methods.length > 0 };
+}
+
+/* ── Social / OAuth ─────────────────────────────── */
+
+function SocialButton({
+  provider,
+  label,
+  icon,
+  color,
+  disabled,
+  callbackUrl,
+}: {
+  provider: string;
+  label: string;
+  icon: React.ReactNode;
+  color: string;
+  disabled?: boolean;
+  callbackUrl?: string;
+}) {
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = async () => {
+    setLoading(true);
+    // Set consent cookie first
+    await fetch('/api/auth/oauth/intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ provider, accepted: true, termsAccepted: true, privacyAccepted: true }),
+    }).catch(() => undefined);
+    await signIn(provider, { callbackUrl: callbackUrl || '/' });
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleClick}
+      disabled={disabled || loading}
+      className={`w-full flex items-center justify-center gap-3 py-3 px-4 rounded-lg border font-medium transition-all duration-200 ${color} disabled:opacity-50 disabled:cursor-not-allowed`}
+      id={`auth-btn-${provider}`}
+    >
+      {icon}
+      {loading ? 'Connecting...' : label}
+    </button>
+  );
+}
+
+/* ── WhatsApp OTP ───────────────────────────────── */
+
+type WhatsAppStep = 'input' | 'verify';
+
+function WhatsAppOtpForm({ callbackUrl }: { callbackUrl: string }) {
+  const { t } = useTranslation();
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const [step, setStep] = useState<WhatsAppStep>('input');
+  const [phone, setPhone] = useState('');
+  const [challengeId, setChallengeId] = useState('');
+  const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [registered, setRegistered] = useState(false);
 
-  useEffect(() => {
-    if (searchParams.get('registered') === 'true') {
-      setRegistered(true);
-    }
-    if (searchParams.get('error')) {
-      setError('Invalid email or password');
-    }
-  }, [searchParams]);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleStart = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-    const callbackUrl = searchParams.get('callbackUrl') || '/';
-
     try {
-      const res = await signIn('credentials', {
-        redirect: false,
-        email,
-        password,
+      const res = await fetch('/api/auth/otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, channel: 'whatsapp' }),
+      });
+      const data = await res.json();
+      if (data.challengeId) {
+        setChallengeId(data.challengeId);
+        setStep('verify');
+      } else {
+        // Generic response per enumeration protection
+        setStep('verify');
+      }
+    } catch {
+      setError(t('auth.errors.generic'));
+    }
+    setLoading(false);
+  };
+
+  const handleVerify = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!code || loading) return;
+    setError('');
+    setLoading(true);
+
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    try {
+      const origin = typeof window !== 'undefined' ? window.location.origin : undefined;
+      const safeTarget = normalizeLoginCallbackUrl(callbackUrl, origin);
+
+      const timeoutPromise = new Promise<{ error?: string; url?: string | null }>((resolve) => {
+        timeoutId = setTimeout(() => {
+          resolve({ error: 'TIMEOUT' });
+        }, 12000);
       });
 
+      const signInPromise = signIn('phone-otp', {
+        redirect: false,
+        callbackUrl: safeTarget,
+        phone,
+        channel: 'whatsapp',
+        challengeId,
+        code,
+        termsAccepted: 'true',
+        privacyAccepted: 'true',
+      });
+
+      const res = await Promise.race([signInPromise, timeoutPromise]);
+      if (timeoutId) clearTimeout(timeoutId);
+
       if (res?.error) {
-        setError(res.error);
+        setError(
+          res.error === 'TIMEOUT'
+            ? 'Verification took longer than expected. Please check your connection or request a new code.'
+            : 'Invalid verification code. Please try again.'
+        );
         setLoading(false);
-      } else {
-        router.push(callbackUrl);
-        router.refresh();
+        return;
       }
-    } catch (err) {
-      setError('An error occurred during login');
+
+      // Verify that the session is authenticated before navigating
+      let sessionConfirmed = false;
+      try {
+        const sessionRes = await fetch('/api/auth/session');
+        if (sessionRes.ok) {
+          const sessionData = await sessionRes.json();
+          if (sessionData && sessionData.user) {
+            sessionConfirmed = true;
+          }
+        }
+      } catch {
+        sessionConfirmed = !res?.error;
+      }
+
+      if (sessionConfirmed) {
+        if (typeof window !== 'undefined') {
+          window.location.assign(safeTarget);
+        }
+      } else {
+        setError('Authentication session could not be established. Please try again.');
+        setLoading(false);
+      }
+    } catch {
+      if (timeoutId) clearTimeout(timeoutId);
+      setError(t('auth.errors.generic'));
       setLoading(false);
     }
   };
 
+  if (step === 'verify') {
+    return (
+      <form onSubmit={handleVerify} className="space-y-4">
+        <p className="text-sm text-gray-600">
+          {t('auth.whatsapp.enterCode')}
+        </p>
+        {error && <div className="bg-red-50 text-red-600 p-3 rounded text-sm border border-red-200">{error}</div>}
+        <input
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          maxLength={8}
+          value={code}
+          onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
+          placeholder="Enter code"
+          required
+          className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-600 outline-none text-center text-lg tracking-widest"
+          id="otp-code-input"
+          autoFocus
+        />
+        <button
+          type="submit"
+          disabled={loading || !code}
+          className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+          id="otp-verify-btn"
+        >
+          {loading ? t('auth.whatsapp.verifying') : t('auth.whatsapp.verifySignIn')}
+        </button>
+        <button
+          type="button"
+          onClick={() => { setStep('input'); setCode(''); setChallengeId(''); setError(''); }}
+          className="w-full text-sm text-gray-500 hover:text-gray-700 transition"
+        >
+          {t('auth.whatsapp.changeNumber')}
+        </button>
+      </form>
+    );
+  }
+
   return (
-    <>
-      {registered && (
-        <div className="bg-green-50 text-green-700 p-3 rounded mb-6 text-sm border border-green-200">
-          Registration successful! Please log in with your new credentials.
-        </div>
-      )}
+    <form onSubmit={handleStart} className="space-y-4">
+      {error && <div className="bg-red-50 text-red-600 p-3 rounded text-sm border border-red-200">{error}</div>}
+      <div>
+        <label className="block text-sm font-medium mb-1" htmlFor="whatsapp-number-input">{t('auth.whatsapp.numberLabel')}</label>
+        <input
+          id="whatsapp-number-input"
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="+63 9XX XXX XXXX"
+          required
+          className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-600 outline-none"
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={loading || !phone.trim()}
+        className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+        id="whatsapp-start-btn"
+      >
+        {loading ? t('auth.whatsapp.sendingCode') : t('auth.whatsapp.sendCode')}
+      </button>
+    </form>
+  );
+}
 
-      {error && (
-        <div className="bg-red-50 text-red-600 p-3 rounded mb-6 text-sm border border-red-200">
-          {error}
-        </div>
-      )}
+/* ── Email / Password ───────────────────────────── */
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+function EmailPasswordForm({ callbackUrl }: { callbackUrl: string }) {
+  const { t } = useTranslation();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [mode, setMode] = useState<'email-entry' | 'login'>('email-entry');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const registered = searchParams.get('registered') === 'true';
+
+  const handleEmailContinue = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setMode('login');
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (loading) return;
+    setError('');
+    setLoading(true);
+    try {
+      const origin = typeof window !== 'undefined' ? window.location.origin : undefined;
+      const safeTarget = normalizeLoginCallbackUrl(callbackUrl, origin);
+      const res = await signIn('credentials', { redirect: false, callbackUrl: safeTarget, email, password });
+      if (res?.error) {
+        setError(t('auth.errors.invalidCredentials'));
+        setLoading(false);
+      } else {
+        if (typeof window !== 'undefined') {
+          window.location.assign(safeTarget);
+        }
+      }
+    } catch {
+      setError(t('auth.errors.generic'));
+      setLoading(false);
+    }
+  };
+
+  if (mode === 'login') {
+    return (
+      <form onSubmit={handleLogin} className="space-y-4">
+        {registered && (
+          <div className="bg-green-50 text-green-700 p-3 rounded text-sm border border-green-200">
+            {t('auth.login.registeredSuccess')}
+          </div>
+        )}
+        {error && <div className="bg-red-50 text-red-600 p-3 rounded text-sm border border-red-200">{error}</div>}
         <div>
-          <label className="block text-sm font-medium mb-1">Email</label>
-          <input 
-            type="email" 
-            name="email" 
-            required 
-            className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none" 
+          <label className="block text-sm font-medium mb-1" htmlFor="email-login-input">{t('auth.fields.email')}</label>
+          <input
+            id="email-login-input"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-600 outline-none"
           />
         </div>
         <div>
           <div className="flex justify-between items-center mb-1">
-            <label className="block text-sm font-medium">Password</label>
-            <a href="#" className="text-xs text-blue-600 hover:underline">Forgot password?</a>
+            <label className="block text-sm font-medium" htmlFor="password-input">{t('auth.fields.password')}</label>
+            <Link href="/forgot-password" className="text-xs text-blue-600 hover:underline">{t('auth.login.forgotPassword')}</Link>
           </div>
-          <input 
-            type="password" 
-            name="password" 
-            required 
-            className="w-full border rounded p-2 focus:ring-2 focus:ring-blue-600 outline-none" 
+          <input
+            id="password-input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-600 outline-none"
           />
         </div>
-
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white font-bold py-3 rounded hover:bg-blue-700 transition disabled:opacity-50 mt-4"
+          className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+          id="email-login-btn"
         >
-          {loading ? 'Logging in...' : 'Log in'}
+          {loading ? t('auth.login.signingIn') : t('auth.login.signIn')}
+        </button>
+        <button
+          type="button"
+          onClick={() => { setMode('email-entry'); setPassword(''); setError(''); }}
+          className="w-full text-sm text-gray-500 hover:text-gray-700 transition"
+        >
+          {t('common.back')}
         </button>
       </form>
-    </>
+    );
+  }
+
+  return (
+    <form onSubmit={handleEmailContinue} className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium mb-1" htmlFor="email-entry-input">{t('auth.fields.email')}</label>
+        <input
+          id="email-entry-input"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="you@example.com"
+          required
+          className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-600 outline-none"
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={!email.trim()}
+        className="w-full bg-gray-800 text-white font-bold py-3 rounded-lg hover:bg-gray-900 transition disabled:opacity-50"
+        id="email-continue-btn"
+      >
+        {t('auth.login.continueEmail')}
+      </button>
+    </form>
   );
 }
 
-import RentipidLogo from '@/components/brand/RentipidLogo';
+/* ── Unified Gateway ────────────────────────────── */
+
+function UnifiedGateway() {
+  const { t } = useTranslation();
+  const searchParams = useSearchParams();
+  const callbackUrl = normalizeLoginCallbackUrl(
+    searchParams.get('callbackUrl'),
+    typeof window !== 'undefined' ? window.location.origin : undefined
+  );
+  const { isEnabled, loaded } = useAuthMethods();
+  const [showWhatsApp, setShowWhatsApp] = useState(false);
+
+  const error = searchParams.get('error');
+
+  const googleEnabled = isEnabled('google');
+  const facebookEnabled = isEnabled('facebook');
+  const appleEnabled = isEnabled('apple');
+  const whatsappEnabled = isEnabled('whatsapp');
+  const emailEnabled = isEnabled('email');
+  const hasSocial = googleEnabled || facebookEnabled || appleEnabled;
+
+  if (!loaded) {
+    return <div className="text-center text-gray-500 py-8">{t('auth.login.loadingOptions')}</div>;
+  }
+
+  return (
+    <div className="space-y-6">
+      {error === 'AccountLinkRequired' && (
+        <div className="bg-amber-50 border border-amber-200 text-amber-900 p-4 rounded-xl text-sm leading-relaxed mb-4 flex items-start gap-3" id="account-link-required-banner">
+          <div className="p-1 bg-amber-100 rounded-lg mt-0.5">
+            <svg className="w-4 h-4 text-amber-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <div>
+            <p className="font-semibold text-amber-950">{t('auth.login.methodNotConnectedTitle')}</p>
+            <p className="mt-1 text-amber-800">
+              {t('auth.login.methodNotConnectedBody')}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {error === 'AccessDenied' && (
+        <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-xl text-sm mb-4">
+          {t('auth.login.accessDenied')}
+        </div>
+      )}
+
+      {/* Social / OAuth Buttons */}
+      {hasSocial && (
+        <div className="space-y-3" id="social-auth-section">
+          {googleEnabled && (
+            <SocialButton
+              provider="google"
+              label={t('auth.methods.google')}
+              color="bg-white hover:bg-gray-50 border-gray-300 text-gray-700"
+              callbackUrl={callbackUrl}
+              icon={<svg className="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>}
+            />
+          )}
+          {facebookEnabled && (
+            <SocialButton
+              provider="facebook"
+              label={t('auth.methods.facebook')}
+              color="bg-[#1877F2] hover:bg-[#166FE5] border-[#1877F2] text-white"
+              callbackUrl={callbackUrl}
+              icon={<svg className="w-5 h-5" fill="white" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>}
+            />
+          )}
+          {appleEnabled && (
+            <SocialButton
+              provider="apple"
+              label={t('auth.methods.apple')}
+              color="bg-black hover:bg-gray-900 border-black text-white"
+              callbackUrl={callbackUrl}
+              icon={<svg className="w-5 h-5" fill="white" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>}
+            />
+          )}
+        </div>
+      )}
+
+      {/* WhatsApp OTP */}
+      {whatsappEnabled && (
+        <div id="whatsapp-auth-section">
+          {hasSocial && !showWhatsApp && (
+            <button
+              type="button"
+              onClick={() => setShowWhatsApp(true)}
+              className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-lg border border-gray-300 font-medium bg-white hover:bg-gray-50 text-gray-700 transition-all duration-200"
+              id="auth-btn-whatsapp"
+            >
+              <svg aria-hidden="true" className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.04 2a9.84 9.84 0 00-8.42 14.93L2 22l5.2-1.57A9.96 9.96 0 1012.04 2zm0 17.92a8.03 8.03 0 01-4.1-1.12l-.3-.18-3.08.93.96-3-.2-.31a7.92 7.92 0 1114.65-4.2 8 8 0 01-7.93 7.88zm4.35-5.94c-.24-.12-1.41-.69-1.63-.77-.22-.08-.38-.12-.54.12-.16.24-.62.77-.76.93-.14.16-.28.18-.52.06-.24-.12-1-.37-1.92-1.19a7.18 7.18 0 01-1.33-1.65c-.14-.24-.01-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.47-.39-.41-.54-.42h-.46a.88.88 0 00-.64.3c-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.51.58.18 1.1.16 1.51.1.46-.07 1.41-.58 1.61-1.13.2-.56.2-1.03.14-1.13-.06-.1-.22-.16-.46-.28z" />
+              </svg>
+              {t('auth.methods.whatsapp')}
+            </button>
+          )}
+          {(showWhatsApp || !hasSocial) && (
+            <WhatsAppOtpForm callbackUrl={callbackUrl} />
+          )}
+        </div>
+      )}
+
+      {/* Divider */}
+      {(hasSocial || whatsappEnabled) && emailEnabled && (
+        <div className="flex items-center gap-4">
+          <div className="flex-1 border-t border-gray-200" />
+          <span className="text-sm text-gray-400">{t('common.or')}</span>
+          <div className="flex-1 border-t border-gray-200" />
+        </div>
+      )}
+
+      {/* Email / Password */}
+      {emailEnabled && (
+        <div id="email-auth-section">
+          <EmailPasswordForm callbackUrl={callbackUrl} />
+        </div>
+      )}
+
+      {/* Registration link */}
+      {emailEnabled && (
+        <div className="text-center text-sm text-gray-500 pt-2">
+          {t('auth.login.newToRentipid')}{' '}
+          <Link href="/register" className="text-blue-600 hover:underline font-medium">{t('auth.login.createAccount')}</Link>
+        </div>
+      )}
+
+      {/* Terms */}
+      <p className="text-xs text-gray-400 text-center leading-relaxed">
+        {t('auth.byContinuingYouAgree')}{' '}
+        <Link href="/terms" className="underline hover:text-gray-600">{t('auth.termsOfService')}</Link> {t('auth.and')}{' '}
+        <Link href="/privacy" className="underline hover:text-gray-600">{t('auth.privacyPolicy')}</Link>.
+      </p>
+    </div>
+  );
+}
+
+/* ── Page ────────────────────────────────────────── */
 
 export default function Login() {
+  const { t } = useTranslation();
   return (
     <div className="container mx-auto py-20 px-4 flex justify-center">
       <div className="bg-white p-8 rounded-xl shadow-sm border max-w-md w-full">
         <RentipidLogo variant="full" size="lg" showText={true} className="mb-6" />
-        <h1 className="text-2xl font-bold mb-2 text-center text-gray-800">Welcome Back</h1>
-        <p className="text-gray-600 mb-8 text-center">Log in to your account</p>
-
-        <Suspense fallback={<div className="text-center text-gray-500 py-4">Loading form...</div>}>
-          <LoginForm />
+        <h1 className="text-2xl font-bold mb-2 text-center text-gray-800">{t('auth.login.title')}</h1>
+        <p className="text-gray-600 mb-8 text-center">{t('auth.login.subtitle')}</p>
+        <Suspense fallback={<div className="text-center text-gray-500 py-8">{t('auth.login.loadingOptions')}</div>}>
+          <UnifiedGateway />
         </Suspense>
-
-        <div className="mt-8 pt-6 border-t text-center text-sm text-gray-600">
-          <p className="mb-4">Don't have an account?</p>
-          <div className="flex flex-col space-y-2">
-            <Link href="/register" className="w-full bg-gray-50 border border-gray-200 text-gray-800 font-medium py-2 rounded hover:bg-gray-100 transition">
-              Register as Renter
-            </Link>
-            <Link href="/register/individual" className="w-full bg-gray-50 border border-gray-200 text-gray-800 font-medium py-2 rounded hover:bg-gray-100 transition">
-              Register as Provider
-            </Link>
-            <Link href="/register/business" className="w-full bg-gray-50 border border-gray-200 text-gray-800 font-medium py-2 rounded hover:bg-gray-100 transition">
-              Register as Business
-            </Link>
-          </div>
-        </div>
       </div>
     </div>
   );

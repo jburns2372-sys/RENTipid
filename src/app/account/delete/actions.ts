@@ -3,6 +3,7 @@
 import { PrismaClient } from '@prisma/client';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import { requireCurrentSessionAal2 } from '@/lib/security/auth/mfa-session-assurance';
 import { redirect } from 'next/navigation';
 
 const prisma = new PrismaClient();
@@ -13,7 +14,12 @@ export async function submitAccountDeletion(formData: FormData) {
     throw new Error("Unauthorized");
   }
 
-  const userId = (session.user as any).id;
+  const userId = (session.user as { id?: string }).id;
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+  await requireCurrentSessionAal2();
+
   const reason = formData.get('reason') as string;
 
   if (!reason) {

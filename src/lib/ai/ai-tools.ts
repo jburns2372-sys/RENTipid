@@ -37,5 +37,52 @@ export const AITools = {
   },
   summarizeAuditLogs: async (targetId: string) => {
     return `[Mock] Audit logs for ${targetId}: 3 events logged today. Normal activity.`;
+  },
+  
+  // Phase 11 - Social Tools
+  createDraftSocialContent: async (prompt: string) => {
+    return `[Mock Draft] Suggested content for: ${prompt}`;
+  },
+  rewriteSocialContent: async (content: string) => {
+    return `[Mock Draft] Rewritten content: ${content}`;
+  },
+  adaptContentForChannel: async (content: string, channel: string) => {
+    return `[Mock Draft] Content adapted for ${channel}`;
+  },
+  suggestSocialHashtags: async (content: string) => {
+    return `[Mock] #rentipid #rental #equipment`;
+  },
+  suggestCTA: async (content: string) => {
+    return `[Mock] Rent now and save 20%!`;
+  },
+  summarizeListingForPromotion: async (listingId: string) => {
+    return `[Mock] Listing ${listingId} is perfect for heavy duty construction`;
+  },
+  suggestCampaignIdeas: async (objective: string) => {
+    return `[Mock] Campaign Idea: Summer Sale for ${objective}`;
+  },
+  summarizeCampaign: async (campaignId: string) => {
+    return `[Mock] Campaign ${campaignId} is performing well with high engagement`;
+  },
+  recommendCampaignImprovements: async (campaignId: string) => {
+    return `[Mock] Recommendation: Increase budget for Campaign ${campaignId}`;
+  },
+  classifySocialFeedback: async (content: string) => {
+    return `[Mock] Sentiment: POSITIVE, Topic: SERVICE`;
+  },
+  summarizeSocialFeedback: async (feedbackId: string) => {
+    return `[Mock] Feedback ${feedbackId} indicates high satisfaction with delivery`;
+  },
+  draftFeedbackResponse: async (feedbackId: string) => {
+    return `[Mock Draft] Thank you for your feedback on ${feedbackId}!`;
+  },
+  summarizeSocialAnalytics: async (campaignId: string, data: any) => {
+    return `[Mock] Analytics for ${campaignId} show an ROI of ${data.roiPercent}%`;
+  },
+  explainCampaignPerformance: async (campaignId: string, data: any) => {
+    return `[Mock] Performance explained: Revenue is ${data.totalRevenue}`;
+  },
+  identifySocialTrends: async (topic: string) => {
+    return `[Mock] Trends for ${topic} are pointing towards increased weekend rentals`;
   }
 };

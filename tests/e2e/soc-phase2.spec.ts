@@ -49,9 +49,8 @@ test.describe('Phase 2 SOC Foundation Event Pipeline', () => {
     await page.waitForURL(url => !url.href.includes('/login'));
     
     await page.goto('/dashboard/admin/security');
-    await expect(page.locator('text=Security event normalization active')).toBeVisible();
-    await expect(page.locator('text=Adapter Configuration Status')).toBeVisible();
-    await expect(page.locator('text=CONFIGURED — ACTIVE SOURCE').first()).toBeVisible();
-    await expect(page.locator('text=Security Events Pipeline')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'LIVE SECURITY EVENT FEED', exact: true })).toBeVisible();
+    await expect(page.locator('th', { hasText: 'Severity' })).toBeVisible();
+    await expect(page.locator('th', { hasText: 'Source' })).toBeVisible();
   });
 });

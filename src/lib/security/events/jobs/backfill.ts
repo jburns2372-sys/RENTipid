@@ -1,7 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { processSecurityEvent } from "../event-ingestion";
 import { SecurityLifecycle, SecurityEnvironment } from "../taxonomy";
+import { assertSafeLocalTestDatabaseTarget } from "../../../test-database-guard";
 
+assertSafeLocalTestDatabaseTarget();
 const prisma = new PrismaClient();
 
 export interface BackfillOptions {
@@ -46,12 +48,13 @@ export async function runBackfill(options: BackfillOptions): Promise<BackfillRes
     "SYSTEM_SETTING": { delegate: prisma.systemSetting, dateColumn: "updated_at" },
     // AIBotLog, PaymentWebhookLog, PaymentReconciliationLog, VerificationDocument, DamageClaim, DisputeCase, InspectionReport
     "AI_BOT_LOG": { delegate: prisma.aIBotLog, dateColumn: "created_at" },
-    "PAYMENT_WEBHOOK_LOG": { delegate: prisma.paymentWebhookLog, dateColumn: "created_at" },
+    "PAYMENT_WEBHOOK_LOG": { delegate: prisma.paymentWebhookLog, dateColumn: "received_at" },
     "PAYMENT_RECONCILIATION_LOG": { delegate: prisma.paymentReconciliationLog, dateColumn: "created_at" },
     "VERIFICATION_DOCUMENT": { delegate: prisma.verificationDocument, dateColumn: "created_at" },
     "DAMAGE_CLAIM": { delegate: prisma.damageClaim, dateColumn: "created_at" },
     "DISPUTE_CASE": { delegate: prisma.disputeCase, dateColumn: "created_at" },
     "INSPECTION_REPORT": { delegate: prisma.inspectionReport, dateColumn: "created_at" },
+    "PAYMENT_ACTION_LOG": { delegate: prisma.paymentActionLog, dateColumn: "occurred_at" },
   };
 
   const config = sourceConfig[options.sourceType];

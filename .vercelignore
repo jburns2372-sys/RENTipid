@@ -1,0 +1,5 @@
+node_modules
+.next
+scratch
+public/uploads/
+public/uploads/**

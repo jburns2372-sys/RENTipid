@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { PrismaClient } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import { Globe, CheckCircle2, AlertCircle } from 'lucide-react';
+import { AutoSubmitSelect } from '@/components/auto-submit-select';
 
 const prisma = new PrismaClient();
 
@@ -111,20 +112,16 @@ export default async function ProductionDomainReadinessDashboard() {
                   {(currentStatus === 'Passed' || currentStatus === 'Configured') && <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />}
                   {(currentStatus === 'Failed' || currentStatus === 'Blocked') && <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />}
                   
-                  <select 
-                    name="status" 
+                  <AutoSubmitSelect
+                    name="status"
                     defaultValue={currentStatus}
-                    onChange={(e) => e.target.form?.requestSubmit()}
+                    options={STATUS_OPTIONS}
                     className={`text-sm rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 ${
                       (currentStatus === 'Passed' || currentStatus === 'Configured') ? 'bg-green-50 text-green-700 border-green-200' :
                       (currentStatus === 'Failed' || currentStatus === 'Blocked') ? 'bg-red-50 text-red-700 border-red-200' :
                       'bg-white'
                     }`}
-                  >
-                    {STATUS_OPTIONS.map(opt => (
-                      <option key={opt} value={opt}>{opt}</option>
-                    ))}
-                  </select>
+                  />
                 </form>
               </div>
             );

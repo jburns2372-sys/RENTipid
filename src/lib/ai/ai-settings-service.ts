@@ -10,6 +10,12 @@ export interface AISettings {
   disclaimerText: string;
   enabledModules: string[];
   enabledBots: string[];
+  specialistStates?: Readonly<Record<string, boolean>>;
+  semanticContextLayerEnabled: boolean;
+  semanticLexiconVersion: string;
+  semanticMaxExpansions: number;
+  semanticFuzzyMatchEnabled: boolean;
+  semanticAdaptiveLearningEnabled: boolean;
 }
 
 // In Next.js 14/15, we can use React cache or unstable_cache.
@@ -32,7 +38,7 @@ export async function getAISettings(): Promise<AISettings> {
   const globalEnabled = getVal('ai_global_enabled', 'true') === 'true';
   const loggingEnabled = getVal('ai_logging_enabled', 'true') === 'true';
   const mockModeEnabled = getVal('ai_mock_mode_enabled', 'true') === 'true';
-  const providerMode = getVal('ai_provider_mode', 'mock'); // 'mock', 'openai', 'gemini', 'disabled'
+  const providerMode = getVal('ai_provider_mode', 'openai'); // 'mock', 'openai', 'gemini', 'disabled'
   const maxPermissionLevel = parseInt(getVal('ai_max_permission', '3'), 10);
   const responseStyle = getVal('ai_response_style', 'Simple');
   const disclaimerText = getVal('ai_disclaimer_text', 'AI can assist and summarize but cannot make final decisions. Please verify information before acting.');
@@ -47,9 +53,21 @@ export async function getAISettings(): Promise<AISettings> {
     .filter(s => s.setting_key.startsWith('ai_bot_') && s.setting_value === 'true')
     .map(s => s.setting_key.replace('ai_bot_', '').replace('_enabled', ''));
 
+  // Revision 2 specialist flags reuse the existing SystemSetting feature-control namespace.
+  const specialistStates = Object.fromEntries(
+    allSettings
+      .filter(s => s.setting_key.startsWith('ai_specialist_') && s.setting_key.endsWith('_enabled'))
+      .map(s => [s.setting_key, s.setting_value === 'true']),
+  );
+
   // If DB is completely empty (first run), we might want to default everything to enabled.
   // For safety, we will assume true if not explicitly set to false in the DB.
   // A robust way is to just let the action seed them, but we'll use a fallback here if needed.
+
+  const semanticContextLayerEnabled = getVal('ai_semantic_context_layer_enabled', 'true') === 'true';
+  const semanticLexiconVersion = getVal('ai_semantic_lexicon_version', 'v1.1-SCL-01');
+  const semanticMaxExpansions = parseInt(getVal('ai_semantic_max_expansions', '5'), 10);
+  const semanticFuzzyMatchEnabled = getVal('ai_semantic_fuzzy_match_enabled', 'true') === 'true';
 
   return {
     globalEnabled,
@@ -60,7 +78,13 @@ export async function getAISettings(): Promise<AISettings> {
     responseStyle,
     disclaimerText,
     enabledModules,
-    enabledBots
+    enabledBots,
+    specialistStates,
+    semanticContextLayerEnabled,
+    semanticLexiconVersion,
+    semanticMaxExpansions,
+    semanticFuzzyMatchEnabled,
+    semanticAdaptiveLearningEnabled: getVal('ai_semantic_adaptive_learning_enabled', 'true') === 'true',
   };
 }
 
