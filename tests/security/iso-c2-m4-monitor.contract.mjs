@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { checkProvider, freshness, PROJECT, BRANCH, RETENTION } from '../../scripts/security/check-backup-freshness.mjs';
-import { scheduledFreshness, PROVIDER_STEP, pages } from '../../scripts/security/backup-monitor-actions.mjs';
+import { scheduledFreshness, PROVIDER_STEP, PROVENANCE_STEP, pages } from '../../scripts/security/backup-monitor-actions.mjs';
 
 const key = 'NEVER-EMIT-THIS-SECRET';
 const now = Date.parse('2026-10-23T14:00:00Z');
@@ -63,10 +63,10 @@ test('invalid/future time never passes', () => {
   for(const t of ['bad',new Date(now+1).toISOString()]) assert.equal(freshness(t,true,now),'UNKNOWN');
 });
 
-function history({ prior = [], jobs = [], event = 'schedule', attempt = 1, runNumber = 1 } = {}) {
+function history({ prior = [], jobs = [], event = 'schedule', attempt = 1, runNumber = 1, triggerSource } = {}) {
   const api = async path => path.includes('/jobs?') ? { jobs } :
     path.includes('/workflows/') ? { workflow_runs: prior } : {run_number: runNumber, workflow_id:1, head_branch:'main', event};
-  return scheduledFreshness({api,repo:'owner/repo',runId:'10',attempt,now});
+  return scheduledFreshness({api,repo:'owner/repo',runId:'10',attempt,now,triggerSource});
 }
 const run = { id:9, run_number:9, event:'schedule', head_branch:'main', workflow_id:1, conclusion:'failure' };
 test('first legitimate scheduled history bootstraps', async()=>assert.equal(await history(),'BOOTSTRAP'));
@@ -103,3 +103,41 @@ test('recent evidence succeeds without exhausting long history', async()=> {
   assert.equal(await scheduledFreshness({api,repo:'o/r',runId:2001,now}),'FRESH');
   assert.equal(historyCalls,1);
 });
+
+test('first vercel_cron alternate scheduled run bootstraps', async()=> {
+  assert.equal(await history({event:'workflow_dispatch', triggerSource:'vercel_cron'}),'BOOTSTRAP');
+});
+test('vercel_cron rerun cannot bootstrap', async()=> {
+  assert.equal(await history({event:'workflow_dispatch', triggerSource:'vercel_cron', attempt:2}),'MISSING');
+});
+test('vercel_cron subsequent run with fresh prior provenance step is FRESH', async()=> {
+  const priorDispatchRun = { id: 11, run_number: 11, event: 'workflow_dispatch', head_branch: 'main', workflow_id: 1, conclusion: 'success' };
+  const jobs = [{
+    steps: [
+      { name: PROVENANCE_STEP, conclusion: 'success' },
+      { name: PROVIDER_STEP, conclusion: 'success', started_at: new Date(now - 900000).toISOString() },
+    ],
+  }];
+  assert.equal(await history({
+    event: 'workflow_dispatch',
+    triggerSource: 'vercel_cron',
+    runNumber: 12,
+    prior: [priorDispatchRun],
+    jobs,
+  }), 'FRESH');
+});
+test('manual dispatch run without provenance step in history is not treated as scheduled run', async()=> {
+  const manualRun = { id: 11, run_number: 11, event: 'workflow_dispatch', head_branch: 'main', workflow_id: 1, conclusion: 'success' };
+  const jobs = [{
+    steps: [
+      { name: PROVIDER_STEP, conclusion: 'success', started_at: new Date(now - 900000).toISOString() },
+    ],
+  }];
+  assert.equal(await history({
+    event: 'workflow_dispatch',
+    runNumber: 12,
+    prior: [manualRun],
+    jobs,
+  }), 'MISSING');
+});
+
