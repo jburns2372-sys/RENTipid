@@ -8,7 +8,7 @@ test('workflow parses and restricts triggers, permissions, cadence and secrets',
   assert.deepEqual(doc.errors,[]);
   const w=doc.toJS();
   assert.deepEqual(Object.keys(w.on).sort(),['schedule','workflow_dispatch']);
-  assert.equal(w.on.schedule[0].cron,'7,22,37,52 * * * *');
+  assert.equal(w.on.schedule[0].cron,'11,26,41,56 * * * *');
   assert.deepEqual(w.permissions,{contents:'read',actions:'read',issues:'write'});
   assert.equal(w.concurrency['cancel-in-progress'],false);
   assert.equal(w.jobs.monitor.env.NEON_PROJECT_ID,'holy-shape-01357429');
