@@ -381,5 +381,33 @@ Milestone & Risk dispositions:
 - Production DB modified: NO; customer data accessed: NO; restore/PITR executed: NO; residual risk accepted: NO; ISO certification claimed: NO.
 - Next action: OBSERVE AND RECONCILE M4 SCHEDULED RUN OPERATING EVIDENCE ON MAIN. See ISO_C2_M4_MAIN_ACTIVATION_OPERATING_EVIDENCE.md.
 
+## 2026-10-24: ISO-C2-M4-D5-E7-R3 - Four-Window Post-Reactivation Scheduled Evidence Decision
+
+Status: BLOCKED. Executor: ANTIGRAVITY / GEMINI 3.8 FLASH HIGH. Governance baseline: 631d33f91a56aeaf33afb99271a05e05262bdb44. Current main baseline: c8a63f3541132ec151f28a79577adaa142c0bcf5.
+
+Four-Window Post-Reactivation Observation & External Blocker Confirmation:
+- Evaluated post-reactivation schedule history following merge of scheduler reactivation PR #5 to `main` at `c8a63f3` (`2026-10-24T07:20:11Z`, cron `11,26,41,56 * * * *`);
+- Four full 15-minute cron boundaries elapsed: `07:26:00Z`, `07:41:00Z`, `07:56:00Z`, `08:11:00Z` (15:26, 15:41, 15:56, 16:11 PHT);
+- Query via GitHub CLI (`gh run list --workflow=backup-freshness-monitor.yml --event=schedule --limit=50`) and direct GitHub Actions API returned `total_count: 0`;
+- Confirmed zero qualifying `schedule` events emitted;
+- Confirmed `SCHEDULER EXTERNAL BLOCKER: CONFIRMED`;
+- Workflow state active; Actions enabled; manual run 40068121351 verified HEALTHY; provider API verified; 15-minute cadence verified; but external GitHub Actions scheduler failed to emit runs across >=4 pre-reactivation windows and >=4 post-reactivation windows;
+- Technical source and cron are frozen against repeated churn.
+
+Milestone & Risk Dispositions:
+- M1/M2/M3: PASS — REUSED / UNAFFECTED;
+- M4 Implementation: PASS — REUSED / UNAFFECTED;
+- M4 Workflow Runner Syntax: PASS — REMEDIATED;
+- M4 Provider API Access: PASS — VERIFIED;
+- M4 Manual Monitor Operation: PASS — HEALTHY (Run 40068121351);
+- M4 Scheduler Actor Reactivation: PASS — EXECUTED (PR #5);
+- M4 Scheduled Operating Verification: BLOCKED — GITHUB SCHEDULED EXECUTION NOT EMITTED AFTER CADENCE-PRESERVING ACTOR REACTIVATION;
+- RSK-08: PROVEN — OPERATING CONFORMITY;
+- RSK-22: PARTIAL — CONTROL IMPLEMENTED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / GITHUB SCHEDULED EXECUTION EXTERNALLY BLOCKED;
+- RSK-23: PARTIAL — UNCHANGED;
+- Production DB modified: NO; customer data accessed: NO; restore/PITR executed: NO; residual risk accepted: NO; ISO certification claimed: NO.
+- Next action: ISO-C2-M4 ALTERNATE SCHEDULING CONTROL DECISION. See ISO_C2_M4_MAIN_ACTIVATION_OPERATING_EVIDENCE.md.
+
+
 
 

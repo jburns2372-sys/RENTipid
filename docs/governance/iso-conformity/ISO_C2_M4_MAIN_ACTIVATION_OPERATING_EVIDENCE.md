@@ -192,7 +192,25 @@ Under explicit Project Owner authorization for work package ISO-C2-M4-D5-E7:
 
 ---
 
-## 9. Milestone & Risk Dispositions
+## 9. Work Package ISO-C2-M4-D5-E7-R3 Post-Reactivation Observation & Confirmed External Scheduler Blocker
+
+Under explicit Project Owner authorization for work package ISO-C2-M4-D5-E7-R3:
+1. **Four-Window Post-Reactivation Observation:**
+   - Cadence-preserving scheduler-actor reactivation was merged into `main` at `2026-10-24T07:20:11Z` (PR #5, commit `c8a63f3541132ec151f28a79577adaa142c0bcf5`, cron `11,26,41,56 * * * *`).
+   - Observed four full post-reactivation cron boundaries: `07:26:00Z`, `07:41:00Z`, `07:56:00Z`, and `08:11:00Z` (15:26, 15:41, 15:56, and 16:11 PHT).
+   - At execution time (`2026-10-24T08:14:00Z`), all 4 expected schedule windows had completely elapsed.
+2. **Scheduled Run Verification:**
+   - Both CLI query (`gh run list --workflow=backup-freshness-monitor.yml --event=schedule --limit=50`) and direct GitHub Actions API query (`repos/.../actions/workflows/394183521/runs?event=schedule`) confirmed `total_count: 0`.
+   - Confirmed zero `schedule` events emitted by GitHub Actions scheduler.
+3. **Root Cause Classification:**
+   - `SCHEDULER EXTERNAL BLOCKER: CONFIRMED`
+   - Workflow state on `main` is active; Actions is enabled at repository level; manual `workflow_dispatch` executes cleanly and reports `HEALTHY`; provider access is verified; 15-minute cron is valid; but GitHub's internal workflow scheduling system has failed to emit scheduled events across both pre-reactivation (>=4 windows) and post-reactivation (>=4 windows) observation windows.
+   - Under governance policy, technical source and cron will not be repeatedly churned.
+   - Requires formal Project Owner escalation / alternate scheduling control decision.
+
+---
+
+## 10. Milestone & Risk Dispositions
 
 - **Milestone ISO-C2-M1:** `PASS — REUSED / UNAFFECTED`
 - **Milestone ISO-C2-M2:** `PASS — REUSED / UNAFFECTED`
@@ -202,9 +220,9 @@ Under explicit Project Owner authorization for work package ISO-C2-M4-D5-E7:
 - **Milestone ISO-C2-M4 Provider API Access:** `PASS — VERIFIED` (Live Neon API 200 OK, project-scoped credential rotated)
 - **Milestone ISO-C2-M4 Manual Monitor Operation:** `PASS — HEALTHY` (Run 40068121351 provider collection PASS)
 - **Milestone ISO-C2-M4 Scheduler Actor Reactivation:** `PASS — EXECUTED` (PR #5 merged to main at `c8a63f3`, cron updated to `11,26,41,56 * * * *`)
-- **Milestone ISO-C2-M4 Scheduled Operating Verification:** `PARTIAL — MAIN ACTIVATED / WORKFLOW REMEDIATED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULER ACTOR REACTIVATED / SCHEDULED OPERATION PENDING`
+- **Milestone ISO-C2-M4 Scheduled Operating Verification:** `BLOCKED — GITHUB SCHEDULED EXECUTION NOT EMITTED AFTER CADENCE-PRESERVING ACTOR REACTIVATION`
 - **RSK-08:** `PROVEN — OPERATING CONFORMITY`
-- **RSK-22:** `PARTIAL — IMPLEMENTED / RETENTION CORRECTED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULER ACTOR REACTIVATED / SCHEDULED EVIDENCE PENDING`
+- **RSK-22:** `PARTIAL — CONTROL IMPLEMENTED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / GITHUB SCHEDULED EXECUTION EXTERNALLY BLOCKED`
 - **RSK-23:** `PARTIAL — UNCHANGED` (Point-in-time recovery testing deferred to Phase ISO-C3)
 - **Database Safety:** Zero database migrations executed; zero schema changes; zero customer data accessed.
 - **Residual Risk Accepted:** `NO`
@@ -212,8 +230,8 @@ Under explicit Project Owner authorization for work package ISO-C2-M4-D5-E7:
 
 ---
 
-## 10. Next Required Action
+## 11. Next Required Action
 
-`OBSERVE AND RECONCILE M4 SCHEDULED RUN OPERATING EVIDENCE ON MAIN`
+`ISO-C2-M4 ALTERNATE SCHEDULING CONTROL DECISION`
 
 
