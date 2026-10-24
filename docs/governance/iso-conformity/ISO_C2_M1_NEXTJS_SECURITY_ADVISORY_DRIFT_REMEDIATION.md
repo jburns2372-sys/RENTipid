@@ -166,7 +166,7 @@ All non-destructive runtime checks executed against the live E2 Preview deployme
 
 ---
 
-## 8. Milestone & Risk Dispositions
+## 8. Milestone & Risk Dispositions (Preview Revalidation - E2)
 
 - **Milestone ISO-C2-M1 Enforcement Control:** `PASS — REUSED / UNAFFECTED` (The control operated as designed by detecting and halting on unvetted advisory publications).
 - **Milestone ISO-C2-M1 Advisory Remediation:** `PASS — REVALIDATED DUE TO DELTA` (All known advisories cleared; 0 total vulnerabilities; M1 audit contract passed).
@@ -177,12 +177,157 @@ All non-destructive runtime checks executed against the live E2 Preview deployme
 - **RSK-22:** `PARTIAL — IMPLEMENTED / RETENTION CORRECTED / SCHEDULED OPERATION PENDING MAIN ACTIVATION`
 - **RSK-23:** `PARTIAL — UNCHANGED`
 - **PR #1 Boundary:** Remains `OPEN / BLOCKED / UNMERGED` on `iso-c2-main-production-sync` until the new patched candidate is authorized and deployed to Production.
-- **Production Status:** Production was **NOT deployed** in this package. Live Production remains on `dca547904791535ca44485747065961dbf8fc421`.
+- **Production Status:** Production was **NOT deployed** in E2. Live Production remained on `dca547904791535ca44485747065961dbf8fc421`.
 - **Residual Risk Accepted:** **NO**
 - **Overall ISO Certification Claimed:** **NO**
 
 ---
 
-## 9. Next Action
+## 9. Project Owner Production Authorization (ISO-C2-M1-R1-D2-E1)
 
-`PROJECT OWNER PRODUCTION AUTHORIZATION REQUIRED FOR NEW PATCHED CANDIDATE`
+The Project Owner explicitly authorized Production promotion of the exact patched technical candidate:
+`54e2fd6d0eacdd91619f542f9888c66e7a9b52d8`
+for the sole purpose of completing the ISO-C2 M1 advisory-drift remediation.
+
+- **Authorized Deployment Method:** Promotion of accepted Vercel Preview deployment `dpl_JDJFVo2ssj3i3F9u6RgzoqtWMxLw` to Production, preserving artifact and source identity.
+- **Strict Prohibitions Enforced:**
+  - DO NOT merge `main`
+  - DO NOT modify PR #1
+  - DO NOT deploy any different source commit
+  - DO NOT change dependencies again
+  - DO NOT run database migrations
+  - DO NOT alter Production DB
+  - DO NOT access customer data
+  - DO NOT change Neon configuration
+  - DO NOT activate M4 monitoring
+  - DO NOT weaken branch protection
+  - DO NOT accept residual risk
+  - DO NOT start M5
+
+---
+
+## 10. Promotion of Exact Accepted Artifact to Production
+
+- **Source Preview Deployment:** `dpl_JDJFVo2ssj3i3F9u6RgzoqtWMxLw` (verified `● Ready`, source SHA: `54e2fd6d0eacdd91619f542f9888c66e7a9b52d8`)
+- **Promotion Command Executed:** `npx vercel promote dpl_JDJFVo2ssj3i3F9u6RgzoqtWMxLw --yes`
+- **Pre-Promotion Production Deployment:** `dpl_2733akwjwf1NGvcVGxggoCCUGjuB` (source SHA: `dca547904791535ca44485747065961dbf8fc421`)
+- **Promotion Method:** Vercel platform-native artifact promotion to production target.
+- **Resulting Production Deployment ID:** `dpl_3uG9ryAf6UQzZbTUFg5fgXVjiveh`
+- **Resulting Production URL:** `https://ren-tipid-8t2yhdy6h-jburns2372-sys-projects.vercel.app`
+- **Production Canonical Aliases:**
+  - `https://www.rentipid.com.ph`
+  - `https://rentipid.com.ph`
+  - `https://ren-tipid.vercel.app`
+  - `https://preview.rentipid.com.ph`
+  - `https://ren-tipid-jburns2372-sys-projects.vercel.app`
+- **Deployment Status:** `● Ready`
+- **Target:** `production`
+
+---
+
+## 11. Production Deployment Identity Verification
+
+- **Production Deployment ID:** `dpl_3uG9ryAf6UQzZbTUFg5fgXVjiveh`
+- **Production Target URL:** `https://www.rentipid.com.ph`
+- **Authorized Source SHA:** `54e2fd6d0eacdd91619f542f9888c66e7a9b52d8`
+- **Deployment Status:** `READY / SUCCESS`
+- **Identity Check:** `PASS` (Exact correspondence to candidate `54e2fd6d0eacdd91619f542f9888c66e7a9b52d8` proven).
+
+---
+
+## 12. Database & Migration Safety Gate
+
+Strict compliance with the deployment contract verified:
+- **NEW PRISMA MIGRATION IN SECURITY DELTA:** NO
+- **SCHEMA CHANGE IN SECURITY DELTA:** NO
+- **DATABASE MIGRATION EXECUTED:** NO
+- **DATABASE SCHEMA MODIFIED:** NO
+- **AUTOMATIC SEED EXECUTED:** NO
+- **DESTRUCTIVE DB COMMAND:** NO
+- **PRODUCTION DB DIRECTLY ACCESSED:** NO
+- **CUSTOMER DATA ACCESSED:** NO
+
+---
+
+## 13. Bounded Production Health Verification
+
+Executed non-destructive runtime health and smoke checks against live Production (`https://www.rentipid.com.ph`):
+
+| Check | Target | Expected Result | Observed Result | Status |
+|---|---|---|---|---|
+| **A. Production Health** | `GET /api/health` | HTTP 200, `{"status":"ready","database":"connected"}` | `HTTP 200`, `{"status":"ready","database":"connected"}` | **PASS** |
+| **B. Representative Public Page** | `GET /how-it-works` | HTTP 200, valid HTML layout | `HTTP 200 OK` | **PASS** |
+| **C. Auth CSRF Endpoint** | `GET /api/auth/csrf` | HTTP 200, valid CSRF token | `HTTP 200 OK`, `{"csrfToken":"..."}` | **PASS** |
+| **D. Registration Endpoint Contract** | `POST /api/auth/register` (`{}`) | HTTP 400 Bad Request, validation failure | `HTTP 400 Bad Request`, `{"message":"Invalid registration input"}` | **PASS** |
+
+---
+
+## 14. Targeted M3 Production Operating Revalidation
+
+Executed bounded runtime revalidation of the ISO-C2-M3 registration pre-effect rate limiting control against live Production (`https://www.rentipid.com.ph/api/auth/register`) using the existing synthetic identity (`iso-c2-m3-prod-1792672640027@example.invalid`):
+
+1. **Attempt 1 (Below-Threshold Admission):**
+   - Result: `HTTP 409 Conflict`, `{"message":"User with this email already exists"}`, `Retry-After: null`.
+   - Verification: Pre-effect admission allowed request through; downstream uniqueness logic detected existing synthetic fixture; zero customer accounts created.
+2. **Attempts 2 through 5 (In-Quota Point Accumulation):**
+   - Results: Attempts 2, 3, 4, 5 each returned `HTTP 409 Conflict`, accumulating quota points predictably in PostgreSQL `"AuthRateLimit"`.
+3. **Attempt 6 (Over-Threshold Rate-Limit Enforcement):**
+   - Result: `HTTP 429 Too Many Requests`, `{"message":"Too many registration attempts. Please try again later."}`.
+   - Header: `Retry-After: 3591` (valid positive integer seconds until quota reset).
+   - Side Effects: Rejected at line 35 of `src/app/api/auth/register/route.ts` strictly BEFORE bcrypt hashing, database lookups, transactional writes, or email dispatch.
+   - User creation: **NO**
+   - Customer accounts created: **ZERO**
+   - Customer data accessed: **ZERO**
+   - Status: `PASS — OPERATING CONTROL VERIFIED`.
+
+---
+
+## 15. Deployed Source Security Remediation & Advisory State
+
+Verified deployed package metadata against the authoritative source candidate:
+- `next`: `16.4.1`
+- `@azure/msal-node`: `7.1.1`
+- `body-parser`: `2.4.0`
+- `zod`: `4.6.7`
+
+Advisory remediation status on deployed Production baseline:
+- `GHSA-2464-fhr4-w9xw`: **CLEARED**
+- `GHSA-673q-mjm6-r5xr`: **CLEARED**
+- `GHSA-xcx6-jx8p-x3h5`: **CLEARED**
+- `GHSA-27r3-jxmh-p828`: **CLEARED**
+- `GHSA-mrhx-c7xc-m3w5`: **CLEARED**
+- Total vulnerabilities on deployed baseline: **0**
+- `scripts/security/check-ci-audit.cjs`: **PASS**
+
+---
+
+## 16. M1 Operating Decision & Milestone Dispositions
+
+- **Milestone ISO-C2-M1 Enforcement Control:** `PASS — REUSED / UNAFFECTED` (Existing supply-chain control detected the drift, blocked promotion, and enforced remediation before Production acceptance).
+- **Milestone ISO-C2-M1 Advisory Remediation:** `PASS — OPERATING REMEDIATION VERIFIED` (Patched dependencies promoted to live Production, health verified, advisories cleared).
+- **RSK-08:** `PROVEN — OPERATING CONFORMITY` (No residual risk accepted).
+- **Milestone ISO-C2-M2:** `PASS — REUSED / UNAFFECTED`
+- **Milestone ISO-C2-M3:** `PASS — REVALIDATED DUE TO DELTA` (Pre-effect rate-limit control operational on live Production).
+- **Milestone ISO-C2-M4 Implementation:** `PASS — REUSED / UNAFFECTED`
+- **RSK-22:** `PARTIAL — IMPLEMENTED / RETENTION CORRECTED / SCHEDULED OPERATION PENDING MAIN ACTIVATION`
+- **RSK-23:** `PARTIAL — UNCHANGED`
+- **Residual Risk Accepted:** **NO**
+- **Overall ISO Certification Claimed:** **NO**
+
+---
+
+## 17. Designation of New Accepted Production Application Baseline
+
+With all mandatory promotion gates passed:
+- **NEW ACCEPTED PRODUCTION APPLICATION CANDIDATE:** `54e2fd6d0eacdd91619f542f9888c66e7a9b52d8`
+- **Production Deployment ID:** `dpl_3uG9ryAf6UQzZbTUFg5fgXVjiveh`
+- **Production URL:** `https://www.rentipid.com.ph`
+- **Superseded Prior Production Candidate:** `dca547904791535ca44485747065961dbf8fc421` (retained as historical baseline evidence).
+
+---
+
+## 18. PR #1 Boundary & Next Action
+
+PR #1 (`https://github.com/jburns2372-sys/RENTipid/pull/1`) on branch `iso-c2-main-production-sync` currently synchronizes `main` against the superseded old Production candidate (`dca5479`).
+- **PR #1 Status:** `UNMERGED / UNMODIFIED` in this package.
+- **Next Required Action:** Reconcile main-sync PR #1 to the new accepted Production application baseline (`54e2fd6d0eacdd91619f542f9888c66e7a9b52d8`) before PR #1 may proceed to merge.
