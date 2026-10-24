@@ -232,6 +232,7 @@ Under explicit Project Owner authorization for work package ISO-C2-M4-D5-E7-R3:
 
 ## 11. Next Required Action
 
-`ISO-C2-M4 ALTERNATE SCHEDULING CONTROL DECISION`
+`ISO-C2-M4-D5-E7-R4 ALTERNATE SCHEDULING CONTROL`
+
 
 

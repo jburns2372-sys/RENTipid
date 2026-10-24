@@ -4,10 +4,10 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "ISO-C2-M4-D5-E7-R3 Four-Window Post-Reactivation Scheduled Evidence Decision",
-  "status": "BLOCKED",
-  "phaseGate": "M4-D5-E7-R3: BLOCKED — GITHUB SCHEDULED EXECUTION NOT EMITTED AFTER CADENCE-PRESERVING ACTOR REACTIVATION",
-  "timestamp": "2026-10-24T08:14:00.000Z",
+  "phaseName": "ISO-C2-M4-D5-E7-R4 Alternate Scheduling Control",
+  "status": "IN PROGRESS",
+  "phaseGate": "M4-D5-E7-R4: BLOCKED — SCHEDULED OPERATING VERIFICATION BLOCKED PENDING ALTERNATE SCHEDULING PROOF",
+  "timestamp": "2026-10-24T08:34:00.000Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
@@ -144,9 +144,9 @@
     "previewAcceptancePass": "N/A — NOT APPLICABLE",
     "productionReady": "N/A — NOT APPLICABLE",
     "productionDeploymentVerification": "N/A — NOT APPLICABLE",
-    "completed": "PASS — EXECUTED (M4 OPERATING EVIDENCE)",
-    "accepted": "PASS — EXECUTED (M4 OPERATING EVIDENCE)",
-    "closed": "CLOSED (M4 OPERATING EVIDENCE RECORDED)",
+    "completed": "IN PROGRESS (M4 OPERATING EVIDENCE BLOCKED PENDING ALTERNATE SCHEDULING PROOF)",
+    "accepted": "PENDING (M4 OPERATING EVIDENCE BLOCKED PENDING ALTERNATE SCHEDULING PROOF)",
+    "closed": "OPEN (M4 OPERATING EVIDENCE BLOCKED PENDING ALTERNATE SCHEDULING PROOF)",
     "versionFrozen": "N/A — NOT APPLICABLE"
   },
   "blockers": [
@@ -156,9 +156,16 @@
       "description": "Xendit Account Approval for real Sandbox Payment & Payout execution (GLOBAL-MKT Batch 2 dependency)",
       "impact": "GLOBAL-MKT Batch 2 live sandbox execution paused; does not block ISO-C1/C2 governance and technical verification",
       "status": "PENDING ACCOUNT APPROVAL"
+    },
+    {
+      "id": "BLK-EXT-02",
+      "type": "EXTERNAL_PROVIDER",
+      "description": "GitHub Actions workflow scheduler non-emission (zero schedule events emitted across >=4 pre-reactivation windows and >=4 post-reactivation windows on active main workflow)",
+      "impact": "M4 native GitHub scheduled operating verification blocked; requires authorized alternate scheduling control (Vercel Cron -> internal cron endpoint -> GitHub workflow_dispatch)",
+      "status": "CONFIRMED EXTERNAL BLOCKER — ALTERNATE SCHEDULING CONTROL AUTHORIZED"
     }
   ],
-  "nextRecommendedPackage": "ISO-C2-M4-D5-E2 CONTROLLED SIX-FILE M4 MAIN ACTIVATION + SCHEDULED OPERATING EVIDENCE",
+  "nextRecommendedPackage": "ISO-C2-M4-D5-E7-R4 ALTERNATE SCHEDULING CONTROL",
   "independentReviewHistory": [
     {
       "workPackage": "ISO-C0-R1",
@@ -491,13 +498,13 @@
     "m1": "PASS — REUSED / UNAFFECTED",
     "m2": "PASS — REUSED / UNAFFECTED",
     "m3": "PASS — REUSED / UNAFFECTED",
-    "rsk22Status": "PARTIAL — IMPLEMENTED / RETENTION CORRECTED / SCHEDULED OPERATION PENDING MAIN ACTIVATION",
+    "rsk22Status": "PARTIAL — CONTROL IMPLEMENTED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / GITHUB SCHEDULED EXECUTION EXTERNALLY BLOCKED",
     "rsk23Status": "PARTIAL — UNCHANGED",
     "residualRiskAccepted": false,
     "isoCertificationClaimed": false,
     "evidenceDocument": "docs/governance/iso-conformity/ISO_C2_M4_BACKUP_MONITORING_IMPLEMENTATION_EVIDENCE.md"
   },
-  "nextAction": "ISO-C2-M4-D5-E2 CONTROLLED SIX-FILE M4 MAIN ACTIVATION + SCHEDULED OPERATING EVIDENCE",
+  "nextAction": "ISO-C2-M4-D5-E7-R4 ALTERNATE SCHEDULING CONTROL",
   "githubEnforcementEvidence": {
     "workPackage": "ISO-C2-M1-E1",
     "status": "BLOCKED",
@@ -1542,7 +1549,7 @@
     "branchProtectionBypassed": false,
     "isoCertificationClaimed": false,
     "evidenceDocument": "ISO_C2_MAIN_PRODUCTION_BASELINE_SYNCHRONIZATION_EVIDENCE.md",
-    "nextAction": "ISO-C2-M4-D5-E2 CONTROLLED SIX-FILE M4 MAIN ACTIVATION + SCHEDULED OPERATING EVIDENCE",
+  "nextAction": "ISO-C2-M4-D5-E7-R4 ALTERNATE SCHEDULING CONTROL",
     "mergeMethod": "merge",
     "mergeCommit": "66283960bd7cadf250acb329a8aea46e0a2c4a3d",
     "productionStatus": "READY",
