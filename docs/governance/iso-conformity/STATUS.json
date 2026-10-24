@@ -4,20 +4,20 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "ISO-C2-M1-R1-D2-E1 Patched Security Candidate Production Promotion + Operating Revalidation",
-  "status": "PASS",
-  "phaseGate": "M1-R1-D2-E1: PASS — PATCHED SECURITY CANDIDATE PROMOTED TO PRODUCTION / OPERATING CONFORMITY REVALIDATED",
-  "timestamp": "2026-10-24T03:12:00.000Z",
+  "phaseName": "ISO-C2-M4-D5-R2-E1 Patched Main-Sync PR #1 Reconciliation",
+  "status": "BLOCKED",
+  "phaseGate": "M4-D5-R2-E1: CHECKS AND PREVIEW PASS / HUMAN REVIEW APPROVAL REQUIRED FOR PR #1",
+  "timestamp": "2026-10-24T03:25:33.296Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
-    "headSha": "ed633e951737a1949dce10adbd9454c16c4fb184",
+    "headSha": "2178914c7f8ea847e12a918620b5ed6a925fc12f",
     "acceptedIsoC1Sha": "a6c6258cc6606c04d2a24574cb1f9f06d09c2aea",
     "projectOwnerDecisionSha": "c2860905efd51e711bf3c430354a078ed7b81f7d",
     "applicationCommitSha": "54e2fd6d0eacdd91619f542f9888c66e7a9b52d8",
-    "governanceCommitSha": "ed633e951737a1949dce10adbd9454c16c4fb184",
+    "governanceCommitSha": "2178914c7f8ea847e12a918620b5ed6a925fc12f",
     "worktreeClean": true,
-    "worktreeStateNote": "Work Package ISO-C2-M1-R1-D2-E1 executed under Project Owner authorization. Promoted accepted Preview deployment dpl_JDJFVo2ssj3i3F9u6RgzoqtWMxLw (54e2fd6d0eacdd91619f542f9888c66e7a9b52d8) to Production via Vercel deployment promotion (new Production deployment dpl_3uG9ryAf6UQzZbTUFg5fgXVjiveh, status Ready, URL https://www.rentipid.com.ph). Production health verified (/api/health 200 OK ready/connected, /how-it-works 200 OK, /api/auth/csrf 200 OK). Bounded M3 registration rate limiting revalidated on live Production with 0 customer accounts created, 0 customer data accessed, and 0 side effects. Zero database migrations executed. All 5 security advisories cleared. 54e2fd6 designated as new accepted Production application baseline. PR #1 remains unmerged awaiting reconciliation to 54e2fd6.",
+    "worktreeStateNote": "Work package ISO-C2-M4-D5-R2-E1 executed by CODEX from clean governance baseline 2178914c7f8ea847e12a918620b5ed6a925fc12f. Existing PR #1 (https://github.com/jburns2372-sys/RENTipid/pull/1) reconciled from f0a1a933a6e5536b48a9bc9ef49bcc85b641c761 to 40ad800b2c87b883c7138f7a3e2ad1b0b41ea68e using exact package.json/package-lock.json from accepted Production candidate 54e2fd6d0eacdd91619f542f9888c66e7a9b52d8 (deployment dpl_3uG9ryAf6UQzZbTUFg5fgXVjiveh). Runtime equivalence PASS, unchanged audit gate PASS with zero vulnerabilities, dependency tree PASS (no invalid/unmet dependencies), targeted typecheck PASS. Security dependency versions: next 16.4.1, @azure/msal-node 7.1.1, body-parser 2.4.0, zod 4.6.7. Reconciliation normal push PASS; PR body updated. Current required checks supply-chain-validation (40058096422) and Localization Acceptance CI (40058096407) PASS. Automatic Preview dpl_9SzUJc1rQVWM6MJdwAuTkJvGa2Xh READY/PASS for the exact PR head. Main remains b44ed7854c07c73903578556515c2752157bc7d6 and unmerged. No M4 files, ISO governance history, new migration/schema change, Production deployment/DB change, customer-data access, bypass, self-approval or residual-risk acceptance. Independent approval REQUIRED; package BLOCKED normally at human-review gate. M1/M3 accepted delta revalidation and M2/M4 unaffected status retained; RSK-08 proven operating, RSK-22 partial pending main activation, RSK-23 partial unchanged. Next action: HUMAN REVIEW APPROVAL REQUIRED FOR PR #1. Merge requires separate authorization. See ISO_C2_MAIN_PRODUCTION_BASELINE_SYNCHRONIZATION_EVIDENCE.md section 8 and its exact permitted-difference register.",
     "technicalCommitSha": "54e2fd6d0eacdd91619f542f9888c66e7a9b52d8"
   },
   "scope": {
@@ -497,7 +497,7 @@
     "isoCertificationClaimed": false,
     "evidenceDocument": "docs/governance/iso-conformity/ISO_C2_M4_BACKUP_MONITORING_IMPLEMENTATION_EVIDENCE.md"
   },
-  "nextAction": "AUTHORIZE CONTROLLED MAIN MERGE FOR SCHEDULED M4 MONITOR ACTIVATION",
+  "nextAction": "HUMAN REVIEW APPROVAL REQUIRED FOR PR #1",
   "githubEnforcementEvidence": {
     "workPackage": "ISO-C2-M1-E1",
     "status": "BLOCKED",
@@ -1494,5 +1494,54 @@
     "residualRiskAccepted": false,
     "isoCertificationClaimed": false,
     "nextAction": "ADVANCE TO NEXT AUTHORIZED ISO-C2 WORK PACKAGE"
+  },
+  "mainProductionBaselineSynchronization": {
+    "workPackage": "ISO-C2-M4-D5-R2-E1",
+    "executor": "CODEX",
+    "status": "BLOCKED",
+    "recordedAt": "2026-10-24T03:25:33.296Z",
+    "governanceBaseline": "2178914c7f8ea847e12a918620b5ed6a925fc12f",
+    "acceptedProductionCandidate": "54e2fd6d0eacdd91619f542f9888c66e7a9b52d8",
+    "productionDeployment": "dpl_3uG9ryAf6UQzZbTUFg5fgXVjiveh",
+    "supersededBaseline": "dca547904791535ca44485747065961dbf8fc421",
+    "supersededGitObject": "dca54797dec2bf75a21b1406bfed2f73d6329e75",
+    "originMain": "b44ed7854c07c73903578556515c2752157bc7d6",
+    "pr": 1,
+    "url": "https://github.com/jburns2372-sys/RENTipid/pull/1",
+    "headBefore": "f0a1a933a6e5536b48a9bc9ef49bcc85b641c761",
+    "headAfter": "40ad800b2c87b883c7138f7a3e2ad1b0b41ea68e",
+    "reconciliationFiles": [
+      "package.json",
+      "package-lock.json"
+    ],
+    "reconciliationPush": "PASS",
+    "runtimeEquivalence": "PASS",
+    "localAudit": "PASS",
+    "dependencyTree": "PASS",
+    "typecheck": "PASS",
+    "requiredChecks": {
+      "supply-chain-validation": "PASS",
+      "Localization Acceptance CI": "PASS"
+    },
+    "allRequiredChecks": "PASS",
+    "preview": {
+      "id": "dpl_9SzUJc1rQVWM6MJdwAuTkJvGa2Xh",
+      "sourceSha": "40ad800b2c87b883c7138f7a3e2ad1b0b41ea68e",
+      "status": "READY",
+      "url": "https://ren-tipid-du3qvmlfs-jburns2372-sys-projects.vercel.app"
+    },
+    "independentApproval": "REQUIRED",
+    "mainMerged": false,
+    "m4ActivationIncluded": false,
+    "governanceIncludedInPr": false,
+    "newMigration": false,
+    "productionDeployed": false,
+    "productionDbModified": false,
+    "customerDataAccessed": false,
+    "residualRiskAccepted": false,
+    "branchProtectionBypassed": false,
+    "isoCertificationClaimed": false,
+    "evidenceDocument": "ISO_C2_MAIN_PRODUCTION_BASELINE_SYNCHRONIZATION_EVIDENCE.md",
+    "nextAction": "HUMAN REVIEW APPROVAL REQUIRED FOR PR #1"
   }
 }
