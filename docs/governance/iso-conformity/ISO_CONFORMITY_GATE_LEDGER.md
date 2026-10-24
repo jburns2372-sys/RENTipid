@@ -541,3 +541,33 @@ M1: PASS - REVALIDATED DUE TO CONTROL-DESIGN REVISION. M2/M3/M4: PASS - REUSED /
 No direct main push, force push, admin override, CI bypass, application-runtime edit, M4 activation, DB migration, Production DB modification or customer-data access. No residual risk accepted. No ISO certification claimed. Governance changes are committed separately on feat/iso-conformity-v1.0 with message governance(iso-conformity): adopt sole-maintainer merge control; the containing commit is the governance receipt.
 
 Next action: ISO-C2-M4-D5-E2 CONTROLLED SIX-FILE M4 MAIN ACTIVATION + SCHEDULED OPERATING EVIDENCE. Not executed in E3.
+
+## 2026-10-24: ISO-C2-M4-D5-E2 - Controlled six-file M4 main activation & scheduled operating evidence
+
+Status: BLOCKED. Executor: ANTIGRAVITY / GEMINI 3.8 FLASH HIGH (Continuation of interrupted Codex execution). Governance baseline: 1b85c3b23d9f4e2dad7dd8387353e83e743c2a4b. Initial main baseline before M4: 66283960bd7cadf250acb329a8aea46e0a2c4a3d.
+
+Discovery of interrupted Codex state:
+- Activation branch `iso-c2-m4-main-activation` (commit `e7555b4eae21e388a9ff96cc7daef7be93d8121a`) created and pushed to origin;
+- Activation PR #2 (`https://github.com/jburns2372-sys/RENTipid/pull/2`) created with title `feat(iso-c2): activate M4 backup monitoring`;
+- Required status checks `supply-chain-validation` (run 40061794877) and `Localization Acceptance CI` (run 40061794901) PASS;
+- PR #2 merged to `main` at 2026-10-24T04:20:01Z in merge commit `e9bec066f62798618d77eaf122b080fc34d51d77`;
+- Exact six accepted M4 files from commit `ba0a474022281621311458e95ea0b3a26e2ee776` verified on `main` with zero application runtime delta;
+- Incidental Vercel Production deployment `dpl_ARD5gX7romaPxGfMPT5VortJfjYv` reached `● Ready`; bounded health checks verified (`/api/health` 200 OK `{"status":"ready","database":"connected"}`, `/how-it-works` 200 OK, `/api/auth/csrf` 200 OK).
+
+Antigravity continuation & technical blocker:
+- Targeted M4 contract test suite executed: 49/49 PASS (38 monitor tests, 10 alert tests, 1 workflow parse test);
+- Attempted to trigger required manual `workflow_dispatch` run on `main`: rejected by GitHub Actions API with `HTTP 422: Invalid Argument - failed to parse workflow: (Line: 25, Col: 25): Unrecognized named-value: 'runner'. Located at position 1 within expression: runner.temp`;
+- Root cause: GitHub Actions workflow syntax prohibits `${{ runner.temp }}` in job-level `env` (`jobs.<job_id>.env`), restricting `runner` context exclusively to step-level evaluation;
+- Scheduled cron triggers are disabled by GitHub Actions while the workflow schema error persists;
+- Modifying M4 source code or pushing directly to `main` is strictly prohibited under package authorization.
+
+Milestone & Risk dispositions:
+- M1/M2/M3: PASS — REUSED / UNAFFECTED;
+- M4 Implementation: PASS — REUSED / UNAFFECTED;
+- M4 Operating Verification: BLOCKED;
+- RSK-08: PROVEN — OPERATING CONFORMITY;
+- RSK-22: PARTIAL — IMPLEMENTED / RETENTION CORRECTED / SCHEDULED OPERATION PENDING WORKFLOW SYNTAX REMEDIATION;
+- RSK-23: PARTIAL — UNCHANGED;
+- Production DB modified: NO; customer data accessed: NO; restore/PITR executed: NO; residual risk accepted: NO; ISO certification claimed: NO.
+- Next action: M4 WORKFLOW RUNNER SYNTAX REMEDIATION AUTHORIZATION REQUIRED. See ISO_C2_M4_MAIN_ACTIVATION_OPERATING_EVIDENCE.md.
+
