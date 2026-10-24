@@ -168,7 +168,31 @@ Under explicit Project Owner authorization for work package ISO-C2-M4-D5-E4:
 
 ---
 
-## 8. Milestone & Risk Dispositions
+## 8. Work Package ISO-C2-M4-D5-E7 GitHub Scheduled-Workflow Actor Reactivation & Operating Evidence
+
+Under explicit Project Owner authorization for work package ISO-C2-M4-D5-E7:
+1. **Pre-Reactivation Evaluation:**
+   - Evaluated schedule execution history over >=4 elapsed healthy 15-minute cron boundaries (`06:07`, `06:22`, `06:37`, `06:52 UTC`) following successful manual monitor run `40068121351` and provider credential rotation.
+   - Confirmed zero `schedule` events emitted by GitHub Actions scheduler despite `workflow.state == 'active'`, Actions enabled at repository level, and placement on repository default branch `main`.
+2. **GitHub-Documented Reactivation Basis:**
+   - Per GitHub documentation, scheduled workflows can pause or fail to register in the internal scheduler following multiple repository transitions or workflow syntax updates, even when manual `workflow_dispatch` remains operational. Committing a change to the cron expression triggers scheduler re-registration.
+3. **Cadence-Preserving Technical Change:**
+   - Modified `.github/workflows/backup-freshness-monitor.yml`: updated cron from `'7,22,37,52 * * * *'` to `'11,26,41,56 * * * *'` (strictly preserving the exact 15-minute cadence, 4 executions per hour).
+   - Authorized minimum test adjustment in `tests/security/iso-c2-m4-workflow.contract.cjs` to reflect the updated schedule string without weakening validation.
+   - Targeted contract tests: workflow contract 1/1 PASS; monitor contract 38/38 PASS.
+4. **Protected PR & Merge:**
+   - Technical commit `e51191306ec711800fa83273ad86a15d84624640` pushed to `iso-c2-m4-scheduler-actor-reactivation`.
+   - PR #5 created (`https://github.com/jburns2372-sys/RENTipid/pull/5`).
+   - Required status checks passed cleanly: `Localization Acceptance CI` (48s, run 40073581716) and `supply-chain-validation` (1m45s, run 40073581698).
+   - PR #5 merged into `main` at `c8a63f3541132ec151f28a79577adaa142c0bcf5` under authorized sole-maintainer control (no branch protection bypass).
+5. **Post-Reactivation Observation State:**
+   - Workflow state on `main` re-verified: `state == 'active'`, `defaultBranch == 'main'`, cadence: 15 minutes.
+   - Next expected cron boundaries: `11, 26, 41, 56 * * * *`.
+   - Real scheduled run observation: PENDING.
+
+---
+
+## 9. Milestone & Risk Dispositions
 
 - **Milestone ISO-C2-M1:** `PASS — REUSED / UNAFFECTED`
 - **Milestone ISO-C2-M2:** `PASS — REUSED / UNAFFECTED`
@@ -177,9 +201,10 @@ Under explicit Project Owner authorization for work package ISO-C2-M4-D5-E4:
 - **Milestone ISO-C2-M4 Workflow Runner Syntax:** `PASS — REMEDIATED` (PR #4 merged to main at `53edb11`)
 - **Milestone ISO-C2-M4 Provider API Access:** `PASS — VERIFIED` (Live Neon API 200 OK, project-scoped credential rotated)
 - **Milestone ISO-C2-M4 Manual Monitor Operation:** `PASS — HEALTHY` (Run 40068121351 provider collection PASS)
-- **Milestone ISO-C2-M4 Scheduled Operating Verification:** `PARTIAL — MAIN ACTIVATED / WORKFLOW REMEDIATED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULED OPERATION PENDING`
+- **Milestone ISO-C2-M4 Scheduler Actor Reactivation:** `PASS — EXECUTED` (PR #5 merged to main at `c8a63f3`, cron updated to `11,26,41,56 * * * *`)
+- **Milestone ISO-C2-M4 Scheduled Operating Verification:** `PARTIAL — MAIN ACTIVATED / WORKFLOW REMEDIATED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULER ACTOR REACTIVATED / SCHEDULED OPERATION PENDING`
 - **RSK-08:** `PROVEN — OPERATING CONFORMITY`
-- **RSK-22:** `PARTIAL — IMPLEMENTED / RETENTION CORRECTED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULED EVIDENCE PENDING`
+- **RSK-22:** `PARTIAL — IMPLEMENTED / RETENTION CORRECTED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULER ACTOR REACTIVATED / SCHEDULED EVIDENCE PENDING`
 - **RSK-23:** `PARTIAL — UNCHANGED` (Point-in-time recovery testing deferred to Phase ISO-C3)
 - **Database Safety:** Zero database migrations executed; zero schema changes; zero customer data accessed.
 - **Residual Risk Accepted:** `NO`
@@ -187,7 +212,7 @@ Under explicit Project Owner authorization for work package ISO-C2-M4-D5-E4:
 
 ---
 
-## 9. Next Required Action
+## 10. Next Required Action
 
 `OBSERVE AND RECONCILE M4 SCHEDULED RUN OPERATING EVIDENCE ON MAIN`
 

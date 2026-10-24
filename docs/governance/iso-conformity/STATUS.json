@@ -4,21 +4,21 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "ISO-C2-M4-D5-E4 Neon Provider API Access Diagnosis + Credential Remediation + Operating Evidence Continuation",
+  "phaseName": "ISO-C2-M4-D5-E7 GitHub Scheduled-Workflow Actor Reactivation & Operating Evidence",
   "status": "PARTIAL",
-  "phaseGate": "M4-D5-E4: PARTIAL — MAIN ACTIVATED / WORKFLOW REMEDIATED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULED OPERATION PENDING",
-  "timestamp": "2026-10-24T05:58:00.000Z",
+  "phaseGate": "M4-D5-E7: PARTIAL — MAIN ACTIVATED / WORKFLOW REMEDIATED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULER ACTOR REACTIVATED / SCHEDULED OPERATION PENDING",
+  "timestamp": "2026-10-24T07:22:00.000Z",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
-    "headSha": "663485f9004988bcc6f59a961fd93742e2d0514b",
+    "headSha": "77573b8aed1589717375d39d6f1c7aaee9016d3e",
     "acceptedIsoC1Sha": "a6c6258cc6606c04d2a24574cb1f9f06d09c2aea",
     "projectOwnerDecisionSha": "c2860905efd51e711bf3c430354a078ed7b81f7d",
     "applicationCommitSha": "54e2fd6d0eacdd91619f542f9888c66e7a9b52d8",
-    "governanceCommitSha": "663485f9004988bcc6f59a961fd93742e2d0514b",
+    "governanceCommitSha": "77573b8aed1589717375d39d6f1c7aaee9016d3e",
     "worktreeClean": true,
-    "worktreeStateNote": "Work package ISO-C2-M4-D5-E4 executed under Project Owner authorization. Diagnosed failed run 40066228412. Authenticated read-only API diagnostic confirmed live project holy-shape-01357429 and branch br-proud-sunset-ap0ofil2 return HTTP 200 OK with compliant retention (2592000s) and state ready/protected. Request construction in scripts/security/check-backup-freshness.mjs proven 100% compliant with zero source changes required. Minted replacement project-scoped key rentipid-backup-monitoring-v1 (ID 3461258), verified in memory, installed directly into GitHub secret NEON_API_KEY via stdin, and revoked superseded key 3459133. Post-remediation manual workflow_dispatch run 40068121351 executed on main: step 'Collect provider evidence' PASSED with status HEALTHY (project match, branch match, ready, protected, retention 2592000 compliant). Step 'Enforce evidence freshness and reconcile incident' executed and recorded evidence_freshness_status: MISSING pending first scheduled run. Scheduled run observation: PENDING. No customer data accessed; no production DB modified; no residual risk accepted.",
-    "technicalCommitSha": "53edb1196ecca5faf2323766a323fa0ac1b43960"
+    "worktreeStateNote": "Work package ISO-C2-M4-D5-E7 executed under Project Owner authorization. Diagnosed persistent absence of real GitHub Actions schedule events over >=4 elapsed 15-minute windows on main. Applied GitHub-documented scheduled-workflow actor reactivation: updated cron expression in .github/workflows/backup-freshness-monitor.yml from '7,22,37,52 * * * *' to '11,26,41,56 * * * *', preserving exact 15-minute cadence. Workflow contract test updated and passed (1/1 PASS); monitor contract passed (38/38 PASS). Technical commit e51191306ec711800fa83273ad86a15d84624640 created and pushed via protected PR #5. Required CI checks passed (Localization Acceptance CI 48s, supply-chain-validation 1m45s). PR #5 merged into main at c8a63f3541132ec151f28a79577adaa142c0bcf5 under sole-maintainer control (no bypass). Workflow on main verified active with 15-minute cadence. Post-reactivation scheduled execution observation: PENDING. Zero customer data accessed; zero database modifications; zero restore/PITR drills; no residual risk accepted.",
+    "technicalCommitSha": "c8a63f3541132ec151f28a79577adaa142c0bcf5"
   },
   "scope": {
     "proposedScope": "Design, development, operation, maintenance, security, privacy management, support, and continual improvement of the RENTipid global rental marketplace and its supporting information systems, cloud infrastructure, data processing services, and relevant operational processes.",

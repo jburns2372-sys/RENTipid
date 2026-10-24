@@ -636,4 +636,34 @@ Milestone & Risk dispositions:
 - Production DB modified: NO; customer data accessed: NO; restore/PITR executed: NO; residual risk accepted: NO; ISO certification claimed: NO.
 - Next action: OBSERVE AND RECONCILE M4 SCHEDULED RUN OPERATING EVIDENCE ON MAIN. See ISO_C2_M4_MAIN_ACTIVATION_OPERATING_EVIDENCE.md.
 
+## 2026-10-24: ISO-C2-M4-D5-E7 - GitHub Scheduled-Workflow Actor Reactivation & Operating Evidence
+
+Status: PARTIAL. Executor: ANTIGRAVITY / GEMINI 3.8 FLASH HIGH. Governance baseline: 77573b8aed1589717375d39d6f1c7aaee9016d3e. Initial main baseline before reactivation: 53edb1196ecca5faf2323766a323fa0ac1b43960.
+
+Diagnosis and Scheduled-Workflow Actor Reactivation:
+- Evaluated pre-reactivation schedule history: confirmed >=4 expected 15-minute cron boundaries (`06:07`, `06:22`, `06:37`, `06:52 UTC`) elapsed with zero real GitHub Actions `schedule` events emitted despite active workflow and healthy manual execution;
+- Applied GitHub-documented scheduled-workflow actor reactivation: updated cron expression in `.github/workflows/backup-freshness-monitor.yml` from `'7,22,37,52 * * * *'` to `'11,26,41,56 * * * *'`, preserving the exact 15-minute cadence (4 runs per hour);
+- Updated workflow contract test in `tests/security/iso-c2-m4-workflow.contract.cjs` to reflect updated schedule string without weakening validation (1/1 PASS; monitor contract 38/38 PASS);
+- Technical commit: `e51191306ec711800fa83273ad86a15d84624640` on branch `iso-c2-m4-scheduler-actor-reactivation`;
+- Protected PR #5 created (`https://github.com/jburns2372-sys/RENTipid/pull/5`);
+- Required CI passed: `Localization Acceptance CI` (48s) and `supply-chain-validation` (1m45s);
+- PR #5 merged into `main` at `c8a63f3541132ec151f28a79577adaa142c0bcf5` under authorized sole-maintainer control (no branch protection bypass);
+- Workflow on `main` re-verified active with 15-minute cadence;
+- Post-reactivation scheduled execution observation: PENDING.
+
+Milestone & Risk dispositions:
+- M1/M2/M3: PASS — REUSED / UNAFFECTED;
+- M4 Implementation: PASS — REUSED / UNAFFECTED;
+- M4 Workflow Runner Syntax: PASS — REMEDIATED;
+- M4 Provider API Access: PASS — VERIFIED;
+- M4 Manual Monitor Operation: PASS — HEALTHY;
+- M4 Scheduler Actor Reactivation: PASS — EXECUTED;
+- M4 Scheduled Operating Verification: PARTIAL — MAIN ACTIVATED / WORKFLOW REMEDIATED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULER ACTOR REACTIVATED / SCHEDULED OPERATION PENDING;
+- RSK-08: PROVEN — OPERATING CONFORMITY;
+- RSK-22: PARTIAL — IMPLEMENTED / RETENTION CORRECTED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULER ACTOR REACTIVATED / SCHEDULED EVIDENCE PENDING;
+- RSK-23: PARTIAL — UNCHANGED;
+- Production DB modified: NO; customer data accessed: NO; restore/PITR executed: NO; residual risk accepted: NO; ISO certification claimed: NO.
+- Next action: OBSERVE AND RECONCILE M4 SCHEDULED RUN OPERATING EVIDENCE ON MAIN. See ISO_C2_M4_MAIN_ACTIVATION_OPERATING_EVIDENCE.md.
+
+
 
