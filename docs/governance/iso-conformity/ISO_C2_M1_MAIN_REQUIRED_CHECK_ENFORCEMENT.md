@@ -109,3 +109,8 @@ An independent read of `https://api.github.com/repos/jburns2372-sys/RENTipid/bra
 
 1. ISO-C2-M1 is complete and closed under verified operating conformity.
 2. Advance to Milestone M2 (or next authorized ISO-C2 work package per program governance).
+
+
+## Subsequent control-design revision: ISO-C2-M4-D5-R2-E3
+
+Effective 2026-10-24, [the authorized sole-maintainer control](ISO_SOLE_MAINTAINER_CHANGE_CONTROL_EXCEPTION.md) supersedes the prior human-approval requirement. Current approval count: zero; last-push human approval: disabled. PRs, strict passing required CI, administrator enforcement, conversation resolution and no bypass/force-push/deletion remain enforced. Explicit owner authorization, recorded AI technical review and applicable Production gates are required. No residual risk accepted. Review when another qualified maintainer joins. Earlier observations remain historical evidence. M1: PASS - REVALIDATED DUE TO CONTROL-DESIGN REVISION.

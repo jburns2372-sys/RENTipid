@@ -4,10 +4,10 @@
   "projectId": "RENTIPID-ISO-CONFORMITY-001",
   "version": "v1.0",
   "currentPhase": "ISO-C2",
-  "phaseName": "ISO-C2-M4-D5-R2-E1 Patched Main-Sync PR #1 Reconciliation",
-  "status": "BLOCKED",
-  "phaseGate": "M4-D5-R2-E1: CHECKS AND PREVIEW PASS / HUMAN REVIEW APPROVAL REQUIRED FOR PR #1",
-  "timestamp": "2026-10-24T03:25:33.296Z",
+  "phaseName": "ISO-C2-M4-D5-R2-E3 Sole-maintainer merge control",
+  "status": "PASS",
+  "phaseGate": "SOLE-MAINTAINER CONTROL VERIFIED / PR #1 MERGED / MAIN EQUIVALENT / PRODUCTION READY AND HEALTHY",
+  "timestamp": "2026-10-24T04:09:15.570941+00:00",
   "baseline": {
     "repository": "RENTipid-GLOBAL-MKT-V2",
     "branch": "feat/iso-conformity-v1.0",
@@ -158,7 +158,7 @@
       "status": "PENDING ACCOUNT APPROVAL"
     }
   ],
-  "nextRecommendedPackage": "AWAIT PROJECT OWNER INSTRUCTION FOR NEXT ISO-C2 MILESTONE",
+  "nextRecommendedPackage": "ISO-C2-M4-D5-E2 CONTROLLED SIX-FILE M4 MAIN ACTIVATION + SCHEDULED OPERATING EVIDENCE",
   "independentReviewHistory": [
     {
       "workPackage": "ISO-C0-R1",
@@ -497,7 +497,7 @@
     "isoCertificationClaimed": false,
     "evidenceDocument": "docs/governance/iso-conformity/ISO_C2_M4_BACKUP_MONITORING_IMPLEMENTATION_EVIDENCE.md"
   },
-  "nextAction": "HUMAN REVIEW APPROVAL REQUIRED FOR PR #1",
+  "nextAction": "ISO-C2-M4-D5-E2 CONTROLLED SIX-FILE M4 MAIN ACTIVATION + SCHEDULED OPERATING EVIDENCE",
   "githubEnforcementEvidence": {
     "workPackage": "ISO-C2-M1-E1",
     "status": "BLOCKED",
@@ -1496,16 +1496,16 @@
     "nextAction": "ADVANCE TO NEXT AUTHORIZED ISO-C2 WORK PACKAGE"
   },
   "mainProductionBaselineSynchronization": {
-    "workPackage": "ISO-C2-M4-D5-R2-E1",
+    "workPackage": "ISO-C2-M4-D5-R2-E3",
     "executor": "CODEX",
-    "status": "BLOCKED",
-    "recordedAt": "2026-10-24T03:25:33.296Z",
-    "governanceBaseline": "2178914c7f8ea847e12a918620b5ed6a925fc12f",
+    "status": "PASS",
+    "recordedAt": "2026-10-24T04:09:15.570941+00:00",
+    "governanceBaseline": "567d039285d18121137c712db7f22c9fccdaa48e",
     "acceptedProductionCandidate": "54e2fd6d0eacdd91619f542f9888c66e7a9b52d8",
-    "productionDeployment": "dpl_3uG9ryAf6UQzZbTUFg5fgXVjiveh",
+    "productionDeployment": "dpl_FBvoi4Z7V2jzYAwHZ5W68W7pKrMS",
     "supersededBaseline": "dca547904791535ca44485747065961dbf8fc421",
     "supersededGitObject": "dca54797dec2bf75a21b1406bfed2f73d6329e75",
-    "originMain": "b44ed7854c07c73903578556515c2752157bc7d6",
+    "originMain": "66283960bd7cadf250acb329a8aea46e0a2c4a3d",
     "pr": 1,
     "url": "https://github.com/jburns2372-sys/RENTipid/pull/1",
     "headBefore": "f0a1a933a6e5536b48a9bc9ef49bcc85b641c761",
@@ -1530,18 +1530,225 @@
       "status": "READY",
       "url": "https://ren-tipid-du3qvmlfs-jburns2372-sys-projects.vercel.app"
     },
-    "independentApproval": "REQUIRED",
-    "mainMerged": false,
+    "independentApproval": "NOT REQUIRED WHILE SOLE-MAINTAINER EXCEPTION ACTIVE",
+    "mainMerged": true,
     "m4ActivationIncluded": false,
     "governanceIncludedInPr": false,
     "newMigration": false,
-    "productionDeployed": false,
+    "productionDeployed": true,
     "productionDbModified": false,
     "customerDataAccessed": false,
     "residualRiskAccepted": false,
     "branchProtectionBypassed": false,
     "isoCertificationClaimed": false,
     "evidenceDocument": "ISO_C2_MAIN_PRODUCTION_BASELINE_SYNCHRONIZATION_EVIDENCE.md",
-    "nextAction": "HUMAN REVIEW APPROVAL REQUIRED FOR PR #1"
-  }
+    "nextAction": "ISO-C2-M4-D5-E2 CONTROLLED SIX-FILE M4 MAIN ACTIVATION + SCHEDULED OPERATING EVIDENCE",
+    "mergeMethod": "merge",
+    "mergeCommit": "66283960bd7cadf250acb329a8aea46e0a2c4a3d",
+    "productionStatus": "READY",
+    "productionHealth": "PASS",
+    "soleMaintainerControl": {
+      "ownerAuthorization": "RECORDED - explicit E3 package",
+      "soleMaintainer": true,
+      "document": "ISO_SOLE_MAINTAINER_CHANGE_CONTROL_EXCEPTION.md",
+      "protectionBefore": {
+        "url": "https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection",
+        "required_status_checks": {
+          "url": "https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection/required_status_checks",
+          "strict": true,
+          "contexts": [
+            "supply-chain-validation",
+            "Localization Acceptance CI"
+          ],
+          "contexts_url": "https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection/required_status_checks/contexts",
+          "checks": [
+            {
+              "context": "supply-chain-validation",
+              "app_id": 15368
+            },
+            {
+              "context": "Localization Acceptance CI",
+              "app_id": 15368
+            }
+          ]
+        },
+        "required_pull_request_reviews": {
+          "url": "https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection/required_pull_request_reviews",
+          "dismiss_stale_reviews": true,
+          "require_code_owner_reviews": false,
+          "require_last_push_approval": true,
+          "required_approving_review_count": 1
+        },
+        "required_signatures": {
+          "url": "https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection/required_signatures",
+          "enabled": false
+        },
+        "enforce_admins": {
+          "url": "https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection/enforce_admins",
+          "enabled": true
+        },
+        "required_linear_history": {
+          "enabled": false
+        },
+        "allow_force_pushes": {
+          "enabled": false
+        },
+        "allow_deletions": {
+          "enabled": false
+        },
+        "block_creations": {
+          "enabled": false
+        },
+        "required_conversation_resolution": {
+          "enabled": true
+        },
+        "lock_branch": {
+          "enabled": false
+        },
+        "allow_fork_syncing": {
+          "enabled": false
+        }
+      },
+      "protectionAfter": {
+        "url": "https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection",
+        "required_status_checks": {
+          "url": "https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection/required_status_checks",
+          "strict": true,
+          "contexts": [
+            "supply-chain-validation",
+            "Localization Acceptance CI"
+          ],
+          "contexts_url": "https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection/required_status_checks/contexts",
+          "checks": [
+            {
+              "context": "supply-chain-validation",
+              "app_id": 15368
+            },
+            {
+              "context": "Localization Acceptance CI",
+              "app_id": 15368
+            }
+          ]
+        },
+        "required_pull_request_reviews": {
+          "url": "https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection/required_pull_request_reviews",
+          "dismiss_stale_reviews": true,
+          "require_code_owner_reviews": false,
+          "require_last_push_approval": false,
+          "required_approving_review_count": 0
+        },
+        "required_signatures": {
+          "url": "https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection/required_signatures",
+          "enabled": false
+        },
+        "enforce_admins": {
+          "url": "https://api.github.com/repos/jburns2372-sys/RENTipid/branches/main/protection/enforce_admins",
+          "enabled": true
+        },
+        "required_linear_history": {
+          "enabled": false
+        },
+        "allow_force_pushes": {
+          "enabled": false
+        },
+        "allow_deletions": {
+          "enabled": false
+        },
+        "block_creations": {
+          "enabled": false
+        },
+        "required_conversation_resolution": {
+          "enabled": true
+        },
+        "lock_branch": {
+          "enabled": false
+        },
+        "allow_fork_syncing": {
+          "enabled": false
+        }
+      },
+      "effectiveBranchRules": [],
+      "directMainPush": false,
+      "ciBypass": false,
+      "reviewTrigger": "Another qualified maintainer added",
+      "reviewEvidence": "Antigravity R1 and Codex R2-E1 inherited; Codex E3 exact permitted-difference validation"
+    },
+    "milestones": {
+      "M1": "PASS - REVALIDATED DUE TO CONTROL-DESIGN REVISION",
+      "M2": "PASS - REUSED / UNAFFECTED",
+      "M3": "PASS - REUSED / UNAFFECTED",
+      "M4": "PASS - REUSED / UNAFFECTED",
+      "RSK-08": "PROVEN - OPERATING CONFORMITY",
+      "RSK-22": "PARTIAL - IMPLEMENTED / RETENTION CORRECTED / SCHEDULED OPERATION PENDING MAIN ACTIVATION",
+      "RSK-23": "PARTIAL - UNCHANGED"
+    },
+    "mainRuntimeEquivalence": "PASS",
+    "applicationRuntimeDelta": "NONE",
+    "productionSourceSha": "66283960bd7cadf250acb329a8aea46e0a2c4a3d",
+    "healthVerification": {
+      "GET /api/health": {
+        "httpStatus": 200,
+        "body": {
+          "status": "ready",
+          "database": "connected"
+        }
+      },
+      "GET /how-it-works": {
+        "httpStatus": 200
+      },
+      "origin": "https://www.rentipid.com.ph",
+      "m3SaturationRepeated": false
+    }
+  },
+  "mainProductionBaselineSynchronizationHistory": [
+    {
+      "workPackage": "ISO-C2-M4-D5-R2-E1",
+      "executor": "CODEX",
+      "status": "BLOCKED",
+      "recordedAt": "2026-10-24T03:25:33.296Z",
+      "governanceBaseline": "2178914c7f8ea847e12a918620b5ed6a925fc12f",
+      "acceptedProductionCandidate": "54e2fd6d0eacdd91619f542f9888c66e7a9b52d8",
+      "productionDeployment": "dpl_3uG9ryAf6UQzZbTUFg5fgXVjiveh",
+      "supersededBaseline": "dca547904791535ca44485747065961dbf8fc421",
+      "supersededGitObject": "dca54797dec2bf75a21b1406bfed2f73d6329e75",
+      "originMain": "b44ed7854c07c73903578556515c2752157bc7d6",
+      "pr": 1,
+      "url": "https://github.com/jburns2372-sys/RENTipid/pull/1",
+      "headBefore": "f0a1a933a6e5536b48a9bc9ef49bcc85b641c761",
+      "headAfter": "40ad800b2c87b883c7138f7a3e2ad1b0b41ea68e",
+      "reconciliationFiles": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "reconciliationPush": "PASS",
+      "runtimeEquivalence": "PASS",
+      "localAudit": "PASS",
+      "dependencyTree": "PASS",
+      "typecheck": "PASS",
+      "requiredChecks": {
+        "supply-chain-validation": "PASS",
+        "Localization Acceptance CI": "PASS"
+      },
+      "allRequiredChecks": "PASS",
+      "preview": {
+        "id": "dpl_9SzUJc1rQVWM6MJdwAuTkJvGa2Xh",
+        "sourceSha": "40ad800b2c87b883c7138f7a3e2ad1b0b41ea68e",
+        "status": "READY",
+        "url": "https://ren-tipid-du3qvmlfs-jburns2372-sys-projects.vercel.app"
+      },
+      "independentApproval": "REQUIRED",
+      "mainMerged": false,
+      "m4ActivationIncluded": false,
+      "governanceIncludedInPr": false,
+      "newMigration": false,
+      "productionDeployed": false,
+      "productionDbModified": false,
+      "customerDataAccessed": false,
+      "residualRiskAccepted": false,
+      "branchProtectionBypassed": false,
+      "isoCertificationClaimed": false,
+      "evidenceDocument": "ISO_C2_MAIN_PRODUCTION_BASELINE_SYNCHRONIZATION_EVIDENCE.md",
+      "nextAction": "HUMAN REVIEW APPROVAL REQUIRED FOR PR #1"
+    }
+  ]
 }

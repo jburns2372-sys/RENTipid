@@ -154,3 +154,8 @@ Completed refers only to this bounded activation, protection configuration and e
 RSK-08 inherent 16 HIGH, residual 12 HIGH unchanged; no residual acceptance, full conformity claim, ISO certification, closure, version freeze or Wave 2. No application functionality, database, Preview or Production changes. No deployment, main merge, tag, schema/migration/seed/provider operation. Governance checkpoint pushes naturally match the newly authorized ISO push trigger; the definitive evidence above is pinned to the technical activation SHA, not an invented success from a later docs push.
 
 Next action: Authorize a bounded review and remediation of the failed dependency audit and CI baseline/fixture prerequisites.
+
+
+## Subsequent control-design revision: ISO-C2-M4-D5-R2-E3
+
+Effective 2026-10-24, [the authorized sole-maintainer control](ISO_SOLE_MAINTAINER_CHANGE_CONTROL_EXCEPTION.md) supersedes the prior human-approval requirement. Current approval count: zero; last-push human approval: disabled. PRs, strict passing required CI, administrator enforcement, conversation resolution and no bypass/force-push/deletion remain enforced. Explicit owner authorization, recorded AI technical review and applicable Production gates are required. No residual risk accepted. Review when another qualified maintainer joins. Earlier observations remain historical evidence. M1: PASS - REVALIDATED DUE TO CONTROL-DESIGN REVISION.

@@ -2615,3 +2615,22 @@ Direction: accepted candidate to reconciled PR (D means omitted from PR; M means
 | `walkthrough.md` | D | D: historical reports, operator scripts, development fixtures or generated artifacts; not invoked by application/build/required CI |
 
 </details>
+
+
+## 2026-10-24: ISO-C2-M4-D5-R2-E3 - Authorized sole-maintainer control and protected PR merge
+
+Status: PASS. Executor: CODEX. Governance baseline: 567d039285d18121137c712db7f22c9fccdaa48e, initially clean. The Project Owner declared sole-maintainer operation, no qualified independent human reviewer available, and explicitly authorized this subsequent internal control-design revision and PR #1 merge. See [control exception](ISO_SOLE_MAINTAINER_CHANGE_CONTROL_EXCEPTION.md). Historical evidence above remains valid for its recorded state.
+
+Protection before: PR required; one approval; last-push approval true; stale dismissal true; code-owner review false; strict required supply-chain-validation and Localization Acceptance CI (app_id 15368 each); administrators enforced; force pushes/deletion blocked; conversation resolution true; no bypass. Protection after differs ONLY in approval count 0 and last-push approval false. Complete before/after settings are recorded in STATUS.json. API read-back verified no other weakening. Required signatures/linear history/block creations/lock branch/fork syncing remain false; effective branch rules []. Direct main push remains prohibited by retained PR protection and administrator enforcement.
+
+Immediately before merge: PR #1 OPEN, exact head 40ad800b2c87b883c7138f7a3e2ad1b0b41ea68e, base b44ed7854c07c73903578556515c2752157bc7d6, merge state CLEAN/MERGEABLE. supply-chain-validation run 40058096422 and Localization Acceptance CI run 40058096407 PASS. Both Vercel contexts and Preview Comments PASS; automatic RENTipid Preview dpl_9SzUJc1rQVWM6MJdwAuTkJvGa2Xh PASS. No unresolved high/critical security gate failure. Dual-executor review evidence reused from Antigravity R1 and Codex R2-E1; Codex E3 independently confirmed the full 2,422-path permitted-difference register exactly matches candidate-to-head differences (no extra or stale entries).
+
+Normal GitHub PR merge API, merge method merge, with expected-head SHA guard: SUCCESS. Merged at 2026-10-24T04:07:13Z. Merge commit and fetched origin/main: 66283960bd7cadf250acb329a8aea46e0a2c4a3d. Full tree comparison of merged main against the reviewed PR head returned zero differences. Main runtime equivalence to accepted candidate 54e2fd6d0eacdd91619f542f9888c66e7a9b52d8: PASS, with only the previously documented non-runtime differences and six explicit M4 exclusions. M4 activation included: NO.
+
+Incidental Vercel Production deployment: dpl_FBvoi4Z7V2jzYAwHZ5W68W7pKrMS, project prj_DiF8jBz51kFIHK74udSP6zuqBtMr, source 66283960bd7cadf250acb329a8aea46e0a2c4a3d, source type git, target production, READY/PASS. Canonical www.rentipid.com.ph alias verified; aliasError null. Application runtime delta: NONE. Bounded health checks: GET https://www.rentipid.com.ph/api/health HTTP 200 with {"status":"ready","database":"connected"}; GET /how-it-works HTTP 200. No M3 saturation repeated.
+
+M1: PASS - REVALIDATED DUE TO CONTROL-DESIGN REVISION. M2/M3/M4: PASS - REUSED / UNAFFECTED. RSK-08: PROVEN - OPERATING CONFORMITY. RSK-22: PARTIAL - IMPLEMENTED / RETENTION CORRECTED / SCHEDULED OPERATION PENDING MAIN ACTIVATION. RSK-23: PARTIAL - UNCHANGED.
+
+No direct main push, force push, admin override, CI bypass, application-runtime edit, M4 activation, DB migration, Production DB modification or customer-data access. No residual risk accepted. No ISO certification claimed. Governance changes are committed separately on feat/iso-conformity-v1.0 with message governance(iso-conformity): adopt sole-maintainer merge control; the containing commit is the governance receipt.
+
+Next action: ISO-C2-M4-D5-E2 CONTROLLED SIX-FILE M4 MAIN ACTIVATION + SCHEDULED OPERATING EVIDENCE. Not executed in E3.
