@@ -571,3 +571,37 @@ Milestone & Risk dispositions:
 - Production DB modified: NO; customer data accessed: NO; restore/PITR executed: NO; residual risk accepted: NO; ISO certification claimed: NO.
 - Next action: M4 WORKFLOW RUNNER SYNTAX REMEDIATION AUTHORIZATION REQUIRED. See ISO_C2_M4_MAIN_ACTIVATION_OPERATING_EVIDENCE.md.
 
+## 2026-10-24: ISO-C2-M4-D5-E3 - M4 Workflow Runner Syntax Remediation & Operating Continuation
+
+Status: BLOCKED. Executor: ANTIGRAVITY / GEMINI 3.8 FLASH HIGH. Governance baseline: 243eb75e2d8d55c4428aaba99ecfd73b2c58e39a. Initial main baseline before remediation: e9bec066f62798618d77eaf122b080fc34d51d77.
+
+Workflow runner syntax remediation:
+- Authorized scope: strictly 1 file (`.github/workflows/backup-freshness-monitor.yml`);
+- Remediated `${{ runner.temp }}/m4-evidence.json` with POSIX path `/tmp/m4-evidence.json`;
+- Workflow contract test passed: `node --test tests/security/iso-c2-m4-workflow.contract.cjs` (1/1 PASS);
+- Remediation branch `iso-c2-m4-workflow-syntax-remediation` pushed with technical commit `3108997558a61a81a2e5294cb6942630f29b51fa`;
+- Protected PR #4 created (`https://github.com/jburns2372-sys/RENTipid/pull/4`);
+- Required status checks `Localization Acceptance CI` (run 40066018217, 42s) and `supply-chain-validation` (run 40066018163, 1m36s) PASS;
+- PR #4 merged into `main` at 2026-10-24T05:24:52Z in merge commit `53edb1196ecca5faf2323766a323fa0ac1b43960` under authorized sole-maintainer control;
+- Incidental Vercel production deployment `dpl_59VmH5qFsNY8kposzbDnwfJNCa4b` reached `● Ready`; bounded health checks verified (`HTTP 200 OK` on `https://www.rentipid.com.ph`).
+
+Post-fix manual workflow run & operating defect:
+- Exactly one manual run triggered on main: run ID 40066228412 (event: `workflow_dispatch`, duration: 12s, conclusion: `failure`);
+- GitHub Actions runner successfully parsed and executed the workflow steps;
+- Step `Collect provider evidence` (`node scripts/security/check-backup-freshness.mjs`) exited with code 1 (`failure_reason: API_UNAVAILABLE`);
+- Step `Enforce evidence freshness and reconcile incident` executed under `if: always()`, updated open alert Issue #3, and exited with code 1 (`failure_reason: PROVIDER_EVIDENCE_INVALID`);
+- Step `Record sanitized evidence in run summary` executed under `if: always()`, publishing evidence to run summary;
+- Root cause: Neon API request failed with non-200 or network exception;
+- Execution stopped under Step 17 hard stop rules without expanding scope or patching unrelated files.
+
+Milestone & Risk dispositions:
+- M1/M2/M3: PASS — REUSED / UNAFFECTED;
+- M4 Implementation: PASS — REUSED / UNAFFECTED;
+- M4 Workflow Runner Syntax: PASS — REMEDIATED;
+- M4 Operating Verification: BLOCKED;
+- RSK-08: PROVEN — OPERATING CONFORMITY;
+- RSK-22: PARTIAL — IMPLEMENTED / RETENTION CORRECTED / WORKFLOW REMEDIATED / PROVIDER API UNAVAILABLE;
+- RSK-23: PARTIAL — UNCHANGED;
+- Production DB modified: NO; customer data accessed: NO; restore/PITR executed: NO; residual risk accepted: NO; ISO certification claimed: NO.
+- Next action: INVESTIGATE NEON PROVIDER API UNAVAILABILITY IN M4 BACKUP MONITOR SCRIPT. See ISO_C2_M4_MAIN_ACTIVATION_OPERATING_EVIDENCE.md.
+

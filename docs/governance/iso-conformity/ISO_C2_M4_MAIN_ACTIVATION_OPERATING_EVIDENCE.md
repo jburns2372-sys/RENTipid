@@ -2,15 +2,15 @@
 
 * **Program:** RENTipid ISO Compliance & Conformity Program
 * **Project:** `RENTIPID-ISO-CONFORMITY-001 / v1.0`
-* **Work Package:** `ISO-C2-M4-D5-E2 — CONTROLLED SIX-FILE M4 MAIN ACTIVATION + SCHEDULED OPERATING EVIDENCE`
-* **Executor:** Antigravity / Gemini 3.8 Flash High (Continuation of interrupted Codex execution)
-* **Status:** `BLOCKED — GITHUB ACTIONS WORKFLOW RUNNER SYNTAX REMEDIATION REQUIRED`
-* **Governance Baseline:** `1b85c3b23d9f4e2dad7dd8387353e83e743c2a4b`
-* **Initial Main Baseline Before M4:** `66283960bd7cadf250acb329a8aea46e0a2c4a3d`
-* **M4 Activation Branch:** `iso-c2-m4-main-activation` (commit `e7555b4eae21e388a9ff96cc7daef7be93d8121a`)
-* **M4 Activation PR:** PR #2 (`https://github.com/jburns2372-sys/RENTipid/pull/2`)
-* **Main Merge Commit:** `e9bec066f62798618d77eaf122b080fc34d51d77`
-* **Incidental Production Deployment:** `dpl_ARD5gX7romaPxGfMPT5VortJfjYv` (Status: `● Ready`)
+* **Work Package:** `ISO-C2-M4-D5-E3 — M4 GITHUB ACTIONS RUNNER SYNTAX REMEDIATION + OPERATING EVIDENCE CONTINUATION`
+* **Executor:** Antigravity / Gemini 3.8 Flash High
+* **Status:** `BLOCKED — GITHUB ACTIONS RUNNER SYNTAX REMEDIATED / MANUAL OPERATING RUN BLOCKED BY PROVIDER API UNAVAILABLE`
+* **Governance Baseline:** `243eb75e2d8d55c4428aaba99ecfd73b2c58e39a`
+* **Current Main Baseline:** `53edb1196ecca5faf2323766a323fa0ac1b43960`
+* **Remediation Branch:** `iso-c2-m4-workflow-syntax-remediation` (commit `3108997558a61a81a2e5294cb6942630f29b51fa`)
+* **Remediation PR:** PR #4 (`https://github.com/jburns2372-sys/RENTipid/pull/4`)
+* **Main Merge Commit:** `53edb1196ecca5faf2323766a323fa0ac1b43960`
+* **Incidental Production Deployment:** `dpl_59VmH5qFsNY8kposzbDnwfJNCa4b` (Status: `● Ready`)
 
 ---
 
@@ -83,25 +83,73 @@ could not create workflow dispatch event: HTTP 422: Invalid Argument - failed to
 4. This schema validation failure prevents GitHub Actions from:
    - Permitting manual dispatch via `workflow_dispatch` (HTTP 422 error);
    - Scheduling recurring cron runs (GitHub Actions disables automated execution of workflows that fail schema parsing).
-5. The local test contract (`tests/security/iso-c2-m4-workflow.contract.cjs`) used generic YAML document parsing (`YAML.parseDocument`), which validated YAML structure but did not emulate GitHub's context-level schema rules for job environment blocks.
-
-### Scope & Authorization Constraint
-Under the governing standard and project authorization for package `ISO-C2-M4-D5-E2`:
-- Antigravity is strictly prohibited from modifying accepted M4 source code, modifying workflow content without authorization, or pushing directly to `main`.
-- Consequently, this technical defect in the accepted M4 workflow file constitutes a **GENUINE TECHNICAL BLOCKER**.
-- Remediation requires a separate governed package (e.g. `ISO-C2-M4-D5-E2-R1`) with explicit Project Owner authorization to correct line 25 of `.github/workflows/backup-freshness-monitor.yml` (relocating `M4_EVIDENCE_FILE` to step-level `env` or using a valid step-level expression).
 
 ---
 
-## 5. Milestone & Risk Dispositions
+## 5. Work Package ISO-C2-M4-D5-E3 Remediation & Protected Promotion
+
+Under explicit Project Owner authorization for a bounded minimum-affected remediation:
+1. **Diagnosis & Scope:** Root cause verified as the job-level `${{ runner.temp }}` expression in `.github/workflows/backup-freshness-monitor.yml`. Scope bounded strictly to 1 file (`.github/workflows/backup-freshness-monitor.yml`).
+2. **Remediation Implementation:** Replaced job-level `${{ runner.temp }}/m4-evidence.json` with POSIX path `/tmp/m4-evidence.json` on `ubuntu-latest`. All accepted M4 monitor policies, retention thresholds (2592000s), 15-minute cron schedule, and target IDs were preserved intact without any change.
+3. **Workflow Contract Test:** `node --test tests/security/iso-c2-m4-workflow.contract.cjs` passed cleanly (1/1 PASS).
+4. **Remediation Commit & Branch:** Dedicated remediation branch `iso-c2-m4-workflow-syntax-remediation` created from current `origin/main` (`e9bec06`); technical commit `3108997558a61a81a2e5294cb6942630f29b51fa` (`fix(iso-c2): correct M4 workflow runner syntax`) committed and pushed to remote.
+5. **Protected PR #4:** Opened PR #4 (`https://github.com/jburns2372-sys/RENTipid/pull/4`) targeting `main`.
+6. **Required CI Completion:** Both required CI check suites passed cleanly:
+   - `Localization Acceptance CI` (run `40066018217`): `SUCCESS` (42s)
+   - `supply-chain-validation` (run `40066018163`): `SUCCESS` (1m36s)
+   - Vercel checks: `SUCCESS`
+7. **Protected PR Merge:** PR #4 merged into `main` at `2026-10-24T05:24:52Z` under authorized sole-maintainer control in merge commit `53edb1196ecca5faf2323766a323fa0ac1b43960`.
+8. **Incidental Vercel Deployment:** Merging PR #4 triggered Vercel Production deployment `dpl_59VmH5qFsNY8kposzbDnwfJNCa4b` (`● Ready`, 30s build duration). Production health verification passed (`HTTP 200 OK` on `https://www.rentipid.com.ph`).
+
+---
+
+## 6. Post-Fix Manual Workflow Run & Operating Defect Identification
+
+Following the merge of PR #4, Antigravity triggered exactly one manual workflow run:
+```bash
+gh workflow run backup-freshness-monitor.yml --ref main
+```
+The GitHub Actions API successfully parsed and accepted the dispatch request.
+- **Workflow Run ID:** `40066228412`
+- **Head SHA:** `53edb1196ecca5faf2323766a323fa0ac1b43960`
+- **Event:** `workflow_dispatch`
+- **Run Duration:** 12 seconds
+- **Conclusion:** `failure`
+
+### Step-by-Step Run Analysis:
+1. `Set up job`: `SUCCESS`
+2. `actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26`: `SUCCESS`
+3. `actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020` (Node 24.21.0): `SUCCESS`
+4. `Collect provider evidence` (`node scripts/security/check-backup-freshness.mjs`):
+   - Executed in 53ms.
+   - Output: `{"status":"UNHEALTHY","observed_at":null,"project_match":false,"branch_match":false,"branch_state":"UNKNOWN","branch_protected":null,"history_retention_seconds":null,"retention_compliant":false,"evidence_freshness_status":"NOT_EVALUATED","failure_reason":"API_UNAVAILABLE"}`
+   - Exit code: 1.
+5. `Enforce evidence freshness and reconcile incident` (`node scripts/security/backup-monitor-actions.mjs`):
+   - Executed under `if: always()`.
+   - Identified open alert Issue #3 and posted an updating comment.
+   - Output: `{"status":"UNHEALTHY","observed_at":null,"project_match":false,"branch_match":false,"branch_state":"UNKNOWN","branch_protected":false,"history_retention_seconds":null,"retention_compliant":false,"evidence_freshness_status":"MISSING","failure_reason":"PROVIDER_EVIDENCE_INVALID"}`
+   - Exit code: 1.
+6. `Record sanitized evidence in run summary`:
+   - Executed under `if: always()`. Published sanitized evidence JSON to GitHub Step Summary.
+
+### Defect Classification & Stop Condition
+- **Runner Syntax Defect:** REMEDIATED. Workflow parses, triggers, and runs on `ubuntu-latest`.
+- **New Technical Defect:** In `check-backup-freshness.mjs`, the HTTP request to Neon API (`https://console.neon.tech/api/v2/projects/holy-shape-01357429`) failed with `API_UNAVAILABLE`.
+  - The request returned either a non-200 status (other than 401/403 which would trigger `AUTH_FAILURE`, such as 404 Not Found, 429 Rate Limit, or 5xx Server Error) or `fetchImpl` threw an unhandled network/redirect exception.
+- **Rule Enforcement:** Under Step 17 ("If the workflow now runs but fails due to a different technical defect: STOP. Report that exact defect. Do NOT patch another defect inside this package") and hard stop rules, Antigravity stopped execution and reported this exact defect without modifying any other technical files.
+
+---
+
+## 7. Milestone & Risk Dispositions
 
 - **Milestone ISO-C2-M1:** `PASS — REUSED / UNAFFECTED`
 - **Milestone ISO-C2-M2:** `PASS — REUSED / UNAFFECTED`
 - **Milestone ISO-C2-M3:** `PASS — REUSED / UNAFFECTED`
 - **Milestone ISO-C2-M4 Implementation:** `PASS — REUSED / UNAFFECTED`
-- **Milestone ISO-C2-M4 Operating Verification:** `BLOCKED — GITHUB ACTIONS WORKFLOW RUNNER SYNTAX REMEDIATION REQUIRED`
+- **Milestone ISO-C2-M4 Workflow Runner Syntax:** `PASS — REMEDIATED` (PR #4 merged to main at `53edb11`)
+- **Milestone ISO-C2-M4 Operating Verification:** `BLOCKED — NEON PROVIDER API UNAVAILABLE (API_UNAVAILABLE)`
 - **RSK-08:** `PROVEN — OPERATING CONFORMITY`
-- **RSK-22:** `PARTIAL — IMPLEMENTED / RETENTION CORRECTED / SCHEDULED OPERATION PENDING WORKFLOW SYNTAX REMEDIATION`
+- **RSK-22:** `PARTIAL — IMPLEMENTED / RETENTION CORRECTED / WORKFLOW REMEDIATED / PROVIDER API UNAVAILABLE`
 - **RSK-23:** `PARTIAL — UNCHANGED` (Point-in-time recovery testing deferred to Phase ISO-C3)
 - **Database Safety:** Zero database migrations executed; zero schema changes; zero customer data accessed.
 - **Residual Risk Accepted:** `NO`
@@ -109,6 +157,7 @@ Under the governing standard and project authorization for package `ISO-C2-M4-D5
 
 ---
 
-## 6. Next Required Action
+## 8. Next Required Action
 
-`M4 WORKFLOW RUNNER SYNTAX REMEDIATION AUTHORIZATION REQUIRED`
+`INVESTIGATE NEON PROVIDER API UNAVAILABILITY IN M4 BACKUP MONITOR SCRIPT`
+
