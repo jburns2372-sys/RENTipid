@@ -437,6 +437,27 @@ Work Package ISO-C2-M4-D4-E2 completed the technical implementation of the backu
 
 Work Package ISO-C2-M4-D5-R1 executed under explicit Project Owner authorization to eliminate source-control drift between default branch `origin/main` (`b44ed78`) and the authoritative Production application candidate `dca547904791535ca44485747065961dbf8fc421` (resolving to `dca54797dec2bf75a21b1406bfed2f73d6329e75`) as an authorized precondition for M4 backup monitoring activation. Vercel project `ren-tipid` has `productionBranch: 'main'`. Isolated branch `iso-c2-main-production-sync` created from `origin/main` and synchronized to `dca5479` across all deployment-affecting paths (`src/`, `prisma/`, `public/`, `seed-data/`, `apps/`, `package.json`, `package-lock.json`, `next.config.ts`, `tsconfig.json`, `postcss.config.mjs`, `vercel.json`, `.vercelignore`, `.npmrc`, `components.json`, `scripts/`, `tests/`, `.github/workflows/`). Verified exact runtime file equivalence (`DIFF: NONE`). Excluded all six M4 backup monitoring files (`M4 ACTIVATION INCLUDED: NO`). Database safety verified (`NEW DATABASE MIGRATION: NO`). PR #1 created (`https://github.com/jburns2372-sys/RENTipid/pull/1`). Vercel Preview deployment `dpl_22iby5YD3gmKPvtvr1LJ1zvXi7NZ` compiled and reached `● Ready`. Check `Localization Acceptance CI` passed (37s). Check `supply-chain-validation` failed due to live npm audit advisory `GHSA-2464-fhr4-w9xw` on `next@16.3.8`. PR #1 requires independent human review approval (`reviewDecision: "REVIEW_REQUIRED"`). Under protected branch rules, Antigravity cannot self-approve and admin bypass is prohibited. Merge to `main` is paused awaiting human approval and CI resolution. RSK-22 remains **PARTIAL — IMPLEMENTED / RETENTION CORRECTED / SCHEDULED OPERATION PENDING MAIN ACTIVATION**. RSK-23 remains **PARTIAL — UNCHANGED**. No residual risk accepted. See [Main Production Baseline Sync Evidence](ISO_C2_MAIN_PRODUCTION_BASELINE_SYNCHRONIZATION_EVIDENCE.md).
 
+## 22. ISO-C2-M4-D5-R1-C1 PR #1 Supply-Chain Required-Check Remediation (2026-10-24)
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — EXECUTED |
+| localFunctional | PASS — EXECUTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — EXECUTED |
+| previewMigrated | PASS — REUSED / UNAFFECTED |
+| previewAcceptancePass | PASS — REUSED / UNAFFECTED |
+| productionReady | PAUSED — SECURITY ADVISORY DRIFT DETECTED |
+| productionDeploymentVerification | PENDING MAIN MERGE |
+| completed | BLOCKED (SECURITY ADVISORY DRIFT) |
+| accepted | PENDING GOVERNED REMEDIATION |
+| closed | PAUSED |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Work Package ISO-C2-M4-D5-R1-C1 investigated the root cause of the failing `supply-chain-validation` check on PR #1 (run `39993124480`). Verified all audit and dependency files on PR branch `iso-c2-main-production-sync` (`package.json`, `package-lock.json`, `scripts/security/check-ci-audit.cjs`, `scripts/security/ci-audit-policy.json`) are completely identical to accepted Production candidate `dca547904791535ca44485747065961dbf8fc421` (`git diff` = `NONE`). Zero files from candidate were missing. Root cause classified as Category I (genuine newly surfaced security vulnerability): external npm registry advisory publication drift on production dependency `next@16.3.8` (advisories `GHSA-2464-fhr4-w9xw` and `GHSA-673q-mjm6-r5xr`). Under mandatory M1 immutability rules (Step 5 and Step 7), policy caps cannot be weakened, findings cannot be generically suppressed, and dependencies cannot be arbitrarily changed in this package. Stop condition triggered: `SECURITY ADVISORY DRIFT REQUIRES SEPARATE ISO-C2 REMEDIATION`. PR #1 remains unmerged; RSK-22 remains **PARTIAL — IMPLEMENTED / RETENTION CORRECTED / SCHEDULED OPERATION PENDING MAIN ACTIVATION**; RSK-23 remains **PARTIAL — UNCHANGED**. No residual risk accepted. See [Main Production Baseline Sync Evidence](ISO_C2_MAIN_PRODUCTION_BASELINE_SYNCHRONIZATION_EVIDENCE.md).
+
+
 
 
 

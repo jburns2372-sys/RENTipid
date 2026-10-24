@@ -100,5 +100,25 @@ git diff HEAD dca5479 -- src/ prisma/ public/ seed-data/ apps/ package.json pack
 Because independent human approval is required under protected branch rules and the newly published upstream `next` advisory requires governed disposition or owner review, execution is stopped normally at Step 18.
 
 - **Status:** `BLOCKED`
-- **Next Action:** `HUMAN REVIEW APPROVAL REQUIRED` for PR #1 (`https://github.com/jburns2372-sys/RENTipid/pull/1`).
+- **Next Action:** `SECURITY ADVISORY DRIFT REQUIRES SEPARATE ISO-C2 REMEDIATION` (or human review approval and governed disposition for PR #1).
 - Following human review, approval, and check satisfaction, PR #1 can be merged through normal protection, after which Work Package `ISO-C2-M4-D5-E1` (M4 Main Activation) may proceed.
+
+---
+
+## 7. Work Package ISO-C2-M4-D5-R1-C1 Root Cause Analysis
+
+### 7.1 Failure Details
+- **Failed Workflow Run:** `39993124480`
+- **Failed Job:** `supply-chain-validation`
+- **Failed Step:** `Run Dependency Audit` (`node scripts/security/check-ci-audit.cjs`)
+- **Exit Code:** `1`
+- **Failure Output:** `{"pass":false,"total":1,"excepted":0,"rejected":2,"counts":{"info":0,"low":0,"moderate":0,"high":0,"critical":1},"rawTotal":1,"rawCounts":{"info":0,"low":0,"moderate":0,"high":0,"critical":1},"effectiveCounts":{"info":0,"low":0,"moderate":0,"high":0,"critical":1},"dispositionedCount":0,"dispositionedFindings":[],"policy":"Phase5I-development-only-with-governed-dispositions"}`
+
+### 7.2 Root Cause Classification
+- **Classification:** `I — genuine newly surfaced security vulnerability` (Upstream advisory drift in npm registry)
+- **Root Cause:** External advisory publication drift in npm registry against production dependency `next@16.3.8` (advisories `GHSA-2464-fhr4-w9xw` and `GHSA-673q-mjm6-r5xr`).
+- **Accepted Candidate Comparison:** All supply-chain files on PR #1 (`package.json`, `package-lock.json`, `scripts/security/check-ci-audit.cjs`, `scripts/security/ci-audit-policy.json`) are completely identical to `dca547904791535ca44485747065961dbf8fc421` (`git diff` = `NONE`).
+- **Accepted-Candidate File Missing:** `NO`.
+- **M1 Immutability Enforcement:** Policy caps (`critical: 0`) and fail-closed behavior are strictly preserved. No thresholds were weakened, no exceptions were added without authorization, and no dependencies were changed.
+- **Mandatory Outcome:** `SECURITY ADVISORY DRIFT REQUIRES SEPARATE ISO-C2 REMEDIATION`.
+
