@@ -321,3 +321,35 @@ Milestone & Risk dispositions:
 - Production DB modified: NO; customer data accessed: NO; restore/PITR executed: NO; residual risk accepted: NO; ISO certification claimed: NO.
 - Next action: INVESTIGATE NEON PROVIDER API UNAVAILABILITY IN M4 BACKUP MONITOR SCRIPT. See ISO_C2_M4_MAIN_ACTIVATION_OPERATING_EVIDENCE.md.
 
+## 2026-10-24: ISO-C2-M4-D5-E4 - Neon Provider API Access Diagnosis, Credential Remediation & Operating Continuation
+
+Status: PARTIAL. Executor: ANTIGRAVITY / GEMINI 3.8 FLASH HIGH. Governance baseline: 663485f9004988bcc6f59a961fd93742e2d0514b. Initial main baseline before remediation: 53edb1196ecca5faf2323766a323fa0ac1b43960.
+
+Diagnosis and Credential Remediation:
+- Investigated failed run 40066228412: step `Collect provider evidence` failed in 53ms (`failure_reason: API_UNAVAILABLE`);
+- Authenticated control-plane inspection confirmed project `holy-shape-01357429` active on Scale plan (`scale_v3`), `history_retention_seconds: 2592000` (30 days), and production branch `br-proud-sunset-ap0ofil2` in state `ready` with `protected: true`;
+- Inspected org API key `3459133`: `last_used_at` was `2026-10-23T14:31:52Z` (not touched by run 40066228412);
+- Safe in-memory read-only API diagnostic confirmed live project and branch endpoints return HTTP 200 OK with compliant schemas, proving script request construction in `scripts/security/check-backup-freshness.mjs` is 100% valid with zero source changes required (`SOURCE CHANGE REQUIRED: NO`);
+- Minted replacement project-scoped key `rentipid-backup-monitoring-v1` (ID `3461258`) restricted strictly to target project `holy-shape-01357429`, verified in memory, installed directly into GitHub repository secret `NEON_API_KEY` via stdin, and revoked superseded key `3459133`;
+- Technical commit: NONE; PR: NONE; Merge: NOT REQUIRED.
+
+Post-remediation manual workflow run:
+- Exactly one manual run triggered on main: run ID 40068121351 (event: `workflow_dispatch`);
+- Step 4 `Collect provider evidence` (`node scripts/security/check-backup-freshness.mjs`): PASS / HEALTHY (`{"status":"HEALTHY","observed_at":"2026-10-24T05:55:06.898Z","project_match":true,"branch_match":true,"branch_state":"ready","branch_protected":true,"history_retention_seconds":2592000,"retention_compliant":true,"evidence_freshness_status":"NOT_EVALUATED","failure_reason":null}`);
+- Step 5 `Enforce evidence freshness and reconcile incident` executed under `if: always()`, evaluated `evidence_freshness_status: MISSING` pending initial automated cron execution, and updated open alert Issue #3;
+- Scheduled run observation: PENDING (no qualifying `schedule` event completed yet).
+
+Milestone & Risk dispositions:
+- M1/M2/M3: PASS — REUSED / UNAFFECTED;
+- M4 Implementation: PASS — REUSED / UNAFFECTED;
+- M4 Workflow Runner Syntax: PASS — REMEDIATED;
+- M4 Provider API Access: PASS — VERIFIED;
+- M4 Manual Monitor Operation: PASS — HEALTHY;
+- M4 Scheduled Operating Verification: PARTIAL — MAIN ACTIVATED / WORKFLOW REMEDIATED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULED OPERATION PENDING;
+- RSK-08: PROVEN — OPERATING CONFORMITY;
+- RSK-22: PARTIAL — IMPLEMENTED / RETENTION CORRECTED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULED EVIDENCE PENDING;
+- RSK-23: PARTIAL — UNCHANGED;
+- Production DB modified: NO; customer data accessed: NO; restore/PITR executed: NO; residual risk accepted: NO; ISO certification claimed: NO.
+- Next action: OBSERVE AND RECONCILE M4 SCHEDULED RUN OPERATING EVIDENCE ON MAIN. See ISO_C2_M4_MAIN_ACTIVATION_OPERATING_EVIDENCE.md.
+
+

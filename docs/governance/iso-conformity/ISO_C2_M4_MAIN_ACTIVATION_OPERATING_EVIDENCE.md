@@ -140,16 +140,46 @@ The GitHub Actions API successfully parsed and accepted the dispatch request.
 
 ---
 
-## 7. Milestone & Risk Dispositions
+## 7. Work Package ISO-C2-M4-D5-E4 Provider API Diagnosis, Credential Remediation & Operating Evidence
+
+Under explicit Project Owner authorization for work package ISO-C2-M4-D5-E4:
+1. **Diagnosis of Run 40066228412:**
+   - Step 4 `Collect provider evidence` exited with code 1 in 53ms (`failure_reason: API_UNAVAILABLE`).
+   - Neon control plane inspection via authenticated CLI confirmed project `holy-shape-01357429` active on Scale plan (`scale_v3`), `history_retention_seconds: 2592000` (30 days), and branch `br-proud-sunset-ap0ofil2` in state `ready` and `protected: true`.
+   - Inspection of org API keys revealed existing key ID `3459133` had `last_used_at: 2026-10-23T14:31:52Z` and was never processed by Neon during run 40066228412.
+2. **Safe Read-Only Diagnostic Probe:**
+   - Evaluated live Neon API routes `/projects/holy-shape-01357429` and `/projects/.../branches/br-proud-sunset-ap0ofil2` using a temporary in-memory project-scoped key. Both routes returned `HTTP 200 OK` with exact matching schema fields.
+   - Proved that script request construction, URL construction, and headers (`Authorization: Bearer <key>`, `Accept: application/json`) in `scripts/security/check-backup-freshness.mjs` are 100% valid.
+   - **Source change required:** `NO` (zero code modifications).
+3. **Project-Scoped Credential Rotation:**
+   - Minted replacement project-scoped key `rentipid-backup-monitoring-v1` (ID `3461258`) restricted strictly to target project `holy-shape-01357429`.
+   - Verified replacement key in memory against Neon management API (`HTTP 200 OK` across project and branch endpoints).
+   - Installed replacement token directly into GitHub Actions secret `NEON_API_KEY` via stdin (updated `2026-10-24T05:54:37Z`) without logging, exposing, or persisting token value in repository files.
+   - Revoked superseded old key `3459133` via Neon management API (`revoked: true`).
+4. **Post-Remediation Manual Workflow Run:**
+   - Triggered exactly one post-remediation manual run on `main`: run ID `40068121351` (`workflow_dispatch`).
+   - Step 4 `Collect provider evidence` (`node scripts/security/check-backup-freshness.mjs`): **PASS / HEALTHY**.
+     - Output: `{"status":"HEALTHY","observed_at":"2026-10-24T05:55:06.898Z","project_match":true,"branch_match":true,"branch_state":"ready","branch_protected":true,"history_retention_seconds":2592000,"retention_compliant":true,"evidence_freshness_status":"NOT_EVALUATED","failure_reason":null}`
+     - Project match: `true`, Branch match: `true`, Branch state: `ready`, Protected: `true`, Retention: `2592000` (30 days), Failure reason: `null`.
+   - Step 5 `Enforce evidence freshness and reconcile incident` (`node scripts/security/backup-monitor-actions.mjs`):
+     - Executed under `if: always()`. Correctly determined `evidence_freshness_status: MISSING` because no prior automated `schedule` event runs exist in repository history yet. Updated incident Issue #3 with fail-closed non-zero exit code.
+5. **Scheduled Run Observation:**
+   - No qualifying automated scheduled run (`event: schedule`) has completed yet. Next recurring cron fires at :07, :22, :37, :52. Status: `PENDING`.
+
+---
+
+## 8. Milestone & Risk Dispositions
 
 - **Milestone ISO-C2-M1:** `PASS — REUSED / UNAFFECTED`
 - **Milestone ISO-C2-M2:** `PASS — REUSED / UNAFFECTED`
 - **Milestone ISO-C2-M3:** `PASS — REUSED / UNAFFECTED`
 - **Milestone ISO-C2-M4 Implementation:** `PASS — REUSED / UNAFFECTED`
 - **Milestone ISO-C2-M4 Workflow Runner Syntax:** `PASS — REMEDIATED` (PR #4 merged to main at `53edb11`)
-- **Milestone ISO-C2-M4 Operating Verification:** `BLOCKED — NEON PROVIDER API UNAVAILABLE (API_UNAVAILABLE)`
+- **Milestone ISO-C2-M4 Provider API Access:** `PASS — VERIFIED` (Live Neon API 200 OK, project-scoped credential rotated)
+- **Milestone ISO-C2-M4 Manual Monitor Operation:** `PASS — HEALTHY` (Run 40068121351 provider collection PASS)
+- **Milestone ISO-C2-M4 Scheduled Operating Verification:** `PARTIAL — MAIN ACTIVATED / WORKFLOW REMEDIATED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULED OPERATION PENDING`
 - **RSK-08:** `PROVEN — OPERATING CONFORMITY`
-- **RSK-22:** `PARTIAL — IMPLEMENTED / RETENTION CORRECTED / WORKFLOW REMEDIATED / PROVIDER API UNAVAILABLE`
+- **RSK-22:** `PARTIAL — IMPLEMENTED / RETENTION CORRECTED / PROVIDER ACCESS VERIFIED / MANUAL OPERATION VERIFIED / SCHEDULED EVIDENCE PENDING`
 - **RSK-23:** `PARTIAL — UNCHANGED` (Point-in-time recovery testing deferred to Phase ISO-C3)
 - **Database Safety:** Zero database migrations executed; zero schema changes; zero customer data accessed.
 - **Residual Risk Accepted:** `NO`
@@ -157,7 +187,8 @@ The GitHub Actions API successfully parsed and accepted the dispatch request.
 
 ---
 
-## 8. Next Required Action
+## 9. Next Required Action
 
-`INVESTIGATE NEON PROVIDER API UNAVAILABILITY IN M4 BACKUP MONITOR SCRIPT`
+`OBSERVE AND RECONCILE M4 SCHEDULED RUN OPERATING EVIDENCE ON MAIN`
+
 
