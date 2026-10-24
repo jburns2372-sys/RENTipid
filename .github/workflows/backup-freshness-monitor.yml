@@ -22,7 +22,7 @@ jobs:
     env:
       NEON_PROJECT_ID: holy-shape-01357429
       NEON_BRANCH_ID: br-proud-sunset-ap0ofil2
-      M4_EVIDENCE_FILE: ${{ runner.temp }}/m4-evidence.json
+      M4_EVIDENCE_FILE: /tmp/m4-evidence.json
     steps:
       - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26
         with:
