@@ -476,3 +476,23 @@ Work Package ISO-C2-M4-D5-R1-C1 investigated the root cause of the failing `supp
 | versionFrozen | N/A — NOT APPLICABLE |
 
 Work Package ISO-C2-M1-R1-D1-E1 executed under explicit Project Owner authorization to remediate upstream external advisory drift against production framework dependency `next@16.3.8`. Critical advisories `GHSA-2464-fhr4-w9xw` and `GHSA-673q-mjm6-r5xr` were cleared by upgrading Next.js to provider-maintainer patched release `16.4.1` (commit `d576876`). Unrelated dependency churn was prevented. Supply-chain validation confirmed zero critical findings remaining. TypeScript typecheck (`npx tsc --noEmit`) and production build (`npm run build`) passed with zero errors. Targeted regression test suites (auth rate limiter 11/11, unified auth routes 15/15, MFA rate limiter 4/4, standalone security contracts 51/51) passed cleanly. Controlled Vercel Preview deployment `dpl_73N85X1x5uza9mQSEJAVmXY25kGa` compiled and reached `● Ready` (`https://ren-tipid-8diwcglow-jburns2372-sys-projects.vercel.app`). Bounded runtime smoke checks verified `/api/health` (`200 OK`, `{"status":"ready","database":"connected"}`), `/how-it-works` (`200 OK`), `/api/auth/csrf` (`200 OK`), and registration contract validation (`400 Bad Request`). M3 rate-limiting control was revalidated (`PASS — REVALIDATED DUE TO DELTA`). M1 security advisory reopen status: `PASS — REVALIDATED DUE TO DELTA`. RSK-08 remains **PROVEN — OPERATING CONFORMITY** with technical candidate validated pending Production promotion. Independent October 23 advisories (`GHSA-xcx6-jx8p-x3h5`, `GHSA-27r3-jxmh-p828`, `GHSA-mrhx-c7xc-m3w5`) require separate governed disposition under ISO-C2. Production remains on `dca547904791535ca44485747065961dbf8fc421`; PR #1 remains open and unmerged. No residual risk accepted. See [M1 Next.js Advisory Remediation Evidence](ISO_C2_M1_NEXTJS_SECURITY_ADVISORY_DRIFT_REMEDIATION.md).
+
+## 24. ISO-C2-M1-R1-D1-E2 Remaining NPM Security Advisory Triage + Minimum Remediation + Preview Revalidation (2026-10-24)
+
+| Gate | Disposition |
+|---|---|
+| codeComplete | PASS — EXECUTED |
+| localFunctional | PASS — EXECUTED |
+| localDatabaseMigrated | PASS — REUSED / UNAFFECTED |
+| localRequiredDataSeededSynced | PASS — REUSED / UNAFFECTED |
+| localAcceptancePass | PASS — EXECUTED |
+| previewMigrated | PASS — REUSED / UNAFFECTED |
+| previewAcceptancePass | PASS — EXECUTED |
+| productionReady | PASS — PENDING OWNER AUTHORIZATION |
+| productionDeploymentVerification | PENDING PRODUCTION PROMOTION |
+| completed | PASS (TECHNICAL CANDIDATE VALIDATED) |
+| accepted | PENDING PRODUCTION PROMOTION |
+| closed | PAUSED |
+| versionFrozen | N/A — NOT APPLICABLE |
+
+Work Package ISO-C2-M1-R1-D1-E2 executed under explicit Project Owner authorization to remediate all remaining security advisory drift affecting the repository's unchanged M1 audit contract following the Next.js 16.4.1 patch. Successfully eliminated 9 high-severity findings across `@azure/msal-node` (`GHSA-xcx6-jx8p-x3h5`, constrained to `7.1.1`), `body-parser` (`GHSA-27r3-jxmh-p828`, constrained to `2.4.0`), and `zod` (`GHSA-mrhx-c7xc-m3w5`, updated to `4.6.7` directly and in overrides) in technical commit `54e2fd6`. `npm audit` returned 0 vulnerabilities; `node scripts/security/check-ci-audit.cjs` returned `pass: true` (0 total, 0 rejected, exit code 0). Unrelated dependency churn was prevented. TypeScript typecheck (`npx tsc --noEmit`) and production build (`npm run build`) passed with zero errors. Targeted regression test suites (registration rate limiter 11/11, unified auth routes 15/15, MFA rate limiter 4/4, standalone security contracts 51/51) passed cleanly (81/81 PASS). New controlled Vercel Preview deployment `dpl_JDJFVo2ssj3i3F9u6RgzoqtWMxLw` (`https://ren-tipid-q1lquo4cb-jburns2372-sys-projects.vercel.app`) was compiled and reached `● Ready`. Bounded runtime smoke checks verified `/api/health` (`200 OK`), `/how-it-works` (`200 OK`), `/api/auth/csrf` (`200 OK`), registration validation contract (`400 Bad Request`), and `/browse` (`200 OK`). Milestone M1 enforcement control remains **PASS — REUSED / UNAFFECTED**; M1 advisory remediation is **PASS — REVALIDATED DUE TO DELTA**; M3 is **PASS — REVALIDATED DUE TO DELTA**; RSK-08 remains **PROVEN — OPERATING CONFORMITY**. Production remains on `dca547904791535ca44485747065961dbf8fc421` pending Project Owner authorization; PR #1 remains open/blocked. No residual risk accepted. Overall ISO certification is not claimed. See [M1 Advisory Remediation Evidence](ISO_C2_M1_NEXTJS_SECURITY_ADVISORY_DRIFT_REMEDIATION.md).
