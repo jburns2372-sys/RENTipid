@@ -20,7 +20,7 @@ function isPrismaDecimal(value: unknown): value is Prisma.Decimal {
   return false;
 }
 
-function parseToDecimal(value: number | string | Prisma.Decimal): Prisma.Decimal | null {
+export function parseToDecimal(value: number | string | Prisma.Decimal): Prisma.Decimal | null {
   if (isPrismaDecimal(value)) {
     return value;
   }

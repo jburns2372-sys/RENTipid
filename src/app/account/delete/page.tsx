@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
@@ -5,10 +6,12 @@ import { PrismaClient } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { submitAccountDeletion } from './actions';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 const prisma = new PrismaClient();
 
 export default async function AccountDeletePage() {
+  const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
     redirect('/login');
@@ -32,13 +35,13 @@ export default async function AccountDeletePage() {
   if (existingRequest && existingRequest.status !== 'Rejected') {
     return (
       <div className="container mx-auto py-20 px-4 max-w-2xl text-center">
-        <h1 className="text-3xl font-bold mb-4">Request Received</h1>
+        <h1 className="text-3xl font-bold mb-4">{t('account.requestReceived')}</h1>
         <p className="text-gray-600 mb-8">
           Your account deletion request is currently: <strong>{existingRequest.status}</strong>. 
           Our team is reviewing your account to ensure all transactions, deposits, and active rentals are safely concluded before permanent deletion.
         </p>
         <Link href="/dashboard/profile" className="text-blue-600 font-medium hover:underline">
-          Return to Profile
+          {t('common.back')}
         </Link>
       </div>
     );
@@ -48,14 +51,14 @@ export default async function AccountDeletePage() {
     <div className="container mx-auto py-12 px-4 max-w-2xl">
       <div className="mb-6">
         <Link href="/dashboard/profile" className="text-blue-600 hover:underline text-sm font-medium">
-          &larr; Back to Profile
+          &larr; {t('common.back')}
         </Link>
       </div>
 
-      <h1 className="text-3xl font-bold mb-6 text-red-600">Delete Account</h1>
+      <h1 className="text-3xl font-bold mb-6 text-red-600">{t('account.profile.deleteAccount')}</h1>
 
       <div className="bg-red-50 border border-red-200 p-6 rounded-xl mb-8">
-        <h2 className="text-red-800 font-bold mb-2">Warning: This action is permanent.</h2>
+        <h2 className="text-red-800 font-bold mb-2">{t('account.warningThisActionIs')}</h2>
         <p className="text-red-700 text-sm mb-4">
           Requesting account deletion will permanently remove your personal data, profile, and listings. 
           To prevent fraud and protect platform users, deletion requests are manually reviewed if you have a transaction history.
@@ -69,7 +72,7 @@ export default async function AccountDeletePage() {
 
         <form action={submitAccountDeletion} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Reason for Deletion</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{t('account.reasonForDeletion')}</label>
             <textarea 
               name="reason" 
               required
@@ -81,11 +84,11 @@ export default async function AccountDeletePage() {
 
           <div className="flex items-center gap-2">
             <input type="checkbox" id="confirm" required className="w-4 h-4 text-red-600" />
-            <label htmlFor="confirm" className="text-sm text-gray-700">I understand that this action cannot be undone.</label>
+            <label htmlFor="confirm" className="text-sm text-gray-700">{t('account.iUnderstandThatThis')}</label>
           </div>
 
           <button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition">
-            Submit Deletion Request
+            {t('account.profile.deleteAccount')}
           </button>
         </form>
       </div>

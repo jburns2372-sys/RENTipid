@@ -1,0 +1,1745 @@
+{
+  "catalog_version": "RENTIPID-MARKETPLACE-SEED-V1.0",
+  "generated_for": "Local development, simulation, UAT and automated testing",
+  "production_safe": false,
+  "guard_requirements": {
+    "allowed_hosts": [
+      "127.0.0.1",
+      "localhost"
+    ],
+    "required_environment_flag": "ALLOW_MARKETPLACE_SAMPLE_SEED=true",
+    "required_test_data_marker": true,
+    "prohibited_operations": [
+      "production database mutation",
+      "Neon production/main mutation",
+      "hard delete of non-test records",
+      "prisma db push",
+      "--accept-data-loss"
+    ]
+  },
+  "counts": {
+    "top_level_categories": 15,
+    "sample_listings": 45,
+    "negative_policy_fixtures": 6,
+    "providers": 5,
+    "renters": 3,
+    "booking_scenarios": 8
+  },
+  "categories": [
+    {
+      "seed_key": "CAT-TOOLS",
+      "name": "Tools & DIY",
+      "slug": "tools-diy",
+      "icon": "🔨",
+      "sort_order": 10,
+      "featured": true,
+      "subcategories": [
+        "Power Tools",
+        "Hand Tools",
+        "Ladders & Access"
+      ]
+    },
+    {
+      "seed_key": "CAT-CONSTRUCTION",
+      "name": "Construction Equipment",
+      "slug": "construction-equipment",
+      "icon": "🏗️",
+      "sort_order": 20,
+      "featured": true,
+      "subcategories": [
+        "Concrete & Masonry",
+        "Compaction",
+        "Site Power & Lighting"
+      ]
+    },
+    {
+      "seed_key": "CAT-HEAVY",
+      "name": "Heavy Equipment",
+      "slug": "heavy-equipment",
+      "icon": "🚜",
+      "sort_order": 30,
+      "featured": true,
+      "subcategories": [
+        "Excavators",
+        "Loaders",
+        "Cranes & Lifting"
+      ]
+    },
+    {
+      "seed_key": "CAT-EVENT",
+      "name": "Event Equipment",
+      "slug": "event-equipment",
+      "icon": "🎪",
+      "sort_order": 40,
+      "featured": true,
+      "subcategories": [
+        "Tents & Canopies",
+        "Tables & Chairs",
+        "Sound & Lighting"
+      ]
+    },
+    {
+      "seed_key": "CAT-CAMERA",
+      "name": "Cameras & AV",
+      "slug": "cameras-av",
+      "icon": "📷",
+      "sort_order": 50,
+      "featured": true,
+      "subcategories": [
+        "Cameras",
+        "Lenses",
+        "Projectors & Screens"
+      ]
+    },
+    {
+      "seed_key": "CAT-OFFICE",
+      "name": "Office & IT Equipment",
+      "slug": "office-it-equipment",
+      "icon": "💻",
+      "sort_order": 60,
+      "featured": false,
+      "subcategories": [
+        "Laptops",
+        "Printers & Scanners",
+        "Networking Equipment"
+      ]
+    },
+    {
+      "seed_key": "CAT-AGRI",
+      "name": "Agricultural Equipment",
+      "slug": "agricultural-equipment",
+      "icon": "🌾",
+      "sort_order": 70,
+      "featured": false,
+      "subcategories": [
+        "Tillers",
+        "Sprayers",
+        "Harvest & Processing"
+      ]
+    },
+    {
+      "seed_key": "CAT-CARS",
+      "name": "Cars",
+      "slug": "cars",
+      "icon": "🚗",
+      "sort_order": 80,
+      "featured": true,
+      "subcategories": [
+        "Economy Cars",
+        "Sedans",
+        "SUVs & Vans"
+      ]
+    },
+    {
+      "seed_key": "CAT-MOTORCYCLES",
+      "name": "Motorcycles",
+      "slug": "motorcycles",
+      "icon": "🏍️",
+      "sort_order": 90,
+      "featured": false,
+      "subcategories": [
+        "Scooters",
+        "Standard Motorcycles",
+        "Delivery Motorcycles"
+      ]
+    },
+    {
+      "seed_key": "CAT-TRUCKS",
+      "name": "Trucks & Utility Vehicles",
+      "slug": "trucks-utility-vehicles",
+      "icon": "🚚",
+      "sort_order": 100,
+      "featured": false,
+      "subcategories": [
+        "Pickup Trucks",
+        "Closed Vans",
+        "Light & Refrigerated Trucks"
+      ]
+    },
+    {
+      "seed_key": "CAT-CONDO",
+      "name": "Condominiums & Apartments",
+      "slug": "condominiums-apartments",
+      "icon": "🏢",
+      "sort_order": 110,
+      "featured": true,
+      "subcategories": [
+        "Studio Units",
+        "One-Bedroom Units",
+        "Two-Bedroom Units"
+      ]
+    },
+    {
+      "seed_key": "CAT-STAYS",
+      "name": "Rooms & Vacation Homes",
+      "slug": "rooms-vacation-homes",
+      "icon": "🏠",
+      "sort_order": 120,
+      "featured": false,
+      "subcategories": [
+        "Private Rooms",
+        "Guesthouses",
+        "Beach & Farm Stays"
+      ]
+    },
+    {
+      "seed_key": "CAT-VENUES",
+      "name": "Venues & Resorts",
+      "slug": "venues-resorts",
+      "icon": "🏨",
+      "sort_order": 130,
+      "featured": true,
+      "subcategories": [
+        "Meeting Rooms",
+        "Event Halls",
+        "Garden & Beach Venues"
+      ]
+    },
+    {
+      "seed_key": "CAT-BOATS",
+      "name": "Boats & Watercraft",
+      "slug": "boats-watercraft",
+      "icon": "⛵",
+      "sort_order": 140,
+      "featured": false,
+      "subcategories": [
+        "Small Boats",
+        "Fishing Boats",
+        "Leisure Watercraft"
+      ]
+    },
+    {
+      "seed_key": "CAT-COMMERCIAL",
+      "name": "Commercial Spaces & Storage",
+      "slug": "commercial-spaces-storage",
+      "icon": "🏬",
+      "sort_order": 150,
+      "featured": false,
+      "subcategories": [
+        "Office Spaces",
+        "Warehouses",
+        "Storage Units"
+      ]
+    }
+  ],
+  "providers": [
+    {
+      "seed_key": "PROVIDER-TOOLS",
+      "display_name": "Metro Tool Rental",
+      "provider_type": "BUSINESS",
+      "email_alias": "seed.tools.provider",
+      "location": "Quezon City, Metro Manila",
+      "verification_state": "VERIFIED"
+    },
+    {
+      "seed_key": "PROVIDER-EQUIPMENT",
+      "display_name": "BuildPro Equipment Leasing",
+      "provider_type": "BUSINESS",
+      "email_alias": "seed.equipment.provider",
+      "location": "Pasig City, Metro Manila",
+      "verification_state": "VERIFIED"
+    },
+    {
+      "seed_key": "PROVIDER-VEHICLES",
+      "display_name": "RoadReady Rentals",
+      "provider_type": "BUSINESS",
+      "email_alias": "seed.vehicles.provider",
+      "location": "Makati City, Metro Manila",
+      "verification_state": "VERIFIED"
+    },
+    {
+      "seed_key": "PROVIDER-PROPERTY",
+      "display_name": "StaySpace Property Rentals",
+      "provider_type": "BUSINESS",
+      "email_alias": "seed.property.provider",
+      "location": "Taguig City, Metro Manila",
+      "verification_state": "VERIFIED"
+    },
+    {
+      "seed_key": "PROVIDER-INDIVIDUAL",
+      "display_name": "Juan Test Provider",
+      "provider_type": "INDIVIDUAL",
+      "email_alias": "seed.individual.provider",
+      "location": "Quezon City, Metro Manila",
+      "verification_state": "VERIFIED"
+    }
+  ],
+  "renters": [
+    {
+      "seed_key": "RENTER-001",
+      "display_name": "Maria Test Renter",
+      "email_alias": "seed.renter.one",
+      "location": "Quezon City, Metro Manila",
+      "verification_state": "VERIFIED"
+    },
+    {
+      "seed_key": "RENTER-002",
+      "display_name": "Carlo Test Renter",
+      "email_alias": "seed.renter.two",
+      "location": "Pasig City, Metro Manila",
+      "verification_state": "VERIFIED"
+    },
+    {
+      "seed_key": "RENTER-003",
+      "display_name": "Ana Test Renter",
+      "email_alias": "seed.renter.three",
+      "location": "Makati City, Metro Manila",
+      "verification_state": "VERIFIED"
+    }
+  ],
+  "listings": [
+    {
+      "seed_key": "LIST-TOOLS-001",
+      "title": "Cordless Hammer Drill Kit",
+      "category": "Tools & DIY",
+      "subcategory": "Power Tools",
+      "provider_seed_key": "PROVIDER-TOOLS",
+      "description": "Synthetic RENTipid test listing for cordless hammer drill kit. For local simulation only; not a real offer.",
+      "location": "Quezon City, Metro Manila",
+      "pricing": {
+        "amount_php": 650,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 1500,
+      "replacement_value_php": 12000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-tools-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "tools-diy",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-TOOLS-002",
+      "title": "Professional Mechanics Tool Set",
+      "category": "Tools & DIY",
+      "subcategory": "Hand Tools",
+      "provider_seed_key": "PROVIDER-TOOLS",
+      "description": "Synthetic RENTipid test listing for professional mechanics tool set. For local simulation only; not a real offer.",
+      "location": "Quezon City, Metro Manila",
+      "pricing": {
+        "amount_php": 500,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 1000,
+      "replacement_value_php": 18000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-tools-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "tools-diy",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-TOOLS-003",
+      "title": "12-Foot Fiberglass Step Ladder",
+      "category": "Tools & DIY",
+      "subcategory": "Ladders & Access",
+      "provider_seed_key": "PROVIDER-INDIVIDUAL",
+      "description": "Synthetic RENTipid test listing for 12-foot fiberglass step ladder. For local simulation only; not a real offer.",
+      "location": "Quezon City, Metro Manila",
+      "pricing": {
+        "amount_php": 450,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 1200,
+      "replacement_value_php": 9000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "SUBMITTED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-tools-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "tools-diy",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-CONST-001",
+      "title": "Portable Concrete Mixer 1-Bag",
+      "category": "Construction Equipment",
+      "subcategory": "Concrete & Masonry",
+      "provider_seed_key": "PROVIDER-EQUIPMENT",
+      "description": "Synthetic RENTipid test listing for portable concrete mixer 1-bag. For local simulation only; not a real offer.",
+      "location": "Pasig City, Metro Manila",
+      "pricing": {
+        "amount_php": 1800,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 6000,
+      "replacement_value_php": 65000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-const-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "construction-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-CONST-002",
+      "title": "Plate Compactor 5.5 HP",
+      "category": "Construction Equipment",
+      "subcategory": "Compaction",
+      "provider_seed_key": "PROVIDER-EQUIPMENT",
+      "description": "Synthetic RENTipid test listing for plate compactor 5.5 hp. For local simulation only; not a real offer.",
+      "location": "Pasig City, Metro Manila",
+      "pricing": {
+        "amount_php": 2200,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 7000,
+      "replacement_value_php": 85000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-const-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "construction-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-CONST-003",
+      "title": "Silent Diesel Generator 10 kVA",
+      "category": "Construction Equipment",
+      "subcategory": "Site Power & Lighting",
+      "provider_seed_key": "PROVIDER-EQUIPMENT",
+      "description": "Synthetic RENTipid test listing for silent diesel generator 10 kva. For local simulation only; not a real offer.",
+      "location": "Pasig City, Metro Manila",
+      "pricing": {
+        "amount_php": 3500,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 12000,
+      "replacement_value_php": 220000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "UNAVAILABLE",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-const-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "construction-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-HEAVY-001",
+      "title": "Mini Excavator 3.5 Ton with Operator",
+      "category": "Heavy Equipment",
+      "subcategory": "Excavators",
+      "provider_seed_key": "PROVIDER-EQUIPMENT",
+      "description": "Synthetic RENTipid test listing for mini excavator 3.5 ton with operator. For local simulation only; not a real offer.",
+      "location": "Cainta, Rizal",
+      "pricing": {
+        "amount_php": 14500,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 50000,
+      "replacement_value_php": 1800000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-heavy-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "heavy-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-HEAVY-002",
+      "title": "Wheel Loader 1.2 Cubic Meter",
+      "category": "Heavy Equipment",
+      "subcategory": "Loaders",
+      "provider_seed_key": "PROVIDER-EQUIPMENT",
+      "description": "Synthetic RENTipid test listing for wheel loader 1.2 cubic meter. For local simulation only; not a real offer.",
+      "location": "Cainta, Rizal",
+      "pricing": {
+        "amount_php": 18000,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 75000,
+      "replacement_value_php": 3200000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "SUBMITTED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-heavy-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "heavy-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-HEAVY-003",
+      "title": "Truck-Mounted Crane 10 Ton",
+      "category": "Heavy Equipment",
+      "subcategory": "Cranes & Lifting",
+      "provider_seed_key": "PROVIDER-EQUIPMENT",
+      "description": "Synthetic RENTipid test listing for truck-mounted crane 10 ton. For local simulation only; not a real offer.",
+      "location": "Marikina City, Metro Manila",
+      "pricing": {
+        "amount_php": 25000,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 100000,
+      "replacement_value_php": 5500000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-heavy-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "heavy-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-EVENT-001",
+      "title": "6x12 Meter Waterproof Event Tent",
+      "category": "Event Equipment",
+      "subcategory": "Tents & Canopies",
+      "provider_seed_key": "PROVIDER-INDIVIDUAL",
+      "description": "Synthetic RENTipid test listing for 6x12 meter waterproof event tent. For local simulation only; not a real offer.",
+      "location": "Quezon City, Metro Manila",
+      "pricing": {
+        "amount_php": 8500,
+        "unit": "EVENT"
+      },
+      "security_deposit_php": 5000,
+      "replacement_value_php": 120000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-event-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "event-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-EVENT-002",
+      "title": "Banquet Tables and Chairs Package for 100",
+      "category": "Event Equipment",
+      "subcategory": "Tables & Chairs",
+      "provider_seed_key": "PROVIDER-INDIVIDUAL",
+      "description": "Synthetic RENTipid test listing for banquet tables and chairs package for 100. For local simulation only; not a real offer.",
+      "location": "Quezon City, Metro Manila",
+      "pricing": {
+        "amount_php": 6500,
+        "unit": "EVENT"
+      },
+      "security_deposit_php": 4000,
+      "replacement_value_php": 85000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-event-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "event-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-EVENT-003",
+      "title": "PA System with Lights for 150 Guests",
+      "category": "Event Equipment",
+      "subcategory": "Sound & Lighting",
+      "provider_seed_key": "PROVIDER-INDIVIDUAL",
+      "description": "Synthetic RENTipid test listing for pa system with lights for 150 guests. For local simulation only; not a real offer.",
+      "location": "Quezon City, Metro Manila",
+      "pricing": {
+        "amount_php": 9000,
+        "unit": "EVENT"
+      },
+      "security_deposit_php": 7000,
+      "replacement_value_php": 180000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "DRAFT",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-event-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "event-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-CAM-001",
+      "title": "Full-Frame Mirrorless Camera Body",
+      "category": "Cameras & AV",
+      "subcategory": "Cameras",
+      "provider_seed_key": "PROVIDER-TOOLS",
+      "description": "Synthetic RENTipid test listing for full-frame mirrorless camera body. For local simulation only; not a real offer.",
+      "location": "Makati City, Metro Manila",
+      "pricing": {
+        "amount_php": 2200,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 15000,
+      "replacement_value_php": 145000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-cam-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "cameras-av",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-CAM-002",
+      "title": "70-200mm Professional Zoom Lens",
+      "category": "Cameras & AV",
+      "subcategory": "Lenses",
+      "provider_seed_key": "PROVIDER-TOOLS",
+      "description": "Synthetic RENTipid test listing for 70-200mm professional zoom lens. For local simulation only; not a real offer.",
+      "location": "Makati City, Metro Manila",
+      "pricing": {
+        "amount_php": 1800,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 12000,
+      "replacement_value_php": 125000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-cam-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "cameras-av",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-CAM-003",
+      "title": "5,000-Lumen Projector and Screen",
+      "category": "Cameras & AV",
+      "subcategory": "Projectors & Screens",
+      "provider_seed_key": "PROVIDER-TOOLS",
+      "description": "Synthetic RENTipid test listing for 5,000-lumen projector and screen. For local simulation only; not a real offer.",
+      "location": "Makati City, Metro Manila",
+      "pricing": {
+        "amount_php": 3500,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 10000,
+      "replacement_value_php": 200000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "SUBMITTED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-cam-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "cameras-av",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-OFFICE-001",
+      "title": "Business Laptop 16GB RAM",
+      "category": "Office & IT Equipment",
+      "subcategory": "Laptops",
+      "provider_seed_key": "PROVIDER-TOOLS",
+      "description": "Synthetic RENTipid test listing for business laptop 16gb ram. For local simulation only; not a real offer.",
+      "location": "Taguig City, Metro Manila",
+      "pricing": {
+        "amount_php": 1200,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 10000,
+      "replacement_value_php": 65000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-office-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "office-it-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-OFFICE-002",
+      "title": "High-Speed Multifunction Printer",
+      "category": "Office & IT Equipment",
+      "subcategory": "Printers & Scanners",
+      "provider_seed_key": "PROVIDER-TOOLS",
+      "description": "Synthetic RENTipid test listing for high-speed multifunction printer. For local simulation only; not a real offer.",
+      "location": "Taguig City, Metro Manila",
+      "pricing": {
+        "amount_php": 1800,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 8000,
+      "replacement_value_php": 95000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-office-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "office-it-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-OFFICE-003",
+      "title": "Portable Wi-Fi Router Package",
+      "category": "Office & IT Equipment",
+      "subcategory": "Networking Equipment",
+      "provider_seed_key": "PROVIDER-TOOLS",
+      "description": "Synthetic RENTipid test listing for portable wi-fi router package. For local simulation only; not a real offer.",
+      "location": "Taguig City, Metro Manila",
+      "pricing": {
+        "amount_php": 450,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 2500,
+      "replacement_value_php": 15000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "DRAFT",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-office-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "office-it-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-AGRI-001",
+      "title": "Walk-Behind Rotary Tiller",
+      "category": "Agricultural Equipment",
+      "subcategory": "Tillers",
+      "provider_seed_key": "PROVIDER-EQUIPMENT",
+      "description": "Synthetic RENTipid test listing for walk-behind rotary tiller. For local simulation only; not a real offer.",
+      "location": "San Mateo, Rizal",
+      "pricing": {
+        "amount_php": 2500,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 7000,
+      "replacement_value_php": 120000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-agri-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "agricultural-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-AGRI-002",
+      "title": "Motorized Backpack Sprayer",
+      "category": "Agricultural Equipment",
+      "subcategory": "Sprayers",
+      "provider_seed_key": "PROVIDER-EQUIPMENT",
+      "description": "Synthetic RENTipid test listing for motorized backpack sprayer. For local simulation only; not a real offer.",
+      "location": "San Mateo, Rizal",
+      "pricing": {
+        "amount_php": 800,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 2500,
+      "replacement_value_php": 22000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-agri-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "agricultural-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-AGRI-003",
+      "title": "Portable Rice Thresher",
+      "category": "Agricultural Equipment",
+      "subcategory": "Harvest & Processing",
+      "provider_seed_key": "PROVIDER-EQUIPMENT",
+      "description": "Synthetic RENTipid test listing for portable rice thresher. For local simulation only; not a real offer.",
+      "location": "San Mateo, Rizal",
+      "pricing": {
+        "amount_php": 4500,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 15000,
+      "replacement_value_php": 280000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "UNAVAILABLE",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-agri-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "agricultural-equipment",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-CAR-001",
+      "title": "Compact Automatic Hatchback",
+      "category": "Cars",
+      "subcategory": "Economy Cars",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "description": "Synthetic RENTipid test listing for compact automatic hatchback. For local simulation only; not a real offer.",
+      "location": "Makati City, Metro Manila",
+      "pricing": {
+        "amount_php": 1800,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 10000,
+      "replacement_value_php": 650000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-car-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "cars",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-CAR-002",
+      "title": "Mid-Size Automatic Sedan",
+      "category": "Cars",
+      "subcategory": "Sedans",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "description": "Synthetic RENTipid test listing for mid-size automatic sedan. For local simulation only; not a real offer.",
+      "location": "Makati City, Metro Manila",
+      "pricing": {
+        "amount_php": 2600,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 15000,
+      "replacement_value_php": 1100000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-car-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "cars",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-CAR-003",
+      "title": "Seven-Seater SUV",
+      "category": "Cars",
+      "subcategory": "SUVs & Vans",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "description": "Synthetic RENTipid test listing for seven-seater suv. For local simulation only; not a real offer.",
+      "location": "Makati City, Metro Manila",
+      "pricing": {
+        "amount_php": 4200,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 25000,
+      "replacement_value_php": 1850000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "SUBMITTED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-car-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "cars",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-MOTO-001",
+      "title": "125cc Automatic Scooter",
+      "category": "Motorcycles",
+      "subcategory": "Scooters",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "description": "Synthetic RENTipid test listing for 125cc automatic scooter. For local simulation only; not a real offer.",
+      "location": "Pasig City, Metro Manila",
+      "pricing": {
+        "amount_php": 700,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 5000,
+      "replacement_value_php": 95000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-moto-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "motorcycles",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-MOTO-002",
+      "title": "150cc Standard Motorcycle",
+      "category": "Motorcycles",
+      "subcategory": "Standard Motorcycles",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "description": "Synthetic RENTipid test listing for 150cc standard motorcycle. For local simulation only; not a real offer.",
+      "location": "Pasig City, Metro Manila",
+      "pricing": {
+        "amount_php": 950,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 7000,
+      "replacement_value_php": 135000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "SUBMITTED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-moto-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "motorcycles",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-MOTO-003",
+      "title": "Motorcycle with Delivery Box",
+      "category": "Motorcycles",
+      "subcategory": "Delivery Motorcycles",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "description": "Synthetic RENTipid test listing for motorcycle with delivery box. For local simulation only; not a real offer.",
+      "location": "Pasig City, Metro Manila",
+      "pricing": {
+        "amount_php": 1100,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 8000,
+      "replacement_value_php": 160000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-moto-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "motorcycles",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-TRUCK-001",
+      "title": "4x2 Double-Cab Pickup Truck",
+      "category": "Trucks & Utility Vehicles",
+      "subcategory": "Pickup Trucks",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "description": "Synthetic RENTipid test listing for 4x2 double-cab pickup truck. For local simulation only; not a real offer.",
+      "location": "Taguig City, Metro Manila",
+      "pricing": {
+        "amount_php": 4200,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 25000,
+      "replacement_value_php": 1600000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-truck-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "trucks-utility-vehicles",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-TRUCK-002",
+      "title": "Closed Delivery Van",
+      "category": "Trucks & Utility Vehicles",
+      "subcategory": "Closed Vans",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "description": "Synthetic RENTipid test listing for closed delivery van. For local simulation only; not a real offer.",
+      "location": "Taguig City, Metro Manila",
+      "pricing": {
+        "amount_php": 5200,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 30000,
+      "replacement_value_php": 1850000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-truck-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "trucks-utility-vehicles",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-TRUCK-003",
+      "title": "Refrigerated Light Truck",
+      "category": "Trucks & Utility Vehicles",
+      "subcategory": "Light & Refrigerated Trucks",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "description": "Synthetic RENTipid test listing for refrigerated light truck. For local simulation only; not a real offer.",
+      "location": "Taguig City, Metro Manila",
+      "pricing": {
+        "amount_php": 9500,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 50000,
+      "replacement_value_php": 3200000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "UNAVAILABLE",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-truck-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "trucks-utility-vehicles",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-CONDO-001",
+      "title": "Furnished Studio Near BGC",
+      "category": "Condominiums & Apartments",
+      "subcategory": "Studio Units",
+      "provider_seed_key": "PROVIDER-PROPERTY",
+      "description": "Synthetic RENTipid test listing for furnished studio near bgc. For local simulation only; not a real offer.",
+      "location": "Taguig City, Metro Manila",
+      "pricing": {
+        "amount_php": 2600,
+        "unit": "NIGHT"
+      },
+      "security_deposit_php": 5000,
+      "replacement_value_php": 3500000,
+      "pickup_available": true,
+      "delivery_available": false,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-condo-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "condominiums-apartments",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-CONDO-002",
+      "title": "One-Bedroom Condo with Parking",
+      "category": "Condominiums & Apartments",
+      "subcategory": "One-Bedroom Units",
+      "provider_seed_key": "PROVIDER-PROPERTY",
+      "description": "Synthetic RENTipid test listing for one-bedroom condo with parking. For local simulation only; not a real offer.",
+      "location": "Mandaluyong City, Metro Manila",
+      "pricing": {
+        "amount_php": 3800,
+        "unit": "NIGHT"
+      },
+      "security_deposit_php": 8000,
+      "replacement_value_php": 5200000,
+      "pickup_available": true,
+      "delivery_available": false,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-condo-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "condominiums-apartments",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-CONDO-003",
+      "title": "Two-Bedroom Family Condo",
+      "category": "Condominiums & Apartments",
+      "subcategory": "Two-Bedroom Units",
+      "provider_seed_key": "PROVIDER-PROPERTY",
+      "description": "Synthetic RENTipid test listing for two-bedroom family condo. For local simulation only; not a real offer.",
+      "location": "Quezon City, Metro Manila",
+      "pricing": {
+        "amount_php": 5200,
+        "unit": "NIGHT"
+      },
+      "security_deposit_php": 12000,
+      "replacement_value_php": 7200000,
+      "pickup_available": true,
+      "delivery_available": false,
+      "lifecycle_state_requested": "SUBMITTED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-condo-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "condominiums-apartments",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-STAY-001",
+      "title": "Private Room Near University Belt",
+      "category": "Rooms & Vacation Homes",
+      "subcategory": "Private Rooms",
+      "provider_seed_key": "PROVIDER-PROPERTY",
+      "description": "Synthetic RENTipid test listing for private room near university belt. For local simulation only; not a real offer.",
+      "location": "Manila City, Metro Manila",
+      "pricing": {
+        "amount_php": 1200,
+        "unit": "NIGHT"
+      },
+      "security_deposit_php": 2000,
+      "replacement_value_php": 800000,
+      "pickup_available": true,
+      "delivery_available": false,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-stay-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "rooms-vacation-homes",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-STAY-002",
+      "title": "Three-Bedroom Guesthouse",
+      "category": "Rooms & Vacation Homes",
+      "subcategory": "Guesthouses",
+      "provider_seed_key": "PROVIDER-PROPERTY",
+      "description": "Synthetic RENTipid test listing for three-bedroom guesthouse. For local simulation only; not a real offer.",
+      "location": "Antipolo City, Rizal",
+      "pricing": {
+        "amount_php": 6500,
+        "unit": "NIGHT"
+      },
+      "security_deposit_php": 10000,
+      "replacement_value_php": 4200000,
+      "pickup_available": true,
+      "delivery_available": false,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-stay-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "rooms-vacation-homes",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-STAY-003",
+      "title": "Beach House for 12 Guests",
+      "category": "Rooms & Vacation Homes",
+      "subcategory": "Beach & Farm Stays",
+      "provider_seed_key": "PROVIDER-PROPERTY",
+      "description": "Synthetic RENTipid test listing for beach house for 12 guests. For local simulation only; not a real offer.",
+      "location": "Nasugbu, Batangas",
+      "pricing": {
+        "amount_php": 15000,
+        "unit": "NIGHT"
+      },
+      "security_deposit_php": 20000,
+      "replacement_value_php": 8500000,
+      "pickup_available": true,
+      "delivery_available": false,
+      "lifecycle_state_requested": "DRAFT",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-stay-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "rooms-vacation-homes",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-VENUE-001",
+      "title": "Executive Meeting Room for 12",
+      "category": "Venues & Resorts",
+      "subcategory": "Meeting Rooms",
+      "provider_seed_key": "PROVIDER-PROPERTY",
+      "description": "Synthetic RENTipid test listing for executive meeting room for 12. For local simulation only; not a real offer.",
+      "location": "Makati City, Metro Manila",
+      "pricing": {
+        "amount_php": 1800,
+        "unit": "HOUR"
+      },
+      "security_deposit_php": 3000,
+      "replacement_value_php": 950000,
+      "pickup_available": true,
+      "delivery_available": false,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-venue-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "venues-resorts",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-VENUE-002",
+      "title": "Air-Conditioned Event Hall for 150",
+      "category": "Venues & Resorts",
+      "subcategory": "Event Halls",
+      "provider_seed_key": "PROVIDER-PROPERTY",
+      "description": "Synthetic RENTipid test listing for air-conditioned event hall for 150. For local simulation only; not a real offer.",
+      "location": "Quezon City, Metro Manila",
+      "pricing": {
+        "amount_php": 28000,
+        "unit": "EVENT"
+      },
+      "security_deposit_php": 20000,
+      "replacement_value_php": 12500000,
+      "pickup_available": true,
+      "delivery_available": false,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-venue-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "venues-resorts",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-VENUE-003",
+      "title": "Garden Venue with Pool",
+      "category": "Venues & Resorts",
+      "subcategory": "Garden & Beach Venues",
+      "provider_seed_key": "PROVIDER-PROPERTY",
+      "description": "Synthetic RENTipid test listing for garden venue with pool. For local simulation only; not a real offer.",
+      "location": "Antipolo City, Rizal",
+      "pricing": {
+        "amount_php": 35000,
+        "unit": "EVENT"
+      },
+      "security_deposit_php": 25000,
+      "replacement_value_php": 18000000,
+      "pickup_available": true,
+      "delivery_available": false,
+      "lifecycle_state_requested": "SUBMITTED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-venue-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "venues-resorts",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-BOAT-001",
+      "title": "Six-Person Motorized Banca with Operator",
+      "category": "Boats & Watercraft",
+      "subcategory": "Small Boats",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "description": "Synthetic RENTipid test listing for six-person motorized banca with operator. For local simulation only; not a real offer.",
+      "location": "Batangas City, Batangas",
+      "pricing": {
+        "amount_php": 6500,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 15000,
+      "replacement_value_php": 550000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-boat-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "boats-watercraft",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-BOAT-002",
+      "title": "Coastal Fishing Boat with Crew",
+      "category": "Boats & Watercraft",
+      "subcategory": "Fishing Boats",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "description": "Synthetic RENTipid test listing for coastal fishing boat with crew. For local simulation only; not a real offer.",
+      "location": "Navotas City, Metro Manila",
+      "pricing": {
+        "amount_php": 8500,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 20000,
+      "replacement_value_php": 900000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "SUBMITTED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-boat-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "boats-watercraft",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-BOAT-003",
+      "title": "Leisure Speedboat with Licensed Operator",
+      "category": "Boats & Watercraft",
+      "subcategory": "Leisure Watercraft",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "description": "Synthetic RENTipid test listing for leisure speedboat with licensed operator. For local simulation only; not a real offer.",
+      "location": "Subic Bay, Zambales",
+      "pricing": {
+        "amount_php": 22000,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 50000,
+      "replacement_value_php": 4500000,
+      "pickup_available": true,
+      "delivery_available": true,
+      "lifecycle_state_requested": "UNAVAILABLE",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-boat-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "boats-watercraft",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-COMM-001",
+      "title": "Furnished Small Office for 8",
+      "category": "Commercial Spaces & Storage",
+      "subcategory": "Office Spaces",
+      "provider_seed_key": "PROVIDER-PROPERTY",
+      "description": "Synthetic RENTipid test listing for furnished small office for 8. For local simulation only; not a real offer.",
+      "location": "Ortigas Center, Pasig City",
+      "pricing": {
+        "amount_php": 3500,
+        "unit": "DAY"
+      },
+      "security_deposit_php": 10000,
+      "replacement_value_php": 6800000,
+      "pickup_available": true,
+      "delivery_available": false,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-comm-001.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "commercial-spaces-storage",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-COMM-002",
+      "title": "Dry Warehouse 200 Square Meters",
+      "category": "Commercial Spaces & Storage",
+      "subcategory": "Warehouses",
+      "provider_seed_key": "PROVIDER-PROPERTY",
+      "description": "Synthetic RENTipid test listing for dry warehouse 200 square meters. For local simulation only; not a real offer.",
+      "location": "Caloocan City, Metro Manila",
+      "pricing": {
+        "amount_php": 65000,
+        "unit": "MONTH"
+      },
+      "security_deposit_php": 65000,
+      "replacement_value_php": 15000000,
+      "pickup_available": true,
+      "delivery_available": false,
+      "lifecycle_state_requested": "PUBLISHED",
+      "expected_policy_classification": "RESTRICTED",
+      "is_test_data": true,
+      "public_visibility_expected": true,
+      "image_asset_key": "/seed-assets/list-comm-002.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "commercial-spaces-storage",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    },
+    {
+      "seed_key": "LIST-COMM-003",
+      "title": "Secure Storage Unit 12 Square Meters",
+      "category": "Commercial Spaces & Storage",
+      "subcategory": "Storage Units",
+      "provider_seed_key": "PROVIDER-PROPERTY",
+      "description": "Synthetic RENTipid test listing for secure storage unit 12 square meters. For local simulation only; not a real offer.",
+      "location": "Pasig City, Metro Manila",
+      "pricing": {
+        "amount_php": 6000,
+        "unit": "MONTH"
+      },
+      "security_deposit_php": 6000,
+      "replacement_value_php": 1000000,
+      "pickup_available": true,
+      "delivery_available": false,
+      "lifecycle_state_requested": "DRAFT",
+      "expected_policy_classification": "ALLOWED",
+      "is_test_data": true,
+      "public_visibility_expected": false,
+      "image_asset_key": "/seed-assets/list-comm-003.svg",
+      "availability_pattern": "WEEKDAYS_AND_WEEKENDS",
+      "tags": [
+        "commercial-spaces-storage",
+        "synthetic",
+        "simulation"
+      ],
+      "notes": "Map lifecycle state to actual repository enums and enforce current approval rules."
+    }
+  ],
+  "negative_policy_fixtures": [
+    {
+      "seed_key": "NEG-PROHIBITED-001",
+      "title": "Signal Jammer Test Fixture",
+      "category": "Office & IT Equipment",
+      "subcategory": "Networking Equipment",
+      "provider_seed_key": "PROVIDER-TOOLS",
+      "expected_policy_classification": "PROHIBITED",
+      "expected_result": "BLOCKED_BEFORE_PUBLICATION",
+      "public_visibility_expected": false,
+      "is_test_data": true,
+      "notes": "Hidden negative fixture for PI-017 enforcement; never show on public browse."
+    },
+    {
+      "seed_key": "NEG-PROHIBITED-002",
+      "title": "Hidden Spy Camera Test Fixture",
+      "category": "Cameras & AV",
+      "subcategory": "Cameras",
+      "provider_seed_key": "PROVIDER-TOOLS",
+      "expected_policy_classification": "PROHIBITED",
+      "expected_result": "BLOCKED_BEFORE_PUBLICATION",
+      "public_visibility_expected": false,
+      "is_test_data": true,
+      "notes": "Hidden negative fixture for prohibited surveillance-device enforcement."
+    },
+    {
+      "seed_key": "NEG-PROHIBITED-003",
+      "title": "Fake Government ID Kit Test Fixture",
+      "category": "Office & IT Equipment",
+      "subcategory": "Printers & Scanners",
+      "provider_seed_key": "PROVIDER-INDIVIDUAL",
+      "expected_policy_classification": "PROHIBITED",
+      "expected_result": "BLOCKED_BEFORE_PUBLICATION",
+      "public_visibility_expected": false,
+      "is_test_data": true,
+      "notes": "Hidden negative fixture; no actionable fabrication details."
+    },
+    {
+      "seed_key": "NEG-RESTRICTED-001",
+      "title": "Motorcycle Missing Registration Document",
+      "category": "Motorcycles",
+      "subcategory": "Standard Motorcycles",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "expected_policy_classification": "RESTRICTED",
+      "expected_result": "COMPLIANCE_REVIEW_REQUIRED",
+      "public_visibility_expected": false,
+      "is_test_data": true,
+      "notes": "Required registration/ownership evidence deliberately absent."
+    },
+    {
+      "seed_key": "NEG-RESTRICTED-002",
+      "title": "Commercial Drone Missing Permit Evidence",
+      "category": "Cameras & AV",
+      "subcategory": "Cameras",
+      "provider_seed_key": "PROVIDER-TOOLS",
+      "expected_policy_classification": "RESTRICTED",
+      "expected_result": "COMPLIANCE_REVIEW_REQUIRED",
+      "public_visibility_expected": false,
+      "is_test_data": true,
+      "notes": "Use only if the current policy catalogue treats this case as restricted."
+    },
+    {
+      "seed_key": "NEG-UNSUPPORTED-001",
+      "title": "Helicopter Charter Direct Booking Test Fixture",
+      "category": "Vehicles",
+      "subcategory": "Aircraft",
+      "provider_seed_key": "PROVIDER-VEHICLES",
+      "expected_policy_classification": "UNSUPPORTED",
+      "expected_result": "ORDINARY_PUBLICATION_BLOCKED",
+      "public_visibility_expected": false,
+      "is_test_data": true,
+      "notes": "Use only when the platform currently supports inquiry-only handling."
+    }
+  ],
+  "booking_scenarios": [
+    {
+      "seed_key": "BOOK-PENDING-001",
+      "listing_seed_key": "LIST-TOOLS-001",
+      "renter_seed_key": "RENTER-001",
+      "scenario": "PENDING_PROVIDER_APPROVAL",
+      "start_offset_days": 3,
+      "duration_units": 2,
+      "duration_unit": "DAY"
+    },
+    {
+      "seed_key": "BOOK-APPROVED-001",
+      "listing_seed_key": "LIST-CONST-001",
+      "renter_seed_key": "RENTER-002",
+      "scenario": "APPROVED_AWAITING_MOCK_PAYMENT",
+      "start_offset_days": 7,
+      "duration_units": 3,
+      "duration_unit": "DAY"
+    },
+    {
+      "seed_key": "BOOK-ACTIVE-001",
+      "listing_seed_key": "LIST-CAR-001",
+      "renter_seed_key": "RENTER-003",
+      "scenario": "ACTIVE_RENTAL",
+      "start_offset_days": -1,
+      "duration_units": 4,
+      "duration_unit": "DAY"
+    },
+    {
+      "seed_key": "BOOK-COMPLETE-001",
+      "listing_seed_key": "LIST-CONDO-001",
+      "renter_seed_key": "RENTER-001",
+      "scenario": "COMPLETED_WITH_MOCK_PAYMENT",
+      "start_offset_days": -14,
+      "duration_units": 2,
+      "duration_unit": "NIGHT"
+    },
+    {
+      "seed_key": "BOOK-CANCELLED-001",
+      "listing_seed_key": "LIST-CAM-001",
+      "renter_seed_key": "RENTER-002",
+      "scenario": "RENTER_CANCELLED",
+      "start_offset_days": -5,
+      "duration_units": 1,
+      "duration_unit": "DAY"
+    },
+    {
+      "seed_key": "BOOK-DAMAGE-001",
+      "listing_seed_key": "LIST-TOOLS-002",
+      "renter_seed_key": "RENTER-003",
+      "scenario": "COMPLETED_WITH_DAMAGE_CLAIM",
+      "start_offset_days": -10,
+      "duration_units": 2,
+      "duration_unit": "DAY"
+    },
+    {
+      "seed_key": "BOOK-DISPUTE-001",
+      "listing_seed_key": "LIST-EVENT-002",
+      "renter_seed_key": "RENTER-001",
+      "scenario": "OPEN_DISPUTE",
+      "start_offset_days": -7,
+      "duration_units": 1,
+      "duration_unit": "EVENT"
+    },
+    {
+      "seed_key": "BOOK-OVERDUE-001",
+      "listing_seed_key": "LIST-MOTO-001",
+      "renter_seed_key": "RENTER-002",
+      "scenario": "OVERDUE_RETURN",
+      "start_offset_days": -4,
+      "duration_units": 2,
+      "duration_unit": "DAY"
+    }
+  ]
+}

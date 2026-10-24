@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,7 +24,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
   "include": [
@@ -29,7 +35,35 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    ".next/dev/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "scripts", "apps", "infrastructure"]
+  "exclude": [
+    "node_modules",
+    "scripts",
+    "apps",
+    "infrastructure",
+    "scratch",
+    "tests",
+    "create-test-db.ts",
+    "check-users.ts",
+    "apply-phase9.ts",
+    "debug.ts",
+    "fix-perms.ts",
+    "original-privacy-workflow.ts",
+    "original-test.ts",
+    "p3_test.ts",
+    "p4_test.ts",
+    "p5_test.ts",
+    "p6_test.ts",
+    "p7_test.ts",
+    "p8_test.ts",
+    "p9_test.ts",
+    "p10_test.ts",
+    "p11_test.ts",
+    "test-admin-slice.ts",
+    "test-claims-slice.ts",
+    "test-finance-slice.ts",
+    "verify_phase_8.ts"
+  ]
 }

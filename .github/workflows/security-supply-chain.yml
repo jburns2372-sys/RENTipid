@@ -1,0 +1,106 @@
+name: Security Supply Chain Validation
+
+on:
+  push:
+    branches:
+      - main
+      - 'feat/iso-conformity-v1.0'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  supply-chain-validation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    # Fresh per-job service; never connects to developer, Preview or Production databases.
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: rentipid_test_soc
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ci_bootstrap_only
+        ports:
+          - 5432/tcp
+        options: >-
+          --health-cmd "pg_isready -U postgres -d rentipid_test_soc"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+
+      - name: Enforce Frozen Lockfile
+        run: npm ci
+
+      - name: Run Dependency Audit
+        run: node scripts/security/check-ci-audit.cjs
+
+      - name: CI Enforcement Contract
+        run: node --test tests/security/iso-c2-m1-ci.contract.cjs
+
+      - name: Create Restricted CI Test Role
+        env:
+          PGPASSWORD: ci_bootstrap_only
+          PGPORT: ${{ job.services.postgres.ports[5432] }}
+        run: |
+          psql --host=127.0.0.1 --username=postgres --dbname=rentipid_test_soc --set=ON_ERROR_STOP=1 <<'SQL'
+          CREATE ROLE rentipid_test_user LOGIN PASSWORD 'ci_test_only' NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS;
+          ALTER DATABASE rentipid_test_soc OWNER TO rentipid_test_user;
+          GRANT USAGE, CREATE ON SCHEMA public TO rentipid_test_user;
+          SQL
+
+      - name: Prepare Ephemeral CI Test Schema
+        shell: bash scripts/db/run-ci-database-step.sh {0}
+        env:
+          CI_POSTGRES_CONTAINER: ${{ job.services.postgres.id }}
+          DATABASE_URL: postgresql://rentipid_test_user:ci_test_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/rentipid_test_soc?schema=public
+          DIRECT_URL: postgresql://rentipid_test_user:ci_test_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/rentipid_test_soc?schema=public
+          ALLOW_TEST_DATABASE_MUTATION: 'true'
+        run: |
+          npm run test:db:guard
+          npm run db:install
+          npx prisma generate
+          node scripts/db/verify-fresh-install.cjs
+
+      - name: CI Test Database Safety Contract
+        run: node --test tests/security/iso-c2-m1-ci-database.contract.cjs tests/security/iso-c2-m1-installation.contract.cjs
+
+      - name: Focused Tests
+        shell: bash scripts/db/run-ci-database-step.sh {0}
+        env:
+          CI_POSTGRES_CONTAINER: ${{ job.services.postgres.id }}
+          DATABASE_URL: postgresql://rentipid_test_user:ci_test_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/rentipid_test_soc?schema=public
+          DIRECT_URL: postgresql://rentipid_test_user:ci_test_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/rentipid_test_soc?schema=public
+          ALLOW_TEST_DATABASE_MUTATION: 'true'
+        run: npm run test:soc:integration
+
+      - name: Generate SBOM
+        run: npx @cyclonedx/cyclonedx-npm --output-format JSON --output-file bom.json
+
+      - name: Generate Build Manifest
+        run: node scripts/security/create-build-manifest.mjs
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029 # actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: bom.json
+          retention-days: 7
+
+      - name: Upload Build Manifest
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029 # actions/upload-artifact@v4
+        with:
+          name: build-manifest
+          path: build-manifest.json
+          retention-days: 7

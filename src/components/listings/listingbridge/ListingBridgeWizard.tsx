@@ -1,0 +1,790 @@
+"use client";
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import type { ConnectorOptionDTO } from '@/lib/listingbridge/ui/actions';
+import type {
+  ListingBridgeReviewSnapshot,
+  ReviewFieldModel,
+} from '@/lib/listingbridge/review/types';
+import type { ListingBridgeConfidenceState } from '@/lib/listingbridge/types/canonical-contract';
+import {
+  startImportAction,
+  saveCorrectionAction,
+  confirmRightsAction,
+  createNativeDraftAction,
+  processAssistedImportAction,
+  uploadAssistedMediaAction,
+  removeAssistedMediaAction,
+  refreshReviewSnapshotAction,
+} from '@/app/dashboard/provider/listings/import/actions';
+
+export type ListingBridgeWizardStage =
+  | 'SOURCE_SELECTION'
+  | 'RIGHTS_CONFIRMATION'
+  | 'IMPORTING'
+  | 'REVIEW_DETAILS'
+  | 'DRAFT_READY';
+
+export interface ListingBridgeWizardProps {
+  readonly initialConnectors?: readonly ConnectorOptionDTO[];
+  readonly initialSnapshot?: ListingBridgeReviewSnapshot | null;
+  readonly onManualFallback?: () => void;
+  readonly onDraftHandoffPrepared?: (handoffData: { importJobId: string; isReady: boolean }) => void;
+  readonly onDraftCreated?: (result: { listingId: string; importJobId: string }) => void;
+}
+
+export default function ListingBridgeWizard({
+  initialConnectors = [],
+  initialSnapshot = null,
+  onManualFallback,
+  onDraftHandoffPrepared,
+  onDraftCreated,
+}: ListingBridgeWizardProps) {
+  const [stage, setStage] = useState<ListingBridgeWizardStage>(
+    initialSnapshot ? 'REVIEW_DETAILS' : 'SOURCE_SELECTION',
+  );
+  const [selectedConnectorId, setSelectedConnectorId] = useState<string>(
+    initialConnectors[0]?.id || 'internal.test.fixture',
+  );
+  const [rightsConfirmed, setRightsConfirmed] = useState<boolean>(false);
+  const [assistedSourceUrl, setAssistedSourceUrl] = useState<string>('');
+  const [assistedListingText, setAssistedListingText] = useState<string>('');
+  const [activeSnapshot, setActiveSnapshot] = useState<ListingBridgeReviewSnapshot | null>(
+    initialSnapshot,
+  );
+  const [editingField, setEditingField] = useState<ReviewFieldModel | null>(null);
+  const [editValue, setEditValue] = useState<string>('');
+  const [correctionError, setCorrectionError] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [createdListingId, setCreatedListingId] = useState<string | null>(null);
+  const [isUploadingMedia, setIsUploadingMedia] = useState<boolean>(false);
+  const [mediaUploadError, setMediaUploadError] = useState<string>('');
+
+  // Confidence state badge mapping with high contrast and accessible text
+  const getBadgeForConfidence = (state: ListingBridgeConfidenceState) => {
+    switch (state) {
+      case 'VERIFIED':
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300">
+            ✓ Verified
+          </span>
+        );
+      case 'HIGH_CONFIDENCE':
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 border border-blue-300">
+            Imported
+          </span>
+        );
+      case 'REVIEW_RECOMMENDED':
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300">
+            ⚠️ Please review
+          </span>
+        );
+      case 'CONFLICT':
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 border border-rose-300">
+            ⚡ Conflict
+          </span>
+        );
+      case 'MISSING':
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 border border-gray-300">
+            Missing
+          </span>
+        );
+      case 'PROHIBITED':
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-900 border border-red-300">
+            🚫 Excluded (Policy)
+          </span>
+        );
+    }
+  };
+
+  const handleStartImport = () => {
+    setStage('RIGHTS_CONFIRMATION');
+  };
+
+  const handleConfirmRights = async () => {
+    if (!rightsConfirmed) return;
+    setStage('IMPORTING');
+    setIsSubmitting(true);
+    setCorrectionError('');
+
+    try {
+      const res = selectedConnectorId !== 'internal.test.fixture'
+        ? await processAssistedImportAction(selectedConnectorId, {
+            type: 'PASTED_TEXT',
+            data: assistedListingText,
+            sourceReference: assistedSourceUrl || undefined,
+          })
+        : await startImportAction(selectedConnectorId);
+
+      if (!res.success || !res.jobId || !res.snapshot) {
+        setCorrectionError(res.errorMessage || 'Failed to start import.');
+        setStage('RIGHTS_CONFIRMATION');
+        return;
+      }
+
+      // Persist rights confirmation authoritatively - fails closed on error
+      const rightsRes = await confirmRightsAction(res.jobId, {
+        ownsOrManagesProperty: true,
+        authorizedToSubmitImportedInformation: true,
+        hasImportedMediaReuseRights: true,
+        acceptsAccuracyResponsibility: true,
+      });
+
+      if (!rightsRes.success) {
+        setCorrectionError(rightsRes.errorMessage || 'Failed to authoritatively confirm listing rights.');
+        setStage('RIGHTS_CONFIRMATION');
+        return;
+      }
+
+      // Authoritative post-confirmation snapshot
+      if (rightsRes.snapshot) {
+        setActiveSnapshot(rightsRes.snapshot);
+      } else {
+        const refreshed = await refreshReviewSnapshotAction(res.jobId);
+        if (refreshed.success && refreshed.snapshot) {
+          setActiveSnapshot(refreshed.snapshot);
+        } else {
+          setActiveSnapshot({
+            ...res.snapshot,
+            rights: { rightsConfirmed: true, confirmedAt: new Date(), isBlocking: false },
+            readiness: {
+              ...res.snapshot.readiness,
+              blockingReasons: res.snapshot.readiness.blockingReasons.filter(
+                (r) => !r.includes('RIGHTS_NOT_CONFIRMED'),
+              ),
+            },
+          });
+        }
+      }
+
+      setStage('REVIEW_DETAILS');
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setCorrectionError(msg);
+      setStage('RIGHTS_CONFIRMATION');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0 || !activeSnapshot) return;
+
+    setIsUploadingMedia(true);
+    setMediaUploadError('');
+
+    try {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const formData = new FormData();
+        formData.append('jobId', activeSnapshot.importJobId);
+        formData.append('file', file);
+
+        const res = await uploadAssistedMediaAction(formData);
+        if (!res.success) {
+          setMediaUploadError(res.errorMessage || 'Failed to upload photo.');
+          break;
+        }
+        if (res.snapshot) {
+          setActiveSnapshot(res.snapshot);
+        }
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setMediaUploadError(msg);
+    } finally {
+      setIsUploadingMedia(false);
+      e.target.value = '';
+    }
+  };
+
+  const handleRemovePhoto = async (assetId: string) => {
+    if (!activeSnapshot) return;
+    setIsUploadingMedia(true);
+    setMediaUploadError('');
+
+    try {
+      const res = await removeAssistedMediaAction(activeSnapshot.importJobId, assetId);
+      if (!res.success) {
+        setMediaUploadError(res.errorMessage || 'Failed to remove photo.');
+      } else if (res.snapshot) {
+        setActiveSnapshot(res.snapshot);
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setMediaUploadError(msg);
+    } finally {
+      setIsUploadingMedia(false);
+    }
+  };
+
+  const handleOpenEdit = (field: ReviewFieldModel) => {
+    if (field.confidenceState === 'PROHIBITED') return;
+    setEditingField(field);
+    setEditValue(typeof field.normalizedValue === 'string' ? field.normalizedValue : JSON.stringify(field.normalizedValue || ''));
+    setCorrectionError('');
+  };
+
+  const handleSaveCorrection = async () => {
+    if (!editingField || !activeSnapshot) return;
+
+    if (!editValue.trim()) {
+      setCorrectionError('Value cannot be empty');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setCorrectionError('');
+
+    try {
+      const res = await saveCorrectionAction(
+        activeSnapshot.importJobId,
+        editingField.fieldName,
+        editValue.trim(),
+        activeSnapshot,
+      );
+
+      if (res.success && res.snapshot) {
+        setActiveSnapshot(res.snapshot);
+        setEditingField(null);
+      } else {
+        setCorrectionError(res.errorMessage || 'Failed to save correction.');
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setCorrectionError(msg);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleProceedToDraftReady = () => {
+    if (!activeSnapshot || !activeSnapshot.readiness.isReadyForDraft) return;
+    setStage('DRAFT_READY');
+    if (onDraftHandoffPrepared) {
+      onDraftHandoffPrepared({
+        importJobId: activeSnapshot.importJobId,
+        isReady: true,
+      });
+    }
+  };
+
+  const handleCreateDraft = async () => {
+    if (!activeSnapshot || isSubmitting) return;
+    setIsSubmitting(true);
+    setCorrectionError('');
+
+    try {
+      const res = await createNativeDraftAction(activeSnapshot.importJobId, activeSnapshot);
+      if (res.success && res.listingId) {
+        setCreatedListingId(res.listingId);
+        if (onDraftCreated) {
+          onDraftCreated({
+            listingId: res.listingId,
+            importJobId: activeSnapshot.importJobId,
+          });
+        }
+      } else {
+        setCorrectionError(res.errorMessage || 'Draft creation failed.');
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setCorrectionError(msg);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="w-full max-w-4xl mx-auto space-y-6 font-sans">
+      {/* Top Header & Navigation */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-gray-200">
+        <div>
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
+            RENTipid ListingBridge
+          </span>
+          <h1 className="text-2xl font-bold text-gray-900 mt-1">
+            Bring an Existing Listing into RENTipid
+          </h1>
+        </div>
+        {onManualFallback ? (
+          <button
+            type="button"
+            onClick={onManualFallback}
+            className="text-sm font-medium text-gray-600 hover:text-gray-900 underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1"
+          >
+            ← Build listing manually instead
+          </button>
+        ) : (
+          <Link
+            href="/dashboard/provider/listings/new"
+            className="text-sm font-medium text-gray-600 hover:text-gray-900 underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1"
+          >
+            ← Build listing manually instead
+          </Link>
+        )}
+      </div>
+
+      {/* Stage 1: Source Selection */}
+      {stage === 'SOURCE_SELECTION' && (
+        <section aria-labelledby="source-selection-heading" className="space-y-6">
+          <h2 id="source-selection-heading" className="text-lg font-semibold text-gray-900">
+            Choose where to import your listing from
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {initialConnectors.map((connector) => (
+              <label
+                key={connector.id}
+                className={`flex flex-col p-4 border rounded-xl cursor-pointer transition ${
+                  selectedConnectorId === connector.id
+                    ? 'border-blue-600 bg-blue-50/50 shadow-sm'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="font-semibold text-gray-900">{connector.name}</div>
+                  <input
+                    type="radio"
+                    name="connector"
+                    value={connector.id}
+                    checked={selectedConnectorId === connector.id}
+                    onChange={() => setSelectedConnectorId(connector.id)}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                  />
+                </div>
+                <p className="text-sm text-gray-600 mt-2">{connector.description}</p>
+                <p className={`mt-2 text-xs font-semibold ${connector.availabilityState === 'AVAILABLE' ? 'text-emerald-700' : 'text-amber-700'}`}>
+                  {connector.availabilityState === 'AVAILABLE'
+                    ? (connector.retrievalMode === 'ASSISTED' ? 'Provider-assisted import' : 'Available')
+                    : 'Unavailable'}
+                </p>
+                <span className="mt-3 inline-block text-xs font-medium text-blue-700 bg-blue-100 px-2 py-0.5 rounded w-fit">
+                  {connector.tier === 'TIER_3_FILE' ? 'Assisted file/import' : connector.tier.replace(/_/g, ' ')}
+                </span>
+              </label>
+            ))}
+
+            {/* Manual listing fallback card */}
+            <Link
+              href="/dashboard/provider/listings/new"
+              onClick={onManualFallback}
+              className="flex flex-col p-4 border border-dashed border-gray-300 rounded-xl hover:border-gray-400 bg-gray-50/60 cursor-pointer transition justify-between group focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <div>
+                <div className="font-semibold text-gray-900 group-hover:text-blue-600 transition">
+                  Create New Listing Directly
+                </div>
+                <p className="text-sm text-gray-600 mt-2">
+                  Start fresh with our step-by-step listing creation wizard.
+                </p>
+              </div>
+              <span className="mt-3 text-xs font-semibold text-gray-700 underline group-hover:text-blue-600">
+                Open standard wizard →
+              </span>
+            </Link>
+          </div>
+
+          <div className="flex justify-end pt-4">
+            <button
+              type="button"
+              onClick={handleStartImport}
+              disabled={!selectedConnectorId}
+              className="px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:opacity-50 transition shadow-sm"
+            >
+              Continue to Authorization →
+            </button>
+          </div>
+        </section>
+      )}
+
+      {/* Stage 2: Rights Confirmation */}
+      {stage === 'RIGHTS_CONFIRMATION' && (
+        <section aria-labelledby="rights-heading" className="space-y-6 bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+          <h2 id="rights-heading" className="text-lg font-bold text-gray-900">
+            Confirm Listing Authority & Media Rights
+          </h2>
+          <p className="text-sm text-gray-600 leading-relaxed">
+            Before importing details into RENTipid, please verify that you hold legitimate management authority
+            for this property and own or have explicit permission to use all submitted photos and content.
+          </p>
+
+          {selectedConnectorId !== 'internal.test.fixture' && (
+            <div className="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <label className="block text-sm font-semibold text-gray-800" htmlFor="assisted-source-url">Source URL reference (optional)</label>
+              <input id="assisted-source-url" type="url" value={assistedSourceUrl} onChange={(event) => setAssistedSourceUrl(event.target.value)} placeholder="https://..." className="w-full border border-gray-300 rounded-lg p-2.5 text-sm" />
+              <label className="block text-sm font-semibold text-gray-800" htmlFor="assisted-listing-text">Paste listing details</label>
+              <textarea id="assisted-listing-text" rows={6} value={assistedListingText} onChange={(event) => setAssistedListingText(event.target.value)} placeholder="Provide facts from the listing you manage." className="w-full border border-gray-300 rounded-lg p-2.5 text-sm" />
+              <p className="text-xs text-gray-600">Only submit information and media that you own or are authorized to use. RENTipid does not need your external-platform password.</p>
+            </div>
+          )}
+
+          {correctionError && (
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg text-xs text-rose-800">
+              {correctionError}
+            </div>
+          )}
+
+          <div className="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <label className="flex items-start gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={rightsConfirmed}
+                onChange={(e) => setRightsConfirmed(e.target.checked)}
+                className="mt-1 h-4 w-4 rounded text-blue-600 focus:ring-blue-500 border-gray-300"
+              />
+              <span className="text-sm text-gray-800">
+                I confirm that I am authorized to list this property on RENTipid, that all information provided is accurate to the best of my knowledge, and that I have the right to use and distribute all associated media.
+              </span>
+            </label>
+          </div>
+
+          <div className="flex justify-between items-center pt-2">
+            <button
+              type="button"
+              onClick={() => setStage('SOURCE_SELECTION')}
+              className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              Back
+            </button>
+            <button
+              type="button"
+              onClick={handleConfirmRights}
+              disabled={!rightsConfirmed || isSubmitting}
+              className="px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:opacity-50 transition"
+            >
+              {isSubmitting ? 'Starting Import...' : 'Begin Secure Import'}
+            </button>
+          </div>
+        </section>
+      )}
+
+      {/* Stage 3: Importing Progress */}
+      {stage === 'IMPORTING' && (
+        <section aria-live="polite" className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm text-center space-y-4">
+          <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-blue-600 border-t-transparent" />
+          <h2 className="text-lg font-bold text-gray-900">Importing Listing Details</h2>
+          <p className="text-sm text-gray-600 max-w-md mx-auto">
+            Connecting securely, reading listing specifications, checking photos, and organizing fields for your review...
+          </p>
+        </section>
+      )}
+
+      {/* Stage 4: Review Details */}
+      {stage === 'REVIEW_DETAILS' && activeSnapshot && (
+        <section aria-labelledby="review-heading" className="space-y-6">
+          {/* Readiness & Blocker Banner */}
+          {activeSnapshot.readiness.blockingReasons.length > 0 ? (
+            <div className="p-4 bg-rose-50 border border-rose-200 rounded-xl text-rose-900 space-y-2">
+              <div className="font-bold flex items-center gap-2">
+                <span>⛔</span> Action Required Before Draft Creation
+              </div>
+              <ul className="list-disc list-inside text-sm space-y-1 text-rose-800">
+                {activeSnapshot.readiness.blockingReasons.map((r, i) => (
+                  <li key={i}>{r}</li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">✓</span>
+                <div>
+                  <div className="font-bold">All Required Fields Ready</div>
+                  <div className="text-xs text-emerald-700">
+                    You can review details below or proceed directly to draft readiness.
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={handleProceedToDraftReady}
+                className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg text-sm transition"
+              >
+                Proceed to Draft →
+              </button>
+            </div>
+          )}
+
+          {/* Location Conflict Notice */}
+          {activeSnapshot.location.conflicts.length > 0 && (
+            <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 space-y-1">
+              <div className="font-bold">⚠️ Location Notice</div>
+              {activeSnapshot.location.conflicts.map((c, i) => (
+                <p key={i} className="text-sm">{c.message}</p>
+              ))}
+            </div>
+          )}
+
+          {/* Fields Review Table */}
+          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+            <div className="p-4 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
+              <h3 className="font-bold text-gray-900">Extracted & Normalized Information</h3>
+              <span className="text-xs text-gray-500 font-mono">Job: {activeSnapshot.importJobId}</span>
+            </div>
+
+            <div className="divide-y divide-gray-200">
+              {activeSnapshot.fields.map((field) => (
+                <div key={field.fieldName} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="space-y-1 flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-sm text-gray-900">{field.displayName}</span>
+                      {field.isRequired && (
+                        <span className="text-xs text-rose-500 font-bold">*Required</span>
+                      )}
+                      {getBadgeForConfidence(field.confidenceState)}
+                    </div>
+                    <p className="text-sm text-gray-700">
+                      {typeof field.normalizedValue === 'string'
+                        ? field.normalizedValue
+                        : field.normalizedValue
+                          ? JSON.stringify(field.normalizedValue)
+                          : <span className="text-gray-400 italic">Not provided</span>}
+                    </p>
+                    {field.validationMessage && (
+                      <p className="text-xs text-rose-600">{field.validationMessage}</p>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    {field.allowedActions.includes('EDIT') && (
+                      <button
+                        type="button"
+                        onClick={() => handleOpenEdit(field)}
+                        className="px-3 py-1.5 border border-gray-300 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-50 transition"
+                      >
+                        Edit
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Media Review Summary & Provider Photo Upload Control */}
+          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-3">
+              <div>
+                <h3 className="font-bold text-sm text-gray-900">Media Assets Review</h3>
+                <p className="text-xs text-gray-500">Only upload photos you own or are authorized to use.</p>
+              </div>
+              <div className="flex items-center gap-4 text-xs sm:text-sm text-gray-700">
+                <div>Total candidate photos: <span className="font-bold">{activeSnapshot.media.totalCandidates}</span></div>
+                <div>Validated: <span className="font-bold text-emerald-700">{activeSnapshot.media.validatedCount}</span></div>
+                {activeSnapshot.media.rejectedCount > 0 && (
+                  <div>Rejected: <span className="font-bold text-rose-700">{activeSnapshot.media.rejectedCount}</span></div>
+                )}
+              </div>
+            </div>
+
+            {/* Uploaded photos list */}
+            {activeSnapshot.media.assets && activeSnapshot.media.assets.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                {activeSnapshot.media.assets.map((asset) => (
+                  <div
+                    key={asset.id}
+                    className="relative border border-gray-200 rounded-lg overflow-hidden bg-gray-50 p-2 text-xs space-y-1"
+                  >
+                    {asset.url && (asset.url.startsWith('/') || asset.url.startsWith('http')) ? (
+                      <img
+                        src={asset.url}
+                        alt={asset.label || 'Listing photo'}
+                        className="w-full h-24 object-cover rounded"
+                      />
+                    ) : (
+                      <div className="w-full h-24 bg-gray-200 flex items-center justify-center text-gray-400 text-lg rounded">
+                        📷
+                      </div>
+                    )}
+                    <div className="truncate font-medium text-gray-800" title={asset.label || asset.id}>
+                      {asset.label || 'Photo'}
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                        {asset.status}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleRemovePhoto(asset.id)}
+                        disabled={isUploadingMedia}
+                        className="text-[10px] text-rose-600 hover:text-rose-800 font-semibold disabled:opacity-50"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Upload error display */}
+            {mediaUploadError && (
+              <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg text-xs text-rose-800">
+                {mediaUploadError}
+              </div>
+            )}
+
+            {/* Provider photo upload control */}
+            <div className="pt-2">
+              <label htmlFor="assisted-photo-upload" className="block text-xs font-semibold text-gray-700 mb-1">
+                Add listing photos
+              </label>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                <input
+                  type="file"
+                  id="assisted-photo-upload"
+                  accept="image/jpeg,image/png,image/webp"
+                  multiple
+                  onChange={handlePhotoUpload}
+                  disabled={isUploadingMedia}
+                  className="block w-full sm:w-auto text-xs text-gray-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-lg file:border-0
+                    file:text-xs file:font-semibold
+                    file:bg-blue-50 file:text-blue-700
+                    hover:file:bg-blue-100
+                    disabled:opacity-50 cursor-pointer"
+                />
+                {isUploadingMedia && (
+                  <div className="flex items-center gap-2 text-xs text-blue-600 font-medium">
+                    <div className="animate-spin rounded-full h-3.5 w-3.5 border-2 border-blue-600 border-t-transparent" />
+                    <span>Validating & uploading photo...</span>
+                  </div>
+                )}
+              </div>
+              <p className="text-[11px] text-gray-500 mt-1">
+                Supported formats: JPEG, PNG, WebP (up to 5MB each). At least 1 validated photo is required.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Stage 5: Draft Ready Screen */}
+      {stage === 'DRAFT_READY' && activeSnapshot && (
+        <section aria-labelledby="draft-ready-heading" className="bg-white p-8 rounded-xl border border-emerald-200 shadow-sm text-center space-y-6">
+          <div className="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center text-3xl mx-auto">
+            ✓
+          </div>
+          <div className="space-y-2">
+            <h2 id="draft-ready-heading" className="text-2xl font-bold text-gray-900">
+              Ready for RENTipid Draft Creation
+            </h2>
+            <p className="text-sm text-gray-600 max-w-lg mx-auto">
+              Your imported listing information, photos, location, and verified fields are organized and ready to become a native RENTipid draft.
+            </p>
+          </div>
+
+          {correctionError && (
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg text-xs text-rose-800 max-w-md mx-auto">
+              {correctionError}
+            </div>
+          )}
+
+          <div className="bg-gray-50 p-4 rounded-xl max-w-md mx-auto text-left text-sm space-y-1 text-gray-700 border border-gray-200">
+            <div><span className="font-semibold">Import Job:</span> {activeSnapshot.importJobId}</div>
+            <div><span className="font-semibold">Verified Fields:</span> {activeSnapshot.readiness.resolvedFieldsCount}</div>
+            <div><span className="font-semibold">Media Ingested:</span> {activeSnapshot.media.validatedCount} photo(s)</div>
+            <div>
+              <span className="font-semibold">Status:</span>{' '}
+              {createdListingId ? (
+                <span className="text-emerald-700 font-bold">DRAFT_CREATED</span>
+              ) : (
+                'READY_FOR_DRAFT'
+              )}
+            </div>
+            {createdListingId && (
+              <div className="pt-2 text-xs text-emerald-800 font-medium">
+                Draft Listing ID: <span className="font-mono">{createdListingId}</span>
+              </div>
+            )}
+          </div>
+
+          <div className="pt-4 flex flex-col sm:flex-row justify-center gap-3">
+            {createdListingId ? (
+              <Link
+                href={`/dashboard/provider/listings/${createdListingId}`}
+                className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg shadow-sm transition inline-block"
+              >
+                Open Draft in Listing Editor →
+              </Link>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setStage('REVIEW_DETAILS')}
+                  className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50"
+                >
+                  Back to Review
+                </button>
+                <button
+                  type="button"
+                  disabled={isSubmitting}
+                  onClick={handleCreateDraft}
+                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-sm transition disabled:opacity-50"
+                >
+                  {isSubmitting ? 'Creating Draft...' : 'Create RENTipid Draft'}
+                </button>
+              </>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* Inline Field Edit Modal */}
+      {editingField && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-xl max-w-lg w-full p-6 space-y-4 shadow-xl">
+            <h3 className="text-lg font-bold text-gray-900">
+              Edit {editingField.displayName}
+            </h3>
+
+            {correctionError && (
+              <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg text-xs text-rose-800">
+                {correctionError}
+              </div>
+            )}
+
+            <div>
+              <label htmlFor="field-edit-input" className="block text-xs font-semibold text-gray-700 mb-1">
+                Value
+              </label>
+              <textarea
+                id="field-edit-input"
+                rows={3}
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+                className="w-full border border-gray-300 rounded-lg p-2.5 text-sm text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setEditingField(null)}
+                className="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleSaveCorrection}
+                disabled={isSubmitting}
+                className="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg text-sm hover:bg-blue-700 disabled:opacity-50"
+              >
+                Save Correction
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

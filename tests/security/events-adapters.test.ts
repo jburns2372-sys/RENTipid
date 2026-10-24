@@ -3,7 +3,7 @@ import { SecurityEventSource, SecurityLifecycle, SecurityEnvironment } from "../
 
 describe("Security Event Adapters", () => {
   it("should have exactly 10 adapters registered", () => {
-    expect(ADAPTER_REGISTRY.length).toBe(10);
+    expect(ADAPTER_REGISTRY.length).toBe(14);
     const sources = ADAPTER_REGISTRY.map(a => a.sourceType);
     expect(sources).toContain(SecurityEventSource.AUDIT_LOG);
     expect(sources).toContain(SecurityEventSource.SYSTEM_ERROR_LOG);
@@ -70,7 +70,7 @@ describe("Security Event Adapters", () => {
 
   describe("PaymentWebhookLogAdapter", () => {
     const adapter = ADAPTER_REGISTRY.find(a => a.sourceType === SecurityEventSource.PAYMENT_WEBHOOK_LOG)!;
-    const baseRecord = { id: "1", provider: "pay", event_type: "test", verification_status: "test", received_at: new Date() };
+    const baseRecord = { id: "1", provider: "pay", event_type: "test", verification_status: "Failed", received_at: new Date() };
 
     it("should support valid record", () => {
       expect(adapter.supports(baseRecord)).toBe(true);

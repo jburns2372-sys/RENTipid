@@ -1,13 +1,16 @@
 import React from 'react';
 import AIAssistantButton from '@/components/ai/AIAssistantButton';
 import Link from 'next/link';
-import { ShieldCheck, Activity, Settings, DollarSign, Globe } from 'lucide-react';
+import { ShieldCheck, Activity, Settings, Globe } from 'lucide-react';
 import LivePaymentStatusBanner from '@/components/finance/LivePaymentStatusBanner';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
-export default function SuperAdminDashboard() {
+export default async function SuperAdminDashboard() {
+  const { t } = await getServerTranslation();
+
   return (
     <div className="container mx-auto py-12 px-4 max-w-6xl">
-      <h1 className="text-3xl font-bold mb-8">Super Admin Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-8">{t('superAdmin.title')}</h1>
       
       <LivePaymentStatusBanner />
       
@@ -20,9 +23,9 @@ export default function SuperAdminDashboard() {
               <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3 group-hover:bg-blue-600 transition-colors">
                 <ShieldCheck className="w-5 h-5 text-blue-600 group-hover:text-white" />
               </div>
-              <h2 className="text-lg font-bold">Live Payment Pilot</h2>
+              <h2 className="text-lg font-bold">{t('superAdmin.livePaymentPilot.title')}</h2>
             </div>
-            <p className="text-gray-600 text-sm">Configure real-money checkout guardrails and monitor live test execution.</p>
+            <p className="text-gray-600 text-sm">{t('superAdmin.livePaymentPilot.description')}</p>
           </div>
         </Link>
 
@@ -33,9 +36,9 @@ export default function SuperAdminDashboard() {
               <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mr-3 group-hover:bg-indigo-600 transition-colors">
                 <Settings className="w-5 h-5 text-indigo-600 group-hover:text-white" />
               </div>
-              <h2 className="text-lg font-bold">Finance Approvals</h2>
+              <h2 className="text-lg font-bold">{t('superAdmin.financeApprovals.title')}</h2>
             </div>
-            <p className="text-gray-600 text-sm">Manage global settings for automatic vs manual deposit release and payouts.</p>
+            <p className="text-gray-600 text-sm">{t('superAdmin.financeApprovals.description')}</p>
           </div>
         </Link>
 
@@ -46,9 +49,9 @@ export default function SuperAdminDashboard() {
               <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3 group-hover:bg-green-600 transition-colors">
                 <Activity className="w-5 h-5 text-green-600 group-hover:text-white" />
               </div>
-              <h2 className="text-lg font-bold">Live Webhooks</h2>
+              <h2 className="text-lg font-bold">{t('superAdmin.liveWebhooks.title')}</h2>
             </div>
-            <p className="text-gray-600 text-sm">Real-time monitor for incoming PayMongo Live webhook events.</p>
+            <p className="text-gray-600 text-sm">{t('superAdmin.liveWebhooks.description')}</p>
           </div>
         </Link>
 
@@ -59,9 +62,9 @@ export default function SuperAdminDashboard() {
               <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center mr-3 group-hover:bg-orange-600 transition-colors">
                 <ShieldCheck className="w-5 h-5 text-orange-600 group-hover:text-white" />
               </div>
-              <h2 className="text-lg font-bold">PayMongo Activation</h2>
+              <h2 className="text-lg font-bold">{t('superAdmin.paymongoActivation.title')}</h2>
             </div>
-            <p className="text-gray-600 text-sm">Track external KYC, payment method readiness, and webhook deployment.</p>
+            <p className="text-gray-600 text-sm">{t('superAdmin.paymongoActivation.description')}</p>
           </div>
         </Link>
 
@@ -72,9 +75,9 @@ export default function SuperAdminDashboard() {
               <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3 group-hover:bg-purple-600 transition-colors">
                 <Globe className="w-5 h-5 text-purple-600 group-hover:text-white" />
               </div>
-              <h2 className="text-lg font-bold">Production Domain</h2>
+              <h2 className="text-lg font-bold">{t('superAdmin.productionDomain.title')}</h2>
             </div>
-            <p className="text-gray-600 text-sm">Validate HTTPS deployment, DNS, and URL paths for final release.</p>
+            <p className="text-gray-600 text-sm">{t('superAdmin.productionDomain.description')}</p>
           </div>
         </Link>
 
@@ -85,9 +88,9 @@ export default function SuperAdminDashboard() {
               <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center mr-3 group-hover:bg-slate-600 transition-colors">
                 <ShieldCheck className="w-5 h-5 text-slate-600 group-hover:text-white" />
               </div>
-              <h2 className="text-lg font-bold">Security Operations Center</h2>
+              <h2 className="text-lg font-bold">{t('superAdmin.soc.title')}</h2>
             </div>
-            <p className="text-gray-600 text-sm">Monitor security events, detection rules, advisory alerts, audit evidence and SOC review activity.</p>
+            <p className="text-gray-600 text-sm">{t('superAdmin.soc.description')}</p>
           </div>
         </Link>
 

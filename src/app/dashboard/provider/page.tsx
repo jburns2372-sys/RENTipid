@@ -1,63 +1,86 @@
 import React from 'react';
-import AIAssistantButton from '@/components/ai/AIAssistantButton';
+import { ContextualAssistantLauncher } from '@/components/ai/ContextualAssistantLauncher';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import Link from 'next/link';
+import { getServerTranslation } from '@/lib/glcc/i18n/server';
 
 export default async function ProviderDashboard() {
+  const { t } = await getServerTranslation();
   const session = await getServerSession(authOptions);
-  const user = session?.user as any;
+  const user = session?.user as { name?: string | null; status?: string | null; role?: string | null } | undefined;
 
   return (
     <div className="container mx-auto py-12 px-4">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Individual Provider Dashboard</h1>
+        <h1 className="text-3xl font-bold">{t('provider.individualProviderDashboard')}</h1>
         {user?.status === 'Pending' && (
           <span className="bg-yellow-100 text-yellow-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide">
-            Pending Verification
+            {t('common.status')}: Pending
           </span>
         )}
         {user?.status === 'Verified' && (
           <span className="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide">
-            Verified Provider
+            {t('listing.verifiedProvider')}
           </span>
         )}
       </div>
       
-      <p className="text-gray-600 mb-8 text-lg">Welcome back, {user?.name || 'Provider'}!</p>
+      <p className="text-gray-600 mb-8 text-lg">Welcome back, {user?.name || t('common.user')}!</p>
 
       {user?.status === 'Pending' && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8 flex flex-col md:flex-row md:items-center justify-between">
           <div>
-            <h3 className="font-semibold text-blue-900 mb-1">Complete your provider verification</h3>
-            <p className="text-blue-700 text-sm">You need to submit your ID and proof of address before you can list items.</p>
+            <h3 className="font-semibold text-blue-900 mb-1">{t('providerListings.verificationRequiredTitle')}</h3>
+            <p className="text-blue-700 text-sm">{t('providerListings.verificationRequiredBody')}</p>
           </div>
           <Link href="/dashboard/kyc" className="mt-4 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded transition whitespace-nowrap">
-            Submit Documents
+            {t('providerListings.verifyAccountButton')}
           </Link>
         </div>
       )}
       
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-          <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">My Listings</h2>
-          <div className="h-48 flex flex-col items-center justify-center bg-gray-50 rounded border border-dashed">
-            <span className="text-gray-400 text-sm mb-4">Listing functionality pending Phase 3</span>
-            <button disabled className="bg-gray-300 text-gray-600 px-4 py-2 rounded font-medium cursor-not-allowed">
-              Create Listing
-            </button>
+          <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">{t('providerListings.title')}</h2>
+          <div className="h-48 flex flex-col items-center justify-center bg-gray-50 rounded border border-dashed p-4 text-center">
+            <p className="text-gray-600 text-sm mb-4">
+              {t('provider.generateAiMarketingContent')}
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/dashboard/provider/listings/new"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition shadow-sm"
+              >
+                + {t('providerListings.createNew')}
+              </Link>
+            </div>
           </div>
         </div>
         
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-          <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">My Earnings</h2>
+          <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">{t('provider.myEarnings')}</h2>
           <div className="h-48 flex items-center justify-center bg-gray-50 rounded border border-dashed">
-            <span className="text-gray-400 text-sm">Earnings dashboard pending Phase 3</span>
+            <span className="text-gray-400 text-sm">{t('renter.paymentListPendingPhase')}</span>
           </div>
         </div>
       </div>
+
+      <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8">
+        <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">{t('provider.getHelp')}</h2>
+        <div className="grid md:grid-cols-3 gap-4">
+          <Link href="/help/trust-safety-legal/global-legal-compliance" className="block p-4 border border-gray-200 rounded hover:border-blue-500 hover:bg-blue-50 transition">
+            <h3 className="font-semibold text-gray-900 mb-1">{t('provider.legalCompliance')}</h3>
+            <p className="text-sm text-gray-600">{t('provider.marketRequirementsProviderObligations')}</p>
+          </Link>
+          <Link href="/help" className="block p-4 border border-gray-200 rounded hover:border-blue-500 hover:bg-blue-50 transition">
+            <h3 className="font-semibold text-gray-900 mb-1">{t('provider.providerSupport')}</h3>
+            <p className="text-sm text-gray-600">{t('provider.chatWithOurAi')}</p>
+          </Link>
+        </div>
+      </div>
       
-      <AIAssistantButton context="Provider Dashboard" />
+      <ContextualAssistantLauncher route="provider_dashboard" className="fixed bottom-6 right-6 z-50" />
     </div>
   );
 }

@@ -30,7 +30,7 @@ export class SystemSettingAdapter implements SecurityEventSourceAdapter<SystemSe
 
     if (keyUpper.includes("SECURITY") || keyUpper.includes("PAYMENT") || keyUpper.includes("FREEZE")) {
       domain = SecurityDomain.ADMINISTRATIVE_SECURITY;
-      classification = SecurityEventClassification.POLICY_VIOLATION;
+      classification = SecurityEventClassification.OBSERVATION;
       severity = SecuritySeverity.HIGH;
       classification_reason = "Critical security or payment system setting was modified.";
     }

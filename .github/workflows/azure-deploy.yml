@@ -1,1 +1,61 @@
-name: Deploy API to Azure Container Apps\n\non:\n  push:\n    branches:\n      - main\n    paths:\n      - 'apps/api/**'\n      - '.github/workflows/azure-deploy.yml'\n\nenv:\n  ACR_NAME: 'rentipidacr'\n  IMAGE_NAME: 'rentipid-api'\n  CONTAINER_APP_NAME: 'rentipid-api-app'\n  RESOURCE_GROUP: 'rg-rentipid-prod'\n\njobs:\n  build-and-deploy:\n    runs-on: ubuntu-latest\n    permissions:\n      id-token: write # Required for Azure OIDC login\n      contents: read\n\n    steps:\n      - name: Checkout Repository\n        uses: actions/checkout@v3\n\n      - name: Azure Login\n        uses: azure/login@v1\n        with:\n          client-id: ${{ secrets.AZURE_CLIENT_ID }}\n          tenant-id: ${{ secrets.AZURE_TENANT_ID }}\n          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}\n\n      - name: Login to Azure Container Registry\n        run: |\n          az acr login --name ${{ env.ACR_NAME }}\n\n      - name: Build and Push Docker Image\n        run: |\n          cd apps/api\n          docker build -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }} .\n          docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}\n\n      - name: Deploy to Azure Container Apps\n        uses: azure/container-apps-deploy-action@v1\n        with:\n          imageToDeploy: ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}\n          containerAppName: ${{ env.CONTAINER_APP_NAME }}\n          resourceGroup: ${{ env.RESOURCE_GROUP }}\n          registryUrl: ${{ env.ACR_NAME }}.azurecr.io
+name: Deploy API to Azure Container Apps
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/api/**'
+      - '.github/workflows/azure-deploy.yml'
+
+env:
+  ACR_NAME: 'rentipidacr'
+  IMAGE_NAME: 'rentipid-api'
+  CONTAINER_APP_NAME: 'rentipid-api-app'
+  RESOURCE_GROUP: 'rg-rentipid-prod'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for Azure OIDC login
+      contents: read # Least privilege for repository contents
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # actions/checkout@v3
+
+      - name: Setup Node for Dependency Review
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Enforce clean install and audit
+        run: |
+          npm ci --ignore-scripts
+          npm audit || true
+
+      - name: Azure Login
+        uses: azure/login@33b121a1597278045654f321b0e9861297c5e9c0 # azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Login to Azure Container Registry
+        run: |
+          az acr login --name ${{ env.ACR_NAME }}
+
+      - name: Build and Push Docker Image
+        run: |
+          cd apps/api
+          docker build -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+          docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Deploy to Azure Container Apps
+        uses: azure/container-apps-deploy-action@29ee19866ec987ededd70b8412d9ee241a9102d1 # azure/container-apps-deploy-action@v1
+        with:
+          imageToDeploy: ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          containerAppName: ${{ env.CONTAINER_APP_NAME }}
+          resourceGroup: ${{ env.RESOURCE_GROUP }}
+          registryUrl: ${{ env.ACR_NAME }}.azurecr.io

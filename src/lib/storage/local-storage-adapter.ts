@@ -1,12 +1,21 @@
 import { StorageAdapter } from './storage-interface';
-import { writeFile, unlink } from 'fs/promises';
+import { writeFile, unlink, mkdir } from 'fs/promises';
 import path from 'path';
 
+/**
+ * LocalStorageAdapter is for LOCAL development and testing only.
+ * It is NOT valid durable storage for Vercel Serverless / Production environments.
+ */
 export class LocalStorageAdapter implements StorageAdapter {
   async uploadFile(buffer: Buffer, fileName: string, isPrivate: boolean): Promise<{ url: string; path: string }> {
-    const baseDir = isPrivate ? 'private-uploads' : 'public/uploads';
-    const filePath = path.join(process.cwd(), baseDir, fileName);
-    
+    const parentDir = isPrivate
+      ? path.join(process.cwd(), 'private_uploads')
+      : path.join(process.cwd(), 'public/uploads');
+
+    await mkdir(parentDir, { recursive: true });
+
+    const filePath = path.join(parentDir, fileName);
+    await mkdir(path.dirname(filePath), { recursive: true });
     await writeFile(filePath, buffer);
     
     return {
@@ -24,7 +33,8 @@ export class LocalStorageAdapter implements StorageAdapter {
     }
   }
 
-  async getSignedUrl(filePath: string, expiresInSeconds: number): Promise<string> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async getSignedUrl(filePath: string, _expiresInSeconds?: number): Promise<string> {
     // In local dev, we might just return the proxy API endpoint
     // In production this would generate a signed JWT
     const fileName = path.basename(filePath);

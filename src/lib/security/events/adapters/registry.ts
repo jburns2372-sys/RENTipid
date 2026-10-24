@@ -7,8 +7,13 @@ import { PaymentReconciliationLogAdapter } from "./payment-reconciliation-log-ad
 import { VerificationDocumentAdapter } from "./verification-document-adapter";
 import { DamageClaimAdapter, DisputeCaseAdapter, InspectionReportAdapter } from "./trust-safety-adapters";
 import { SystemSettingAdapter } from "./system-setting-adapter";
+import { AuthenticationSecurityLogAdapter } from "./authentication-security-log-adapter";
+import { ApiSecurityLogAdapter } from "./api-security-adapter";
+import { BookingStatusHistoryAdapter } from "./booking-status-history-adapter";
+import { PaymentActionLogAdapter } from "./payment-action-log-adapter";
 
 export const ADAPTER_REGISTRY: SecurityEventSourceAdapter<unknown>[] = [
+  new AuthenticationSecurityLogAdapter(),
   new AuditLogAdapter(),
   new SystemErrorLogAdapter(),
   new AIBotLogAdapter(),
@@ -18,7 +23,10 @@ export const ADAPTER_REGISTRY: SecurityEventSourceAdapter<unknown>[] = [
   new DamageClaimAdapter(),
   new DisputeCaseAdapter(),
   new InspectionReportAdapter(),
-  new SystemSettingAdapter()
+  new SystemSettingAdapter(),
+  new ApiSecurityLogAdapter(),
+  new BookingStatusHistoryAdapter(),
+  new PaymentActionLogAdapter()
 ];
 
 export function getAdapterForRecord(record: unknown): SecurityEventSourceAdapter<unknown> | null {
