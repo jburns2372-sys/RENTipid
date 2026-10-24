@@ -6,6 +6,7 @@ export const TITLE = '[ISO-C2-M4] Production backup/PITR monitoring alert';
 export const MARKER = '<!-- rentipid-iso-c2-m4-incident-v1 -->';
 export const WORKFLOW = 'backup-freshness-monitor.yml';
 export const PROVIDER_STEP = 'Collect provider evidence';
+export const PROVENANCE_STEP = 'Verify alternate scheduler provenance';
 
 export function alertDecision(status, issues) {
   const candidates = issues.filter(i => i.state === 'open' && !i.pull_request &&
@@ -41,40 +42,50 @@ export async function pages(api, path, field) {
   throw new Error('GITHUB_HISTORY_LIMIT');
 }
 
-export async function scheduledFreshness({ api, repo, runId, attempt = 1, now = Date.now() }) {
+export async function scheduledFreshness({ api, repo, runId, attempt = 1, now = Date.now(), triggerSource }) {
   const base = '/repos/' + repo;
   const current = await api(base + '/actions/runs/' + runId);
   if (!Number.isSafeInteger(current.run_number) || current.head_branch !== 'main' ||
       !['schedule', 'workflow_dispatch'].includes(current.event) || !current.workflow_id) throw new Error('INVALID_RUN_CONTEXT');
+  const isCurrentScheduled = current.event === 'schedule' || (current.event === 'workflow_dispatch' && triggerSource === 'vercel_cron');
   // Inspect recent pages first; healthy long-lived monitors must not exhaust history.
   let priorCount = 0;
   let newest = null;
   for (let page = 1; page <= 10; page++) {
-    const response = await api(base + '/actions/workflows/' + WORKFLOW + '/runs?event=schedule&branch=main&per_page=100&page=' + page);
+    const response = await api(base + '/actions/workflows/' + WORKFLOW + '/runs?branch=main&per_page=100&page=' + page);
     const runs = response?.workflow_runs;
     if (!Array.isArray(runs)) throw new Error('MALFORMED_RUN_HISTORY');
-    const prior = runs.filter(r => String(r.id) !== String(runId) && r.run_number < current.run_number);
+    const validRuns = runs.filter(r => ['schedule', 'workflow_dispatch'].includes(r.event));
+    const prior = validRuns.filter(r => String(r.id) !== String(runId) && r.run_number < current.run_number);
     if (runs.some(r => !Number.isSafeInteger(r.run_number) || !r.id)) throw new Error('MALFORMED_RUN_HISTORY');
-    priorCount += prior.length;
     for (const run of prior.sort((a,b) => b.run_number - a.run_number)) {
-      if (run.event !== 'schedule' || run.head_branch !== 'main' || run.workflow_id !== current.workflow_id) throw new Error('INVALID_HISTORY_CONTEXT');
+      if (!['schedule', 'workflow_dispatch'].includes(run.event) || run.head_branch !== 'main' || run.workflow_id !== current.workflow_id) throw new Error('INVALID_HISTORY_CONTEXT');
       const jobs = await pages(api, base + '/actions/runs/' + run.id + '/jobs?filter=all', 'jobs');
+      let isScheduledRun = run.event === 'schedule';
       for (const job of jobs) {
         if (!Array.isArray(job.steps)) throw new Error('MALFORMED_JOB_HISTORY');
-        for (const step of job.steps) {
-          if (step.name === PROVIDER_STEP && step.conclusion === 'success') {
-            const t = Date.parse(step.started_at);
-            if (!Number.isFinite(t) || t > now) throw new Error('INVALID_EVIDENCE_TIME');
-            if (newest === null || t > Date.parse(newest)) newest = step.started_at;
+        if (job.steps.some(step => step.name === PROVENANCE_STEP && step.conclusion === 'success')) {
+          isScheduledRun = true;
+        }
+        if (isScheduledRun) {
+          for (const step of job.steps) {
+            if (step.name === PROVIDER_STEP && step.conclusion === 'success') {
+              const t = Date.parse(step.started_at);
+              if (!Number.isFinite(t) || t > now) throw new Error('INVALID_EVIDENCE_TIME');
+              if (newest === null || t > Date.parse(newest)) newest = step.started_at;
+            }
           }
         }
+      }
+      if (isScheduledRun) {
+        priorCount++;
       }
       // A fresh point suffices; stale/failed history still requires inspecting older runs.
       if (newest && freshness(newest, true, now) === 'FRESH') return 'FRESH';
     }
     if (runs.length < 100) {
       // Expired/deleted history must not fabricate a second activation.
-      if (priorCount === 0) return current.event === 'schedule' && current.run_number === 1 && attempt === 1 ? 'BOOTSTRAP' : 'MISSING';
+      if (priorCount === 0) return isCurrentScheduled && (current.event === 'schedule' ? current.run_number === 1 : true) && attempt === 1 ? 'BOOTSTRAP' : 'MISSING';
       return freshness(newest, true, now);
     }
   }
@@ -132,6 +143,7 @@ export async function runActions(env = process.env) {
   try {
     result.evidence_freshness_status = await scheduledFreshness({
       api, repo: env.GITHUB_REPOSITORY, runId: env.GITHUB_RUN_ID, attempt: Number(env.GITHUB_RUN_ATTEMPT),
+      triggerSource: env.M4_TRIGGER_SOURCE,
     });
   } catch { result.evidence_freshness_status = 'UNKNOWN'; }
   if (!['FRESH', 'BOOTSTRAP'].includes(result.evidence_freshness_status)) {
